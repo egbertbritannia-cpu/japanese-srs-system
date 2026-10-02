@@ -1,40 +1,81 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ToriiIcon, SensuFanIcon } from '@/components/japanese/Icons';
-import { JapaneseSpeakerButton } from '@/components/japanese/JapaneseSpeakerButton';
+
+interface CardItem {
+  id: string;
+  kanji: string;
+  reading: string;
+  meaning: string;
+  pitch?: string;
+  type: string;
+  deckId: string;
+  deck: string;
+  state: string;
+  stability: number;
+}
+
+interface DeckItem {
+  id: string;
+  name: string;
+  description?: string;
+}
 
 /**
  * Quản lý thư viện thẻ học (短冊帳 - Tanzakucho)
+ * Hiển thị toàn bộ thẻ học từ cơ sở dữ liệu:
+ * - JPD133 - Hán Tự Đã Học (Unit 4-7)
+ * - JPD133 - Từ vựng Kotoba
  */
 export default function CardsPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedDeck, setSelectedDeck] = useState('all');
+  const [cardsList, setCardsList] = useState<CardItem[]>([]);
+  const [decksList, setDecksList] = useState<DeckItem[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const mockCards = [
-    { id: '1', kanji: '勉強', reading: 'べんきょう', meaning: 'Học tập, nghiên cứu', deck: 'JLPT N5', type: 'Vocab', pitch: '0 (Heiban)' },
-    { id: '2', kanji: '猫', reading: 'ねこ', meaning: 'Con mèo', deck: 'JLPT N5', type: 'Kanji', pitch: '1 (Atamadaka)' },
-    { id: '3', kanji: '食べる', reading: 'たべる', meaning: 'Ăn uống', deck: 'JLPT N5', type: 'Cloze', pitch: '2 (Nakadaka)' },
-    { id: '4', kanji: '警察', reading: 'けいさつ', meaning: 'Cảnh sát, công an', deck: 'JLPT N4', type: 'Vocab', pitch: '0 (Heiban)' },
-    { id: '5', kanji: '桜', reading: 'さくら', meaning: 'Hoa anh đào', deck: 'JLPT N5', type: 'Vocab', pitch: '0 (Heiban)' },
-  ];
+  useEffect(() => {
+    async function fetchCards() {
+      try {
+        setLoading(true);
+        const res = await fetch('/api/cards');
+        const data = await res.json();
+        if (data.success) {
+          setCardsList(data.data || []);
+          setDecksList(data.decks || []);
+        }
+      } catch (err) {
+        console.error('Lỗi khi tải danh sách thẻ:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchCards();
+  }, []);
 
-  const filteredCards = mockCards.filter((card) => {
+  const filteredCards = cardsList.filter((card) => {
     const matchesSearch =
       card.kanji.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      card.reading.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      card.meaning.toLowerCase().includes(searchTerm.toLowerCase());
+      (card.reading && card.reading.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (card.meaning && card.meaning.toLowerCase().includes(searchTerm.toLowerCase()));
+
     const matchesDeck =
-      selectedDeck === 'all' || card.deck.toLowerCase().includes(selectedDeck.toLowerCase());
+      selectedDeck === 'all' ||
+      card.deckId === selectedDeck ||
+      card.deck.toLowerCase().includes(selectedDeck.toLowerCase());
+
     return matchesSearch && matchesDeck;
   });
 
-  const getDeckBadgeStyle = (deck: string) => {
-    if (deck.includes('N5')) return { bg: 'var(--sakura-light)', color: 'var(--sakura-deep)', border: '#FBCFE8' };
-    if (deck.includes('N4')) return { bg: 'var(--matcha-subtle)', color: 'var(--matcha-deep)', border: '#C6DDA4' };
-    if (deck.includes('N3')) return { bg: 'var(--asagi-light)', color: 'var(--asagi-teal)', border: '#99F6E4' };
-    return { bg: 'var(--yamabuki-light)', color: 'var(--yamabuki-amber)', border: '#FDE68A' };
+  const getDeckBadgeStyle = (deckName: string, state: string) => {
+    if (state === 'Review' || deckName.includes('Hán Tự Đã Học')) {
+      return { bg: 'rgba(16, 185, 129, 0.15)', color: '#059669', border: '#10B981' };
+    }
+    if (deckName.includes('Kotoba')) return { bg: 'var(--matcha-subtle)', color: 'var(--matcha-deep)', border: '#C6DDA4' };
+    if (deckName.includes('N5')) return { bg: 'var(--sakura-light)', color: 'var(--sakura-deep)', border: '#FBCFE8' };
+    return { bg: 'var(--asagi-light)', color: 'var(--asagi-teal)', border: '#99F6E4' };
   };
 
   const getTypeSeal = (type: string) => {
@@ -69,14 +110,14 @@ export default function CardsPage() {
                 fontSize: '0.9rem',
               }}
             >
-              短冊帳 · BỘ SƯU TẬP
+              短冊帳 · BỘ SƯU TẬP TỪ VỰNG &amp; HÁN TỰ
             </span>
           </div>
           <h1 style={{ fontFamily: 'var(--font-mincho)', fontSize: '2rem', fontWeight: 800, color: 'var(--sumi-ink)' }}>
             Quản lý thẻ học tiếng Nhật
           </h1>
           <p style={{ color: 'var(--sumi-faded)', fontSize: '0.95rem' }}>
-            Thư viện thẻ bài được tối ưu theo Nguyên tắc Thông tin tối thiểu (Atomicity)
+            Tổng cộng: <strong>{cardsList.length} thẻ</strong> đã sẵn sàng ôn tập FSRS
           </p>
         </div>
 
@@ -91,7 +132,7 @@ export default function CardsPage() {
         </div>
       </div>
 
-      {/* THANH TÌM KIẾM BÚT LÔNG & BỘ LỌC THẺ GỖ KIFUDA */}
+      {/* THANH TÌM KIẾM BÚT LÔNG & BỘ LỌC BỘ THẺ */}
       <div
         style={{
           background: 'var(--washi-surface)',
@@ -127,38 +168,56 @@ export default function CardsPage() {
           />
         </div>
 
-        {/* Nút lọc thẻ gỗ Kifuda */}
+        {/* Nút lọc thẻ */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
           <span style={{ fontSize: '0.85rem', color: 'var(--sumi-faded)', fontWeight: 600, marginRight: '0.25rem' }}>
-            Chọn cấp độ:
+            Bộ thẻ:
           </span>
-          {[
-            { id: 'all', label: 'Tất cả (全)' },
-            { id: 'n5', label: '🌸 JLPT N5' },
-            { id: 'n4', label: '🍵 JLPT N4' },
-            { id: 'n3', label: '🌊 JLPT N3' },
-            { id: 'n2', label: '🍂 JLPT N2' },
-          ].map((deck) => (
-            <button
-              key={deck.id}
-              onClick={() => setSelectedDeck(deck.id)}
-              style={{
-                padding: '0.45rem 0.95rem',
-                borderRadius: '8px',
-                border: '1px solid',
-                borderColor: selectedDeck === deck.id ? 'var(--matcha-deep)' : 'var(--washi-border)',
-                background: selectedDeck === deck.id ? 'var(--matcha-subtle)' : 'var(--washi-bg)',
-                color: selectedDeck === deck.id ? 'var(--matcha-deep)' : 'var(--sumi-charcoal)',
-                fontWeight: selectedDeck === deck.id ? 700 : 500,
-                fontSize: '0.85rem',
-                fontFamily: 'var(--font-maru)',
-                cursor: 'pointer',
-                transition: 'all 0.2s',
-              }}
-            >
-              {deck.label}
-            </button>
-          ))}
+          <button
+            onClick={() => setSelectedDeck('all')}
+            style={{
+              padding: '0.45rem 0.95rem',
+              borderRadius: '8px',
+              border: '1px solid',
+              borderColor: selectedDeck === 'all' ? 'var(--matcha-deep)' : 'var(--washi-border)',
+              background: selectedDeck === 'all' ? 'var(--matcha-subtle)' : 'var(--washi-bg)',
+              color: selectedDeck === 'all' ? 'var(--matcha-deep)' : 'var(--sumi-charcoal)',
+              fontWeight: selectedDeck === 'all' ? 700 : 500,
+              fontSize: '0.85rem',
+              fontFamily: 'var(--font-maru)',
+              cursor: 'pointer',
+              transition: 'all 0.2s',
+            }}
+          >
+            Tất cả ({cardsList.length})
+          </button>
+
+          {decksList.map((d) => {
+            const count = cardsList.filter((c) => c.deckId === d.id).length;
+            const isKanjiDeck = d.id.includes('kanji');
+            return (
+              <button
+                key={d.id}
+                onClick={() => setSelectedDeck(d.id)}
+                style={{
+                  padding: '0.45rem 0.95rem',
+                  borderRadius: '8px',
+                  border: '1px solid',
+                  borderColor: selectedDeck === d.id ? (isKanjiDeck ? '#10B981' : 'var(--matcha-deep)') : 'var(--washi-border)',
+                  background: selectedDeck === d.id ? (isKanjiDeck ? 'rgba(16, 185, 129, 0.15)' : 'var(--matcha-subtle)') : 'var(--washi-bg)',
+                  color: selectedDeck === d.id ? (isKanjiDeck ? '#059669' : 'var(--matcha-deep)') : 'var(--sumi-charcoal)',
+                  fontWeight: selectedDeck === d.id ? 700 : 500,
+                  fontSize: '0.85rem',
+                  fontFamily: 'var(--font-maru)',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                }}
+              >
+                {isKanjiDeck ? '🌸 ' : '🍵 '}
+                {d.name} ({count})
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -187,14 +246,20 @@ export default function CardsPage() {
               <th style={{ padding: '1.1rem 1.25rem' }}>Chữ Hán (Mặt trước)</th>
               <th style={{ padding: '1.1rem 1.25rem' }}>Cách đọc Furigana</th>
               <th style={{ padding: '1.1rem 1.25rem' }}>Ý nghĩa tiếng Việt</th>
-              <th style={{ padding: '1.1rem 1.25rem' }}>Cấp độ Deck</th>
+              <th style={{ padding: '1.1rem 1.25rem' }}>Trạng thái nhận thức</th>
               <th style={{ padding: '1.1rem 1.25rem' }}>Loại thẻ</th>
             </tr>
           </thead>
           <tbody>
-            {filteredCards.length > 0 ? (
+            {loading ? (
+              <tr>
+                <td colSpan={5} style={{ padding: '3rem', textAlign: 'center', color: 'var(--sumi-faded)' }}>
+                  ⏳ Đang tải dữ liệu từ Turso Cloud Database...
+                </td>
+              </tr>
+            ) : filteredCards.length > 0 ? (
               filteredCards.map((card, idx) => {
-                const badge = getDeckBadgeStyle(card.deck);
+                const badge = getDeckBadgeStyle(card.deck, card.state);
                 const seal = getTypeSeal(card.type);
 
                 return (
@@ -206,21 +271,18 @@ export default function CardsPage() {
                       transition: 'background 0.2s',
                     }}
                   >
-                    {/* Mặt trước Kanji nổi bật & Nút phát âm */}
+                    {/* Mặt trước Kanji nổi bật */}
                     <td style={{ padding: '1.25rem' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                        <span
-                          style={{
-                            fontFamily: 'var(--font-mincho)',
-                            fontSize: '1.65rem',
-                            fontWeight: 700,
-                            color: 'var(--sumi-ink)',
-                          }}
-                        >
-                          {card.kanji}
-                        </span>
-                        <JapaneseSpeakerButton text={card.kanji} size={16} />
-                      </div>
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-mincho)',
+                          fontSize: '1.65rem',
+                          fontWeight: 700,
+                          color: 'var(--sumi-ink)',
+                        }}
+                      >
+                        {card.kanji}
+                      </span>
                     </td>
 
                     {/* Furigana & Cao độ */}
@@ -228,9 +290,11 @@ export default function CardsPage() {
                       <div style={{ fontFamily: 'var(--font-maru)', fontSize: '1.05rem', color: 'var(--matcha-deep)', fontWeight: 600 }}>
                         {card.reading}
                       </div>
-                      <span style={{ fontSize: '0.75rem', color: 'var(--sumi-faded)' }}>
-                        Cao độ: {card.pitch}
-                      </span>
+                      {card.pitch && (
+                        <span style={{ fontSize: '0.75rem', color: 'var(--sumi-faded)' }}>
+                          Cao độ: {card.pitch}
+                        </span>
+                      )}
                     </td>
 
                     {/* Ý nghĩa */}
@@ -238,23 +302,29 @@ export default function CardsPage() {
                       {card.meaning}
                     </td>
 
-                    {/* Cấp độ Deck */}
+                    {/* Trạng thái nhận thức */}
                     <td style={{ padding: '1.25rem' }}>
-                      <span
-                        style={{
-                          display: 'inline-block',
-                          padding: '0.3rem 0.75rem',
-                          background: badge.bg,
-                          color: badge.color,
-                          border: `1px solid ${badge.border}`,
-                          borderRadius: '6px',
-                          fontSize: '0.8rem',
-                          fontFamily: 'var(--font-maru)',
-                          fontWeight: 700,
-                        }}
-                      >
-                        {card.deck}
-                      </span>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                        <span
+                          style={{
+                            display: 'inline-block',
+                            padding: '0.25rem 0.6rem',
+                            background: badge.bg,
+                            color: badge.color,
+                            border: `1px solid ${badge.border}`,
+                            borderRadius: '6px',
+                            fontSize: '0.78rem',
+                            fontFamily: 'var(--font-maru)',
+                            fontWeight: 700,
+                            width: 'fit-content',
+                          }}
+                        >
+                          {card.state === 'Review' ? '✅ Đã học (S=30d)' : '🌱 Mới (New)'}
+                        </span>
+                        <span style={{ fontSize: '0.75rem', color: 'var(--sumi-faded)' }}>
+                          {card.deck}
+                        </span>
+                      </div>
                     </td>
 
                     {/* Con dấu loại thẻ */}
