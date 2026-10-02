@@ -50,6 +50,24 @@ Toàn bộ kế hoạch tái thiết kế giao diện theo phong cách Nhật B�
 14. **[12_AUTHENTIC_WA_ART_REDESIGN_MASTER_PLAN.md](file:///D:/project/japanese-srs-system/doc/12_AUTHENTIC_WA_ART_REDESIGN_MASTER_PLAN.md)**  
    *Kế hoạch Tái thiết kế Tích hợp Tranh Nghệ thuật & Văn hóa Nhật Bản (Authentic Wa-Art & Cultural Redesign Master Plan)*: Quy hoạch 5 tầng chi tiết bóc tách và phân bổ 13 tác phẩm hội họa mộc bản Ukiyo-e, Rinpa, Yuzen từ bộ sưu tập thực tế (`public/assets/art/`) vào các vị trí tối ưu trên toàn bộ 5 màn hình hệ thống (Honmaru Dashboard, Tanzakucho Cards, Shodo Copilot, Karuta Review, Kura Integrations).
 
+15. **[13_COGNITIVE_UPGRADE_MASTER_STRATIFIED_PLAN.md](file:///D:/project/japanese-srs-system/doc/13_COGNITIVE_UPGRADE_MASTER_STRATIFIED_PLAN.md)**  
+   *Kế hoạch Phân tầng Tổng quan Nâng cấp Hệ thống Chuyên sâu (Tầng 0 - L0)*: Bản quy hoạch chiến lược vĩ mô chuyển hóa khoa học nhận thức, ranh giới Scope/Non-scope, tổng quan 4 Trụ Cột, lộ trình 4 giai đoạn, ma trận rủi ro và tiêu chí nghiệm thu định lượng.
+
+16. **[14_PILLAR_1_ADAPTIVE_FSRS_AND_SEMANTIC_INTERFERENCE.md](file:///D:/project/japanese-srs-system/doc/14_PILLAR_1_ADAPTIVE_FSRS_AND_SEMANTIC_INTERFERENCE.md)**  
+   *Trụ Cột 1 — Động cơ Lập lịch Thích ứng & Kiểm soát Can thiệp Ngữ nghĩa (Tầng 1 - L1)*: Chi tiết tối ưu 21 tham số FSRS bằng Rust/WASM, thuật toán xen kẽ LECTOR với khoảng cách Cosine $\ge 0.85$, và hiệu chỉnh sức mạnh lưu trữ qua độ trễ phản xạ não bộ Bjork.
+
+17. **[15_PILLAR_2_KANJICOMPASS_ETYMOLOGICAL_KNOWLEDGE_GRAPH.md](file:///D:/project/japanese-srs-system/doc/15_PILLAR_2_KANJICOMPASS_ETYMOLOGICAL_KNOWLEDGE_GRAPH.md)**  
+   *Trụ Cột 2 — Đồ thị Tri thức Chữ Hán theo Ngữ nguyên học (KanjiCompass Graph - Tầng 1 - L1)*: Cấu trúc Graph Database cho chữ Hình thanh (Keisei-moji); phân rã Node thành tố biểu âm, bộ thủ biểu ý và họ hàng chữ Hán đối chiếu 100% tài liệu thực tế; lộ trình học tự điều chỉnh (SRL).
+
+18. **[16_PILLAR_3_COGNITIVE_INTERACTION_AND_SEMANTIC_EVALUATOR.md](file:///D:/project/japanese-srs-system/doc/16_PILLAR_3_COGNITIVE_INTERACTION_AND_SEMANTIC_EVALUATOR.md)**  
+   *Trụ Cột 3 — Đa dạng hóa Tương tác Nhận thức & AI Semantic Evaluator (Tầng 1 - L1)*: Hệ thống 4 dạng tương tác khó khăn mong muốn (Generative Cloze, Elaborative Interrogation, Pitch Accent, Free Production) luân chuyển theo Stability $S$; AI Evaluator đàm thoại siêu ngắn $\le 2$ câu bảo toàn trạng thái Flow.
+
+19. **[17_PILLAR_4_AUTOMATED_MINING_PIPELINE_AND_GAMIFICATION.md](file:///D:/project/japanese-srs-system/doc/17_PILLAR_4_AUTOMATED_MINING_PIPELINE_AND_GAMIFICATION.md)**  
+   *Trụ Cột 4 — Pipeline Thu thập Dữ liệu Tự động & Động lực Học tập Bền vững (Tầng 1 - L1)*: Chrome Extension Manifest V3 bóc tách 1 thao tác trên NHK/YouTube; quy trình đồng sáng tạo bảo toàn Cognitive Ownership; cơ chế thưởng Liều lượng Nhận thức Tối thiểu (MED) và cấp phát Quota AI.
+
+20. **[18_TECHNICAL_SPEC_AND_ATOMIC_IMPLEMENTATION_BLUEPRINT.md](file:///D:/project/japanese-srs-system/doc/18_TECHNICAL_SPEC_AND_ATOMIC_IMPLEMENTATION_BLUEPRINT.md)**  
+   *Đặc tả Kỹ thuật Nguyên tử & Bản thiết kế Thi công Hệ thống (Tầng 2 - L2)*: Tầng sâu nhất không thể phân rã thêm: giải tích vi phân FSRS v5 & gradient Adam, toàn văn mã DDL SQL migration, mã giả TypeScript chi tiết, đặc tả hợp đồng API RESTful và cam kết SLA/Security.
+
 ---
 
 ### 🎴 HỆ THỐNG 8 SKILLS ANTHIGRAVITY TRONG DỰ ÁN (`.agents/skills/`)
@@ -68,6 +86,7 @@ Toàn bộ kế hoạch tái thiết kế giao diện theo phong cách Nhật B�
 ---
 
 ### ⛩️ HƯỚNG DẪN DÀNH CHO AGENT THỰC THI (QUICK START)
+- Đối với việc nâng cấp chuyên sâu Khoa học Nhận thức, FSRS 21 tham số, LECTOR Interleaving, KanjiCompass Graph, Tương tác 4 cấp độ và Chrome Extension: Mở bộ tài liệu phân tầng **[13_COGNITIVE_UPGRADE_MASTER_STRATIFIED_PLAN.md](file:///D:/project/japanese-srs-system/doc/13_COGNITIVE_UPGRADE_MASTER_STRATIFIED_PLAN.md)** (Chiến lược L0) $\rightarrow$ **[14_PILLAR_1_ADAPTIVE_FSRS_AND_SEMANTIC_INTERFERENCE.md](file:///D:/project/japanese-srs-system/doc/14_PILLAR_1_ADAPTIVE_FSRS_AND_SEMANTIC_INTERFERENCE.md)** đến **[17_PILLAR_4_AUTOMATED_MINING_PIPELINE_AND_GAMIFICATION.md](file:///D:/project/japanese-srs-system/doc/17_PILLAR_4_AUTOMATED_MINING_PIPELINE_AND_GAMIFICATION.md)** (Kiến trúc L1) $\rightarrow$ **[18_TECHNICAL_SPEC_AND_ATOMIC_IMPLEMENTATION_BLUEPRINT.md](file:///D:/project/japanese-srs-system/doc/18_TECHNICAL_SPEC_AND_ATOMIC_IMPLEMENTATION_BLUEPRINT.md)** (Thi công L2).
 - Đối với việc phối hợp đa vai trò và quy chuẩn làm việc: Mở file **[10_MULTI_ROLE_AGENT_COLLABORATION_GUIDE.md](file:///D:/project/japanese-srs-system/doc/10_MULTI_ROLE_AGENT_COLLABORATION_GUIDE.md)** và **[SKILL_AGENT_PLAYBOOK.md](file:///D:/project/japanese-srs-system/doc/SKILL_AGENT_PLAYBOOK.md)**.
 - Đối với việc tích hợp tranh nghệ thuật Ukiyo-e, Rinpa và tư liệu văn hóa: Mở file **[12_AUTHENTIC_WA_ART_REDESIGN_MASTER_PLAN.md](file:///D:/project/japanese-srs-system/doc/12_AUTHENTIC_WA_ART_REDESIGN_MASTER_PLAN.md)** và **[11_JAPANESE_GRAPHIC_DESIGN_DECONSTRUCTION.md](file:///D:/project/japanese-srs-system/doc/11_JAPANESE_GRAPHIC_DESIGN_DECONSTRUCTION.md)**.
 - Đối với việc nâng cấp tính năng Ôn tập theo từng Bộ Thẻ: Mở file **[09_DECK_BASED_STUDY_HIERARCHICAL_PLAN.md](file:///D:/project/japanese-srs-system/doc/09_DECK_BASED_STUDY_HIERARCHICAL_PLAN.md)**.
