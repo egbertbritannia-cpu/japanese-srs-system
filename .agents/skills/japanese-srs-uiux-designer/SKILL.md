@@ -157,3 +157,33 @@ Before signing off on any UI screen or component:
 - [ ] Inkan seals are present to denote verification, deck identity, or approved mastery.
 - [ ] Text contrast meets WCAG 2.1 AA (at least 4.5:1 for body, 3:1 for large headers).
 - [ ] Interactive elements provide subtle hover lift (`translateY(-2px)`) and organic warm glow.
+
+---
+
+## 7. AUTHENTIC WA-ART CATALOG & OVERLAY ENGINEERING (HỘI HỌA MỘC BẢN & LỚP PHỦ NGHỆ THUẬT)
+
+The system integrates 13 authentic Japanese art assets located in `public/assets/art/` (ingested from classical collections and benchmarked in `doc/11_JAPANESE_GRAPHIC_DESIGN_DECONSTRUCTION.md` and `doc/12_AUTHENTIC_WA_ART_REDESIGN_MASTER_PLAN.md`).
+
+### 7.1. Semantic Art Catalog
+1. `japanese-cultural-panorama.jpg` — Tranh toàn cảnh văn hóa (Fuji, Torii, Trà đạo) $\rightarrow$ Hero Section Backdrop (`/`).
+2. `golden-waves-kin-nami.jpg` — Sóng vàng Kin-nami mạ kim $\rightarrow$ Dải ruy băng ngăn cách section (`h-16`, 4:1 aspect ratio).
+3. `ryusui-indigo-stream.jpg` — Dòng nước Ryusui Ogata Korin (Lam Aizome) $\rightarrow$ Watermark nền thư viện thẻ (`/cards`).
+4. `hokusai-suwa-lake.jpg` — Hokusai (Hồ Suwa Shinano) $\rightarrow$ Banner nẹp gỗ tìm kiếm thẻ (`/cards`).
+5. `hokusai-cranes-fuji.jpg` — Hokusai (Đàn hạc Umezawa & Phú Sĩ) $\rightarrow$ Cột tranh cuộn Kakejiku bên phải bàn soạn thảo AI Copilot (`/cards/new`).
+6. `cloud-mist-kasumi-icons.jpg` — Mây sương Yamato-e Kasumi $\rightarrow$ Khung trang trí Tanzaku & huy hiệu Copilot.
+7. `hokusai-great-wave-classic.jpg` — Sóng lừng Kanagawa nguyên bản $\rightarrow$ Nền mờ thao trường ôn tập Karuta (`/review`).
+8. `great-wave-isolated.webp` — Sóng lừng cô lập nền trong suốt $\rightarrow$ Hoạt họa thăng hoa khi hoàn thành 100% phiên ôn tập.
+9. `kohaku-koi-pond.jpg` — Cá Koi Kohaku vảy đỏ vàng $\rightarrow$ Nền huy hiệu đánh giá Dễ (Easy button).
+10. `night-golden-waves.jpg` — Sóng vàng ban đêm $\rightarrow$ Nền huy hiệu đánh giá Lại (Again / Hard button).
+11. `rinpa-gold-waves-clouds.jpg` — Sóng vàng & mây hoa Rinpa $\rightarrow$ Banner kho báu tích hợp Kura (`/integrations`).
+12. `koi-peony-yuzen.jpg` — Tranh thêu Yuzen Cá chép & Hoa mẫu đơn $\rightarrow$ Nền thẻ dịch vụ Google Sheets/Tasks.
+13. `gold-sakura-washi.jpg` — Nhành hoa anh đào mạ kim trên xơ giấy $\rightarrow$ Đai trang trí Header & Footer toàn cục.
+
+### 7.2. Overlay Engineering Standards
+- **Component**: Always use `<JapaneseArtBackdrop />` (`src/components/art/JapaneseArtBackdrop.tsx`).
+- **Non-blocking Rule**: Must strictly have `pointer-events: none` and `aria-hidden="true"`.
+- **Blend Modes**:
+  - Warm Washi backgrounds: `mix-blend-mode: multiply` with `opacity: 0.15 - 0.25`.
+  - Colored/Dark banners: `mix-blend-mode: overlay` with `opacity: 0.20 - 0.35`.
+- **Zero CLS**: Images must use Next.js `fill` with `sizes="100vw"` inside constrained relative parents.
+

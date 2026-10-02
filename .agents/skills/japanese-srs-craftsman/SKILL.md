@@ -105,3 +105,14 @@ When making any change, execute these verification commands in sequence:
 | Người dùng yêu cầu màu tối hoặc màu chói | Điều chỉnh sang màu Washi ấm (`#FAF8F5`) hoặc Sumi ink (`#1F2421`), giữ độ tương phản WCAG AAA. |
 | Cần thêm tính năng mới ở giao diện | Kiểm tra xem API hiện có hỗ trợ không; nếu không, mock dữ liệu UI cục bộ trước, tuyệt đối không tự ý sửa database backend. |
 | Có xung đột version thư viện npm | Sử dụng Pure React SVG components và CSS Keyframes nội tại, tránh kéo thêm thư viện bên ngoài không cần thiết. |
+| Lồng ghép tranh nghệ thuật / họa tiết | Dùng `<JapaneseArtBackdrop />` với ảnh trong `public/assets/art/`, luôn bật `pointer-events: none`, opacity 0.15–0.35, và đối chiếu với `doc/11` & `doc/12`. |
+
+---
+
+## 5. AUTHENTIC WA-ART & CULTURAL COLLABORATION
+The Craftsman collaborates with UI/UX Designer to realize the vision laid out in:
+- `doc/11_JAPANESE_GRAPHIC_DESIGN_DECONSTRUCTION.md` (Design Principles & Classical Motifs)
+- `doc/12_AUTHENTIC_WA_ART_REDESIGN_MASTER_PLAN.md` (5-Layer Master Implementation Plan)
+- Component `src/components/art/JapaneseArtBackdrop.tsx` (Reusable zero-CLS, non-blocking image overlay)
+- 13 Classical Artworks in `public/assets/art/` (Hokusai Ukiyo-e, Rinpa golden waves, Yuzen tapestries).
+
