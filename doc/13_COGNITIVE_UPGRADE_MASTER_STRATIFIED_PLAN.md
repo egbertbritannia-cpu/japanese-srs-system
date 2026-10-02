@@ -64,15 +64,15 @@ graph TD
 
 | Trụ Cột | Tên Chuyên Đề | Trọng Tâm Khoa Học & Kỹ Thuật | File Kế Hoạch Chi Tiết |
 | :--- | :--- | :--- | :--- |
-| **Trụ Cột 1** | **Động Cơ Lập Lịch Thích Ứng & Kiểm Soát Can Thiệp Ngữ Nghĩa** | Tối ưu 21 tham số FSRS bằng WASM Rust; Thuật toán xen kẽ LECTOR với khoảng cách Cosine; Hiệu chỉnh sức mạnh lưu trữ qua độ trễ phản xạ Bjork. | [`doc/14_PILLAR_1_ADAPTIVE_FSRS_AND_SEMANTIC_INTERFERENCE.md`](file:///D:/project/japanese-srs-system/doc/14_PILLAR_1_ADAPTIVE_FSRS_AND_SEMANTIC_INTERFERENCE.md) |
-| **Trụ Cột 2** | **Đồ Thị Tri Thức Chữ Hán Theo Ngữ Nguyên Học (KanjiCompass)** | Cấu trúc Graph DB chữ Hình thanh (Keisei-moji); Phân rã Node thành tố biểu âm & biểu ý; Lộ trình học tự điều chỉnh (SRL) gom cụm đồng âm. | [`doc/15_PILLAR_2_KANJICOMPASS_ETYMOLOGICAL_KNOWLEDGE_GRAPH.md`](file:///D:/project/japanese-srs-system/doc/15_PILLAR_2_KANJICOMPASS_ETYMOLOGICAL_KNOWLEDGE_GRAPH.md) |
-| **Trụ Cột 3** | **Đa Dạng Hóa Tương Tác Nhận Thức & Semantic Evaluator** | Hệ thống 4 dạng tương tác khó khăn mong muốn (Generative Cloze, Interrogation, Pitch Accent, Free Production); LLM Evaluator hội thoại ngắn gọn. | [`doc/16_PILLAR_3_COGNITIVE_INTERACTION_AND_SEMANTIC_EVALUATOR.md`](file:///D:/project/japanese-srs-system/doc/16_PILLAR_3_COGNITIVE_INTERACTION_AND_SEMANTIC_EVALUATOR.md) |
-| **Trụ Cột 4** | **Pipeline Thu Thập Dữ Liệu Tự Động & Gamification Nỗ Lực** | Chrome Extension Manifest V3 bóc tách 1 chạm từ NHK/YouTube; Bộ lọc ràng buộc $i+1$; Gamification dựa trên Liều lượng Nhận thức Tối thiểu (MED). | [`doc/17_PILLAR_4_AUTOMATED_MINING_PIPELINE_AND_GAMIFICATION.md`](file:///D:/project/japanese-srs-system/doc/17_PILLAR_4_AUTOMATED_MINING_PIPELINE_AND_GAMIFICATION.md) |
-| **Đặc Tả Kỹ Thuật** | **Lược Đồ Dữ Liệu, Giải Tích Toán Học & Mã Giả Thuật Toán** | Toàn văn DDL SQL; Công thức vi phân FSRS v5; Mã giả TypeScript chi tiết; API Specs & SLAs. | [`doc/18_TECHNICAL_SPEC_AND_ATOMIC_IMPLEMENTATION_BLUEPRINT.md`](file:///D:/project/japanese-srs-system/doc/18_TECHNICAL_SPEC_AND_ATOMIC_IMPLEMENTATION_BLUEPRINT.md) |
+| **Trụ Cột 1** | **Động Cơ Lập Lịch Thích Ứng & Kiểm Soát Can Thiệp Ngữ Nghĩa** | Tối ưu 21 tham số FSRS bằng WASM Rust; Thuật toán xen kẽ LECTOR với khoảng cách Cosine; Hiệu chỉnh sức mạnh lưu trữ qua độ trễ phản xạ Bjork chuẩn hóa theo độ dài ngữ cảnh. | [`doc/14_PILLAR_1_ADAPTIVE_FSRS_AND_SEMANTIC_INTERFERENCE.md`](file:///D:/project/japanese-srs-system/doc/14_PILLAR_1_ADAPTIVE_FSRS_AND_SEMANTIC_INTERFERENCE.md) |
+| **Trụ Cột 2** | **Đồ Thị Tri Thức Chữ Hán Theo Ngữ Nguyên Học (KanjiCompass)** | Cấu trúc Graph DB chữ Hình thanh (Keisei-moji); Phân loại Lục thư chuẩn xác; Phân rã Node thành tố biểu âm & biểu ý; Lộ trình học tự điều chỉnh (SRL) gom cụm đồng âm. | [`doc/15_PILLAR_2_KANJICOMPASS_ETYMOLOGICAL_KNOWLEDGE_GRAPH.md`](file:///D:/project/japanese-srs-system/doc/15_PILLAR_2_KANJICOMPASS_ETYMOLOGICAL_KNOWLEDGE_GRAPH.md) |
+| **Trụ Cột 3** | **Đa Dạng Hóa Tương Tác Nhận Thức & Semantic Evaluator** | Hệ thống 4 dạng tương tác khó khăn mong muốn (Generative Cloze, Interrogation, Pitch Accent, Free Production); Thuật toán Levenshtein Fuzzy Matching; LLM Evaluator có bộ đệm băm SHA-256. | [`doc/16_PILLAR_3_COGNITIVE_INTERACTION_AND_SEMANTIC_EVALUATOR.md`](file:///D:/project/japanese-srs-system/doc/16_PILLAR_3_COGNITIVE_INTERACTION_AND_SEMANTIC_EVALUATOR.md) |
+| **Trụ Cột 4** | **Pipeline Thu Thập Dữ Liệu Tự Động & Gamification Nỗ Lực** | Chrome Extension Manifest V3 bóc tách 1 chạm từ NHK/YouTube; Bộ lọc ràng buộc $i+1$; Gamification dựa trên Liều lượng Nhận thức Tối thiểu (MED) kèm Anti-Idle Check. | [`doc/17_PILLAR_4_AUTOMATED_MINING_PIPELINE_AND_GAMIFICATION.md`](file:///D:/project/japanese-srs-system/doc/17_PILLAR_4_AUTOMATED_MINING_PIPELINE_AND_GAMIFICATION.md) |
+| **Đặc Tả Kỹ Thuật** | **Lược Đồ Dữ Liệu, Giải Tích Toán Học & Mã Giả Thuật Toán** | Toàn văn DDL SQL; Công thức vi phân FSRS v5; Cây thư mục tệp tin chi tiết; Mã giả TypeScript; API Specs & SLAs. | [`doc/18_TECHNICAL_SPEC_AND_ATOMIC_IMPLEMENTATION_BLUEPRINT.md`](file:///D:/project/japanese-srs-system/doc/18_TECHNICAL_SPEC_AND_ATOMIC_IMPLEMENTATION_BLUEPRINT.md) |
 
 ---
 
-## 4. LỘ TRÌNH PHÂN KỲ PHÁT TRIỂN (4-PHASE STRATIFIED ROADMAP)
+## 4. LỘ TRÌNH PHÂN KỲ PHÁT TRIỂN & TIÊU CHUẨN CỔNG CHUYỂN GIAI ĐOẠN (GATE CHECKS)
 
 ```
 [Giai đoạn Hiện tại: Đã Hoàn Thành Base MVP & Deploy Vận Hành]
@@ -81,83 +81,68 @@ graph TD
 [Giai đoạn 1: FSRS Optimizer & Semantic Interference (Tuần 1 - 2)]
   - Tích hợp @open-spaced-repetition/binding để tối ưu 21 trọng số
   - Bổ sung vector embedding cho từ vựng, kích hoạt thuật toán xen kẽ LECTOR
-  - Ghi nhận latency_ms để hiệu chỉnh phản xạ truy xuất
+  - Ghi nhận latency_ms chuẩn hóa theo độ dài câu để hiệu chỉnh phản xạ truy xuất
+  - GATE CHECK 1: RMSE giảm >= 15%, không có 2 thẻ sim >= 0.85 đứng cạnh nhau
                           │
                           ▼
 [Giai đoạn 2: KanjiCompass Graph & Pitch Integration (Tuần 3 - 4)]
-  - Xây dựng database quan hệ chữ Hình thanh (Keisei-moji)
-  - Tích hợp tra cứu quy luật âm On từ thành tố biểu âm
+  - Xây dựng database quan hệ chữ Hình thanh (Keisei-moji) và Lục thư
+  - Tích hợp tra cứu quy luật âm On từ thành tố biểu âm qua CTE đệ quy
   - Thiết kế dạng thẻ nhận diện mẫu cao độ Heiban / Atamadaka
+  - GATE CHECK 2: Seed thành công 2.136 chữ Joyo Kanji, truy vấn họ hàng < 10ms
                           │
                           ▼
 [Giai đoạn 3: 4 Dạng Tương Tác Nhận Thức & Semantic Evaluator (Tháng 2)]
-  - Bổ sung chế độ gõ chữ tạo sinh (Generative Cloze)
-  - Tích hợp LLM đánh giá câu tự đặt và truy vấn giải thích
+  - Bổ sung chế độ gõ chữ tạo sinh (Generative Cloze với Levenshtein)
+  - Tích hợp LLM đánh giá câu tự đặt với bộ đệm SHA-256
   - Thêm cơ chế thưởng dựa trên nỗ lực nhận thức
+  - GATE CHECK 3: AI Evaluator phản hồi P95 < 850ms, Flow không bị gián đoạn
                           │
                           ▼
 [Giai đoạn 4: Chrome Extension 1-Click Mining (Tháng 2 - 3)]
   - Xây dựng Web Extension bóc tách câu trực tiếp từ NHK / YouTube
   - Hoàn thiện pipeline Co-creation giữ vững Cognitive Ownership
+  - Tích hợp Anti-Idle Monitor cho chuẩn MED 5 phút
+  - GATE CHECK 4: Bóc tách 1 chạm thành công trên cả báo NHK và video YouTube
 ```
-
-### Chi tiết Milestone & Deliverables từng giai đoạn:
-
-#### Giai đoạn 1: Động cơ Lập lịch Thích ứng & Kiểm soát Can thiệp (Tuần 1 – 2)
-- **Mục tiêu**: Đưa độ chính xác dự báo Retrievability lên $\ge 92\%$, loại bỏ hoàn toàn hiện tượng can thiệp ngữ nghĩa trong hàng đợi.
-- **Deliverables**:
-  - Gói `@open-spaced-repetition/binding` được nhúng vào worker nền.
-  - Endpoint `/api/scheduler/optimize` tự động kích hoạt khi `review_logs >= 1000`.
-  - Bảng `card_embeddings` với cơ chế tính Cosine Similarity tức thời trong RAM/SQLite.
-  - Thuật toán `interleaveQueueBySemantics()` tự động chèn khoảng cách an toàn cho các từ có $\text{sim} \ge 0.85$.
-  - Thuật toán `applyLatencyPenalty()` phạt hạ cấp đánh giá khi `duration > 5000ms`.
-
-#### Giai đoạn 2: Đồ thị Tri thức Chữ Hán KanjiCompass & Pitch Accent (Tuần 3 – 4)
-- **Mục tiêu**: Tối ưu hóa việc học 2.136 chữ Hán thường dùng (Joyo Kanji) thông qua 214 Bộ thủ và 350 Thành tố biểu âm; nhúng cao độ chuẩn Tokyo.
-- **Deliverables**:
-  - Database đồ thị quan hệ chữ Hình thanh `kanji_graph_nodes` và `kanji_graph_edges`.
-  - Bảng tra cứu họ hàng âm đọc (Phonetic Family), ví dụ: Họ `祭` $\rightarrow$ `際`, `察`, `擦` (âm `sai` / `satsu`).
-  - Lộ trình học tự điều chỉnh (Self-Regulated Learning): Gợi ý cụm từ đồng âm khi học viên làm chủ thành tố gốc.
-  - Module kiểm tra cao độ với bộ phát hiện mẫu âm Heiban (0), Atamadaka (1), Nakadaka (2), Odaka (3).
-
-#### Giai đoạn 3: 4 Dạng Tương tác Nhận thức & Semantic Evaluator (Tháng 2)
-- **Mục tiêu**: Đa dạng hóa phản xạ não bộ, kích hoạt truy xuất tạo sinh và kiểm tra chiều sâu ngữ nghĩa.
-- **Deliverables**:
-  - 4 chế độ tương tác phân bổ theo Stability $S$: Generative Cloze ($S<7$), Elaborative Interrogation ($7\le S < 30$), Pitch Accent, Free Contextual Production ($S\ge 30$).
-  - AI Semantic Evaluator với LLM latency $< 800$ms, phản hồi $\le 2$ câu.
-  - Hệ thống điểm thưởng dựa trên Liều lượng Nhận thức Tối thiểu (MED): 5 phút tập trung liên tục, thưởng token AI khi hoàn thành thử thách bậc cao.
-
-#### Giai đoạn 4: Chrome Extension 1-Click Mining & Hệ sinh thái Hoàn chỉnh (Tháng 2 – 3)
-- **Mục tiêu**: Xóa bỏ rào cản nạp dữ liệu từ thế giới thực vào SRS với quy trình 1 chạm giữ vững quyền sở hữu nhận thức.
-- **Deliverables**:
-  - Chrome Extension Manifest V3 đóng gói hoàn chỉnh, cài đặt trực tiếp trên Chrome/Edge.
-  - Phím tắt `Alt+S` bắt câu văn kèm ngữ cảnh từ NHK News Web Easy và YouTube Subtitles.
-  - Backend API `/api/capture/process` phân tích hình thái học, kiểm định quy tắc sư phạm $i+1$.
-  - Modal Co-creation cho phép học viên duyệt nhanh bản nháp trước khi lưu vào SQLite.
 
 ---
 
-## 5. MA TRẬN RỦI RO & CHIẾN LƯỢC PHÒNG NGỪA (RISK & MITIGATION)
+## 5. MA TRẬN PHÂN ĐỊNH TRÁCH NHIỆM ĐA VAI TRÒ (RACI MATRIX)
+
+| Gói Công Việc (Work Package) | BA | PM | Designer | Dev | QA | DevOps |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **WP1: FSRS Optimizer & LECTOR Interleaving** | C | A | I | R | R | C |
+| **WP2: KanjiCompass Graph Engine & CTE** | R | A | C | R | R | I |
+| **WP3: 4 Dạng Tương Tác & AI Evaluator** | C | A | R | R | R | I |
+| **WP4: Chrome Extension & MED Gamification** | R | A | R | R | R | C |
+| **WP5: Database Migrations & Performance SLAs**| I | A | I | R | R | R |
+
+*(R: Responsible - Thực thi chính; A: Accountable - Chịu trách nhiệm cuối; C: Consulted - Tham vấn chuyên môn; I: Informed - Nhận thông báo)*
+
+---
+
+## 6. MA TRẬN RỦI RO & CHIẾN LƯỢC PHÒNG NGỪA (RISK & MITIGATION)
 
 | STT | Rủi ro Tiềm ẩn | Mức độ | Tác động | Chiến lược Giảm thiểu Kỹ thuật |
 | :---: | :--- | :---: | :--- | :--- |
 | **R1** | Tối ưu hóa FSRS 21 tham số gây quá tải CPU trên trình duyệt hoặc Vercel Serverless | Cao | Serverless timeout ($>10$s) hoặc đơ giao diện người dùng | Chạy quá trình tối ưu trong Web Worker trên client, hoặc background job trên máy chủ có giới hạn thời gian (Max 30s), dùng thuật toán Adam Mini-batch tối ưu trong WASM. |
-| **R2** | Chi phí API Embedding & LLM tăng cao khi tính Cosine khoảng cách cho hàng trăm thẻ | Trung bình | Tốn kém chi phí token OpenAI | Chỉ sinh vector embedding 1 lần duy nhất khi tạo thẻ, lưu trữ vector nhị phân vào DB; sử dụng thuật toán LSH hoặc tính Cosine cục bộ trong bộ nhớ cho Top-K thẻ đến hạn trong ngày. |
-| **R3** | AI Semantic Evaluator phản hồi chậm làm gián đoạn trạng thái tập trung (Flow State) | Cao | Người học phải đợi 3-5 giây cho mỗi thẻ ôn tập | Thiết lập timeout 1.2s cho LLM; nếu vượt ngưỡng tự động fallback sang bộ so khớp từ khóa cơ bản (Heuristic match); hỗ trợ streaming phản hồi. |
+| **R2** | Chi phí API Embedding & LLM tăng cao khi tính Cosine khoảng cách cho hàng trăm thẻ | Trung bình | Tốn kém chi phí token OpenAI | Áp dụng mô hình Hybrid Embedding: Dùng on-device ONNX runtime `@xenova/transformers` miễn phí làm mặc định, chỉ dùng cloud khi cần độ chính xác cao. |
+| **R3** | AI Semantic Evaluator phản hồi chậm làm gián đoạn trạng thái tập trung (Flow State) | Cao | Người học phải đợi 3-5 giây cho mỗi thẻ ôn tập | Áp dụng bộ đệm băm SHA-256 trên SQLite/Memory và Timeout 1.2s; tự động fallback sang Heuristic match khi mạng lag. |
 | **R4** | Extension bóc tách các câu quá khó (vượt quá trình độ $i+1$) gây nản chí | Trung bình | Học sinh bị dồn dập từ vựng N1 trong khi đang ở trình độ N4 | Bộ lọc `PedagogicalRulesGuard` kiểm tra tỷ lệ từ lạ trong câu: Nếu câu chứa $\ge 2$ từ lạ ngoài tầm thẻ đã học, cảnh báo học sinh và đề xuất câu văn giản lược hơn. |
 
 ---
 
-## 6. TIÊU CHÍ NGHIỆM THU ĐỊNH LƯỢNG (QUANTITATIVE ACCEPTANCE CRITERIA)
+## 7. TIÊU CHÍ NGHIỆM THU ĐỊNH LƯỢNG (QUANTITATIVE ACCEPTANCE CRITERIA)
 
 1. **Hiệu suất thuật toán FSRS (Predictive Accuracy)**:
    - Sai số bình phương trung bình (RMSE) giữa Retrievability dự báo và xác suất nhớ thực tế giảm tối thiểu $15\%$ sau khi kích hoạt bộ tối ưu cá nhân hóa so với bộ trọng số mặc định.
 2. **Hiệu ứng giảm can thiệp (Interference Reduction)**:
    - $100\%$ các thẻ có độ tương đồng ngữ nghĩa $\text{sim} \ge 0.85$ được tách biệt tối thiểu 3 thẻ đệm hoặc dời sang phiên khác trong Review Queue.
 3. **Phản xạ truy xuất (Latency-Driven Retrievability)**:
-   - Các lượt đánh giá "Good/Easy" có thời gian phản xạ $> 5.000$ms được ghi nhận và phạt độ ổn định chính xác theo đúng ma trận phân rã Bjork.
+   - Các lượt đánh giá "Good/Easy" có thời gian phản xạ thuần $> 4.500$ms (sau khi trừ reading budget) được ghi nhận và phạt độ ổn định chính xác theo đúng ma trận phân rã Bjork.
 4. **Đồ thị KanjiCompass**:
-   - Truy xuất tức thì ($< 15$ms) toàn bộ thành tố biểu âm, bộ thủ biểu ý và họ hàng chữ Hán tương ứng cho bất kỳ chữ Kanji nào trong danh mục 2.136 chữ Joyo Kanji.
+   - Truy xuất tức thì ($< 10$ms) toàn bộ thành tố biểu âm, bộ thủ biểu ý và họ hàng chữ Hán tương ứng cho bất kỳ chữ Kanji nào trong danh mục 2.136 chữ Joyo Kanji thông qua câu truy vấn CTE.
 5. **Độ mượt mà của phiên ôn tập (Interaction Latency SLA)**:
    - Thao tác lật thẻ và chuyển câu $< 50$ms.
    - Phản hồi từ AI Semantic Evaluator P95 $< 850$ms.

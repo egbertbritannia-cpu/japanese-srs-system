@@ -7,50 +7,86 @@
 
 > [!IMPORTANT]
 > Tài liệu này thiết kế kiến trúc toàn vẹn cho hai thành phần quan trọng:
-> 1. **Cầu nối nạp dữ liệu từ thế giới thực (Real-world Mining Bridge)**: Tiện ích trình duyệt Chrome Extension Manifest V3 bóc tách câu văn 1 thao tác, tự động phân tích hình thái học nhưng vẫn bảo toàn tuyệt đối quyền làm chủ nhận thức của người học (Cognitive Ownership).
-> 2. **Kinh tế học hành vi (Behavioral Economics Engine)**: Xóa bỏ cơ chế điểm danh giữ streak rỗng tuếch, thay thế bằng mô hình thưởng dựa trên Liều lượng Nhận thức Tối thiểu (Minimum Effective Dose - MED) và hạn ngạch AI nâng cao.
+> 1. **Cầu nối nạp dữ liệu từ thế giới thực (Real-world Mining Bridge)**: Tiện ích trình duyệt Chrome Extension Manifest V3 bóc tách câu văn 1 thao tác (hỗ trợ cả văn bản web và phụ đề YouTube trực tiếp), tự động phân tích hình thái học nhưng vẫn bảo toàn tuyệt đối quyền làm chủ nhận thức của người học (Cognitive Ownership).
+> 2. **Kinh tế học hành vi & Chống gian lận (Behavioral Anti-Cheat Engine)**: Xóa bỏ cơ chế điểm danh giữ streak rỗng tuếch, thay thế bằng mô hình thưởng dựa trên Liều lượng Nhận thức Tối thiểu (Minimum Effective Dose - MED) với thuật toán phát hiện trạng thái treo máy (Idle Detection).
 
 ---
 
 ## 1. TIỆN ÍCH TRÌNH DUYỆT BÓC TÁCH 1 THAO TÁC (CHROME EXTENSION MANIFEST V3)
 
-### 1.1. Kiến trúc Hệ thống Tiện ích (Single-Gesture Capture Extension)
+### 1.1. Cấu Trúc Toàn Văn `manifest.json` (Chuẩn Chrome/Edge Store)
 
-```mermaid
-graph LR
-    UserAction["Người học đọc NHK Easy / Xem YouTube<br/>Bôi đen câu văn + Nhấn Alt+S"] --> ContentScript["Content Script (Bắt chuỗi văn bản + URL)"]
-    ContentScript --> BackgroundSW["Service Worker (Manifest V3)"]
-    BackgroundSW --> API_Gateway["Backend API: POST /api/capture/process"]
-    API_Gateway --> MorphoAgent["Morphological Analyzer (Kuromoji / MeCab)"]
-    MorphoAgent --> Guard_I1["Pedagogical Rules Guard (Kiểm định i+1)"]
-    Guard_I1 --> ModalCoCreate["Extension Popup Modal (Duyệt bản nháp Co-creation)"]
-    ModalCoCreate --> DB_Commit["Ghi nhận thẻ vào hàng đợi FSRS trong SQLite"]
+```json
+{
+  "manifest_version": 3,
+  "name": "記憶道 (Kiokudo) - Japanese SRS Smart Miner",
+  "version": "1.0.0",
+  "description": "Bóc tách câu văn tiếng Nhật 1 chạm từ NHK Easy và YouTube đưa thẳng vào hệ thống FSRS SRS",
+  "permissions": ["activeTab", "storage", "contextMenus"],
+  "host_permissions": ["https://*/*", "http://*/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["overlay.css"]
+    }
+  ],
+  "commands": {
+    "capture-sentence": {
+      "suggested_key": {
+        "default": "Alt+S",
+        "mac": "Command+Shift+K"
+      },
+      "description": "Bóc tách câu văn tiếng Nhật đang bôi đen"
+    }
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icons/icon128.png"
+  }
+}
 ```
-
-### 1.2. Quy trình Xử lý Bóc tách Đa tầng tại Backend
-
-Khi một đoạn văn bản được gửi lên từ Extension, Backend thực thi chuỗi 5 bộ lọc nguyên tử:
-
-1. **Bộ lọc 1: Phân tích Hình thái học (Morphological Tokenization)**:
-   - Sử dụng thư viện tokenizer tiếng Nhật nội tại (như Kuromoji hoặc MeCab Node.js).
-   - Tách câu thành các Token kèm từ loại (Part-of-Speech), thể từ điển (Dictionary Form/Lemma), và cách đọc Hiragana.
-2. **Bộ lọc 2: Xác định Từ vựng Mục tiêu (Unique Target Extraction)**:
-   - Loại bỏ các trợ từ (`は`, `が`, `を`, `に`), trợ động từ thông dụng, và các từ vựng thuộc danh sách N5 cơ bản.
-   - Định vị từ vựng trọng tâm cần học trong câu.
-3. **Bộ lọc 3: Thẩm định Quy tắc Sư phạm $i+1$ (Pedagogical Verification)**:
-   - Đối chiếu với bảng `cards` trong cơ sở dữ liệu học viên:
-     - Số lượng từ chưa biết trong câu phải đúng bằng $1$ (Điều kiện $i+1$).
-     - Nếu câu chứa $\ge 2$ từ chưa biết: Cảnh báo quá tải nhận thức, tự động trích xuất vế câu phụ hoặc đề xuất câu văn tương đương đơn giản hơn.
-4. **Bộ lọc 4: Trích xuất Cao độ & Ngữ nguyên Kanji (Pitch & Kanji Enrichment)**:
-   - Tra cứu mẫu cao độ số (Pitch Accent 0–4) từ từ điển phát âm.
-   - Tra cứu đồ thị `kanji_graph_nodes` để bóc tách thành tố biểu âm và bộ thủ.
-5. **Bộ lọc 5: Tạo Bản nháp Đồng sáng tạo (Co-creation Draft)**:
-   - Không tự ý chèn thẻ vào database ngay lập tức.
-   - Trả về bản nháp hoàn chỉnh cho Popup của Extension để người học xem lại.
 
 ---
 
-### 1.3. Giao diện Popup Đồng Sáng Tạo (Co-Creation Popup Modal)
+### 1.2. Kỹ Thuật Bóc Tách Phụ Đề YouTube & Trang Báo Nhật (Content Script Logic)
+Content Script hỗ trợ 2 nguồn tương tác trực tiếp:
+1. **Văn bản thông thường (NHK News Web Easy, Matcha, Asahi...)**:
+   - Sử dụng `window.getSelection()`.
+   - Mở rộng vùng chọn để bao trọn vẹn dấu chấm câu tiếng Nhật (`。` hoặc `！` hoặc `？`), bảo đảm câu văn trích xuất luôn có ngữ cảnh ngữ pháp hoàn chỉnh.
+2. **Phụ đề YouTube đang chạy (YouTube Live Captions Capture)**:
+   - Khi người học đang xem anime/video tiếng Nhật trên YouTube và bấm `Alt+S`:
+   - Content script tự động truy vấn selector phụ đề: `.ytp-caption-segment` hoặc `.caption-window`.
+   - Ghép các segment phụ đề trong khoảng thời gian $\pm 2$ giây hiện tại để tạo thành câu hoàn chỉnh kèm timestamp video.
+
+```javascript
+// content.js - Trích xuất câu văn ngữ cảnh thông minh
+function extractJapaneseContext() {
+  // 1. Kiểm tra nếu có bôi đen văn bản trực tiếp
+  const selection = window.getSelection().toString().trim();
+  if (selection.length > 0) {
+    return selection;
+  }
+
+  // 2. Nếu đang ở trên trang YouTube và có phụ đề đang hiển thị
+  if (window.location.hostname.includes('youtube.com')) {
+    const captionElements = document.querySelectorAll('.ytp-caption-segment');
+    if (captionElements.length > 0) {
+      const captionText = Array.from(captionElements).map(el => el.textContent).join(' ');
+      return captionText.trim();
+    }
+  }
+
+  return null;
+}
+```
+
+---
+
+### 1.3. Giao diện Popup Đồng Sáng Tạo (Co-Creation Modal)
 Để duy trì **Quyền sở hữu nhận thức (Cognitive Ownership)**, học viên phải là người đưa ra quyết định cuối cùng:
 - **Hiển thị trực quan**:
   - Từ mục tiêu: `妥協` (だきょう) [0 - 平板]
@@ -79,59 +115,69 @@ Trong y khoa và thể thao, MED là liều lượng nhỏ nhất tạo ra sự 
   - Hoàn thành tối thiểu **15 lượt truy xuất thành công** có kiểm soát độ trễ.
   - Tham gia tối thiểu **2 thử thách nhận thức bậc cao** (Generative Cloze hoặc Elaborative Interrogation).
 
+---
+
+### 2.3. Thuật Toán Chống Gian Lận Trạng Thái Treo Máy (Cognitive Anti-Idle Monitor)
+Nếu học viên mở ứng dụng rồi bỏ đi làm việc khác, hệ thống sẽ KHÔNG tính thời gian này vào MED. Thuật toán giám sát sự tập trung tích cực (Active Focus):
+
 ```mermaid
-flowchart TD
-    SessionStart["Bắt đầu Phiên học Karuta"] --> Timer["Bắt đầu bộ đếm Focus Timer"]
-    Timer --> CheckDuration{"Thời gian học liên tục >= 5 phút?"}
-    CheckDuration -- Không --> NoMed["Chưa đạt chuẩn MED (Chỉ lưu log học tập)"]
-    CheckDuration -- Có --> CheckCognitive{"Có thực hiện tương tác nhận thức bậc cao?"}
-    CheckCognitive -- Không --> PartialReward["Đạt MED Cơ bản (+1 Điểm Nỗ lực)"]
-    CheckCognitive -- Có --> FullReward["Đạt MED Vàng (+3 Điểm Nỗ lực & Thưởng Token AI)"]
+stateDiagram-v2
+    [*] --> ActiveState: Người học lật thẻ / gõ phím
+    ActiveState --> TimerRunning: FocusTimer tích lũy thời gian (+1s mỗi giây)
+    TimerRunning --> IdleCheck: Không có tương tác trong 35 giây
+    IdleCheck --> PausedState: Quá 35s không hoạt động -> Tạm dừng FocusTimer!
+    PausedState --> ActiveState: Người học chạm chuột / gõ phím trở lại
+    TimerRunning --> PageHidden: Người học chuyển tab trình duyệt
+    PageHidden --> PausedState: document.hidden = true -> Dừng tính giờ ngay lập tức
+```
+
+**Quy tắc Nghiệm thu Phiên MED (MED Evaluation Function)**:
+
+```typescript
+export interface FocusSessionTelemetry {
+  activeDurationSeconds: number; // Tổng thời gian thực sự tương tác
+  idlePausesCount: number; // Số lần bị tạm dừng do treo máy
+  retrievalsCount: number; // Tổng số lượt thẻ đã ôn
+  highOrderTasksCount: number; // Số lượt gõ tạo sinh hoặc tự giải thích
+}
+
+export function evaluateMEDStatus(session: FocusSessionTelemetry): { isMedAchieved: boolean; creditsAwarded: number } {
+  const isTimeQualified = session.activeDurationSeconds >= 300; // Đủ 5 phút tập trung
+  const isRetrievalsQualified = session.retrievalsCount >= 15; // Đủ 15 thẻ
+  const isHighOrderQualified = session.highOrderTasksCount >= 2; // Có tối thiểu 2 bài tập bậc cao
+
+  if (isTimeQualified && isRetrievalsQualified && isHighOrderQualified) {
+    // Đạt chuẩn MED Vàng
+    const credits = 25 + session.highOrderTasksCount * 5;
+    return { isMedAchieved: true, creditsAwarded: credits };
+  }
+
+  if (isTimeQualified && isRetrievalsQualified) {
+    // Đạt chuẩn MED Cơ bản
+    return { isMedAchieved: true, creditsAwarded: 10 };
+  }
+
+  // Chưa đạt chuẩn
+  return { isMedAchieved: false, creditsAwarded: 0 };
+}
 ```
 
 ---
 
-### 2.3. Hệ thống Hạn Ngạch AI Động lực (Cognitive AI Quota)
-Thay vì phát huy hiệu ảo, hệ thống thưởng bằng **Tài nguyên Học tập Giá trị cao**:
-- **Cơ chế cấp phát**:
-  - Hoàn thành 1 thẻ ở chế độ *Free Contextual Production*: Tích lũy `+10 Cognitive Credits`.
-  - Hoàn thành 1 thẻ ở chế độ *Elaborative Interrogation*: Tích lũy `+5 Cognitive Credits`.
-  - Đánh giá thẻ thụ động (chỉ lật thẻ): `+0 Credit`.
-- **Đặc quyền mở khóa bằng Credits**:
-  - Dùng 20 Credits: Mở khóa tính năng "AI Phân tích Thơ Ca / Nhạc kịch Nhật Bản" dựa trên từ vựng đang học.
-  - Dùng 50 Credits: Yêu cầu AI Copilot sinh một truyện ngắn tương tác (Interactive Short Story) lồng ghép toàn bộ 15 từ khó nhất mà người học hay quên trong tuần.
+### 2.4. Bảng Định Mức Tiêu Dùng Hạn Ngạch AI (Cognitive Credit Burn Rate)
+Hạn ngạch AI thưởng được sử dụng cho các đặc quyền cao cấp:
 
-### 2.4. Lược đồ Dữ liệu Cơ chế Thưởng Nỗ lực
-Bổ sung bảng `gamification_effort_ledger`:
-
-```sql
-CREATE TABLE IF NOT EXISTS gamification_effort_ledger (
-    id TEXT PRIMARY KEY,
-    user_id TEXT NOT NULL DEFAULT 'default_user',
-    session_id TEXT NOT NULL,
-    focus_duration_seconds INTEGER NOT NULL, -- Thời gian tập trung liên tục
-    is_med_achieved INTEGER NOT NULL DEFAULT 0, -- 1 nếu đạt chuẩn Liều lượng Nhận thức Tối thiểu
-    high_order_tasks_count INTEGER NOT NULL DEFAULT 0, -- Số lượng bài tập tạo sinh/truy vấn
-    credits_earned INTEGER NOT NULL DEFAULT 0, -- Điểm thưởng nhận thức
-    session_timestamp DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE INDEX IF NOT EXISTS idx_effort_user ON gamification_effort_ledger(user_id, is_med_achieved);
-```
+| Tính Năng Mở Khóa | Chi Phí (Credits) | Giá Trị Nhận Thức Mang Lại |
+| :--- | :---: | :--- |
+| **Phân Tích Thơ Haiku & Ngữ Cảnh Cổ Điển** | `15 Credits` | Giúp hiểu chiều sâu văn hóa của từ vựng qua văn học Nhật. |
+| **Sinh Truyện Ngắn Tương Tác (Co-Story)** | `40 Credits` | AI sáng tác 1 câu chuyện ngắn 300 từ chứa toàn bộ các từ hay quên của người học trong tuần. |
+| **Mở Rộng Gia Tộc Chữ Hán Chuyên Sâu** | `20 Credits` | Tự động bóc tách và phân tích trọn vẹn 10 chữ Hán họ hàng hiếm gặp. |
 
 ---
 
-## 3. LỘ TRÌNH ĐÓNG GÓI VÀ BẢO TRÌ EXTENSION
+## 3. BẢNG CHECKLIST KIỂM THỬ TỰ ĐỘNG CHO TRỤ CỘT 4
 
-1. **Giai đoạn phát triển Extension (Tháng 2–3)**:
-   - Viết Extension bằng TypeScript/Vite, biên dịch theo chuẩn Manifest V3.
-   - Sử dụng `chrome.storage.local` để lưu trữ token xác thực và cấu hình endpoint cá nhân.
-   - Thử nghiệm bóc tách trên các trang báo: NHK News Web Easy, Matcha Japan Travel, Mainichi Shimbun.
-2. **Bảo mật & Quyền riêng tư (Privacy-First Policy)**:
-   - Extension chỉ đọc đoạn văn bản mà người học chủ động bôi đen, tuyệt đối không ghi nhận lịch sử duyệt web hoặc thông tin cá nhân trên trình duyệt.
-
----
-
-> [!NOTE]
-> Mời tiếp tục chuyển sang tài liệu chi tiết của **Tầng Sâu Nhất (L2 - Atomic Blueprint)**:
-> [`18_TECHNICAL_SPEC_AND_ATOMIC_IMPLEMENTATION_BLUEPRINT.md`](file:///D:/project/japanese-srs-system/doc/18_TECHNICAL_SPEC_AND_ATOMIC_IMPLEMENTATION_BLUEPRINT.md)
+- [ ] **TC-P4-01**: Bôi đen câu tiếng Nhật trên trình duyệt và bấm `Alt+S`: Popup hiển thị đúng bản nháp trong $< 600$ms.
+- [ ] **TC-P4-02**: Thử nghiệm câu văn chứa 3 từ mới (vi phạm $i+1$): Backend cảnh báo quá tải nhận thức và đề xuất câu ngắn gọn hơn.
+- [ ] **TC-P4-03**: Giả lập học viên mở tab ôn tập rồi treo máy 2 phút: `FocusTimer` tự động đóng băng ở giây thứ 35, không tính gian lận giờ học.
+- [ ] **TC-P4-04**: Hoàn thành phiên học 5 phút với 18 thẻ và 2 câu tạo sinh: Hệ thống hiển thị huy hiệu `満願成就 (Mãn nguyện thành tựu)` và cộng `35 Cognitive Credits` vào tài khoản.

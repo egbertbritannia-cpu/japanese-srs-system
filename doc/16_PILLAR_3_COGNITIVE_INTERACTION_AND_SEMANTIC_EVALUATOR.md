@@ -6,7 +6,7 @@
 ---
 
 > [!IMPORTANT]
-> Tài liệu này chuyển hóa các kết quả nghiên cứu nhận thức từ dự án **Memdora** và **TriGen** thành kiến trúc tương tác đa thức. Thao tác lật thẻ truyền thống (nhìn mặt trước đoán mặt sau) được thay thế bằng một cơ chế luân chuyển 4 chế độ tương tác tự động theo trục Độ ổn định $S$ (Stability), buộc não bộ phải tham gia xử lý nhận thức ở tầng sâu (Deep Processing).
+> Tài liệu này chuyển hóa các kết quả nghiên cứu nhận thức từ dự án **Memdora** và **TriGen** thành kiến trúc tương tác đa thức. Thao tác lật thẻ truyền thống (nhìn mặt trước đoán mặt sau) được thay thế bằng một cơ chế luân chuyển 4 chế độ tương tác tự động theo trục Độ ổn định $S$ (Stability), buộc não bộ phải tham gia xử lý nhận thức ở tầng sâu (Deep Processing), đồng thời tích hợp thuật toán đo khoảng cách Levenshtein và bộ đệm băm SHA-256 để tối ưu hiệu năng.
 
 ---
 
@@ -34,143 +34,149 @@ graph TD
 
 ---
 
-## 2. CHI TIẾT 4 CHẾ ĐỘ TƯƠNG TÁC NHẬN THỨC
+## 2. CHI TIẾT 4 CHẾ ĐỘ TƯƠNG TÁC & THUẬT TOÁN XỬ LÝ LỖI NHẸ (FUZZY MATCHING)
 
-### 2.1. Chế độ 1: Generative Cloze Retrieval (Truy xuất Tạo sinh Điền khuyết)
+### 2.1. Chế độ 1: Generative Cloze Retrieval (Điền khuyết Tạo sinh)
 - **Áp dụng cho**: Thẻ mới học hoặc thẻ có $S < 7$ ngày.
-- **Cơ chế**:
-  - Không hiển thị từ vựng mục tiêu đứng trơ trọi.
-  - Hiển thị câu ngữ cảnh chuẩn $i+1$ với từ mục tiêu bị đục lỗ: `毎日日本語を【 _____ 】します。`
-  - Yêu cầu người học phải trực tiếp gõ Furigana (`べんきょう`) hoặc Kanji (`勉強`) vào ô input.
-- **Tác động thần kinh**: Kích hoạt vùng vỏ não vận động (Motor Cortex) và vùng Broca thông qua thao tác gõ phím, biến dấu vết ký ức từ thụ động thành chủ động.
+- **Giao diện & Tương tác**:
+  - Câu ngữ cảnh hiển thị từ đục lỗ: `毎日日本語を【 _____ 】します。`
+  - Ô nhập liệu tự động focus (Autofocus), kích hoạt IME tiếng Nhật trên thiết bị.
+  - Phím Enter xác nhận câu trả lời.
+- **Thuật toán Dung thứ Lỗi gõ phím nhẹ (Levenshtein Fuzzy Matching)**:
+  - Nếu câu trả lời đúng 100%: Chấp thuận ngay, tăng điểm Retrievability.
+  - Nếu độ lệch ký tự $\text{Levenshtein}(A, B) \le 1$ trên chuỗi có độ dài $\ge 4$ mora (ví dụ: gõ `べんきょ` thay vì `べんきょう` do thiếu âm trường):
+    - Không đánh trượt (không ép về Again).
+    - Hiển thị phản hồi cảnh báo vàng: *"⚠️ Bạn gõ thiếu âm trường (う)! Hãy quan sát lại kỹ và gõ lại lần nữa để hoàn tất."*
+
+```typescript
+export function checkFuzzyCloze(userInput: string, targetAnswer: string): { isCorrect: boolean; isTypo: boolean } {
+  const cleanUser = userInput.trim().toLowerCase();
+  const cleanTarget = targetAnswer.trim().toLowerCase();
+
+  if (cleanUser === cleanTarget) {
+    return { isCorrect: true, isTypo: false };
+  }
+
+  const distance = calculateLevenshtein(cleanUser, cleanTarget);
+  if (distance === 1 && cleanTarget.length >= 4) {
+    return { isCorrect: false, isTypo: true }; // Báo lỗi gõ phím nhẹ
+  }
+
+  return { isCorrect: false, isTypo: false };
+}
+```
 
 ---
 
 ### 2.2. Chế độ 2: Elaborative Interrogation (Truy vấn Nhận thức Bản chất)
 - **Áp dụng cho**: Thẻ có độ ổn định trung bình ($7 \le S < 30$ ngày).
-- **Cơ chế**:
-  - Khi người học truy xuất thành công, hệ thống không kết thúc ngay mà hiển thị một câu hỏi kích hoạt tư duy sâu:
-    - *Về ngữ pháp*: "Tại sao trong câu này tác giả dùng trợ từ **に** thay vì **で**?"
-    - *Về Hán tự*: "Thành tố nào trong chữ **際** quy định âm đọc On'yomi là **sai**?"
-    - *Về sắc thái*: "Từ **寂しい (sabishii)** khác gì với **孤独 (kodoku)** trong ngữ cảnh này?"
-  - Người học suy nghĩ hoặc gõ câu trả lời ngắn gọn (1–2 câu).
-- **Tác động thần kinh**: Buộc não bộ phải kết nối thông tin mới vào các nút tri thức sẵn có trong mạng ngữ nghĩa (Semantic Web Activation), ngăn chặn sự phân rã ký ức cô lập.
+- **Cơ chế Sinh Câu Hỏi 2 Tầng**:
+  1. *Ngân hàng Câu hỏi Hạt nhân (Deterministic Question Bank)*:
+     - Đối với động từ có trợ từ đặc thù: `"Tại sao câu này dùng trợ từ に thay vì で?"`
+     - Đối với chữ Hán hình thanh: `"Thành tố nào trong chữ này quy định âm On?"`
+  2. *AI Dynamic Question Generator*: Nếu thẻ chưa có câu hỏi trong ngân hàng, AI tự động phân tích ngữ cảnh và sinh 1 câu hỏi kích thích tư duy giải thích ngắn gọn.
 
 ---
 
 ### 2.3. Chế độ 3: Pitch Accent Discrimination (Phân biệt Âm vị Cao độ)
-- **Áp dụng cho**: Toàn bộ các thẻ có chứa từ đồng âm dị nghĩa hoặc mẫu cao độ đặc trưng.
-- **Cơ chế**:
-  - Hệ thống phát ngẫu nhiên một đoạn audio phát âm của người bản xứ (ví dụ: phát âm từ `hashi`).
-  - Màn hình hiển thị 2 lựa chọn trực quan kèm đồ thị hạ âm SVG:
-    - `[A] 箸 (は＼し - [1] Đũa - Atamadaka)`
-    - `[B] 橋 (は／し￣ - [2] Cầu - Odaka)`
-  - Người học phải lắng nghe và bấm chọn mẫu cao độ đúng.
-- **Tác động thần kinh**: Rèn luyện vùng vỏ não thính giác (Auditory Cortex) nhận diện đường viền cao độ tiếng Nhật chuẩn, xóa bỏ hiện tượng "nói tiếng Nhật với ngữ điệu phẳng lì kiểu tiếng Anh".
+- **Áp dụng cho**: Các thẻ chứa từ có mẫu cao độ đặc trưng hoặc cặp từ đồng âm dị nghĩa.
+- **Giao diện & Tương tác**:
+  - Nút phát âm thanh audio chuẩn của người bản xứ (giới hạn tối đa 2 lần nghe để rèn luyện sự tập trung của màng nhĩ).
+  - 2 Thẻ bài lựa chọn mô phỏng Hyakunin Isshu hiển thị đồ thị SVG cao độ.
+  - Phản hồi thị giác tức thì: Lựa chọn đúng đổi sang viền xanh Matcha `#88A752` kèm tiếng chuông Suzu thanh thoát; lựa chọn sai đổi viền đỏ Torii `#D9381E` kèm âm gõ gỗ Hyoshigi dứt khoát.
 
 ---
 
 ### 2.4. Chế độ 4: Free Contextual Production (Tạo sinh Ngữ cảnh Tự do)
-- **Áp dụng cho**: Thẻ có độ ổn định cao ($S \ge 30$ ngày - chuẩn bị bước vào trí nhớ vĩnh viễn).
-- **Cơ chế**:
-  - Ẩn toàn bộ câu mẫu cũ đã lưu trong thẻ.
-  - Hiển thị từ vựng mục tiêu: `妥協 (だきょう - thỏa hiệp)`.
-  - Yêu cầu: "Hãy đặt một câu hoàn chỉnh mới trong đời sống hoặc công việc sử dụng từ này, không được lặp lại câu ví dụ cũ!"
-  - Người học gõ câu tự sáng tác vào giao diện.
-- **Tác động thần kinh**: Đạt mức cao nhất trong Thang đo nhận thức Bloom (Create / Produce), chuyển hóa tri thức tiếp nhận (Passive Knowledge) thành phản xạ giao tiếp tự nhiên (Active Fluency).
+- **Áp dụng cho**: Thẻ có độ ổn định cao ($S \ge 30$ ngày).
+- **Ràng buộc Đầu vào (Input Validation Constraints)**:
+  - Độ dài câu: Tối thiểu 10 ký tự, tối đa 50 ký tự.
+  - Bắt buộc chứa từ mục tiêu (ở thể từ điển hoặc thể biến đổi ngữ pháp hợp lệ).
+  - Nghiêm cấm sao chép nguyên văn câu mẫu có sẵn trong thẻ (kiểm tra so khớp chuỗi $\text{Sim} < 0.6$).
 
 ---
 
 ## 3. BỘ CHẤM ĐIỂM NGỮ NGHĨA ĐÀM THOẠI (AI SEMANTIC EVALUATOR)
 
-### 3.1. Thách thức Kỹ thuật: Bảo toàn Trạng thái Tập trung (Flow State)
-Các hệ thống AI truyền thống thường mắc hai lỗi chí mạng:
-1. So khớp chuỗi cứng nhắc (Regex / String match) làm sai lệch đánh giá khi người học dùng từ đồng nghĩa hợp lý.
-2. Gọi LLM trả về văn bản dài dòng (3–4 đoạn phân tích ngữ pháp), làm cắt đứt hoàn toàn nhịp học của phiên ôn tập Karuta (Flow State bị phá vỡ).
+### 3.1. Thiết Kế Bộ Đệm Băm SHA-256 (Hash Caching Architecture)
+Để giảm 70% chi phí API và đạt độ trễ $< 20$ms cho các câu trả lời phổ biến, hệ thống triển khai cơ chế băm bộ nhớ:
 
-### 3.2. Kiến trúc LLM Prompt Ràng buộc Cực hạn (Ultra-Constrained Prompting)
-Để giải quyết bài toán này, AI Semantic Evaluator được thiết kế với Prompt tối ưu hóa độ trễ, ép buộc phản hồi siêu ngắn:
-
-```typescript
-export const SEMANTIC_EVALUATOR_SYSTEM_PROMPT = `
-Bạn là AI Giám khảo Nhận thức Ngôn ngữ Nhật Bản trong hệ thống SRS "記憶道".
-Nhiệm vụ của bạn là đánh giá câu trả lời hoặc câu tự đặt của người học một cách khách quan, súc tích và khích lệ.
-
-QUY TẮC PHẢN HỒI BẮT BUỘC (STRICT CONSTRAINTS):
-1. ĐỘ DÀI: Tối đa 2 CÂU NGẮN (<= 45 từ tiếng Việt). Không giải thích dài dòng!
-2. NỘI DUNG:
-   - Câu 1: Xác nhận đúng/sai bản chất (Đạt chuẩn / Cần hiệu chỉnh).
-   - Câu 2: Chỉ ra chính xác 1 lỗi vi tế (nếu có) về trợ từ, sắc thái hoặc tính tự nhiên của người Nhật.
-3. FORMAT TRẢ VỀ JSON:
-{
-  "is_correct": boolean,
-  "concept_understood": boolean,
-  "short_feedback": "string (<= 2 câu)",
-  "suggested_fix": "string (câu tự nhiên hơn nếu có lỗi)"
-}
-`;
-```
-
-### 3.3. Luồng Xử lý Bất đồng bộ với Fallback Cache
+$$\text{CacheKey} = \text{SHA256}(\text{target\_word} + \text{"\_"} + \text{clean\_response})$$
 
 ```mermaid
-sequenceDiagram
-    autonumber
-    participant Learner as Học viên (Gõ câu trả lời)
-    participant UI as Giao diện Ôn tập (/review)
-    participant Evaluator as API Semantic Evaluator
-    participant Cache as Redis/Memory Cache
-    participant LLM as Gemini / OpenAI Proxy
+flowchart LR
+    LearnerText["Câu trả lời của người học"] --> HashGen["Tạo Hash SHA-256(word + text)"]
+    HashGen --> CheckCache{"Tìm trong SQLite Cache?"}
+    CheckCache -- Hit (< 15ms) --> ReturnCached["Trả về JSON kết quả đã duyệt"]
+    CheckCache -- Miss --> CallLLM["Gọi LLM với Strict Prompt (Timeout 1.200ms)"]
+    CallLLM --> SaveCache["Lưu kết quả mới vào semantic_evaluator_cache"]
+    SaveCache --> ReturnResponse["Trả về phản hồi đàm thoại súc tích"]
+```
 
-    Learner->>UI: Nhập: "両親と妥協して、東京の大学に進学した。"
-    UI->>Evaluator: POST /api/review/evaluate { word: "妥協", sentence: "..." }
-    Evaluator->>Cache: Kiểm tra câu tương tự trong Cache?
-    alt Có trong Cache (Hit)
-        Cache-->>Evaluator: Trả về kết quả đánh giá đã lưu (< 15ms)
-        Evaluator-->>UI: Hiển thị phản hồi tức thì
-    else Chưa có trong Cache (Miss)
-        Evaluator->>LLM: Gửi Prompt siêu ngắn với timeout = 1200ms
-        alt LLM phản hồi kịp thời (< 800ms)
-            LLM-->>Evaluator: JSON { is_correct: true, short_feedback: "Rất chính xác! Sử dụng trợ từ と kết hợp 妥協 rất tự nhiên." }
-            Evaluator->>Cache: Lưu kết quả
-            Evaluator-->>UI: Hiển thị phản hồi đàm thoại súc tích
-        else LLM bị timeout (> 1200ms)
-            Evaluator-->>UI: Fallback: Xác nhận từ khóa hợp lệ, tiếp tục phiên học không ngắt quãng
-        end
-    end
-    UI->>Learner: Hiển thị con dấu "合格 (Đạt)" kèm nhận xét 1 dòng
+### 3.2. Cấu Trúc Mã Nguồn API Route `/api/review/evaluate`
+Đặc tả chi tiết luồng xử lý tại `src/app/api/review/evaluate/route.ts`:
+
+```typescript
+import { NextRequest, NextResponse } from 'next/server';
+import crypto from 'node:crypto';
+
+export async function POST(req: NextRequest) {
+  try {
+    const { cardId, targetWord, learnerResponse, interactionMode } = await req.json();
+
+    if (!targetWord || !learnerResponse) {
+      return NextResponse.json({ success: false, error: 'Thiếu dữ liệu' }, { status: 400 });
+    }
+
+    // 1. Kiểm tra Cache
+    const cacheKey = crypto
+      .createHash('sha256')
+      .update(`${targetWord}_${learnerResponse.trim().toLowerCase()}`)
+      .digest('hex');
+
+    const cached = await getCachedEvaluation(cacheKey);
+    if (cached) {
+      return NextResponse.json({ success: true, ...cached, fromCache: true });
+    }
+
+    // 2. Gọi AI Semantic Evaluator với Timeout Controller
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 1200); // 1.2s timeout
+
+    const prompt = `Đánh giá câu tiếng Nhật chứa từ '${targetWord}': "${learnerResponse}". Trả về JSON: {"is_correct": boolean, "short_feedback": "string <= 2 câu tiếng Việt"}`;
+
+    const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
+      signal: controller.signal,
+    });
+    clearTimeout(timeoutId);
+
+    const data = await res.json();
+    const evaluation = parseJSONResponse(data);
+
+    // 3. Lưu Cache và ghi nhận log
+    await saveEvaluationCache(cacheKey, evaluation);
+
+    return NextResponse.json({ success: true, ...evaluation, fromCache: false });
+  } catch (err: any) {
+    // Fallback nếu mạng chậm hoặc lỗi API: Đảm bảo không gián đoạn Flow
+    return NextResponse.json({
+      success: true,
+      is_correct: true,
+      short_feedback: 'Hệ thống đã ghi nhận nỗ lực tạo sinh của bạn!',
+      fallback: true,
+    });
+  }
+}
 ```
 
 ---
 
-## 4. LƯỢC ĐỒ DỮ LIỆU ĐÁNH GIÁ TƯƠNG TÁC NHẬN THỨC
+## 4. BẢNG CHECKLIST KIỂM THỬ TỰ ĐỘNG CHO TRỤ CỘT 3
 
-Bổ sung bảng `cognitive_interaction_logs`:
-
-```sql
-CREATE TABLE IF NOT EXISTS cognitive_interaction_logs (
-    id TEXT PRIMARY KEY,
-    card_id TEXT NOT NULL,
-    interaction_type TEXT NOT NULL CHECK(interaction_type IN (
-        'generative_cloze',
-        'elaborative_interrogation',
-        'pitch_discrimination',
-        'free_production'
-    )),
-    prompt_presented TEXT NOT NULL, -- Câu hỏi hoặc ngữ cảnh hiển thị
-    learner_response TEXT NOT NULL, -- Câu trả lời thực tế của người học
-    is_correct INTEGER NOT NULL, -- 1 nếu đạt, 0 nếu sai
-    evaluator_feedback TEXT, -- Lời nhận xét ngắn gọn của AI
-    latency_ms INTEGER NOT NULL, -- Thời gian hoàn thành thử thách
-    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (card_id) REFERENCES cards(id) ON DELETE CASCADE
-);
-
-CREATE INDEX IF NOT EXISTS idx_cog_card ON cognitive_interaction_logs(card_id, interaction_type);
-```
-
----
-
-> [!NOTE]
-> Mời tiếp tục chuyển sang tài liệu chi tiết của **Trụ Cột 4**:
-> [`17_PILLAR_4_AUTOMATED_MINING_PIPELINE_AND_GAMIFICATION.md`](file:///D:/project/japanese-srs-system/doc/17_PILLAR_4_AUTOMATED_MINING_PIPELINE_AND_GAMIFICATION.md)
+- [ ] **TC-P3-01**: Kiểm thử chế độ Generative Cloze với lỗi thiếu âm trường: Gõ `べんきょ` $\rightarrow$ Trả về cảnh báo vàng Typo, không phạt Reset Stability.
+- [ ] **TC-P3-02**: Kiểm thử chế độ Pitch Accent: Bấm đúng mẫu Atamadaka (1) $\rightarrow$ Đồ thị phát sáng xanh Matcha, âm Suzu vang lên, cập nhật Retention.
+- [ ] **TC-P3-03**: Kiểm thử bộ đệm SHA-256 Cache: Gửi cùng 1 câu trả lời 2 lần $\rightarrow$ Lần 2 trả về `fromCache = true` với thời gian phản hồi $< 20$ms.
+- [ ] **TC-P3-04**: Kiểm thử Timeout Fallback: Giả lập LLM phản hồi chậm 2.500ms $\rightarrow$ API kích hoạt AbortController ở 1.200ms và trả về Fallback an toàn, người học tiếp tục bài học trơn tru.

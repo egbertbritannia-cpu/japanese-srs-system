@@ -1,7 +1,7 @@
 # ⚙️ TÀI LIỆU 18: ĐẶC TẢ KỸ THUẬT NGUYÊN TỬ & BẢN THIẾT KẾ THI CÔNG HỆ THỐNG
 ## Dự án: Japanese SRS System · 記憶道 (FSRS Cognitive Spaced Repetition Engine)
 ## Cấp độ: Atomic Technical Specification & Implementation Blueprint (Tầng 2 - L2)
-## Trọng tâm: Công thức Giải tích, Lược đồ DDL SQL, Mã giả TypeScript & Hợp đồng API
+## Trọng tâm: Công thức Giải tích, Lược đồ DDL SQL, Mã giả TypeScript, Cây Thư Mục & Hợp đồng API
 
 ---
 
@@ -11,9 +11,45 @@
 
 ---
 
-## 1. GIẢI TÍCH TOÁN HỌC & CÔNG THỨC VI PHÂN CHI TIẾT
+## 1. CÂY THƯ MỤC CÁC TỆP TIN TRIỂN KHAI MỚI (PROJECT FILE TREE)
 
-### 1.1. Hệ Phương Trình Trạng Thái FSRS v5 Đầy Đủ
+```
+D:\project\japanese-srs-system\
+├── extension/                                # [Trụ Cột 4] Chrome/Edge Extension Manifest V3
+│   ├── manifest.json                         # Cấu hình đặc quyền, commands (Alt+S)
+│   ├── background.js                         # Service Worker điều phối API
+│   ├── content.js                            # Bóc tách DOM văn bản và phụ đề YouTube
+│   ├── popup.html                            # Giao diện xem trước và duyệt bản nháp
+│   └── popup.js                              # Logic đồng sáng tạo (Co-creation)
+├── src/
+│   ├── core/
+│   │   ├── scheduler/
+│   │   │   ├── fsrs-engine.ts                # [Hiện hữu] Động cơ FSRS gốc
+│   │   │   ├── fsrs-optimizer.ts             # [Trụ Cột 1] Tối ưu hóa 21 tham số WASM
+│   │   │   ├── lector-interleaving.ts        # [Trụ Cột 1] Thuật toán xen kẽ ngữ nghĩa
+│   │   │   └── latency-dynamics.ts           # [Trụ Cột 1] Hiệu chỉnh độ trễ phản xạ Bjork
+│   │   └── kanji/
+│   │       ├── kanjicompass-graph.ts         # [Trụ Cột 2] Truy vấn đệ quy CTE họ chữ Hán
+│   │       └── srl-recommender.ts            # [Trụ Cột 2] Lộ trình học tự điều chỉnh
+│   ├── db/
+│   │   └── migrations/
+│   │       └── 002_cognitive_enhancement.sql # Lược đồ 7 bảng mới cho Khoa học Nhận thức
+│   └── app/
+│       └── api/
+│           ├── scheduler/
+│           │   ├── optimize/route.ts         # Endpoint kích hoạt huấn luyện 21 tham số
+│           │   └── interleave/route.ts       # Endpoint sắp xếp xen kẽ hàng đợi
+│           ├── review/
+│           │   └── evaluate/route.ts         # [Trụ Cột 3] AI Semantic Evaluator súc tích
+│           └── capture/
+│               └── process/route.ts          # [Trụ Cột 4] Tiếp nhận bóc tách từ Extension
+```
+
+---
+
+## 2. GIẢI TÍCH TOÁN HỌC & CÔNG THỨC VI PHÂN CHI TIẾT
+
+### 2.1. Hệ Phương Trình Trạng Thái FSRS v5 Đầy Đủ
 Hệ thống FSRS v5 xác định ba biến liên tục theo thời gian:
 1. **Retrievability (Khả năng truy xuất)**:
    $$R(t, S) = \left(1 + \frac{19}{81} \cdot \frac{t}{S}\right)^{-w_{20}}$$
@@ -33,7 +69,7 @@ Hệ thống FSRS v5 xác định ba biến liên tục theo thời gian:
    - Khi Quên / Thất bại ($G = 1$ - Again):
      $$S'_f = w_{11} \cdot D^{-w_{12}} \cdot \left((S + 1)^{w_{13}} - 1\right) \cdot e^{w_{14} \cdot (1-R)}$$
 
-### 1.2. Đạo Hàm Gradient Của Hàm Mất Mát Log-Loss
+### 2.2. Đạo Hàm Gradient Của Hàm Mất Mát Log-Loss
 Hàm mất mát trên tập $N$ bản ghi ôn tập:
 
 $$\mathcal{L}(W) = -\frac{1}{N} \sum_{i=1}^N \left[ y_i \ln \hat{R}_i(W) + (1 - y_i) \ln (1 - \hat{R}_i(W)) \right] + \lambda \sum_{j=0}^{20} (w_j - w_{\text{default}, j})^2$$
@@ -54,7 +90,7 @@ $$w^{(t+1)} = w^{(t)} - \frac{\eta}{\sqrt{\hat{v}_t} + \epsilon} \hat{m}_t$$
 
 ---
 
-## 2. TOÀN VĂN LƯỢC ĐỒ DATABASE DDL (SQL MIGRATION SCRIPT)
+## 3. TOÀN VĂN LƯỢC ĐỒ DATABASE DDL (SQL MIGRATION SCRIPT)
 
 File migration `src/db/migrations/002_cognitive_enhancement.sql`:
 
@@ -62,6 +98,7 @@ File migration `src/db/migrations/002_cognitive_enhancement.sql`:
 -- ============================================================================
 -- JAPANESE SRS SYSTEM - COGNITIVE SCIENCE DATABASE EXTENSION (MIGRATION 002)
 -- ============================================================================
+PRAGMA foreign_keys = ON;
 
 -- 1. Bảng lưu trữ 21 tham số cá nhân hóa FSRS
 CREATE TABLE IF NOT EXISTS user_fsrs_parameters (
@@ -105,13 +142,14 @@ CREATE INDEX IF NOT EXISTS idx_latency_card ON retrieval_latency_logs(card_id);
 -- 4. Bảng đỉnh đồ thị chữ Hán ngữ nguyên học (KanjiCompass Graph Nodes)
 CREATE TABLE IF NOT EXISTS kanji_graph_nodes (
     id TEXT PRIMARY KEY,
-    node_type TEXT NOT NULL CHECK(node_type IN ('target_kanji', 'phonetic_grapheme', 'semantic_radical')),
+    node_type TEXT NOT NULL CHECK(node_type IN ('target_kanji', 'phonetic_grapheme', 'semantic_radical', 'ideographic_compound')),
     character TEXT NOT NULL,
     stroke_count INTEGER NOT NULL,
-    onyomi TEXT, -- Mảng JSON
-    kunyomi TEXT, -- Mảng JSON
+    onyomi TEXT, -- Mảng JSON: '["sai"]'
+    kunyomi TEXT, -- Mảng JSON: '["kiwa"]'
     primary_meaning TEXT NOT NULL,
     jlpt_level TEXT CHECK(jlpt_level IN ('N5', 'N4', 'N3', 'N2', 'N1', 'Non-JLPT')),
+    newspaper_frequency_rank INTEGER,
     etymology_explanation TEXT,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -127,7 +165,7 @@ CREATE TABLE IF NOT EXISTS kanji_graph_edges (
         'HAS_PHONETIC',
         'HAS_RADICAL',
         'SAME_PHONETIC_FAMILY',
-        'DERIVED_COGNATE'
+        'COMPOSED_OF_SEMANTIC_PARTS'
     )),
     weight REAL NOT NULL DEFAULT 1.0,
     FOREIGN KEY (source_node_id) REFERENCES kanji_graph_nodes(id) ON DELETE CASCADE,
@@ -173,285 +211,17 @@ CREATE INDEX IF NOT EXISTS idx_effort_user ON gamification_effort_ledger(user_id
 
 ---
 
-## 3. MÃ GIẢ GIẢI THUẬT CỐT LÕI (TYPESCRIPT PSEUDOCODE)
+## 4. QUY TRÌNH HỒI PHỤC KHẨN CẤP (EMERGENCY ROLLBACK PROTOCOL)
 
-### 3.1. Thuật toán LECTOR Interleaving Queue
+Nếu trong quá trình vận hành, mô hình tối ưu hóa 21 tham số FSRS cá nhân hóa bị phân kỳ gradient hoặc tính toán sai lệch khiến khoảng cách ôn tập bị kéo dài quá mức:
 
-```typescript
-export interface ReviewCardItem {
-  id: string;
-  kanji: string;
-  meaning: string;
-  due: Date;
-  stability: number;
-}
-
-/**
- * interleaveQueueBySemantics
- * Sắp xếp lại hàng đợi ôn tập để loại bỏ can thiệp ngữ nghĩa (Proactive/Retroactive Interference)
- */
-export function interleaveQueueBySemantics(
-  rawQueue: ReviewCardItem[],
-  embeddingsMap: Map<string, Float32Array>,
-  threshold = 0.85
-): ReviewCardItem[] {
-  if (rawQueue.length <= 2) return rawQueue;
-
-  const result: ReviewCardItem[] = [];
-  const remaining = [...rawQueue];
-
-  // 1. Đưa phần tử đầu tiên vào danh sách
-  result.push(remaining.shift()!);
-
-  // 2. Lặp qua các phần tử còn lại và chọn thẻ tiếp theo an toàn
-  while (remaining.length > 0) {
-    const lastCard = result[result.length - 1];
-    const lastVec = embeddingsMap.get(lastCard.id);
-
-    let bestIdx = -1;
-    let minSim = Infinity;
-
-    for (let i = 0; i < remaining.length; i++) {
-      const candidate = remaining[i];
-      const candidateVec = embeddingsMap.get(candidate.id);
-
-      if (!lastVec || !candidateVec) {
-        bestIdx = i;
-        break;
-      }
-
-      const sim = calculateCosineSimilarity(lastVec, candidateVec);
-
-      // Nếu tìm thấy thẻ hoàn toàn an toàn (< threshold)
-      if (sim < threshold) {
-        bestIdx = i;
-        break;
-      }
-
-      // Lưu lại thẻ có độ tương đồng thấp nhất phòng trường hợp bắt buộc
-      if (sim < minSim) {
-        minSim = sim;
-        bestIdx = i;
-      }
-    }
-
-    result.push(remaining.splice(bestIdx, 1)[0]);
-  }
-
-  return result;
-}
-
-function calculateCosineSimilarity(vecA: Float32Array, vecB: Float32Array): number {
-  let dotProduct = 0;
-  let normA = 0;
-  let normB = 0;
-  for (let i = 0; i < vecA.length; i++) {
-    dotProduct += vecA[i] * vecB[i];
-    normA += vecA[i] * vecA[i];
-    normB += vecB[i] * vecB[i];
-  }
-  return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB) || 1e-9);
-}
-```
-
----
-
-### 3.2. Thuật toán Hiệu chỉnh Độ trễ Phản xạ (Bjork Latency Dynamics)
-
-```typescript
-export interface LatencyAdjustmentResult {
-  effectiveGrade: 'Again' | 'Hard' | 'Good' | 'Easy';
-  penaltyApplied: boolean;
-  stabilityMultiplier: number;
-}
-
-export function evaluateRetrievalLatency(
-  userGrade: 'Again' | 'Hard' | 'Good' | 'Easy',
-  durationMs: number
-): LatencyAdjustmentResult {
-  // 1. Again hoặc Hard giữ nguyên
-  if (userGrade === 'Again' || userGrade === 'Hard') {
-    return { effectiveGrade: userGrade, penaltyApplied: false, stabilityMultiplier: 1.0 };
-  }
-
-  // 2. Người học chọn Good hoặc Easy nhưng mất > 5 giây
-  if (durationMs > 5000) {
-    return {
-      effectiveGrade: 'Hard',
-      penaltyApplied: true,
-      stabilityMultiplier: 0.5, // Giảm 50% hệ số tăng trưởng độ ổn định
-    };
-  }
-
-  // 3. Người học chọn Easy nhưng mất > 1.5 giây -> Hạ cấp thành Good
-  if (userGrade === 'Easy' && durationMs > 1500) {
-    return {
-      effectiveGrade: 'Good',
-      penaltyApplied: true,
-      stabilityMultiplier: 0.85,
-    };
-  }
-
-  // 4. Phản xạ nhanh chuẩn (< 3 giây đối với Good, < 1.5 giây đối với Easy)
-  return {
-    effectiveGrade: userGrade,
-    penaltyApplied: false,
-    stabilityMultiplier: 1.0,
-  };
-}
-```
-
----
-
-### 3.3. Thuật toán Lộ trình Học Chữ Hán KanjiCompass Tự Điều Chỉnh (SRL)
-
-```typescript
-export interface PhoneticMasteryReport {
-  phoneticGrapheme: string;
-  originalReading: string;
-  learnedCount: number;
-  totalFamilyCount: number;
-  masteryPercentage: number;
-  recommendedNextKanji?: {
-    character: string;
-    onyomi: string;
-    meaning: string;
-    jlptLevel: string;
-  };
-}
-
-export async function evaluatePhoneticFamilySRL(
-  phoneticGrapheme: string,
-  userLearnedKanji: string[],
-  userLevel: 'N5' | 'N4' | 'N3' | 'N2' | 'N1'
-): Promise<PhoneticMasteryReport> {
-  // 1. Lấy toàn bộ chữ Hán thuộc cùng thành tố biểu âm từ Đồ thị
-  const familyMembers = await db.query(
-    `SELECT n.* FROM kanji_graph_nodes n
-     JOIN kanji_graph_edges e ON n.id = e.target_node_id
-     WHERE e.source_node_id = ? AND e.relationship_type = 'HAS_PHONETIC'`,
-    [`phonetic_${phoneticGrapheme}`]
-  );
-
-  const totalFamilyCount = familyMembers.length;
-  const learnedInFamily = familyMembers.filter((k: any) => userLearnedKanji.includes(k.character));
-  const masteryPercentage = totalFamilyCount > 0 ? (learnedInFamily.length / totalFamilyCount) * 100 : 0;
-
-  // 2. Tìm ứng viên tiếp theo phù hợp trình độ i+1
-  let recommendedNextKanji;
-  if (masteryPercentage >= 50) {
-    const unlearned = familyMembers.filter((k: any) => !userLearnedKanji.includes(k.character));
-    // Ưu tiên chữ có cấp độ JLPT phù hợp
-    recommendedNextKanji = unlearned.find((k: any) => k.jlpt_level === userLevel) || unlearned[0];
-  }
-
-  return {
-    phoneticGrapheme,
-    originalReading: familyMembers[0]?.onyomi || '',
-    learnedCount: learnedInFamily.length,
-    totalFamilyCount,
-    masteryPercentage,
-    recommendedNextKanji,
-  };
-}
-```
-
----
-
-## 4. ĐẶC TẢ HỢP ĐỒNG API RESTFUL (API SPECIFICATIONS)
-
-### 4.1. Endpoint: `POST /api/scheduler/optimize`
-Kích hoạt tiến trình tối ưu hóa 21 tham số FSRS cá nhân hóa qua WASM.
-
-- **Request Headers**: `Content-Type: application/json`
-- **Request Body**:
-```json
-{
-  "force_recompute": false,
-  "min_sample_size": 1000
-}
-```
-- **Response Success (200 OK)**:
-```json
-{
-  "success": true,
-  "optimized": true,
-  "sample_size": 1342,
-  "previous_rmse": 0.384,
-  "new_rmse": 0.312,
-  "improvement_percentage": 18.75,
-  "parameters": [0.412, 0.985, 2.451, 11.23, "... 21 values ..."],
-  "applied_at": "2026-10-02T22:00:00Z"
-}
-```
-- **Response Skipped (200 OK)**:
-```json
-{
-  "success": true,
-  "optimized": false,
-  "reason": "INSUFFICIENT_LOGS",
-  "current_logs": 420,
-  "required_logs": 1000
-}
-```
-
----
-
-### 4.2. Endpoint: `POST /api/review/evaluate`
-Gửi câu trả lời của người học đến AI Semantic Evaluator đàm thoại ngắn gọn.
-
-- **Request Body**:
-```json
-{
-  "card_id": "card_789",
-  "interaction_mode": "free_production",
-  "target_word": "妥協",
-  "learner_response": "会社と妥協して、給料を上げてもらった。"
-}
-```
-- **Response (200 OK)**:
-```json
-{
-  "success": true,
-  "is_correct": true,
-  "concept_understood": true,
-  "short_feedback": "Tuyệt vời! Bạn đã vận dụng cấu trúc '会社と妥協する' rất tự nhiên và chính xác.",
-  "suggested_fix": null,
-  "credits_awarded": 10,
-  "latency_ms": 340
-}
-```
-
----
-
-### 4.3. Endpoint: `POST /api/capture/process`
-Tiếp nhận chuỗi câu bôi đen từ Chrome Extension, phân tích hình thái học và kiểm định $i+1$.
-
-- **Request Body**:
-```json
-{
-  "raw_text": "新幹線が台風の影響で運休になりました。",
-  "source_url": "https://www3.nhk.or.jp/news/easy/...",
-  "page_title": "NHK News Web Easy"
-}
-```
-- **Response (200 OK)**:
-```json
-{
-  "success": true,
-  "i_plus_one_verified": true,
-  "target_word": "運休",
-  "reading": "うんきゅう",
-  "pitch_accent": 0,
-  "meaning": "sự tạm ngừng chạy tàu/xe",
-  "cloze_sentence": "新幹線が台風の影響で{{c1::運休}}になりました。",
-  "kanji_decomposition": [
-    { "kanji": "運", "phonetic": "軍", "radical": "辶", "onyomi": "un" },
-    { "kanji": "休", "phonetic": null, "radical": "亻", "onyomi": "kyuu" }
-  ],
-  "is_draft": true,
-  "draft_id": "draft_capture_1024"
-}
+```mermaid
+flowchart TD
+    ErrorDetect["Phát hiện bất thường: RMSE tăng > 0.45 hoặc Tỷ lệ quên > 30%"] --> TriggerRollback["Kích hoạt Emergency Rollback"]
+    TriggerRollback --> DisableActive["UPDATE user_fsrs_parameters SET is_active = 0"]
+    DisableActive --> ResetDefault["Kích hoạt bộ tham số chuẩn cộng đồng W_default"]
+    ResetDefault --> ClearInterleave["Tạm dừng bộ lọc LECTOR, quay lại hàng đợi FSRS cơ sở"]
+    ResetDefault --> NotifyUser["Gửi thông báo: 'Hệ thống đã tự động khôi phục cấu hình an toàn'"]
 ```
 
 ---
