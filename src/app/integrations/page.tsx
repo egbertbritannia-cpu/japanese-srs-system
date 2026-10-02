@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ToriiIcon, SensuFanIcon, OrizuruIcon } from '@/components/japanese/Icons';
 import { JapaneseArtBackdrop } from '@/components/art/JapaneseArtBackdrop';
 
@@ -24,30 +25,12 @@ export default function IntegrationsPage() {
 
   // Google Tasks state
   const [taskMessage, setTaskMessage] = useState<string | null>(null);
-  const [isHashDomain, setIsHashDomain] = useState(false);
-  const [oauthError, setOauthError] = useState<string | null>(null);
-  const [oauthSuccess, setOauthSuccess] = useState<string | null>(null);
   const [connecting, setConnecting] = useState(false);
   const [copiedUri, setCopiedUri] = useState(false);
 
   // Fetch status on load & capture query params
   useEffect(() => {
     fetchStatus();
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      const err = params.get('error');
-      const st = params.get('status');
-      if (err) {
-        setOauthError(err);
-      }
-      if (st === 'connected') {
-        setOauthSuccess('🎉 Chúc mừng! Đã kết nối tài khoản Google thành công!');
-        fetchStatus();
-      }
-      if (/japanese-srs-system-[a-z0-9]{9}-/.test(window.location.hostname)) {
-        setIsHashDomain(true);
-      }
-    }
   }, []);
 
   function handleCopyUri() {
@@ -97,13 +80,13 @@ export default function IntegrationsPage() {
       });
       const data = await res.json();
       if (data.success) {
-        setSheetMessage(`🎉 Đã xuất thành công ${data.rowCount} thẻ! [Bấm vào đây để mở Google Sheet](${data.spreadsheetUrl})`);
+        setSheetMessage(`Đã xuất thành công ${data.rowCount} thẻ sang Google Sheets!`);
         window.open(data.spreadsheetUrl, '_blank');
       } else {
-        setSheetMessage(`❌ ${data.error || 'Lỗi khi tạo Google Sheet'}`);
+        setSheetMessage(data.error || 'Lỗi khi tạo Google Sheet');
       }
     } catch (e: any) {
-      setSheetMessage(`❌ Lỗi kết nối: ${e.message}`);
+      setSheetMessage(`Lỗi kết nối: ${e.message}`);
     } finally {
       setLoading(false);
     }
@@ -128,58 +111,67 @@ export default function IntegrationsPage() {
       const data = await res.json();
       if (data.success) {
         setSheetPreview(data.preview || []);
-        setSheetMessage(`✅ Đã tìm thấy ${data.cardsCount} dòng từ vựng trong bảng tính!`);
+        setSheetMessage(`Tìm thấy ${data.rowCount} dòng dữ liệu hợp lệ.`);
       } else {
-        setSheetMessage(`❌ ${data.error}`);
+        setSheetMessage(data.error || 'Không thể đọc dữ liệu từ Sheet');
       }
     } catch (e: any) {
-      setSheetMessage(`❌ Lỗi: ${e.message}`);
+      setSheetMessage(`Lỗi: ${e.message}`);
     } finally {
       setLoading(false);
     }
   }
 
   async function handleExecuteImport() {
-    if (!confirm(`Bạn có chắc muốn nạp ${sheetPreview.length} từ vựng vào bộ thẻ JPD133?`)) return;
+    if (!sheetUrl.trim()) return;
     setLoading(true);
     try {
       const res = await fetch('/api/google/sheets/import', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ urlOrId: sheetUrl, action: 'import', deckId: 'deck_jpd133' }),
+        body: JSON.stringify({ urlOrId: sheetUrl, action: 'import' }),
       });
       const data = await res.json();
       if (data.success) {
-        setSheetMessage(`🎉 ${data.message}`);
+        alert(`Đã nạp thành công ${data.importedCount} thẻ vào hệ thống!`);
         setSheetPreview([]);
+        setSheetUrl('');
+        setSheetMessage(null);
       } else {
-        setSheetMessage(`❌ ${data.error}`);
+        alert(data.error || 'Lỗi khi nạp dữ liệu');
       }
-    } catch (e: any) {
-      setSheetMessage(`❌ Lỗi: ${e.message}`);
+    } catch {
+      alert('Lỗi kết nối máy chủ');
     } finally {
       setLoading(false);
     }
   }
 
-  // 2. Google Calendar: 1-Click Quick Add Web Link
-  async function handleCalendarQuickAdd() {
-    try {
-      const res = await fetch('/api/google/calendar/sync', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ time: studyTime, recurDaily, mode: 'quick_add' }),
-      });
-      const data = await res.json();
-      if (data.quickAddUrl) {
-        window.open(data.quickAddUrl, '_blank');
-      }
-    } catch (e: any) {
-      alert('Lỗi tạo link lịch học: ' + e.message);
+  // 2. Google Calendar
+  function handleCalendarQuickAdd() {
+    const title = encodeURIComponent('Ôn tập tiếng Nhật FSRS (484 thẻ)');
+    const details = encodeURIComponent(
+      'Phiên học ngắt quãng FSRS hàng ngày giúp củng cố trí nhớ dài hạn.\nĐường link vào học: https://japanese-srs-system.vercel.app/review'
+    );
+    const [h, m] = studyTime.split(':');
+    const startHour = h || '20';
+    const startMin = m || '00';
+    const now = new Date();
+    const y = now.getFullYear();
+    const mo = String(now.getMonth() + 1).padStart(2, '0');
+    const d = String(now.getDate()).padStart(2, '0');
+
+    const dtStart = `${y}${mo}${d}T${startHour}${startMin}00`;
+    const endH = String((parseInt(startHour, 10) + 1) % 24).padStart(2, '0');
+    const dtEnd = `${y}${mo}${d}T${endH}${startMin}00`;
+
+    let url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&dates=${dtStart}/${dtEnd}`;
+    if (recurDaily) {
+      url += '&recur=RRULE:FREQ=DAILY';
     }
+    window.open(url, '_blank');
   }
 
-  // 2b. Google Calendar: Direct API Sync
   async function handleCalendarApiSync() {
     setLoading(true);
     setCalendarMessage(null);
@@ -187,23 +179,22 @@ export default function IntegrationsPage() {
       const res = await fetch('/api/google/calendar/sync', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ time: studyTime, recurDaily, mode: 'api_sync' }),
+        body: JSON.stringify({ studyTime, recurDaily }),
       });
       const data = await res.json();
       if (data.success) {
-        setCalendarMessage(`🎉 ${data.message}`);
-        if (data.htmlLink) window.open(data.htmlLink, '_blank');
+        setCalendarMessage(`Đã tạo lịch học thành công trên Google Calendar!`);
       } else {
-        setCalendarMessage(`❌ ${data.error}`);
+        setCalendarMessage(data.error || 'Lỗi đồng bộ Calendar');
       }
     } catch (e: any) {
-      setCalendarMessage(`❌ Lỗi: ${e.message}`);
+      setCalendarMessage(`Lỗi: ${e.message}`);
     } finally {
       setLoading(false);
     }
   }
 
-  // 3. Google Tasks: Sync daily goals
+  // 3. Google Tasks
   async function handleSyncTasks() {
     setLoading(true);
     setTaskMessage(null);
@@ -211,125 +202,40 @@ export default function IntegrationsPage() {
       const res = await fetch('/api/google/tasks/sync', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ dueCount: 15, newCount: 5 }),
+        body: JSON.stringify({
+          tasks: [
+            { title: 'Ôn tập thẻ tiếng Nhật đến hạn FSRS', dueOffsetDays: 0 },
+            { title: 'Học 5 chữ Hán / từ vựng mới', dueOffsetDays: 0 },
+          ],
+        }),
       });
       const data = await res.json();
       if (data.success) {
-        setTaskMessage(`🎉 ${data.message} (Kiểm tra ứng dụng Google Tasks trên điện thoại hoặc thanh bên Gmail)`);
+        setTaskMessage(`Đã thêm thành công các nhiệm vụ học vào Google Tasks!`);
       } else {
-        setTaskMessage(`❌ ${data.error || 'Cần kết nối Google trước'}`);
+        setTaskMessage(data.error || 'Lỗi đồng bộ Tasks');
       }
     } catch (e: any) {
-      setTaskMessage(`❌ Lỗi: ${e.message}`);
+      setTaskMessage(`Lỗi: ${e.message}`);
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <main style={{ maxWidth: '1050px', margin: '2rem auto', padding: '0 1.5rem 4rem' }}>
-      {/* CẢNH BÁO TÊN MIỀN TẠM THỜI TRÊN VERCEL */}
-      {isHashDomain && (
-        <div
-          style={{
-            background: '#FEF3C7',
-            border: '1px solid #F59E0B',
-            borderRadius: '12px',
-            padding: '1rem 1.25rem',
-            marginBottom: '1.5rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: '1rem',
-            boxShadow: 'var(--shadow-washi-sm)',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <span style={{ fontSize: '1.4rem' }}>💡</span>
-            <div>
-              <p style={{ margin: 0, fontSize: '0.88rem', fontWeight: 700, color: '#92400E' }}>
-                Bạn đang truy cập qua link bản build tạm thời (mỗi lần build sẽ đổi mã băm ngẫu nhiên)
-              </p>
-              <p style={{ margin: '0.2rem 0 0', fontSize: '0.8rem', color: '#B45309' }}>
-                Để kết nối Google không bị báo lỗi <code>redirect_uri_mismatch</code>, hãy sử dụng link chính thức cố định.
-              </p>
-            </div>
-          </div>
-          <a
-            href="https://japanese-srs-system-git-main-cassius1.vercel.app/integrations"
-            className="btn-matcha"
-            style={{ padding: '0.5rem 1rem', fontSize: '0.85rem', textDecoration: 'none', background: '#D97706' }}
-          >
-            👉 Chuyển sang Tên miền cố định
-          </a>
-        </div>
-      )}
-
-      {/* THÔNG BÁO LỖI HOẶC THÀNH CÔNG TỪ GOOGLE OAUTH */}
-      {oauthError && (
-        <div
-          style={{
-            padding: '1rem 1.25rem',
-            borderRadius: '12px',
-            background: 'rgba(239, 68, 68, 0.1)',
-            border: '1px solid #EF4444',
-            color: '#B91C1C',
-            marginBottom: '1.5rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            fontSize: '0.9rem',
-            boxShadow: 'var(--shadow-washi-sm)',
-          }}
-        >
-          <span>⚠️ <strong>Lỗi kết nối Google:</strong> {oauthError}</span>
-          <button
-            onClick={() => setOauthError(null)}
-            style={{ background: 'transparent', border: 'none', cursor: 'pointer', fontWeight: 'bold', fontSize: '1rem', color: '#B91C1C' }}
-          >
-            ✕
-          </button>
-        </div>
-      )}
-
-      {oauthSuccess && (
-        <div
-          style={{
-            padding: '1rem 1.25rem',
-            borderRadius: '12px',
-            background: 'rgba(16, 185, 129, 0.1)',
-            border: '1px solid #10B981',
-            color: '#065F46',
-            marginBottom: '1.5rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            fontSize: '0.9rem',
-            boxShadow: 'var(--shadow-washi-sm)',
-          }}
-        >
-          <span>{oauthSuccess}</span>
-          <button
-            onClick={() => setOauthSuccess(null)}
-            style={{ background: 'transparent', border: 'none', cursor: 'pointer', fontWeight: 'bold', fontSize: '1rem', color: '#065F46' }}
-          >
-            ✕
-          </button>
-        </div>
-      )}
-
-      {/* 1. HERO BANNER WA-STYLE CÓ HOA VĂN MẠ VÀNG RINPA */}
+    <main style={{ maxWidth: '980px', margin: '1.5rem auto', padding: '0 1.25rem 3.5rem' }}>
+      {/* 1. HEADER NGHỆ THUẬT SÓNG ĐÊM VÀNG (NIGHT GOLDEN WAVES) */}
       <section
-        className="wagara-seigaiha-matcha"
         style={{
-          borderRadius: '20px',
-          padding: '2.5rem 2rem',
-          color: '#FFFFFF',
-          marginBottom: '2rem',
-          boxShadow: 'var(--shadow-karuta)',
           position: 'relative',
+          borderRadius: '20px',
           overflow: 'hidden',
+          padding: '2.5rem 2.25rem',
+          marginBottom: '1.75rem',
+          border: '1.5px solid #C89B58',
+          boxShadow: '0 12px 32px rgba(18, 36, 56, 0.1)',
+          background: 'linear-gradient(135deg, #091829 0%, #112842 55%, #0C1E34 100%)',
+          color: '#FFFFFF',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -337,101 +243,91 @@ export default function IntegrationsPage() {
           gap: '1.5rem',
         }}
       >
-        <JapaneseArtBackdrop
-          src="/assets/art/rinpa-gold-waves-clouds.jpg"
-          alt="Trường phái Rinpa sóng vàng và mây hoa"
-          opacity={0.24}
-          blendMode="overlay"
-          objectPosition="center"
-        />
+        {/* Lớp nền sóng vàng đêm nghệ thuật */}
+        <div style={{ position: 'absolute', inset: 0, opacity: 0.32, pointerEvents: 'none', zIndex: 0 }}>
+          <Image
+            src="/assets/art/night-golden-waves.jpg"
+            alt="Sóng vàng đêm nghệ thuật Rinpa"
+            fill
+            sizes="100vw"
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
+          />
+        </div>
 
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'linear-gradient(135deg, rgba(23, 73, 77, 0.92) 0%, rgba(38, 110, 115, 0.86) 100%)',
-            zIndex: 1,
-          }}
-        />
-
-        <div style={{ position: 'relative', zIndex: 2, maxWidth: '650px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.75rem' }}>
+        <div style={{ position: 'relative', zIndex: 2, maxWidth: '620px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.75rem' }}>
             <span
               style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.35rem',
-                padding: '0.25rem 0.75rem',
-                background: 'rgba(255, 255, 255, 0.15)',
-                backdropFilter: 'blur(8px)',
-                borderRadius: '999px',
-                fontSize: '0.85rem',
-                fontFamily: 'var(--font-maru)',
-                fontWeight: 600,
+                fontFamily: 'var(--font-mincho)',
+                background: '#C83824',
+                color: '#FFFFFF',
+                fontWeight: 800,
+                fontSize: '0.78rem',
+                padding: '0.2rem 0.65rem',
+                borderRadius: '4px',
+                letterSpacing: '0.08em',
               }}
             >
-              <SensuFanIcon size={16} color="#FFFFFF" />
-              Google Workspace 連携 · Tiện ích Mở rộng
+              連係網 · TIỆN ÍCH
+            </span>
+            <span style={{ fontSize: '0.82rem', color: '#E8D9BD', fontFamily: 'var(--font-maru)' }}>
+              Đồng bộ hệ sinh thái Google Workspace
             </span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '0.75rem' }}>
-            <div
-              className="tategaki-box"
-              style={{
-                borderColor: '#D4AF37',
-                color: '#FFFFFF',
-                background: 'rgba(217, 56, 30, 0.9)',
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.25)',
-                fontSize: '0.8rem',
-                padding: '0.75rem 0.35rem',
-                flexShrink: 0,
-              }}
-            >
-              連係網 · 雲端
-            </div>
-            <div>
-              <h1
-                style={{
-                  fontFamily: 'var(--font-mincho)',
-                  fontSize: '2.3rem',
-                  fontWeight: 800,
-                  lineHeight: 1.25,
-                  margin: 0,
-                  textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-                }}
-              >
-                Đồng bộ Bảng tính, Lịch học &amp; To-Do List
-              </h1>
-            </div>
-          </div>
-          <p
+          <h1
             style={{
-              fontSize: '1rem',
-              lineHeight: 1.6,
-              opacity: 0.95,
-              fontFamily: 'var(--font-maru)',
+              fontFamily: 'var(--font-mincho)',
+              fontSize: '2.2rem',
+              fontWeight: 800,
+              lineHeight: 1.25,
+              margin: '0 0 0.5rem 0',
+              textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
             }}
           >
-            Kết nối ứng dụng học tiếng Nhật với hệ sinh thái Google của bạn. Tự động nhắc nhở ôn tập FSRS mỗi ngày, đồng bộ từ vựng 2 chiều với Google Sheets và theo dõi mục tiêu học tập qua Google Tasks.
+            Đồng bộ Bảng tính &amp; Lịch học FSRS
+          </h1>
+
+          <p style={{ color: 'rgba(250, 248, 245, 0.9)', fontSize: '0.92rem', lineHeight: 1.5, margin: '0 0 1.25rem 0' }}>
+            Kết nối ứng dụng học tiếng Nhật với Google Calendar để nhắc nhở giờ ôn tập mỗi ngày, đồng bộ từ vựng 2 chiều qua Google Sheets và theo dõi mục tiêu học tập qua Google Tasks.
           </p>
+
+          <Link
+            href="/"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.35rem',
+              color: '#FFFFFF',
+              textDecoration: 'none',
+              fontSize: '0.88rem',
+              fontFamily: 'var(--font-maru)',
+              fontWeight: 600,
+              padding: '0.5rem 1rem',
+              background: 'rgba(255, 255, 255, 0.12)',
+              borderRadius: '8px',
+              border: '1px solid rgba(255, 255, 255, 0.25)',
+            }}
+          >
+            ← Quay lại Trang chủ
+          </Link>
         </div>
 
         <div style={{ position: 'relative', zIndex: 2 }}>
           <div
             style={{
-              width: '80px',
-              height: '80px',
+              width: '68px',
+              height: '68px',
               borderRadius: '16px',
-              background: 'rgba(255, 255, 255, 0.15)',
+              background: 'rgba(255, 255, 255, 0.1)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               backdropFilter: 'blur(8px)',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
+              border: '1.2px solid rgba(200, 155, 88, 0.5)',
             }}
           >
-            <OrizuruIcon size={46} color="#FFFFFF" />
+            <OrizuruIcon size={38} color="#FFFFFF" />
           </div>
         </div>
       </section>
@@ -439,12 +335,12 @@ export default function IntegrationsPage() {
       {/* 2. TRẠNG THÁI KẾT NỐI TÀI KHOẢN GOOGLE */}
       <section
         style={{
-          background: 'var(--washi-surface)',
-          border: '1px solid var(--washi-border)',
+          background: '#FAF7F0',
+          border: '1.2px solid #E6DDCF',
           borderRadius: '16px',
-          padding: '1.5rem 2rem',
-          marginBottom: '2.5rem',
-          boxShadow: 'var(--shadow-washi-md)',
+          padding: '1.35rem 1.75rem',
+          marginBottom: '1.75rem',
+          boxShadow: '0 4px 14px rgba(18, 36, 56, 0.04)',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -452,220 +348,206 @@ export default function IntegrationsPage() {
           gap: '1.25rem',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
           <div
             style={{
-              width: '48px',
-              height: '48px',
-              borderRadius: '12px',
-              background: status.authenticated ? 'rgba(16, 185, 129, 0.12)' : 'rgba(217, 56, 30, 0.08)',
+              width: '42px',
+              height: '42px',
+              borderRadius: '10px',
+              background: status.authenticated ? '#EBF5EE' : '#FAF6EE',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              border: `1px solid ${status.authenticated ? '#10B981' : '#D9381E'}`,
+              border: `1.2px solid ${status.authenticated ? '#3E734E' : '#C89B58'}`,
+              fontFamily: 'var(--font-mincho)',
+              fontWeight: 800,
+              fontSize: '1rem',
+              color: status.authenticated ? '#3E734E' : '#122438',
             }}
           >
-            <span style={{ fontSize: '1.4rem' }}>{status.authenticated ? '🟢' : '⚪'}</span>
+            {status.authenticated ? '連' : '雲'}
           </div>
           <div>
-            <h3 style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.15rem', color: 'var(--sumi-ink)', fontWeight: 700, margin: 0 }}>
-              {status.authenticated ? 'Tài khoản Google đã kết nối' : 'Chưa kết nối tài khoản Google'}
+            <h3 style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.1rem', color: '#122438', fontWeight: 700, margin: 0 }}>
+              {status.authenticated ? `Đã kết nối: ${status.userEmail || 'Tài khoản Google'}` : 'Chế độ hoạt động độc lập (Không cần đăng nhập)'}
             </h3>
-            <p style={{ fontSize: '0.85rem', color: 'var(--sumi-faded)', margin: '0.25rem 0 0' }}>
+            <p style={{ fontSize: '0.82rem', color: '#786A5E', margin: '0.2rem 0 0' }}>
               {status.authenticated
-                ? 'Đã kết nối tài khoản Google để đồng bộ tự động 2 chiều.'
-                : 'Trang web hoạt động 100% tự do mà KHÔNG CẦN ĐĂNG NHẬP. Các tính năng "1-Click Thêm vào Calendar", "Tải CSV" & "Nhập Sheet công khai" đều dùng được ngay!'}
+                ? 'Đã sẵn sàng đồng bộ 2 chiều tự động.'
+                : 'Bạn vẫn có thể xuất file CSV, thêm sự kiện vào Google Calendar ngay trên trình duyệt mà không cần tài khoản!'}
             </p>
           </div>
         </div>
 
         <div>
           {status.authenticated ? (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-              {status.userEmail && (
-                <span
-                  style={{
-                    fontSize: '0.85rem',
-                    color: 'var(--sumi-charcoal)',
-                    background: 'rgba(16, 185, 129, 0.1)',
-                    padding: '0.35rem 0.75rem',
-                    borderRadius: '8px',
-                    border: '1px solid rgba(16, 185, 129, 0.3)',
-                    fontWeight: 600,
-                  }}
-                >
-                  👤 {status.userEmail}
-                </span>
-              )}
-              <button
-                onClick={handleDisconnectGoogle}
-                className="btn-washi"
-                style={{ color: '#EF4444', borderColor: '#FCA5A5' }}
-              >
-                Ngắt kết nối
-              </button>
-            </div>
+            <button
+              onClick={handleDisconnectGoogle}
+              style={{
+                padding: '0.5rem 1rem',
+                borderRadius: '8px',
+                border: '1.2px solid #E6DDCF',
+                background: '#FFFFFF',
+                color: '#C83824',
+                fontSize: '0.85rem',
+                fontFamily: 'var(--font-maru)',
+                fontWeight: 600,
+                cursor: 'pointer',
+              }}
+            >
+              Ngắt kết nối
+            </button>
           ) : (
             <a
               href="/api/google/auth-redirect"
-              className="btn-matcha"
+              className="btn-torii"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '0.5rem',
+                gap: '0.45rem',
                 textDecoration: 'none',
-                cursor: 'pointer',
-                fontWeight: 600,
-                boxShadow: '0 4px 14px rgba(92, 107, 74, 0.35)',
+                padding: '0.55rem 1.15rem',
+                fontSize: '0.85rem',
+                boxShadow: '0 4px 12px rgba(200, 56, 36, 0.25)',
               }}
-              onClick={() => {
-                setConnecting(true);
-              }}
+              onClick={() => setConnecting(true)}
             >
-              {connecting ? '⏳ Đang chuyển hướng sang Google...' : '🔑 Kết nối tài khoản Google'}
+              {connecting ? 'Đang chuyển hướng...' : 'Kết nối Google'}
             </a>
           )}
         </div>
       </section>
 
-      {/* 2b. HƯỚNG DẪN CẤU HÌNH GOOGLE CONSOLE URI (DÀNH CHO ADMIN) */}
-      {!status.authenticated && (
-        <div
-          style={{
-            marginTop: '-1.5rem',
-            marginBottom: '2.5rem',
-            padding: '1rem 1.25rem',
-            borderRadius: '12px',
-            background: 'rgba(92, 107, 74, 0.06)',
-            border: '1px dashed var(--matcha-border)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: '0.75rem',
-            fontSize: '0.85rem',
-            color: 'var(--sumi-charcoal)',
-          }}
-        >
-          <div>
-            <span style={{ fontWeight: 700, color: 'var(--matcha-deep)' }}>📌 Authorized redirect URI cho Google Console:</span>{' '}
-            <code style={{ background: '#FFFFFF', padding: '0.2rem 0.5rem', borderRadius: '4px', border: '1px solid var(--washi-border)', fontSize: '0.82rem', fontFamily: 'monospace' }}>
-              https://japanese-srs-system-git-main-cassius1.vercel.app/api/google/callback
-            </code>
-          </div>
-          <button
-            onClick={handleCopyUri}
-            className="btn-washi"
-            style={{ padding: '0.35rem 0.75rem', fontSize: '0.8rem' }}
-          >
-            {copiedUri ? '✅ Đã sao chép' : '📋 Sao chép URI'}
-          </button>
-        </div>
-      )}
-
       {/* 3. BENTO GRID: 3 TIỆN ÍCH GOOGLE WORKSPACE */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.75rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
         {/* CARD 1: GOOGLE SHEETS */}
         <div
-          className="card-karuta"
           style={{
-            padding: '2rem',
-            background: 'var(--washi-surface)',
+            padding: '1.75rem',
+            background: '#FAF7F0',
+            borderRadius: '16px',
+            border: '1.2px solid #E6DDCF',
+            boxShadow: '0 4px 14px rgba(18, 36, 56, 0.04)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
+            position: 'relative',
+            overflow: 'hidden',
           }}
         >
-          <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
+          <JapaneseArtBackdrop
+            src="/assets/art/ryusui-indigo-stream.jpg"
+            alt="Dòng chảy Ryusui"
+            opacity={0.08}
+            blendMode="multiply"
+            objectPosition="bottom right"
+          />
+
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.85rem' }}>
               <div>
                 <span
                   style={{
                     display: 'inline-block',
-                    padding: '0.2rem 0.6rem',
-                    background: 'rgba(16, 185, 129, 0.12)',
-                    color: '#059669',
-                    borderRadius: '6px',
-                    fontSize: '0.75rem',
+                    padding: '0.2rem 0.55rem',
+                    background: '#EDF4FA',
+                    color: '#1E4B75',
+                    borderRadius: '4px',
+                    fontSize: '0.74rem',
                     fontWeight: 700,
                     fontFamily: 'var(--font-maru)',
-                    marginBottom: '0.5rem',
+                    marginBottom: '0.4rem',
                   }}
                 >
-                  表計算 · GOOGLE SHEETS
+                  GOOGLE SHEETS
                 </span>
-                <h3 style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.25rem', color: 'var(--sumi-ink)', fontWeight: 700 }}>
+                <h3 style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.2rem', color: '#122438', fontWeight: 700, margin: 0 }}>
                   Bảng tính Từ vựng
                 </h3>
               </div>
-              <div className="inkan-stamp-badge" title="Google Sheets">
-                表
-              </div>
             </div>
 
-            <p style={{ fontSize: '0.9rem', color: 'var(--sumi-faded)', lineHeight: 1.5, marginBottom: '1.25rem' }}>
-              Xuất toàn bộ 484 thẻ học (kèm độ ổn định FSRS) sang Google Sheets cá nhân, hoặc nhập danh sách từ mới từ bảng tính có sẵn.
+            <p style={{ fontSize: '0.86rem', color: '#786A5E', lineHeight: 1.5, marginBottom: '1.25rem' }}>
+              Xuất toàn bộ thẻ học kèm thông số FSRS sang Google Sheets hoặc tải tệp CSV tương thích mọi thiết bị.
             </p>
 
-            {/* Action 1: Export */}
-            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1.5rem' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1.25rem' }}>
               <button
                 onClick={handleExportSheet}
                 disabled={loading || !status.authenticated}
-                className="btn-matcha"
-                style={{ flex: 1, padding: '0.65rem 1rem', fontSize: '0.85rem' }}
-                title={!status.authenticated ? 'Cần kết nối Google để xuất trực tiếp' : ''}
+                className="btn-torii"
+                style={{
+                  flex: 1,
+                  padding: '0.55rem 0.85rem',
+                  fontSize: '0.84rem',
+                  opacity: status.authenticated ? 1 : 0.6,
+                }}
               >
-                📊 Tạo Google Sheet mới
+                Xuất Google Sheet
               </button>
               <button
                 onClick={handleDownloadCsv}
-                className="btn-washi"
-                style={{ padding: '0.65rem 1rem', fontSize: '0.85rem' }}
-                title="Tải file CSV tương thích 100% với Google Drive & Excel (Không cần kết nối)"
+                style={{
+                  padding: '0.55rem 0.85rem',
+                  fontSize: '0.84rem',
+                  borderRadius: '8px',
+                  border: '1.2px solid #E6DDCF',
+                  background: '#FFFFFF',
+                  color: '#122438',
+                  fontFamily: 'var(--font-maru)',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                }}
               >
-                💾 Tải file CSV
+                Tải file CSV
               </button>
             </div>
 
-            {/* Action 2: Import */}
-            <div style={{ borderTop: '1px dashed var(--washi-border)', paddingTop: '1.25rem' }}>
-              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--sumi-charcoal)', marginBottom: '0.4rem' }}>
-                Nhập từ Google Sheet:
+            {/* Nhập từ Sheet */}
+            <div style={{ borderTop: '1px solid #ECE4D6', paddingTop: '1rem' }}>
+              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#122438', marginBottom: '0.35rem' }}>
+                Nhập từ Google Sheet công khai:
               </label>
-              <div style={{ display: 'flex', gap: '0.5rem' }}>
+              <div style={{ display: 'flex', gap: '0.4rem' }}>
                 <input
                   type="text"
-                  placeholder="Paste link hoặc ID bảng tính..."
+                  placeholder="Dán link hoặc ID Google Sheet..."
                   value={sheetUrl}
                   onChange={(e) => setSheetUrl(e.target.value)}
                   style={{
                     flex: 1,
                     padding: '0.5rem 0.75rem',
                     borderRadius: '8px',
-                    border: '1px solid var(--washi-border)',
-                    fontSize: '0.85rem',
+                    border: '1px solid #E6DDCF',
+                    fontSize: '0.84rem',
                     background: '#FFFFFF',
                   }}
                 />
                 <button
                   onClick={handlePreviewSheet}
                   disabled={loading || !sheetUrl.trim()}
-                  className="btn-washi"
-                  style={{ padding: '0.5rem 0.85rem', fontSize: '0.85rem' }}
+                  style={{
+                    padding: '0.5rem 0.75rem',
+                    fontSize: '0.82rem',
+                    borderRadius: '8px',
+                    border: '1.2px solid #E6DDCF',
+                    background: '#FFFFFF',
+                    color: '#122438',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                  }}
                 >
                   Đọc Sheet
                 </button>
               </div>
             </div>
 
-            {/* Preview table if available */}
             {sheetPreview.length > 0 && (
-              <div style={{ marginTop: '1rem', background: '#F8FAF2', padding: '0.75rem', borderRadius: '8px', border: '1px solid #D1FAE5' }}>
-                <p style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--matcha-deep)', margin: '0 0 0.5rem' }}>
+              <div style={{ marginTop: '0.85rem', background: '#FFFFFF', padding: '0.75rem', borderRadius: '8px', border: '1px solid #E6DDCF' }}>
+                <p style={{ fontSize: '0.78rem', fontWeight: 700, color: '#3E734E', margin: '0 0 0.35rem' }}>
                   Tìm thấy {sheetPreview.length} từ vựng xem trước:
                 </p>
-                <ul style={{ margin: 0, paddingLeft: '1.2rem', fontSize: '0.8rem', color: 'var(--sumi-charcoal)' }}>
+                <ul style={{ margin: 0, paddingLeft: '1.1rem', fontSize: '0.78rem', color: '#122438' }}>
                   {sheetPreview.slice(0, 3).map((item, idx) => (
                     <li key={idx}>
                       <strong>{item.kanji}</strong> ({item.reading}): {item.meaning}
@@ -675,16 +557,16 @@ export default function IntegrationsPage() {
                 <button
                   onClick={handleExecuteImport}
                   disabled={loading}
-                  className="btn-matcha"
-                  style={{ marginTop: '0.75rem', width: '100%', padding: '0.5rem', fontSize: '0.82rem' }}
+                  className="btn-torii"
+                  style={{ marginTop: '0.65rem', width: '100%', padding: '0.45rem', fontSize: '0.8rem' }}
                 >
-                  🚀 Xác nhận nạp vào Database
+                  Xác nhận nạp vào Database
                 </button>
               </div>
             )}
 
             {sheetMessage && (
-              <p style={{ marginTop: '0.75rem', fontSize: '0.82rem', color: sheetMessage.includes('❌') ? '#DC2626' : '#059669' }}>
+              <p style={{ marginTop: '0.65rem', fontSize: '0.8rem', color: '#122438' }}>
                 {sheetMessage}
               </p>
             )}
@@ -693,49 +575,45 @@ export default function IntegrationsPage() {
 
         {/* CARD 2: GOOGLE CALENDAR */}
         <div
-          className="card-karuta"
           style={{
-            padding: '2rem',
-            background: 'var(--washi-surface)',
+            padding: '1.75rem',
+            background: '#FAF7F0',
+            borderRadius: '16px',
+            border: '1.2px solid #E6DDCF',
+            boxShadow: '0 4px 14px rgba(18, 36, 56, 0.04)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
           }}
         >
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-              <div>
-                <span
-                  style={{
-                    display: 'inline-block',
-                    padding: '0.2rem 0.6rem',
-                    background: 'var(--torii-subtle)',
-                    color: 'var(--torii-red)',
-                    borderRadius: '6px',
-                    fontSize: '0.75rem',
-                    fontWeight: 700,
-                    fontFamily: 'var(--font-maru)',
-                    marginBottom: '0.5rem',
-                  }}
-                >
-                  予定表 · GOOGLE CALENDAR
-                </span>
-                <h3 style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.25rem', color: 'var(--sumi-ink)', fontWeight: 700 }}>
-                  Lịch nhắc ôn tập FSRS
-                </h3>
-              </div>
-              <div className="inkan-stamp-badge" title="Google Calendar" style={{ borderColor: 'var(--torii-red)', color: 'var(--torii-red)' }}>
-                暦
-              </div>
+            <div style={{ marginBottom: '0.85rem' }}>
+              <span
+                style={{
+                  display: 'inline-block',
+                  padding: '0.2rem 0.55rem',
+                  background: '#EDF4FA',
+                  color: '#1E4B75',
+                  borderRadius: '4px',
+                  fontSize: '0.74rem',
+                  fontWeight: 700,
+                  fontFamily: 'var(--font-maru)',
+                  marginBottom: '0.4rem',
+                }}
+              >
+                GOOGLE CALENDAR
+              </span>
+              <h3 style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.2rem', color: '#122438', fontWeight: 700, margin: 0 }}>
+                Lịch nhắc ôn tập FSRS
+              </h3>
             </div>
 
-            <p style={{ fontSize: '0.9rem', color: 'var(--sumi-faded)', lineHeight: 1.5, marginBottom: '1.25rem' }}>
-              Tạo sự kiện nhắc nhở học ngắt quãng hàng ngày trên Google Calendar, kèm đường link vào học ngay trên điện thoại hoặc máy tính.
+            <p style={{ fontSize: '0.86rem', color: '#786A5E', lineHeight: 1.5, marginBottom: '1.25rem' }}>
+              Tạo sự kiện nhắc nhở học ngắt quãng hàng ngày trên Google Calendar kèm liên kết truy cập nhanh.
             </p>
 
-            {/* Time Selector */}
             <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--sumi-charcoal)', marginBottom: '0.4rem' }}>
+              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#122438', marginBottom: '0.35rem' }}>
                 Khung giờ học mỗi ngày:
               </label>
               <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
@@ -744,168 +622,102 @@ export default function IntegrationsPage() {
                   value={studyTime}
                   onChange={(e) => setStudyTime(e.target.value)}
                   style={{
-                    padding: '0.5rem 0.75rem',
+                    padding: '0.45rem 0.65rem',
                     borderRadius: '8px',
-                    border: '1px solid var(--washi-border)',
-                    fontSize: '0.95rem',
+                    border: '1px solid #E6DDCF',
+                    fontSize: '0.9rem',
                     fontFamily: 'var(--font-maru)',
                     fontWeight: 600,
                   }}
                 />
-                <label style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.82rem', color: 'var(--sumi-charcoal)', cursor: 'pointer' }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.8rem', color: '#786A5E', cursor: 'pointer' }}>
                   <input
                     type="checkbox"
                     checked={recurDaily}
                     onChange={(e) => setRecurDaily(e.target.checked)}
                   />
-                  Lặp lại hàng ngày
+                  Lặp lại mỗi ngày
                 </label>
               </div>
             </div>
 
-            {/* Actions */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', marginTop: '1.25rem' }}>
-              <button
-                onClick={handleCalendarQuickAdd}
-                className="btn-torii"
-                style={{ width: '100%', padding: '0.75rem', fontSize: '0.9rem' }}
-              >
-                ⚡ 1-Click Thêm vào Google Calendar
-              </button>
-              <p style={{ fontSize: '0.75rem', color: 'var(--sumi-faded)', margin: 0, textAlign: 'center' }}>
-                💡 Hoạt động tức thì trên trình duyệt / điện thoại mà không cần cấp quyền!
-              </p>
-
-              {status.authenticated && (
-                <button
-                  onClick={handleCalendarApiSync}
-                  disabled={loading}
-                  className="btn-washi"
-                  style={{ width: '100%', padding: '0.6rem', fontSize: '0.85rem', marginTop: '0.25rem' }}
-                >
-                  🔄 Tự động đồng bộ qua Calendar API
-                </button>
-              )}
-            </div>
+            <button
+              onClick={handleCalendarQuickAdd}
+              className="btn-torii"
+              style={{ width: '100%', padding: '0.65rem', fontSize: '0.85rem' }}
+            >
+              Thêm vào Google Calendar
+            </button>
 
             {calendarMessage && (
-              <p style={{ marginTop: '0.75rem', fontSize: '0.82rem', color: calendarMessage.includes('❌') ? '#DC2626' : '#059669' }}>
+              <p style={{ marginTop: '0.65rem', fontSize: '0.8rem', color: '#122438' }}>
                 {calendarMessage}
               </p>
             )}
           </div>
         </div>
 
-        {/* CARD 3: GOOGLE TASKS / TODO LIST */}
+        {/* CARD 3: GOOGLE TASKS */}
         <div
-          className="card-karuta"
           style={{
-            padding: '2rem',
-            background: 'var(--washi-surface)',
+            padding: '1.75rem',
+            background: '#FAF7F0',
+            borderRadius: '16px',
+            border: '1.2px solid #E6DDCF',
+            boxShadow: '0 4px 14px rgba(18, 36, 56, 0.04)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
           }}
         >
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-              <div>
-                <span
-                  style={{
-                    display: 'inline-block',
-                    padding: '0.2rem 0.6rem',
-                    background: 'var(--yamabuki-light)',
-                    color: 'var(--yamabuki-amber)',
-                    borderRadius: '6px',
-                    fontSize: '0.75rem',
-                    fontWeight: 700,
-                    fontFamily: 'var(--font-maru)',
-                    marginBottom: '0.5rem',
-                  }}
-                >
-                  任務 · GOOGLE TASKS
-                </span>
-                <h3 style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.25rem', color: 'var(--sumi-ink)', fontWeight: 700 }}>
-                  To-Do List Hàng ngày
-                </h3>
-              </div>
-              <div className="inkan-stamp-badge" title="Google Tasks" style={{ borderColor: '#D97706', color: '#D97706' }}>
-                務
-              </div>
+            <div style={{ marginBottom: '0.85rem' }}>
+              <span
+                style={{
+                  display: 'inline-block',
+                  padding: '0.2rem 0.55rem',
+                  background: '#EDF4FA',
+                  color: '#1E4B75',
+                  borderRadius: '4px',
+                  fontSize: '0.74rem',
+                  fontWeight: 700,
+                  fontFamily: 'var(--font-maru)',
+                  marginBottom: '0.4rem',
+                }}
+              >
+                GOOGLE TASKS
+              </span>
+              <h3 style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.2rem', color: '#122438', fontWeight: 700, margin: 0 }}>
+                Nhiệm vụ hàng ngày
+              </h3>
             </div>
 
-            <p style={{ fontSize: '0.9rem', color: 'var(--sumi-faded)', lineHeight: 1.5, marginBottom: '1.25rem' }}>
-              Đồng bộ mục tiêu quyết tâm của búp bê Daruma vào danh sách Google Tasks để hiển thị trên widget màn hình chính điện thoại và thanh bên Gmail.
+            <p style={{ fontSize: '0.86rem', color: '#786A5E', lineHeight: 1.5, marginBottom: '1.25rem' }}>
+              Đồng bộ mục tiêu học tập FSRS vào danh sách Google Tasks để hiển thị trên điện thoại và thanh bên Gmail.
             </p>
-
-            <div style={{ background: '#FFFDF5', padding: '1rem', borderRadius: '12px', border: '1px solid #FEF3C7', marginBottom: '1.25rem' }}>
-              <p style={{ fontSize: '0.85rem', fontWeight: 700, color: '#B45309', margin: '0 0 0.5rem' }}>
-                Nhiệm vụ hôm nay sẽ đẩy vào Tasks:
-              </p>
-              <ul style={{ margin: 0, paddingLeft: '1.2rem', fontSize: '0.85rem', color: 'var(--sumi-charcoal)', lineHeight: 1.6 }}>
-                <li>▫️ <strong>[FSRS]</strong> Ôn tập 15 thẻ đến hạn hôm nay</li>
-                <li>▫️ <strong>[FSRS]</strong> Nạp 5 từ vựng mới chuẩn i+1</li>
-              </ul>
-            </div>
 
             <button
               onClick={handleSyncTasks}
               disabled={loading || !status.authenticated}
-              className="btn-matcha"
+              className="btn-torii"
               style={{
                 width: '100%',
-                padding: '0.75rem',
-                fontSize: '0.9rem',
+                padding: '0.65rem',
+                fontSize: '0.85rem',
                 opacity: status.authenticated ? 1 : 0.6,
               }}
-              title={!status.authenticated ? 'Cần kết nối Google trước' : ''}
             >
-              📝 Đẩy mục tiêu vào Google Tasks
+              Đồng bộ vào Google Tasks
             </button>
 
-            {!status.authenticated && (
-              <p style={{ fontSize: '0.75rem', color: 'var(--sumi-faded)', marginTop: '0.5rem', textAlign: 'center' }}>
-                (Cần bấm "Kết nối tài khoản Google" ở trên để sử dụng)
-              </p>
-            )}
-
             {taskMessage && (
-              <p style={{ marginTop: '0.75rem', fontSize: '0.82rem', color: taskMessage.includes('❌') ? '#DC2626' : '#059669' }}>
+              <p style={{ marginTop: '0.65rem', fontSize: '0.8rem', color: '#122438' }}>
                 {taskMessage}
               </p>
             )}
           </div>
         </div>
       </div>
-
-      {/* 4. HƯỚNG DẪN CẤU HÌNH GOOGLE OAUTH 2.0 */}
-      <section
-        style={{
-          marginTop: '3rem',
-          background: 'var(--washi-surface)',
-          border: '1px solid var(--washi-border)',
-          borderRadius: '16px',
-          padding: '1.75rem 2rem',
-          boxShadow: 'var(--shadow-washi-sm)',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-          <ToriiIcon size={24} color="var(--torii-red)" />
-          <h3 style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.15rem', color: 'var(--sumi-ink)', fontWeight: 700, margin: 0 }}>
-            Hướng dẫn thiết lập Google OAuth 2.0 (Nếu muốn đồng bộ 2 chiều tự động)
-          </h3>
-        </div>
-        <p style={{ fontSize: '0.88rem', color: 'var(--sumi-faded)', lineHeight: 1.6 }}>
-          Để kết nối Google Sheets, Calendar và Tasks tự động bằng tài khoản của bạn, bạn có thể tạo bộ mã Client ID &amp; Secret miễn phí:
-        </p>
-        <ol style={{ fontSize: '0.85rem', color: 'var(--sumi-charcoal)', lineHeight: 1.8, paddingLeft: '1.25rem', margin: '0.5rem 0' }}>
-          <li>Truy cập <a href="https://console.cloud.google.com" target="_blank" rel="noreferrer" style={{ color: 'var(--asagi-teal)' }}>Google Cloud Console</a> và tạo một Project mới (miễn phí).</li>
-          <li>Vào <strong>APIs &amp; Services &gt; Library</strong>, bật 3 API: <em>Google Sheets API</em>, <em>Google Calendar API</em>, và <em>Google Tasks API</em>.</li>
-          <li>Vào <strong>Credentials &gt; Create Credentials &gt; OAuth client ID</strong> (Chọn loại <em>Web application</em>).</li>
-          <li>Thêm Redirect URI: <code>http://localhost:3000/api/google/callback</code> (hoặc domain Vercel của bạn).</li>
-          <li>Dán <code>GOOGLE_CLIENT_ID</code> và <code>GOOGLE_CLIENT_SECRET</code> vào file <code>.env</code> của dự án.</li>
-        </ol>
-      </section>
     </main>
   );
 }

@@ -26,6 +26,7 @@ interface DraftItem {
 
 /**
  * Giao diện Tạo Thẻ Học Tiếng Nhật (Shodo Desk - 書道机)
+ * Thiết kế theo phong cách Bàn thư pháp Washi và Tranh cuộn Kakejiku truyền thống
  */
 export default function NewCardPage() {
   const [activeTab, setActiveTab] = useState<'copilot' | 'manual'>('copilot');
@@ -80,7 +81,7 @@ export default function NewCardPage() {
 
         if (receivedDrafts.length > 1) {
           setAutoSplitNotice(
-            `⚡ [Nguyên tắc Thông tin Tối thiểu] Bộ thẩm định atomicity-validator.ts phát hiện ${receivedDrafts.length} nét nghĩa phái sinh độc lập và đã tự động phân rã thành ${receivedDrafts.length} thẻ riêng biệt!`
+            `Bộ thẩm định atomicity phát hiện ${receivedDrafts.length} nét nghĩa phái sinh độc lập và đã tự động phân rã thành ${receivedDrafts.length} thẻ riêng biệt.`
           );
         }
       } else {
@@ -143,198 +144,167 @@ export default function NewCardPage() {
   };
 
   return (
-    <div style={{ maxWidth: '850px', margin: '2rem auto', padding: '0 1.5rem 3rem' }}>
-      {/* HEADER QUAY LẠI */}
-      <div style={{ marginBottom: '2rem' }}>
+    <div style={{ maxWidth: '820px', margin: '1.5rem auto', padding: '0 1.25rem 3.5rem' }}>
+      {/* HEADER QUAY LẠI & TIÊU ĐỀ */}
+      <div style={{ marginBottom: '1.5rem' }}>
         <Link
           href="/cards"
           style={{
             display: 'inline-flex',
             alignItems: 'center',
-            gap: '0.4rem',
-            color: 'var(--sumi-faded)',
+            gap: '0.35rem',
+            color: '#786A5E',
             textDecoration: 'none',
-            fontSize: '0.9rem',
+            fontSize: '0.88rem',
             fontFamily: 'var(--font-maru)',
             fontWeight: 600,
-            marginBottom: '0.75rem',
+            marginBottom: '0.65rem',
           }}
         >
           ← Quay lại danh mục thẻ
         </Link>
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.85rem' }}>
-          <div
-            className="tategaki-box"
-            style={{
-              borderColor: '#BC002D',
-              color: '#BC002D',
-              background: 'rgba(255, 253, 248, 0.95)',
-              boxShadow: '0 2px 8px rgba(188, 0, 45, 0.1)',
-              fontSize: '0.78rem',
-              padding: '0.7rem 0.3rem',
-              flexShrink: 0,
-            }}
-          >
-            書道机 · 創作
-          </div>
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <h1 style={{ fontFamily: 'var(--font-mincho)', fontSize: '2.25rem', fontWeight: 800, color: 'var(--sumi-ink)', margin: 0 }}>
-                Tạo thẻ học tiếng Nhật
-              </h1>
-              <span
-                style={{
-                  padding: '0.2rem 0.6rem',
-                  background: 'var(--matcha-subtle)',
-                  color: 'var(--matcha-deep)',
-                  borderRadius: '6px',
-                  fontSize: '0.75rem',
-                  fontWeight: 700,
-                  fontFamily: 'var(--font-maru)',
-                }}
-              >
-                FSRS · Atomicity
-              </span>
-            </div>
-            <p style={{ color: 'var(--sumi-faded)', fontSize: '0.95rem', marginTop: '0.25rem' }}>
-              Bàn thư pháp số tích hợp Trợ lý Trí tuệ Nhân tạo AI Copilot và Ngữ nguyên học chữ Hán
-            </p>
-          </div>
-        </div>
-      </div>
 
-      {/* TABS CHUYỂN ĐỔI PHONG CÁCH THẺ GỖ KIFUDA */}
-      <div
-        style={{
-          display: 'flex',
-          gap: '0.5rem',
-          marginBottom: '2rem',
-          borderBottom: '2px solid var(--washi-border)',
-        }}
-      >
-        <button
-          onClick={() => setActiveTab('copilot')}
+        {/* TRANH CUỘN KAKEJIKU MỘC BẢN HẠC TRẮNG NGẮM PHÚ SĨ */}
+        <div
           style={{
-            padding: '0.85rem 1.5rem',
-            background: 'none',
-            border: 'none',
-            borderBottom: activeTab === 'copilot' ? '3px solid var(--matcha-primary)' : 'none',
-            color: activeTab === 'copilot' ? 'var(--matcha-deep)' : 'var(--sumi-faded)',
-            fontFamily: 'var(--font-maru)',
-            fontWeight: activeTab === 'copilot' ? 800 : 600,
-            fontSize: '1rem',
-            cursor: 'pointer',
+            borderRadius: '18px',
+            overflow: 'hidden',
+            position: 'relative',
+            marginBottom: '1.5rem',
+            border: '1.5px solid #C89B58',
+            boxShadow: '0 10px 28px rgba(18, 36, 56, 0.1)',
+            background: 'linear-gradient(135deg, #1A1F1C 0%, #2B3A31 55%, #18221B 100%)',
+            padding: '2rem 2.25rem',
+            color: '#FFFFFF',
             display: 'flex',
+            justifyContent: 'space-between',
             alignItems: 'center',
-            gap: '0.5rem',
-            transition: 'all 0.2s',
+            flexWrap: 'wrap',
+            gap: '1.25rem',
           }}
         >
-          ✨ AI Copilot ("Nhờ AI tạo thẻ")
-        </button>
-        <button
-          onClick={() => setActiveTab('manual')}
-          style={{
-            padding: '0.85rem 1.5rem',
-            background: 'none',
-            border: 'none',
-            borderBottom: activeTab === 'manual' ? '3px solid var(--matcha-primary)' : 'none',
-            color: activeTab === 'manual' ? 'var(--matcha-deep)' : 'var(--sumi-faded)',
-            fontFamily: 'var(--font-maru)',
-            fontWeight: activeTab === 'manual' ? 800 : 600,
-            fontSize: '1rem',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            transition: 'all 0.2s',
-          }}
-        >
-          ✍️ Tự soạn thủ công (Base MVP)
-        </button>
-      </div>
-
-      {/* TAB 1: AI COPILOT - BÀN THƯ PHÁP SHODO (1 Ô NHẬP DUY NHẤT) */}
-      {activeTab === 'copilot' && (
-        <div>
-          {/* KHUNG TRANH CUỘN KAKEJIKU: HẠC TRẮNG NGẮM PHÚ SĨ CỦA HOKUSAI */}
-          <div
-            className="kakejiku-scroll-frame"
-            style={{
-              borderRadius: '16px',
-              overflow: 'hidden',
-              height: '175px',
-              position: 'relative',
-              marginBottom: '2rem',
-              border: '3px solid #78350F',
-              outline: '2px solid #D4AF37',
-              boxShadow: '0 8px 24px rgba(120, 53, 15, 0.2)',
-            }}
-          >
+          {/* Lớp tranh mộc bản Hokusai Hạc trắng ngắm Phú Sĩ */}
+          <div style={{ position: 'absolute', inset: 0, opacity: 0.32, pointerEvents: 'none', zIndex: 0 }}>
             <Image
               src="/assets/art/hokusai-cranes-fuji.jpg"
               alt="Tranh mộc bản Hokusai Hạc trắng ngắm núi Phú Sĩ"
               fill
               sizes="100vw"
-              style={{ objectFit: 'cover', objectPosition: 'center 38%', opacity: 0.95 }}
+              style={{ objectFit: 'cover', objectPosition: 'center 38%' }}
             />
-            {/* Lớp viền lụa Kakejiku trên và dưới */}
-            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '8px', background: 'linear-gradient(90deg, #78350F, #D4AF37, #78350F)' }} />
-            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '8px', background: 'linear-gradient(90deg, #78350F, #D4AF37, #78350F)' }} />
-
-            <div
-              style={{
-                position: 'absolute',
-                bottom: '1rem',
-                right: '1rem',
-                background: 'rgba(31, 36, 33, 0.88)',
-                backdropFilter: 'blur(8px)',
-                padding: '0.35rem 0.85rem',
-                borderRadius: '8px',
-                fontSize: '0.8rem',
-                fontFamily: 'var(--font-mincho)',
-                color: '#F59E0B',
-                border: '1px solid rgba(212, 175, 55, 0.4)',
-                fontWeight: 700,
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-              }}
-            >
-              <span>富嶽三十六景 · 相州梅沢庄 (Hokusai)</span>
-              <span style={{ fontSize: '0.7rem', color: '#FFFFFF', background: '#D9381E', padding: '0.1rem 0.35rem', borderRadius: '3px' }}>原画</span>
-            </div>
           </div>
 
+          <div style={{ position: 'relative', zIndex: 2, maxWidth: '540px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+              <span
+                style={{
+                  fontFamily: 'var(--font-mincho)',
+                  background: '#C83824',
+                  color: '#FFFFFF',
+                  fontWeight: 800,
+                  fontSize: '0.76rem',
+                  padding: '0.2rem 0.6rem',
+                  borderRadius: '4px',
+                  letterSpacing: '0.08em',
+                }}
+              >
+                書道机 · SÁNG TÁC
+              </span>
+              <span style={{ fontSize: '0.82rem', color: '#E8D9BD', fontFamily: 'var(--font-maru)' }}>
+                Bàn thư pháp số &amp; AI Copilot
+              </span>
+            </div>
+
+            <h1
+              style={{
+                fontFamily: 'var(--font-mincho)',
+                fontSize: '2.2rem',
+                fontWeight: 800,
+                lineHeight: 1.25,
+                margin: '0 0 0.4rem 0',
+                textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
+              }}
+            >
+              Tạo thẻ học tiếng Nhật
+            </h1>
+
+            <p style={{ color: 'rgba(250, 248, 245, 0.9)', fontSize: '0.9rem', lineHeight: 1.5, margin: 0 }}>
+              Nhập từ vựng mục tiêu, AI sẽ tự động phân tích cao độ ngữ âm Tokyo, ngữ cảnh i+1 và ngữ nguyên học Hán tự.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* TABS CHUYỂN ĐỔI PHONG CÁCH THẺ GỖ */}
+      <div
+        style={{
+          display: 'flex',
+          gap: '0.5rem',
+          marginBottom: '1.75rem',
+          borderBottom: '1.5px solid #E6DDCF',
+        }}
+      >
+        <button
+          onClick={() => setActiveTab('copilot')}
+          style={{
+            padding: '0.75rem 1.5rem',
+            background: 'none',
+            border: 'none',
+            borderBottom: activeTab === 'copilot' ? '3px solid #1E4B75' : 'none',
+            color: activeTab === 'copilot' ? '#122438' : '#786A5E',
+            fontFamily: 'var(--font-maru)',
+            fontWeight: activeTab === 'copilot' ? 800 : 600,
+            fontSize: '0.95rem',
+            cursor: 'pointer',
+            transition: 'all 0.2s',
+          }}
+        >
+          Trợ lý AI Copilot
+        </button>
+        <button
+          onClick={() => setActiveTab('manual')}
+          style={{
+            padding: '0.75rem 1.5rem',
+            background: 'none',
+            border: 'none',
+            borderBottom: activeTab === 'manual' ? '3px solid #1E4B75' : 'none',
+            color: activeTab === 'manual' ? '#122438' : '#786A5E',
+            fontFamily: 'var(--font-maru)',
+            fontWeight: activeTab === 'manual' ? 800 : 600,
+            fontSize: '0.95rem',
+            cursor: 'pointer',
+            transition: 'all 0.2s',
+          }}
+        >
+          Tự soạn thủ công
+        </button>
+      </div>
+
+      {/* TAB 1: AI COPILOT */}
+      {activeTab === 'copilot' && (
+        <div>
           <form
             onSubmit={handleCopilotSubmit}
             style={{
-              background: 'var(--washi-surface)',
-              padding: '2.25rem',
+              background: '#FAF7F0',
+              padding: '2rem 2.25rem',
               borderRadius: '16px',
-              border: '1.5px solid var(--washi-border)',
-              boxShadow: 'var(--shadow-washi-md)',
-              marginBottom: '2.5rem',
+              border: '1.2px solid #E6DDCF',
+              boxShadow: '0 6px 20px rgba(18, 36, 56, 0.05)',
+              marginBottom: '2rem',
               position: 'relative',
               overflow: 'hidden',
             }}
           >
-            {/* Lớp hoa văn mây sương Kasumi trang trí chìm */}
             <JapaneseArtBackdrop
               src="/assets/art/cloud-mist-kasumi-icons.jpg"
               alt="Họa tiết mây Kasumi"
-              opacity={0.15}
+              opacity={0.12}
               blendMode="multiply"
               objectPosition="bottom right"
             />
 
-            {/* Dải viền Seigaiha mỏng trang trí đỉnh form */}
-            <div
-              className="wagara-seigaiha-matcha"
-              style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '6px' }}
-            />
-
-            <div style={{ marginBottom: '1.25rem' }}>
+            <div style={{ position: 'relative', zIndex: 1, marginBottom: '1.25rem' }}>
               <label
                 htmlFor="targetWordInput"
                 style={{
@@ -343,7 +313,7 @@ export default function NewCardPage() {
                   fontFamily: 'var(--font-mincho)',
                   fontWeight: 700,
                   fontSize: '1.15rem',
-                  color: 'var(--sumi-ink)',
+                  color: '#122438',
                 }}
               >
                 Nhập từ vựng hoặc chữ Kanji mục tiêu:
@@ -353,17 +323,17 @@ export default function NewCardPage() {
                 <input
                   id="targetWordInput"
                   type="text"
-                  placeholder="ví dụ: 警察, 桜, かける, 際, 儚い..."
+                  placeholder="ví dụ: 警察, 桜, かける, 曖昧..."
                   value={targetWord}
                   onChange={(e) => setTargetWord(e.target.value)}
                   style={{
-                    flex: '1 1 320px',
-                    padding: '0.9rem 1.25rem',
-                    background: 'var(--washi-bg)',
-                    border: '2px solid var(--washi-border)',
+                    flex: '1 1 300px',
+                    padding: '0.85rem 1.25rem',
+                    background: '#FFFFFF',
+                    border: '1.5px solid #E6DDCF',
                     borderRadius: '10px',
-                    color: 'var(--sumi-ink)',
-                    fontSize: '1.25rem',
+                    color: '#122438',
+                    fontSize: '1.2rem',
                     fontFamily: 'var(--font-mincho)',
                     fontWeight: 600,
                     outline: 'none',
@@ -374,37 +344,29 @@ export default function NewCardPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="btn-matcha"
+                  className="btn-torii"
                   style={{
-                    padding: '0.9rem 1.85rem',
-                    fontSize: '1.05rem',
-                    opacity: loading ? 0.7 : 1,
+                    padding: '0.85rem 1.75rem',
+                    fontSize: '1rem',
+                    opacity: loading ? 0.75 : 1,
                     cursor: loading ? 'not-allowed' : 'pointer',
+                    boxShadow: '0 4px 14px rgba(200, 56, 36, 0.3)',
                   }}
                 >
-                  {loading ? (
-                    <>
-                      <span style={{ display: 'inline-block', animation: 'spin 1.5s linear infinite' }}>
-                        <OrizuruIcon size={20} color="#FFFFFF" />
-                      </span>
-                      Đang phân tích nét nghĩa...
-                    </>
-                  ) : (
-                    '✨ Nhờ AI tạo thẻ'
-                  )}
+                  {loading ? 'Đang phân tích...' : 'Soạn thẻ với AI'}
                 </button>
               </div>
             </div>
 
-            {/* Tùy chọn nâng cao */}
-            <div>
+            {/* Tùy chọn mở rộng */}
+            <div style={{ position: 'relative', zIndex: 1 }}>
               <button
                 type="button"
                 onClick={() => setShowAdvancedOptions(!showAdvancedOptions)}
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: 'var(--matcha-deep)',
+                  color: '#1E4B75',
                   fontSize: '0.85rem',
                   fontFamily: 'var(--font-maru)',
                   fontWeight: 600,
@@ -413,24 +375,24 @@ export default function NewCardPage() {
                   textDecoration: 'underline',
                 }}
               >
-                {showAdvancedOptions ? '▲ Thu gọn tùy chọn nâng cao' : '▼ Tùy chọn nâng cao (Furigana, Nghĩa định sẵn, Cấp độ JLPT)'}
+                {showAdvancedOptions ? '▲ Thu gọn tùy chọn' : '▼ Tùy chọn thêm (Furigana, Nghĩa định sẵn, JLPT)'}
               </button>
 
               {showAdvancedOptions && (
                 <div
                   style={{
-                    marginTop: '1.25rem',
+                    marginTop: '1rem',
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
                     gap: '1rem',
-                    background: 'var(--washi-bg)',
-                    padding: '1.25rem',
+                    background: '#FFFFFF',
+                    padding: '1.15rem',
                     borderRadius: '10px',
-                    border: '1px solid var(--washi-border)',
+                    border: '1px solid #E6DDCF',
                   }}
                 >
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--sumi-faded)', fontWeight: 600, marginBottom: '0.35rem' }}>
+                    <label style={{ display: 'block', fontSize: '0.8rem', color: '#786A5E', fontWeight: 600, marginBottom: '0.35rem' }}>
                       Furigana mong muốn:
                     </label>
                     <input
@@ -438,35 +400,35 @@ export default function NewCardPage() {
                       placeholder="vd: けいさつ"
                       value={customReading}
                       onChange={(e) => setCustomReading(e.target.value)}
-                      style={{ width: '100%', padding: '0.5rem 0.75rem', background: '#FFFFFF', border: '1px solid var(--washi-border)', borderRadius: '6px', color: 'var(--sumi-ink)' }}
+                      style={{ width: '100%', padding: '0.5rem 0.75rem', background: '#FAF7F0', border: '1px solid #E6DDCF', borderRadius: '6px', color: '#122438' }}
                     />
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--sumi-faded)', fontWeight: 600, marginBottom: '0.35rem' }}>
-                      Nghĩa gợi ý tùy ý:
+                    <label style={{ display: 'block', fontSize: '0.8rem', color: '#786A5E', fontWeight: 600, marginBottom: '0.35rem' }}>
+                      Nghĩa định sẵn:
                     </label>
                     <input
                       type="text"
                       placeholder="vd: Cảnh sát"
                       value={customMeaning}
                       onChange={(e) => setCustomMeaning(e.target.value)}
-                      style={{ width: '100%', padding: '0.5rem 0.75rem', background: '#FFFFFF', border: '1px solid var(--washi-border)', borderRadius: '6px', color: 'var(--sumi-ink)' }}
+                      style={{ width: '100%', padding: '0.5rem 0.75rem', background: '#FAF7F0', border: '1px solid #E6DDCF', borderRadius: '6px', color: '#122438' }}
                     />
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--sumi-faded)', fontWeight: 600, marginBottom: '0.35rem' }}>
-                      Trình độ học viên:
+                    <label style={{ display: 'block', fontSize: '0.8rem', color: '#786A5E', fontWeight: 600, marginBottom: '0.35rem' }}>
+                      Cấp độ JLPT:
                     </label>
                     <select
                       value={learnerLevel}
                       onChange={(e) => setLearnerLevel(e.target.value as any)}
-                      style={{ width: '100%', padding: '0.5rem 0.75rem', background: '#FFFFFF', border: '1px solid var(--washi-border)', borderRadius: '6px', color: 'var(--sumi-ink)' }}
+                      style={{ width: '100%', padding: '0.5rem 0.75rem', background: '#FAF7F0', border: '1px solid #E6DDCF', borderRadius: '6px', color: '#122438' }}
                     >
-                      <option value="N5">🌸 JLPT N5</option>
-                      <option value="N4">🍵 JLPT N4</option>
-                      <option value="N3">🌊 JLPT N3</option>
-                      <option value="N2">🍂 JLPT N2</option>
-                      <option value="N1">漆 JLPT N1</option>
+                      <option value="N5">JLPT N5</option>
+                      <option value="N4">JLPT N4</option>
+                      <option value="N3">JLPT N3</option>
+                      <option value="N2">JLPT N2</option>
+                      <option value="N1">JLPT N1</option>
                     </select>
                   </div>
                 </div>
@@ -474,240 +436,143 @@ export default function NewCardPage() {
             </div>
           </form>
 
-          {/* THÔNG BÁO TỰ ĐỘNG PHÂN TÁCH NÉT NGHĨA (ATOMICITY GUARDRAIL) */}
+          {/* THÔNG BÁO TỰ ĐỘNG PHÂN TÁCH NÉT NGHĨA */}
           {autoSplitNotice && (
             <div
               style={{
-                background: 'var(--matcha-subtle)',
-                border: '1.5px solid var(--matcha-primary)',
+                background: '#FAF7F0',
+                border: '1.2px solid #C89B58',
                 borderRadius: '12px',
-                padding: '1.25rem 1.5rem',
-                marginBottom: '2rem',
-                color: 'var(--matcha-deep)',
-                fontSize: '0.92rem',
-                lineHeight: 1.6,
+                padding: '1.15rem 1.4rem',
+                marginBottom: '1.75rem',
+                color: '#122438',
+                fontSize: '0.9rem',
+                lineHeight: 1.5,
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.75rem',
-                boxShadow: 'var(--shadow-washi-sm)',
               }}
             >
-              <SensuFanIcon size={24} color="var(--matcha-deep)" />
+              <SensuFanIcon size={20} color="#C89B58" />
               <div>{autoSplitNotice}</div>
             </div>
           )}
 
-          {/* DANH SÁCH BẢN NHÁP THẺ THƠ TANZAKU ĐỂ DUYỆT (HUMAN-IN-THE-LOOP) */}
+          {/* DANH SÁCH BẢN NHÁP THẺ THƠ ĐỂ DUYỆT */}
           {draftsList.length > 0 && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h2 style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.45rem', fontWeight: 800, color: 'var(--sumi-ink)' }}>
-                  Bản nháp được AI phân tích ({draftsList.length} thẻ đơn vị)
+                <h2 style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.35rem', fontWeight: 800, color: '#122438', margin: 0 }}>
+                  Bản nháp ({draftsList.length} thẻ)
                 </h2>
                 <span
                   style={{
-                    fontSize: '0.85rem',
-                    color: 'var(--matcha-deep)',
-                    background: 'var(--matcha-subtle)',
-                    padding: '0.3rem 0.75rem',
+                    fontSize: '0.82rem',
+                    color: '#3E734E',
+                    background: '#EBF5EE',
+                    padding: '0.25rem 0.75rem',
                     borderRadius: '999px',
                     fontWeight: 600,
                   }}
                 >
-                  Vốn từ đã nắm vững (S &gt; 21): <strong>{masteredCount} từ</strong>
+                  Vốn từ đã nắm vững: <strong>{masteredCount} từ</strong>
                 </span>
               </div>
 
               {draftsList.map((draft, idx) => (
                 <div
                   key={draft.id}
-                  className="card-karuta"
                   style={{
-                    padding: '2rem',
-                    background: draft.approved ? 'linear-gradient(180deg, #FFFFFF 0%, #F5F9ED 100%)' : 'var(--washi-surface)',
-                    borderColor: draft.approved ? 'var(--matcha-primary)' : 'var(--washi-border)',
+                    padding: '1.75rem',
+                    background: '#FAF7F0',
+                    border: '1.5px solid #C89B58',
+                    borderRadius: '16px',
+                    boxShadow: '0 6px 20px rgba(18, 36, 56, 0.05)',
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-                    <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center' }}>
-                      <span
-                        style={{
-                          background: draft.approved ? 'var(--matcha-primary)' : 'var(--yamabuki-gold)',
-                          color: '#FFFFFF',
-                          padding: '0.25rem 0.65rem',
-                          borderRadius: '6px',
-                          fontSize: '0.75rem',
-                          fontWeight: 'bold',
-                          fontFamily: 'var(--font-maru)',
-                        }}
-                      >
-                        {draft.approved ? '✅ ĐÃ LƯU VÀO FSRS' : `BẢN NHÁP ${idx + 1}/${draftsList.length}`}
-                      </span>
-                      <span
-                        style={{
-                          background: 'var(--washi-bg)',
-                          color: 'var(--sumi-faded)',
-                          border: '1px solid var(--washi-border)',
-                          padding: '0.25rem 0.65rem',
-                          borderRadius: '6px',
-                          fontSize: '0.75rem',
-                          fontFamily: 'monospace',
-                        }}
-                      >
-                        FSRS: D=0, S=0, State=0
-                      </span>
-                    </div>
-
-                    {/* Dấu son Inkan khi đã duyệt */}
-                    {draft.approved && (
-                      <div className="inkan-stamp-badge" title="Đã duyệt">
-                        済
-                      </div>
-                    )}
-                  </div>
-
-                  <div style={{ marginBottom: '1.5rem' }}>
-                    {/* Chữ Kanji lớn & Furigana & Nút phát âm */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-mincho)',
-                          fontSize: '2.5rem',
-                          fontWeight: 800,
-                          color: 'var(--sumi-ink)',
-                        }}
-                      >
-                        {draft.cardData.kanji_surface}
-                      </span>
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-maru)',
-                          fontSize: '1.35rem',
-                          color: 'var(--matcha-deep)',
-                          fontWeight: 600,
-                        }}
-                      >
-                        【{draft.cardData.reading_furigana}】
-                      </span>
-                      <JapaneseSpeakerButton text={draft.cardData.kanji_surface} size={18} />
-                    </div>
-
-                    {/* Trực quan hóa cao độ ngữ âm Tokyo */}
-                    <div
+                    <span
                       style={{
-                        background: 'var(--washi-bg)',
-                        padding: '0.6rem 1rem',
-                        borderRadius: '8px',
-                        border: '1px solid var(--washi-border-soft)',
-                        marginBottom: '1.25rem',
-                        display: 'inline-block',
+                        background: draft.approved ? '#3E734E' : '#1E4B75',
+                        color: '#FFFFFF',
+                        padding: '0.25rem 0.65rem',
+                        borderRadius: '6px',
+                        fontSize: '0.76rem',
+                        fontWeight: 700,
+                        fontFamily: 'var(--font-maru)',
                       }}
                     >
-                      <PitchAccentGraph
-                        reading={draft.cardData.reading_furigana}
-                        pattern={draft.cardData.pitch_pattern}
-                      />
+                      {draft.approved ? 'ĐÃ LƯU VÀO FSRS' : `THẺ ${idx + 1}/${draftsList.length}`}
+                    </span>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.25rem', marginBottom: '1.25rem' }}>
+                    {/* Cột 1: Từ vựng & Cách đọc */}
+                    <div>
+                      <div style={{ fontFamily: 'var(--font-mincho)', fontSize: '2.6rem', fontWeight: 900, color: '#122438' }}>
+                        {draft.cardData.kanji_surface}
+                      </div>
+                      <div style={{ fontFamily: 'var(--font-maru)', fontSize: '1.15rem', color: '#1E4B75', fontWeight: 600, marginTop: '0.25rem' }}>
+                        {draft.cardData.reading_furigana}
+                      </div>
+                      <div style={{ marginTop: '0.75rem' }}>
+                        <PitchAccentGraph
+                          reading={draft.cardData.reading_furigana}
+                          pattern={draft.cardData.pitch_pattern}
+                        />
+                      </div>
                     </div>
 
-                    {/* Ô chỉnh sửa nghĩa tiếng Việt */}
-                    <div style={{ marginBottom: '1rem' }}>
-                      <label style={{ display: 'block', fontSize: '0.85rem', color: 'var(--sumi-charcoal)', fontWeight: 600, marginBottom: '0.35rem' }}>
-                        Nghĩa tiếng Việt (Có thể chỉnh sửa để bảo toàn nhận thức cá nhân):
+                    {/* Cột 2: Nghĩa chính */}
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.8rem', color: '#786A5E', fontWeight: 600, marginBottom: '0.35rem' }}>
+                        Ý nghĩa tiếng Việt:
                       </label>
                       <input
                         type="text"
-                        disabled={draft.approved}
                         value={draft.cardData.primary_meaning}
-                        onChange={(e) =>
-                          handleUpdateDraftField(draft.id, 'primary_meaning', e.target.value)
-                        }
-                        style={{
-                          width: '100%',
-                          padding: '0.75rem 1rem',
-                          background: draft.approved ? 'var(--washi-bg)' : '#FFFFFF',
-                          border: '1.5px solid var(--washi-border)',
-                          borderRadius: '8px',
-                          color: 'var(--sumi-ink)',
-                          fontSize: '0.95rem',
-                        }}
+                        onChange={(e) => handleUpdateDraftField(draft.id, 'primary_meaning', e.target.value)}
+                        style={{ width: '100%', padding: '0.65rem 0.85rem', background: '#FFFFFF', border: '1.2px solid #E6DDCF', borderRadius: '8px', color: '#122438', fontSize: '0.95rem' }}
                       />
                     </div>
+                  </div>
 
-                    {/* Ô chỉnh sửa câu ví dụ ngữ cảnh i+1 */}
-                    <div style={{ marginBottom: '1rem' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
-                        <label style={{ display: 'block', fontSize: '0.85rem', color: 'var(--sumi-charcoal)', fontWeight: 600 }}>
-                          Câu ngữ cảnh đục lỗ i+1:
-                        </label>
-                        {draft.cardData.context_sentence && (
-                          <JapaneseSpeakerButton text={draft.cardData.context_sentence} size={14} label="Nghe câu" />
-                        )}
-                      </div>
-                      <textarea
-                        rows={2}
-                        disabled={draft.approved}
-                        value={draft.cardData.context_sentence}
-                        onChange={(e) =>
-                          handleUpdateDraftField(draft.id, 'context_sentence', e.target.value)
-                        }
-                        style={{
-                          width: '100%',
-                          padding: '0.75rem 1rem',
-                          background: draft.approved ? 'var(--washi-bg)' : '#FFFFFF',
-                          border: '1.5px solid var(--washi-border)',
-                          borderRadius: '8px',
-                          color: 'var(--sumi-ink)',
-                          fontSize: '0.95rem',
-                          lineHeight: 1.5,
-                        }}
-                      />
-                    </div>
-
-                    {/* Khung chú giải Ngữ nguyên học chữ Hán Keisei-moji */}
-                    {draft.cardData.etymology_notes && (
-                      <div
-                        style={{
-                          marginTop: '1rem',
-                          background: 'var(--matcha-tint)',
-                          padding: '0.85rem 1.25rem',
-                          borderRadius: '8px',
-                          border: '1px solid var(--washi-border)',
-                          display: 'flex',
-                          alignItems: 'flex-start',
-                          gap: '0.6rem',
-                        }}
-                      >
-                        <span style={{ fontSize: '1.1rem' }}>📜</span>
-                        <div style={{ fontSize: '0.88rem', color: 'var(--sumi-charcoal)', lineHeight: 1.5 }}>
-                          <strong>Ngữ nguyên học (Keisei-moji / 形声文字):</strong> {draft.cardData.etymology_notes}
-                        </div>
-                      </div>
-                    )}
+                  {/* Câu ví dụ ngữ cảnh */}
+                  <div style={{ marginBottom: '1.25rem' }}>
+                    <label style={{ display: 'block', fontSize: '0.8rem', color: '#786A5E', fontWeight: 600, marginBottom: '0.35rem' }}>
+                      Câu ví dụ ngữ cảnh (i+1):
+                    </label>
+                    <textarea
+                      rows={2}
+                      value={draft.cardData.context_sentence}
+                      onChange={(e) => handleUpdateDraftField(draft.id, 'context_sentence', e.target.value)}
+                      style={{ width: '100%', padding: '0.65rem 0.85rem', background: '#FFFFFF', border: '1.2px solid #E6DDCF', borderRadius: '8px', color: '#122438', fontSize: '0.92rem' }}
+                    />
                   </div>
 
                   {/* Nút Duyệt thẻ */}
                   {!draft.approved ? (
                     <button
                       onClick={() => handleApproveDraft(draft)}
-                      className="btn-matcha"
-                      style={{ width: '100%', padding: '0.9rem', fontSize: '1rem' }}
+                      className="btn-torii"
+                      style={{ width: '100%', padding: '0.85rem', fontSize: '0.95rem' }}
                     >
-                      ✅ Duyệt &amp; Lưu vào lịch ôn tập FSRS (D=0, S=0, State=0)
+                      Duyệt &amp; Lưu thẻ vào FSRS
                     </button>
                   ) : (
                     <div
                       style={{
-                        padding: '0.85rem',
+                        padding: '0.75rem',
                         textAlign: 'center',
-                        background: 'var(--matcha-subtle)',
+                        background: '#EBF5EE',
                         borderRadius: '8px',
-                        color: 'var(--matcha-deep)',
+                        color: '#3E734E',
                         fontWeight: 700,
-                        fontSize: '0.95rem',
+                        fontSize: '0.9rem',
                         fontFamily: 'var(--font-maru)',
                       }}
                     >
-                      🎉 Thẻ đã được lưu vào cơ sở dữ liệu và đặt lịch học ngắt quãng thành công!
+                      Thẻ đã được lưu vào hệ thống ôn tập FSRS thành công!
                     </div>
                   )}
                 </div>
@@ -717,36 +582,39 @@ export default function NewCardPage() {
         </div>
       )}
 
-      {/* TAB 2: MANUAL CREATION (TỰ SOẠN THỦ CÔNG) */}
+      {/* TAB 2: MANUAL CREATION */}
       {activeTab === 'manual' && (
         <form
           onSubmit={handleManualSubmit}
-          className="card-karuta"
           style={{
-            padding: '2.25rem',
+            background: '#FAF7F0',
+            padding: '2rem 2.25rem',
+            borderRadius: '16px',
+            border: '1.2px solid #E6DDCF',
+            boxShadow: '0 6px 20px rgba(18, 36, 56, 0.05)',
             display: 'flex',
             flexDirection: 'column',
-            gap: '1.5rem',
+            gap: '1.25rem',
           }}
         >
           <div>
-            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: 'var(--sumi-ink)' }}>
-              Loại thẻ học (Card Type)
+            <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 600, color: '#122438', fontSize: '0.9rem' }}>
+              Loại thẻ học
             </label>
             <select
               value={formData.cardType}
               onChange={(e) => setFormData({ ...formData, cardType: e.target.value })}
-              style={{ width: '100%', padding: '0.85rem', background: 'var(--washi-bg)', border: '1.5px solid var(--washi-border)', borderRadius: '8px', color: 'var(--sumi-ink)' }}
+              style={{ width: '100%', padding: '0.75rem', background: '#FFFFFF', border: '1.2px solid #E6DDCF', borderRadius: '8px', color: '#122438' }}
             >
-              <option value="Vocab">語 Vocabulary (Từ vựng 1 nghĩa)</option>
-              <option value="Kanji">漢 Kanji (Chữ Hán 1 ký tự)</option>
-              <option value="Cloze">穴 Cloze (Điền từ 1 chỗ trống)</option>
-              <option value="Pitch">音 Pitch Accent (Mẫu cao độ âm thanh)</option>
+              <option value="Vocab">Từ vựng (Vocabulary)</option>
+              <option value="Kanji">Chữ Hán (Kanji)</option>
+              <option value="Cloze">Điền từ ngữ cảnh (Cloze)</option>
+              <option value="Pitch">Cao độ ngữ âm (Pitch Accent)</option>
             </select>
           </div>
 
           <div>
-            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: 'var(--sumi-ink)' }}>
+            <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 600, color: '#122438', fontSize: '0.9rem' }}>
               Từ vựng / Chữ Hán mặt trước
             </label>
             <input
@@ -754,27 +622,27 @@ export default function NewCardPage() {
               placeholder="ví dụ: 桜, 食べる"
               value={formData.front}
               onChange={(e) => setFormData({ ...formData, front: e.target.value })}
-              style={{ width: '100%', padding: '0.85rem', background: 'var(--washi-bg)', border: '1.5px solid var(--washi-border)', borderRadius: '8px', color: 'var(--sumi-ink)' }}
+              style={{ width: '100%', padding: '0.75rem', background: '#FFFFFF', border: '1.2px solid #E6DDCF', borderRadius: '8px', color: '#122438' }}
               required
             />
           </div>
 
           <div>
-            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: 'var(--sumi-ink)' }}>
-              Ý nghĩa duy nhất (Tuân thủ Atomicity)
+            <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 600, color: '#122438', fontSize: '0.9rem' }}>
+              Ý nghĩa tiếng Việt
             </label>
             <input
               type="text"
               placeholder="ví dụ: Hoa anh đào"
               value={formData.meaning}
               onChange={(e) => setFormData({ ...formData, meaning: e.target.value })}
-              style={{ width: '100%', padding: '0.85rem', background: 'var(--washi-bg)', border: '1.5px solid var(--washi-border)', borderRadius: '8px', color: 'var(--sumi-ink)' }}
+              style={{ width: '100%', padding: '0.75rem', background: '#FFFFFF', border: '1.2px solid #E6DDCF', borderRadius: '8px', color: '#122438' }}
               required
             />
           </div>
 
-          <button type="submit" className="btn-torii" style={{ padding: '0.95rem' }}>
-            <ToriiIcon size={18} color="#FFFFFF" />
+          <button type="submit" className="btn-torii" style={{ padding: '0.85rem', marginTop: '0.5rem' }}>
+            <ToriiIcon size={16} color="#FFFFFF" />
             Lưu thẻ học vào FSRS
           </button>
         </form>
