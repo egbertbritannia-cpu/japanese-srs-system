@@ -47,6 +47,9 @@ Toàn bộ kế hoạch tái thiết kế giao diện theo phong cách Nhật B�
 13. **[11_JAPANESE_GRAPHIC_DESIGN_DECONSTRUCTION.md](file:///D:/project/japanese-srs-system/doc/11_JAPANESE_GRAPHIC_DESIGN_DECONSTRUCTION.md)**  
    *Giải mã Chuyên sâu Phong cách Thiết kế Đồ họa Nhật Bản (Japanese Graphic Design Deconstruction)*: Bóc tách toàn diện 2 tư liệu từ `C:\Users\ThinkPad X1\Pictures\japanese-graphic-design` về trường phái Wa-Modern Bento Grid, bảng màu Red-Indigo-Washi, cấu trúc lưới mộc bản, typography trục kép (Tate/Yoko-gaki), và các mô-típ văn hóa kinh điển (Sóng lừng Hokusai, mặt trời Hinomaru, gia huy Kamon, tranh mỹ nhân Bijin-ga).
 
+14. **[12_AUTHENTIC_WA_ART_REDESIGN_MASTER_PLAN.md](file:///D:/project/japanese-srs-system/doc/12_AUTHENTIC_WA_ART_REDESIGN_MASTER_PLAN.md)**  
+   *Kế hoạch Tái thiết kế Tích hợp Tranh Nghệ thuật & Văn hóa Nhật Bản (Authentic Wa-Art & Cultural Redesign Master Plan)*: Quy hoạch 5 tầng chi tiết bóc tách và phân bổ 13 tác phẩm hội họa mộc bản Ukiyo-e, Rinpa, Yuzen từ bộ sưu tập thực tế (`public/assets/art/`) vào các vị trí tối ưu trên toàn bộ 5 màn hình hệ thống (Honmaru Dashboard, Tanzakucho Cards, Shodo Copilot, Karuta Review, Kura Integrations).
+
 ---
 
 ### 🎴 HỆ THỐNG 8 SKILLS ANTHIGRAVITY TRONG DỰ ÁN (`.agents/skills/`)
@@ -66,6 +69,7 @@ Toàn bộ kế hoạch tái thiết kế giao diện theo phong cách Nhật B�
 
 ### ⛩️ HƯỚNG DẪN DÀNH CHO AGENT THỰC THI (QUICK START)
 - Đối với việc phối hợp đa vai trò và quy chuẩn làm việc: Mở file **[10_MULTI_ROLE_AGENT_COLLABORATION_GUIDE.md](file:///D:/project/japanese-srs-system/doc/10_MULTI_ROLE_AGENT_COLLABORATION_GUIDE.md)** và **[SKILL_AGENT_PLAYBOOK.md](file:///D:/project/japanese-srs-system/doc/SKILL_AGENT_PLAYBOOK.md)**.
+- Đối với việc tích hợp tranh nghệ thuật Ukiyo-e, Rinpa và tư liệu văn hóa: Mở file **[12_AUTHENTIC_WA_ART_REDESIGN_MASTER_PLAN.md](file:///D:/project/japanese-srs-system/doc/12_AUTHENTIC_WA_ART_REDESIGN_MASTER_PLAN.md)** và **[11_JAPANESE_GRAPHIC_DESIGN_DECONSTRUCTION.md](file:///D:/project/japanese-srs-system/doc/11_JAPANESE_GRAPHIC_DESIGN_DECONSTRUCTION.md)**.
 - Đối với việc nâng cấp tính năng Ôn tập theo từng Bộ Thẻ: Mở file **[09_DECK_BASED_STUDY_HIERARCHICAL_PLAN.md](file:///D:/project/japanese-srs-system/doc/09_DECK_BASED_STUDY_HIERARCHICAL_PLAN.md)**.
 - Đối với việc hoàn thiện giao diện ban đầu: Mở file **[08_STEP_BY_STEP_EXECUTION_CHECKLIST.md](file:///D:/project/japanese-srs-system/doc/08_STEP_BY_STEP_EXECUTION_CHECKLIST.md)**.
 
