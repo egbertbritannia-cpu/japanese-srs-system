@@ -26,12 +26,14 @@ export async function POST(request: Request) {
       startTime.setDate(startTime.getDate() + 1);
     }
 
+    const { origin } = new URL(request.url);
     const options = {
       startTime,
       durationMinutes,
       recurDaily,
       dueCardCount,
       title: `🇯🇵 Ôn tập tiếng Nhật FSRS (${dueCardCount} thẻ)`,
+      appBaseUrl: origin,
     };
 
     // Tạo link Quick Add Web tức thì

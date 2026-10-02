@@ -8,6 +8,7 @@ export interface CalendarEventOptions {
   durationMinutes?: number;
   recurDaily?: boolean;
   dueCardCount?: number;
+  appBaseUrl?: string;
 }
 
 /**
@@ -26,12 +27,13 @@ export class GoogleCalendarService {
     const start = options.startTime;
     const end = new Date(start.getTime() + (options.durationMinutes || 20) * 60 * 1000);
 
+    const appUrl = options.appBaseUrl || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://japanese-srs-system.vercel.app');
     const title = options.title || `🇯🇵 Ôn tập tiếng Nhật FSRS (${options.dueCardCount || 15} thẻ)`;
     const description =
       options.description ||
       `Đến giờ ôn tập ngắt quãng FSRS hàng ngày!\n\n` +
       `📌 Số thẻ cần xử lý: ${options.dueCardCount || 15} thẻ\n` +
-      `🔗 Bấm vào đây để vào bàn trà học tập: https://japanese-srs-system.vercel.app/review\n\n` +
+      `🔗 Bấm vào đây để vào bàn trà học tập: ${appUrl}/review\n\n` +
       `"Học sâu nhớ lâu, kiến tha lâu cũng đầy tổ."`;
 
     const requestBody: any = {
@@ -79,12 +81,13 @@ export class GoogleCalendarService {
     // Format ISO string format without separators: YYYYMMDDTHHmmssZ
     const formatTime = (d: Date) => d.toISOString().replace(/-|:|\.\d\d\d/g, '');
 
+    const appUrl = options.appBaseUrl || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://japanese-srs-system.vercel.app');
     const dates = `${formatTime(start)}/${formatTime(end)}`;
     const text = encodeURIComponent(options.title || `🇯🇵 Ôn tập tiếng Nhật FSRS (${options.dueCardCount || 15} thẻ)`);
     const details = encodeURIComponent(
       `Đến giờ ôn tập ngắt quãng FSRS!\n` +
       `Số thẻ cần ôn: ${options.dueCardCount || 15} thẻ\n` +
-      `Bấm vào học ngay: https://japanese-srs-system.vercel.app/review`
+      `Bấm vào học ngay: ${appUrl}/review`
     );
     const location = encodeURIComponent('Bàn trà học tập (Japanese SRS)');
 
