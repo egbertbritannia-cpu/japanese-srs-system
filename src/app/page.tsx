@@ -100,12 +100,12 @@ export default function DashboardPage() {
             alignItems: 'center',
           }}
         >
-          {/* CỘT TRÁI: TYPOGRAPHY ĐỒ HỌA TRỤC KÉP */}
+          {/* CỘT TRÁI: TYPOGRAPHY ĐỒ HỌA TRỤC KÉP PHONG CÁCH ÁP PHÍCH NHẬT BẢN */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
               <div
                 className="hinomaru-disc"
-                style={{ width: '38px', height: '38px', fontSize: '1.1rem', fontWeight: 800, fontFamily: 'var(--font-mincho)' }}
+                style={{ width: '40px', height: '40px', fontSize: '1.15rem', fontWeight: 800, fontFamily: 'var(--font-mincho)', background: 'radial-gradient(circle at 35% 35%, #EF4444 0%, #BC002D 65%, #8B0000 100%)' }}
               >
                 極
               </div>
@@ -130,22 +130,42 @@ export default function DashboardPage() {
               </span>
             </div>
 
-            <h1
-              style={{
-                fontFamily: 'var(--font-mincho)',
-                fontSize: '2.6rem',
-                fontWeight: 800,
-                lineHeight: 1.18,
-                marginBottom: '0.85rem',
-                letterSpacing: '-0.01em',
-                textShadow: '0 3px 6px rgba(0, 0, 0, 0.35)',
-              }}
-            >
-              日本語 SRS システム
-              <span style={{ display: 'block', fontSize: '1.45rem', fontWeight: 600, color: '#F59E0B', marginTop: '0.2rem' }}>
-                Học sâu Nhớ lâu cùng FSRS
-              </span>
-            </h1>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
+              {/* Thẻ triện dọc Tate-gaki phong cách áp phích Minh Trị/Đại Chính 「日本の広告」 */}
+              <div
+                className="tategaki-box"
+                style={{
+                  borderColor: '#D4AF37',
+                  color: '#FFFFFF',
+                  background: 'rgba(188, 0, 45, 0.92)',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+                  fontSize: '0.8rem',
+                  padding: '0.85rem 0.35rem',
+                  flexShrink: 0,
+                }}
+              >
+                日本の広告 · 記憶道
+              </div>
+
+              <div>
+                <h1
+                  style={{
+                    fontFamily: 'var(--font-mincho)',
+                    fontSize: '2.5rem',
+                    fontWeight: 800,
+                    lineHeight: 1.18,
+                    marginBottom: '0.65rem',
+                    letterSpacing: '-0.01em',
+                    textShadow: '0 3px 6px rgba(0, 0, 0, 0.35)',
+                  }}
+                >
+                  日本語 SRS システム
+                  <span style={{ display: 'block', fontSize: '1.35rem', fontWeight: 600, color: '#F59E0B', marginTop: '0.2rem' }}>
+                    Học sâu Nhớ lâu cùng FSRS
+                  </span>
+                </h1>
+              </div>
+            </div>
 
             <p
               style={{
@@ -493,15 +513,32 @@ export default function DashboardPage() {
               return (
                 <div
                   key={deck.id}
-                  className="card-kifuda"
+                  className="card-hikifuda"
                   style={{
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
                     position: 'relative',
-                    border: `2px solid ${isKanji ? 'rgba(217, 56, 30, 0.3)' : 'rgba(112, 141, 62, 0.3)'}`,
                   }}
                 >
+                  {/* TIÊU ĐỀ KHẮC MỘC BẢN ÁP PHÍCH HIKIFUDA (引札見出し) */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      padding: '0.45rem 0.85rem',
+                      background: isKanji ? 'rgba(188, 0, 45, 0.08)' : 'rgba(112, 141, 62, 0.08)',
+                      borderBottom: '1px solid var(--washi-border)',
+                    }}
+                  >
+                    <span className="hikifuda-badge" style={{ background: isKanji ? '#BC002D' : '#6E8A3C' }}>
+                      {isKanji ? '特別推薦 · 漢字' : '文部省風 · 語彙'}
+                    </span>
+                    <span style={{ fontFamily: 'var(--font-mincho)', fontSize: '0.72rem', color: 'var(--sumi-faded)', fontWeight: 700 }}>
+                      引札第 {isKanji ? '一' : '二'} 号
+                    </span>
+                  </div>
                   {/* BÌA TRANH NGHỆ THUẬT MỘC BẢN VÀ YUZEN TRỰC QUAN */}
                   <div style={{ height: '140px', position: 'relative', overflow: 'hidden' }}>
                     <Image

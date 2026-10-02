@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Zen_Maru_Gothic, Shippori_Mincho, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { SakuraBackground } from '@/components/japanese/SakuraBackground';
+import { JapanesePosterBackground } from '@/components/japanese/JapanesePosterBackground';
 import { ToriiIcon, FujiMountainIcon } from '@/components/japanese/Icons';
 import { JapaneseArtBackdrop } from '@/components/art/JapaneseArtBackdrop';
 
@@ -41,7 +42,10 @@ export default function RootLayout({
       lang="ja"
       className={`${zenMaru.variable} ${shipporiMincho.variable} ${plusJakarta.variable}`}
     >
-      <body className="washi-paper-bg" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <body className="washi-paper-bg" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', position: 'relative' }}>
+        {/* Lớp nền đồ họa mỹ thuật áp phích Nhật Bản (Mặt trời Hinomaru, Cành mai Sumi-e, Hạc Đan Đỉnh) */}
+        <JapanesePosterBackground />
+
         {/* Lớp cánh hoa anh đào bay lãng mạn phía sau */}
         <SakuraBackground />
 

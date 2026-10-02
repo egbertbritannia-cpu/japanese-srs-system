@@ -134,9 +134,27 @@ export default function CardsPage() {
             </span>
           </div>
 
-          <h1 style={{ fontFamily: 'var(--font-mincho)', fontSize: '2.4rem', fontWeight: 800, lineHeight: 1.2, marginBottom: '0.6rem' }}>
-            Quản lý thẻ học tiếng Nhật
-          </h1>
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '0.6rem' }}>
+            <div
+              className="tategaki-box"
+              style={{
+                borderColor: '#D4AF37',
+                color: '#FFFFFF',
+                background: 'rgba(188, 0, 45, 0.92)',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+                fontSize: '0.8rem',
+                padding: '0.75rem 0.35rem',
+                flexShrink: 0,
+              }}
+            >
+              短冊帳 · 目録
+            </div>
+            <div>
+              <h1 style={{ fontFamily: 'var(--font-mincho)', fontSize: '2.4rem', fontWeight: 800, lineHeight: 1.2, margin: 0 }}>
+                Quản lý thẻ học tiếng Nhật
+              </h1>
+            </div>
+          </div>
           <p style={{ color: 'rgba(250, 248, 245, 0.88)', fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '1.5rem' }}>
             Tổng cộng: <strong>{cardsList.length} thẻ</strong> đã sẵn sàng ôn tập. Lọc theo chuyên đề, tìm kiếm Hán tự và theo dõi chu kỳ củng cố trí nhớ FSRS.
           </p>

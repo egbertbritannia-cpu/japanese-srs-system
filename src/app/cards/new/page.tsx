@@ -162,27 +162,45 @@ export default function NewCardPage() {
         >
           ← Quay lại danh mục thẻ
         </Link>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <h1 style={{ fontFamily: 'var(--font-mincho)', fontSize: '2.25rem', fontWeight: 800, color: 'var(--sumi-ink)' }}>
-            Tạo thẻ học tiếng Nhật
-          </h1>
-          <span
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.85rem' }}>
+          <div
+            className="tategaki-box"
             style={{
-              padding: '0.2rem 0.6rem',
-              background: 'var(--matcha-subtle)',
-              color: 'var(--matcha-deep)',
-              borderRadius: '6px',
-              fontSize: '0.75rem',
-              fontWeight: 700,
-              fontFamily: 'var(--font-maru)',
+              borderColor: '#BC002D',
+              color: '#BC002D',
+              background: 'rgba(255, 253, 248, 0.95)',
+              boxShadow: '0 2px 8px rgba(188, 0, 45, 0.1)',
+              fontSize: '0.78rem',
+              padding: '0.7rem 0.3rem',
+              flexShrink: 0,
             }}
           >
-            FSRS · Atomicity
-          </span>
+            書道机 · 創作
+          </div>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <h1 style={{ fontFamily: 'var(--font-mincho)', fontSize: '2.25rem', fontWeight: 800, color: 'var(--sumi-ink)', margin: 0 }}>
+                Tạo thẻ học tiếng Nhật
+              </h1>
+              <span
+                style={{
+                  padding: '0.2rem 0.6rem',
+                  background: 'var(--matcha-subtle)',
+                  color: 'var(--matcha-deep)',
+                  borderRadius: '6px',
+                  fontSize: '0.75rem',
+                  fontWeight: 700,
+                  fontFamily: 'var(--font-maru)',
+                }}
+              >
+                FSRS · Atomicity
+              </span>
+            </div>
+            <p style={{ color: 'var(--sumi-faded)', fontSize: '0.95rem', marginTop: '0.25rem' }}>
+              Bàn thư pháp số tích hợp Trợ lý Trí tuệ Nhân tạo AI Copilot và Ngữ nguyên học chữ Hán
+            </p>
+          </div>
         </div>
-        <p style={{ color: 'var(--sumi-faded)', fontSize: '0.95rem', marginTop: '0.25rem' }}>
-          Bàn thư pháp số tích hợp Trợ lý Trí tuệ Nhân tạo AI Copilot và Ngữ nguyên học chữ Hán
-        </p>
       </div>
 
       {/* TABS CHUYỂN ĐỔI PHONG CÁCH THẺ GỖ KIFUDA */}

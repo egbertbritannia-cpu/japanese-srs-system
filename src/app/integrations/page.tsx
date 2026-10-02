@@ -312,18 +312,36 @@ export default function IntegrationsPage() {
             </span>
           </div>
 
-          <h1
-            style={{
-              fontFamily: 'var(--font-mincho)',
-              fontSize: '2.3rem',
-              fontWeight: 800,
-              lineHeight: 1.25,
-              marginBottom: '0.75rem',
-              textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-            }}
-          >
-            Đồng bộ Bảng tính, Lịch học &amp; To-Do List
-          </h1>
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '0.75rem' }}>
+            <div
+              className="tategaki-box"
+              style={{
+                borderColor: '#D4AF37',
+                color: '#FFFFFF',
+                background: 'rgba(217, 56, 30, 0.9)',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.25)',
+                fontSize: '0.8rem',
+                padding: '0.75rem 0.35rem',
+                flexShrink: 0,
+              }}
+            >
+              連係網 · 雲端
+            </div>
+            <div>
+              <h1
+                style={{
+                  fontFamily: 'var(--font-mincho)',
+                  fontSize: '2.3rem',
+                  fontWeight: 800,
+                  lineHeight: 1.25,
+                  margin: 0,
+                  textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+                }}
+              >
+                Đồng bộ Bảng tính, Lịch học &amp; To-Do List
+              </h1>
+            </div>
+          </div>
           <p
             style={{
               fontSize: '1rem',
