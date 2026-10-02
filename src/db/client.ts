@@ -64,21 +64,46 @@ function initSchemaDDL(execFn: (sql: string) => void) {
 }
 
 function initDb() {
-  // 1. Ngày 1: Kết nối Turso Cloud nếu có cấu hình TURSO_DATABASE_URL
-  if (process.env.TURSO_DATABASE_URL) {
+  const rawTursoUrl = process.env.TURSO_DATABASE_URL?.trim();
+  const tursoAuthToken = process.env.TURSO_AUTH_TOKEN?.trim();
+
+  // 1. Kết nối Turso Cloud nếu có biến môi trường
+  if (rawTursoUrl) {
     try {
       const { createClient } = require('@libsql/client');
       const { drizzle } = require('drizzle-orm/libsql');
 
+      // Tự động chuyển đổi giao thức 'libsql://' sang 'https://' để đảm bảo tương thích 100% với môi trường Serverless (Vercel/Lambda)
+      const url = rawTursoUrl.startsWith('libsql://')
+        ? rawTursoUrl.replace(/^libsql:\/\//, 'https://')
+        : rawTursoUrl;
+
       const client = createClient({
-        url: process.env.TURSO_DATABASE_URL,
-        authToken: process.env.TURSO_AUTH_TOKEN,
+        url,
+        authToken: tursoAuthToken,
       });
 
       return drizzle(client, { schema });
     } catch (err: any) {
       console.warn('[Turso Connection Warning] Không thể kết nối Turso, chuyển về Local SQLite:', err?.message);
     }
+  }
+
+  // Nếu đang chạy trên Serverless (Vercel, AWS Lambda) mà thiếu biến môi trường Turso:
+  const isServerless = !!(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.NEXT_RUNTIME === 'edge');
+  if (isServerless) {
+    console.error('❌ [Database Configuration Error] Đang chạy trên Vercel/Serverless nhưng chưa cấu hình TURSO_DATABASE_URL!');
+    const throwMissingEnv = () => {
+      throw new Error(
+        'Chưa cấu hình TURSO_DATABASE_URL trên Vercel. Vui lòng vào Vercel Dashboard -> Project Settings -> Environment Variables để thêm TURSO_DATABASE_URL và TURSO_AUTH_TOKEN.'
+      );
+    };
+    return {
+      select: throwMissingEnv,
+      insert: throwMissingEnv,
+      update: throwMissingEnv,
+      delete: throwMissingEnv,
+    } as any;
   }
 
   // 2. Môi trường Local: Chuẩn bị thư mục dữ liệu cục bộ data/app.db
