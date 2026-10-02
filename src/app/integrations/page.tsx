@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ToriiIcon, SensuFanIcon, OrizuruIcon } from '@/components/japanese/Icons';
+import { JapaneseArtBackdrop } from '@/components/art/JapaneseArtBackdrop';
 
 export default function IntegrationsPage() {
   const [loading, setLoading] = useState(false);
@@ -213,7 +214,7 @@ export default function IntegrationsPage() {
 
   return (
     <main style={{ maxWidth: '1050px', margin: '2rem auto', padding: '0 1.5rem 4rem' }}>
-      {/* 1. HERO BANNER WA-STYLE */}
+      {/* 1. HERO BANNER WA-STYLE CÓ HOA VĂN MẠ VÀNG RINPA */}
       <section
         className="wagara-seigaiha-matcha"
         style={{
@@ -231,6 +232,14 @@ export default function IntegrationsPage() {
           gap: '1.5rem',
         }}
       >
+        <JapaneseArtBackdrop
+          src="/assets/art/rinpa-gold-waves-clouds.jpg"
+          alt="Trường phái Rinpa sóng vàng và mây hoa"
+          opacity={0.24}
+          blendMode="overlay"
+          objectPosition="center"
+        />
+
         <div
           style={{
             position: 'absolute',

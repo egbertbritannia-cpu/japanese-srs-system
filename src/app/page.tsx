@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ToriiIcon, SakuraIcon, SensuFanIcon } from '@/components/japanese/Icons';
 import { DarumaMascot } from '@/components/japanese/DarumaMascot';
+import { JapaneseArtBackdrop } from '@/components/art/JapaneseArtBackdrop';
 import { DeckSummaryDTO } from '@/core/cards/deck.types';
 
 /**
@@ -62,14 +64,14 @@ export default function DashboardPage() {
 
   return (
     <main style={{ maxWidth: '1050px', margin: '2rem auto', padding: '0 1.5rem 3rem' }}>
-      {/* 1. HERO BANNER: HỌA TIẾT SEIGAIHA XANH MATCHA (#88A752) */}
+      {/* 1. HERO BANNER: HỌA TIẾT SEIGAIHA XANH MATCHA (#88A752) & TRANH TOÀN CẢNH PHÚ SĨ */}
       <section
         className="wagara-seigaiha-matcha"
         style={{
           borderRadius: '20px',
           padding: '2.5rem 2rem',
           color: '#FFFFFF',
-          marginBottom: '2.5rem',
+          marginBottom: '1.25rem',
           boxShadow: 'var(--shadow-karuta)',
           position: 'relative',
           overflow: 'hidden',
@@ -80,6 +82,15 @@ export default function DashboardPage() {
           gap: '1.5rem',
         }}
       >
+        {/* Lớp tranh nghệ thuật toàn cảnh văn hóa Nhật Bản & Phú Sĩ */}
+        <JapaneseArtBackdrop
+          src="/assets/art/japanese-cultural-panorama.jpg"
+          alt="Toàn cảnh văn hóa Nhật Bản và Phú Sĩ"
+          opacity={0.24}
+          blendMode="overlay"
+          objectPosition="center 35%"
+        />
+
         {/* Lớp phủ mờ bảo vệ độ tương phản chữ */}
         <div
           style={{
@@ -153,6 +164,27 @@ export default function DashboardPage() {
           </Link>
         </div>
       </section>
+
+      {/* DẢI PHÂN CÁCH SÓNG VÀNG KIN-NAMI MẠ KIM (TỈ LỆ 4:1) */}
+      <div
+        style={{
+          height: '42px',
+          margin: '-0.5rem 0 2rem',
+          borderRadius: '999px',
+          overflow: 'hidden',
+          position: 'relative',
+          boxShadow: 'var(--shadow-washi-sm)',
+          border: '1px solid rgba(217, 119, 6, 0.25)',
+        }}
+      >
+        <Image
+          src="/assets/art/golden-waves-kin-nami.jpg"
+          alt="Dải sóng vàng Kin-nami"
+          fill
+          sizes="100vw"
+          style={{ objectFit: 'cover', opacity: 0.88 }}
+        />
+      </div>
 
       {/* 2. KHU VỰC TIẾN ĐỘ DARUMA (DARUMA GOAL MILESTONE TRACKER) */}
       <section

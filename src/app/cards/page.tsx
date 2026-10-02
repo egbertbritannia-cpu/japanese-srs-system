@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ToriiIcon, SensuFanIcon } from '@/components/japanese/Icons';
+import { JapaneseArtBackdrop } from '@/components/art/JapaneseArtBackdrop';
 
 interface CardItem {
   id: string;
@@ -89,18 +91,33 @@ export default function CardsPage() {
 
   return (
     <div style={{ maxWidth: '1050px', margin: '2rem auto', padding: '0 1.5rem 3rem' }}>
-      {/* HEADER KHU VỰC THƯ VIỆN THẺ */}
+      {/* HEADER KHU VỰC THƯ VIỆN THẺ VỚI KHUNG TRANH MỘC BẢN HOKUSAI HỒ SUWA */}
       <div
         style={{
+          position: 'relative',
+          borderRadius: '16px',
+          overflow: 'hidden',
+          padding: '2rem 2.25rem',
+          marginBottom: '2rem',
+          border: '1.5px solid var(--washi-border)',
+          boxShadow: 'var(--shadow-washi-md)',
+          background: 'linear-gradient(135deg, rgba(253, 251, 247, 0.94) 0%, rgba(246, 241, 233, 0.90) 100%)',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginBottom: '2rem',
           flexWrap: 'wrap',
-          gap: '1rem',
+          gap: '1.5rem',
         }}
       >
-        <div>
+        <JapaneseArtBackdrop
+          src="/assets/art/hokusai-suwa-lake.jpg"
+          alt="Tranh mộc bản Hokusai Hồ Suwa tỉnh Shinano"
+          opacity={0.22}
+          blendMode="multiply"
+          objectPosition="center 40%"
+        />
+
+        <div style={{ position: 'relative', zIndex: 2 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.25rem' }}>
             <span
               style={{
@@ -121,7 +138,7 @@ export default function CardsPage() {
           </p>
         </div>
 
-        <div style={{ display: 'flex', gap: '0.75rem' }}>
+        <div style={{ position: 'relative', zIndex: 2, display: 'flex', gap: '0.75rem' }}>
           <Link href="/" className="btn-washi">
             🏯 Trang chủ
           </Link>
@@ -221,11 +238,13 @@ export default function CardsPage() {
         </div>
       </div>
 
-      {/* BANNER HÀNH ĐỘNG NHANH: ÔN TẬP BỘ THẺ ĐANG CHỌN */}
+      {/* BANNER HÀNH ĐỘNG NHANH: ÔN TẬP BỘ THẺ ĐANG CHỌN (DÒNG CHẢY RYUSUI KHẮC HỌA TRI THỨC) */}
       {selectedDeck !== 'all' && (
         <div
           style={{
-            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 242, 0.95) 100%)',
+            position: 'relative',
+            overflow: 'hidden',
+            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(248, 250, 242, 0.94) 100%)',
             border: '1.5px solid #C6DDA4',
             borderRadius: '14px',
             padding: '1.25rem 1.75rem',
@@ -238,7 +257,15 @@ export default function CardsPage() {
             gap: '1rem',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <JapaneseArtBackdrop
+            src="/assets/art/ryusui-indigo-stream.jpg"
+            alt="Dòng sông Ryusui chàm Ogata Korin"
+            opacity={0.16}
+            blendMode="multiply"
+            objectPosition="right center"
+          />
+
+          <div style={{ position: 'relative', zIndex: 2, display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <div
               style={{
                 width: '42px',
@@ -271,6 +298,8 @@ export default function CardsPage() {
             href={`/review?deck=${selectedDeck}`}
             className="btn-torii"
             style={{
+              position: 'relative',
+              zIndex: 2,
               padding: '0.75rem 1.5rem',
               fontSize: '0.95rem',
               display: 'inline-flex',
@@ -285,9 +314,10 @@ export default function CardsPage() {
         </div>
       )}
 
-      {/* DANH SÁCH BẢNG THẺ BÀI KARUTA (CATALOG TABLE) */}
+      {/* DANH SÁCH BẢNG THẺ BÀI KARUTA (CATALOG TABLE CÓ NỀN HOA ANH ĐÀO MẠ VÀNG) */}
       <div
         style={{
+          position: 'relative',
           background: 'var(--washi-surface)',
           borderRadius: '16px',
           border: '1px solid var(--washi-border)',
@@ -295,6 +325,13 @@ export default function CardsPage() {
           overflow: 'hidden',
         }}
       >
+        <JapaneseArtBackdrop
+          src="/assets/art/gold-sakura-washi.jpg"
+          alt="Hoa anh đào mạ kim trên giấy Washi"
+          opacity={0.08}
+          blendMode="multiply"
+          objectPosition="top right"
+        />
         <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
           <thead>
             <tr

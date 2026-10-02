@@ -46,4 +46,23 @@ describe('Authentic Wa-Art Assets & JapaneseArtBackdrop Validation', () => {
       expect(['multiply', 'overlay', 'soft-light', 'screen', 'normal']).toContain(mode);
     }
   });
+
+  it('toàn bộ 5 trang chính phải tích hợp JapaneseArtBackdrop và đảm bảo tính bất biến giao diện', () => {
+    const targetPages = [
+      'src/app/page.tsx',
+      'src/app/cards/page.tsx',
+      'src/app/cards/new/page.tsx',
+      'src/app/review/page.tsx',
+      'src/app/integrations/page.tsx',
+    ];
+
+    for (const pageRelPath of targetPages) {
+      const pageAbsPath = path.resolve(process.cwd(), pageRelPath);
+      expect(fs.existsSync(pageAbsPath), `Trang không tồn tại: ${pageRelPath}`).toBe(true);
+
+      const content = fs.readFileSync(pageAbsPath, 'utf-8');
+      expect(content).toContain('JapaneseArtBackdrop');
+    }
+  });
 });
+

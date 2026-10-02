@@ -2,9 +2,11 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ToriiIcon, OrizuruIcon, SensuFanIcon } from '@/components/japanese/Icons';
 import { PitchAccentGraph } from '@/components/japanese/PitchAccentGraph';
 import { JapaneseSpeakerButton } from '@/components/japanese/JapaneseSpeakerButton';
+import { JapaneseArtBackdrop } from '@/components/art/JapaneseArtBackdrop';
 import { japaneseAudio } from '@/components/japanese/AudioEffects';
 
 interface DraftItem {
@@ -237,6 +239,46 @@ export default function NewCardPage() {
       {/* TAB 1: AI COPILOT - BÀN THƯ PHÁP SHODO (1 Ô NHẬP DUY NHẤT) */}
       {activeTab === 'copilot' && (
         <div>
+          {/* KHUNG TRANH CUỘN KAKEJIKU: HẠC TRẮNG NGẮM PHÚ SĨ CỦA HOKUSAI */}
+          <div
+            className="kakejiku-scroll-frame"
+            style={{
+              borderRadius: '14px',
+              overflow: 'hidden',
+              height: '140px',
+              position: 'relative',
+              marginBottom: '1.75rem',
+              border: '2px solid var(--washi-border)',
+              boxShadow: 'var(--shadow-washi-sm)',
+            }}
+          >
+            <Image
+              src="/assets/art/hokusai-cranes-fuji.jpg"
+              alt="Tranh mộc bản Hokusai Hạc trắng ngắm núi Phú Sĩ"
+              fill
+              sizes="100vw"
+              style={{ objectFit: 'cover', objectPosition: 'center 40%', opacity: 0.90 }}
+            />
+            <div
+              style={{
+                position: 'absolute',
+                bottom: '0.65rem',
+                right: '0.85rem',
+                background: 'rgba(255, 255, 255, 0.88)',
+                backdropFilter: 'blur(4px)',
+                padding: '0.25rem 0.65rem',
+                borderRadius: '6px',
+                fontSize: '0.72rem',
+                fontFamily: 'var(--font-mincho)',
+                color: 'var(--sumi-ink)',
+                border: '1px solid var(--washi-border)',
+                fontWeight: 600,
+              }}
+            >
+              富嶽三十六景 · 相州梅沢庄 (Hokusai)
+            </div>
+          </div>
+
           <form
             onSubmit={handleCopilotSubmit}
             style={{
@@ -250,6 +292,15 @@ export default function NewCardPage() {
               overflow: 'hidden',
             }}
           >
+            {/* Lớp hoa văn mây sương Kasumi trang trí chìm */}
+            <JapaneseArtBackdrop
+              src="/assets/art/cloud-mist-kasumi-icons.jpg"
+              alt="Họa tiết mây Kasumi"
+              opacity={0.07}
+              blendMode="multiply"
+              objectPosition="bottom right"
+            />
+
             {/* Dải viền Seigaiha mỏng trang trí đỉnh form */}
             <div
               className="wagara-seigaiha-matcha"

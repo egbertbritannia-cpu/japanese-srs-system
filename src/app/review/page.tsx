@@ -3,11 +3,13 @@
 import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ToriiIcon, SensuFanIcon } from '@/components/japanese/Icons';
 import { PitchAccentGraph } from '@/components/japanese/PitchAccentGraph';
 import { JapaneseSpeakerButton } from '@/components/japanese/JapaneseSpeakerButton';
 import { japaneseAudio } from '@/components/japanese/AudioEffects';
 import { DarumaMascot } from '@/components/japanese/DarumaMascot';
+import { JapaneseArtBackdrop } from '@/components/art/JapaneseArtBackdrop';
 
 interface CardItem {
   id: string;
@@ -283,23 +285,37 @@ function ReviewSessionContent() {
         <div
           className="card-karuta"
           style={{
-            padding: '3rem 2rem',
+            position: 'relative',
+            overflow: 'hidden',
+            padding: '3.5rem 2rem',
             background: 'linear-gradient(180deg, #FFFFFF 0%, #F5F9ED 100%)',
             border: '2px solid var(--matcha-primary)',
           }}
         >
-          <DarumaMascot progressPercentage={100} size={96} />
+          {/* Lớp nền sóng thần Kanagawa khải hoàn */}
+          <div style={{ position: 'absolute', inset: 0, opacity: 0.16, pointerEvents: 'none', zIndex: 0 }}>
+            <Image
+              src="/assets/art/great-wave-isolated.webp"
+              alt="Sóng thần Kanagawa khải hoàn"
+              fill
+              sizes="100vw"
+              style={{ objectFit: 'contain', objectPosition: 'center' }}
+            />
+          </div>
 
-          <h2
-            style={{
-              fontFamily: 'var(--font-mincho)',
-              fontSize: '2rem',
-              fontWeight: 800,
-              color: 'var(--sumi-ink)',
-              marginTop: '1.5rem',
-              marginBottom: '0.4rem',
-            }}
-          >
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            <DarumaMascot progressPercentage={100} size={96} />
+
+            <h2
+              style={{
+                fontFamily: 'var(--font-mincho)',
+                fontSize: '2rem',
+                fontWeight: 800,
+                color: 'var(--sumi-ink)',
+                marginTop: '1.5rem',
+                marginBottom: '0.4rem',
+              }}
+            >
             お疲れ様でした！
           </h2>
           <p style={{ fontFamily: 'var(--font-maru)', fontSize: '1.1rem', color: 'var(--matcha-deep)', fontWeight: 700 }}>
@@ -362,8 +378,9 @@ function ReviewSessionContent() {
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+}
 
   // 3. GIAO DIỆN PHIÊN ÔN TẬP KARUTA ACTIVE RECALL
   const isKanji = currentCard.type === 'Kanji' || (currentCard.deckName && currentCard.deckName.includes('Hán Tự'));
@@ -521,7 +538,7 @@ function ReviewSessionContent() {
         </div>
       </div>
 
-      {/* THẺ BÀI TRUYỀN THỐNG KARUTA (HYAKUNIN ISSHU CARD) */}
+      {/* THẺ BÀI TRUYỀN THỐNG KARUTA (HYAKUNIN ISSHU CARD CÓ VÂN SÓNG MỘC BẢN) */}
       <div
         className="card-karuta"
         style={{
@@ -536,8 +553,16 @@ function ReviewSessionContent() {
           background: showAnswer ? 'linear-gradient(180deg, #FFFFFF 0%, #FAFBF7 100%)' : '#FFFFFF',
           border: showAnswer ? '1.5px solid var(--matcha-primary)' : '1px solid var(--washi-border)',
           position: 'relative',
+          overflow: 'hidden',
         }}
       >
+        <JapaneseArtBackdrop
+          src="/assets/art/hokusai-great-wave-classic.jpg"
+          alt="Tranh sóng lừng Hokusai chìm"
+          opacity={0.06}
+          blendMode="multiply"
+          objectPosition="center"
+        />
         {/* Con dấu son góc trên bên phải */}
         <div
           style={{
