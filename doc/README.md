@@ -44,6 +44,9 @@ Toàn bộ kế hoạch tái thiết kế giao diện theo phong cách Nhật B�
 12. **[10_MULTI_ROLE_AGENT_COLLABORATION_GUIDE.md](file:///D:/project/japanese-srs-system/doc/10_MULTI_ROLE_AGENT_COLLABORATION_GUIDE.md)**  
    *Cẩm nang Phối hợp Đa Vai trò (Multi-Role Agent Collaboration Guide)*: Quy định chi tiết vòng đời phối hợp tuần tự (Sequence Diagram), ma trận phân định trách nhiệm, và 6 giao thức bàn giao (Handoff Protocols) giữa BA, PM, Designer, Dev, QA, và DevOps.
 
+13. **[11_JAPANESE_GRAPHIC_DESIGN_DECONSTRUCTION.md](file:///D:/project/japanese-srs-system/doc/11_JAPANESE_GRAPHIC_DESIGN_DECONSTRUCTION.md)**  
+   *Giải mã Chuyên sâu Phong cách Thiết kế Đồ họa Nhật Bản (Japanese Graphic Design Deconstruction)*: Bóc tách toàn diện 2 tư liệu từ `C:\Users\ThinkPad X1\Pictures\japanese-graphic-design` về trường phái Wa-Modern Bento Grid, bảng màu Red-Indigo-Washi, cấu trúc lưới mộc bản, typography trục kép (Tate/Yoko-gaki), và các mô-típ văn hóa kinh điển (Sóng lừng Hokusai, mặt trời Hinomaru, gia huy Kamon, tranh mỹ nhân Bijin-ga).
+
 ---
 
 ### 🎴 HỆ THỐNG 8 SKILLS ANTHIGRAVITY TRONG DỰ ÁN (`.agents/skills/`)
