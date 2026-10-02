@@ -182,6 +182,22 @@ export default function RootLayout({
                 ✨ AI Soạn thẻ
               </Link>
               <Link
+                href="/integrations"
+                style={{
+                  padding: '0.5rem 0.9rem',
+                  borderRadius: '8px',
+                  color: 'var(--asagi-teal)',
+                  background: 'var(--asagi-light)',
+                  textDecoration: 'none',
+                  fontSize: '0.9rem',
+                  fontFamily: 'var(--font-maru)',
+                  fontWeight: 700,
+                  transition: 'all 0.2s',
+                }}
+              >
+                🌐 Tiện ích Google
+              </Link>
+              <Link
                 href="/review"
                 className="btn-torii"
                 style={{
