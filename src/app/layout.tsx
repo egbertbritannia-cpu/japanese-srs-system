@@ -6,6 +6,7 @@ import { SakuraBackground } from '@/components/japanese/SakuraBackground';
 import { JapanesePosterBackground } from '@/components/japanese/JapanesePosterBackground';
 import { ToriiIcon, FujiMountainIcon } from '@/components/japanese/Icons';
 import { JapaneseArtBackdrop } from '@/components/art/JapaneseArtBackdrop';
+import { KirieBottomNav } from '@/components/kirie/KirieBottomNav';
 
 const zenMaru = Zen_Maru_Gothic({
   weight: ['400', '500', '700', '900'],
@@ -280,6 +281,9 @@ export default function RootLayout({
             </p>
           </div>
         </footer>
+
+        {/* Thanh Điều Hướng Di Động Nổi Phong Cách Kirie (Mobile Floating Bottom Nav) */}
+        <KirieBottomNav />
       </body>
     </html>
   );

@@ -60,3 +60,15 @@ export class PitchAccentLookup {
     return pitchInfo;
   }
 }
+
+export function getPitchAccent(
+  word: string,
+  reading?: string
+): { pattern: string; pitchClass: string } | null {
+  const info = PitchAccentLookup.lookup(word, reading || word);
+  if (!info) return null;
+  return {
+    pattern: info.pattern,
+    pitchClass: info.pattern.toLowerCase(),
+  };
+}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Japanese SRS Mining Copilot</title>
+  <style>
+    body {
+      width: 320px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      padding: 14px;
+      background-color: #FAF8F5;
+      color: #1F2421;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 2px solid #D9381E;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }
+    .logo-badge {
+      background: #D9381E;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 11px;
+    }
+    .title {
+      font-weight: bold;
+      font-size: 14px;
+    }
+    label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #555;
+      display: block;
+      margin-top: 8px;
+    }
+    input, textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 6px 8px;
+      border: 1px solid #E8E2D8;
+      border-radius: 6px;
+      margin-top: 4px;
+      font-size: 13px;
+      background: #FFFFFF;
+    }
+    button {
+      width: 100%;
+      margin-top: 12px;
+      background: #D9381E;
+      color: white;
+      border: none;
+      padding: 9px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 13px;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #B82C15;
+    }
+    .status {
+      margin-top: 8px;
+      font-size: 11px;
+      text-align: center;
+      color: #717C75;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="logo-badge">日学</span>
+    <span class="title">Mining Copilot (Alt+S)</span>
+  </div>
+
+  <label for="word">Từ vựng mục tiêu:</label>
+  <input type="text" id="word" placeholder="Ví dụ: 曖昧">
+
+  <label for="sentence">Câu ngữ cảnh bóc tách:</label>
+  <textarea id="sentence" rows="3" placeholder="Câu chứa từ vựng..."></textarea>
+
+  <label for="meaning">Ý nghĩa / Ghi chú nhanh:</label>
+  <input type="text" id="meaning" placeholder="Nhập nghĩa hoặc để AI tự điền...">
+
+  <button id="saveBtn">⛩️ Phê duyệt vào Kho thẻ</button>
+  <div id="status" class="status">Sẵn sàng thu thập từ web.</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

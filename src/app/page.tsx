@@ -7,12 +7,19 @@ import { ToriiIcon, SakuraIcon, SensuFanIcon } from '@/components/japanese/Icons
 import { DarumaMascot } from '@/components/japanese/DarumaMascot';
 import { JapaneseArtBackdrop } from '@/components/art/JapaneseArtBackdrop';
 import { DeckSummaryDTO } from '@/core/cards/deck.types';
+import {
+  KirieHeroBanner,
+  KirieKpiCard,
+  KirieFocusListItem,
+  KirieFocusItemData,
+} from '@/components/kirie';
 
 /**
  * Dashboard (Honmaru - 本丸): Tổng quan tiến độ học tập, FSRS stats & Danh mục Bộ thẻ (Kifuda)
  */
 export default function DashboardPage() {
   const [deckSummaries, setDeckSummaries] = useState<DeckSummaryDTO[]>([]);
+  const [cardsList, setCardsList] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -36,6 +43,9 @@ export default function DashboardPage() {
               learnedCards: 0,
             }))
           );
+        }
+        if (json.data && Array.isArray(json.data)) {
+          setCardsList(json.data.slice(0, 5));
         }
       } catch (err) {
         console.error('Lỗi khi nạp dữ liệu bộ thẻ:', err);
@@ -62,9 +72,147 @@ export default function DashboardPage() {
   const progressPercent =
     totalTodayGoal > 0 ? Math.min(100, Math.round((stats.completedToday / totalTodayGoal) * 100)) : 100;
 
+  const fallbackFocusCards: KirieFocusItemData[] = [
+    {
+      id: 'f1',
+      title: '曖昧 (あいまい)',
+      subtitle: 'Mơ hồ, mập mờ, không rõ ràng',
+      timeOrLevel: 'N2 · 120ms',
+      statusText: 'Cần ôn ngay',
+      statusType: 'due-now',
+      barColor: 'navy',
+      href: '/review',
+      audioText: '曖昧',
+    },
+    {
+      id: 'f2',
+      title: '躊躇 (ちゅうちょ)',
+      subtitle: 'Do dự, ngập ngừng, lưỡng lự',
+      timeOrLevel: 'N1 · FSRS S: 3.2d',
+      statusText: 'Đang ôn luyện',
+      statusType: 'in-progress',
+      barColor: 'denim',
+      href: '/review',
+      audioText: '躊躇',
+    },
+    {
+      id: 'f3',
+      title: '木漏れ日 (こもれび)',
+      subtitle: 'Ánh nắng le lói xuyên qua kẽ lá cây',
+      timeOrLevel: 'N3 · Từ mới',
+      statusText: 'Chờ kích hoạt',
+      statusType: 'pending',
+      barColor: 'gold',
+      href: '/review',
+      audioText: '木漏れ日',
+    },
+    {
+      id: 'f4',
+      title: '一期一会 (いちごいちえ)',
+      subtitle: 'Đời người chỉ gặp một lần, quý trọng khoảnh khắc',
+      timeOrLevel: 'Yojijukugo · N2',
+      statusText: 'Thuần thục',
+      statusType: 'not-started',
+      barColor: 'matcha',
+      href: '/review',
+      audioText: '一期一会',
+    },
+  ];
+
+  const displayedFocusItems: KirieFocusItemData[] =
+    cardsList.length > 0
+      ? cardsList.map((c, idx) => {
+          const barColors: ('navy' | 'denim' | 'gold' | 'matcha' | 'torii')[] = [
+            'navy',
+            'denim',
+            'gold',
+            'matcha',
+            'torii',
+          ];
+          const isDue = c.due ? new Date(c.due) <= new Date() : false;
+          return {
+            id: c.id,
+            title: `${c.kanji || c.front || 'Thẻ học'}${c.reading ? ` (${c.reading})` : ''}`,
+            subtitle: c.meaning || 'Từ vựng tiếng Nhật',
+            timeOrLevel: c.type || 'N2',
+            statusText: isDue ? 'Cần ôn ngay' : c.state === 'New' ? 'Từ mới' : 'Đang ôn',
+            statusType: isDue ? 'due-now' : c.state === 'New' ? 'pending' : 'in-progress',
+            barColor: barColors[idx % barColors.length],
+            href: '/review',
+            audioText: c.kanji || c.front,
+          };
+        })
+      : fallbackFocusCards;
+
   return (
-    <main style={{ maxWidth: '1050px', margin: '2rem auto', padding: '0 1.5rem 3rem' }}>
-      {/* 1. HERO BANNER: WA-MODERN POSTER SHOWCASE (PHONG CÁCH ÁP PHÍCH ĐỒ HỌA NHẬT BẢN) */}
+    <main style={{ maxWidth: '1050px', margin: '1.5rem auto 3rem', padding: '0 1.5rem 3rem' }}>
+      {/* =========================================================================
+          KHU VỰC 1: WASHI KIRIE HERO BANNER & 3D LAYERED OCEAN WAVE (ẢNH THAM CHIẾU)
+          ========================================================================= */}
+      <section style={{ marginBottom: '2.5rem' }}>
+        <KirieHeroBanner
+          userName="Bạn"
+          dueCount={stats.dueToday}
+          newCount={stats.newCards}
+          learnedCount={totalCardsCount}
+        />
+
+        {/* 3 THẺ KPI GIẤY WASHI CÓ MẢNH GIẤY MÀU CẮT GÓC DƯỚI (CORNER CUTOUT) */}
+        <div className="kirie-kpi-grid">
+          <KirieKpiCard
+            title="Cần ôn hôm nay"
+            value={stats.dueToday}
+            subtitle="Thẻ FSRS đến hạn truy xuất"
+            accent="blue"
+            href="/review"
+          />
+          <KirieKpiCard
+            title="Từ mới chờ nạp"
+            value={stats.newCards}
+            subtitle="Sẵn sàng nạp kiến thức mới"
+            accent="gold"
+            href="/cards/new"
+          />
+          <KirieKpiCard
+            title="Độ nhớ mục tiêu"
+            value={stats.retentionRate}
+            subtitle="Chuẩn thuật toán FSRS v5"
+            accent="green"
+            href="/review"
+          />
+        </div>
+
+        {/* ĐƯỜNG PHÂN CÁCH SÓNG VÀNG TODAY'S FOCUS */}
+        <div className="kirie-section-header">
+          <h2 className="kirie-section-title">
+            本日の重点 · Trọng tâm Hôm nay (Today&apos;s Focus)
+          </h2>
+          <div className="kirie-wave-divider-line">
+            <svg
+              className="kirie-wave-divider-icon"
+              viewBox="0 0 24 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0 12 C6 8, 12 16, 18 10 C21 7, 24 11, 24 11"
+                stroke="#D4AF37"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
+          </div>
+        </div>
+
+        {/* DANH SÁCH THẺ BÀI VẠCH SƠN MÀI ĐỨNG BÊN TRÁI & HUY HIỆU VIÊN THUỐC */}
+        <div className="kirie-task-list">
+          {displayedFocusItems.map((item) => (
+            <KirieFocusListItem key={item.id} item={item} />
+          ))}
+        </div>
+      </section>
+
+      {/* 2. HERO BANNER PHONG CÁCH ÁP PHÍCH NHẬT BẢN & MỸ HỌC MỘC BẢN */}
       <section
         style={{
           background: 'linear-gradient(135deg, #1A3025 0%, #2D4A3E 60%, #1F2421 100%)',

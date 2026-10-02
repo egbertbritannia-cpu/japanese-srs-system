@@ -28,3 +28,7 @@ export class FuriganaExtractor {
     return text;
   }
 }
+
+export function generateFurigana(text: string): string {
+  return FuriganaExtractor.toBracketNotation(text);
+}

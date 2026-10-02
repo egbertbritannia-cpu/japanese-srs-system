@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "Japanese SRS - Mining Copilot",
+  "version": "1.0.0",
+  "description": "Thu thập câu và từ vựng tiếng Nhật 1 chạm (Alt+S) trực tiếp từ NHK, YouTube vào Japanese SRS System.",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "contextMenus"
+  ],
+  "host_permissions": [
+    "http://localhost:3000/*",
+    "https://*.vercel.app/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Japanese SRS Mining Copilot"
+  },
+  "commands": {
+    "quick-mine": {
+      "suggested_key": {
+        "default": "Alt+S",
+        "mac": "Alt+S"
+      },
+      "description": "Kích hoạt bóc tách câu tiếng Nhật đang chọn"
+    }
+  }
+}
