@@ -3,6 +3,9 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { ToriiIcon, OrizuruIcon, SensuFanIcon } from '@/components/japanese/Icons';
+import { PitchAccentGraph } from '@/components/japanese/PitchAccentGraph';
+import { JapaneseSpeakerButton } from '@/components/japanese/JapaneseSpeakerButton';
+import { japaneseAudio } from '@/components/japanese/AudioEffects';
 
 interface DraftItem {
   id: string;
@@ -120,6 +123,7 @@ export default function NewCardPage() {
       });
       const data = await res.json();
       if (data.success) {
+        japaneseAudio.playSuzuBell();
         setDraftsList((prev) =>
           prev.map((d) => (d.id === draft.id ? { ...d, approved: true } : d))
         );
@@ -485,8 +489,8 @@ export default function NewCardPage() {
                   </div>
 
                   <div style={{ marginBottom: '1.5rem' }}>
-                    {/* Chữ Kanji lớn & Furigana */}
-                    <div style={{ marginBottom: '0.5rem' }}>
+                    {/* Chữ Kanji lớn & Furigana & Nút phát âm */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
                       <span
                         style={{
                           fontFamily: 'var(--font-mincho)',
@@ -502,17 +506,30 @@ export default function NewCardPage() {
                           fontFamily: 'var(--font-maru)',
                           fontSize: '1.35rem',
                           color: 'var(--matcha-deep)',
-                          marginLeft: '0.75rem',
                           fontWeight: 600,
                         }}
                       >
                         【{draft.cardData.reading_furigana}】
                       </span>
+                      <JapaneseSpeakerButton text={draft.cardData.kanji_surface} size={18} />
                     </div>
 
-                    <p style={{ color: 'var(--sumi-charcoal)', fontSize: '0.88rem', marginBottom: '1.25rem' }}>
-                      📍 Mẫu cao độ Tokyo: <strong>[{draft.cardData.pitch_pattern}]</strong>
-                    </p>
+                    {/* Trực quan hóa cao độ ngữ âm Tokyo */}
+                    <div
+                      style={{
+                        background: 'var(--washi-bg)',
+                        padding: '0.6rem 1rem',
+                        borderRadius: '8px',
+                        border: '1px solid var(--washi-border-soft)',
+                        marginBottom: '1.25rem',
+                        display: 'inline-block',
+                      }}
+                    >
+                      <PitchAccentGraph
+                        reading={draft.cardData.reading_furigana}
+                        pattern={draft.cardData.pitch_pattern}
+                      />
+                    </div>
 
                     {/* Ô chỉnh sửa nghĩa tiếng Việt */}
                     <div style={{ marginBottom: '1rem' }}>
@@ -540,9 +557,14 @@ export default function NewCardPage() {
 
                     {/* Ô chỉnh sửa câu ví dụ ngữ cảnh i+1 */}
                     <div style={{ marginBottom: '1rem' }}>
-                      <label style={{ display: 'block', fontSize: '0.85rem', color: 'var(--sumi-charcoal)', fontWeight: 600, marginBottom: '0.35rem' }}>
-                        Câu ngữ cảnh đục lỗ i+1:
-                      </label>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
+                        <label style={{ display: 'block', fontSize: '0.85rem', color: 'var(--sumi-charcoal)', fontWeight: 600 }}>
+                          Câu ngữ cảnh đục lỗ i+1:
+                        </label>
+                        {draft.cardData.context_sentence && (
+                          <JapaneseSpeakerButton text={draft.cardData.context_sentence} size={14} label="Nghe câu" />
+                        )}
+                      </div>
                       <textarea
                         rows={2}
                         disabled={draft.approved}

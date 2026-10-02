@@ -1,52 +1,175 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { ToriiIcon, SensuFanIcon } from '@/components/japanese/Icons';
+import { PitchAccentGraph } from '@/components/japanese/PitchAccentGraph';
+import { JapaneseSpeakerButton } from '@/components/japanese/JapaneseSpeakerButton';
+import { japaneseAudio } from '@/components/japanese/AudioEffects';
+import { DarumaMascot } from '@/components/japanese/DarumaMascot';
 
 /**
  * Giao diện Ôn tập Thẻ bài Karuta (Active Recall & FSRS Rating)
+ * Tích hợp Phím tắt thông minh, Âm thanh Phù Tang & Đồ thị Cao độ Pitch Accent
  */
 export default function ReviewPage() {
   const [showAnswer, setShowAnswer] = useState(false);
   const [currentIdx, setCurrentIdx] = useState(1);
+  const [isCompleted, setIsCompleted] = useState(false);
   const totalCards = 15;
 
-  // Mock card chuẩn văn hóa Nhật cho phiên ôn tập
-  const currentCard = {
-    id: 'c1',
-    kanji: '勉強',
-    furigana: 'べんきょう',
-    meaning: 'Học tập, siêng năng trau dồi tri thức',
-    pitch: '0 (Heiban - 平板型)',
-    sentence: '毎日日本語を熱心に勉強します。',
-    sentenceMeaning: 'Mỗi ngày tôi đều chăm chỉ học tiếng Nhật.',
-  };
+  // Mock cards cho phiên ôn tập
+  const cardList = [
+    {
+      id: 'c1',
+      kanji: '勉強',
+      furigana: 'べんきょう',
+      meaning: 'Học tập, siêng năng trau dồi tri thức',
+      pitchPattern: 0,
+      pitchText: '0 (Heiban - 平板型)',
+      sentence: '毎日日本語を熱心に勉強します。',
+      sentenceMeaning: 'Mỗi ngày tôi đều chăm chỉ học tiếng Nhật.',
+    },
+    {
+      id: 'c2',
+      kanji: '桜',
+      furigana: 'さくら',
+      meaning: 'Hoa anh đào - Quốc hoa xứ Phù Tang',
+      pitchPattern: 0,
+      pitchText: '0 (Heiban - 平板型)',
+      sentence: '春になると美しい桜が咲きます。',
+      sentenceMeaning: 'Khi mùa xuân đến, những bông hoa anh đào tuyệt đẹp nở rộ.',
+    },
+    {
+      id: 'c3',
+      kanji: '猫',
+      furigana: 'ねこ',
+      meaning: 'Con mèo',
+      pitchPattern: 1,
+      pitchText: '1 (Atamadaka - 頭高型)',
+      sentence: '庭で可愛い猫が寝ています。',
+      sentenceMeaning: 'Chú mèo đáng yêu đang ngủ ngoài vườn.',
+    },
+  ];
 
-  const handleGrade = async (grade: 'Again' | 'Hard' | 'Good' | 'Easy') => {
-    console.log(`Đã chấm điểm thẻ ${currentCard.id} là: ${grade}`);
+  const currentCard = cardList[(currentIdx - 1) % cardList.length];
 
-    // Gửi kết quả đánh giá thẻ (cập nhật Difficulty, Stability, Retrievability)
-    try {
-      await fetch('/api/review', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          cardId: currentCard.id,
-          rating: grade,
-        }),
-      });
-    } catch {
-      console.warn('Lỗi gọi API review, tiếp tục phiên ôn tập');
-    }
+  const handleReveal = useCallback(() => {
+    setShowAnswer(true);
+    japaneseAudio.speak(currentCard.kanji);
+  }, [currentCard.kanji]);
 
-    setShowAnswer(false);
-    if (currentIdx < totalCards) {
-      setCurrentIdx((prev) => prev + 1);
-    }
-  };
+  const handleGrade = useCallback(
+    async (grade: 'Again' | 'Hard' | 'Good' | 'Easy') => {
+      // Âm thanh văn hóa phản hồi tức thì
+      if (grade === 'Again' || grade === 'Hard') {
+        japaneseAudio.playHyoshigi(); // Tiếng phách gỗ Kabuki nhắc nhở
+      } else if (grade === 'Good') {
+        japaneseAudio.playKotoPluck(); // Tiếng đàn tranh Koto thanh thoát
+      } else {
+        japaneseAudio.playSuzuBell(); // Tiếng chuông đền Suzu ngân vang
+      }
+
+      console.log(`Đã chấm điểm thẻ ${currentCard.id} là: ${grade}`);
+
+      // Gửi kết quả đánh giá thẻ tới backend API
+      try {
+        await fetch('/api/review', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            cardId: currentCard.id,
+            rating: grade,
+          }),
+        });
+      } catch {
+        console.warn('Lỗi gọi API review, tiếp tục phiên ôn tập');
+      }
+
+      setShowAnswer(false);
+      if (currentIdx >= totalCards) {
+        setIsCompleted(true);
+        japaneseAudio.playSuzuBell();
+      } else {
+        setCurrentIdx((prev) => prev + 1);
+      }
+    },
+    [currentCard.id, currentIdx, totalCards]
+  );
+
+  // Lắng nghe Phím tắt: Phím Cách (Space) để lật, 1-4 để đánh giá
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+
+      if (e.code === 'Space' && !showAnswer) {
+        e.preventDefault();
+        handleReveal();
+      } else if (showAnswer) {
+        if (e.key === '1') handleGrade('Again');
+        if (e.key === '2') handleGrade('Hard');
+        if (e.key === '3') handleGrade('Good');
+        if (e.key === '4') handleGrade('Easy');
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showAnswer, handleReveal, handleGrade]);
 
   const progressPercent = Math.round((currentIdx / totalCards) * 100);
+
+  // MÀN HÌNH CHÚC MỪNG KHI HOÀN THÀNH PHIÊN ÔN TẬP
+  if (isCompleted) {
+    return (
+      <div style={{ maxWidth: '600px', margin: '3rem auto', padding: '0 1.5rem', textAlign: 'center' }}>
+        <div
+          className="card-karuta"
+          style={{
+            padding: '3rem 2rem',
+            background: 'linear-gradient(180deg, #FFFFFF 0%, #F5F9ED 100%)',
+            border: '2px solid var(--matcha-primary)',
+          }}
+        >
+          <DarumaMascot progressPercentage={100} size={96} />
+
+          <h2
+            style={{
+              fontFamily: 'var(--font-mincho)',
+              fontSize: '2rem',
+              fontWeight: 800,
+              color: 'var(--sumi-ink)',
+              marginTop: '1.5rem',
+              marginBottom: '0.5rem',
+            }}
+          >
+            お疲れ様でした！
+          </h2>
+          <p style={{ fontFamily: 'var(--font-maru)', fontSize: '1.1rem', color: 'var(--matcha-deep)', fontWeight: 700 }}>
+            Bạn đã hoàn thành xuất sắc {totalCards} thẻ hôm nay!
+          </p>
+          <p style={{ color: 'var(--sumi-faded)', fontSize: '0.9rem', marginTop: '0.5rem', marginBottom: '2rem' }}>
+            Búp bê Daruma đã khai mở trọn vẹn hai mắt. Lịch ôn tập ngắt quãng FSRS đã được cập nhật thành công.
+          </p>
+
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+            <Link href="/" className="btn-torii">
+              🏯 Về trang Tổng quan
+            </Link>
+            <button
+              onClick={() => {
+                setCurrentIdx(1);
+                setIsCompleted(false);
+              }}
+              className="btn-washi"
+            >
+              🔄 Ôn tập lại thêm một lượt
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div style={{ maxWidth: '680px', margin: '2rem auto', padding: '0 1.5rem 3rem' }}>
@@ -68,16 +191,18 @@ export default function ReviewPage() {
           >
             ← Quay lại Trang chủ
           </Link>
-          <span
-            style={{
-              fontFamily: 'var(--font-mincho)',
-              fontWeight: 700,
-              fontSize: '0.95rem',
-              color: 'var(--matcha-deep)',
-            }}
-          >
-            第 {currentIdx} 問 / 全 {totalCards} 問
-          </span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span
+              style={{
+                fontFamily: 'var(--font-mincho)',
+                fontWeight: 700,
+                fontSize: '0.95rem',
+                color: 'var(--matcha-deep)',
+              }}
+            >
+              第 {currentIdx} 問 / 全 {totalCards} 問
+            </span>
+          </div>
         </div>
 
         {/* Thanh tiến độ phiên học họa tiết Seigaiha mờ */}
@@ -105,7 +230,7 @@ export default function ReviewPage() {
       <div
         className="card-karuta"
         style={{
-          minHeight: '340px',
+          minHeight: '360px',
           padding: '2.5rem 2rem',
           display: 'flex',
           flexDirection: 'column',
@@ -130,24 +255,26 @@ export default function ReviewPage() {
             border: '1.5px solid var(--torii-red)',
             padding: '0.15rem 0.4rem',
             borderRadius: '4px',
-            opacity: 0.8,
+            opacity: 0.85,
           }}
         >
           {showAnswer ? '解答' : '出題'}
         </div>
 
         {/* MẶT TRƯỚC: CHỮ KANJI THƯ PHÁP LỚN */}
-        <div
-          style={{
-            fontFamily: 'var(--font-mincho)',
-            fontSize: '4.25rem',
-            fontWeight: 800,
-            color: 'var(--sumi-ink)',
-            marginBottom: '0.75rem',
-            letterSpacing: '0.05em',
-          }}
-        >
-          {currentCard.kanji}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
+          <div
+            style={{
+              fontFamily: 'var(--font-mincho)',
+              fontSize: '4.25rem',
+              fontWeight: 800,
+              color: 'var(--sumi-ink)',
+              letterSpacing: '0.05em',
+            }}
+          >
+            {currentCard.kanji}
+          </div>
+          <JapaneseSpeakerButton text={currentCard.kanji} size={22} />
         </div>
 
         {/* MẶT SAU: LẬT MỞ NỘI DUNG FURIGANA & Ý NGHĨA KHI BẤM XEM */}
@@ -160,62 +287,60 @@ export default function ReviewPage() {
               borderTop: '1.5px dashed var(--washi-border)',
               display: 'flex',
               flexDirection: 'column',
-              gap: '0.75rem',
+              gap: '1rem',
+              alignItems: 'center',
               animation: 'fadeIn 0.3s ease forwards',
             }}
           >
-            {/* Furigana & Cao độ */}
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.75rem' }}>
-              <span
-                style={{
-                  fontFamily: 'var(--font-maru)',
-                  fontSize: '1.5rem',
-                  fontWeight: 700,
-                  color: 'var(--matcha-deep)',
-                }}
-              >
-                【{currentCard.furigana}】
-              </span>
-              <span
-                style={{
-                  fontSize: '0.82rem',
-                  padding: '0.2rem 0.5rem',
-                  background: 'var(--matcha-subtle)',
-                  color: 'var(--matcha-deep)',
-                  borderRadius: '4px',
-                  fontWeight: 600,
-                }}
-              >
-                Cao độ: {currentCard.pitch}
-              </span>
+            {/* Đồ thị cao độ ngữ âm Tokyo Pitch Accent */}
+            <div
+              style={{
+                background: 'var(--washi-bg)',
+                padding: '0.75rem 1.25rem',
+                borderRadius: '10px',
+                border: '1px solid var(--washi-border-soft)',
+              }}
+            >
+              <PitchAccentGraph
+                reading={currentCard.furigana}
+                pattern={currentCard.pitchPattern}
+              />
             </div>
 
             {/* Ý nghĩa tiếng Việt */}
-            <div style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--sumi-ink)' }}>
+            <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--sumi-ink)' }}>
               {currentCard.meaning}
             </div>
 
             {/* Câu ví dụ ngữ cảnh i+1 */}
             <div
               style={{
-                marginTop: '0.5rem',
+                width: '100%',
                 background: 'var(--washi-bg)',
                 padding: '0.85rem 1.25rem',
                 borderRadius: '8px',
                 border: '1px solid var(--washi-border-soft)',
+                textAlign: 'left',
               }}
             >
-              <p style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.1rem', color: 'var(--sumi-charcoal)' }}>
-                {currentCard.sentence}
-              </p>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <p style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.1rem', color: 'var(--sumi-charcoal)' }}>
+                  {currentCard.sentence}
+                </p>
+                <JapaneseSpeakerButton text={currentCard.sentence} size={16} />
+              </div>
               <p style={{ fontSize: '0.85rem', color: 'var(--sumi-faded)', marginTop: '0.25rem' }}>
                 {currentCard.sentenceMeaning}
               </p>
             </div>
           </div>
         ) : (
-          <p style={{ fontSize: '0.9rem', color: 'var(--sumi-faded)', fontFamily: 'var(--font-maru)' }}>
-            Tự gợi nhớ lại cách đọc và ý nghĩa trước khi xem đáp án
+          <p style={{ fontSize: '0.9rem', color: 'var(--sumi-faded)', fontFamily: 'var(--font-maru)', marginTop: '0.5rem' }}>
+            Tự gợi nhớ lại cách đọc và ý nghĩa trước khi xem đáp án <br />
+            <kbd style={{ padding: '0.15rem 0.45rem', background: '#F1EDE6', borderRadius: '4px', fontSize: '0.8rem' }}>
+              Phím Space
+            </kbd>{' '}
+            để lật thẻ
           </p>
         )}
       </div>
@@ -223,7 +348,7 @@ export default function ReviewPage() {
       {/* KHU VỰC NÚT TƯƠNG TÁC ACTIVE RECALL */}
       {!showAnswer ? (
         <button
-          onClick={() => setShowAnswer(true)}
+          onClick={handleReveal}
           className="btn-torii"
           style={{
             width: '100%',
@@ -233,97 +358,102 @@ export default function ReviewPage() {
           }}
         >
           <SensuFanIcon size={22} color="#FFFFFF" />
-          Khám phá đáp án (Active Recall · 答えを見る)
+          Khám phá đáp án (Space)
         </button>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem' }}>
-          {/* NÚT 1: AGAIN (もう一度) */}
-          <button
-            onClick={() => handleGrade('Again')}
-            style={{
-              padding: '0.85rem 0.5rem',
-              backgroundColor: '#FFFFFF',
-              border: '2px solid var(--torii-red)',
-              borderRadius: '10px',
-              color: 'var(--torii-red)',
-              cursor: 'pointer',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '0.25rem',
-              transition: 'all 0.2s',
-              boxShadow: '0 2px 6px rgba(217, 56, 30, 0.15)',
-            }}
-          >
-            <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 800, fontSize: '1.1rem' }}>再 (Again)</span>
-            <span style={{ fontSize: '0.72rem', color: 'var(--sumi-faded)' }}>&lt; 1 phút</span>
-          </button>
+        <div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem', marginBottom: '0.75rem' }}>
+            {/* NÚT 1: AGAIN (もう一度) */}
+            <button
+              onClick={() => handleGrade('Again')}
+              style={{
+                padding: '0.85rem 0.5rem',
+                backgroundColor: '#FFFFFF',
+                border: '2px solid var(--torii-red)',
+                borderRadius: '10px',
+                color: 'var(--torii-red)',
+                cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '0.25rem',
+                transition: 'all 0.2s',
+                boxShadow: '0 2px 6px rgba(217, 56, 30, 0.15)',
+              }}
+            >
+              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 800, fontSize: '1.1rem' }}>再 (1)</span>
+              <span style={{ fontSize: '0.72rem', color: 'var(--sumi-faded)' }}>&lt; 1 phút</span>
+            </button>
 
-          {/* NÚT 2: HARD (難) */}
-          <button
-            onClick={() => handleGrade('Hard')}
-            style={{
-              padding: '0.85rem 0.5rem',
-              backgroundColor: '#FFFFFF',
-              border: '2px solid #EA580C',
-              borderRadius: '10px',
-              color: '#EA580C',
-              cursor: 'pointer',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '0.25rem',
-              transition: 'all 0.2s',
-              boxShadow: '0 2px 6px rgba(234, 88, 12, 0.15)',
-            }}
-          >
-            <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 800, fontSize: '1.1rem' }}>難 (Hard)</span>
-            <span style={{ fontSize: '0.72rem', color: 'var(--sumi-faded)' }}>~ 1.2 ngày</span>
-          </button>
+            {/* NÚT 2: HARD (難) */}
+            <button
+              onClick={() => handleGrade('Hard')}
+              style={{
+                padding: '0.85rem 0.5rem',
+                backgroundColor: '#FFFFFF',
+                border: '2px solid #EA580C',
+                borderRadius: '10px',
+                color: '#EA580C',
+                cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '0.25rem',
+                transition: 'all 0.2s',
+                boxShadow: '0 2px 6px rgba(234, 88, 12, 0.15)',
+              }}
+            >
+              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 800, fontSize: '1.1rem' }}>難 (2)</span>
+              <span style={{ fontSize: '0.72rem', color: 'var(--sumi-faded)' }}>~ 1.2 ngày</span>
+            </button>
 
-          {/* NÚT 3: GOOD (良) - MÀU XANH MATCHA #88A752 CHUẨN ẢNH CHỤP */}
-          <button
-            onClick={() => handleGrade('Good')}
-            style={{
-              padding: '0.85rem 0.5rem',
-              backgroundColor: 'var(--matcha-primary)',
-              border: '2px solid var(--matcha-deep)',
-              borderRadius: '10px',
-              color: '#FFFFFF',
-              cursor: 'pointer',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '0.25rem',
-              transition: 'all 0.2s',
-              boxShadow: '0 4px 12px rgba(136, 167, 82, 0.35)',
-            }}
-          >
-            <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 800, fontSize: '1.1rem' }}>良 (Good)</span>
-            <span style={{ fontSize: '0.72rem', color: 'rgba(255, 255, 255, 0.9)' }}>~ 3.5 ngày</span>
-          </button>
+            {/* NÚT 3: GOOD (良) - MÀU XANH MATCHA #88A752 CHUẨN ẢNH CHỤP */}
+            <button
+              onClick={() => handleGrade('Good')}
+              style={{
+                padding: '0.85rem 0.5rem',
+                backgroundColor: 'var(--matcha-primary)',
+                border: '2px solid var(--matcha-deep)',
+                borderRadius: '10px',
+                color: '#FFFFFF',
+                cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '0.25rem',
+                transition: 'all 0.2s',
+                boxShadow: '0 4px 12px rgba(136, 167, 82, 0.35)',
+              }}
+            >
+              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 800, fontSize: '1.1rem' }}>良 (3)</span>
+              <span style={{ fontSize: '0.72rem', color: 'rgba(255, 255, 255, 0.9)' }}>~ 3.5 ngày</span>
+            </button>
 
-          {/* NÚT 4: EASY (易) */}
-          <button
-            onClick={() => handleGrade('Easy')}
-            style={{
-              padding: '0.85rem 0.5rem',
-              backgroundColor: '#FFFFFF',
-              border: '2px solid #0284C7',
-              borderRadius: '10px',
-              color: '#0284C7',
-              cursor: 'pointer',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '0.25rem',
-              transition: 'all 0.2s',
-              boxShadow: '0 2px 6px rgba(2, 132, 199, 0.15)',
-            }}
-          >
-            <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 800, fontSize: '1.1rem' }}>易 (Easy)</span>
-            <span style={{ fontSize: '0.72rem', color: 'var(--sumi-faded)' }}>~ 7.0 ngày</span>
-          </button>
+            {/* NÚT 4: EASY (易) */}
+            <button
+              onClick={() => handleGrade('Easy')}
+              style={{
+                padding: '0.85rem 0.5rem',
+                backgroundColor: '#FFFFFF',
+                border: '2px solid #0284C7',
+                borderRadius: '10px',
+                color: '#0284C7',
+                cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '0.25rem',
+                transition: 'all 0.2s',
+                boxShadow: '0 2px 6px rgba(2, 132, 199, 0.15)',
+              }}
+            >
+              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 800, fontSize: '1.1rem' }}>易 (4)</span>
+              <span style={{ fontSize: '0.72rem', color: 'var(--sumi-faded)' }}>~ 7.0 ngày</span>
+            </button>
+          </div>
+          <p style={{ textAlign: 'center', fontSize: '0.78rem', color: 'var(--sumi-faded)' }}>
+            💡 Mẹo: Nhấn phím số <strong>1</strong>, <strong>2</strong>, <strong>3</strong>, <strong>4</strong> trên bàn phím để chấm điểm nhanh
+          </p>
         </div>
       )}
     </div>

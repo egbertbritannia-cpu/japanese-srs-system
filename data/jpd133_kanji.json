@@ -1,0 +1,786 @@
+[
+  {
+    "unit": "UNIT 4",
+    "han_viet": "ĐÔNG",
+    "kanji": "東",
+    "hiragana": "ひがし",
+    "meaning": "Phía đông"
+  },
+  {
+    "unit": "UNIT 4",
+    "han_viet": "ĐÔNG KINH",
+    "kanji": "東京",
+    "hiragana": "とうきょう",
+    "meaning": "Tokyo"
+  },
+  {
+    "unit": "UNIT 4",
+    "han_viet": "DANH TIỀN",
+    "kanji": "名前",
+    "hiragana": "なまえ",
+    "meaning": "Tên"
+  },
+  {
+    "unit": "UNIT 4",
+    "han_viet": "TIỀN",
+    "kanji": "前",
+    "hiragana": "まえ",
+    "meaning": "Phía trước"
+  },
+  {
+    "unit": "UNIT 4",
+    "han_viet": "NGỌ TIỀN",
+    "kanji": "午前",
+    "hiragana": "ごぜん",
+    "meaning": "AM (Sáng)"
+  },
+  {
+    "unit": "UNIT 4",
+    "han_viet": "TIỀN NHẬT",
+    "kanji": "前日",
+    "hiragana": "ぜんじつ",
+    "meaning": "Trước ngày"
+  },
+  {
+    "unit": "UNIT 4",
+    "han_viet": "QUỐC",
+    "kanji": "国",
+    "hiragana": "くに",
+    "meaning": "Đất nước"
+  },
+  {
+    "unit": "UNIT 4",
+    "han_viet": "TRUNG QUỐC",
+    "kanji": "中国",
+    "hiragana": "ちゅうごく",
+    "meaning": "Trung Quốc"
+  },
+  {
+    "unit": "UNIT 4",
+    "han_viet": "NGOẠI QUỐC",
+    "kanji": "外国",
+    "hiragana": "がいこく",
+    "meaning": "Nước ngoài"
+  },
+  {
+    "unit": "UNIT 4",
+    "han_viet": "NAM NHÂN",
+    "kanji": "男の人",
+    "hiragana": "おとこのひと",
+    "meaning": "Người đàn ông"
+  },
+  {
+    "unit": "UNIT 4",
+    "han_viet": "NỮ NHÂN",
+    "kanji": "女の人",
+    "hiragana": "おんなのひと",
+    "meaning": "Người phụ nữ"
+  },
+  {
+    "unit": "UNIT 4",
+    "han_viet": "NAM NỮ",
+    "kanji": "男女",
+    "hiragana": "だんじょ",
+    "meaning": "Nam nữ"
+  },
+  {
+    "unit": "UNIT 4",
+    "han_viet": "KHU",
+    "kanji": "９区",
+    "hiragana": "９く（きゅうく）",
+    "meaning": "Quận 9"
+  },
+  {
+    "unit": "UNIT 4",
+    "han_viet": "THỊ",
+    "kanji": "ホーチミン市",
+    "hiragana": "ホーチミンし",
+    "meaning": "Tp. HCM"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "TIÊN SINH",
+    "kanji": "先生",
+    "hiragana": "せんせい",
+    "meaning": "Giáo viên"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "TIÊN NHẬT",
+    "kanji": "先日",
+    "hiragana": "せんじつ",
+    "meaning": "Ngày trước"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "TIÊN NGUYỆT",
+    "kanji": "先月",
+    "hiragana": "せんげつ",
+    "meaning": "Tháng trước"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "TIÊN CHU",
+    "kanji": "先週",
+    "hiragana": "せんしゅう",
+    "meaning": "Tuần trước"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "NHẤT CHU GIAN",
+    "kanji": "一週間",
+    "hiragana": "いっしゅうかん",
+    "meaning": "1 tuần"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "MỖI NHẬT",
+    "kanji": "毎日",
+    "hiragana": "まいにち",
+    "meaning": "Mỗi ngày"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "MỖI NGUYỆT",
+    "kanji": "毎月",
+    "hiragana": "まいつき",
+    "meaning": "Mỗi tháng"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "MỖI CHU",
+    "kanji": "毎週",
+    "hiragana": "まいしゅう",
+    "meaning": "Mỗi tuần"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "MỖI NIÊN",
+    "kanji": "毎年",
+    "hiragana": "まいとし",
+    "meaning": "Mỗi năm"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "NGỌ TIỀN",
+    "kanji": "午前",
+    "hiragana": "ごぜん",
+    "meaning": "AM (Buổi sáng)"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "NGỌ HẬU",
+    "kanji": "午後",
+    "hiragana": "ごご",
+    "meaning": "PM (Buổi chiều)"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "HẬU",
+    "kanji": "後ろ",
+    "hiragana": "うしろ",
+    "meaning": "Phía sau"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "TIỀN HẬU",
+    "kanji": "前後",
+    "hiragana": "ぜんご",
+    "meaning": "Trước sau"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "KIẾN",
+    "kanji": "見ます",
+    "hiragana": "みます",
+    "meaning": "Xem"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "KIẾN HỌC",
+    "kanji": "見学",
+    "hiragana": "けんがく",
+    "meaning": "Tham quan và học tập"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "THỰC",
+    "kanji": "食べます",
+    "hiragana": "たべます",
+    "meaning": "Ăn"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "THỰC SỰ",
+    "kanji": "食事",
+    "hiragana": "しょくじ",
+    "meaning": "Việc dùng bữa"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "ẨM",
+    "kanji": "飲みます",
+    "hiragana": "のみます",
+    "meaning": "Uống"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "ẨM THUỶ",
+    "kanji": "飲み水",
+    "hiragana": "のみみず",
+    "meaning": "Nước uống"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "ẨM THỰC",
+    "kanji": "飲食",
+    "hiragana": "いんしょく",
+    "meaning": "Ẩm thực"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "MÃI",
+    "kanji": "買います",
+    "hiragana": "かいます",
+    "meaning": "Mua"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "THỰC VẬT",
+    "kanji": "食べ物",
+    "hiragana": "たべもの",
+    "meaning": "Đồ ăn"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "ẨM VẬT",
+    "kanji": "飲み物",
+    "hiragana": "のみもの",
+    "meaning": "Đồ uống"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "MÃI VẬT",
+    "kanji": "買い物",
+    "hiragana": "かいもの",
+    "meaning": "Đồ mua"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "KIẾN VẬT",
+    "kanji": "見物",
+    "hiragana": "けんぶつ",
+    "meaning": "Thăm quan"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "NHÂN VẬT",
+    "kanji": "人物",
+    "hiragana": "じんぶつ",
+    "meaning": "Nhân vật"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "HÀNH",
+    "kanji": "行きます",
+    "hiragana": "行きます",
+    "meaning": "Đi"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "HƯU",
+    "kanji": "休み（N）",
+    "hiragana": "やすみ",
+    "meaning": "Nghỉ"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "HƯU",
+    "kanji": "休みます（V）",
+    "hiragana": "やすみます",
+    "meaning": "Nghỉ"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "HƯU NHẬT",
+    "kanji": "休みの日",
+    "hiragana": "やすみのひ",
+    "meaning": "Ngày nghỉ"
+  },
+  {
+    "unit": "UNIT 5",
+    "han_viet": "HƯU NHẬT",
+    "kanji": "休日",
+    "hiragana": "きゅうじつ",
+    "meaning": "Ngày nghỉ"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "KIM",
+    "kanji": "今",
+    "hiragana": "いま",
+    "meaning": "Bây giờ"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "KIM NHẬT",
+    "kanji": "今日",
+    "hiragana": "きょう",
+    "meaning": "Hôm nay"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "KIM CHU",
+    "kanji": "今週",
+    "hiragana": "こんしゅう",
+    "meaning": "Tuần này"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "KIM NGUYỆT",
+    "kanji": "今月",
+    "hiragana": "こんげつ",
+    "meaning": "Tháng này"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "KIM NIÊN",
+    "kanji": "今年",
+    "hiragana": "ことし",
+    "meaning": "Năm nay"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "LAI",
+    "kanji": "来ます",
+    "hiragana": "きます",
+    "meaning": "Đến"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "LAI NHẬT",
+    "kanji": "来日",
+    "hiragana": "らいにち",
+    "meaning": "Đến Nhật"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "LAI CHU",
+    "kanji": "来週",
+    "hiragana": "らいしゅう",
+    "meaning": "Tuần sau"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "LAI NGUYỆT",
+    "kanji": "来月",
+    "hiragana": "らいげつ",
+    "meaning": "Tháng sau"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "LAI NIÊN",
+    "kanji": "来年",
+    "hiragana": "らいねん",
+    "meaning": "Năm sau"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "QUY",
+    "kanji": "帰ります",
+    "hiragana": "かえります",
+    "meaning": "Về"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "QUY QUỐC",
+    "kanji": "帰国",
+    "hiragana": "きこく",
+    "meaning": "Về nước"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "NHẬT QUY",
+    "kanji": "日帰り",
+    "hiragana": "ひがえり",
+    "meaning": "Về trong ngày"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "HỘI",
+    "kanji": "会います",
+    "hiragana": "あいます",
+    "meaning": "Gặp"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "ẨM HỘI",
+    "kanji": "飲み会",
+    "hiragana": "のみかい",
+    "meaning": "Tiệc nhậu"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "QUỐC HỘI",
+    "kanji": "国会",
+    "hiragana": "こっかい",
+    "meaning": "Quốc hội"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "KIẾN HỘI",
+    "kanji": "会見",
+    "hiragana": "かいけん",
+    "meaning": "Phỏng vấn"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "HỘI XÃ",
+    "kanji": "会社",
+    "hiragana": "かいしゃ",
+    "meaning": "Công ty"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "XÃ HỘI",
+    "kanji": "社会",
+    "hiragana": "しゃかい",
+    "meaning": "Xã hội"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "VĂN",
+    "kanji": "聞きます",
+    "hiragana": "ききます",
+    "meaning": "Nghe"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "TÂN VĂN",
+    "kanji": "新聞",
+    "hiragana": "しんぶん",
+    "meaning": "Tờ báo"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "ĐỘC",
+    "kanji": "読みます",
+    "hiragana": "よみます",
+    "meaning": "Đọc"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "ĐỘC VẬT",
+    "kanji": "読み物",
+    "hiragana": "よみもの",
+    "meaning": "Tài liệu đọc"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "THƯ",
+    "kanji": "書きます",
+    "hiragana": "かきます",
+    "meaning": "Viết"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "THƯ VẬT",
+    "kanji": "書き物",
+    "hiragana": "かきもの",
+    "meaning": "Tài liệu viết"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "TỪ THƯ",
+    "kanji": "辞書",
+    "hiragana": "じしょ",
+    "meaning": "Từ điển"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "ĐỘC THƯ",
+    "kanji": "読書",
+    "hiragana": "どくしょ",
+    "meaning": "Việc đọc sách"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "THOẠI",
+    "kanji": "話",
+    "hiragana": "はなし",
+    "meaning": "Câu chuyện"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "THOẠI",
+    "kanji": "話します",
+    "hiragana": "はなします",
+    "meaning": "Nói chuyện"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "ĐIỆN THOẠI",
+    "kanji": "電話",
+    "hiragana": "でんわ",
+    "meaning": "Gọi điện thoại"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "HỘI THOẠI",
+    "kanji": "会話",
+    "hiragana": "かいわ",
+    "meaning": "Hội thoại"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "TỰ",
+    "kanji": "お寺",
+    "hiragana": "おてら",
+    "meaning": "Chùa"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "NGÔN",
+    "kanji": "言います",
+    "hiragana": "いいます",
+    "meaning": "Nói"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "NGÔN THOẠI",
+    "kanji": "言語",
+    "hiragana": "げんご",
+    "meaning": "Ngôn ngữ"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "NGÔN DỊÊP",
+    "kanji": "言葉",
+    "hiragana": "ことば",
+    "meaning": "Từ vựng"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "BỐI",
+    "kanji": "貝",
+    "hiragana": "かい",
+    "meaning": "Con sò"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "ĐIỀN TRUNG",
+    "kanji": "田中さん",
+    "hiragana": "たなかさん",
+    "meaning": "Họ của người Nhật"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "THUỶ ĐIỀN",
+    "kanji": "水田",
+    "hiragana": "すいでん",
+    "meaning": "Ruộng lúa nước"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "ĐIỀN",
+    "kanji": "田んぼ",
+    "hiragana": "たんぼ",
+    "meaning": "Cánh đồng ruộng"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "LỰC",
+    "kanji": "力",
+    "hiragana": "ちから",
+    "meaning": "Sức mạnh"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "HOẢ LỰC",
+    "kanji": "火力",
+    "hiragana": "かりょく",
+    "meaning": "Hoả lực"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "THUỶ LỰC",
+    "kanji": "水力",
+    "hiragana": "すいりょく",
+    "meaning": "Thuỷ lực"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "ĐẠI HỌC MÔN",
+    "kanji": "大学の門",
+    "hiragana": "だいがくのもん",
+    "meaning": "Cổng trường đại học"
+  },
+  {
+    "unit": "UNIT 6",
+    "han_viet": "HỌC HIỆU MÔN",
+    "kanji": "学校の門",
+    "hiragana": "がっこうのもん",
+    "meaning": "Cổng trường"
+  },
+  {
+    "unit": "UNIT 7",
+    "han_viet": "NHỤC",
+    "kanji": "肉",
+    "hiragana": "にく",
+    "meaning": "Thịt"
+  },
+  {
+    "unit": "UNIT 7",
+    "han_viet": "NGƯU NHỤC",
+    "kanji": "牛肉",
+    "hiragana": "ぎゅうにく",
+    "meaning": "Thịt bò"
+  },
+  {
+    "unit": "UNIT 7",
+    "han_viet": "ĐIỂU NHỤC",
+    "kanji": "鶏肉",
+    "hiragana": "とりにく",
+    "meaning": "Thịt gà"
+  },
+  {
+    "unit": "UNIT 7",
+    "han_viet": "THỈ NHỤC",
+    "kanji": "豚肉",
+    "hiragana": "ぶたにく",
+    "meaning": "Thịt heo"
+  },
+  {
+    "unit": "UNIT 7",
+    "han_viet": "LIỆU KIM",
+    "kanji": "料金",
+    "hiragana": "りょうきん",
+    "meaning": "Chi phí"
+  },
+  {
+    "unit": "UNIT 7",
+    "han_viet": "LIỆU LÝ",
+    "kanji": "料理",
+    "hiragana": "りょうり",
+    "meaning": "Nấu ăn"
+  },
+  {
+    "unit": "UNIT 7",
+    "han_viet": "DÃ THÁI",
+    "kanji": "野菜",
+    "hiragana": "やさい",
+    "meaning": "Rau củ"
+  },
+  {
+    "unit": "UNIT 7",
+    "han_viet": "NHẤT THỜI BÀN",
+    "kanji": "一時半",
+    "hiragana": "いちじはん",
+    "meaning": "Một giờ rưỡi"
+  },
+  {
+    "unit": "UNIT 7",
+    "han_viet": "BÁN PHÂN",
+    "kanji": "半分",
+    "hiragana": "はんぶん",
+    "meaning": "Phân nửa"
+  },
+  {
+    "unit": "UNIT 7",
+    "han_viet": "BÁN NHẬT",
+    "kanji": "半日",
+    "hiragana": "はんじつ・はんにち",
+    "meaning": "Nửa ngày"
+  },
+  {
+    "unit": "UNIT 7",
+    "han_viet": "BÁN NGUYỆT",
+    "kanji": "半月",
+    "hiragana": "はんつき",
+    "meaning": "Nửa tháng"
+  },
+  {
+    "unit": "UNIT 7",
+    "han_viet": "BÁN NIÊN",
+    "kanji": "半年",
+    "hiragana": "はんとし",
+    "meaning": "Nửa năm"
+  },
+  {
+    "unit": "UNIT 7",
+    "han_viet": "BÁN",
+    "kanji": "半ば",
+    "hiragana": "なかば",
+    "meaning": "Giữa"
+  },
+  {
+    "unit": "UNIT 7",
+    "han_viet": "ĐẠI",
+    "kanji": "大きい",
+    "hiragana": "おおきい",
+    "meaning": "To, lớn"
+  },
+  {
+    "unit": "UNIT 7",
+    "han_viet": "ĐẠI NHÂN",
+    "kanji": "大人",
+    "hiragana": "おとな",
+    "meaning": "Người lớn"
+  },
+  {
+    "unit": "UNIT 7",
+    "han_viet": "ĐẠI HỌC",
+    "kanji": "大学",
+    "hiragana": "だいがく",
+    "meaning": "Đại học"
+  },
+  {
+    "unit": "UNIT 7",
+    "han_viet": "ĐẠI HỌC SINH",
+    "kanji": "大学生",
+    "hiragana": "だいがくせい",
+    "meaning": "Sinh viên đại học"
+  },
+  {
+    "unit": "UNIT 7",
+    "han_viet": "ĐẠI HỘI",
+    "kanji": "大会",
+    "hiragana": "たいかい",
+    "meaning": "Đại hội"
+  },
+  {
+    "unit": "UNIT 7",
+    "han_viet": "ĐẠI BÁN",
+    "kanji": "大半",
+    "hiragana": "たいはん",
+    "meaning": "Quá một nửa"
+  },
+  {
+    "unit": "UNIT 7",
+    "han_viet": "TIỂU",
+    "kanji": "小さい",
+    "hiragana": "ちいさい",
+    "meaning": "Nhỏ"
+  },
+  {
+    "unit": "UNIT 7",
+    "han_viet": "TIỂU NHÂN",
+    "kanji": "小人",
+    "hiragana": "こびと",
+    "meaning": "Người tý hon"
+  },
+  {
+    "unit": "UNIT 7",
+    "han_viet": "TIỂU HỌC HIỆU",
+    "kanji": "小学校",
+    "hiragana": "しょうがっこう",
+    "meaning": "Trường tiểu học"
+  },
+  {
+    "unit": "UNIT 7",
+    "han_viet": "TIỂU HỌC SINH",
+    "kanji": "小学生",
+    "hiragana": "しょうがくせい",
+    "meaning": "Học sinh tiểu học"
+  }
+]

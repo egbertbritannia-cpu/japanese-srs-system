@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { ToriiIcon, SensuFanIcon } from '@/components/japanese/Icons';
+import { JapaneseSpeakerButton } from '@/components/japanese/JapaneseSpeakerButton';
 
 /**
  * Quản lý thư viện thẻ học (短冊帳 - Tanzakucho)
@@ -205,18 +206,21 @@ export default function CardsPage() {
                       transition: 'background 0.2s',
                     }}
                   >
-                    {/* Mặt trước Kanji nổi bật */}
+                    {/* Mặt trước Kanji nổi bật & Nút phát âm */}
                     <td style={{ padding: '1.25rem' }}>
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-mincho)',
-                          fontSize: '1.65rem',
-                          fontWeight: 700,
-                          color: 'var(--sumi-ink)',
-                        }}
-                      >
-                        {card.kanji}
-                      </span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-mincho)',
+                            fontSize: '1.65rem',
+                            fontWeight: 700,
+                            color: 'var(--sumi-ink)',
+                          }}
+                        >
+                          {card.kanji}
+                        </span>
+                        <JapaneseSpeakerButton text={card.kanji} size={16} />
+                      </div>
                     </td>
 
                     {/* Furigana & Cao độ */}
