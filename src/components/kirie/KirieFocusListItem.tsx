@@ -17,12 +17,56 @@ export interface KirieFocusItemData {
 }
 
 export function KirieFocusListItem({ item }: { item: KirieFocusItemData }) {
-  return (
-    <div className="kirie-task-item">
-      {/* Vạch sơn mài đứng mép trái */}
-      <div className={`kirie-vertical-bar bar-${item.barColor}`} />
+  const barHexColors: Record<string, string> = {
+    navy: '#1D4A72',
+    denim: '#3B769E',
+    gold: '#C89B58',
+    matcha: '#4A7F9F',
+    torii: '#162C42',
+  };
 
-      {/* Nội dung từ vựng / Kanji */}
+  const pillStyles: Record<string, { bg: string; color: string }> = {
+    'due-now': { bg: '#C29B63', color: '#FFFFFF' },
+    'in-progress': { bg: '#4A7C9F', color: '#FFFFFF' },
+    'pending': { bg: '#D2A679', color: '#2C1B0E' },
+    'not-started': { bg: '#B0BFC9', color: '#1A2832' },
+    'blocked': { bg: '#162C42', color: '#FFFFFF' },
+  };
+
+  const pill = pillStyles[item.statusType] || pillStyles['due-now'];
+  const barColor = barHexColors[item.barColor] || '#1D4A72';
+
+  return (
+    <div
+      style={{
+        position: 'relative',
+        background: '#FAF7F0',
+        border: '1.2px solid #EBE4D6',
+        borderRadius: '12px',
+        padding: '0.9rem 1.15rem 0.9rem 1.4rem',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        boxShadow: '0 2px 6px rgba(45, 35, 20, 0.04)',
+        overflow: 'hidden',
+        transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+      }}
+    >
+      {/* Vạch sơn mài đứng mép trái */}
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          bottom: 0,
+          left: 0,
+          width: '5px',
+          background: barColor,
+          borderTopLeftRadius: '12px',
+          borderBottomLeftRadius: '12px',
+        }}
+      />
+
+      {/* Tiêu đề & phụ đề */}
       <Link
         href={item.href}
         style={{
@@ -31,27 +75,65 @@ export function KirieFocusListItem({ item }: { item: KirieFocusItemData }) {
           flex: 1,
           textDecoration: 'none',
           color: 'inherit',
-          marginLeft: '0.5rem',
+          paddingRight: '0.5rem',
         }}
       >
-        <span className="kirie-task-text">{item.title}</span>
+        <span
+          style={{
+            fontFamily: 'var(--font-sans), sans-serif',
+            fontWeight: 600,
+            fontSize: '0.94rem',
+            color: '#142536',
+            letterSpacing: '-0.01em',
+          }}
+        >
+          {item.title}
+        </span>
         {item.subtitle && (
-          <span style={{ fontSize: '0.82rem', color: '#786A5E', marginLeft: '0.5rem', marginTop: '0.15rem' }}>
+          <span
+            style={{
+              fontSize: '0.78rem',
+              color: '#766759',
+              marginTop: '0.15rem',
+              fontFamily: 'var(--font-sans), sans-serif',
+            }}
+          >
             {item.subtitle}
           </span>
         )}
       </Link>
 
-      {/* Nút phát âm (nếu có audioText hoặc title) */}
-      <div style={{ marginRight: '0.75rem', display: 'flex', alignItems: 'center' }}>
-        <JapaneseSpeakerButton text={item.audioText || item.title} size={18} />
-      </div>
-
-      {/* Cấp độ / Thời gian & Huy hiệu viên thuốc Iwa-enogu */}
-      <div className="kirie-task-meta">
-        <span className="kirie-task-time">{item.timeOrLevel}</span>
+      {/* Cụm tương tác: Audio + Thời gian + Huy hiệu viên thuốc */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', flexShrink: 0 }}>
+        {item.audioText && (
+          <JapaneseSpeakerButton text={item.audioText} size={16} />
+        )}
+        <span
+          style={{
+            fontFamily: 'var(--font-sans), monospace',
+            fontSize: '0.88rem',
+            fontWeight: 600,
+            color: '#6E6258',
+          }}
+        >
+          {item.timeOrLevel}
+        </span>
         <Link href={item.href} style={{ textDecoration: 'none' }}>
-          <span className={`kirie-pill pill-${item.statusType}`}>
+          <span
+            style={{
+              display: 'inline-block',
+              padding: '0.28rem 0.85rem',
+              borderRadius: '9999px',
+              fontFamily: 'var(--font-sans), sans-serif',
+              fontSize: '0.76rem',
+              fontWeight: 700,
+              background: pill.bg,
+              color: pill.color,
+              boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+              letterSpacing: '0.01em',
+              whiteSpace: 'nowrap',
+            }}
+          >
             {item.statusText}
           </span>
         </Link>

@@ -13,58 +13,83 @@ interface KirieHeroBannerProps {
 
 export function KirieHeroBanner({
   userName = 'Yuna',
-  dueCount = 24,
-  newCount = 10,
+  dueCount = 6,
+  newCount = 38,
   learnedCount = 94,
 }: KirieHeroBannerProps) {
   const [greeting, setGreeting] = useState('Good morning');
-  const [japaneseGreeting, setJapaneseGreeting] = useState('おはようございます');
 
   useEffect(() => {
     const hour = new Date().getHours();
     if (hour >= 5 && hour < 12) {
       setGreeting('Good morning');
-      setJapaneseGreeting('おはようございます');
     } else if (hour >= 12 && hour < 18) {
       setGreeting('Good afternoon');
-      setJapaneseGreeting('こんにちは');
     } else {
       setGreeting('Good evening');
-      setJapaneseGreeting('こんばんは');
     }
   }, []);
 
   return (
-    <div className="kirie-hero-wrapper">
-      {/* 1. KHU VỰC THÔNG TIN CHÍNH (GREETING & PILL) */}
-      <div className="kirie-hero-content">
+    <div className="kirie-hero-wrapper" style={{ margin: 0, borderBottomLeftRadius: '28px', borderBottomRightRadius: '28px' }}>
+      {/* 1. KHU VỰC THÔNG TIN TIÊU ĐỀ: LỜI CHÀO & PILL & AVATAR YS */}
+      <div className="kirie-hero-content" style={{ padding: '1.75rem 1.6rem 0' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
-            <h1 className="kirie-greeting-heading">
+            <h1 className="kirie-greeting-heading" style={{ fontSize: '1.9rem', marginBottom: '0.4rem' }}>
               {greeting}, {userName}
             </h1>
-            <p style={{ fontSize: '0.85rem', color: 'rgba(255, 255, 255, 0.75)', margin: '-0.25rem 0 0.75rem', fontFamily: 'var(--font-maru)' }}>
-              {japaneseGreeting} · Vươn buồm tri thức trên biển học ngàn trùng
-            </p>
             <Link href="/review" style={{ textDecoration: 'none' }}>
-              <div className="kirie-pill-badge">
-                <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: dueCount > 0 ? '#F59E0B' : '#88A752' }} />
-                <span>記憶道 · {dueCount} thẻ đến hạn hôm nay (FSRS Due)</span>
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.45rem',
+                  padding: '0.35rem 0.9rem',
+                  background: 'rgba(21, 52, 88, 0.72)',
+                  backdropFilter: 'blur(10px)',
+                  WebkitBackdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(85, 135, 185, 0.38)',
+                  borderRadius: '9999px',
+                  fontSize: '0.84rem',
+                  fontWeight: 600,
+                  color: '#E8F1FA',
+                  boxShadow: '0 2px 6px rgba(0, 0, 0, 0.16)',
+                }}
+              >
+                <span>Sprint 8 · {dueCount} tasks due this week</span>
               </div>
             </Link>
           </div>
 
-          {/* Avatar con dấu Inkan viền vàng phong cách Kirie */}
-          <Link href="/review" style={{ textDecoration: 'none' }} title="Bắt đầu phiên ôn tập">
-            <div className="kirie-user-avatar" style={{ cursor: 'pointer', transition: 'transform 0.2s' }}>
-              <span style={{ fontSize: '0.9rem', color: '#D9381E', fontWeight: 800 }}>日学</span>
+          {/* Avatar YS tròn viền vàng chuẩn ảnh tham chiếu */}
+          <Link href="/review" style={{ textDecoration: 'none' }} title="Tài khoản học viên">
+            <div
+              style={{
+                width: '48px',
+                height: '48px',
+                borderRadius: '50%',
+                background: '#FBF8F2',
+                border: '2px solid #C89B58',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#0D233A',
+                fontFamily: 'var(--font-sans), sans-serif',
+                fontSize: '1.15rem',
+                fontWeight: 700,
+                boxShadow: '0 4px 10px rgba(0, 0, 0, 0.22)',
+                cursor: 'pointer',
+              }}
+            >
+              YS
             </div>
           </Link>
         </div>
       </div>
 
       {/* 2. MINH HỌA SÓNG GIẤY 3D VÀ THUYỀN ORIGAMI */}
-      <div style={{ marginTop: '0.5rem', position: 'relative' }}>
+      <div style={{ marginTop: '0.35rem', position: 'relative' }}>
         <KirieWaveIllustration />
       </div>
     </div>
