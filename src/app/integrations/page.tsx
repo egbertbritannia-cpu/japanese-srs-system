@@ -24,10 +24,14 @@ export default function IntegrationsPage() {
 
   // Google Tasks state
   const [taskMessage, setTaskMessage] = useState<string | null>(null);
+  const [isHashDomain, setIsHashDomain] = useState(false);
 
   // Fetch status on load
   useEffect(() => {
     fetchStatus();
+    if (typeof window !== 'undefined' && /japanese-srs-system-[a-z0-9]{9}-/.test(window.location.hostname)) {
+      setIsHashDomain(true);
+    }
   }, []);
 
   async function fetchStatus() {
@@ -214,6 +218,44 @@ export default function IntegrationsPage() {
 
   return (
     <main style={{ maxWidth: '1050px', margin: '2rem auto', padding: '0 1.5rem 4rem' }}>
+      {/* CẢNH BÁO TÊN MIỀN TẠM THỜI TRÊN VERCEL */}
+      {isHashDomain && (
+        <div
+          style={{
+            background: '#FEF3C7',
+            border: '1px solid #F59E0B',
+            borderRadius: '12px',
+            padding: '1rem 1.25rem',
+            marginBottom: '1.5rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '1rem',
+            boxShadow: 'var(--shadow-washi-sm)',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <span style={{ fontSize: '1.4rem' }}>💡</span>
+            <div>
+              <p style={{ margin: 0, fontSize: '0.88rem', fontWeight: 700, color: '#92400E' }}>
+                Bạn đang truy cập qua link bản build tạm thời (mỗi lần build sẽ đổi mã băm ngẫu nhiên)
+              </p>
+              <p style={{ margin: '0.2rem 0 0', fontSize: '0.8rem', color: '#B45309' }}>
+                Để kết nối Google không bị báo lỗi <code>redirect_uri_mismatch</code>, hãy sử dụng link chính thức cố định.
+              </p>
+            </div>
+          </div>
+          <a
+            href="https://japanese-srs-system-git-main-cassius1.vercel.app/integrations"
+            className="btn-matcha"
+            style={{ padding: '0.5rem 1rem', fontSize: '0.85rem', textDecoration: 'none', background: '#D97706' }}
+          >
+            👉 Chuyển sang Tên miền cố định
+          </a>
+        </div>
+      )}
+
       {/* 1. HERO BANNER WA-STYLE CÓ HOA VĂN MẠ VÀNG RINPA */}
       <section
         className="wagara-seigaiha-matcha"

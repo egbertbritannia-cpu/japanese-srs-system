@@ -7,7 +7,7 @@ import { generateAuthUrl } from '@/services/google/auth';
 export async function GET(request: Request) {
   try {
     const { origin } = new URL(request.url);
-    const redirectUri = `${origin}/api/google/callback`;
+    const redirectUri = process.env.GOOGLE_REDIRECT_URI || `${origin}/api/google/callback`;
 
     const url = generateAuthUrl(redirectUri);
 

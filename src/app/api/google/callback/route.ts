@@ -10,7 +10,7 @@ export async function GET(request: Request) {
   const error = url.searchParams.get('error');
 
   const origin = url.origin;
-  const redirectUri = `${origin}/api/google/callback`;
+  const redirectUri = process.env.GOOGLE_REDIRECT_URI || `${origin}/api/google/callback`;
 
   if (error || !code) {
     return NextResponse.redirect(`${origin}/integrations?error=${encodeURIComponent(error || 'Không có mã ủy quyền')}`);
