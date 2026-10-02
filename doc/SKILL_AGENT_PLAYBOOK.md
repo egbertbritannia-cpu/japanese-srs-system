@@ -60,3 +60,16 @@ Tất cả họa tiết truyền thống (Seigaiha, Asanoha, Yagasuri) phải lu
                │    3. npm run build                                    │
                └────────────────────────────────────────────────────────┘
 ```
+
+---
+
+### 4. KỸ NĂNG NGHIỆP VỤ BỔ SUNG: DECK ORCHESTRATOR (`japanese-srs-deck-orchestrator`)
+## Vị trí lưu trữ Skill: [`.agents/skills/japanese-srs-deck-orchestrator/SKILL.md`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-deck-orchestrator/SKILL.md)
+
+Khi Agent thực hiện các tác vụ liên quan đến phân tách bộ thẻ, điều phối hàng đợi FSRS, hoặc định tuyến URL:
+1. **Phân tách Nhận thức (Cognitive Segregation)**: Không để xảy ra hiện tượng can thiệp hồi tố (Retroactive Interference). Hán tự (Kanji) và Từ vựng (Kotoba) được quy hoạch trong các không gian học tập chuyên biệt.
+2. **Kiến trúc URL-First**: Mọi phiên học đều liên kết với query params (`/review?deck=${deckId}&mode=${mode}`) và được bảo bọc an toàn trong React `<Suspense>` để ngăn ngừa lỗi SSR Hydration.
+3. **Mỹ học Thẻ gỗ Kifuda & Thẻ bài Karuta**: Định danh trực quan bộ thẻ bằng con dấu son Inkan (`漢`, `語`, `総`) và bảng màu Nippon Colors.
+4. **Xử lý Cận biên Tuyệt đối**: Luôn dự trù cho các trường hợp Deck rỗng, hết thẻ Due hôm nay (Cram Mode), mất mạng offline buffer, hoặc nhập sai Deck ID trên URL.
+
+

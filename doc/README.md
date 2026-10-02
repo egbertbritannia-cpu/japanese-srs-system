@@ -35,10 +35,18 @@ Toàn bộ kế hoạch tái thiết kế giao diện theo phong cách Nhật B�
 9. **[08_STEP_BY_STEP_EXECUTION_CHECKLIST.md](file:///D:/project/japanese-srs-system/doc/08_STEP_BY_STEP_EXECUTION_CHECKLIST.md)**  
    *Checklist thực thi 10 bước dành cho Agent (Zero Guesswork)*: Bảng thứ tự thao tác, lệnh tạo thư mục, quy trình ghi đè file, và 3 lệnh thẩm định tự động (`tsc`, `test`, `build`).
 
-10. **[SKILL_AGENT_PLAYBOOK.md](file:///D:/project/japanese-srs-system/doc/SKILL_AGENT_PLAYBOOK.md)** / **[SKILL.md](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-craftsman/SKILL.md)**  
-   *Kỹ năng Antigravity Agent Chuyên nghiệp (`japanese-srs-craftsman`)*: Định nghĩa bộ quy chuẩn kỹ năng và tư duy cho Agent khi thiết kế giao diện Nhật Bản Wa-style, FSRS, và kiểm định phần mềm.
+10. **[SKILL_AGENT_PLAYBOOK.md](file:///D:/project/japanese-srs-system/doc/SKILL_AGENT_PLAYBOOK.md)** / **[SKILL.md (japanese-srs-craftsman)](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-craftsman/SKILL.md)**  
+   *Kỹ năng Nghệ nhân Nhật Bản (`japanese-srs-craftsman`)*: Định nghĩa bộ quy chuẩn kỹ năng và tư duy cho Agent khi thiết kế giao diện Nhật Bản Wa-style, FSRS, và kiểm định phần mềm.
+
+11. **[09_DECK_BASED_STUDY_HIERARCHICAL_PLAN.md](file:///D:/project/japanese-srs-system/doc/09_DECK_BASED_STUDY_HIERARCHICAL_PLAN.md)**  
+   *Kế hoạch Phân tầng Cải tiến Hệ thống — Ôn tập theo từng Bộ Thẻ (Deck-Based SRS Architecture)*: Bản quy hoạch 5 tầng từ Chiến lược vĩ mô (Tầng 1) $\rightarrow$ Kiến trúc 4 trụ cột (Tầng 2) $\rightarrow$ Đặc tả kỹ thuật module & Routing (Tầng 3) $\rightarrow$ Danh mục Micro-Tasks nguyên tử (Tầng 4) $\rightarrow$ Ma trận kiểm thử nghiệm thu 12 test cases (Tầng 5).
+
+12. **[SKILL.md (japanese-srs-deck-orchestrator)](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-deck-orchestrator/SKILL.md)**  
+   *Kỹ năng Nghiệp vụ Điều phối Bộ Thẻ (`japanese-srs-deck-orchestrator`)*: Trang bị cho Agent tư duy phân tách nhận thức (Cognitive Segregation), điều phối hàng đợi FSRS theo từng bộ thẻ, kiến trúc URL-First, và mỹ học Kifuda / Karuta.
 
 ---
 
 ### ⛩️ HƯỚNG DẪN DÀNH CHO AGENT THỰC THI (QUICK START)
-Agent tiếp nhận chỉ cần mở file **[08_STEP_BY_STEP_EXECUTION_CHECKLIST.md](file:///D:/project/japanese-srs-system/doc/08_STEP_BY_STEP_EXECUTION_CHECKLIST.md)** và thực hiện tuần tự từ **Bước 1 đến Bước 10**, sau đó chạy kiểm thử tại **Mục 3**. Toàn bộ mã nguồn đã sẵn sàng 100%, không cần phải tự suy luận hay thiết kế thêm bất cứ thành phần nào!
+- Đối với việc hoàn thiện giao diện ban đầu: Mở file **[08_STEP_BY_STEP_EXECUTION_CHECKLIST.md](file:///D:/project/japanese-srs-system/doc/08_STEP_BY_STEP_EXECUTION_CHECKLIST.md)**.
+- Đối với việc nâng cấp tính năng Ôn tập theo từng Bộ Thẻ: Mở file **[09_DECK_BASED_STUDY_HIERARCHICAL_PLAN.md](file:///D:/project/japanese-srs-system/doc/09_DECK_BASED_STUDY_HIERARCHICAL_PLAN.md)** và thực hiện theo từng Micro-Task tại **Tầng 4**.
+
