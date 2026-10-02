@@ -60,6 +60,93 @@ function initSchemaDDL(execFn: (sql: string) => void) {
       scheduled_days INTEGER NOT NULL,
       review_time INTEGER NOT NULL
     );
+
+    -- 1. Bảng lưu trữ 21 tham số FSRS cá nhân hóa
+    CREATE TABLE IF NOT EXISTS user_fsrs_parameters (
+      id TEXT PRIMARY KEY,
+      user_id TEXT NOT NULL DEFAULT 'default_user',
+      w_parameters TEXT NOT NULL,
+      sample_size INTEGER NOT NULL,
+      rmse REAL NOT NULL,
+      log_loss REAL NOT NULL,
+      optimized_at INTEGER NOT NULL,
+      is_active INTEGER NOT NULL DEFAULT 1
+    );
+
+    -- 2. Bảng nhúng vector ngữ nghĩa (Semantic Embeddings) cho LECTOR Interleaving
+    CREATE TABLE IF NOT EXISTS card_embeddings (
+      card_id TEXT PRIMARY KEY,
+      embedding_vector TEXT NOT NULL,
+      vector_dimension INTEGER NOT NULL DEFAULT 384,
+      model_version TEXT NOT NULL DEFAULT 'text-embedding-3-small',
+      generated_at INTEGER NOT NULL,
+      FOREIGN KEY (card_id) REFERENCES cards(id) ON DELETE CASCADE
+    );
+
+    -- 3. Bảng ghi nhận độ trễ phản xạ truy xuất (Bjork Latency Dynamics)
+    CREATE TABLE IF NOT EXISTS retrieval_latency_logs (
+      id TEXT PRIMARY KEY,
+      card_id TEXT NOT NULL,
+      review_log_id TEXT NOT NULL,
+      duration_ms INTEGER NOT NULL,
+      user_grade TEXT NOT NULL,
+      adjusted_grade TEXT NOT NULL,
+      penalty_applied INTEGER NOT NULL DEFAULT 0,
+      created_at INTEGER NOT NULL,
+      FOREIGN KEY (card_id) REFERENCES cards(id) ON DELETE CASCADE
+    );
+
+    -- 4. Bảng đỉnh đồ thị chữ Hán ngữ nguyên học (KanjiCompass Graph Nodes)
+    CREATE TABLE IF NOT EXISTS kanji_graph_nodes (
+      id TEXT PRIMARY KEY,
+      node_type TEXT NOT NULL,
+      character TEXT NOT NULL,
+      stroke_count INTEGER NOT NULL,
+      onyomi TEXT,
+      kunyomi TEXT,
+      primary_meaning TEXT NOT NULL,
+      jlpt_level TEXT,
+      newspaper_frequency_rank INTEGER,
+      etymology_explanation TEXT,
+      created_at INTEGER NOT NULL
+    );
+
+    -- 5. Bảng cạnh đồ thị liên kết chữ Hán (KanjiCompass Graph Edges)
+    CREATE TABLE IF NOT EXISTS kanji_graph_edges (
+      id TEXT PRIMARY KEY,
+      source_node_id TEXT NOT NULL,
+      target_node_id TEXT NOT NULL,
+      relationship_type TEXT NOT NULL,
+      weight REAL NOT NULL DEFAULT 1.0,
+      FOREIGN KEY (source_node_id) REFERENCES kanji_graph_nodes(id) ON DELETE CASCADE,
+      FOREIGN KEY (target_node_id) REFERENCES kanji_graph_nodes(id) ON DELETE CASCADE
+    );
+
+    -- 6. Bảng tương tác nhận thức bậc cao (Desirable Difficulty Logs)
+    CREATE TABLE IF NOT EXISTS cognitive_interaction_logs (
+      id TEXT PRIMARY KEY,
+      card_id TEXT NOT NULL,
+      interaction_type TEXT NOT NULL,
+      prompt_presented TEXT NOT NULL,
+      learner_response TEXT NOT NULL,
+      is_correct INTEGER NOT NULL,
+      evaluator_feedback TEXT,
+      latency_ms INTEGER NOT NULL,
+      created_at INTEGER NOT NULL,
+      FOREIGN KEY (card_id) REFERENCES cards(id) ON DELETE CASCADE
+    );
+
+    -- 7. Bảng cơ chế thưởng nỗ lực nhận thức (Effort-Based Gamification Ledger)
+    CREATE TABLE IF NOT EXISTS gamification_effort_ledger (
+      id TEXT PRIMARY KEY,
+      user_id TEXT NOT NULL DEFAULT 'default_user',
+      session_id TEXT NOT NULL,
+      focus_duration_seconds INTEGER NOT NULL,
+      is_med_achieved INTEGER NOT NULL DEFAULT 0,
+      high_order_tasks_count INTEGER NOT NULL DEFAULT 0,
+      credits_earned INTEGER NOT NULL DEFAULT 0,
+      session_timestamp INTEGER NOT NULL
+    );
   `);
 }
 

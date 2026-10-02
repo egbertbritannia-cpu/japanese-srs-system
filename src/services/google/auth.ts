@@ -12,12 +12,37 @@ export const GOOGLE_SCOPES = [
   'https://www.googleapis.com/auth/userinfo.email',
 ];
 
+/**
+ * Xác định URI chuyển hướng chuẩn xác (Canonical Redirect URI)
+ * Trên môi trường Vercel hoặc Cloud, dùng domain ổn định japanese-srs-system-git-main-cassius1.vercel.app
+ * để tránh lỗi redirect_uri_mismatch khi Vercel tạo domain mã băm ngẫu nhiên.
+ */
+export function getRedirectUri(origin?: string): string {
+  // Nếu có biến môi trường chỉ định rõ (không phải localhost trên môi trường HTTPS)
+  if (
+    process.env.GOOGLE_REDIRECT_URI &&
+    !(origin?.startsWith('https://') && process.env.GOOGLE_REDIRECT_URI.includes('localhost'))
+  ) {
+    return process.env.GOOGLE_REDIRECT_URI;
+  }
+
+  // Nếu đang chạy trên web/cloud (Vercel)
+  if (origin && origin.startsWith('https://')) {
+    if (origin.includes('.vercel.app')) {
+      return 'https://japanese-srs-system-git-main-cassius1.vercel.app/api/google/callback';
+    }
+    return `${origin}/api/google/callback`;
+  }
+
+  // Mặc định chạy local development
+  return 'http://localhost:3000/api/google/callback';
+}
+
 export function getOAuth2Client(redirectUri?: string) {
   const clientId = process.env.GOOGLE_CLIENT_ID;
   const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
-  
-  // Default redirect URL fallback
-  const redirect = redirectUri || process.env.GOOGLE_REDIRECT_URI || 'http://localhost:3000/api/google/callback';
+
+  const redirect = redirectUri || getRedirectUri();
 
   if (!clientId || !clientSecret) {
     return null;
@@ -36,3 +61,4 @@ export function generateAuthUrl(redirectUri?: string): string | null {
     scope: GOOGLE_SCOPES,
   });
 }
+

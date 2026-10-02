@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { generateAuthUrl } from '@/services/google/auth';
+import { generateAuthUrl, getRedirectUri } from '@/services/google/auth';
 
 /**
  * Lấy URL đăng nhập Google OAuth
@@ -7,7 +7,7 @@ import { generateAuthUrl } from '@/services/google/auth';
 export async function GET(request: Request) {
   try {
     const { origin } = new URL(request.url);
-    const redirectUri = process.env.GOOGLE_REDIRECT_URI || `${origin}/api/google/callback`;
+    const redirectUri = getRedirectUri(origin);
 
     const url = generateAuthUrl(redirectUri);
 

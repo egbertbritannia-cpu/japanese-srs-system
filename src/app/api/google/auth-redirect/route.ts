@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { generateAuthUrl } from '@/services/google/auth';
+import { generateAuthUrl, getRedirectUri } from '@/services/google/auth';
 
 /**
  * Endpoint điều hướng trực tiếp sang Google OAuth (Native 302 Redirect)
@@ -7,10 +7,9 @@ import { generateAuthUrl } from '@/services/google/auth';
  * không phụ thuộc vào JavaScript fetch hay bị chặn popup.
  */
 export async function GET(request: Request) {
+  const { origin } = new URL(request.url);
   try {
-    const { origin } = new URL(request.url);
-    const redirectUri = process.env.GOOGLE_REDIRECT_URI || `${origin}/api/google/callback`;
-
+    const redirectUri = getRedirectUri(origin);
     const url = generateAuthUrl(redirectUri);
 
     if (!url) {

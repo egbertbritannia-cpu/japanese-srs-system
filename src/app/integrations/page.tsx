@@ -25,14 +25,38 @@ export default function IntegrationsPage() {
   // Google Tasks state
   const [taskMessage, setTaskMessage] = useState<string | null>(null);
   const [isHashDomain, setIsHashDomain] = useState(false);
+  const [oauthError, setOauthError] = useState<string | null>(null);
+  const [oauthSuccess, setOauthSuccess] = useState<string | null>(null);
+  const [connecting, setConnecting] = useState(false);
+  const [copiedUri, setCopiedUri] = useState(false);
 
-  // Fetch status on load
+  // Fetch status on load & capture query params
   useEffect(() => {
     fetchStatus();
-    if (typeof window !== 'undefined' && /japanese-srs-system-[a-z0-9]{9}-/.test(window.location.hostname)) {
-      setIsHashDomain(true);
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const err = params.get('error');
+      const st = params.get('status');
+      if (err) {
+        setOauthError(err);
+      }
+      if (st === 'connected') {
+        setOauthSuccess('🎉 Chúc mừng! Đã kết nối tài khoản Google thành công!');
+        fetchStatus();
+      }
+      if (/japanese-srs-system-[a-z0-9]{9}-/.test(window.location.hostname)) {
+        setIsHashDomain(true);
+      }
     }
   }, []);
+
+  function handleCopyUri() {
+    if (typeof navigator !== 'undefined') {
+      navigator.clipboard.writeText('https://japanese-srs-system-git-main-cassius1.vercel.app/api/google/callback');
+      setCopiedUri(true);
+      setTimeout(() => setCopiedUri(false), 2500);
+    }
+  }
 
   async function fetchStatus() {
     try {
@@ -47,20 +71,6 @@ export default function IntegrationsPage() {
       }
     } catch (e) {
       console.error('Lỗi kiểm tra Google status:', e);
-    }
-  }
-
-  async function handleConnectGoogle() {
-    try {
-      const res = await fetch('/api/google/auth-url');
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        alert(data.error || 'Vui lòng cấu hình GOOGLE_CLIENT_ID và GOOGLE_CLIENT_SECRET trong file .env');
-      }
-    } catch (e) {
-      alert('Không thể kết nối đến máy chủ xác thực Google');
     }
   }
 
@@ -256,6 +266,59 @@ export default function IntegrationsPage() {
         </div>
       )}
 
+      {/* THÔNG BÁO LỖI HOẶC THÀNH CÔNG TỪ GOOGLE OAUTH */}
+      {oauthError && (
+        <div
+          style={{
+            padding: '1rem 1.25rem',
+            borderRadius: '12px',
+            background: 'rgba(239, 68, 68, 0.1)',
+            border: '1px solid #EF4444',
+            color: '#B91C1C',
+            marginBottom: '1.5rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            fontSize: '0.9rem',
+            boxShadow: 'var(--shadow-washi-sm)',
+          }}
+        >
+          <span>⚠️ <strong>Lỗi kết nối Google:</strong> {oauthError}</span>
+          <button
+            onClick={() => setOauthError(null)}
+            style={{ background: 'transparent', border: 'none', cursor: 'pointer', fontWeight: 'bold', fontSize: '1rem', color: '#B91C1C' }}
+          >
+            ✕
+          </button>
+        </div>
+      )}
+
+      {oauthSuccess && (
+        <div
+          style={{
+            padding: '1rem 1.25rem',
+            borderRadius: '12px',
+            background: 'rgba(16, 185, 129, 0.1)',
+            border: '1px solid #10B981',
+            color: '#065F46',
+            marginBottom: '1.5rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            fontSize: '0.9rem',
+            boxShadow: 'var(--shadow-washi-sm)',
+          }}
+        >
+          <span>{oauthSuccess}</span>
+          <button
+            onClick={() => setOauthSuccess(null)}
+            style={{ background: 'transparent', border: 'none', cursor: 'pointer', fontWeight: 'bold', fontSize: '1rem', color: '#065F46' }}
+          >
+            ✕
+          </button>
+        </div>
+      )}
+
       {/* 1. HERO BANNER WA-STYLE CÓ HOA VĂN MẠ VÀNG RINPA */}
       <section
         className="wagara-seigaiha-matcha"
@@ -418,20 +481,87 @@ export default function IntegrationsPage() {
 
         <div>
           {status.authenticated ? (
-            <button
-              onClick={handleDisconnectGoogle}
-              className="btn-washi"
-              style={{ color: '#EF4444', borderColor: '#FCA5A5' }}
-            >
-              Ngắt kết nối
-            </button>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+              {status.userEmail && (
+                <span
+                  style={{
+                    fontSize: '0.85rem',
+                    color: 'var(--sumi-charcoal)',
+                    background: 'rgba(16, 185, 129, 0.1)',
+                    padding: '0.35rem 0.75rem',
+                    borderRadius: '8px',
+                    border: '1px solid rgba(16, 185, 129, 0.3)',
+                    fontWeight: 600,
+                  }}
+                >
+                  👤 {status.userEmail}
+                </span>
+              )}
+              <button
+                onClick={handleDisconnectGoogle}
+                className="btn-washi"
+                style={{ color: '#EF4444', borderColor: '#FCA5A5' }}
+              >
+                Ngắt kết nối
+              </button>
+            </div>
           ) : (
-            <button onClick={handleConnectGoogle} className="btn-matcha">
-              🔑 Kết nối tài khoản Google
-            </button>
+            <a
+              href="/api/google/auth-redirect"
+              className="btn-matcha"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                textDecoration: 'none',
+                cursor: 'pointer',
+                fontWeight: 600,
+                boxShadow: '0 4px 14px rgba(92, 107, 74, 0.35)',
+              }}
+              onClick={() => {
+                setConnecting(true);
+              }}
+            >
+              {connecting ? '⏳ Đang chuyển hướng sang Google...' : '🔑 Kết nối tài khoản Google'}
+            </a>
           )}
         </div>
       </section>
+
+      {/* 2b. HƯỚNG DẪN CẤU HÌNH GOOGLE CONSOLE URI (DÀNH CHO ADMIN) */}
+      {!status.authenticated && (
+        <div
+          style={{
+            marginTop: '-1.5rem',
+            marginBottom: '2.5rem',
+            padding: '1rem 1.25rem',
+            borderRadius: '12px',
+            background: 'rgba(92, 107, 74, 0.06)',
+            border: '1px dashed var(--matcha-border)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '0.75rem',
+            fontSize: '0.85rem',
+            color: 'var(--sumi-charcoal)',
+          }}
+        >
+          <div>
+            <span style={{ fontWeight: 700, color: 'var(--matcha-deep)' }}>📌 Authorized redirect URI cho Google Console:</span>{' '}
+            <code style={{ background: '#FFFFFF', padding: '0.2rem 0.5rem', borderRadius: '4px', border: '1px solid var(--washi-border)', fontSize: '0.82rem', fontFamily: 'monospace' }}>
+              https://japanese-srs-system-git-main-cassius1.vercel.app/api/google/callback
+            </code>
+          </div>
+          <button
+            onClick={handleCopyUri}
+            className="btn-washi"
+            style={{ padding: '0.35rem 0.75rem', fontSize: '0.8rem' }}
+          >
+            {copiedUri ? '✅ Đã sao chép' : '📋 Sao chép URI'}
+          </button>
+        </div>
+      )}
 
       {/* 3. BENTO GRID: 3 TIỆN ÍCH GOOGLE WORKSPACE */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.75rem' }}>

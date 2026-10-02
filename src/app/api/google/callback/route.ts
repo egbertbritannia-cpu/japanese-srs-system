@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getOAuth2Client } from '@/services/google/auth';
+import { getOAuth2Client, getRedirectUri } from '@/services/google/auth';
 
 /**
  * Xử lý callback sau khi người dùng đăng nhập & cấp quyền trên Google
@@ -10,7 +10,7 @@ export async function GET(request: Request) {
   const error = url.searchParams.get('error');
 
   const origin = url.origin;
-  const redirectUri = process.env.GOOGLE_REDIRECT_URI || `${origin}/api/google/callback`;
+  const redirectUri = getRedirectUri(origin);
 
   if (error || !code) {
     return NextResponse.redirect(`${origin}/integrations?error=${encodeURIComponent(error || 'Không có mã ủy quyền')}`);
