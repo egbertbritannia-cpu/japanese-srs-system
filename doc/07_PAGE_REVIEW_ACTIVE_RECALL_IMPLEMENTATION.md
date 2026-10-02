@@ -1,3 +1,29 @@
+# 🎴 TÀI LIỆU 07: TÁI THIẾT KẾ PHIÊN ÔN TẬP ACTIVE RECALL (SRC/APP/REVIEW/PAGE.TSX)
+## Dự án: Japanese SRS System (FSRS)
+## Mục tiêu: Thẻ bài thơ cổ Hyakunin Isshu Karuta (百人一首 歌留多) & Hệ nút đánh giá 4 Sắc Thái Nhật
+
+---
+
+### 1. PHÂN TÍCH THAY ĐỔI TRANG ÔN TẬP
+- **Hiện trạng cũ**: Khung chữ nhật xám đơn điệu, 4 nút màu Bootstrap cơ bản, không có hiệu ứng lật thẻ, không hỗ trợ Furigana ngữ nghĩa.
+- **Thiết kế mới (Karuta Active Recall)**:
+  1. **Thẻ bài Karuta 3D (3D Flipping Card)**:
+     - *Mặt trước (表 - Omote)*: Chữ Kanji đại tự viết theo lối thư pháp cổ `Shippori Mincho`, viền thẻ bài thủ công, con dấu son góc thẻ.
+     - *Mặt sau (裏 - Ura)*: Hiện Furigana bằng thẻ ngữ nghĩa `<ruby>`, đường kẻ cao độ Tokyo Pitch Accent, câu ví dụ ngữ cảnh có điểm nhấn.
+  2. **Thanh tiến độ phiên học Thân Trúc (Bamboo/Yagasuri Progress)**: Hiển thị số thẻ đã ôn kèm búp bê Daruma mini theo sát tiến độ.
+  3. **4 Nút đánh giá 4 Sắc Thái Văn Hóa Nhật Bản**:
+     - **Again (再び · もう一度)**: Màu đỏ son Torii (`#D9381E`), biểu tượng thử thách cần chinh phục lại.
+     - **Hard (難 · 難しい)**: Màu cam quả hồng Kaki-iro (`#EA580C`), thể hiện sự tập trung cao độ.
+     - **Good (良 · 良好)**: Màu xanh Matcha Seigaiha (`#88A752` - khớp 100% màu ảnh chụp), đạt ngưỡng tối ưu FSRS.
+     - **Easy (易 · 簡単)**: Màu xanh biếc Aoi (`#0284C7`), ghi nhớ xuất sắc.
+  4. **BẢO TOÀN TUYỆT ĐỐI BACKEND**: Hàm `handleGrade` giữ nguyên 100% hợp đồng tham số với API `/api/review` (`cardId`, `rating`), không ảnh hưởng đến thuật toán tính toán DSR của FSRS.
+
+---
+
+### 2. MÃ NGUỒN HOÀN CHỈNH CHO `src/app/review/page.tsx`
+Agent chỉ cần sao chép toàn bộ khối mã dưới đây và ghi đè vào file `src/app/review/page.tsx`:
+
+```tsx
 'use client';
 
 import { useState } from 'react';
@@ -329,3 +355,4 @@ export default function ReviewPage() {
     </div>
   );
 }
+```

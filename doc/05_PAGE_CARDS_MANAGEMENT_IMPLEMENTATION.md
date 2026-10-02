@@ -1,3 +1,31 @@
+# 📜 TÀI LIỆU 05: TÁI THIẾT KẾ QUẢN LÝ THẺ HỌC (SRC/APP/CARDS/PAGE.TSX)
+## Dự án: Japanese SRS System (FSRS)
+## Mục tiêu: Cuộn sách Makimono & Danh mục thẻ bài Karuta truyền thống
+
+---
+
+### 1. PHÂN TÍCH THAY ĐỔI TRANG QUẢN LÝ THẺ
+- **Hiện trạng cũ**: Bảng HTML xám xịt thô kệch, thanh tìm kiếm đơn điệu, các nhãn dán công nghệ không phân biệt được vẻ đẹp của chữ Hán (Kanji).
+- **Thiết kế mới (Makimono Catalog)**:
+  1. **Khung tìm kiếm Bút lông (Shodo Search Bar)**: Bo góc thanh nhã, viền giấy Washi, hiệu ứng gợn nước khi focus.
+  2. **Thẻ gỗ phân loại Kifuda (木札 Deck Filters)**: Thay thế thẻ dropdown nhàm chán bằng hệ thống thẻ gỗ gắn nhãn JLPT (N5 - N1) mang các sắc màu tự nhiên:
+     - N5: Hồng phấn Sakura (`#F472B6`)
+     - N4: Xanh cốm Matcha (`#88A752`)
+     - N3: Xanh ngọc Asagi (`#0D9488`)
+     - N2: Vàng hổ phách Yamabuki (`#F59E0B`)
+     - N1: Xanh thẫm Indigo Ai-iro (`#1E3A8A`)
+  3. **Bảng thẻ bài Karuta & Thư pháp**:
+     - Cột chữ Kanji được thể hiện bằng font thư pháp `Shippori Mincho` kích thước lớn, trang nghiêm.
+     - Cột Furigana hỗ trợ chuẩn HTML `<ruby>` kèm chú giải âm thanh.
+     - Cột Loại thẻ (Card Type) hiển thị dưới dạng con dấu son thủ công: **語** (Từ vựng), **漢** (Chữ Hán), **穴** (Điền khuyết Cloze), **音** (Cao độ Pitch).
+  4. **Nút Thêm thẻ mới phong cách cổng Torii**: Kêu gọi hành động nổi bật.
+
+---
+
+### 2. MÃ NGUỒN HOÀN CHỈNH CHO `src/app/cards/page.tsx`
+Agent chỉ cần sao chép toàn bộ khối mã dưới đây và ghi đè vào file `src/app/cards/page.tsx`:
+
+```tsx
 'use client';
 
 import { useState } from 'react';
@@ -298,3 +326,4 @@ export default function CardsPage() {
     </div>
   );
 }
+```

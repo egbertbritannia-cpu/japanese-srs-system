@@ -1,3 +1,27 @@
+# 🏯 TÀI LIỆU 04: TÁI THIẾT KẾ TRANG TỔNG QUAN (SRC/APP/PAGE.TSX)
+## Dự án: Japanese SRS System (FSRS)
+## Mục tiêu: Bento Grid phong cách Trà Thất & Cung điện Nhật Bản (Honmaru Bento)
+
+---
+
+### 1. PHÂN TÍCH THAY ĐỔI TRÊN TRANG DASHBOARD
+- **Hiện trạng cũ**: 3 khối hộp nền xám tối đơn điệu, font chữ hệ thống khô khan, không có điểm nhấn hay cảm hứng học tập.
+- **Thiết kế mới (Wa-Style Honmaru)**:
+  1. **Banner Anh đào & Sóng biển Seigaiha**: Dải sóng Matcha chuẩn ảnh chụp kết hợp huy hiệu cổng thiêng Torii.
+  2. **Thanh tiến độ Daruma (Daruma Goal Tracker)**: Búp bê Daruma tự động điểm mắt theo tỷ lệ hoàn thành thẻ học trong ngày, tạo động lực tâm lý học tập (Gamification theo văn hóa Nhật).
+  3. **3 Thẻ gỗ điều ước Ema (絵馬)**:
+     - *Thẻ cần ôn (復習 - Due)*: Màu hồng thắm Sakura & đỏ son Torii.
+     - *Thẻ mới (新規 - New)*: Màu xanh cốm Matcha Seigaiha.
+     - *Tỉ lệ ghi nhớ (定着率 - Retention)*: Màu vàng kim Yamabuki cao quý.
+  4. **Hộp ngạn ngữ Kotowaza (諺 - Lời vàng Phù Tang)**: Thẻ cuộn thư pháp chúc người học kiên trì mỗi ngày.
+  5. **Nút bấm phong cách Thần đạo**: Nút bắt đầu ôn tập đỏ son Torii với hiệu ứng đổ bóng đa tầng.
+
+---
+
+### 2. MÃ NGUỒN HOÀN CHỈNH CHO `src/app/page.tsx`
+Agent chỉ cần sao chép toàn bộ khối mã dưới đây và ghi đè vào file `src/app/page.tsx`:
+
+```tsx
 import Link from 'next/link';
 import { ToriiIcon, SakuraIcon, SensuFanIcon } from '@/components/japanese/Icons';
 import { DarumaMascot } from '@/components/japanese/DarumaMascot';
@@ -375,3 +399,4 @@ export default function DashboardPage() {
     </main>
   );
 }
+```

@@ -1,3 +1,27 @@
+# ✍️ TÀI LIỆU 06: TÁI THIẾT KẾ SOẠN THẺ AI COPILOT (SRC/APP/CARDS/NEW/PAGE.TSX)
+## Dự án: Japanese SRS System (FSRS)
+## Mục tiêu: Bàn Thư Pháp Shodo (書道机) & Thẻ Thơ Tanzaku (短冊)
+
+---
+
+### 1. PHÂN TÍCH THAY ĐỔI TRANG TẠO THẺ HỌC
+- **Hiện trạng cũ**: Form nền xanh đen tối tăm, các ô nhập thô ráp, thông báo AI phân tách thẻ khô khan, thiếu vắng vẻ đẹp chữ Hán.
+- **Thiết kế mới (Shodo Desk & Tanzaku)**:
+  1. **Bàn thư pháp Shodo (Calligraphy Desk)**: Ô nhập chữ tiếng Nhật nổi bật với cỡ chữ lớn, phông chữ `Shippori Mincho`, viền hiệu ứng nước mực Sumi.
+  2. **Trạng thái AI Đang sinh thẻ (Loading)**: Hoạt họa hạc giấy Origami (`OrizuruIcon`) bay lượn và xoay nhẹ nhàng trên nền sóng Seigaiha mờ.
+  3. **Thẻ thơ Tanzaku duyệt bài (Human-in-the-Loop Approval)**:
+     - Thẻ nháp sinh ra mang phong cách thẻ thơ Tanzaku viền mạ vàng.
+     - Phân tích Ngữ nguyên học chữ Hình thanh (Keisei-moji) đặt trong khung cuộn thư cổ.
+     - Biểu đồ mô phỏng đường cao độ ngữ âm Tokyo Pitch Accent (Heiban/Atamadaka).
+  4. **Nút Phê duyệt Đóng dấu son Inkan**: Khi người học nhấn "Duyệt & Lưu vào FSRS", con dấu son đỏ **「済」 (Sumi - Hoàn tất)** dập nảy xuống với âm hưởng trang trọng!
+  5. **BẢO TOÀN TUYỆT ĐỐI BACKEND**: Giữ nguyên toàn bộ logic gọi API `/api/copilot/draft` (POST & PUT), các biến `draftId`, `editedData`, `autoSplitNotice`, `atomicity-validator`.
+
+---
+
+### 2. MÃ NGUỒN HOÀN CHỈNH CHO `src/app/cards/new/page.tsx`
+Agent chỉ cần sao chép toàn bộ khối mã dưới đây và ghi đè vào file `src/app/cards/new/page.tsx`:
+
+```tsx
 'use client';
 
 import { useState } from 'react';
@@ -682,3 +706,4 @@ export default function NewCardPage() {
     </div>
   );
 }
+```
