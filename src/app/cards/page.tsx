@@ -221,6 +221,70 @@ export default function CardsPage() {
         </div>
       </div>
 
+      {/* BANNER HÀNH ĐỘNG NHANH: ÔN TẬP BỘ THẺ ĐANG CHỌN */}
+      {selectedDeck !== 'all' && (
+        <div
+          style={{
+            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 242, 0.95) 100%)',
+            border: '1.5px solid #C6DDA4',
+            borderRadius: '14px',
+            padding: '1.25rem 1.75rem',
+            marginBottom: '1.5rem',
+            boxShadow: 'var(--shadow-washi-sm)',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '1rem',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <div
+              style={{
+                width: '42px',
+                height: '42px',
+                borderRadius: '8px',
+                background: selectedDeck.includes('kanji') ? 'var(--torii-subtle)' : 'var(--matcha-subtle)',
+                color: selectedDeck.includes('kanji') ? 'var(--torii-red)' : 'var(--matcha-deep)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '1.2rem',
+                fontFamily: 'var(--font-mincho)',
+                fontWeight: 800,
+                border: `1.5px solid ${selectedDeck.includes('kanji') ? 'var(--torii-red)' : 'var(--matcha-deep)'}`,
+              }}
+            >
+              {selectedDeck.includes('kanji') ? '漢' : '語'}
+            </div>
+            <div>
+              <h3 style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.15rem', color: 'var(--sumi-ink)', fontWeight: 700 }}>
+                Đang lọc: {decksList.find((d) => d.id === selectedDeck)?.name || 'Bộ thẻ đã chọn'}
+              </h3>
+              <p style={{ fontSize: '0.85rem', color: 'var(--sumi-faded)' }}>
+                Bao gồm <strong>{filteredCards.length}</strong> thẻ từ vựng &amp; Hán tự sẵn sàng cho phiên ôn tập Karuta
+              </p>
+            </div>
+          </div>
+
+          <Link
+            href={`/review?deck=${selectedDeck}`}
+            className="btn-torii"
+            style={{
+              padding: '0.75rem 1.5rem',
+              fontSize: '0.95rem',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              boxShadow: '0 4px 16px rgba(217, 56, 30, 0.3)',
+            }}
+          >
+            <ToriiIcon size={18} color="#FFFFFF" />
+            Bắt đầu học bộ này ngay →
+          </Link>
+        </div>
+      )}
+
       {/* DANH SÁCH BẢNG THẺ BÀI KARUTA (CATALOG TABLE) */}
       <div
         style={{

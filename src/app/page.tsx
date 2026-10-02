@@ -1,24 +1,68 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ToriiIcon, SakuraIcon, SensuFanIcon } from '@/components/japanese/Icons';
 import { DarumaMascot } from '@/components/japanese/DarumaMascot';
+import { DeckSummaryDTO } from '@/core/cards/deck.types';
 
 /**
- * Dashboard (Honmaru - 本丸): Tổng quan tiến độ học tập, FSRS stats & Thần chú may mắn
+ * Dashboard (Honmaru - 本丸): Tổng quan tiến độ học tập, FSRS stats & Danh mục Bộ thẻ (Kifuda)
  */
 export default function DashboardPage() {
+  const [deckSummaries, setDeckSummaries] = useState<DeckSummaryDTO[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadDeckData() {
+      try {
+        setLoading(true);
+        const res = await fetch('/api/cards');
+        const json = await res.json();
+        if (json.success && json.deckSummaries) {
+          setDeckSummaries(json.deckSummaries);
+        } else if (json.decks) {
+          // Fallback nếu chưa có deckSummaries
+          setDeckSummaries(
+            json.decks.map((d: any) => ({
+              id: d.id,
+              name: d.name,
+              description: d.description || '',
+              totalCards: 0,
+              dueCards: 0,
+              newCards: 0,
+              learnedCards: 0,
+            }))
+          );
+        }
+      } catch (err) {
+        console.error('Lỗi khi nạp dữ liệu bộ thẻ:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadDeckData();
+  }, []);
+
+  // Tổng hợp thống kê từ toàn bộ các bộ thẻ
+  const totalDue = deckSummaries.reduce((sum, d) => sum + d.dueCards, 0);
+  const totalNew = deckSummaries.reduce((sum, d) => sum + d.newCards, 0);
+  const totalCardsCount = deckSummaries.reduce((sum, d) => sum + d.totalCards, 0);
+
   const stats = {
-    dueToday: 15,
-    newCards: 5,
+    dueToday: totalDue > 0 ? totalDue : 0,
+    newCards: totalNew > 0 ? totalNew : 0,
     retentionRate: '90%',
     completedToday: 8,
   };
 
   const totalTodayGoal = stats.dueToday + stats.completedToday;
-  const progressPercent = totalTodayGoal > 0 ? Math.round((stats.completedToday / totalTodayGoal) * 100) : 100;
+  const progressPercent =
+    totalTodayGoal > 0 ? Math.min(100, Math.round((stats.completedToday / totalTodayGoal) * 100)) : 100;
 
   return (
     <main style={{ maxWidth: '1050px', margin: '2rem auto', padding: '0 1.5rem 3rem' }}>
-      {/* 1. HERO BANNER: HỌA TIẾT SEIGAIHA XANH MATCHA (#88A752) CHUẨN ẢNH CHỤP */}
+      {/* 1. HERO BANNER: HỌA TIẾT SEIGAIHA XANH MATCHA (#88A752) */}
       <section
         className="wagara-seigaiha-matcha"
         style={{
@@ -94,18 +138,18 @@ export default function DashboardPage() {
         </div>
 
         {/* Nút hành động nhanh trên Hero */}
-        <div style={{ position: 'relative', zIndex: 2, display: 'flex', gap: '0.75rem' }}>
+        <div style={{ position: 'relative', zIndex: 2, display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
           <Link
-            href="/review"
+            href="/review?deck=all"
             className="btn-torii"
             style={{
-              padding: '1rem 2rem',
+              padding: '1rem 1.8rem',
               fontSize: '1.05rem',
               boxShadow: '0 8px 24px rgba(217, 56, 30, 0.4)',
             }}
           >
             <ToriiIcon size={20} color="#FFFFFF" />
-            Bắt đầu bài học ngay
+            Ôn tập toàn bộ ngẫu nhiên
           </Link>
         </div>
       </section>
@@ -134,7 +178,7 @@ export default function DashboardPage() {
                 Quyết tâm hôm nay (本日の目標)
               </h2>
               <p style={{ fontSize: '0.85rem', color: 'var(--sumi-faded)' }}>
-                Đã hoàn thành <strong>{stats.completedToday}</strong> / {totalTodayGoal} thẻ ({progressPercent}%)
+                Đã hoàn thành <strong>{stats.completedToday}</strong> / {totalTodayGoal} thẻ ({progressPercent}%) · Tổng cộng <strong>{totalCardsCount}</strong> thẻ trong thư viện
               </p>
             </div>
             <span
@@ -177,7 +221,264 @@ export default function DashboardPage() {
         </div>
       </section>
 
-      {/* 3. BENTO GRID: 3 THẺ ĐIỀU ƯỚC EMA (絵馬 STAT CARDS) */}
+      {/* 3. KHU VỰC LỰA CHỌN BỘ THẺ HỌC TẬP (DECK SELECTION KIFUDA BENTO GRID) */}
+      <section style={{ marginBottom: '2.5rem' }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'flex-end',
+            marginBottom: '1.25rem',
+            flexWrap: 'wrap',
+            gap: '0.75rem',
+          }}
+        >
+          <div>
+            <span
+              style={{
+                fontFamily: 'var(--font-mincho)',
+                color: 'var(--torii-red)',
+                fontWeight: 700,
+                fontSize: '0.85rem',
+                letterSpacing: '0.05em',
+              }}
+            >
+              短冊・木札目録 · CHỌN BỘ THẺ HỌC TẬP
+            </span>
+            <h2
+              style={{
+                fontFamily: 'var(--font-mincho)',
+                fontSize: '1.75rem',
+                fontWeight: 800,
+                color: 'var(--sumi-ink)',
+                marginTop: '0.2rem',
+              }}
+            >
+              Ôn tập theo chuyên đề hoặc tổng hợp
+            </h2>
+          </div>
+
+          <Link
+            href="/review?deck=all"
+            className="btn-washi"
+            style={{
+              padding: '0.6rem 1.2rem',
+              fontSize: '0.9rem',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+            }}
+          >
+            🎲 Học ngẫu nhiên toàn bộ ({totalCardsCount} thẻ)
+          </Link>
+        </div>
+
+        {/* Grid các bộ thẻ Kifuda */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))',
+            gap: '1.5rem',
+          }}
+        >
+          {loading ? (
+            <>
+              {/* Skeleton 1 */}
+              <div
+                className="card-karuta"
+                style={{
+                  padding: '1.75rem',
+                  minHeight: '210px',
+                  background: 'var(--washi-surface)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'var(--sumi-faded)',
+                  fontFamily: 'var(--font-maru)',
+                }}
+              >
+                Đang nạp dữ liệu bộ thẻ Hán Tự...
+              </div>
+              {/* Skeleton 2 */}
+              <div
+                className="card-karuta"
+                style={{
+                  padding: '1.75rem',
+                  minHeight: '210px',
+                  background: 'var(--washi-surface)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'var(--sumi-faded)',
+                  fontFamily: 'var(--font-maru)',
+                }}
+              >
+                Đang nạp dữ liệu bộ thẻ Từ Vựng...
+              </div>
+            </>
+          ) : (
+            deckSummaries.map((deck) => {
+              const isKanji = deck.id.includes('kanji') || deck.name.includes('Hán Tự');
+              const themeColor = isKanji ? 'var(--torii-red)' : 'var(--matcha-deep)';
+              const subtleBg = isKanji ? 'var(--torii-subtle)' : 'var(--matcha-subtle)';
+              const inkanChar = isKanji ? '漢' : '語';
+
+              return (
+                <div
+                  key={deck.id}
+                  className="card-karuta"
+                  style={{
+                    padding: '1.75rem',
+                    background: isKanji
+                      ? 'linear-gradient(180deg, #FFFFFF 0%, #FFF9F9 100%)'
+                      : 'linear-gradient(180deg, #FFFFFF 0%, #F9FAF5 100%)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    position: 'relative',
+                    border: `1.5px solid ${isKanji ? '#FCE7E7' : '#E6F0D8'}`,
+                    transition: 'all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                  }}
+                >
+                  <div>
+                    {/* Header Thẻ: Tiêu đề & Dấu ấn Inkan */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.85rem' }}>
+                      <span
+                        style={{
+                          display: 'inline-block',
+                          padding: '0.25rem 0.65rem',
+                          background: subtleBg,
+                          color: themeColor,
+                          borderRadius: '6px',
+                          fontSize: '0.75rem',
+                          fontWeight: 700,
+                          fontFamily: 'var(--font-maru)',
+                        }}
+                      >
+                        {isKanji ? '漢字特化 · CHỮ HÁN' : '語彙特化 · TỪ VỰNG'}
+                      </span>
+
+                      {/* Con dấu son Inkan đặc thù */}
+                      <div
+                        style={{
+                          width: '38px',
+                          height: '38px',
+                          border: `2px solid ${themeColor}`,
+                          borderRadius: '8px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: themeColor,
+                          fontFamily: 'var(--font-mincho)',
+                          fontWeight: 800,
+                          fontSize: '1.15rem',
+                          background: subtleBg,
+                          boxShadow: `0 2px 8px ${isKanji ? 'rgba(217, 56, 30, 0.15)' : 'rgba(112, 141, 62, 0.15)'}`,
+                          transform: 'rotate(-4deg)',
+                        }}
+                      >
+                        {inkanChar}
+                      </div>
+                    </div>
+
+                    <h3
+                      style={{
+                        fontFamily: 'var(--font-mincho)',
+                        fontSize: '1.25rem',
+                        fontWeight: 800,
+                        color: 'var(--sumi-ink)',
+                        marginBottom: '0.4rem',
+                      }}
+                    >
+                      {deck.name}
+                    </h3>
+
+                    <p
+                      style={{
+                        fontSize: '0.88rem',
+                        color: 'var(--sumi-faded)',
+                        lineHeight: 1.5,
+                        marginBottom: '1.25rem',
+                      }}
+                    >
+                      {deck.description || (isKanji ? '133 chữ Hán trọng tâm trình độ sơ cấp N5-N4' : 'Từ vựng thông dụng kèm câu ví dụ i+1 và phát âm chuẩn Tokyo')}
+                    </p>
+                  </div>
+
+                  <div>
+                    {/* Pills đếm số lượng thẻ */}
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        flexWrap: 'wrap',
+                        marginBottom: '1.25rem',
+                        fontSize: '0.8rem',
+                        fontFamily: 'var(--font-maru)',
+                        fontWeight: 600,
+                      }}
+                    >
+                      <span
+                        style={{
+                          padding: '0.2rem 0.6rem',
+                          borderRadius: '6px',
+                          background: 'rgba(217, 56, 30, 0.1)',
+                          color: 'var(--torii-red)',
+                        }}
+                      >
+                        🔴 Cần ôn: <strong>{deck.dueCards}</strong>
+                      </span>
+                      <span
+                        style={{
+                          padding: '0.2rem 0.6rem',
+                          borderRadius: '6px',
+                          background: 'rgba(136, 167, 82, 0.15)',
+                          color: 'var(--matcha-deep)',
+                        }}
+                      >
+                        🟢 Mới: <strong>{deck.newCards}</strong>
+                      </span>
+                      <span
+                        style={{
+                          padding: '0.2rem 0.6rem',
+                          borderRadius: '6px',
+                          background: 'var(--washi-border)',
+                          color: 'var(--sumi-charcoal)',
+                        }}
+                      >
+                        ⚪ Tổng: <strong>{deck.totalCards}</strong>
+                      </span>
+                    </div>
+
+                    {/* Nút vào học trực tiếp bộ này */}
+                    <Link
+                      href={`/review?deck=${deck.id}`}
+                      className={isKanji ? 'btn-torii' : 'btn-matcha'}
+                      style={{
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '0.5rem',
+                        padding: '0.8rem 1rem',
+                        fontSize: '0.95rem',
+                        borderRadius: '10px',
+                        textDecoration: 'none',
+                      }}
+                    >
+                      <ToriiIcon size={16} color="#FFFFFF" />
+                      Ôn tập bộ này ({deck.dueCards > 0 ? `${deck.dueCards} thẻ` : 'Củng cố'})
+                    </Link>
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </div>
+      </section>
+
+      {/* 4. BENTO GRID: 3 THẺ ĐIỀU ƯỚC EMA (絵馬 STAT CARDS) */}
       <section
         style={{
           display: 'grid',
@@ -336,7 +637,7 @@ export default function DashboardPage() {
         </div>
       </section>
 
-      {/* 4. HỘP THÀNH NGỮ KOTOWAZA & NÚT ĐIỀU HƯỚNG */}
+      {/* 5. HỘP THÀNH NGỮ KOTOWAZA & NÚT ĐIỀU HƯỚNG */}
       <section
         style={{
           display: 'flex',

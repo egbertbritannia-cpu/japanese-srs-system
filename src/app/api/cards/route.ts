@@ -19,12 +19,14 @@ export async function GET(request: Request) {
         reading: cards.reading,
         meaning: cards.meaning,
         pitch: cards.pitch,
+        sentence: cards.sentence,
         type: cards.type,
         deckId: cards.deckId,
         deckName: decks.name,
         state: cards.state,
         stability: cards.stability,
         difficulty: cards.difficulty,
+        due: cards.due,
       })
       .from(cards)
       .leftJoin(decks, eq(cards.deckId, decks.id));
@@ -36,6 +38,36 @@ export async function GET(request: Request) {
 
     const allDecks = await db.select().from(decks);
 
+    // Tính toán số liệu thống kê cho từng bộ thẻ (Due, New, Total)
+    const now = new Date();
+    const allCardsForStats = await db
+      .select({
+        id: cards.id,
+        deckId: cards.deckId,
+        state: cards.state,
+        due: cards.due,
+      })
+      .from(cards);
+
+    const deckSummaries = allDecks.map((d: any) => {
+      const cardsInDeck = allCardsForStats.filter((c: any) => c.deckId === d.id);
+      const dueCards = cardsInDeck.filter(
+        (c: any) => c.state !== 'New' && new Date(c.due || 0) <= now
+      ).length;
+      const newCards = cardsInDeck.filter((c: any) => c.state === 'New').length;
+      const learnedCards = cardsInDeck.filter((c: any) => c.state === 'Review').length;
+
+      return {
+        id: d.id,
+        name: d.name,
+        description: d.description,
+        totalCards: cardsInDeck.length,
+        dueCards,
+        newCards,
+        learnedCards,
+      };
+    });
+
     return NextResponse.json({
       success: true,
       data: cardList.map((c: any) => ({
@@ -43,6 +75,7 @@ export async function GET(request: Request) {
         deck: c.deckName || 'Mặc định',
       })),
       decks: allDecks,
+      deckSummaries,
     });
   } catch (error: any) {
     return NextResponse.json({ error: error?.message || 'Internal Server Error' }, { status: 500 });

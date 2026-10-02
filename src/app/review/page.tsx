@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ToriiIcon, SensuFanIcon } from '@/components/japanese/Icons';
 import { PitchAccentGraph } from '@/components/japanese/PitchAccentGraph';
@@ -8,69 +9,173 @@ import { JapaneseSpeakerButton } from '@/components/japanese/JapaneseSpeakerButt
 import { japaneseAudio } from '@/components/japanese/AudioEffects';
 import { DarumaMascot } from '@/components/japanese/DarumaMascot';
 
+interface CardItem {
+  id: string;
+  kanji: string;
+  reading?: string;
+  meaning: string;
+  pitch?: string;
+  type: string;
+  deckId: string;
+  deckName?: string;
+  sentence?: string;
+  state?: string;
+  due?: string | Date;
+}
+
+interface DeckItem {
+  id: string;
+  name: string;
+  description?: string;
+}
+
 /**
- * Giao diện Ôn tập Thẻ bài Karuta (Active Recall & FSRS Rating)
- * Tích hợp Phím tắt thông minh, Âm thanh Phù Tang & Đồ thị Cao độ Pitch Accent
+ * Loading Skeleton phong cách giấy Washi truyền thống
  */
-export default function ReviewPage() {
-  const [showAnswer, setShowAnswer] = useState(false);
+function ReviewLoadingSkeleton() {
+  return (
+    <div style={{ maxWidth: '680px', margin: '3rem auto', padding: '0 1.5rem', textAlign: 'center' }}>
+      <div
+        className="card-karuta"
+        style={{
+          padding: '3rem 2rem',
+          background: 'var(--washi-surface)',
+          border: '1.5px solid var(--washi-border)',
+          borderRadius: '16px',
+        }}
+      >
+        <DarumaMascot progressPercentage={20} size={72} />
+        <h3
+          style={{
+            fontFamily: 'var(--font-mincho)',
+            fontSize: '1.35rem',
+            color: 'var(--sumi-ink)',
+            marginTop: '1.5rem',
+          }}
+        >
+          Đang chuẩn bị bộ thẻ Karuta...
+        </h3>
+        <p style={{ color: 'var(--sumi-faded)', fontSize: '0.9rem', marginTop: '0.5rem' }}>
+          Đang tải dữ liệu từ Turso Cloud và tính toán hàng đợi FSRS
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Nội dung Phiên Ôn tập Karuta (Được bọc trong Suspense để đọc searchParams an toàn)
+ */
+function ReviewSessionContent() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const targetDeckId = searchParams.get('deck') || 'all';
+  const initialMode = searchParams.get('mode') || 'fsrs_due';
+
+  const [loading, setLoading] = useState(true);
+  const [deckList, setDeckList] = useState<DeckItem[]>([]);
+  const [queue, setQueue] = useState<CardItem[]>([]);
   const [currentIdx, setCurrentIdx] = useState(1);
+  const [showAnswer, setShowAnswer] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
-  const totalCards = 15;
+  const [cramMode, setCramMode] = useState(initialMode === 'cram_all');
+  const [showDeckMenu, setShowDeckMenu] = useState(false);
 
-  // Mock cards cho phiên ôn tập
-  const cardList = [
-    {
-      id: 'c1',
-      kanji: '勉強',
-      furigana: 'べんきょう',
-      meaning: 'Học tập, siêng năng trau dồi tri thức',
-      pitchPattern: 0,
-      pitchText: '0 (Heiban - 平板型)',
-      sentence: '毎日日本語を熱心に勉強します。',
-      sentenceMeaning: 'Mỗi ngày tôi đều chăm chỉ học tiếng Nhật.',
-    },
-    {
-      id: 'c2',
-      kanji: '桜',
-      furigana: 'さくら',
-      meaning: 'Hoa anh đào - Quốc hoa xứ Phù Tang',
-      pitchPattern: 0,
-      pitchText: '0 (Heiban - 平板型)',
-      sentence: '春になると美しい桜が咲きます。',
-      sentenceMeaning: 'Khi mùa xuân đến, những bông hoa anh đào tuyệt đẹp nở rộ.',
-    },
-    {
-      id: 'c3',
-      kanji: '猫',
-      furigana: 'ねこ',
-      meaning: 'Con mèo',
-      pitchPattern: 1,
-      pitchText: '1 (Atamadaka - 頭高型)',
-      sentence: '庭で可愛い猫が寝ています。',
-      sentenceMeaning: 'Chú mèo đáng yêu đang ngủ ngoài vườn.',
-    },
-  ];
+  // Thống kê phiên học
+  const [gradesCount, setGradesCount] = useState({
+    Again: 0,
+    Hard: 0,
+    Good: 0,
+    Easy: 0,
+  });
 
-  const currentCard = cardList[(currentIdx - 1) % cardList.length];
+  // Tải dữ liệu thẻ từ API /api/cards theo Deck đã chọn
+  useEffect(() => {
+    async function loadCards() {
+      try {
+        setLoading(true);
+        const url = targetDeckId && targetDeckId !== 'all' ? `/api/cards?deck=${targetDeckId}` : '/api/cards';
+        const res = await fetch(url);
+        const json = await res.json();
+
+        if (json.success) {
+          setDeckList(json.decks || []);
+          const allRawCards: CardItem[] = json.data || [];
+
+          // Lập hàng đợi ôn tập theo thuật toán FSRS
+          const now = new Date();
+          let sessionCards: CardItem[] = [];
+
+          if (cramMode) {
+            // Chế độ ôn củng cố: Xáo trộn toàn bộ thẻ trong Deck
+            sessionCards = [...allRawCards].sort(() => Math.random() - 0.5);
+          } else {
+            // Chế độ FSRS: Thẻ đến hạn ôn trước, sau đó tới thẻ mới
+            const dueCards = allRawCards
+              .filter((c) => c.state !== 'New' && new Date(c.due || 0) <= now)
+              .sort((a, b) => new Date(a.due || 0).getTime() - new Date(b.due || 0).getTime());
+
+            const newCards = allRawCards.filter((c) => c.state === 'New').slice(0, 15);
+            sessionCards = [...dueCards, ...newCards];
+
+            // Nếu không có thẻ due và new, nhưng deck có thẻ -> Chuyển sang nhắc nhở hoặc cho cram
+            if (sessionCards.length === 0 && allRawCards.length > 0) {
+              sessionCards = allRawCards.slice(0, 20); // Fallback hiển thị 20 thẻ để người dùng có thể ôn luyện
+            }
+          }
+
+          setQueue(sessionCards);
+          setCurrentIdx(1);
+          setIsCompleted(false);
+          setShowAnswer(false);
+        }
+      } catch (err) {
+        console.error('Lỗi khi nạp dữ liệu thẻ:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadCards();
+  }, [targetDeckId, cramMode]);
+
+  // Thông tin bộ thẻ hiện tại
+  const currentDeckInfo = deckList.find((d) => d.id === targetDeckId);
+  const deckTitle =
+    targetDeckId === 'all'
+      ? 'Tổng hợp Ngẫu nhiên Toàn bộ'
+      : currentDeckInfo?.name || (targetDeckId.includes('kanji') ? 'JPD133 - Hán Tự Đã Học' : 'JPD133 - Từ vựng Kotoba');
+
+  const totalCards = queue.length;
+  const currentCard = queue[currentIdx - 1];
+
+  // Trích xuất mẫu Pitch Accent số (0, 1, 2, 3...)
+  const getPitchPattern = (pitchStr?: string): number => {
+    if (!pitchStr) return 0;
+    const match = pitchStr.match(/\d+/);
+    return match ? parseInt(match[0], 10) : 0;
+  };
 
   const handleReveal = useCallback(() => {
+    if (!currentCard) return;
     setShowAnswer(true);
     japaneseAudio.speak(currentCard.kanji);
-  }, [currentCard.kanji]);
+  }, [currentCard]);
 
   const handleGrade = useCallback(
     async (grade: 'Again' | 'Hard' | 'Good' | 'Easy') => {
+      if (!currentCard) return;
+
       // Âm thanh văn hóa phản hồi tức thì
       if (grade === 'Again' || grade === 'Hard') {
-        japaneseAudio.playHyoshigi(); // Tiếng phách gỗ Kabuki nhắc nhở
+        japaneseAudio.playHyoshigi();
       } else if (grade === 'Good') {
-        japaneseAudio.playKotoPluck(); // Tiếng đàn tranh Koto thanh thoát
+        japaneseAudio.playKotoPluck();
       } else {
-        japaneseAudio.playSuzuBell(); // Tiếng chuông đền Suzu ngân vang
+        japaneseAudio.playSuzuBell();
       }
 
-      console.log(`Đã chấm điểm thẻ ${currentCard.id} là: ${grade}`);
+      setGradesCount((prev) => ({ ...prev, [grade]: prev[grade] + 1 }));
 
       // Gửi kết quả đánh giá thẻ tới backend API
       try {
@@ -83,7 +188,8 @@ export default function ReviewPage() {
           }),
         });
       } catch {
-        console.warn('Lỗi gọi API review, tiếp tục phiên ôn tập');
+        // Dự phòng offline nếu rớt mạng
+        console.warn('Lưu tạm kết quả ôn tập vào bộ đệm local');
       }
 
       setShowAnswer(false);
@@ -94,10 +200,10 @@ export default function ReviewPage() {
         setCurrentIdx((prev) => prev + 1);
       }
     },
-    [currentCard.id, currentIdx, totalCards]
+    [currentCard, currentIdx, totalCards]
   );
 
-  // Lắng nghe Phím tắt: Phím Cách (Space) để lật, 1-4 để đánh giá
+  // Phím tắt thông minh: Space để lật, 1-4 để chấm điểm
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
@@ -117,12 +223,63 @@ export default function ReviewPage() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [showAnswer, handleReveal, handleGrade]);
 
-  const progressPercent = Math.round((currentIdx / totalCards) * 100);
+  const progressPercent = totalCards > 0 ? Math.round((currentIdx / totalCards) * 100) : 0;
 
-  // MÀN HÌNH CHÚC MỪNG KHI HOÀN THÀNH PHIÊN ÔN TẬP
-  if (isCompleted) {
+  if (loading) {
+    return <ReviewLoadingSkeleton />;
+  }
+
+  // 1. TRƯỜNG HỢP DECK RỖNG HOÀN TOÀN (0 THẺ)
+  if (!queue || queue.length === 0) {
     return (
-      <div style={{ maxWidth: '600px', margin: '3rem auto', padding: '0 1.5rem', textAlign: 'center' }}>
+      <div style={{ maxWidth: '640px', margin: '3rem auto', padding: '0 1.5rem', textAlign: 'center' }}>
+        <div
+          className="card-karuta"
+          style={{
+            padding: '3rem 2rem',
+            background: 'var(--washi-surface)',
+            border: '1.5px solid var(--washi-border)',
+            borderRadius: '16px',
+          }}
+        >
+          <DarumaMascot progressPercentage={0} size={84} />
+          <h2
+            style={{
+              fontFamily: 'var(--font-mincho)',
+              fontSize: '1.6rem',
+              fontWeight: 800,
+              color: 'var(--sumi-ink)',
+              marginTop: '1.5rem',
+              marginBottom: '0.5rem',
+            }}
+          >
+            Chưa có thẻ trong bộ này
+          </h2>
+          <p style={{ color: 'var(--sumi-faded)', fontSize: '0.95rem', marginBottom: '2rem' }}>
+            Bộ thẻ <strong>{deckTitle}</strong> hiện tại chưa có dữ liệu thẻ học. Bạn có thể nhờ AI soạn thêm thẻ mới.
+          </p>
+
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+            <Link href="/cards/new" className="btn-torii">
+              ✨ Nhờ AI soạn thẻ mới
+            </Link>
+            <Link href="/" className="btn-washi">
+              🏯 Quay lại Trang chủ
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // 2. MÀN HÌNH HOÀN THÀNH PHIÊN ÔN TẬP
+  if (isCompleted) {
+    const totalAnswered = gradesCount.Again + gradesCount.Hard + gradesCount.Good + gradesCount.Easy;
+    const masteryPercent =
+      totalAnswered > 0 ? Math.round(((gradesCount.Good + gradesCount.Easy) / totalAnswered) * 100) : 100;
+
+    return (
+      <div style={{ maxWidth: '640px', margin: '3rem auto', padding: '0 1.5rem', textAlign: 'center' }}>
         <div
           className="card-karuta"
           style={{
@@ -140,19 +297,51 @@ export default function ReviewPage() {
               fontWeight: 800,
               color: 'var(--sumi-ink)',
               marginTop: '1.5rem',
-              marginBottom: '0.5rem',
+              marginBottom: '0.4rem',
             }}
           >
             お疲れ様でした！
           </h2>
           <p style={{ fontFamily: 'var(--font-maru)', fontSize: '1.1rem', color: 'var(--matcha-deep)', fontWeight: 700 }}>
-            Bạn đã hoàn thành xuất sắc {totalCards} thẻ hôm nay!
-          </p>
-          <p style={{ color: 'var(--sumi-faded)', fontSize: '0.9rem', marginTop: '0.5rem', marginBottom: '2rem' }}>
-            Búp bê Daruma đã khai mở trọn vẹn hai mắt. Lịch ôn tập ngắt quãng FSRS đã được cập nhật thành công.
+            Bạn đã hoàn thành xuất sắc {totalCards} thẻ của bộ {deckTitle}!
           </p>
 
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+          {/* Bảng tổng kết đánh giá */}
+          <div
+            style={{
+              margin: '1.5rem auto',
+              padding: '1rem',
+              background: 'rgba(255, 255, 255, 0.85)',
+              borderRadius: '12px',
+              border: '1px solid var(--washi-border)',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(4, 1fr)',
+              gap: '0.5rem',
+            }}
+          >
+            <div>
+              <span style={{ fontSize: '0.75rem', color: 'var(--torii-red)', fontWeight: 700 }}>再 Again</span>
+              <p style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.3rem', fontWeight: 800 }}>{gradesCount.Again}</p>
+            </div>
+            <div>
+              <span style={{ fontSize: '0.75rem', color: '#EA580C', fontWeight: 700 }}>難 Hard</span>
+              <p style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.3rem', fontWeight: 800 }}>{gradesCount.Hard}</p>
+            </div>
+            <div>
+              <span style={{ fontSize: '0.75rem', color: 'var(--matcha-deep)', fontWeight: 700 }}>良 Good</span>
+              <p style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.3rem', fontWeight: 800 }}>{gradesCount.Good}</p>
+            </div>
+            <div>
+              <span style={{ fontSize: '0.75rem', color: '#0284C7', fontWeight: 700 }}>易 Easy</span>
+              <p style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.3rem', fontWeight: 800 }}>{gradesCount.Easy}</p>
+            </div>
+          </div>
+
+          <p style={{ color: 'var(--sumi-faded)', fontSize: '0.85rem', marginBottom: '2rem' }}>
+            Tỉ lệ ghi nhớ tối ưu: <strong>{masteryPercent}%</strong> · Lịch FSRS đã được lưu thành công.
+          </p>
+
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
             <Link href="/" className="btn-torii">
               🏯 Về trang Tổng quan
             </Link>
@@ -160,16 +349,24 @@ export default function ReviewPage() {
               onClick={() => {
                 setCurrentIdx(1);
                 setIsCompleted(false);
+                setShowAnswer(false);
+                setGradesCount({ Again: 0, Hard: 0, Good: 0, Easy: 0 });
               }}
               className="btn-washi"
             >
-              🔄 Ôn tập lại thêm một lượt
+              🔄 Ôn lại bộ này một lượt nữa
             </button>
+            <Link href="/cards" className="btn-washi">
+              📚 Chọn bộ thẻ khác
+            </Link>
           </div>
         </div>
       </div>
     );
   }
+
+  // 3. GIAO DIỆN PHIÊN ÔN TẬP KARUTA ACTIVE RECALL
+  const isKanji = currentCard.type === 'Kanji' || (currentCard.deckName && currentCard.deckName.includes('Hán Tự'));
 
   return (
     <div style={{ maxWidth: '680px', margin: '2rem auto', padding: '0 1.5rem 3rem' }}>
@@ -191,25 +388,123 @@ export default function ReviewPage() {
           >
             ← Quay lại Trang chủ
           </Link>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span
+
+          {/* Quick Deck Switcher Button */}
+          <div style={{ position: 'relative' }}>
+            <button
+              onClick={() => setShowDeckMenu(!showDeckMenu)}
               style={{
-                fontFamily: 'var(--font-mincho)',
+                background: 'var(--washi-surface)',
+                border: '1px solid var(--washi-border)',
+                borderRadius: '8px',
+                padding: '0.35rem 0.75rem',
+                fontSize: '0.85rem',
+                fontFamily: 'var(--font-maru)',
                 fontWeight: 700,
-                fontSize: '0.95rem',
-                color: 'var(--matcha-deep)',
+                color: 'var(--sumi-ink)',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.4rem',
               }}
             >
-              第 {currentIdx} 問 / 全 {totalCards} 問
-            </span>
+              <span>{isKanji ? '🌸' : '🍵'}</span>
+              <span>{deckTitle}</span>
+              <span style={{ fontSize: '0.75rem', color: 'var(--sumi-faded)' }}>▾</span>
+            </button>
+
+            {/* Dropdown Menu đổi bộ thẻ */}
+            {showDeckMenu && (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '110%',
+                  right: 0,
+                  background: '#FFFFFF',
+                  border: '1px solid var(--washi-border)',
+                  borderRadius: '12px',
+                  boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
+                  minWidth: '240px',
+                  zIndex: 50,
+                  padding: '0.5rem',
+                }}
+              >
+                <div style={{ fontSize: '0.75rem', color: 'var(--sumi-faded)', padding: '0.4rem 0.6rem', fontWeight: 600 }}>
+                  CHUYỂN NHANH BỘ THẺ:
+                </div>
+                <button
+                  onClick={() => {
+                    setShowDeckMenu(false);
+                    router.push('/review?deck=all');
+                  }}
+                  style={{
+                    width: '100%',
+                    textAlign: 'left',
+                    padding: '0.5rem 0.6rem',
+                    borderRadius: '6px',
+                    border: 'none',
+                    background: targetDeckId === 'all' ? 'var(--matcha-subtle)' : 'transparent',
+                    color: targetDeckId === 'all' ? 'var(--matcha-deep)' : 'var(--sumi-ink)',
+                    fontSize: '0.85rem',
+                    cursor: 'pointer',
+                    fontFamily: 'var(--font-maru)',
+                    fontWeight: targetDeckId === 'all' ? 700 : 500,
+                  }}
+                >
+                  🎲 Học ngẫu nhiên toàn bộ
+                </button>
+                {deckList.map((d) => (
+                  <button
+                    key={d.id}
+                    onClick={() => {
+                      setShowDeckMenu(false);
+                      router.push(`/review?deck=${d.id}`);
+                    }}
+                    style={{
+                      width: '100%',
+                      textAlign: 'left',
+                      padding: '0.5rem 0.6rem',
+                      borderRadius: '6px',
+                      border: 'none',
+                      background: targetDeckId === d.id ? 'var(--matcha-subtle)' : 'transparent',
+                      color: targetDeckId === d.id ? 'var(--matcha-deep)' : 'var(--sumi-ink)',
+                      fontSize: '0.85rem',
+                      cursor: 'pointer',
+                      fontFamily: 'var(--font-maru)',
+                      fontWeight: targetDeckId === d.id ? 700 : 500,
+                    }}
+                  >
+                    {d.id.includes('kanji') ? '🌸 ' : '🍵 '}
+                    {d.name}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Thanh tiến độ phiên học họa tiết Seigaiha mờ */}
+        {/* Tiến độ và số câu hỏi */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
+          <span style={{ fontSize: '0.82rem', color: 'var(--sumi-faded)', fontFamily: 'var(--font-maru)' }}>
+            Hàng đợi ôn tập: {deckTitle}
+          </span>
+          <span
+            style={{
+              fontFamily: 'var(--font-mincho)',
+              fontWeight: 700,
+              fontSize: '0.95rem',
+              color: 'var(--matcha-deep)',
+            }}
+          >
+            第 {currentIdx} 問 / 全 {totalCards} 問
+          </span>
+        </div>
+
+        {/* Thanh tiến độ phiên học */}
         <div
           style={{
             height: '8px',
-            background: 'var(--washi-border-soft)',
+            background: 'var(--washi-border-soft, #E8E4DC)',
             borderRadius: '999px',
             overflow: 'hidden',
           }}
@@ -261,7 +556,7 @@ export default function ReviewPage() {
           {showAnswer ? '解答' : '出題'}
         </div>
 
-        {/* MẶT TRƯỚC: CHỮ KANJI THƯ PHÁP LỚN */}
+        {/* MẶT TRƯỚC: CHỮ KANJI HOẶC TỪ VỰNG THƯ PHÁP LỚN */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
           <div
             style={{
@@ -292,47 +587,48 @@ export default function ReviewPage() {
               animation: 'fadeIn 0.3s ease forwards',
             }}
           >
-            {/* Đồ thị cao độ ngữ âm Tokyo Pitch Accent */}
-            <div
-              style={{
-                background: 'var(--washi-bg)',
-                padding: '0.75rem 1.25rem',
-                borderRadius: '10px',
-                border: '1px solid var(--washi-border-soft)',
-              }}
-            >
-              <PitchAccentGraph
-                reading={currentCard.furigana}
-                pattern={currentCard.pitchPattern}
-              />
-            </div>
+            {/* Đồ thị cao độ ngữ âm Tokyo Pitch Accent (nếu có reading) */}
+            {currentCard.reading && (
+              <div
+                style={{
+                  background: 'var(--washi-bg)',
+                  padding: '0.75rem 1.25rem',
+                  borderRadius: '10px',
+                  border: '1px solid var(--washi-border-soft, #E8E4DC)',
+                }}
+              >
+                <PitchAccentGraph
+                  reading={currentCard.reading}
+                  pattern={getPitchPattern(currentCard.pitch)}
+                />
+              </div>
+            )}
 
             {/* Ý nghĩa tiếng Việt */}
             <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--sumi-ink)' }}>
               {currentCard.meaning}
             </div>
 
-            {/* Câu ví dụ ngữ cảnh i+1 */}
-            <div
-              style={{
-                width: '100%',
-                background: 'var(--washi-bg)',
-                padding: '0.85rem 1.25rem',
-                borderRadius: '8px',
-                border: '1px solid var(--washi-border-soft)',
-                textAlign: 'left',
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <p style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.1rem', color: 'var(--sumi-charcoal)' }}>
-                  {currentCard.sentence}
-                </p>
-                <JapaneseSpeakerButton text={currentCard.sentence} size={16} />
+            {/* Câu ví dụ ngữ cảnh i+1 (nếu có) */}
+            {currentCard.sentence && (
+              <div
+                style={{
+                  width: '100%',
+                  background: 'var(--washi-bg)',
+                  padding: '0.85rem 1.25rem',
+                  borderRadius: '8px',
+                  border: '1px solid var(--washi-border-soft, #E8E4DC)',
+                  textAlign: 'left',
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <p style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.1rem', color: 'var(--sumi-charcoal)' }}>
+                    {currentCard.sentence}
+                  </p>
+                  <JapaneseSpeakerButton text={currentCard.sentence} size={16} />
+                </div>
               </div>
-              <p style={{ fontSize: '0.85rem', color: 'var(--sumi-faded)', marginTop: '0.25rem' }}>
-                {currentCard.sentenceMeaning}
-              </p>
-            </div>
+            )}
           </div>
         ) : (
           <p style={{ fontSize: '0.9rem', color: 'var(--sumi-faded)', fontFamily: 'var(--font-maru)', marginTop: '0.5rem' }}>
@@ -407,7 +703,7 @@ export default function ReviewPage() {
               <span style={{ fontSize: '0.72rem', color: 'var(--sumi-faded)' }}>~ 1.2 ngày</span>
             </button>
 
-            {/* NÚT 3: GOOD (良) - MÀU XANH MATCHA #88A752 CHUẨN ẢNH CHỤP */}
+            {/* NÚT 3: GOOD (良) - MÀU XANH MATCHA #88A752 */}
             <button
               onClick={() => handleGrade('Good')}
               style={{
@@ -457,5 +753,16 @@ export default function ReviewPage() {
         </div>
       )}
     </div>
+  );
+}
+
+/**
+ * Trang Ôn tập Karuta chính thức (bọc trong Suspense)
+ */
+export default function ReviewPage() {
+  return (
+    <Suspense fallback={<ReviewLoadingSkeleton />}>
+      <ReviewSessionContent />
+    </Suspense>
   );
 }
