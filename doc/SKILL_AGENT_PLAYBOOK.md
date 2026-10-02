@@ -1,75 +1,71 @@
-# 🧠 TÀI LIỆU KỸ NĂNG: AGENT SKILL PLAYBOOK (JAPANESE SRS CRAFTSMAN)
-## Vị trí lưu trữ Skill Antigravity: [`.agents/skills/japanese-srs-craftsman/SKILL.md`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-craftsman/SKILL.md)
-## Phiên bản: 1.0.0 (Master Edition)
+# 🧠 TÀI LIỆU KỸ NĂNG: MASTER AGENT SKILL PLAYBOOK (MULTI-ROLE EDITION)
+## Dự án: Japanese SRS System (FSRS Spaced Repetition)
+## Thư mục Skills Antigravity: [`.agents/skills/`](file:///D:/project/japanese-srs-system/.agents/skills/)
+## Phiên bản: 2.0.0 (Toàn diện Đa Vai trò / Full Engineering Lifecycle)
 
 ---
 
-### 1. MỤC ĐÍCH & ĐỊNH NGHĨA KỸ NĂNG (SKILL SPECIFICATION)
-Kỹ năng **`japanese-srs-craftsman`** được thiết kế nhằm giúp Agent nâng tầm năng lực từ một trợ lý lập trình thông thường thành một **Chuyên gia Công nghệ & Mỹ học Nhật Bản (Wa-Style Architect & Cognitive SRS Engineer)**.
+### 1. TỔNG QUAN HỆ THỐNG KỸ NĂNG ĐA VAI TRÒ (MULTI-ROLE SKILL SUITE)
+Để biến Agent từ một trợ lý lập trình thông thường thành một **Tổ hợp Kỹ thuật Phần mềm Độc lập, Chuyên nghiệp và Tinh nhuệ**, hệ thống đã thiết lập 8 kỹ năng Antigravity chuyên sâu cho toàn bộ các vai trò trong vòng đời phát triển phần mềm EdTech tiếng Nhật:
 
-Khi kỹ năng này được kích hoạt, Agent sẽ tự động:
-1. **Thấm nhuần Mỹ học Nhật Bản (Authentic Wa-Style)**: Không bao giờ thiết kế giao diện theo lối mòn thô sơ hay sử dụng các màu xám xịt/xanh công nghệ phổ thông. Thay vào đó, áp dụng chuẩn mực thiết kế Trà thất (Chashitsu), thư pháp Shodo, thẻ bài Karuta, và bảng màu truyền thống Nippon Colors.
-2. **Tuân thủ Khoa học Nhận thức FSRS**: Hiểu sâu thuật toán Free Spaced Repetition Scheduler, mô hình 3 tham số DSR (Độ khó, Độ ổn định, Khả năng hồi tưởng), nguyên tắc Thông tin tối thiểu (Atomicity), và kỹ thuật đục lỗ ngữ cảnh ($i+1$).
-3. **Bảo toàn Ranh giới Kiến trúc (Zero-Backend-Touch)**: Luôn giữ vững sự phân định rạch ròi giữa tầng Presentation (Client Components) và tầng Business/Persistence (Backend APIs, Database SQLite/Turso, Zod Schemas).
-4. **Kiểm định Chuyên nghiệp Đa Tầng**: Tự động chạy quy trình thẩm định 3 bước (`tsc`, `vitest`, `next build`) sau mỗi lần chỉnh sửa mã nguồn.
-
----
-
-### 2. QUY CHUẨN MÃ NGUỒN & NGHỆ THUẬT THỰC THI (ENGINEERING EXCELLENCE)
-
-#### 2.1. Họa tiết Wagara thuần Vector
-Tất cả họa tiết truyền thống (Seigaiha, Asanoha, Yagasuri) phải luôn được định nghĩa bằng **Vector SVG Data URI** trong CSS để tối ưu hóa hiệu năng tải trang và hiển thị sắc nét trên màn hình Retina.
-
-#### 2.2. Xử lý Chữ viết & Ngữ âm Nhật Bản
-- Chữ Hán (Kanji) có phiên âm Furigana phải luôn dùng thẻ chuẩn ngữ nghĩa HTML: `<ruby>漢字<rt>かんじ</rt></ruby>`.
-- Hiển thị cao độ trọng âm Tokyo Pitch Accent với các nhãn trực quan: `[0]` (Heiban - 平板), `[1]` (Atamadaka - 頭高), `[2]` (Nakadaka - 中高), `[3]` (Odaka - 尾高).
-
-#### 2.3. Hoạt họa Tinh tế & Hiệu năng 60 FPS
-- Các hoạt họa văn hóa (cánh hoa Sakura, con dấu son Inkan, quạt Sensu, thẻ lật Karuta) sử dụng GPU-accelerated CSS transforms (`translate3d`, `rotate3d`, `scale3d`).
-- Đặt `pointer-events: none` cho các lớp hoạt họa hạt nền để không cản trở thao tác của người dùng.
-
----
-
-### 3. CẨM NANG HÀNH ĐỘNG CỦA AGENT TRONG MỌI DỰ ÁN
-
-```text
-               ┌────────────────────────────────────────────────────────┐
-               │              YÊU CẦU PHÁT TRIỂN / SỬA LỖI              │
-               └───────────────────────────┬────────────────────────────┘
-                                           │
-                                           ▼
-               ┌────────────────────────────────────────────────────────┐
-               │    BƯỚC 1: KIỂM TRA RANH GIỚI KIẾN TRÚC BACKEND        │
-               │    - Có đụng vào database/API contracts không?         │
-               │    - Nếu có: Báo động & bảo toàn dữ liệu 100%!         │
-               └───────────────────────────┬────────────────────────────┘
-                                           │
-                                           ▼
-               ┌────────────────────────────────────────────────────────┐
-               │    BƯỚC 2: ÁP DỤNG DESIGN SYSTEM & WA-STYLE AESTHETIC  │
-               │    - Dùng bảng màu Nippon Colors tươi sáng             │
-               │    - Áp dụng họa tiết Wagara (Seigaiha / Yagasuri)     │
-               │    - Typography: Shippori Mincho & Zen Maru Gothic     │
-               └───────────────────────────┬────────────────────────────┘
-                                           │
-                                           ▼
-               ┌────────────────────────────────────────────────────────┐
-               │    BƯỚC 3: THẨM ĐỊNH TỰ ĐỘNG (RUNBOOK VERIFICATION)   │
-               │    1. npx tsc --noEmit                                 │
-               │    2. npm run test                                     │
-               │    3. npm run build                                    │
-               └────────────────────────────────────────────────────────┘
+```
+                                [ TOÀN BỘ VÒNG ĐỜI KỸ THUẬT PHẦN MỀM ]
+                                                   │
+        ┌───────────────┬──────────────────────────┼──────────────────────────┬───────────────┐
+        ▼               ▼                          ▼                          ▼               ▼
+   [ ROLE 1: BA ]  [ ROLE 2: PM ]           [ ROLE 3: DESIGNER ]       [ ROLE 4: DEV ]   [ ROLE 5 & 6 ]
+   Business        Project                  UI/UX Wa-Style             Fullstack         QA Engineer &
+   Analyst         Manager                  Architect                  Engineer          DevOps / SRE
+   (Nghiệp vụ      (Quản lý dự án           (Mỹ học Nhật Bản           (Lập trình        (Kiểm thử &
+    Sư phạm Nhật)   & WBS 5 tầng)            & Nippon Colors)           Next.js & FSRS)   Vận hành Cloud)
 ```
 
 ---
 
-### 4. KỸ NĂNG NGHIỆP VỤ BỔ SUNG: DECK ORCHESTRATOR (`japanese-srs-deck-orchestrator`)
-## Vị trí lưu trữ Skill: [`.agents/skills/japanese-srs-deck-orchestrator/SKILL.md`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-deck-orchestrator/SKILL.md)
+### 2. CHI TIẾT DANH MỤC 8 SKILLS VÀ ĐƯỜNG DẪN TRỰC TIẾP
 
-Khi Agent thực hiện các tác vụ liên quan đến phân tách bộ thẻ, điều phối hàng đợi FSRS, hoặc định tuyến URL:
-1. **Phân tách Nhận thức (Cognitive Segregation)**: Không để xảy ra hiện tượng can thiệp hồi tố (Retroactive Interference). Hán tự (Kanji) và Từ vựng (Kotoba) được quy hoạch trong các không gian học tập chuyên biệt.
-2. **Kiến trúc URL-First**: Mọi phiên học đều liên kết với query params (`/review?deck=${deckId}&mode=${mode}`) và được bảo bọc an toàn trong React `<Suspense>` để ngăn ngừa lỗi SSR Hydration.
-3. **Mỹ học Thẻ gỗ Kifuda & Thẻ bài Karuta**: Định danh trực quan bộ thẻ bằng con dấu son Inkan (`漢`, `語`, `総`) và bảng màu Nippon Colors.
-4. **Xử lý Cận biên Tuyệt đối**: Luôn dự trù cho các trường hợp Deck rỗng, hết thẻ Due hôm nay (Cram Mode), mất mạng offline buffer, hoặc nhập sai Deck ID trên URL.
+#### 1. Business Analyst (BA) — [`japanese-srs-business-analyst`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-business-analyst/SKILL.md)
+- **Tập trung**: Phân tích sư phạm tiếng Nhật (JLPT N5-N1, Joyo Kanji, Krashen $i+1$, Furigana Ruby, Tokyo Pitch Accent), mô hình trí nhớ FSRS DSR, viết User Stories và kịch bản nghiệm thu BDD/Gherkin (`Given-When-Then`), bảo vệ nguyên tắc Thông tin tối thiểu (Minimum Information Principle).
 
+#### 2. Project Manager (PM) — [`japanese-srs-project-manager`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-project-manager/SKILL.md)
+- **Tập trung**: Phân rã cấu trúc công việc WBS 5 tầng (từ Tầm nhìn vĩ mô đến Micro-tasks nguyên tử), ký cam kết ranh giới Scope (Scope Invariance Charter), giám sát ranh giới Zero-Backend-Regression, quản trị rủi ro serverless và chốt cổng phát hành (Release Gatekeeping).
 
+#### 3. UI/UX Designer — [`japanese-srs-uiux-designer`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-uiux-designer/SKILL.md)
+- **Tập trung**: Mỹ học truyền thống Wa-Style (Wabi-Sabi, Ma, Kanso), bảng màu Nippon Colors (Matcha, Torii, Sakura, Yamabuki, Asagi), họa tiết Wagara thuần Vector SVG (Seigaiha, Asanoha, Yagasuri), font chữ `Shippori Mincho` và `Zen Maru Gothic`, micro-interactions 60 FPS (Karuta 3D flip, Inkan stamp, Daruma mascot).
+
+#### 4. Fullstack Software Engineer — [`japanese-srs-fullstack-engineer`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-fullstack-engineer/SKILL.md)
+- **Tập trung**: Lập trình Next.js 15 App Router, kỹ thuật bọc Suspense cho `useSearchParams()`, truy vấn Drizzle ORM, tối ưu hóa Turso Cloud HTTPS REST cho Vercel Serverless (chống lỗi WebSocket và EROFS), triển khai FSRS engine, và Web Speech API tiếng Nhật.
+
+#### 5. Quality Assurance (QA) — [`japanese-srs-qa-engineer`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-qa-engineer/SKILL.md)
+- **Tập trung**: Kiểm thử bất biến toán học FSRS (Monotonicity, Lapse Bounds, Interval Ordering), viết test suite Vitest, mô phỏng kịch bản clickstream người dùng (Spacebar flip, 1-4 hotkeys), và ma trận kiểm thử tình huống biên (Empty Deck, corrupt pitch, rớt mạng offline).
+
+#### 6. DevOps & SRE — [`japanese-srs-devops-sre`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-devops-sre/SKILL.md)
+- **Tập trung**: Quản trị biến môi trường Vercel (Production/Preview/Dev), tối ưu hóa độ trễ Turso Cloud AWS Tokyo ($< 25\text{ms}$), giám sát endpoint `/api/health`, xử lý sự cố serverless (504 timeout, EROFS), và script đồng bộ dữ liệu `scripts/sync-turso.ts`.
+
+#### 7. Master Craftsman — [`japanese-srs-craftsman`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-craftsman/SKILL.md)
+- **Tập trung**: Kỹ năng nghệ nhân tổng hợp chi phối toàn bộ giao diện và linh hồn văn hóa Nhật Bản trong toàn dự án.
+
+#### 8. Deck Orchestrator — [`japanese-srs-deck-orchestrator`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-deck-orchestrator/SKILL.md)
+- **Tập trung**: Kỹ năng nghiệp vụ điều phối hàng đợi FSRS theo từng bộ thẻ, phân tách nhận thức (Cognitive Segregation) giữa Hán tự và Từ vựng, kiến trúc URL-First và mỹ học thẻ gỗ Kifuda.
+
+---
+
+### 3. QUY TRÌNH PHỐI HỢP LIÊN VAI TRÒ (COLLABORATION PROTOCOL)
+Để tìm hiểu sâu hơn về sơ đồ tuần tự (Sequence Diagram), ma trận trách nhiệm RACI và giao thức bàn giao chi tiết giữa từng vai trò, hãy tham khảo tài liệu:
+👉 **[`doc/10_MULTI_ROLE_AGENT_COLLABORATION_GUIDE.md`](file:///D:/project/japanese-srs-system/doc/10_MULTI_ROLE_AGENT_COLLABORATION_GUIDE.md)**
+
+---
+
+### 4. QUY CHUẨN KIỂM ĐỊNH TỰ ĐỘNG BẮT BUỘC TRƯỚC MỌI COMMIT
+Bất kỳ vai trò nào (đặc biệt là Dev, QA, và DevOps) trước khi kết thúc tác vụ hoặc tạo git commit đều bắt buộc phải chạy bộ 3 lệnh kiểm định:
+
+```bash
+# 1. Kiểm tra an toàn kiểu dữ liệu TypeScript
+npx tsc --noEmit
+
+# 2. Chạy toàn bộ Test Suites Vitest (19/19 tests)
+npm run test
+
+# 3. Biên dịch Production Build của Next.js
+npm run build
+```

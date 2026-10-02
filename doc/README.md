@@ -35,18 +35,35 @@ Toàn bộ kế hoạch tái thiết kế giao diện theo phong cách Nhật B�
 9. **[08_STEP_BY_STEP_EXECUTION_CHECKLIST.md](file:///D:/project/japanese-srs-system/doc/08_STEP_BY_STEP_EXECUTION_CHECKLIST.md)**  
    *Checklist thực thi 10 bước dành cho Agent (Zero Guesswork)*: Bảng thứ tự thao tác, lệnh tạo thư mục, quy trình ghi đè file, và 3 lệnh thẩm định tự động (`tsc`, `test`, `build`).
 
-10. **[SKILL_AGENT_PLAYBOOK.md](file:///D:/project/japanese-srs-system/doc/SKILL_AGENT_PLAYBOOK.md)** / **[SKILL.md (japanese-srs-craftsman)](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-craftsman/SKILL.md)**  
-   *Kỹ năng Nghệ nhân Nhật Bản (`japanese-srs-craftsman`)*: Định nghĩa bộ quy chuẩn kỹ năng và tư duy cho Agent khi thiết kế giao diện Nhật Bản Wa-style, FSRS, và kiểm định phần mềm.
+10. **[SKILL_AGENT_PLAYBOOK.md](file:///D:/project/japanese-srs-system/doc/SKILL_AGENT_PLAYBOOK.md)**  
+   *Cẩm nang Kỹ năng Đa Vai trò (Master Multi-Role Engineering Playbook)*: Tổng hợp toàn diện 8 kỹ năng Antigravity cho toàn bộ các vai trò (BA, PM, Designer, Dev, QA, DevOps) và quy chuẩn kiểm định tự động.
 
 11. **[09_DECK_BASED_STUDY_HIERARCHICAL_PLAN.md](file:///D:/project/japanese-srs-system/doc/09_DECK_BASED_STUDY_HIERARCHICAL_PLAN.md)**  
    *Kế hoạch Phân tầng Cải tiến Hệ thống — Ôn tập theo từng Bộ Thẻ (Deck-Based SRS Architecture)*: Bản quy hoạch 5 tầng từ Chiến lược vĩ mô (Tầng 1) $\rightarrow$ Kiến trúc 4 trụ cột (Tầng 2) $\rightarrow$ Đặc tả kỹ thuật module & Routing (Tầng 3) $\rightarrow$ Danh mục Micro-Tasks nguyên tử (Tầng 4) $\rightarrow$ Ma trận kiểm thử nghiệm thu 12 test cases (Tầng 5).
 
-12. **[SKILL.md (japanese-srs-deck-orchestrator)](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-deck-orchestrator/SKILL.md)**  
-   *Kỹ năng Nghiệp vụ Điều phối Bộ Thẻ (`japanese-srs-deck-orchestrator`)*: Trang bị cho Agent tư duy phân tách nhận thức (Cognitive Segregation), điều phối hàng đợi FSRS theo từng bộ thẻ, kiến trúc URL-First, và mỹ học Kifuda / Karuta.
+12. **[10_MULTI_ROLE_AGENT_COLLABORATION_GUIDE.md](file:///D:/project/japanese-srs-system/doc/10_MULTI_ROLE_AGENT_COLLABORATION_GUIDE.md)**  
+   *Cẩm nang Phối hợp Đa Vai trò (Multi-Role Agent Collaboration Guide)*: Quy định chi tiết vòng đời phối hợp tuần tự (Sequence Diagram), ma trận phân định trách nhiệm, và 6 giao thức bàn giao (Handoff Protocols) giữa BA, PM, Designer, Dev, QA, và DevOps.
+
+---
+
+### 🎴 HỆ THỐNG 8 SKILLS ANTHIGRAVITY TRONG DỰ ÁN (`.agents/skills/`)
+
+| STT | Tên Kỹ năng (Skill Identifier) | Vai trò Phụ trách | Đường dẫn Trực tiếp |
+| :---: | :--- | :--- | :--- |
+| 1 | **`japanese-srs-business-analyst`** | Business Analyst (BA) | [`.agents/skills/japanese-srs-business-analyst/SKILL.md`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-business-analyst/SKILL.md) |
+| 2 | **`japanese-srs-project-manager`** | Project Manager (PM) | [`.agents/skills/japanese-srs-project-manager/SKILL.md`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-project-manager/SKILL.md) |
+| 3 | **`japanese-srs-uiux-designer`** | UI/UX Designer | [`.agents/skills/japanese-srs-uiux-designer/SKILL.md`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-uiux-designer/SKILL.md) |
+| 4 | **`japanese-srs-fullstack-engineer`**| Fullstack Engineer (Dev) | [`.agents/skills/japanese-srs-fullstack-engineer/SKILL.md`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-fullstack-engineer/SKILL.md) |
+| 5 | **`japanese-srs-qa-engineer`** | QA & Test Automation | [`.agents/skills/japanese-srs-qa-engineer/SKILL.md`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-qa-engineer/SKILL.md) |
+| 6 | **`japanese-srs-devops-sre`** | DevOps & Cloud SRE | [`.agents/skills/japanese-srs-devops-sre/SKILL.md`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-devops-sre/SKILL.md) |
+| 7 | **`japanese-srs-craftsman`** | Master Japanese Craftsman | [`.agents/skills/japanese-srs-craftsman/SKILL.md`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-craftsman/SKILL.md) |
+| 8 | **`japanese-srs-deck-orchestrator`** | Deck & Session Orchestrator | [`.agents/skills/japanese-srs-deck-orchestrator/SKILL.md`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-deck-orchestrator/SKILL.md) |
 
 ---
 
 ### ⛩️ HƯỚNG DẪN DÀNH CHO AGENT THỰC THI (QUICK START)
+- Đối với việc phối hợp đa vai trò và quy chuẩn làm việc: Mở file **[10_MULTI_ROLE_AGENT_COLLABORATION_GUIDE.md](file:///D:/project/japanese-srs-system/doc/10_MULTI_ROLE_AGENT_COLLABORATION_GUIDE.md)** và **[SKILL_AGENT_PLAYBOOK.md](file:///D:/project/japanese-srs-system/doc/SKILL_AGENT_PLAYBOOK.md)**.
+- Đối với việc nâng cấp tính năng Ôn tập theo từng Bộ Thẻ: Mở file **[09_DECK_BASED_STUDY_HIERARCHICAL_PLAN.md](file:///D:/project/japanese-srs-system/doc/09_DECK_BASED_STUDY_HIERARCHICAL_PLAN.md)**.
 - Đối với việc hoàn thiện giao diện ban đầu: Mở file **[08_STEP_BY_STEP_EXECUTION_CHECKLIST.md](file:///D:/project/japanese-srs-system/doc/08_STEP_BY_STEP_EXECUTION_CHECKLIST.md)**.
-- Đối với việc nâng cấp tính năng Ôn tập theo từng Bộ Thẻ: Mở file **[09_DECK_BASED_STUDY_HIERARCHICAL_PLAN.md](file:///D:/project/japanese-srs-system/doc/09_DECK_BASED_STUDY_HIERARCHICAL_PLAN.md)** và thực hiện theo từng Micro-Task tại **Tầng 4**.
+
 
