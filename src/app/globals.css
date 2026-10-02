@@ -263,3 +263,85 @@ html, body {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+/* ==========================================================================
+   AUTHENTIC JAPANESE GRAPHIC DESIGN UTILITIES (WA-MODERN BENTO SYSTEM)
+   ========================================================================== */
+
+/* 1. Hinomaru Disc: Crimson Rising Sun Accent */
+.hinomaru-disc {
+  background: radial-gradient(circle at 35% 35%, #EF4444 0%, #D9381E 65%, #B82C15 100%);
+  border-radius: 9999px;
+  box-shadow: 0 4px 16px rgba(217, 56, 30, 0.35);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+}
+
+/* 2. Tate-gaki: Authentic Japanese Vertical Ribbon */
+.tategaki-ribbon {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  letter-spacing: 0.18em;
+  font-family: var(--font-mincho), serif;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 0.35rem;
+  border-radius: 4px;
+}
+
+/* 3. Woodblock Art Showcase Frame (Khung tranh mộc bản triển lãm) */
+.art-card-frame {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid #D4AF37;
+  box-shadow: 0 8px 24px rgba(31, 36, 33, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  background: #1F2421;
+}
+
+/* 4. Kifuda Tablet Card (Thẻ gỗ đền thần đạo & trà thất) */
+.card-kifuda {
+  background: #FFFFFF;
+  border: 1.5px solid var(--washi-border);
+  border-radius: 14px;
+  box-shadow: var(--shadow-washi-md);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+.card-kifuda:hover {
+  transform: translateY(-4px);
+  border-color: var(--matcha-primary);
+  box-shadow: 0 12px 28px -4px rgba(112, 141, 62, 0.22);
+}
+
+/* 5. Authentic Hyakunin Isshu Karuta Card (Thẻ bài thơ cổ lót lụa) */
+.card-hyakunin-isshu {
+  background: #FCFBF7;
+  border: 3px solid #1E3A8A;
+  outline: 1.5px solid #D4AF37;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(30, 58, 138, 0.18), inset 0 0 0 1px rgba(212, 175, 55, 0.4);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* 6. Makimono Scroll (Cuộn thư pháp cổ) */
+.makimono-scroll {
+  background: linear-gradient(180deg, #FBF8F1 0%, #F5EFE3 100%);
+  border-top: 3px solid #78350F;
+  border-bottom: 3px solid #78350F;
+  box-shadow: 0 4px 14px rgba(120, 53, 15, 0.12);
+  position: relative;
+}
+
+/* 7. Gold Leaf Foil Flecks (Dát vàng mạ kim Kin-paku) */
+.kinpaku-border {
+  border: 1.5px solid #F59E0B;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.25);
+}
+

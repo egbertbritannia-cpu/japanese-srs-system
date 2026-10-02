@@ -283,17 +283,20 @@ function ReviewSessionContent() {
     return (
       <div style={{ maxWidth: '640px', margin: '3rem auto', padding: '0 1.5rem', textAlign: 'center' }}>
         <div
-          className="card-karuta"
+          className="card-hyakunin-isshu"
           style={{
             position: 'relative',
             overflow: 'hidden',
             padding: '3.5rem 2rem',
             background: 'linear-gradient(180deg, #FFFFFF 0%, #F5F9ED 100%)',
-            border: '2px solid var(--matcha-primary)',
+            border: '3px solid #1E3A8A',
+            outline: '2px solid #D4AF37',
+            borderRadius: '16px',
+            boxShadow: '0 16px 36px rgba(30, 58, 138, 0.22)',
           }}
         >
-          {/* Lớp nền sóng thần Kanagawa khải hoàn */}
-          <div style={{ position: 'absolute', inset: 0, opacity: 0.16, pointerEvents: 'none', zIndex: 0 }}>
+          {/* Lớp nền sóng thần Kanagawa khải hoàn rực rỡ */}
+          <div style={{ position: 'absolute', inset: 0, opacity: 0.35, pointerEvents: 'none', zIndex: 0 }}>
             <Image
               src="/assets/art/great-wave-isolated.webp"
               alt="Sóng thần Kanagawa khải hoàn"
@@ -304,23 +307,41 @@ function ReviewSessionContent() {
           </div>
 
           <div style={{ position: 'relative', zIndex: 1 }}>
-            <DarumaMascot progressPercentage={100} size={96} />
+            <div style={{ display: 'inline-flex', marginBottom: '0.5rem' }}>
+              <span
+                style={{
+                  padding: '0.3rem 1rem',
+                  background: '#D9381E',
+                  color: '#FFFFFF',
+                  borderRadius: '999px',
+                  fontFamily: 'var(--font-mincho)',
+                  fontWeight: 800,
+                  fontSize: '0.85rem',
+                  letterSpacing: '0.1em',
+                  boxShadow: '0 4px 12px rgba(217, 56, 30, 0.35)',
+                }}
+              >
+                満願成就 · KHẢI HOÀN TOÀN THẮNG
+              </span>
+            </div>
+
+            <DarumaMascot progressPercentage={100} size={104} />
 
             <h2
               style={{
                 fontFamily: 'var(--font-mincho)',
-                fontSize: '2rem',
+                fontSize: '2.2rem',
                 fontWeight: 800,
                 color: 'var(--sumi-ink)',
-                marginTop: '1.5rem',
+                marginTop: '1.25rem',
                 marginBottom: '0.4rem',
               }}
             >
-            お疲れ様でした！
-          </h2>
-          <p style={{ fontFamily: 'var(--font-maru)', fontSize: '1.1rem', color: 'var(--matcha-deep)', fontWeight: 700 }}>
-            Bạn đã hoàn thành xuất sắc {totalCards} thẻ của bộ {deckTitle}!
-          </p>
+              お疲れ様でした！
+            </h2>
+            <p style={{ fontFamily: 'var(--font-maru)', fontSize: '1.15rem', color: 'var(--matcha-deep)', fontWeight: 700 }}>
+              Bạn đã hoàn thành xuất sắc {totalCards} thẻ của bộ {deckTitle}!
+            </p>
 
           {/* Bảng tổng kết đánh giá */}
           <div
@@ -538,20 +559,23 @@ function ReviewSessionContent() {
         </div>
       </div>
 
-      {/* THẺ BÀI TRUYỀN THỐNG KARUTA (HYAKUNIN ISSHU CARD CÓ VÂN SÓNG MỘC BẢN) */}
+      {/* THẺ BÀI TRUYỀN THỐNG HYAKUNIN ISSHU KARUTA CÓ VÂN SÓNG MỘC BẢN HOKUSAI */}
       <div
-        className="card-karuta"
+        className="card-hyakunin-isshu"
         style={{
-          minHeight: '360px',
-          padding: '2.5rem 2rem',
+          minHeight: '380px',
+          padding: '2.75rem 2rem',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
           textAlign: 'center',
           marginBottom: '2rem',
-          background: showAnswer ? 'linear-gradient(180deg, #FFFFFF 0%, #FAFBF7 100%)' : '#FFFFFF',
-          border: showAnswer ? '1.5px solid var(--matcha-primary)' : '1px solid var(--washi-border)',
+          background: showAnswer ? 'linear-gradient(180deg, #FFFFFF 0%, #FAFBF7 100%)' : '#FCFBF7',
+          border: '3px solid #1E3A8A',
+          outline: '2px solid #D4AF37',
+          borderRadius: '16px',
+          boxShadow: '0 14px 34px rgba(30, 58, 138, 0.16)',
           position: 'relative',
           overflow: 'hidden',
         }}
@@ -559,10 +583,11 @@ function ReviewSessionContent() {
         <JapaneseArtBackdrop
           src="/assets/art/hokusai-great-wave-classic.jpg"
           alt="Tranh sóng lừng Hokusai chìm"
-          opacity={0.06}
+          opacity={0.14}
           blendMode="multiply"
           objectPosition="center"
         />
+
         {/* Con dấu son góc trên bên phải */}
         <div
           style={{
@@ -570,41 +595,46 @@ function ReviewSessionContent() {
             top: '1.25rem',
             right: '1.25rem',
             fontFamily: 'var(--font-mincho)',
-            fontSize: '0.75rem',
-            color: 'var(--torii-red)',
-            border: '1.5px solid var(--torii-red)',
-            padding: '0.15rem 0.4rem',
+            fontSize: '0.82rem',
+            color: '#FFFFFF',
+            background: showAnswer ? 'var(--matcha-deep)' : 'var(--torii-red)',
+            padding: '0.2rem 0.55rem',
             borderRadius: '4px',
-            opacity: 0.85,
+            fontWeight: 800,
+            boxShadow: '0 2px 6px rgba(0, 0, 0, 0.2)',
+            zIndex: 3,
           }}
         >
           {showAnswer ? '解答' : '出題'}
         </div>
 
         {/* MẶT TRƯỚC: CHỮ KANJI HOẶC TỪ VỰNG THƯ PHÁP LỚN */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
+        <div style={{ position: 'relative', zIndex: 2, display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
           <div
             style={{
               fontFamily: 'var(--font-mincho)',
-              fontSize: '4.25rem',
-              fontWeight: 800,
+              fontSize: '4.75rem',
+              fontWeight: 900,
               color: 'var(--sumi-ink)',
               letterSpacing: '0.05em',
+              textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
             }}
           >
             {currentCard.kanji}
           </div>
-          <JapaneseSpeakerButton text={currentCard.kanji} size={22} />
+          <JapaneseSpeakerButton text={currentCard.kanji} size={24} />
         </div>
 
         {/* MẶT SAU: LẬT MỞ NỘI DUNG FURIGANA & Ý NGHĨA KHI BẤM XEM */}
         {showAnswer ? (
           <div
             style={{
+              position: 'relative',
+              zIndex: 2,
               width: '100%',
               marginTop: '1rem',
               paddingTop: '1.5rem',
-              borderTop: '1.5px dashed var(--washi-border)',
+              borderTop: '2px dashed var(--washi-border)',
               display: 'flex',
               flexDirection: 'column',
               gap: '1rem',
@@ -616,10 +646,11 @@ function ReviewSessionContent() {
             {currentCard.reading && (
               <div
                 style={{
-                  background: 'var(--washi-bg)',
+                  background: 'rgba(255, 255, 255, 0.92)',
                   padding: '0.75rem 1.25rem',
                   borderRadius: '10px',
-                  border: '1px solid var(--washi-border-soft, #E8E4DC)',
+                  border: '1.5px solid var(--washi-border)',
+                  boxShadow: '0 2px 6px rgba(0, 0, 0, 0.04)',
                 }}
               >
                 <PitchAccentGraph
@@ -630,7 +661,7 @@ function ReviewSessionContent() {
             )}
 
             {/* Ý nghĩa tiếng Việt */}
-            <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--sumi-ink)' }}>
+            <div style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--sumi-ink)', fontFamily: 'var(--font-maru)' }}>
               {currentCard.meaning}
             </div>
 
@@ -639,15 +670,15 @@ function ReviewSessionContent() {
               <div
                 style={{
                   width: '100%',
-                  background: 'var(--washi-bg)',
+                  background: 'rgba(255, 255, 255, 0.9)',
                   padding: '0.85rem 1.25rem',
-                  borderRadius: '8px',
-                  border: '1px solid var(--washi-border-soft, #E8E4DC)',
+                  borderRadius: '10px',
+                  border: '1px solid var(--washi-border)',
                   textAlign: 'left',
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <p style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.1rem', color: 'var(--sumi-charcoal)' }}>
+                  <p style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.15rem', color: 'var(--sumi-charcoal)', fontWeight: 600 }}>
                     {currentCard.sentence}
                   </p>
                   <JapaneseSpeakerButton text={currentCard.sentence} size={16} />
@@ -656,9 +687,9 @@ function ReviewSessionContent() {
             )}
           </div>
         ) : (
-          <p style={{ fontSize: '0.9rem', color: 'var(--sumi-faded)', fontFamily: 'var(--font-maru)', marginTop: '0.5rem' }}>
+          <p style={{ position: 'relative', zIndex: 2, fontSize: '0.9rem', color: 'var(--sumi-faded)', fontFamily: 'var(--font-maru)', marginTop: '0.5rem' }}>
             Tự gợi nhớ lại cách đọc và ý nghĩa trước khi xem đáp án <br />
-            <kbd style={{ padding: '0.15rem 0.45rem', background: '#F1EDE6', borderRadius: '4px', fontSize: '0.8rem' }}>
+            <kbd style={{ padding: '0.15rem 0.45rem', background: '#F1EDE6', borderRadius: '4px', fontSize: '0.8rem', border: '1px solid #D5CFC5' }}>
               Phím Space
             </kbd>{' '}
             để lật thẻ
@@ -673,13 +704,14 @@ function ReviewSessionContent() {
           className="btn-torii"
           style={{
             width: '100%',
-            padding: '1.1rem',
-            fontSize: '1.1rem',
-            boxShadow: '0 8px 24px rgba(217, 56, 30, 0.35)',
+            padding: '1.15rem',
+            fontSize: '1.15rem',
+            boxShadow: '0 8px 24px rgba(217, 56, 30, 0.4)',
+            letterSpacing: '0.02em',
           }}
         >
           <SensuFanIcon size={22} color="#FFFFFF" />
-          Khám phá đáp án (Space)
+          Khám phá đáp án (Nhấn phím Space)
         </button>
       ) : (
         <div>
@@ -688,10 +720,10 @@ function ReviewSessionContent() {
             <button
               onClick={() => handleGrade('Again')}
               style={{
-                padding: '0.85rem 0.5rem',
-                backgroundColor: '#FFFFFF',
+                padding: '0.95rem 0.5rem',
+                backgroundColor: '#FFF5F5',
                 border: '2px solid var(--torii-red)',
-                borderRadius: '10px',
+                borderRadius: '12px',
                 color: 'var(--torii-red)',
                 cursor: 'pointer',
                 display: 'flex',
@@ -699,21 +731,21 @@ function ReviewSessionContent() {
                 alignItems: 'center',
                 gap: '0.25rem',
                 transition: 'all 0.2s',
-                boxShadow: '0 2px 6px rgba(217, 56, 30, 0.15)',
+                boxShadow: '0 2px 8px rgba(217, 56, 30, 0.2)',
               }}
             >
-              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 800, fontSize: '1.1rem' }}>再 (1)</span>
-              <span style={{ fontSize: '0.72rem', color: 'var(--sumi-faded)' }}>&lt; 1 phút</span>
+              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 900, fontSize: '1.25rem' }}>再 (1)</span>
+              <span style={{ fontSize: '0.72rem', color: 'var(--torii-red)', fontWeight: 600 }}>&lt; 1 phút</span>
             </button>
 
             {/* NÚT 2: HARD (難) */}
             <button
               onClick={() => handleGrade('Hard')}
               style={{
-                padding: '0.85rem 0.5rem',
-                backgroundColor: '#FFFFFF',
+                padding: '0.95rem 0.5rem',
+                backgroundColor: '#FFF7ED',
                 border: '2px solid #EA580C',
-                borderRadius: '10px',
+                borderRadius: '12px',
                 color: '#EA580C',
                 cursor: 'pointer',
                 display: 'flex',
@@ -721,21 +753,21 @@ function ReviewSessionContent() {
                 alignItems: 'center',
                 gap: '0.25rem',
                 transition: 'all 0.2s',
-                boxShadow: '0 2px 6px rgba(234, 88, 12, 0.15)',
+                boxShadow: '0 2px 8px rgba(234, 88, 12, 0.2)',
               }}
             >
-              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 800, fontSize: '1.1rem' }}>難 (2)</span>
-              <span style={{ fontSize: '0.72rem', color: 'var(--sumi-faded)' }}>~ 1.2 ngày</span>
+              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 900, fontSize: '1.25rem' }}>難 (2)</span>
+              <span style={{ fontSize: '0.72rem', color: '#EA580C', fontWeight: 600 }}>~ 1.2 ngày</span>
             </button>
 
             {/* NÚT 3: GOOD (良) - MÀU XANH MATCHA #88A752 */}
             <button
               onClick={() => handleGrade('Good')}
               style={{
-                padding: '0.85rem 0.5rem',
+                padding: '0.95rem 0.5rem',
                 backgroundColor: 'var(--matcha-primary)',
                 border: '2px solid var(--matcha-deep)',
-                borderRadius: '10px',
+                borderRadius: '12px',
                 color: '#FFFFFF',
                 cursor: 'pointer',
                 display: 'flex',
@@ -743,33 +775,33 @@ function ReviewSessionContent() {
                 alignItems: 'center',
                 gap: '0.25rem',
                 transition: 'all 0.2s',
-                boxShadow: '0 4px 12px rgba(136, 167, 82, 0.35)',
+                boxShadow: '0 4px 14px rgba(136, 167, 82, 0.4)',
               }}
             >
-              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 800, fontSize: '1.1rem' }}>良 (3)</span>
-              <span style={{ fontSize: '0.72rem', color: 'rgba(255, 255, 255, 0.9)' }}>~ 3.5 ngày</span>
+              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 900, fontSize: '1.25rem' }}>良 (3)</span>
+              <span style={{ fontSize: '0.72rem', color: 'rgba(255, 255, 255, 0.95)', fontWeight: 600 }}>~ 3.5 ngày</span>
             </button>
 
             {/* NÚT 4: EASY (易) */}
             <button
               onClick={() => handleGrade('Easy')}
               style={{
-                padding: '0.85rem 0.5rem',
-                backgroundColor: '#FFFFFF',
-                border: '2px solid #0284C7',
-                borderRadius: '10px',
-                color: '#0284C7',
+                padding: '0.95rem 0.5rem',
+                backgroundColor: '#1E3A8A',
+                border: '2px solid #1D4ED8',
+                borderRadius: '12px',
+                color: '#FFFFFF',
                 cursor: 'pointer',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 gap: '0.25rem',
                 transition: 'all 0.2s',
-                boxShadow: '0 2px 6px rgba(2, 132, 199, 0.15)',
+                boxShadow: '0 4px 14px rgba(30, 58, 138, 0.35)',
               }}
             >
-              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 800, fontSize: '1.1rem' }}>易 (4)</span>
-              <span style={{ fontSize: '0.72rem', color: 'var(--sumi-faded)' }}>~ 7.0 ngày</span>
+              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 900, fontSize: '1.25rem' }}>易 (4)</span>
+              <span style={{ fontSize: '0.72rem', color: '#93C5FD', fontWeight: 600 }}>~ 7.0 ngày</span>
             </button>
           </div>
           <p style={{ textAlign: 'center', fontSize: '0.78rem', color: 'var(--sumi-faded)' }}>

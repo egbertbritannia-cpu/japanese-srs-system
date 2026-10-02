@@ -4,6 +4,7 @@ import { Zen_Maru_Gothic, Shippori_Mincho, Plus_Jakarta_Sans } from 'next/font/g
 import './globals.css';
 import { SakuraBackground } from '@/components/japanese/SakuraBackground';
 import { ToriiIcon, FujiMountainIcon } from '@/components/japanese/Icons';
+import { JapaneseArtBackdrop } from '@/components/art/JapaneseArtBackdrop';
 
 const zenMaru = Zen_Maru_Gothic({
   weight: ['400', '500', '700', '900'],
@@ -227,8 +228,18 @@ export default function RootLayout({
             padding: '2.5rem 1.5rem 2rem',
             position: 'relative',
             zIndex: 10,
+            overflow: 'hidden',
           }}
         >
+          {/* Lớp hoa anh đào dát vàng mờ nhẹ chân trang */}
+          <JapaneseArtBackdrop
+            src="/assets/art/gold-sakura-washi.jpg"
+            alt="Hoa anh đào mạ kim"
+            opacity={0.12}
+            blendMode="multiply"
+            objectPosition="center"
+          />
+
           {/* Dải sóng Seigaiha mỏng trang trí trên đỉnh Footer */}
           <div
             className="wagara-seigaiha-matcha"

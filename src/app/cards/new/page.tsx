@@ -243,13 +243,14 @@ export default function NewCardPage() {
           <div
             className="kakejiku-scroll-frame"
             style={{
-              borderRadius: '14px',
+              borderRadius: '16px',
               overflow: 'hidden',
-              height: '140px',
+              height: '175px',
               position: 'relative',
-              marginBottom: '1.75rem',
-              border: '2px solid var(--washi-border)',
-              boxShadow: 'var(--shadow-washi-sm)',
+              marginBottom: '2rem',
+              border: '3px solid #78350F',
+              outline: '2px solid #D4AF37',
+              boxShadow: '0 8px 24px rgba(120, 53, 15, 0.2)',
             }}
           >
             <Image
@@ -257,25 +258,33 @@ export default function NewCardPage() {
               alt="Tranh mộc bản Hokusai Hạc trắng ngắm núi Phú Sĩ"
               fill
               sizes="100vw"
-              style={{ objectFit: 'cover', objectPosition: 'center 40%', opacity: 0.90 }}
+              style={{ objectFit: 'cover', objectPosition: 'center 38%', opacity: 0.95 }}
             />
+            {/* Lớp viền lụa Kakejiku trên và dưới */}
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '8px', background: 'linear-gradient(90deg, #78350F, #D4AF37, #78350F)' }} />
+            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '8px', background: 'linear-gradient(90deg, #78350F, #D4AF37, #78350F)' }} />
+
             <div
               style={{
                 position: 'absolute',
-                bottom: '0.65rem',
-                right: '0.85rem',
-                background: 'rgba(255, 255, 255, 0.88)',
-                backdropFilter: 'blur(4px)',
-                padding: '0.25rem 0.65rem',
-                borderRadius: '6px',
-                fontSize: '0.72rem',
+                bottom: '1rem',
+                right: '1rem',
+                background: 'rgba(31, 36, 33, 0.88)',
+                backdropFilter: 'blur(8px)',
+                padding: '0.35rem 0.85rem',
+                borderRadius: '8px',
+                fontSize: '0.8rem',
                 fontFamily: 'var(--font-mincho)',
-                color: 'var(--sumi-ink)',
-                border: '1px solid var(--washi-border)',
-                fontWeight: 600,
+                color: '#F59E0B',
+                border: '1px solid rgba(212, 175, 55, 0.4)',
+                fontWeight: 700,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
               }}
             >
-              富嶽三十六景 · 相州梅沢庄 (Hokusai)
+              <span>富嶽三十六景 · 相州梅沢庄 (Hokusai)</span>
+              <span style={{ fontSize: '0.7rem', color: '#FFFFFF', background: '#D9381E', padding: '0.1rem 0.35rem', borderRadius: '3px' }}>原画</span>
             </div>
           </div>
 
@@ -285,7 +294,7 @@ export default function NewCardPage() {
               background: 'var(--washi-surface)',
               padding: '2.25rem',
               borderRadius: '16px',
-              border: '1px solid var(--washi-border)',
+              border: '1.5px solid var(--washi-border)',
               boxShadow: 'var(--shadow-washi-md)',
               marginBottom: '2.5rem',
               position: 'relative',
@@ -296,7 +305,7 @@ export default function NewCardPage() {
             <JapaneseArtBackdrop
               src="/assets/art/cloud-mist-kasumi-icons.jpg"
               alt="Họa tiết mây Kasumi"
-              opacity={0.07}
+              opacity={0.15}
               blendMode="multiply"
               objectPosition="bottom right"
             />

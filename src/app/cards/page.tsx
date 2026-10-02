@@ -91,61 +91,106 @@ export default function CardsPage() {
 
   return (
     <div style={{ maxWidth: '1050px', margin: '2rem auto', padding: '0 1.5rem 3rem' }}>
-      {/* HEADER KHU VỰC THƯ VIỆN THẺ VỚI KHUNG TRANH MỘC BẢN HOKUSAI HỒ SUWA */}
+      {/* HEADER KHU VỰC THƯ VIỆN THẺ: TRIỂN LÃM MỘC BẢN HOKUSAI HỒ SUWA */}
       <div
         style={{
           position: 'relative',
-          borderRadius: '16px',
+          borderRadius: '20px',
           overflow: 'hidden',
-          padding: '2rem 2.25rem',
+          padding: '2.25rem',
           marginBottom: '2rem',
-          border: '1.5px solid var(--washi-border)',
-          boxShadow: 'var(--shadow-washi-md)',
-          background: 'linear-gradient(135deg, rgba(253, 251, 247, 0.94) 0%, rgba(246, 241, 233, 0.90) 100%)',
-          display: 'flex',
-          justifyContent: 'space-between',
+          border: '2px solid rgba(212, 175, 55, 0.4)',
+          boxShadow: 'var(--shadow-karuta)',
+          background: 'linear-gradient(135deg, #1F2A24 0%, #2A3B32 60%, #1A241E 100%)',
+          color: '#FFFFFF',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
           alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: '1.5rem',
+          gap: '2rem',
         }}
       >
-        <JapaneseArtBackdrop
-          src="/assets/art/hokusai-suwa-lake.jpg"
-          alt="Tranh mộc bản Hokusai Hồ Suwa tỉnh Shinano"
-          opacity={0.22}
-          blendMode="multiply"
-          objectPosition="center 40%"
-        />
-
         <div style={{ position: 'relative', zIndex: 2 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.25rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.75rem' }}>
+            <div
+              className="hinomaru-disc"
+              style={{ width: '34px', height: '34px', fontSize: '1rem', fontWeight: 800, fontFamily: 'var(--font-mincho)' }}
+            >
+              冊
+            </div>
             <span
               style={{
-                fontFamily: 'var(--font-mincho)',
-                color: 'var(--torii-red)',
+                fontFamily: 'var(--font-maru)',
+                color: '#F59E0B',
                 fontWeight: 700,
-                fontSize: '0.9rem',
+                fontSize: '0.85rem',
+                letterSpacing: '0.06em',
+                background: 'rgba(255, 255, 255, 0.1)',
+                padding: '0.25rem 0.75rem',
+                borderRadius: '999px',
+                border: '1px solid rgba(245, 158, 11, 0.3)',
               }}
             >
-              短冊帳 · BỘ SƯU TẬP TỪ VỰNG &amp; HÁN TỰ
+              短冊帳 · BỘ SƯU TẬP TỪ VỰNG &amp; HÁN TỰ FSRS
             </span>
           </div>
-          <h1 style={{ fontFamily: 'var(--font-mincho)', fontSize: '2rem', fontWeight: 800, color: 'var(--sumi-ink)' }}>
+
+          <h1 style={{ fontFamily: 'var(--font-mincho)', fontSize: '2.4rem', fontWeight: 800, lineHeight: 1.2, marginBottom: '0.6rem' }}>
             Quản lý thẻ học tiếng Nhật
           </h1>
-          <p style={{ color: 'var(--sumi-faded)', fontSize: '0.95rem' }}>
-            Tổng cộng: <strong>{cardsList.length} thẻ</strong> đã sẵn sàng ôn tập FSRS
+          <p style={{ color: 'rgba(250, 248, 245, 0.88)', fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '1.5rem' }}>
+            Tổng cộng: <strong>{cardsList.length} thẻ</strong> đã sẵn sàng ôn tập. Lọc theo chuyên đề, tìm kiếm Hán tự và theo dõi chu kỳ củng cố trí nhớ FSRS.
           </p>
+
+          <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+            <Link href="/" className="btn-washi" style={{ background: 'rgba(255, 255, 255, 0.12)', color: '#FFFFFF', borderColor: 'rgba(255, 255, 255, 0.25)' }}>
+              🏯 Trang chủ
+            </Link>
+            <Link href="/cards/new" className="btn-torii" style={{ boxShadow: '0 4px 16px rgba(217, 56, 30, 0.4)' }}>
+              <ToriiIcon size={18} color="#FFFFFF" />
+              + Soạn thẻ mới với AI
+            </Link>
+          </div>
         </div>
 
-        <div style={{ position: 'relative', zIndex: 2, display: 'flex', gap: '0.75rem' }}>
-          <Link href="/" className="btn-washi">
-            🏯 Trang chủ
-          </Link>
-          <Link href="/cards/new" className="btn-torii">
-            <ToriiIcon size={18} color="#FFFFFF" />
-            + Soạn thẻ mới
-          </Link>
+        {/* Khung tranh mộc bản Hồ Suwa nổi bật */}
+        <div
+          className="art-card-frame"
+          style={{
+            height: '190px',
+            position: 'relative',
+            borderRadius: '14px',
+          }}
+        >
+          <Image
+            src="/assets/art/hokusai-suwa-lake.jpg"
+            alt="Tranh mộc bản Hokusai Hồ Suwa tỉnh Shinano"
+            fill
+            sizes="(max-width: 768px) 100vw, 400px"
+            style={{ objectFit: 'cover', objectPosition: 'center 40%' }}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              bottom: '0.5rem',
+              left: '0.6rem',
+              right: '0.6rem',
+              background: 'rgba(31, 36, 33, 0.88)',
+              backdropFilter: 'blur(6px)',
+              padding: '0.35rem 0.75rem',
+              borderRadius: '6px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              border: '1px solid rgba(212, 175, 55, 0.3)',
+            }}
+          >
+            <span style={{ fontFamily: 'var(--font-mincho)', color: '#F59E0B', fontSize: '0.78rem', fontWeight: 700 }}>
+              信州諏訪湖 · 葛飾北斎 (Hokusai)
+            </span>
+            <span style={{ fontSize: '0.7rem', color: '#D1D5DB' }}>
+              富嶽三十六景
+            </span>
+          </div>
         </div>
       </div>
 
