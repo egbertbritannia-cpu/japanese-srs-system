@@ -1,0 +1,1100 @@
+[
+  {
+    "type": "Kanji",
+    "kanji": "家",
+    "reading": "うち, いえ (On: カ, ケ)",
+    "meaning": "Nhà, gia đình (Âm Hán: GIA)",
+    "han_viet": "GIA",
+    "unit": "第8回目",
+    "primary_kanji": "家"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "大家",
+    "reading": "おおや",
+    "meaning": "Chủ trọ / Chủ nhà (Chữ Hán: 家 - Âm Hán: GIA)",
+    "han_viet": "GIA",
+    "unit": "第8回目",
+    "primary_kanji": "家"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "族",
+    "reading": "ぞく (On: ゾク)",
+    "meaning": "Gia tộc, bộ tộc, dòng họ (Âm Hán: TỘC)",
+    "han_viet": "TỘC",
+    "unit": "第8回目",
+    "primary_kanji": "族"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "家族",
+    "reading": "かぞく",
+    "meaning": "Gia đình (Chữ Hán: 族 - Âm Hán: TỘC)",
+    "han_viet": "TỘC",
+    "unit": "第8回目",
+    "primary_kanji": "族"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "族長",
+    "reading": "ぞくちょう",
+    "meaning": "Tộc trưởng / Trưởng bộ tộc (Chữ Hán: 族 - Âm Hán: TỘC)",
+    "han_viet": "TỘC",
+    "unit": "第8回目",
+    "primary_kanji": "族"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "父",
+    "reading": "ちち (On: フ / Kun: ちち)",
+    "meaning": "Bố, cha (xưng hô với người ngoài) (Âm Hán: PHỤ)",
+    "han_viet": "PHỤ",
+    "unit": "第8回目",
+    "primary_kanji": "父"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "お父さん",
+    "reading": "おとうさん",
+    "meaning": "Bố, cha (gọi thân mật / bố người khác) (Chữ Hán: 父 - Âm Hán: PHỤ)",
+    "han_viet": "PHỤ",
+    "unit": "第8回目",
+    "primary_kanji": "父"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "父母",
+    "reading": "ふぼ",
+    "meaning": "Cha mẹ / Phụ mẫu (Chữ Hán: 父 - Âm Hán: PHỤ)",
+    "han_viet": "PHỤ",
+    "unit": "第8回目",
+    "primary_kanji": "父"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "母",
+    "reading": "はは (On: ボ / Kun: はは)",
+    "meaning": "Mẹ (xưng hô với người ngoài) (Âm Hán: MẪU)",
+    "han_viet": "MẪU",
+    "unit": "第8回目",
+    "primary_kanji": "母"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "お母さん",
+    "reading": "おかあさん",
+    "meaning": "Mẹ (gọi thân mật / mẹ người khác) (Chữ Hán: 母 - Âm Hán: MẪU)",
+    "han_viet": "MẪU",
+    "unit": "第8回目",
+    "primary_kanji": "母"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "母国語",
+    "reading": "ぼこくご",
+    "meaning": "Tiếng mẹ đẻ (Chữ Hán: 母 - Âm Hán: MẪU)",
+    "han_viet": "MẪU",
+    "unit": "第8回目",
+    "primary_kanji": "母"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "母国",
+    "reading": "ぼこく",
+    "meaning": "Mẫu quốc / Đất nước mẹ đẻ (Chữ Hán: 母 - Âm Hán: MẪU)",
+    "han_viet": "MẪU",
+    "unit": "第8回目",
+    "primary_kanji": "母"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "兄",
+    "reading": "あに (On: キョウ, ケイ / Kun: あに)",
+    "meaning": "Anh trai (xưng hô với người ngoài) (Âm Hán: HUYNH)",
+    "han_viet": "HUYNH",
+    "unit": "第8回目",
+    "primary_kanji": "兄"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "お兄さん",
+    "reading": "おにいさん",
+    "meaning": "Anh trai (gọi thân mật / anh người khác) (Chữ Hán: 兄 - Âm Hán: HUYNH)",
+    "han_viet": "HUYNH",
+    "unit": "第8回目",
+    "primary_kanji": "兄"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "兄弟",
+    "reading": "きょうだい",
+    "meaning": "Anh em / Huynh đệ (Chữ Hán: 兄 - Âm Hán: HUYNH)",
+    "han_viet": "HUYNH",
+    "unit": "第8回目",
+    "primary_kanji": "兄"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "弟",
+    "reading": "おとうと (On: テイ, ダイ / Kun: おとうと)",
+    "meaning": "Em trai (xưng hô với người ngoài) (Âm Hán: ĐỆ)",
+    "han_viet": "ĐỆ",
+    "unit": "第8回目",
+    "primary_kanji": "弟"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "弟さん",
+    "reading": "おとうとさん",
+    "meaning": "Em trai (người khác) (Chữ Hán: 弟 - Âm Hán: ĐỆ)",
+    "han_viet": "ĐỆ",
+    "unit": "第8回目",
+    "primary_kanji": "弟"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "姉",
+    "reading": "あね (On: シ / Kun: あね)",
+    "meaning": "Chị gái (xưng hô với người ngoài) (Âm Hán: TỈ)",
+    "han_viet": "TỈ",
+    "unit": "第8回目",
+    "primary_kanji": "姉"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "お姉さん",
+    "reading": "おねえさん",
+    "meaning": "Chị gái (gọi thân mật / chị người khác) (Chữ Hán: 姉 - Âm Hán: TỈ)",
+    "han_viet": "TỈ",
+    "unit": "第8回目",
+    "primary_kanji": "姉"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "姉妹",
+    "reading": "しまい",
+    "meaning": "Chị em gái (Chữ Hán: 姉 - Âm Hán: TỈ)",
+    "han_viet": "TỈ",
+    "unit": "第8回目",
+    "primary_kanji": "姉"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "妹",
+    "reading": "いもうと (On: マイ / Kun: いもうと)",
+    "meaning": "Em gái (xưng hô với người ngoài) (Âm Hán: MUỘI)",
+    "han_viet": "MUỘI",
+    "unit": "第8回目",
+    "primary_kanji": "妹"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "妹さん",
+    "reading": "いもうとさん",
+    "meaning": "Em gái (người khác) (Chữ Hán: 妹 - Âm Hán: MUỘI)",
+    "han_viet": "MUỘI",
+    "unit": "第8回目",
+    "primary_kanji": "妹"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "犬",
+    "reading": "いぬ (On: ケン / Kun: いぬ)",
+    "meaning": "Con chó (Âm Hán: KHUYỂN)",
+    "han_viet": "KHUYỂN",
+    "unit": "第8回目",
+    "primary_kanji": "犬"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "高",
+    "reading": "たか.い (On: コウ / Kun: たか)",
+    "meaning": "Cao, đắt (Âm Hán: CAO)",
+    "han_viet": "CAO",
+    "unit": "第8回目",
+    "primary_kanji": "高"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "高い",
+    "reading": "たかい",
+    "meaning": "Cao, đắt (giá cả / chiều cao) (Chữ Hán: 高 - Âm Hán: CAO)",
+    "han_viet": "CAO",
+    "unit": "第8回目",
+    "primary_kanji": "高"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "高校",
+    "reading": "こうこう",
+    "meaning": "Trường cấp 3 / THPT (Chữ Hán: 高 - Âm Hán: CAO)",
+    "han_viet": "CAO",
+    "unit": "第8回目",
+    "primary_kanji": "高"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "高校生",
+    "reading": "こうこうせい",
+    "meaning": "Học sinh cấp 3 (Chữ Hán: 高 - Âm Hán: CAO)",
+    "han_viet": "CAO",
+    "unit": "第8回目",
+    "primary_kanji": "高"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "短",
+    "reading": "みじか.い (On: タン / Kun: みじか)",
+    "meaning": "Ngắn (Âm Hán: ĐOẢN)",
+    "han_viet": "ĐOẢN",
+    "unit": "第8回目",
+    "primary_kanji": "短"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "短い",
+    "reading": "みじかい",
+    "meaning": "Ngắn (chiều dài, thời gian) (Chữ Hán: 短 - Âm Hán: ĐOẢN)",
+    "han_viet": "ĐOẢN",
+    "unit": "第8回目",
+    "primary_kanji": "短"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "短大",
+    "reading": "たんだい",
+    "meaning": "Trường cao đẳng (Chữ Hán: 短 - Âm Hán: ĐOẢN)",
+    "han_viet": "ĐOẢN",
+    "unit": "第8回目",
+    "primary_kanji": "短"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "長",
+    "reading": "なが.い (On: チョウ / Kun: なが)",
+    "meaning": "Dài, đứng đầu (Âm Hán: TRƯỜNG, TRƯỞNG)",
+    "han_viet": "TRƯỜNG, TRƯỞNG",
+    "unit": "第8回目",
+    "primary_kanji": "長"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "長い",
+    "reading": "ながい",
+    "meaning": "Dài (chiều dài, thời gian) (Chữ Hán: 長 - Âm Hán: TRƯỜNG, TRƯỞNG)",
+    "han_viet": "TRƯỜNG, TRƯỞNG",
+    "unit": "第8回目",
+    "primary_kanji": "長"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "社長",
+    "reading": "しゃちょう",
+    "meaning": "Giám đốc công ty (Chữ Hán: 長 - Âm Hán: TRƯỜNG, TRƯỞNG)",
+    "han_viet": "TRƯỜNG, TRƯỞNG",
+    "unit": "第8回目",
+    "primary_kanji": "長"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "学長",
+    "reading": "がくちょう",
+    "meaning": "Hiệu trưởng trường đại học (Chữ Hán: 長 - Âm Hán: TRƯỜNG, TRƯỞNG)",
+    "han_viet": "TRƯỜNG, TRƯỞNG",
+    "unit": "第8回目",
+    "primary_kanji": "長"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "校長",
+    "reading": "こうちょう",
+    "meaning": "Hiệu trưởng trường học (Chữ Hán: 長 - Âm Hán: TRƯỜNG, TRƯỞNG)",
+    "han_viet": "TRƯỜNG, TRƯỞNG",
+    "unit": "第8回目",
+    "primary_kanji": "長"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "好",
+    "reading": "す.き, この.む (On: コウ)",
+    "meaning": "Thích, tốt đẹp (Âm Hán: HẢO)",
+    "han_viet": "HẢO",
+    "unit": "第9回目",
+    "primary_kanji": "好"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "好き",
+    "reading": "すき",
+    "meaning": "Thích (Chữ Hán: 好 - Âm Hán: HẢO)",
+    "han_viet": "HẢO",
+    "unit": "第9回目",
+    "primary_kanji": "好"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "大好き",
+    "reading": "だいすき",
+    "meaning": "Rất thích (Chữ Hán: 好 - Âm Hán: HẢO)",
+    "han_viet": "HẢO",
+    "unit": "第9回目",
+    "primary_kanji": "好"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "大好物",
+    "reading": "だいこうぶつ",
+    "meaning": "Món ăn yêu thích nhất (Chữ Hán: 好 - Âm Hán: HẢO)",
+    "han_viet": "HẢO",
+    "unit": "第9回目",
+    "primary_kanji": "好"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "歌",
+    "reading": "うた, うた.う (On: カ)",
+    "meaning": "Bài hát, ca hát (Âm Hán: CA)",
+    "han_viet": "CA",
+    "unit": "第9回目",
+    "primary_kanji": "歌"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "歌う",
+    "reading": "うたう",
+    "meaning": "Hát (động từ) (Chữ Hán: 歌 - Âm Hán: CA)",
+    "han_viet": "CA",
+    "unit": "第9回目",
+    "primary_kanji": "歌"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "国歌",
+    "reading": "こっか",
+    "meaning": "Quốc ca (Chữ Hán: 歌 - Âm Hán: CA)",
+    "han_viet": "CA",
+    "unit": "第9回目",
+    "primary_kanji": "歌"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "短歌",
+    "reading": "たんか",
+    "meaning": "Thơ ngắn Tanka Nhật Bản (Chữ Hán: 歌 - Âm Hán: CA)",
+    "han_viet": "CA",
+    "unit": "第9回目",
+    "primary_kanji": "歌"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "音",
+    "reading": "おと (On: オン, イン)",
+    "meaning": "Âm thanh, tiếng động (Âm Hán: ÂM)",
+    "han_viet": "ÂM",
+    "unit": "第9回目",
+    "primary_kanji": "音"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "音読み",
+    "reading": "おんよみ",
+    "meaning": "Âm On (cách đọc âm Hán-Nhật) (Chữ Hán: 音 - Âm Hán: ÂM)",
+    "han_viet": "ÂM",
+    "unit": "第9回目",
+    "primary_kanji": "音"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "楽",
+    "reading": "たの.しい (On: ガク, ラク)",
+    "meaning": "Âm nhạc, vui vẻ (Âm Hán: NHẠC, LẠC)",
+    "han_viet": "NHẠC, LẠC",
+    "unit": "第9回目",
+    "primary_kanji": "楽"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "楽しい",
+    "reading": "たのしい",
+    "meaning": "Vui vẻ, hào hứng (Chữ Hán: 楽 - Âm Hán: NHẠC, LẠC)",
+    "han_viet": "NHẠC, LẠC",
+    "unit": "第9回目",
+    "primary_kanji": "楽"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "音楽",
+    "reading": "おんがく",
+    "meaning": "Âm nhạc (Chữ Hán: 楽 - Âm Hán: NHẠC, LẠC)",
+    "han_viet": "NHẠC, LẠC",
+    "unit": "第9回目",
+    "primary_kanji": "楽"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "車",
+    "reading": "くるま (On: シャ)",
+    "meaning": "Xe hơi, xe cộ (Âm Hán: XA)",
+    "han_viet": "XA",
+    "unit": "第9回目",
+    "primary_kanji": "車"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "映",
+    "reading": "うつ.る (On: エイ)",
+    "meaning": "Phản chiếu, chiếu phim (Âm Hán: ẢNH, ÁNH)",
+    "han_viet": "ẢNH, ÁNH",
+    "unit": "第9回目",
+    "primary_kanji": "映"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "映画",
+    "reading": "えいが",
+    "meaning": "Bộ phim / Điện ảnh (Chữ Hán: 映 - Âm Hán: ẢNH, ÁNH)",
+    "han_viet": "ẢNH, ÁNH",
+    "unit": "第9回目",
+    "primary_kanji": "映"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "画",
+    "reading": "かく (On: ガ, カク)",
+    "meaning": "Bức tranh, kế hoạch (Âm Hán: HỌA, HOẠCH)",
+    "han_viet": "HỌA, HOẠCH",
+    "unit": "第9回目",
+    "primary_kanji": "画"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "計画",
+    "reading": "けいかく",
+    "meaning": "Kế hoạch (Chữ Hán: 画 - Âm Hán: HỌA, HOẠCH)",
+    "han_viet": "HỌA, HOẠCH",
+    "unit": "第9回目",
+    "primary_kanji": "画"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "旅",
+    "reading": "たび (On: リョ)",
+    "meaning": "Chuyến đi, chuyến hành trình (Âm Hán: LỮ)",
+    "han_viet": "LỮ",
+    "unit": "第9回目",
+    "primary_kanji": "旅"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "旅行",
+    "reading": "りょこう",
+    "meaning": "Du lịch / Đi chơi xa (Chữ Hán: 旅 - Âm Hán: LỮ)",
+    "han_viet": "LỮ",
+    "unit": "第9回目",
+    "primary_kanji": "旅"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "海",
+    "reading": "うみ (On: カイ)",
+    "meaning": "Biển, đại dương (Âm Hán: HẢI)",
+    "han_viet": "HẢI",
+    "unit": "第9回目",
+    "primary_kanji": "海"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "海水",
+    "reading": "かいすい",
+    "meaning": "Nước biển (Chữ Hán: 海 - Âm Hán: HẢI)",
+    "han_viet": "HẢI",
+    "unit": "第9回目",
+    "primary_kanji": "海"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "外",
+    "reading": "そと (On: ガイ, ゲ)",
+    "meaning": "Ngoài, bên ngoài (Âm Hán: NGOẠI)",
+    "han_viet": "NGOẠI",
+    "unit": "第9回目",
+    "primary_kanji": "外"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "家の外",
+    "reading": "いえのそと",
+    "meaning": "Bên ngoài nhà (Chữ Hán: 外 - Âm Hán: NGOẠI)",
+    "han_viet": "NGOẠI",
+    "unit": "第9回目",
+    "primary_kanji": "外"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "外国",
+    "reading": "がいこく",
+    "meaning": "Nước ngoài (Chữ Hán: 外 - Âm Hán: NGOẠI)",
+    "han_viet": "NGOẠI",
+    "unit": "第9回目",
+    "primary_kanji": "外"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "外国語",
+    "reading": "がいこくご",
+    "meaning": "Tiếng nước ngoài / Ngoại ngữ (Chữ Hán: 外 - Âm Hán: NGOẠI)",
+    "han_viet": "NGOẠI",
+    "unit": "第9回目",
+    "primary_kanji": "外"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "外国人",
+    "reading": "がいこくじん",
+    "meaning": "Người nước ngoài (Chữ Hán: 外 - Âm Hán: NGOẠI)",
+    "han_viet": "NGOẠI",
+    "unit": "第9回目",
+    "primary_kanji": "外"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "社外",
+    "reading": "しゃがい",
+    "meaning": "Bên ngoài công ty (Chữ Hán: 外 - Âm Hán: NGOẠI)",
+    "han_viet": "NGOẠI",
+    "unit": "第9回目",
+    "primary_kanji": "外"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "海外",
+    "reading": "かいがい",
+    "meaning": "Hải ngoại / Nước ngoài (Chữ Hán: 外 - Âm Hán: NGOẠI)",
+    "han_viet": "NGOẠI",
+    "unit": "第9回目",
+    "primary_kanji": "外"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "駅",
+    "reading": "えき (On: エキ)",
+    "meaning": "Nhà ga (Âm Hán: DỊCH)",
+    "han_viet": "DỊCH",
+    "unit": "第10回目",
+    "primary_kanji": "駅"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "駅長",
+    "reading": "えきちょう",
+    "meaning": "Trưởng ga (Chữ Hán: 駅 - Âm Hán: DỊCH)",
+    "han_viet": "DỊCH",
+    "unit": "第10回目",
+    "primary_kanji": "駅"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "上",
+    "reading": "うえ, あ.がる (On: ジョウ)",
+    "meaning": "Phía trên, lên trên (Âm Hán: THƯỢNG)",
+    "han_viet": "THƯỢNG",
+    "unit": "第10回目",
+    "primary_kanji": "上"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "上京",
+    "reading": "じょうきょう",
+    "meaning": "Tới Tokyo / Lên thủ đô (Chữ Hán: 上 - Âm Hán: THƯỢNG)",
+    "han_viet": "THƯỢNG",
+    "unit": "第10回目",
+    "primary_kanji": "上"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "上下",
+    "reading": "じょうげ",
+    "meaning": "Trên dưới / Lên xuống (Chữ Hán: 上 - Âm Hán: THƯỢNG)",
+    "han_viet": "THƯỢNG",
+    "unit": "第10回目",
+    "primary_kanji": "上"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "下",
+    "reading": "した, さ.がる (On: カ, ゲ)",
+    "meaning": "Phía dưới, đi xuống (Âm Hán: HẠ)",
+    "han_viet": "HẠ",
+    "unit": "第10回目",
+    "primary_kanji": "下"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "下車",
+    "reading": "げしゃ",
+    "meaning": "Xuống xe (Chữ Hán: 下 - Âm Hán: HẠ)",
+    "han_viet": "HẠ",
+    "unit": "第10回目",
+    "primary_kanji": "下"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "地",
+    "reading": "ち, じ (On: チ, ジ)",
+    "meaning": "Đất đai, mặt đất (Âm Hán: ĐỊA)",
+    "han_viet": "ĐỊA",
+    "unit": "第10回目",
+    "primary_kanji": "地"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "土地",
+    "reading": "とち",
+    "meaning": "Đất đai (Chữ Hán: 地 - Âm Hán: ĐỊA)",
+    "han_viet": "ĐỊA",
+    "unit": "第10回目",
+    "primary_kanji": "地"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "地下",
+    "reading": "ちか",
+    "meaning": "Dưới lòng đất / Tầng hầm / Ngầm (Chữ Hán: 地 - Âm Hán: ĐỊA)",
+    "han_viet": "ĐỊA",
+    "unit": "第10回目",
+    "primary_kanji": "地"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "図",
+    "reading": "ず, と (On: ズ, ト)",
+    "meaning": "Bản đồ, hình vẽ, sơ đồ (Âm Hán: ĐỒ)",
+    "han_viet": "ĐỒ",
+    "unit": "第10回目",
+    "primary_kanji": "図"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "地図",
+    "reading": "ちず",
+    "meaning": "Bản đồ (Chữ Hán: 図 - Âm Hán: ĐỒ)",
+    "han_viet": "ĐỒ",
+    "unit": "第10回目",
+    "primary_kanji": "図"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "館",
+    "reading": "かん (On: カン)",
+    "meaning": "Tòa nhà công cộng, hội quán (Âm Hán: QUÁN)",
+    "han_viet": "QUÁN",
+    "unit": "第10回目",
+    "primary_kanji": "館"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "図書館",
+    "reading": "としょかん",
+    "meaning": "Thư viện (Chữ Hán: 館 - Âm Hán: QUÁN)",
+    "han_viet": "QUÁN",
+    "unit": "第10回目",
+    "primary_kanji": "館"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "旅館",
+    "reading": "りょかん",
+    "meaning": "Quán trọ kiểu Nhật / Ryokan (Chữ Hán: 館 - Âm Hán: QUÁN)",
+    "han_viet": "QUÁN",
+    "unit": "第10回目",
+    "primary_kanji": "館"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "会館",
+    "reading": "かいかん",
+    "meaning": "Hội quán / Nhà văn hóa (Chữ Hán: 館 - Âm Hán: QUÁN)",
+    "han_viet": "QUÁN",
+    "unit": "第10回目",
+    "primary_kanji": "館"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "映画館",
+    "reading": "えいがかん",
+    "meaning": "Rạp chiếu phim (Chữ Hán: 館 - Âm Hán: QUÁN)",
+    "han_viet": "QUÁN",
+    "unit": "第10回目",
+    "primary_kanji": "館"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "右",
+    "reading": "みぎ (On: ウ, ユウ)",
+    "meaning": "Phía bên phải (Âm Hán: HỮU)",
+    "han_viet": "HỮU",
+    "unit": "第10回目",
+    "primary_kanji": "右"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "左右",
+    "reading": "さゆう",
+    "meaning": "Trái phải / Sự chi phối (Chữ Hán: 右 - Âm Hán: HỮU)",
+    "han_viet": "HỮU",
+    "unit": "第10回目",
+    "primary_kanji": "右"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "左",
+    "reading": "ひだり (On: サ)",
+    "meaning": "Phía bên trái (Âm Hán: TẢ)",
+    "han_viet": "TẢ",
+    "unit": "第10回目",
+    "primary_kanji": "左"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "道",
+    "reading": "みち (On: ドウ)",
+    "meaning": "Con đường, đạo lý (Âm Hán: ĐẠO)",
+    "han_viet": "ĐẠO",
+    "unit": "第10回目",
+    "primary_kanji": "道"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "書道",
+    "reading": "しょどう",
+    "meaning": "Thư đạo / Nghệ thuật viết chữ đẹp (Chữ Hán: 道 - Âm Hán: ĐẠO)",
+    "han_viet": "ĐẠO",
+    "unit": "第10回目",
+    "primary_kanji": "道"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "国道",
+    "reading": "こくどう",
+    "meaning": "Quốc lộ (Chữ Hán: 道 - Âm Hán: ĐẠO)",
+    "han_viet": "ĐẠO",
+    "unit": "第10回目",
+    "primary_kanji": "道"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "車道",
+    "reading": "しゃどう",
+    "meaning": "Lòng đường xe chạy (Chữ Hán: 道 - Âm Hán: ĐẠO)",
+    "han_viet": "ĐẠO",
+    "unit": "第10回目",
+    "primary_kanji": "道"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "起",
+    "reading": "お.きる, お.こす (On: キ)",
+    "meaning": "Thức dậy, khởi đầu (Âm Hán: KHỞI)",
+    "han_viet": "KHỞI",
+    "unit": "第11回目",
+    "primary_kanji": "起"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "起きる",
+    "reading": "おきる",
+    "meaning": "Thức dậy (Chữ Hán: 起 - Âm Hán: KHỞI)",
+    "han_viet": "KHỞI",
+    "unit": "第11回目",
+    "primary_kanji": "起"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "起こす",
+    "reading": "おこす",
+    "meaning": "Đánh thức ai đó / Gây ra (sự việc) (Chữ Hán: 起 - Âm Hán: KHỞI)",
+    "han_viet": "KHỞI",
+    "unit": "第11回目",
+    "primary_kanji": "起"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "歩",
+    "reading": "ある.く (On: ホ, ブ)",
+    "meaning": "Đi bộ, bước đi (Âm Hán: BỘ)",
+    "han_viet": "BỘ",
+    "unit": "第11回目",
+    "primary_kanji": "歩"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "歩く",
+    "reading": "あるく",
+    "meaning": "Đi bộ (Chữ Hán: 歩 - Âm Hán: BỘ)",
+    "han_viet": "BỘ",
+    "unit": "第11回目",
+    "primary_kanji": "歩"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "歩行",
+    "reading": "ほこう",
+    "meaning": "Bộ hành / Đi bộ (Chữ Hán: 歩 - Âm Hán: BỘ)",
+    "han_viet": "BỘ",
+    "unit": "第11回目",
+    "primary_kanji": "歩"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "一歩",
+    "reading": "いっぽ",
+    "meaning": "Một bước / Từng bước một (Chữ Hán: 歩 - Âm Hán: BỘ)",
+    "han_viet": "BỘ",
+    "unit": "第11回目",
+    "primary_kanji": "歩"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "乗",
+    "reading": "の.る, の.せる (On: ジョウ)",
+    "meaning": "Lên xe, cưỡi, đi xe (Âm Hán: THỪA)",
+    "han_viet": "THỪA",
+    "unit": "第11回目",
+    "primary_kanji": "乗"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "乗る",
+    "reading": "のる",
+    "meaning": "Lên (tàu, xe, máy bay...) (Chữ Hán: 乗 - Âm Hán: THỪA)",
+    "han_viet": "THỪA",
+    "unit": "第11回目",
+    "primary_kanji": "乗"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "乗せる",
+    "reading": "のせる",
+    "meaning": "Chở ai đó / Chất hàng lên xe (Chữ Hán: 乗 - Âm Hán: THỪA)",
+    "han_viet": "THỪA",
+    "unit": "第11回目",
+    "primary_kanji": "乗"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "乗車",
+    "reading": "じょうしゃ",
+    "meaning": "Lên xe, đi xe (Chữ Hán: 乗 - Âm Hán: THỪA)",
+    "han_viet": "THỪA",
+    "unit": "第11回目",
+    "primary_kanji": "乗"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "始",
+    "reading": "はじ.める, はじ.まる (On: シ)",
+    "meaning": "Bắt đầu, khởi đầu (Âm Hán: THỦY)",
+    "han_viet": "THỦY",
+    "unit": "第11回目",
+    "primary_kanji": "始"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "始める",
+    "reading": "はじめる",
+    "meaning": "Bắt đầu (tha động từ - chủ động bắt đầu cái gì) (Chữ Hán: 始 - Âm Hán: THỦY)",
+    "han_viet": "THỦY",
+    "unit": "第11回目",
+    "primary_kanji": "始"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "始まる",
+    "reading": "はじまる",
+    "meaning": "Bắt đầu (tự động từ - cái gì đó tự bắt đầu) (Chữ Hán: 始 - Âm Hán: THỦY)",
+    "han_viet": "THỦY",
+    "unit": "第11回目",
+    "primary_kanji": "始"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "始終",
+    "reading": "しじゅう",
+    "meaning": "Từ đầu đến cuối / Luôn luôn (Chữ Hán: 始 - Âm Hán: THỦY)",
+    "han_viet": "THỦY",
+    "unit": "第11回目",
+    "primary_kanji": "始"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "終",
+    "reading": "お.わる, お.える (On: シュウ)",
+    "meaning": "Kết thúc, hoàn tất (Âm Hán: CHUNG)",
+    "han_viet": "CHUNG",
+    "unit": "第11回目",
+    "primary_kanji": "終"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "終わる",
+    "reading": "おわる",
+    "meaning": "Kết thúc, xong (tự động từ) (Chữ Hán: 終 - Âm Hán: CHUNG)",
+    "han_viet": "CHUNG",
+    "unit": "第11回目",
+    "primary_kanji": "終"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "終える",
+    "reading": "おえる",
+    "meaning": "Hoàn thành, kết thúc cái gì (tha động từ) (Chữ Hán: 終 - Âm Hán: CHUNG)",
+    "han_viet": "CHUNG",
+    "unit": "第11回目",
+    "primary_kanji": "終"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "勉",
+    "reading": "べん (On: ベン)",
+    "meaning": "Cố gắng, chăm chỉ (Âm Hán: MIỄN)",
+    "han_viet": "MIỄN",
+    "unit": "第11回目",
+    "primary_kanji": "勉"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "勉強",
+    "reading": "べんきょう",
+    "meaning": "Học tập / Chăm chỉ học (Chữ Hán: 勉 - Âm Hán: MIỄN)",
+    "han_viet": "MIỄN",
+    "unit": "第11回目",
+    "primary_kanji": "勉"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "勉学",
+    "reading": "べんがく",
+    "meaning": "Chăm chỉ nghiên cứu / Việc học tập (Chữ Hán: 勉 - Âm Hán: MIỄN)",
+    "han_viet": "MIỄN",
+    "unit": "第11回目",
+    "primary_kanji": "勉"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "強",
+    "reading": "つよ.い (On: キョウ, ゴウ)",
+    "meaning": "Mạnh mẽ, kiên cường (Âm Hán: CƯỜNG, CƯỠNG)",
+    "han_viet": "CƯỜNG, CƯỠNG",
+    "unit": "第11回目",
+    "primary_kanji": "強"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "強い",
+    "reading": "つよい",
+    "meaning": "Mạnh mẽ, khoẻ mạnh (Chữ Hán: 強 - Âm Hán: CƯỜNG, CƯỠNG)",
+    "han_viet": "CƯỜNG, CƯỠNG",
+    "unit": "第11回目",
+    "primary_kanji": "強"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "朝",
+    "reading": "あさ (On: チョウ)",
+    "meaning": "Buổi sáng, sáng sớm (Âm Hán: TRIỀU)",
+    "han_viet": "TRIỀU",
+    "unit": "第11回目",
+    "primary_kanji": "朝"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "朝食",
+    "reading": "ちょうしょく",
+    "meaning": "Bữa ăn sáng (Chữ Hán: 朝 - Âm Hán: TRIỀU)",
+    "han_viet": "TRIỀU",
+    "unit": "第11回目",
+    "primary_kanji": "朝"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "今朝",
+    "reading": "けさ",
+    "meaning": "Sáng nay (Chữ Hán: 朝 - Âm Hán: TRIỀU)",
+    "han_viet": "TRIỀU",
+    "unit": "第11回目",
+    "primary_kanji": "朝"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "毎朝",
+    "reading": "まいあさ",
+    "meaning": "Mỗi buổi sáng (Chữ Hán: 朝 - Âm Hán: TRIỀU)",
+    "han_viet": "TRIỀU",
+    "unit": "第11回目",
+    "primary_kanji": "朝"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "昼",
+    "reading": "ひる (On: チュウ)",
+    "meaning": "Buổi trưa, ban ngày (Âm Hán: TRÚ)",
+    "han_viet": "TRÚ",
+    "unit": "第11回目",
+    "primary_kanji": "昼"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "昼食",
+    "reading": "ちゅうしょく",
+    "meaning": "Bữa ăn trưa (Chữ Hán: 昼 - Âm Hán: TRÚ)",
+    "han_viet": "TRÚ",
+    "unit": "第11回目",
+    "primary_kanji": "昼"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "昼間",
+    "reading": "ひるま",
+    "meaning": "Ban ngày / Giờ ban ngày (Chữ Hán: 昼 - Âm Hán: TRÚ)",
+    "han_viet": "TRÚ",
+    "unit": "第11回目",
+    "primary_kanji": "昼"
+  },
+  {
+    "type": "Kanji",
+    "kanji": "夜",
+    "reading": "よる, よ (On: ヤ)",
+    "meaning": "Ban đêm, buổi tối (Âm Hán: DẠ)",
+    "han_viet": "DẠ",
+    "unit": "第11回目",
+    "primary_kanji": "夜"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "夜道",
+    "reading": "よみち",
+    "meaning": "Đường phố ban đêm (Chữ Hán: 夜 - Âm Hán: DẠ)",
+    "han_viet": "DẠ",
+    "unit": "第11回目",
+    "primary_kanji": "夜"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "夜会",
+    "reading": "やかい",
+    "meaning": "Dạ hội / Buổi tiệc đêm (Chữ Hán: 夜 - Âm Hán: DẠ)",
+    "han_viet": "DẠ",
+    "unit": "第11回目",
+    "primary_kanji": "夜"
+  },
+  {
+    "type": "Vocab",
+    "kanji": "夜間",
+    "reading": "やかん",
+    "meaning": "Ban đêm / Ca đêm (Chữ Hán: 夜 - Âm Hán: DẠ)",
+    "han_viet": "DẠ",
+    "unit": "第11回目",
+    "primary_kanji": "夜"
+  }
+]
