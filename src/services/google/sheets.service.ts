@@ -81,24 +81,46 @@ export class GoogleSheetsService {
   }
 
   /**
-   * Đọc danh sách từ vựng từ một bảng tính Google Sheets công khai hoặc qua Auth
+   * Đọc danh sách từ vựng từ một bảng tính Google Sheets (Công khai hoặc qua Auth)
    */
   static async importCardsFromSheet(
     authClient: OAuth2Client | null,
     spreadsheetId: string,
     range: string = 'A2:D1000'
   ): Promise<CardRowData[]> {
+    let rows: string[][] = [];
+
+    // Nếu không có authClient, thử đọc trực tiếp qua endpoint công khai của Google Sheets
     if (!authClient) {
-      throw new Error('Cần đăng nhập Google để đọc bảng tính Google Sheets');
+      try {
+        const publicCsvUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:csv`;
+        const res = await fetch(publicCsvUrl);
+        if (!res.ok) {
+          throw new Error('Bảng tính cần được chia sẻ ở chế độ "Bất kỳ ai có liên kết đều có thể xem"');
+        }
+        const csvText = await res.text();
+        const lines = csvText.split(/\r?\n/).filter((l) => l.trim().length > 0);
+        
+        // Parse CSV đơn giản
+        rows = lines.map((line) => {
+          const matches = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
+          if (matches) {
+            return matches.map((m) => m.replace(/^"|"$/g, '').trim());
+          }
+          return line.split(',').map((c) => c.replace(/^"|"$/g, '').trim());
+        });
+      } catch (err: any) {
+        throw new Error(`Không thể đọc bảng tính công khai: ${err.message}. Hãy đảm bảo bảng tính đã bật quyền "Bất kỳ ai có đường liên kết đều có thể xem".`);
+      }
+    } else {
+      const sheets = google.sheets({ version: 'v4', auth: authClient });
+      const response = await sheets.spreadsheets.values.get({
+        spreadsheetId,
+        range,
+      });
+      rows = response.data.values || [];
     }
 
-    const sheets = google.sheets({ version: 'v4', auth: authClient });
-    const response = await sheets.spreadsheets.values.get({
-      spreadsheetId,
-      range,
-    });
-
-    const rows = response.data.values || [];
     const parsedCards: CardRowData[] = [];
 
     for (const row of rows) {

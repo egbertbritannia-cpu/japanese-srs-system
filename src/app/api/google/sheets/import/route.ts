@@ -31,22 +31,19 @@ export async function POST(request: Request) {
     const cookieStore = await cookies();
     const tokenCookie = cookieStore.get('google_tokens')?.value;
 
-    if (!tokenCookie) {
-      return NextResponse.json(
-        {
-          error: 'Cần kết nối tài khoản Google để đọc Google Sheets bảo mật',
-          needsAuth: true,
-        },
-        { status: 401 }
-      );
+    let client = null;
+    if (tokenCookie) {
+      try {
+        const tokens = JSON.parse(tokenCookie);
+        const oauthClient = getOAuth2Client();
+        if (oauthClient) {
+          oauthClient.setCredentials(tokens);
+          client = oauthClient;
+        }
+      } catch {
+        client = null;
+      }
     }
-
-    const tokens = JSON.parse(tokenCookie);
-    const client = getOAuth2Client();
-    if (!client) {
-      return NextResponse.json({ error: 'Chưa cấu hình Google Client' }, { status: 400 });
-    }
-    client.setCredentials(tokens);
 
     const parsedCards = await GoogleSheetsService.importCardsFromSheet(client, spreadsheetId, range);
 

@@ -341,8 +341,8 @@ export default function IntegrationsPage() {
             </h3>
             <p style={{ fontSize: '0.85rem', color: 'var(--sumi-faded)', margin: '0.25rem 0 0' }}>
               {status.authenticated
-                ? 'Đã sẵn sàng đồng bộ trực tiếp 2 chiều với Google Sheets, Calendar và Tasks.'
-                : 'Các tính năng "1-Click Thêm vào Calendar" & "Tải file CSV cho Sheets" vẫn hoạt động bình thường 100%!'}
+                ? 'Đã kết nối tài khoản Google để đồng bộ tự động 2 chiều.'
+                : 'Trang web hoạt động 100% tự do mà KHÔNG CẦN ĐĂNG NHẬP. Các tính năng "1-Click Thêm vào Calendar", "Tải CSV" & "Nhập Sheet công khai" đều dùng được ngay!'}
             </p>
           </div>
         </div>
@@ -451,7 +451,7 @@ export default function IntegrationsPage() {
                 />
                 <button
                   onClick={handlePreviewSheet}
-                  disabled={loading || !sheetUrl.trim() || !status.authenticated}
+                  disabled={loading || !sheetUrl.trim()}
                   className="btn-washi"
                   style={{ padding: '0.5rem 0.85rem', fontSize: '0.85rem' }}
                 >
