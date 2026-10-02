@@ -68,6 +68,12 @@ Toàn bộ kế hoạch tái thiết kế giao diện theo phong cách Nhật B�
 20. **[18_TECHNICAL_SPEC_AND_ATOMIC_IMPLEMENTATION_BLUEPRINT.md](file:///D:/project/japanese-srs-system/doc/18_TECHNICAL_SPEC_AND_ATOMIC_IMPLEMENTATION_BLUEPRINT.md)**  
    *Đặc tả Kỹ thuật Nguyên tử & Bản thiết kế Thi công Hệ thống (Tầng 2 - L2)*: Tầng sâu nhất không thể phân rã thêm: giải tích vi phân FSRS v5 & gradient Adam, toàn văn mã DDL SQL migration, mã giả TypeScript chi tiết, đặc tả hợp đồng API RESTful và cam kết SLA/Security.
 
+21. **[19_KIRIE_PAPER_CUTOUT_WAVE_REDESIGN_MASTER_PLAN.md](file:///D:/project/japanese-srs-system/doc/19_KIRIE_PAPER_CUTOUT_WAVE_REDESIGN_MASTER_PLAN.md)**  
+   *Kế hoạch Tái thiết kế Giao diện Nghệ thuật Cắt giấy Washi Kirie & Sóng Biển Lớp (Kirie Paper-Cutout Ocean Wave Master Plan)*: Kế hoạch phân tầng chuyển dịch thiết kế di động theo tư liệu `18337712357dc3b93a96a076cef25eae.jpg` — Bóc tách 5 phân vùng thị giác, bảo toàn Zero-Backend Regression, vector sóng 3D đổ bóng đa tầng và thuyền buồm Origami.
+
+22. **[20_KIRIE_UI_COMPONENTS_AND_DESIGN_TOKENS.md](file:///D:/project/japanese-srs-system/doc/20_KIRIE_UI_COMPONENTS_AND_DESIGN_TOKENS.md)**  
+   *Hệ thống Tokens & Mã nguồn Linh kiện Giao diện Kirie Nguyên tử (Kirie Design Tokens & Component Implementation)*: Bảng biến màu Aizome Indigo / Momi-washi / Urushi Lacquer, hiệu ứng đổ bóng đa tầng `kirie-shadow-deep`, cùng mã nguồn React/TypeScript 100% hoàn chỉnh cho 5 linh kiện (`KirieWaveIllustration`, `KirieHeroBanner`, `KirieKpiCard`, `KirieFocusListItem`, `KirieBottomNav`).
+
 ---
 
 ### 🎴 HỆ THỐNG 8 SKILLS ANTHIGRAVITY TRONG DỰ ÁN (`.agents/skills/`)
@@ -86,6 +92,7 @@ Toàn bộ kế hoạch tái thiết kế giao diện theo phong cách Nhật B�
 ---
 
 ### ⛩️ HƯỚNG DẪN DÀNH CHO AGENT THỰC THI (QUICK START)
+- Đối với việc tái thiết kế giao diện theo nghệ thuật cắt giấy Washi Kirie & Sóng Biển (`18337712357dc3b93a96a076cef25eae.jpg`): Mở bộ tài liệu **[19_KIRIE_PAPER_CUTOUT_WAVE_REDESIGN_MASTER_PLAN.md](file:///D:/project/japanese-srs-system/doc/19_KIRIE_PAPER_CUTOUT_WAVE_REDESIGN_MASTER_PLAN.md)** và **[20_KIRIE_UI_COMPONENTS_AND_DESIGN_TOKENS.md](file:///D:/project/japanese-srs-system/doc/20_KIRIE_UI_COMPONENTS_AND_DESIGN_TOKENS.md)**.
 - Đối với việc nâng cấp chuyên sâu Khoa học Nhận thức, FSRS 21 tham số, LECTOR Interleaving, KanjiCompass Graph, Tương tác 4 cấp độ và Chrome Extension: Mở bộ tài liệu phân tầng **[13_COGNITIVE_UPGRADE_MASTER_STRATIFIED_PLAN.md](file:///D:/project/japanese-srs-system/doc/13_COGNITIVE_UPGRADE_MASTER_STRATIFIED_PLAN.md)** (Chiến lược L0) $\rightarrow$ **[14_PILLAR_1_ADAPTIVE_FSRS_AND_SEMANTIC_INTERFERENCE.md](file:///D:/project/japanese-srs-system/doc/14_PILLAR_1_ADAPTIVE_FSRS_AND_SEMANTIC_INTERFERENCE.md)** đến **[17_PILLAR_4_AUTOMATED_MINING_PIPELINE_AND_GAMIFICATION.md](file:///D:/project/japanese-srs-system/doc/17_PILLAR_4_AUTOMATED_MINING_PIPELINE_AND_GAMIFICATION.md)** (Kiến trúc L1) $\rightarrow$ **[18_TECHNICAL_SPEC_AND_ATOMIC_IMPLEMENTATION_BLUEPRINT.md](file:///D:/project/japanese-srs-system/doc/18_TECHNICAL_SPEC_AND_ATOMIC_IMPLEMENTATION_BLUEPRINT.md)** (Thi công L2).
 - Đối với việc phối hợp đa vai trò và quy chuẩn làm việc: Mở file **[10_MULTI_ROLE_AGENT_COLLABORATION_GUIDE.md](file:///D:/project/japanese-srs-system/doc/10_MULTI_ROLE_AGENT_COLLABORATION_GUIDE.md)** và **[SKILL_AGENT_PLAYBOOK.md](file:///D:/project/japanese-srs-system/doc/SKILL_AGENT_PLAYBOOK.md)**.
 - Đối với việc tích hợp tranh nghệ thuật Ukiyo-e, Rinpa và tư liệu văn hóa: Mở file **[12_AUTHENTIC_WA_ART_REDESIGN_MASTER_PLAN.md](file:///D:/project/japanese-srs-system/doc/12_AUTHENTIC_WA_ART_REDESIGN_MASTER_PLAN.md)** và **[11_JAPANESE_GRAPHIC_DESIGN_DECONSTRUCTION.md](file:///D:/project/japanese-srs-system/doc/11_JAPANESE_GRAPHIC_DESIGN_DECONSTRUCTION.md)**.
