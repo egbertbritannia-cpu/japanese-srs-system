@@ -1,0 +1,33 @@
+{
+  "name": "japanese-srs-system",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "vitest run",
+    "db:turso:init": "npx tsx scripts/init-turso.ts"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.18.0",
+    "better-sqlite3": "^11.8.1",
+    "drizzle-orm": "^0.38.4",
+    "next": "15.1.6",
+    "openai": "^7.27.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "ts-fsrs": "^4.4.1",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/node": "^22.13.1",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "drizzle-kit": "^0.30.4",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
+  }
+}

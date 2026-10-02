@@ -1,0 +1,22 @@
+{
+  "description": "214 bộ thủ Khang Hy (Kangxi Radicals) phục vụ phân tích biểu ý (Semantic components)",
+  "radicals": [
+    { "id": 1, "radical": "一", "strokes": 1, "meaning": "Nhất (Một, đồng nhất)" },
+    { "id": 4, "radical": "丿", "strokes": 1, "meaning": "Phiệt (Nét phẩy, uốn cong)" },
+    { "id": 9, "radical": "人", "variants": ["亻"], "strokes": 2, "meaning": "Nhân (Con người, hành vi nhân thế)" },
+    { "id": 30, "radical": "口", "strokes": 3, "meaning": "Khẩu (Miệng, lời nói, ăn uống)" },
+    { "id": 38, "radical": "女", "strokes": 3, "meaning": "Nữ (Phụ nữ, tính nữ)" },
+    { "id": 61, "radical": "心", "variants": ["忄", "⺗"], "strokes": 4, "meaning": "Tâm (Trái tim, tình cảm, suy nghĩ)" },
+    { "id": 64, "radical": "手", "variants": ["扌"], "strokes": 4, "meaning": "Thủ (Tay, hành động bằng tay)" },
+    { "id": 75, "radical": "木", "strokes": 4, "meaning": "Mộc (Cây cối, gỗ, thực vật)" },
+    { "id": 85, "radical": "水", "variants": ["氵", "氺"], "strokes": 4, "meaning": "Thủy (Nước, chất lỏng, sông hồ)" },
+    { "id": 86, "radical": "火", "variants": ["灬"], "strokes": 4, "meaning": "Hỏa (Lửa, nhiệt lượng, nấu nướng)" },
+    { "id": 115, "radical": "禾", "strokes": 5, "meaning": "Hòa (Cây lúa, ngũ cốc, mùa màng)" },
+    { "id": 120, "radical": "糸", "variants": ["糹"], "strokes": 6, "meaning": "Mịch (Sợi tơ, dây, gắn kết)" },
+    { "id": 149, "radical": "言", "variants": ["訁"], "strokes": 7, "meaning": "Ngôn (Lời nói, giao tiếp, ngôn ngữ)" },
+    { "id": 167, "radical": "金", "variants": ["釒"], "strokes": 8, "meaning": "Kim (Kim loại, tiền tài, sắc bén)" },
+    { "id": 169, "radical": "門", "variants": ["门"], "strokes": 8, "meaning": "Môn (Cửa cổng, không gian đóng mở)" },
+    { "id": 170, "radical": "阜", "variants": ["阝"], "strokes": 8, "meaning": "Phụ (Gò đất, địa hình bên trái)" },
+    { "id": 173, "radical": "雨", "strokes": 8, "meaning": "Vũ (Mưa, hiện tượng thời tiết khí tượng)" }
+  ]
+}

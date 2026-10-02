@@ -1,0 +1,69 @@
+{
+  "description": "Các thành tố biểu âm tiêu biểu trong chữ Hình thanh (Keisei-moji / 形声文字)",
+  "components": [
+    {
+      "component": "敬",
+      "onyomi": "ケイ (kei)",
+      "meaningMnemonic": "Tôn kính, thận trọng cảnh giác",
+      "examples": [
+        { "kanji": "警", "radical": "言 (ngôn ngữ)", "meaning": "Cảnh giác, cảnh báo, cảnh sát", "reading": "ケイ" },
+        { "kanji": "驚", "radical": "馬 (mã)", "meaning": "Kinh ngạc, giật mình", "reading": "キョウ, ケイ" }
+      ]
+    },
+    {
+      "component": "祭",
+      "onyomi": "サイ (sai), サツ (satsu)",
+      "meaningMnemonic": "Hình ảnh cúng tế thần linh, xem xét cẩn trọng",
+      "examples": [
+        { "kanji": "察", "radical": "宀 (miên)", "meaning": "Xem xét, quan sát (Cảnh sát 警察)", "reading": "サツ" },
+        { "kanji": "際", "radical": "阝 (phụ)", "meaning": "Ranh giới, thời điểm (Kỳ tế)", "reading": "サイ" },
+        { "kanji": "擦", "radical": "扌 (thủ)", "meaning": "Chà xát, cọ xát", "reading": "サツ, サイ" }
+      ]
+    },
+    {
+      "component": "青",
+      "onyomi": "セイ (sei), ショウ (shou)",
+      "meaningMnemonic": "Màu xanh tự nhiên thuần khiết",
+      "examples": [
+        { "kanji": "清", "radical": "氵", "meaning": "Thanh khiết, trong trẻo", "reading": "セイ" },
+        { "kanji": "晴", "radical": "日", "meaning": "Trời nắng trong", "reading": "セイ" },
+        { "kanji": "静", "radical": "争", "meaning": "Yên tĩnh", "reading": "セイ, ジョウ" },
+        { "kanji": "情", "radical": "忄", "meaning": "Tình cảm", "reading": "ジョウ, セイ" },
+        { "kanji": "精", "radical": "米", "meaning": "Tinh túy, tinh thần", "reading": "セイ, ショウ" }
+      ]
+    },
+    {
+      "component": "寺",
+      "onyomi": "ジ (ji), シ (shi)",
+      "meaningMnemonic": "Ngôi chùa, quy tắc trật tự",
+      "examples": [
+        { "kanji": "時", "radical": "日", "meaning": "Thời gian", "reading": "ジ" },
+        { "kanji": "持", "radical": "扌", "meaning": "Cầm, giữ", "reading": "ジ" },
+        { "kanji": "待", "radical": "彳", "meaning": "Chờ đợi", "reading": "タイ (kun: まつ)" },
+        { "kanji": "詩", "radical": "言", "meaning": "Thơ ca", "reading": "シ" },
+        { "kanji": "特", "radical": "牛", "meaning": "Đặc biệt", "reading": "トク" }
+      ]
+    },
+    {
+      "component": "同",
+      "onyomi": "ドウ (dou)",
+      "meaningMnemonic": "Cùng nhau, tương đồng",
+      "examples": [
+        { "kanji": "洞", "radical": "氵", "meaning": "Hang động", "reading": "ドウ" },
+        { "kanji": "銅", "radical": "金", "meaning": "Đồng (kim loại)", "reading": "ドウ" },
+        { "kanji": "胴", "radical": "月", "meaning": "Thân mình, thân xác", "reading": "ドウ" }
+      ]
+    },
+    {
+      "component": "方",
+      "onyomi": "ホウ (hou)",
+      "meaningMnemonic": "Phương hướng, góc cạnh",
+      "examples": [
+        { "kanji": "訪", "radical": "言", "meaning": "Ghé thăm", "reading": "ホウ" },
+        { "kanji": "防", "radical": "阝", "meaning": "Phòng thủ, ngăn chặn", "reading": "ボウ, ホウ" },
+        { "kanji": "芳", "radical": "艹", "meaning": "Hương thơm ngát", "reading": "ホウ" },
+        { "kanji": "放", "radical": "攵", "meaning": "Phóng thích, thả ra", "reading": "ホウ" }
+      ]
+    }
+  ]
+}
