@@ -7,6 +7,7 @@ import { JapanesePosterBackground } from '@/components/japanese/JapanesePosterBa
 import { ToriiIcon, FujiMountainIcon } from '@/components/japanese/Icons';
 import { JapaneseArtBackdrop } from '@/components/art/JapaneseArtBackdrop';
 import { KirieBottomNav } from '@/components/kirie/KirieBottomNav';
+import { JapaneseSenseiChat } from '@/components/chat/JapaneseSenseiChat';
 
 import { ServiceWorkerRegister } from '@/components/pwa/ServiceWorkerRegister';
 import { PerformanceTracker } from '@/components/telemetry/PerformanceTracker';
@@ -197,6 +198,21 @@ export default function RootLayout({
                 Bộ thẻ
               </Link>
               <Link
+                href="/conjugation"
+                style={{
+                  padding: '0.5rem 0.9rem',
+                  borderRadius: '8px',
+                  color: 'var(--sumi-charcoal)',
+                  textDecoration: 'none',
+                  fontSize: '0.9rem',
+                  fontFamily: 'var(--font-maru)',
+                  fontWeight: 600,
+                  transition: 'background 0.2s',
+                }}
+              >
+                Động từ
+              </Link>
+              <Link
                 href="/cards/new"
                 style={{
                   padding: '0.5rem 0.9rem',
@@ -293,6 +309,9 @@ export default function RootLayout({
 
         {/* Thanh Điều Hướng Di Động Nổi Phong Cách Kirie (Mobile Floating Bottom Nav) */}
         <KirieBottomNav />
+
+        {/* Trợ Giảng Nhật Ngữ Nổi Toàn Cục Sensei AI (RAG Context-Aware) */}
+        <JapaneseSenseiChat />
       </body>
     </html>
   );
