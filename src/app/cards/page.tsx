@@ -40,7 +40,7 @@ export default function CardsPage() {
     async function fetchCards() {
       try {
         setLoading(true);
-        const res = await fetch('/api/cards');
+        const res = await fetch('/api/cards?limit=1000');
         const data = await res.json();
         if (data.success) {
           setCardsList(data.data || []);
@@ -64,7 +64,7 @@ export default function CardsPage() {
     const matchesDeck =
       selectedDeck === 'all' ||
       card.deckId === selectedDeck ||
-      card.deck.toLowerCase().includes(selectedDeck.toLowerCase());
+      (card.deck && card.deck.toLowerCase().includes(selectedDeck.toLowerCase()));
 
     return matchesSearch && matchesDeck;
   });

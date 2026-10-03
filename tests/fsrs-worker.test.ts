@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { FSRS, createEmptyCard, generatorParameters } from 'ts-fsrs';
 import fs from 'node:fs';
 import path from 'node:path';

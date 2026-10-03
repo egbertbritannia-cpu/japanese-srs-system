@@ -14,7 +14,10 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const deckId = searchParams.get('deck');
-    const now = Date.now();
+    const search = searchParams.get('search')?.trim().toLowerCase();
+    const limitParam = searchParams.get('limit');
+    const limit = limitParam ? Math.min(Math.max(parseInt(limitParam, 10), 1), 2000) : 1000;
+    const nowMs = Date.now();
 
     const baseQuery = db
       .select({
@@ -35,12 +38,14 @@ export async function GET(request: Request) {
       .from(cards)
       .leftJoin(decks, eq(cards.deckId, decks.id));
 
+    // Xây dựng điều kiện lọc theo Deck nếu có
+    const filteredQuery = (deckId && deckId !== 'all')
+      ? baseQuery.where(eq(cards.deckId, deckId))
+      : baseQuery;
+
     // Thực hiện song song 3 truy vấn độc lập qua Promise.all
     const [cardList, allDecks, deckStatsRaw] = await Promise.all([
-      (deckId && deckId !== 'all'
-        ? baseQuery.where(eq(cards.deckId, deckId)).orderBy(desc(cards.createdAt))
-        : baseQuery.orderBy(desc(cards.createdAt))
-      ).limit(100),
+      filteredQuery.orderBy(desc(cards.createdAt)).limit(limit),
       db.select().from(decks),
       db
         .select({
@@ -48,7 +53,7 @@ export async function GET(request: Request) {
           name: decks.name,
           description: decks.description,
           totalCards: count(cards.id),
-          dueCards: sql<number>`SUM(CASE WHEN ${cards.state} != 'New' AND ${cards.due} <= ${now} THEN 1 ELSE 0 END)`,
+          dueCards: sql<number>`SUM(CASE WHEN ${cards.state} != 'New' AND (CASE WHEN ${cards.due} > 10000000000 THEN ${cards.due} ELSE ${cards.due} * 1000 END) <= ${nowMs} THEN 1 ELSE 0 END)`,
           newCards: sql<number>`SUM(CASE WHEN ${cards.state} = 'New' THEN 1 ELSE 0 END)`,
           learnedCards: sql<number>`SUM(CASE WHEN ${cards.state} = 'Review' THEN 1 ELSE 0 END)`,
         })

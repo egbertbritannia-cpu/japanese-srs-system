@@ -124,7 +124,7 @@ async function getDashboardData(): Promise<DashboardData> {
           name: decks.name,
           description: decks.description,
           totalCards: count(cards.id),
-          dueCards: sql<number>`SUM(CASE WHEN ${cards.state} != 'New' AND ${cards.due} <= ${now} THEN 1 ELSE 0 END)`,
+          dueCards: sql<number>`SUM(CASE WHEN ${cards.state} != 'New' AND (CASE WHEN ${cards.due} > 10000000000 THEN ${cards.due} ELSE ${cards.due} * 1000 END) <= ${now} THEN 1 ELSE 0 END)`,
           newCards: sql<number>`SUM(CASE WHEN ${cards.state} = 'New' THEN 1 ELSE 0 END)`,
           learnedCards: sql<number>`SUM(CASE WHEN ${cards.state} = 'Review' THEN 1 ELSE 0 END)`,
         })

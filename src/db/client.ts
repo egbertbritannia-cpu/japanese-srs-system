@@ -174,12 +174,6 @@ function initDb() {
       const client = (globalThis as any).__tursoClient ?? ((globalThis as any).__tursoClient = createClient({
         url,
         authToken: tursoAuthToken,
-        fetch: (input: any, init: any) => {
-          return fetch(input, {
-            ...init,
-            keepalive: true,
-          });
-        },
       }));
 
       return drizzle(client, { schema });

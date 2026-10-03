@@ -116,7 +116,7 @@ function ReviewSessionContent() {
     async function loadCards() {
       try {
         setLoading(true);
-        const url = targetDeckId && targetDeckId !== 'all' ? `/api/cards?deck=${targetDeckId}` : '/api/cards';
+        const url = targetDeckId && targetDeckId !== 'all' ? `/api/cards?deck=${targetDeckId}&limit=1000` : '/api/cards?limit=1000';
         let rawCards: CardItem[] = [];
         let fetchedDecks: DeckItem[] = [];
 
