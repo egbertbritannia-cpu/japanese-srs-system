@@ -17,9 +17,9 @@
 
 | Sprint | Nội dung phân hệ | Danh sách hồ sơ khuyết tật thị giác | Trạng thái | Kiểm thử tự động |
 | :--- | :--- | :--- | :--- | :--- |
-| **Sprint 1** | **Hạ tầng Thẩm mỹ, Typography Toàn cục & Điều hướng Di động** | `VIS-SYS-01`, `VIS-SYS-02`, `VIS-SYS-03`, `VIS-SYS-04` | 🟡 Đang thực thi | Đang chờ |
-| **Sprint 2** | **Đại tu Đấu trường Ôn tập Karuta Active Recall & Pitch Accent** | `VIS-REV-01`, `VIS-REV-02`, `VIS-REV-03`, `VIS-REV-04`, `VIS-REV-05`, `VIS-REV-06`, `VIS-REV-07`, `VIS-COPILOT-04` | ⚪ Chưa bắt đầu | Đang chờ |
-| **Sprint 3** | **Thư viện Thẻ học Tanzakucho & Trang chủ Dashboard Sổ cái Washi** | `VIS-CARD-01` -> `06`, `VIS-HOME-01` -> `06` | ⚪ Chưa bắt đầu | Đang chờ |
+| **Sprint 1** | **Hạ tầng Thẩm mỹ, Typography Toàn cục & Điều hướng Di động** | `VIS-SYS-01`, `VIS-SYS-02`, `VIS-SYS-03`, `VIS-SYS-04` | ✅ HOÀN THÀNH | ✅ 111/111 pass |
+| **Sprint 2** | **Đại tu Đấu trường Ôn tập Karuta Active Recall & Pitch Accent** | `VIS-REV-01`, `VIS-REV-02`, `VIS-REV-03`, `VIS-REV-04`, `VIS-REV-05`, `VIS-REV-06`, `VIS-REV-07`, `VIS-COPILOT-04` | ✅ HOÀN THÀNH | ✅ 111/111 pass |
+| **Sprint 3** | **Thư viện Thẻ học Tanzakucho & Trang chủ Dashboard Sổ cái Washi** | `VIS-CARD-01` -> `06`, `VIS-HOME-01` -> `06` | 🟡 Đang thực thi | Đang chờ |
 | **Sprint 4** | **Đấu trường Chia Động từ & Bàn Thư pháp Tạo thẻ Shodo Desk** | `VIS-CONJ-01` -> `06`, `VIS-NEW-01` -> `05` | ⚪ Chưa bắt đầu | Đang chờ |
 | **Sprint 5** | **Giáo trình Ngữ pháp Bunbou & Sensei AI Trợ lý Đồng hành** | `VIS-GRAM-01` -> `06`, `VIS-PRAC-01` -> `05`, `VIS-COPILOT-01`, `02`, `03`, `05` | ⚪ Chưa bắt đầu | Đang chờ |
 
