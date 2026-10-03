@@ -70,6 +70,16 @@ export class CardValidator {
         }
         break;
       }
+
+      case 'GrammarPattern': {
+        if (!card.patternTemplate || card.patternTemplate.trim().length === 0) {
+          errors.push('Mẫu câu ngữ pháp không được để trống.');
+        }
+        if (!card.meaningVi || card.meaningVi.trim().length === 0) {
+          errors.push('Ý nghĩa ngữ pháp không được để trống.');
+        }
+        break;
+      }
     }
 
     return {

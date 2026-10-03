@@ -3,7 +3,7 @@
  * Phục vụ các hình thức học: Cloze (điền từ), Kanji (bộ thủ/nghĩa), Pitch (cao độ âm thanh)
  */
 
-export type CardType = 'Kanji' | 'Vocab' | 'Cloze' | 'Pitch';
+export type CardType = 'Kanji' | 'Vocab' | 'Cloze' | 'Pitch' | 'GrammarPattern';
 
 export interface BaseCard {
   id: string;
@@ -52,4 +52,16 @@ export interface PitchCard extends BaseCard {
   audioSample?: string;
 }
 
-export type Flashcard = KanjiCard | VocabCard | ClozeCard | PitchCard;
+export interface GrammarCard extends BaseCard {
+  type: 'GrammarPattern';
+  patternId: string;
+  patternTemplate: string;
+  meaningVi: string;
+  sentence?: string;
+  front: string;
+  reading?: string;
+  hint?: string;
+  explanation?: string;
+}
+
+export type Flashcard = KanjiCard | VocabCard | ClozeCard | PitchCard | GrammarCard;

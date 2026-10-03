@@ -168,3 +168,86 @@ export const gamificationEffortLedger = sqliteTable('gamification_effort_ledger'
   creditsEarned: integer('credits_earned').default(0).notNull(),
   sessionTimestamp: integer('session_timestamp', { mode: 'timestamp' }).notNull(),
 });
+
+// ============================================================================
+// HỆ THỐNG HỌC NGỮ PHÁP (GRAMMAR ENGINE TABLES — ZERO REGRESSION)
+// ============================================================================
+
+// 8. Bảng Bài học Ngữ pháp (Grammar Lessons — Bài 8 đến Bài 11 JPD133)
+export const grammarLessons = sqliteTable('grammar_lessons', {
+  id: text('id').primaryKey(),
+  lessonNumber: integer('lesson_number').notNull(),
+  titleJa: text('title_ja').notNull(),
+  titleVi: text('title_vi').notNull(),
+  themeJa: text('theme_ja'),
+  themeVi: text('theme_vi'),
+  patternRange: text('pattern_range').notNull(),
+  patternCount: integer('pattern_count').notNull(),
+  accentColor: text('accent_color').notNull(),
+  wagara: text('wagara'),
+  inkanChar: text('inkan_char'),
+  description: text('description').notNull(),
+  sortOrder: integer('sort_order').default(0).notNull(),
+  createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
+});
+
+// 9. Bảng Mẫu Cấu trúc Ngữ pháp (Grammar Patterns — 32 Patterns 72 đến 103)
+export const grammarPatterns = sqliteTable(
+  'grammar_patterns',
+  {
+    id: text('id').primaryKey(),
+    lessonId: text('lesson_id')
+      .notNull()
+      .references(() => grammarLessons.id),
+    patternNumber: integer('pattern_number').notNull(),
+    jlptLevel: text('jlpt_level').notNull(),
+    difficultyScore: integer('difficulty_score').default(3).notNull(),
+    patternTemplate: text('pattern_template').notNull(),
+    structureSlots: text('structure_slots').notNull(), // JSON string: GrammarStructureSlot[]
+    meaningVi: text('meaning_vi').notNull(),
+    meaningJa: text('meaning_ja'),
+    usageNote: text('usage_note'),
+    examples: text('examples').notNull(), // JSON string: GrammarExampleSentence[]
+    verbTypes: text('verb_types'), // JSON string array
+    relatedPatternIds: text('related_pattern_ids'), // JSON string array
+    createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
+    updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull(),
+  },
+  (table) => ({
+    lessonIdIdx: index('idx_grammar_patterns_lesson_id').on(table.lessonId),
+    jlptIdx: index('idx_grammar_patterns_jlpt').on(table.jlptLevel),
+    patternNumIdx: index('idx_grammar_patterns_num').on(table.patternNumber),
+  })
+);
+
+// 10. Bảng Ngân hàng Bài tập Ngữ pháp (Grammar Exercises — 204 bài tập SBT)
+export const grammarExercises = sqliteTable(
+  'grammar_exercises',
+  {
+    id: text('id').primaryKey(),
+    patternId: text('pattern_id')
+      .notNull()
+      .references(() => grammarPatterns.id, { onDelete: 'cascade' }),
+    exerciseType: text('exercise_type').notNull(), // 'cloze' | 'multiple_choice' | 'fill_blank' | 'translation_vi_to_ja' | 'jumble'
+    difficulty: integer('difficulty').default(2).notNull(),
+    sentenceWithCloze: text('sentence_with_cloze'),
+    question: text('question'),
+    optionA: text('option_a'),
+    optionB: text('option_b'),
+    optionC: text('option_c'),
+    optionD: text('option_d'),
+    correctOption: text('correct_option'),
+    promptText: text('prompt_text'),
+    answerText: text('answer_text').notNull(),
+    alternateAnswers: text('alternate_answers'), // JSON string array
+    explanationVi: text('explanation_vi'),
+    explanationJa: text('explanation_ja'),
+    sourceRef: text('source_ref'),
+    sortOrder: integer('sort_order').default(0).notNull(),
+    createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
+  },
+  (table) => ({
+    patternIdIdx: index('idx_grammar_exercises_pattern_id').on(table.patternId),
+    exerciseTypeIdx: index('idx_grammar_exercises_type').on(table.exerciseType),
+  })
+);

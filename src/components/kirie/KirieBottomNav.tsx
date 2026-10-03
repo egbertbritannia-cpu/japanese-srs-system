@@ -42,6 +42,17 @@ export function KirieBottomNav() {
       ),
     },
     {
+      id: 'grammar',
+      label: 'Ngữ pháp',
+      href: '/grammar',
+      icon: (active: boolean) => (
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke={active ? '#20507B' : 'currentColor'} />
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" fill={active ? 'currentColor' : 'none'} />
+        </svg>
+      ),
+    },
+    {
       id: 'new',
       label: 'Thêm thẻ',
       href: '/cards/new',
