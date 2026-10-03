@@ -1,7 +1,7 @@
 /**
  * KanjiCompass Etymological Knowledge Graph
  * Trụ Cột 2: Đồ thị Tri thức Chữ Hán theo Ngữ nguyên học (Phonetic & Semantic Hubs)
- * Căn cứ: doc/15_PILLAR_2_KANJICOMPASS_ETYMOLOGICAL_KNOWLEDGE_GRAPH.md & doc/18_TECHNICAL_SPEC_AND_ATOMIC_IMPLEMENTATION_BLUEPRINT.md
+ * Căn cứ: planning/04_PHASE_4_COGNITIVE_SCIENCE_AND_FOUR_PILLARS.md
  */
 
 export interface KanjiGraphNodeData {

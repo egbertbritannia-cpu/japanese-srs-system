@@ -1,7 +1,7 @@
 /**
  * LECTOR Semantic Interleaving Engine
  * Trụ Cột 1: Kiểm soát Can thiệp Ngữ nghĩa (Proactive & Retroactive Interference Control)
- * Căn cứ: doc/14_PILLAR_1_ADAPTIVE_FSRS_AND_SEMANTIC_INTERFERENCE.md & doc/18_TECHNICAL_SPEC_AND_ATOMIC_IMPLEMENTATION_BLUEPRINT.md
+ * Căn cứ: planning/04_PHASE_4_COGNITIVE_SCIENCE_AND_FOUR_PILLARS.md
  */
 
 export interface SrsCandidateCard {

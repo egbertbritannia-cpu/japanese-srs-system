@@ -4,7 +4,7 @@ import { interleaveCardQueue, SrsCandidateCard } from '@/core/scheduler/lector-i
 /**
  * LECTOR Interleaving API Endpoint
  * Trụ Cột 1: Sắp xếp Xen kẽ Chống Can thiệp Ngữ nghĩa (P95 SLA < 85ms)
- * Căn cứ: doc/14_PILLAR_1_ADAPTIVE_FSRS_AND_SEMANTIC_INTERFERENCE.md & doc/18_TECHNICAL_SPEC_AND_ATOMIC_IMPLEMENTATION_BLUEPRINT.md
+ * Căn cứ: planning/04_PHASE_4_COGNITIVE_SCIENCE_AND_FOUR_PILLARS.md
  */
 export async function POST(request: Request) {
   try {

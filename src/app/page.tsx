@@ -29,6 +29,9 @@ interface DashboardCardItem {
   state: string;
   stability?: number | null;
   reps?: number | null;
+  deckId?: string | null;
+  type?: string | null;
+  pitch?: string | null;
 }
 
 interface DashboardData {
@@ -46,13 +49,59 @@ interface FocusCardDisplay {
   id: string;
   kanji: string;
   reading: string;
-  pitch: string;
+  pitch?: string;
   meaning: string;
   example: string;
   deckName: string;
   stability: string;
   reps: number;
   isDue: boolean;
+  type?: string;
+}
+
+function parseCardItemDisplay(card: FocusCardDisplay) {
+  const isGrammar =
+    card.type === 'GrammarPattern' ||
+    card.deckName?.toLowerCase().includes('ngữ pháp') ||
+    card.deckName?.toLowerCase().includes('bunbou') ||
+    card.kanji.startsWith('【文法') ||
+    card.kanji.includes('Pattern') ||
+    card.kanji.length > 8;
+
+  let grammarTag = '';
+  let mainSurface = card.kanji;
+
+  if (isGrammar) {
+    const match = card.kanji.match(/【([^】]+)】\s*([\s\S]*)/);
+    if (match) {
+      grammarTag = match[1].trim(); // e.g. "文法 Pattern 72"
+      mainSurface = match[2].trim(); // e.g. "V[て形] + います"
+    } else if (card.kanji.startsWith('【文法')) {
+      grammarTag = '文法 Ngữ pháp';
+      mainSurface = card.kanji.replace(/【[^】]*】/, '').trim();
+    }
+  }
+
+  // Tách ý nghĩa chính và ghi chú cách dùng (nếu có)
+  let primaryMeaning = card.meaning;
+  let usageNote = '';
+  if (card.meaning.includes('💡 Cách dùng:')) {
+    const parts = card.meaning.split('💡 Cách dùng:');
+    primaryMeaning = parts[0].trim();
+    usageNote = `💡 Cách dùng: ${parts[1].trim()}`;
+  } else if (card.meaning.includes('\n\n')) {
+    const parts = card.meaning.split('\n\n');
+    primaryMeaning = parts[0].trim();
+    usageNote = parts.slice(1).join('\n\n').trim();
+  }
+
+  return {
+    isGrammar,
+    grammarTag,
+    mainSurface,
+    primaryMeaning,
+    usageNote,
+  };
 }
 
 // 5 thẻ bài mẫu chuẩn ngữ nghĩa theo phong cách Karuta Zen Washi 3A
@@ -143,6 +192,9 @@ async function getDashboardData(): Promise<DashboardData> {
           state: cards.state,
           stability: cards.stability,
           reps: cards.reps,
+          deckId: cards.deckId,
+          type: cards.type,
+          pitch: cards.pitch,
         })
         .from(cards)
         .orderBy(desc(cards.createdAt))
@@ -218,23 +270,32 @@ export default async function DashboardPage() {
   const { cardsList, deckSummaries, stats } = await getDashboardData();
   const currentDateFormatted = getFormattedVietnameseDate();
 
+  const deckMap = new Map<string, string>();
+  for (const d of deckSummaries) {
+    deckMap.set(d.id, d.name);
+  }
+
   // Ánh xạ thẻ từ cơ sở dữ liệu nếu có, hoặc dùng danh sách 5 từ Karuta Zen mẫu
   const displayedCards: FocusCardDisplay[] =
     cardsList.length >= 3
       ? cardsList.slice(0, 5).map((c, idx) => {
           const fallback = defaultZenCards[idx % defaultZenCards.length];
           const isDue = c.due ? new Date(c.due).getTime() <= Date.now() : true;
+          const actualDeckName = (c.deckId && deckMap.get(c.deckId)) || fallback.deckName;
+          const isGrammarCard = c.type === 'GrammarPattern' || c.deckId === 'grammar_jpd133' || (c.front && c.front.includes('【文法'));
+
           return {
             id: c.id,
             kanji: c.front || fallback.kanji,
-            reading: c.reading || fallback.reading,
-            pitch: fallback.pitch,
+            reading: c.reading || (isGrammarCard ? '' : fallback.reading),
+            pitch: c.pitch || (isGrammarCard ? undefined : (c.reading ? undefined : fallback.pitch)),
             meaning: c.meaning || fallback.meaning,
             example: c.sentence || fallback.example,
-            deckName: deckSummaries[idx % deckSummaries.length]?.name || fallback.deckName,
+            deckName: actualDeckName,
             stability: c.stability ? `${c.stability.toFixed(1)} ngày` : fallback.stability,
             reps: c.reps ?? fallback.reps,
             isDue,
+            type: c.type || (isGrammarCard ? 'GrammarPattern' : undefined),
           };
         })
       : defaultZenCards;
@@ -456,16 +517,9 @@ export default async function DashboardPage() {
         {/* =========================================================================
             3. BỐ CỤC 2 CỘT CÂN ĐỐI (7 CỘT THẺ KANJI : 5 CỘT BỘ BÀI & FSRS)
             ========================================================================= */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: '2rem',
-            alignItems: 'start',
-          }}
-        >
+        <div className="dashboard-grid-layout">
           {/* CỘT TRÁI: HÀNG ĐỢI THẺ ĐẾN HẠN HÔM NAY (7 PHẦN) */}
-          <section style={{ flex: '1 1 60%' }}>
+          <section style={{ minWidth: 0, width: '100%' }}>
             <div
               style={{
                 display: 'flex',
@@ -513,105 +567,168 @@ export default async function DashboardPage() {
 
             {/* DANH SÁCH THẺ KANJI KARUTA CHUẨN THẨM MỸ WASHI */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-              {displayedCards.map((card) => (
-                <div
-                  key={card.id}
-                  style={{
-                    background: '#FFFFFF',
-                    border: '1.2px solid #E8E2D8',
-                    borderRadius: '14px',
-                    padding: '1.15rem 1.25rem',
-                    boxShadow: '0 2px 6px rgba(31, 36, 33, 0.02)',
-                    transition: 'all 0.2s ease',
-                  }}
-                >
+              {displayedCards.map((card) => {
+                const { isGrammar, grammarTag, mainSurface, primaryMeaning, usageNote } = parseCardItemDisplay(card);
+
+                return (
                   <div
+                    key={card.id}
                     style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      justifyContent: 'space-between',
-                      gap: '1rem',
+                      background: '#FFFFFF',
+                      border: '1.2px solid #E8E2D8',
+                      borderRadius: '14px',
+                      padding: '1.15rem 1.25rem',
+                      boxShadow: '0 2px 6px rgba(31, 36, 33, 0.02)',
+                      transition: 'all 0.2s ease',
+                      overflow: 'hidden',
                     }}
                   >
-                    {/* Phần thân nội dung từ vựng */}
-                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
-                      {/* Hộp Kanji nổi bật */}
-                      <div
-                        style={{
-                          minWidth: '68px',
-                          height: '56px',
-                          padding: '0 0.6rem',
-                          background: '#FAF8F5',
-                          border: '1px solid #E8E2D8',
-                          borderRadius: '10px',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          flexShrink: 0,
-                        }}
-                      >
-                        <span
+                    {isGrammar ? (
+                      /* =========================================================================
+                         BỐ CỤC CHUYÊN BIỆT CHO THẺ NGỮ PHÁP / MẪU CÂU (BUNBOU & PHRASE)
+                         Không nhồi vào hộp vuông, giải phóng không gian chữ & ghi chú cách dùng
+                         ========================================================================= */
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', width: '100%' }}>
+                        {/* Hàng trên: Tag phân loại + Nút loa & Đến hạn */}
+                        <div
                           style={{
-                            fontFamily: 'var(--font-mincho), serif',
-                            fontSize: card.kanji.length > 3 ? '1.25rem' : '1.5rem',
-                            fontWeight: 700,
-                            color: '#1F2421',
-                            whiteSpace: 'nowrap',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            gap: '0.75rem',
+                            flexWrap: 'wrap',
                           }}
                         >
-                          {card.kanji}
-                        </span>
-                      </div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                            <span
+                              style={{
+                                fontFamily: 'var(--font-mincho), serif',
+                                background: 'linear-gradient(135deg, #1B4268 0%, #20507B 100%)',
+                                color: '#FFFFFF',
+                                fontWeight: 800,
+                                fontSize: '0.74rem',
+                                padding: '0.2rem 0.65rem',
+                                borderRadius: '6px',
+                                letterSpacing: '0.04em',
+                                boxShadow: '0 2px 5px rgba(27, 66, 104, 0.25)',
+                              }}
+                            >
+                              {grammarTag || '文法 · Ngữ pháp'}
+                            </span>
+                            <span
+                              style={{
+                                fontFamily: 'var(--font-maru), sans-serif',
+                                fontSize: '0.78rem',
+                                color: '#717C75',
+                                fontWeight: 600,
+                              }}
+                            >
+                              Mẫu cấu trúc ngữ pháp
+                            </span>
+                          </div>
 
-                      {/* Chi tiết phát âm, cao độ & nghĩa */}
-                      <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                            <JapaneseSpeakerButton text={mainSurface} size={18} />
+                            {card.isDue && (
+                              <div
+                                style={{
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  gap: '0.35rem',
+                                  fontSize: '0.72rem',
+                                  color: '#D9381E',
+                                  fontWeight: 700,
+                                  background: '#FFF2F0',
+                                  border: '1px solid #F5C6CB',
+                                  padding: '0.15rem 0.55rem',
+                                  borderRadius: '999px',
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    width: '6px',
+                                    height: '6px',
+                                    borderRadius: '50%',
+                                    background: '#D9381E',
+                                  }}
+                                />
+                                <span>Đến hạn</span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Khung hiển thị mẫu ngữ pháp trung tâm */}
+                        <div
+                          style={{
+                            background: '#FAF8F5',
+                            border: '1.2px solid #E8E2D8',
+                            borderRadius: '10px',
+                            padding: '0.65rem 1rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            gap: '0.75rem',
+                          }}
+                        >
                           <span
                             style={{
                               fontFamily: 'var(--font-mincho), serif',
-                              fontSize: '0.92rem',
-                              fontWeight: 600,
-                              color: '#6E8A3C',
+                              fontSize: '1.25rem',
+                              fontWeight: 800,
+                              color: '#1F2421',
+                              letterSpacing: '0.02em',
+                              lineHeight: 1.35,
                             }}
                           >
-                            {card.reading}
-                          </span>
-                          <span
-                            style={{
-                              fontSize: '0.72rem',
-                              fontFamily: 'monospace',
-                              color: '#717C75',
-                              background: '#FAF8F5',
-                              padding: '0.1rem 0.4rem',
-                              borderRadius: '4px',
-                              border: '1px solid #E8E2D8',
-                            }}
-                          >
-                            {card.pitch}
+                            {mainSurface}
                           </span>
                         </div>
 
-                        <h3
-                          style={{
-                            fontSize: '0.92rem',
-                            fontWeight: 700,
-                            color: '#1F2421',
-                            margin: '0.25rem 0 0',
-                          }}
-                        >
-                          {card.meaning}
-                        </h3>
+                        {/* Ý nghĩa tiếng Việt & Ghi chú sư phạm */}
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                          <h3
+                            style={{
+                              fontSize: '0.94rem',
+                              fontWeight: 700,
+                              color: '#1F2421',
+                              margin: 0,
+                              lineHeight: 1.45,
+                              wordBreak: 'break-word',
+                            }}
+                          >
+                            {primaryMeaning}
+                          </h3>
 
-                        <p
-                          style={{
-                            fontSize: '0.78rem',
-                            color: '#717C75',
-                            margin: '0.3rem 0 0',
-                            fontStyle: 'italic',
-                          }}
-                        >
-                          {card.example
-                            ? parseClozeSegments(card.example).map((seg, i) =>
+                          {usageNote && (
+                            <p
+                              style={{
+                                fontSize: '0.8rem',
+                                color: '#544538',
+                                margin: 0,
+                                lineHeight: 1.55,
+                                background: 'rgba(235, 242, 223, 0.45)',
+                                borderLeft: '3px solid #6E8A3C',
+                                padding: '0.4rem 0.65rem',
+                                borderRadius: '0 6px 6px 0',
+                                wordBreak: 'break-word',
+                              }}
+                            >
+                              {usageNote}
+                            </p>
+                          )}
+
+                          {card.example && (
+                            <p
+                              style={{
+                                fontSize: '0.78rem',
+                                color: '#717C75',
+                                margin: '0.2rem 0 0',
+                                fontStyle: 'italic',
+                                wordBreak: 'break-word',
+                              }}
+                            >
+                              {parseClozeSegments(card.example).map((seg, i) =>
                                 seg.isCloze ? (
                                   <span
                                     key={i}
@@ -627,68 +744,198 @@ export default async function DashboardPage() {
                                 ) : (
                                   <span key={i}>{seg.text}</span>
                                 )
-                              )
-                            : null}
-                        </p>
+                              )}
+                            </p>
+                          )}
+                        </div>
                       </div>
-                    </div>
-
-                    {/* Nút phát âm & Huy hiệu trạng thái Đến hạn */}
-                    <div
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'flex-end',
-                        justifyContent: 'space-between',
-                        height: '56px',
-                        flexShrink: 0,
-                      }}
-                    >
-                      <JapaneseSpeakerButton text={card.kanji} size={15} />
-
+                    ) : (
+                      /* =========================================================================
+                         BỐ CỤC CHUẨN CHO THẺ TỪ VỰNG & HÁN TỰ (KANJI & KOTOBA)
+                         Responsive Flexbox an toàn, không bị vỡ layout khi từ ngữ dài
+                         ========================================================================= */
                       <div
                         style={{
                           display: 'flex',
-                          alignItems: 'center',
-                          gap: '0.35rem',
-                          fontSize: '0.72rem',
-                          color: '#D9381E',
-                          fontWeight: 600,
+                          alignItems: 'flex-start',
+                          justifyContent: 'space-between',
+                          gap: '1rem',
                         }}
                       >
-                        <span
+                        {/* Phần thân nội dung từ vựng */}
+                        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', flex: '1 1 auto', minWidth: 0 }}>
+                          {/* Hộp Kanji nổi bật */}
+                          <div
+                            style={{
+                              minWidth: '64px',
+                              maxWidth: '96px',
+                              minHeight: '56px',
+                              padding: '0.4rem 0.6rem',
+                              background: '#FAF8F5',
+                              border: '1px solid #E8E2D8',
+                              borderRadius: '10px',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              flexShrink: 0,
+                              textAlign: 'center',
+                            }}
+                          >
+                            <span
+                              style={{
+                                fontFamily: 'var(--font-mincho), serif',
+                                fontSize: card.kanji.length > 4 ? '1.15rem' : card.kanji.length > 2 ? '1.3rem' : '1.5rem',
+                                fontWeight: 700,
+                                color: '#1F2421',
+                                wordBreak: 'break-all',
+                                lineHeight: 1.2,
+                              }}
+                            >
+                              {card.kanji}
+                            </span>
+                          </div>
+
+                          {/* Chi tiết phát âm, cao độ & nghĩa */}
+                          <div style={{ flex: '1 1 auto', minWidth: 0 }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                              {card.reading && (
+                                <span
+                                  style={{
+                                    fontFamily: 'var(--font-mincho), serif',
+                                    fontSize: '0.92rem',
+                                    fontWeight: 600,
+                                    color: '#6E8A3C',
+                                  }}
+                                >
+                                  {card.reading}
+                                </span>
+                              )}
+                              {card.pitch && (
+                                <span
+                                  style={{
+                                    fontSize: '0.72rem',
+                                    fontFamily: 'monospace',
+                                    color: '#717C75',
+                                    background: '#FAF8F5',
+                                    padding: '0.1rem 0.4rem',
+                                    borderRadius: '4px',
+                                    border: '1px solid #E8E2D8',
+                                  }}
+                                >
+                                  {card.pitch}
+                                </span>
+                              )}
+                            </div>
+
+                            <h3
+                              style={{
+                                fontSize: '0.92rem',
+                                fontWeight: 700,
+                                color: '#1F2421',
+                                margin: '0.25rem 0 0',
+                                lineHeight: 1.4,
+                                wordBreak: 'break-word',
+                              }}
+                            >
+                              {card.meaning}
+                            </h3>
+
+                            {card.example && (
+                              <p
+                                style={{
+                                  fontSize: '0.78rem',
+                                  color: '#717C75',
+                                  margin: '0.3rem 0 0',
+                                  fontStyle: 'italic',
+                                  wordBreak: 'break-word',
+                                }}
+                              >
+                                {parseClozeSegments(card.example).map((seg, i) =>
+                                  seg.isCloze ? (
+                                    <span
+                                      key={i}
+                                      style={{
+                                        fontWeight: 700,
+                                        color: '#1F2421',
+                                        borderBottom: '1.5px solid #88A752',
+                                        fontStyle: 'normal',
+                                      }}
+                                    >
+                                      {seg.text}
+                                    </span>
+                                  ) : (
+                                    <span key={i}>{seg.text}</span>
+                                  )
+                                )}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Nút phát âm & Huy hiệu trạng thái Đến hạn */}
+                        <div
                           style={{
-                            width: '6px',
-                            height: '6px',
-                            borderRadius: '50%',
-                            background: '#D9381E',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'flex-end',
+                            justifyContent: 'space-between',
+                            minHeight: '56px',
+                            flexShrink: 0,
+                            marginLeft: '0.5rem',
                           }}
-                        />
-                        <span>Đến hạn</span>
+                        >
+                          <JapaneseSpeakerButton text={card.kanji} size={15} />
+
+                          {card.isDue && (
+                            <div
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.35rem',
+                                fontSize: '0.72rem',
+                                color: '#D9381E',
+                                fontWeight: 600,
+                                whiteSpace: 'nowrap',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  width: '6px',
+                                  height: '6px',
+                                  borderRadius: '50%',
+                                  background: '#D9381E',
+                                }}
+                              />
+                              <span>Đến hạn</span>
+                            </div>
+                          )}
+                        </div>
                       </div>
+                    )}
+
+                    {/* Thông tin ngầm định FSRS & Tên bộ thẻ */}
+                    <div
+                      style={{
+                        marginTop: '0.85rem',
+                        paddingTop: '0.65rem',
+                        borderTop: '1px solid #F2ECE1',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        fontSize: '0.73rem',
+                        color: '#717C75',
+                        flexWrap: 'wrap',
+                        gap: '0.5rem',
+                      }}
+                    >
+                      <span>📁 {card.deckName}</span>
+                      <span>
+                        Độ ổn định FSRS: {card.stability} · Lặp lại: {card.reps} lần
+                      </span>
                     </div>
                   </div>
-
-                  {/* Thông tin ngầm định FSRS & Tên bộ thẻ */}
-                  <div
-                    style={{
-                      marginTop: '0.85rem',
-                      paddingTop: '0.65rem',
-                      borderTop: '1px solid #F2ECE1',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      fontSize: '0.73rem',
-                      color: '#717C75',
-                    }}
-                  >
-                    <span>📁 {card.deckName}</span>
-                    <span>
-                      Độ ổn định FSRS: {card.stability} · Lặp lại: {card.reps} lần
-                    </span>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* Liên kết xem toàn bộ danh sách thẻ */}
@@ -712,7 +959,7 @@ export default async function DashboardPage() {
           </section>
 
           {/* CỘT PHẢI: BỘ THẺ HỌC TẬP & CHỈ SỐ THUẬT TOÁN FSRS (5 PHẦN) */}
-          <aside style={{ flex: '1 1 38%', display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
+          <aside style={{ minWidth: 0, width: '100%', display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
             {/* 0. TÍNH NĂNG MỚI: HỌC NGỮ PHÁP JPD133 (BUNBOU ENGINE) */}
             <div
               style={{

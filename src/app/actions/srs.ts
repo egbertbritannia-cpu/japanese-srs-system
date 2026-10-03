@@ -4,7 +4,7 @@
  * Server Actions cho Japanese SRS System (React 19 & Next.js 15)
  * Cung cấp cơ chế mutation dữ liệu trực tiếp từ Server Component / Form Action,
  * loại bỏ chi phí trung gian của HTTP REST mutation và tự động làm mới bộ nhớ đệm (ISR).
- * Căn cứ: doc/performance/02-nextjs-optimization.md (Mục 1 & Sprint 3)
+ * Căn cứ: planning/06_PHASE_6_PERFORMANCE_OPTIMIZATION_AND_SRE.md (Mục 1 & Sprint 3)
  */
 
 import { revalidatePath } from 'next/cache';

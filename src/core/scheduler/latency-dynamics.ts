@@ -1,7 +1,7 @@
 /**
  * Bjork Retrieval Latency Dynamics & Storage Strength Calibration
  * Trụ Cột 1: Hiệu chỉnh Độ trễ Phản xạ Não bộ & Thang đo Lưu trữ Bjork
- * Căn cứ: doc/14_PILLAR_1_ADAPTIVE_FSRS_AND_SEMANTIC_INTERFERENCE.md & doc/18_TECHNICAL_SPEC_AND_ATOMIC_IMPLEMENTATION_BLUEPRINT.md
+ * Căn cứ: planning/04_PHASE_4_COGNITIVE_SCIENCE_AND_FOUR_PILLARS.md
  */
 
 export type SrsGrade = 'Again' | 'Hard' | 'Good' | 'Easy';

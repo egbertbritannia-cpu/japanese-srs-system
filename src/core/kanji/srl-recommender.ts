@@ -1,7 +1,7 @@
 /**
  * Self-Regulated Learning (SRL) Kanji Pathway Recommender
  * Trụ Cột 2: Lộ trình Tự điều chỉnh Học tập theo Vùng phát triển Gần (ZPD)
- * Căn cứ: doc/15_PILLAR_2_KANJICOMPASS_ETYMOLOGICAL_KNOWLEDGE_GRAPH.md & doc/18_TECHNICAL_SPEC_AND_ATOMIC_IMPLEMENTATION_BLUEPRINT.md
+ * Căn cứ: planning/04_PHASE_4_COGNITIVE_SCIENCE_AND_FOUR_PILLARS.md
  */
 
 import { KEISEI_PHONETIC_FAMILIES, analyzeKanjiEtymology } from './kanjicompass-graph';

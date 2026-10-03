@@ -807,7 +807,7 @@ html, body {
 
 /* ==========================================================================
    TẦNG 6: TỐI ƯU HÓA HIỆU NĂNG RUNTIME & DI ĐỘNG (ZERO TAP DELAY)
-   Căn cứ: doc/performance/06-runtime-performance.md (Mục 5.1)
+   Căn cứ: planning/06_PHASE_6_PERFORMANCE_OPTIMIZATION_AND_SRE.md (Mục 5.1)
    ========================================================================== */
 .btn-srs-rating,
 .btn-karuta-action,
@@ -1123,3 +1123,22 @@ button.karuta-btn {
     background-clip: unset;
   }
 }
+
+/* =========================================================================
+   DASHBOARD RESPONSIVE 2-COLUMN GRID (7:5 GOLDEN RATIO)
+   Ngăn chặn hoàn toàn tràn layout và bảo đảm hiển thị mượt mà trên mọi thiết bị
+   ========================================================================= */
+.dashboard-grid-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .dashboard-grid-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+}
+

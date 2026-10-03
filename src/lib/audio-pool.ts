@@ -1,7 +1,7 @@
 /**
  * JapaneseAudioPool - Quản lý âm thanh phát âm bằng Audio Buffer Pool
  * Giải quyết vấn đề rò rỉ bộ nhớ (Memory Leak) và kích hoạt Major GC khi gọi new Audio() liên tục.
- * Căn cứ: doc/performance/06-runtime-performance.md (Mục 5.2)
+ * Căn cứ: planning/06_PHASE_6_PERFORMANCE_OPTIMIZATION_AND_SRE.md (Mục 5.2)
  */
 
 export class JapaneseAudioPool {

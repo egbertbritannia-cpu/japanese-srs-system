@@ -162,7 +162,7 @@ Before signing off on any UI screen or component:
 
 ## 7. AUTHENTIC WA-ART CATALOG & OVERLAY ENGINEERING (HỘI HỌA MỘC BẢN & LỚP PHỦ NGHỆ THUẬT)
 
-The system integrates 13 authentic Japanese art assets located in `public/assets/art/` (ingested from classical collections and benchmarked in `doc/11_JAPANESE_GRAPHIC_DESIGN_DECONSTRUCTION.md` and `doc/12_AUTHENTIC_WA_ART_REDESIGN_MASTER_PLAN.md`).
+The system integrates 13 authentic Japanese art assets located in `public/assets/art/` (ingested from classical collections and benchmarked in `planning/03_PHASE_3_JAPANESE_GRAPHIC_DESIGN_AND_WA_ART.md`).
 
 ### 7.1. Semantic Art Catalog
 1. `japanese-cultural-panorama.jpg` — Tranh toàn cảnh văn hóa (Fuji, Torii, Trà đạo) $\rightarrow$ Hero Section Backdrop (`/`).

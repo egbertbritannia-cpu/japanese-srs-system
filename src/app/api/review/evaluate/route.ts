@@ -5,7 +5,7 @@ import { cognitiveInteractionLogs } from '@/db/schema';
 /**
  * AI Semantic Evaluator Endpoint
  * Trụ Cột 3: Đa dạng hóa Tương tác Nhận thức & Đánh giá Ngữ nghĩa Súc tích (<= 2 câu)
- * Căn cứ: doc/16_PILLAR_3_COGNITIVE_INTERACTION_AND_SEMANTIC_EVALUATOR.md & doc/18_TECHNICAL_SPEC_AND_ATOMIC_IMPLEMENTATION_BLUEPRINT.md
+ * Căn cứ: planning/04_PHASE_4_COGNITIVE_SCIENCE_AND_FOUR_PILLARS.md
  */
 export async function POST(request: Request) {
   try {

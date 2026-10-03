@@ -2,7 +2,7 @@
  * Real User Monitoring (RUM) Telemetry Module
  * Thu thập các chỉ số trải nghiệm thực tế (Core Web Vitals: LCP, INP, CLS) tại máy người dùng
  * và gửi về máy chủ bằng navigator.sendBeacon để không làm nghẽn Main Thread.
- * Căn cứ: doc/performance/07-monitoring.md (Mục 3)
+ * Căn cứ: planning/06_PHASE_6_PERFORMANCE_OPTIMIZATION_AND_SRE.md (Mục 3)
  */
 
 export interface TelemetryMetricPayload {

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 /**
  * API nhận và ghi nhận chỉ số viễn thám người dùng thực tế (RUM Telemetry)
- * Căn cứ: doc/performance/07-monitoring.md (Mục 3)
+ * Căn cứ: planning/06_PHASE_6_PERFORMANCE_OPTIMIZATION_AND_SRE.md (Mục 3)
  */
 export async function POST(request: Request) {
   try {

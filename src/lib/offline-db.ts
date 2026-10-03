@@ -2,7 +2,7 @@
  * JapaneseSrsOfflineDatabase - Cơ sở dữ liệu ngoại tuyến IndexedDB (Dexie.js)
  * Cung cấp khả năng Offline-First cho phép học từ vựng khi mất mạng / đứt cáp quang biển.
  * Tự động đồng bộ hai chiều (Offline-First Sync Engine) khi thiết bị phục hồi kết nối.
- * Căn cứ: doc/performance/06-runtime-performance.md (Mục 3)
+ * Căn cứ: planning/06_PHASE_6_PERFORMANCE_OPTIMIZATION_AND_SRE.md (Mục 3)
  */
 
 import Dexie, { type Table } from 'dexie';

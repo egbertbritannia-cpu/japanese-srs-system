@@ -7,7 +7,7 @@ import { getPitchAccent } from '@/modules/japanese-nlp/pitch-lookup';
 /**
  * Sentence Mining Capture Processing API
  * Trụ Cột 4: Pipeline Thu thập Dữ liệu Tự động (Chrome Extension & Web Mining)
- * Căn cứ: doc/17_PILLAR_4_AUTOMATED_MINING_PIPELINE_AND_GAMIFICATION.md & doc/18_TECHNICAL_SPEC_AND_ATOMIC_IMPLEMENTATION_BLUEPRINT.md
+ * Căn cứ: planning/04_PHASE_4_COGNITIVE_SCIENCE_AND_FOUR_PILLARS.md
  */
 export async function POST(request: Request) {
   try {

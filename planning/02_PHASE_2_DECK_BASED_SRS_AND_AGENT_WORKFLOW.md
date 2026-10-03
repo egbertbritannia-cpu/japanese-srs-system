@@ -1,7 +1,31 @@
-# 📜 TÀI LIỆU 09: KẾ HOẠCH PHÂN TẦNG CẢI TIẾN HỆ THỐNG — ÔN TẬP THEO TỪNG BỘ THẺ (DECK-BASED SRS STUDY ARCHITECTURE)
-## Dự án: Japanese SRS System (FSRS Cognitive Spaced Repetition)
-## Cấp độ tài liệu: Master Architectural Blueprint & Stratified Execution Plan
-## Trạng thái: SẴN SÀNG THỰC THI (READY FOR AGENT EXECUTION - ZERO GUESSWORK)
+# ⛩️ GIAI ĐOẠN 2: KIẾN TRÚC ÔN TẬP PHÂN TÁCH THEO BỘ THẺ & QUY TRÌNH CỘNG TÁC ĐA AGENT
+## Hệ Thống: Japanese SRS System (記憶道 FSRS) · Bản Quy Hoạch Hợp Nhất (Consolidated Specification)
+
+> **Thông tin tổng hợp:**
+> * **Giai đoạn:** Phase 2 (Sprints 4-5)
+> * **Tệp nguồn hợp nhất:** `09_DECK_BASED_STUDY_HIERARCHICAL_PLAN.md`, `10_MULTI_ROLE_AGENT_COLLABORATION_GUIDE.md`, `SKILL_AGENT_PLAYBOOK.md` (3 tệp)
+> * **Trọng tâm kỹ thuật:** Kiến trúc phân tách bộ thẻ (Deck Segregation), URL-First Session State, Cơ chế lọc FSRS Queue, Ma trận phân định trách nhiệm 6 vai trò (BA, PM, Designer, Dev, QA, DevOps) và 8 Antigravity Skills.
+> * **Cam kết cốt lõi:** Bảo toàn tính độc lập hàng đợi ôn tập giữa Kanji, Từ vựng Kotoba, Ngữ pháp Bunbou và JLPT N5.
+
+---
+
+### 📑 MỤC LỤC TỔNG QUAN GIAI ĐOẠN 2
+1. [phần 1: kế hoạch phân tầng cải tiến hệ thống — ôn tập theo từng bộ thẻ (deck-based architecture)](#phan-1)
+2. [phần 2: cẩm nang phối hợp đa vai trò (multi-role agent collaboration guide)](#phan-2)
+3. [phần 3: cẩm nang kỹ năng đa vai trò playbook (master multi-role engineering playbook)](#phan-3)
+
+---
+
+<a id="phan-1"></a>
+# PHẦN 1: PHẦN 1: KẾ HOẠCH PHÂN TẦNG CẢI TIẾN HỆ THỐNG — ÔN TẬP THEO TỪNG BỘ THẺ (DECK-BASED ARCHITECTURE)
+*Tệp gốc: `doc\09_DECK_BASED_STUDY_HIERARCHICAL_PLAN.md`*
+
+---
+
+## 📜 TÀI LIỆU 09: KẾ HOẠCH PHÂN TẦNG CẢI TIẾN HỆ THỐNG — ÔN TẬP THEO TỪNG BỘ THẺ (DECK-BASED SRS STUDY ARCHITECTURE)
+### Dự án: Japanese SRS System (FSRS Cognitive Spaced Repetition)
+### Cấp độ tài liệu: Master Architectural Blueprint & Stratified Execution Plan
+### Trạng thái: SẴN SÀNG THỰC THI (READY FOR AGENT EXECUTION - ZERO GUESSWORK)
 
 ---
 
@@ -12,16 +36,16 @@
 
 ---
 
-# ⛩️ TẦNG 1: TỔNG QUAN CHIẾN LƯỢC, PHẠM VI (SCOPE) & GIỚI HẠN RANH GIỚI
+## ⛩️ TẦNG 1: TỔNG QUAN CHIẾN LƯỢC, PHẠM VI (SCOPE) & GIỚI HẠN RANH GIỚI
 
-### 1.1. Tuyên ngôn Mục tiêu & Bối cảnh Nhận thức (Executive Vision)
+#### 1.1. Tuyên ngôn Mục tiêu & Bối cảnh Nhận thức (Executive Vision)
 - **Thực trạng hiện tại**: Hệ thống ôn tập thẻ bài Karuta (`/review`) đang tải dữ liệu mẫu tĩnh (mock cards) hoặc gộp chung toàn bộ thẻ từ mọi nguồn một cách ngẫu nhiên. Người học không thể lựa chọn tập trung vào một bộ thẻ cụ thể (ví dụ: chỉ ôn riêng Hán tự Kanji của bài học, hoặc chỉ ôn riêng Từ vựng Kotoba).
 - **Vấn đề nhận thức (Cognitive Interference)**: Việc trộn lẫn các vùng nhận thức khác nhau (nhận diện hình thái chữ Hán tượng hình vs. phản xạ âm điệu ngữ cảnh giao tiếp) làm gia tăng hiện tượng can thiệp hồi tố (Retroactive Interference). Khi học sinh chuẩn bị kiểm tra Hán tự, việc bị chèn thẻ từ vựng hoặc ngữ pháp làm giảm hiệu suất ghi nhớ có chủ đích.
 - **Mục tiêu cải tiến**: Cung cấp cơ chế **Lựa chọn Ôn tập theo Từng Bộ Thẻ (Deck-Based Study)** song song với chế độ **Ôn tập Ngẫu nhiên Toàn bộ (Global Mixed Study)**. Người học có thể chủ động chọn học tập trung theo từng bộ thẻ từ Trang chủ (Dashboard), từ Thư viện thẻ (Cards Management), hoặc chuyển đổi linh hoạt ngay trong phiên ôn tập, với trạng thái được đồng bộ bền vững qua URL.
 
 ---
 
-### 1.2. Bảng Phân tích Hiện trạng vs Kỳ vọng (As-Is vs To-Be Gap Analysis)
+#### 1.2. Bảng Phân tích Hiện trạng vs Kỳ vọng (As-Is vs To-Be Gap Analysis)
 
 | Đặc tính hệ thống | Hiện trạng (As-Is) | Kỳ vọng sau cải tiến (To-Be) |
 | :--- | :--- | :--- |
@@ -33,7 +57,7 @@
 
 ---
 
-### 1.3. Phạm vi Công việc (In-Scope Deliverables)
+#### 1.3. Phạm vi Công việc (In-Scope Deliverables)
 1. **Thiết kế & Bổ sung Khu vực Chọn Bộ Thẻ tại Trang chủ (`src/app/page.tsx`)**:
    - Thêm Bento Grid hiển thị các bộ thẻ hiện có trong DB (Kifuda Deck Cards).
    - Hiển thị nhãn son Inkan đặc trưng (`漢` cho Kanji, `語` cho Từ vựng), số thẻ đến hạn ôn (`due`), số thẻ mới (`new`), và tổng số thẻ.
@@ -52,7 +76,7 @@
 
 ---
 
-### 1.4. Giới hạn Ranh giới & Điều cấm kỵ (Out-of-Scope / Non-Goals)
+#### 1.4. Giới hạn Ranh giới & Điều cấm kỵ (Out-of-Scope / Non-Goals)
 - ❌ **KHÔNG thay đổi cấu trúc bảng cơ sở dữ liệu**: Bảng `decks`, `cards`, `review_logs` trong `src/db/schema.ts` đã có sẵn trường `deckId` (`cards.deck_id -> decks.id`). Tuyệt đối KHÔNG sửa schema, KHÔNG migration lại DB.
 - ❌ **KHÔNG can thiệp vào công thức toán học FSRS**: Thuật toán DSR (Difficulty, Stability, Retrievability) trong `src/core/scheduler/fsrs-engine.ts` giữ nguyên vẹn 100%.
 - ❌ **KHÔNG làm thay đổi hợp đồng API hiện hữu**: Các endpoint `POST /api/review`, `POST /api/cards`, `GET /api/cards` tiếp tục hoạt động tương thích ngược 100%.
@@ -60,7 +84,7 @@
 
 ---
 
-### 1.5. Hiến chương Bảo toàn Backend (Zero-Backend-Regression Charter)
+#### 1.5. Hiến chương Bảo toàn Backend (Zero-Backend-Regression Charter)
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
 │                   ZERO-BACKEND-REGRESSION CONTRACT                     │
@@ -75,7 +99,7 @@
 
 ---
 
-### 1.6. Bộ Chỉ số Thành công & Tiêu chuẩn Hoàn thành (Definition of Done)
+#### 1.6. Bộ Chỉ số Thành công & Tiêu chuẩn Hoàn thành (Definition of Done)
 1. **Chức năng (Functionality)**: Người dùng có thể chọn học riêng bộ Hán tự (Kanji), riêng bộ Từ vựng (Kotoba), hoặc học trộn ngẫu nhiên tất cả thẻ.
 2. **Dữ liệu thực (Real Data)**: 100% thẻ hiển thị trong phiên ôn tập là thẻ thực tế từ Turso Cloud Database (không còn mock cứng).
 3. **Độ tin cậy URL (URL Determinism)**: Truy cập `/review?deck=deck_jpd133_kanji` luôn tải đúng thẻ Hán tự; F5 không mất phiên học.
@@ -84,9 +108,9 @@
 
 ---
 
-# 🏛️ TẦNG 2: PHÂN RÃ HỆ THỐNG KIẾN TRÚC & DÒNG DỮ LIỆU
+## 🏛️ TẦNG 2: PHÂN RÃ HỆ THỐNG KIẾN TRÚC & DÒNG DỮ LIỆU
 
-### 2.1. Phân rã 4 Khối Trụ Cột (The 4 Pillar Subsystems)
+#### 2.1. Phân rã 4 Khối Trụ Cột (The 4 Pillar Subsystems)
 
 ```
                                   [ HỆ THỐNG SRS TIẾNG NHẬT ]
@@ -116,7 +140,7 @@
 
 ---
 
-### 2.2. Sơ đồ Luồng Dữ Liệu Toàn Cục (End-to-End Data Flow Sequence)
+#### 2.2. Sơ đồ Luồng Dữ Liệu Toàn Cục (End-to-End Data Flow Sequence)
 
 ```mermaid
 sequenceDiagram
@@ -164,7 +188,7 @@ sequenceDiagram
 
 ---
 
-### 2.3. Máy Trạng thái Hữu hạn Phiên Học (Finite State Machine of Deck Review Session)
+#### 2.3. Máy Trạng thái Hữu hạn Phiên Học (Finite State Machine of Deck Review Session)
 
 ```mermaid
 stateDiagram-v2
@@ -201,11 +225,11 @@ stateDiagram-v2
 
 ---
 
-# 📐 TẦNG 3: ĐẶC TẢ CHI TIẾT TỪNG MODULE & HỢP ĐỒNG KỸ THUẬT
+## 📐 TẦNG 3: ĐẶC TẢ CHI TIẾT TỪNG MODULE & HỢP ĐỒNG KỸ THUẬT
 
-### 3.1. Đặc tả Điểm Chọn Bộ Thẻ tại Dashboard (`src/app/page.tsx`)
+#### 3.1. Đặc tả Điểm Chọn Bộ Thẻ tại Dashboard (`src/app/page.tsx`)
 
-#### A. Wireframe & Cấu trúc Trực quan (Bento Grid Kifuda)
+##### A. Wireframe & Cấu trúc Trực quan (Bento Grid Kifuda)
 Thay thế phần nút đơn giản trên Dashboard bằng khu vực **Danh mục Bộ thẻ Truyền thống (短冊・木札目録)**:
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
@@ -220,7 +244,7 @@ Thay thế phần nút đơn giản trên Dashboard bằng khu vực **Danh mụ
 └──────────────────────────────────────┴──────────────────────────────────────┘
 ```
 
-#### B. Thông số Phong cách (Design Specs)
+##### B. Thông số Phong cách (Design Specs)
 - **Container**: Grid `repeat(auto-fit, minmax(320px, 1fr))`, khoảng cách `1.5rem`.
 - **Thẻ Kifuda (Deck Card)**: Nền giấy Washi viền gỗ ấm áp (`border: 1.5px solid var(--washi-border)`), bóng đổ êm dịu (`box-shadow: var(--shadow-washi-md)`).
 - **Con dấu Inkan**: Con dấu vuông góc phải trên:
@@ -230,7 +254,7 @@ Thay thế phần nút đơn giản trên Dashboard bằng khu vực **Danh mụ
 
 ---
 
-### 3.2. Đặc tả Điểm Chọn & Chuyển Bộ Thẻ tại Thư Viện (`src/app/cards/page.tsx`)
+#### 3.2. Đặc tả Điểm Chọn & Chuyển Bộ Thẻ tại Thư Viện (`src/app/cards/page.tsx`)
 
 - Khi người dùng bấm chọn một nút bộ lọc Deck (ví dụ: `JPD133 - Hán Tự`), ngoài việc lọc danh sách thẻ hiển thị bên dưới, hệ thống sẽ render một **Thanh Hành Động Nhanh (Floating Quick Action Bar)** ở đầu danh sách:
   ```tsx
@@ -247,9 +271,9 @@ Thay thế phần nút đơn giản trên Dashboard bằng khu vực **Danh mụ
 
 ---
 
-### 3.3. Đặc tả URL-First Routing Contract (`/review`)
+#### 3.3. Đặc tả URL-First Routing Contract (`/review`)
 
-#### A. Định dạng Tham số Truy vấn (Query Parameters Schema)
+##### A. Định dạng Tham số Truy vấn (Query Parameters Schema)
 - `deck`:
   - Giá trị: `deck_jpd133_kanji` | `deck_jpd133_vocab` | `all` (hoặc ID bất kỳ của deck trong DB).
   - Mặc định nếu không truyền: `all`.
@@ -257,7 +281,7 @@ Thay thế phần nút đơn giản trên Dashboard bằng khu vực **Danh mụ
   - `fsrs_due` (mặc định): Chỉ ôn thẻ đến hạn (`due <= now`) kết hợp thẻ mới giới hạn.
   - `cram_all`: Ôn tập củng cố tự do toàn bộ thẻ trong Deck, không giới hạn hạn thẻ.
 
-#### B. Quy chuẩn Next.js Suspense Guard
+##### B. Quy chuẩn Next.js Suspense Guard
 Vì trang `/review` là Client Component (`'use client'`), việc sử dụng hook `useSearchParams()` bắt buộc phải được bọc trong `<Suspense>` để tránh lỗi Next.js build:
 ```tsx
 export default function ReviewPage() {
@@ -271,7 +295,7 @@ export default function ReviewPage() {
 
 ---
 
-### 3.4. Đặc tả Thuật Toán Lập Hàng Đợi Phiên Học Theo Deck (Deck Queue Priority Algorithm)
+#### 3.4. Đặc tả Thuật Toán Lập Hàng Đợi Phiên Học Theo Deck (Deck Queue Priority Algorithm)
 
 ```typescript
 /**
@@ -308,7 +332,7 @@ function buildDeckReviewQueue(allCards: CardItem[], mode = 'fsrs_due', maxNewCar
 
 ---
 
-### 3.5. Đặc tả Hợp đồng Dữ liệu & Type Definitions (TypeScript DTOs)
+#### 3.5. Đặc tả Hợp đồng Dữ liệu & Type Definitions (TypeScript DTOs)
 
 ```typescript
 // DTO thông tin tóm tắt bộ thẻ (kèm số liệu thống kê)
@@ -345,20 +369,20 @@ export interface DeckSessionResultDTO {
 
 ---
 
-# 🔨 TẦNG 4: DANH MỤC CÁC ĐƠN VỊ CÔNG VIỆC NGUYÊN TỬ (ATOMIC WORK UNITS)
+## 🔨 TẦNG 4: DANH MỤC CÁC ĐƠN VỊ CÔNG VIỆC NGUYÊN TỬ (ATOMIC WORK UNITS)
 
 > Đây là cấp độ phân rã **nguyên tử (Atomic Level - Không thể chia nhỏ hơn nữa)**. Mỗi micro-task chỉ rõ: File đích, mục tiêu kỹ thuật, mã nguồn hoặc logic thay đổi, và tiêu chí kiểm định.
 
 ---
 
-### 📦 Nhóm Micro-Task 4.1: Data Access & API Extension (Zero-Backend-Touch)
+#### 📦 Nhóm Micro-Task 4.1: Data Access & API Extension (Zero-Backend-Touch)
 
-#### Task 4.1.1: Tạo file định nghĩa Type chung cho Deck & Queue
+##### Task 4.1.1: Tạo file định nghĩa Type chung cho Deck & Queue
 - **File đích**: `src/core/cards/deck.types.ts` (File mới hoàn toàn, không đụng file cũ).
 - **Nội dung công việc**: Khai báo interface `DeckSummaryDTO`, `ReviewSessionConfigDTO`, `DeckSessionResultDTO`.
 - **Tiêu chuẩn hoàn thành**: Export sạch sẽ, không import vòng lặp, `npx tsc --noEmit` pass.
 
-#### Task 4.1.2: Cải tiến `GET /api/cards` để trả về Metadata Thống kê Deck
+##### Task 4.1.2: Cải tiến `GET /api/cards` để trả về Metadata Thống kê Deck
 - **File đích**: `src/app/api/cards/route.ts`.
 - **Nội dung công việc**:
   - Khi truy vấn `allDecks = await db.select().from(decks);`, thực hiện tính toán số thẻ `dueCards`, `newCards`, `totalCards` cho từng Deck bằng cách duyệt qua `cardList`.
@@ -376,16 +400,16 @@ export interface DeckSessionResultDTO {
 
 ---
 
-### 📦 Nhóm Micro-Task 4.2: Dashboard UI Components (`src/app/page.tsx`)
+#### 📦 Nhóm Micro-Task 4.2: Dashboard UI Components (`src/app/page.tsx`)
 
-#### Task 4.2.1: Chuyển đổi `DashboardPage` thành Client Component hoặc Fetch Data
+##### Task 4.2.1: Chuyển đổi `DashboardPage` thành Client Component hoặc Fetch Data
 - **File đích**: `src/app/page.tsx`.
 - **Nội dung công việc**:
   - Bổ sung `'use client';` và state `decks: DeckSummaryDTO[]`, `loading: boolean`.
   - Fetch dữ liệu từ `/api/cards` trong `useEffect` để lấy số lượng thẻ thực tế của từng Deck.
 - **Tiêu chuẩn hoàn thành**: Trang tải mượt mà, hiển thị Skeleton loading nhẹ trong lúc fetch.
 
-#### Task 4.2.2: Xây dựng Bento Grid Danh mục Bộ Thẻ (Kifuda Grid)
+##### Task 4.2.2: Xây dựng Bento Grid Danh mục Bộ Thẻ (Kifuda Grid)
 - **File đích**: `src/app/page.tsx`.
 - **Nội dung công việc**:
   - Thay thế phần mock cards ở giữa trang bằng section **"Lựa chọn Bộ thẻ Học tập (学習単元目録)"**.
@@ -395,7 +419,7 @@ export interface DeckSessionResultDTO {
   - Mỗi thẻ hiển thị 3 chỉ số: Thẻ cần ôn, Thẻ mới, Tổng số thẻ.
 - **Tiêu chuẩn hoàn thành**: Bấm vào nút `[🎴 Ôn tập bộ này]` sẽ điều hướng tới `/review?deck=${deck.id}`.
 
-#### Task 4.2.3: Bổ sung Nút "Ôn tập Tổng hợp Toàn bộ Thẻ"
+##### Task 4.2.3: Bổ sung Nút "Ôn tập Tổng hợp Toàn bộ Thẻ"
 - **File đích**: `src/app/page.tsx`.
 - **Nội dung công việc**:
   - Tại Hero Banner và thanh điều hướng, cập nhật nút "Bắt đầu bài học ngay" liên kết tới `/review?deck=all`.
@@ -404,9 +428,9 @@ export interface DeckSessionResultDTO {
 
 ---
 
-### 📦 Nhóm Micro-Task 4.3: Cards Management Quick-Action (`src/app/cards/page.tsx`)
+#### 📦 Nhóm Micro-Task 4.3: Cards Management Quick-Action (`src/app/cards/page.tsx`)
 
-#### Task 4.3.1: Thêm Quick Study Banner khi chọn Bộ thẻ
+##### Task 4.3.1: Thêm Quick Study Banner khi chọn Bộ thẻ
 - **File đích**: `src/app/cards/page.tsx`.
 - **Nội dung công việc**:
   - Dưới các nút bấm chọn bộ thẻ (`Tất cả`, `Hán Tự`, `Từ vựng`), nếu `selectedDeck !== 'all'`, render banner gợi ý học nhanh:
@@ -415,9 +439,9 @@ export interface DeckSessionResultDTO {
 
 ---
 
-### 📦 Nhóm Micro-Task 4.4: Review Engine & Karuta Session (`src/app/review/page.tsx`)
+#### 📦 Nhóm Micro-Task 4.4: Review Engine & Karuta Session (`src/app/review/page.tsx`)
 
-#### Task 4.4.1: Bọc Component bằng `<Suspense>` và cấu hình `useSearchParams`
+##### Task 4.4.1: Bọc Component bằng `<Suspense>` và cấu hình `useSearchParams`
 - **File đích**: `src/app/review/page.tsx`.
 - **Nội dung công việc**:
   - Tách nội dung chính vào component `ReviewSessionInner`.
@@ -425,7 +449,7 @@ export interface DeckSessionResultDTO {
   - Trích xuất `const searchParams = useSearchParams();` $\rightarrow$ `const targetDeckId = searchParams.get('deck') || 'all';`.
 - **Tiêu chuẩn hoàn thành**: Next.js không cảnh báo `useSearchParams() should be wrapped in suspense`.
 
-#### Task 4.4.2: Tích hợp Dynamic Data Fetching từ API `/api/cards`
+##### Task 4.4.2: Tích hợp Dynamic Data Fetching từ API `/api/cards`
 - **File đích**: `src/app/review/page.tsx`.
 - **Nội dung công việc**:
   - Xóa bỏ biến `cardList` tĩnh 3 thẻ (`勉強`, `桜`, `猫`).
@@ -434,7 +458,7 @@ export interface DeckSessionResultDTO {
   - Áp dụng thuật toán sắp xếp: thẻ Due lên trước, thẻ New tiếp theo.
 - **Tiêu chuẩn hoàn thành**: Phiên học hiển thị thẻ thật từ Turso DB, đúng số lượng của Deck được chọn.
 
-#### Task 4.4.3: Bổ sung Deck Header Badge & Dropdown Chuyển nhanh Bộ thẻ
+##### Task 4.4.3: Bổ sung Deck Header Badge & Dropdown Chuyển nhanh Bộ thẻ
 - **File đích**: `src/app/review/page.tsx`.
 - **Nội dung công việc**:
   - Phía trên thẻ Karuta, hiển thị nhãn son và tên bộ thẻ hiện tại:
@@ -442,7 +466,7 @@ export interface DeckSessionResultDTO {
   - Thêm nút mũi tên sổ xuống `[ Đổi bộ thẻ ▾ ]`: Khi bấm sẽ mở modal/dropdown nhẹ hiển thị các bộ thẻ khác để người học đổi ngay lập tức mà không cần thoát ra trang chủ.
 - **Tiêu chuẩn hoàn thành**: Đổi bộ thẻ trong dropdown sẽ cập nhật URL và nạp lại hàng đợi mới tương ứng.
 
-#### Task 4.4.4: Cập nhật Màn hình Kết thúc Phiên Học (Deck Completion Screen)
+##### Task 4.4.4: Cập nhật Màn hình Kết thúc Phiên Học (Deck Completion Screen)
 - **File đích**: `src/app/review/page.tsx`.
 - **Nội dung công việc**:
   - Khi hoàn thành hết số thẻ trong hàng đợi, hiển thị màn hình chúc mừng mang phong cách Thiền Wabi-Sabi:
@@ -457,27 +481,27 @@ export interface DeckSessionResultDTO {
 
 ---
 
-### 📦 Nhóm Micro-Task 4.5: Xử lý Ngoại lệ Cận biên Cực hạn (Edge Cases)
+#### 📦 Nhóm Micro-Task 4.5: Xử lý Ngoại lệ Cận biên Cực hạn (Edge Cases)
 
-#### Task 4.5.1: Xử lý Ngoại lệ URL Deck không tồn tại
+##### Task 4.5.1: Xử lý Ngoại lệ URL Deck không tồn tại
 - **File đích**: `src/app/review/page.tsx`.
 - **Logic**: Nếu `targetDeckId !== 'all'` nhưng API không tìm thấy Deck tương ứng trong database:
   - Tự động fallback về chế độ `all`.
   - Hiển thị thông báo nhỏ dạng Washi Toast: *"Không tìm thấy bộ thẻ yêu cầu, đã tự động chuyển sang chế độ Ôn tập Toàn bộ"*.
 
-#### Task 4.5.2: Xử lý Ngoại lệ Bộ thẻ có 0 thẻ (Empty Deck)
+##### Task 4.5.2: Xử lý Ngoại lệ Bộ thẻ có 0 thẻ (Empty Deck)
 - **File đích**: `src/app/review/page.tsx`.
 - **Logic**: Nếu Deck được chọn hoàn toàn chưa có thẻ nào:
   - Hiển thị Empty State vẽ tranh mực thủy mặc Sumi-e: *"Bộ thẻ này hiện chưa có thẻ học nào"*.
   - Nút bấm trực tiếp: `[✨ Nhờ AI soạn thẻ cho bộ này]` dẫn tới `/cards/new?deck=${targetDeckId}`.
 
-#### Task 4.5.3: Xử lý Ngoại lệ Hết thẻ đến hạn (`due > now`)
+##### Task 4.5.3: Xử lý Ngoại lệ Hết thẻ đến hạn (`due > now`)
 - **File đích**: `src/app/review/page.tsx`.
 - **Logic**: Nếu tất cả các thẻ trong Deck đều chưa đến hạn ôn:
   - Hiển thị màn hình: *"Tuyệt vời! Bạn đã hoàn thành toàn bộ thẻ cần ôn hôm nay của bộ thẻ này."*.
   - Nút bấm: `[🔥 Kích hoạt Ôn tập Củng cố (Cramming Mode)]` để ôn lại toàn bộ thẻ mà không làm thay đổi lịch ngắt quãng FSRS.
 
-#### Task 4.5.4: Xử lý Mất kết nối Mạng giữa chừng (Offline Graceful Degradation)
+##### Task 4.5.4: Xử lý Mất kết nối Mạng giữa chừng (Offline Graceful Degradation)
 - **File đích**: `src/app/review/page.tsx`.
 - **Logic**: Khi người học bấm nút chấm điểm (Again/Hard/Good/Easy) mà `fetch('/api/review')` thất bại (do rớt mạng hoặc Turso timeout):
   - Hệ thống lưu tạm payload `{ cardId, rating, timestamp }` vào `localStorage['pending_reviews']`.
@@ -486,9 +510,9 @@ export interface DeckSessionResultDTO {
 
 ---
 
-# 🧪 TẦNG 5: MA TRẬN KIỂM THỬ NGUYÊN TỬ & TIÊU CHUẨN NGHIỆM THU
+## 🧪 TẦNG 5: MA TRẬN KIỂM THỬ NGUYÊN TỬ & TIÊU CHUẨN NGHIỆM THU
 
-### 5.1. Bảng Ma trận Kiểm thử Đơn vị & Tích hợp (Test Matrix)
+#### 5.1. Bảng Ma trận Kiểm thử Đơn vị & Tích hợp (Test Matrix)
 
 | Test ID | Kịch bản Kiểm thử | Đầu vào (Inputs) | Kết quả Kỳ vọng (Expected Outputs) | Đánh giá |
 | :--- | :--- | :--- | :--- | :--- |
@@ -507,9 +531,9 @@ export interface DeckSessionResultDTO {
 
 ---
 
-### 5.2. Kịch bản Thẩm định Luồng Người dùng Thủ công (Clickstream Walkthrough)
+#### 5.2. Kịch bản Thẩm định Luồng Người dùng Thủ công (Clickstream Walkthrough)
 
-#### Kịch bản 1: Học sinh ôn tập chuyên sâu Hán Tự chuẩn bị kiểm tra
+##### Kịch bản 1: Học sinh ôn tập chuyên sâu Hán Tự chuẩn bị kiểm tra
 1. Học sinh mở trang chủ `http://localhost:3000`.
 2. Học sinh cuộn xuống khu vực **"Lựa chọn Bộ thẻ Học tập"**, nhìn thấy thẻ gỗ `JPD133 - Hán Tự Đã Học` có nhãn `12 thẻ cần ôn`.
 3. Học sinh bấm nút `[🎴 Ôn tập bộ Hán Tự này]`.
@@ -519,7 +543,7 @@ export interface DeckSessionResultDTO {
 7. Học sinh bấm phím số `3` (Good) $\rightarrow$ Thẻ tiếp theo xuất hiện mượt mà.
 8. Sau khi hoàn thành hết các thẻ Hán tự, màn hình Daruma 100% xuất hiện chúc mừng.
 
-#### Kịch bản 2: Học sinh học tổng hợp ngẫu nhiên hàng ngày
+##### Kịch bản 2: Học sinh học tổng hợp ngẫu nhiên hàng ngày
 1. Học sinh mở trang chủ.
 2. Tại Hero Banner sóng Seigaiha Matcha, học sinh bấm `[Bắt đầu bài học ngay]`.
 3. Trình duyệt mở `/review?deck=all`.
@@ -527,7 +551,7 @@ export interface DeckSessionResultDTO {
 
 ---
 
-### 5.3. Checklist Kiểm thử Tự động CLI (Verification Commands)
+#### 5.3. Checklist Kiểm thử Tự động CLI (Verification Commands)
 
 Agent sau khi triển khai chỉ cần chạy 3 lệnh sau theo thứ tự:
 
@@ -544,5 +568,245 @@ npm run build
 
 ---
 
-# 🎌 BẢN KẾ HOẠCH NÀY ĐÃ SẴN SÀNG 100% CHO VIỆC TRIỂN KHAI
+## 🎌 BẢN KẾ HOẠCH NÀY ĐÃ SẴN SÀNG 100% CHO VIỆC TRIỂN KHAI
 *Mọi đặc tả đã được định nghĩa chi tiết ở cấp độ nguyên tử. Agent tiếp nhận có thể bắt đầu thi công từng Micro-Task trong Nhóm 4.1 $\rightarrow$ 4.5 mà không cần phải giả định hay suy đoán thêm.*
+
+---
+
+
+<a id="phan-2"></a>
+# PHẦN 2: PHẦN 2: CẨM NANG PHỐI HỢP ĐA VAI TRÒ (MULTI-ROLE AGENT COLLABORATION GUIDE)
+*Tệp gốc: `doc\10_MULTI_ROLE_AGENT_COLLABORATION_GUIDE.md`*
+
+---
+
+## 👥 TÀI LIỆU 10: CẨM NANG PHỐI HỢP ĐA VAI TRÒ (MULTI-ROLE AGENT COLLABORATION PLAYBOOK)
+### Dự án: Japanese SRS System (FSRS Cognitive Spaced Repetition)
+### Cấp độ: Master Engineering Lifecycle & Role Interaction Standard
+### Phiên bản: 2.0.0 (Enterprise Multi-Agent Edition)
+
+---
+
+> [!IMPORTANT]
+> Tài liệu này chuẩn hóa toàn bộ quy trình cộng tác giữa **6 Vai trò Kỹ thuật Phần mềm Chuyên biệt (Roles)** trong hệ sinh thái Japanese SRS System:
+> 1. **Business Analyst (BA)**: Chuyên gia Phân tích Nghiệp vụ & Sư phạm Tiếng Nhật
+> 2. **Project Manager (PM)**: Quản lý Dự án & Điều phối viên Sprint Phân tầng
+> 3. **UI/UX Designer**: Kiến trúc sư Thiết kế Trải nghiệm & Mỹ học Wa-Style
+> 4. **Fullstack Software Engineer (Dev)**: Kỹ sư Phần mềm Next.js 15, Drizzle & FSRS
+> 5. **Quality Assurance (QA / Tester)**: Kỹ sư Đảm bảo Chất lượng & Kiểm thử Tự động
+> 6. **DevOps & Site Reliability Engineer (SRE)**: Kỹ sư Vận hành Đám mây Vercel & Turso
+
+---
+
+### 1. MA TRẬN VAI TRÒ & VỊ TRÍ LƯU TRỮ SKILL (ROLE REPOSITORY MATRIX)
+
+| Role | Mã định danh Skill | Đường dẫn SKILL.md | Trách nhiệm then chốt |
+| :--- | :--- | :--- | :--- |
+| **BA** | `japanese-srs-business-analyst` | [`.agents/skills/japanese-srs-business-analyst/SKILL.md`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-business-analyst/SKILL.md) | Chuyển hóa mục tiêu sư phạm Nhật ngữ (JLPT N5-N1, Joyo Kanji, Krashen $i+1$) thành BDD/Gherkin User Stories; bảo đảm nguyên tắc Thông tin Tối thiểu (Atomicity). |
+| **PM** | `japanese-srs-project-manager` | [`.agents/skills/japanese-srs-project-manager/SKILL.md`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-project-manager/SKILL.md) | Lập cấu trúc phân rã công việc (WBS) 5 tầng; kiểm soát ranh giới phạm vi (Scope Invariance); thực thi Zero-Backend-Regression; chốt cổng phát hành (Release Gate). |
+| **Designer**| `japanese-srs-uiux-designer` | [`.agents/skills/japanese-srs-uiux-designer/SKILL.md`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-uiux-designer/SKILL.md) | Thẩm mỹ Wa-Style truyền thống (Wabi-Sabi, Ma, Kanso); bảng màu Nippon Colors; họa tiết Wagara thuần Vector SVG; chuyển động Karuta 3D và Daruma 60 FPS. |
+| **Dev** | `japanese-srs-fullstack-engineer`| [`.agents/skills/japanese-srs-fullstack-engineer/SKILL.md`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-fullstack-engineer/SKILL.md) | Lập trình Next.js 15 App Router; bọc Suspense cho searchParams; tối ưu hóa Turso HTTPS REST cho Vercel Serverless; tích hợp FSRS engine và Web Speech API. |
+| **QA** | `japanese-srs-qa-engineer` | [`.agents/skills/japanese-srs-qa-engineer/SKILL.md`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-qa-engineer/SKILL.md) | Kiểm chứng bất biến toán học FSRS (Monotonicity, Lapse Bounds); viết test suite Vitest; mô phỏng kịch bản clickstream người dùng; kiểm thử tình huống biên (Edge Cases). |
+| **DevOps** | `japanese-srs-devops-sre` | [`.agents/skills/japanese-srs-devops-sre/SKILL.md`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-devops-sre/SKILL.md) | Cấu hình biến môi trường Vercel; đồng bộ dữ liệu Turso Cloud (`sync-turso.ts`); giám sát đường truyền `/api/health`; xử lý timeout và EROFS serverless. |
+
+---
+
+### 2. VÒNG ĐỜI PHỐI HỢP ĐA VAI TRÒ (END-TO-END COLLABORATION LIFECYCLE)
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as 👤 Người dùng / Product Owner
+    participant BA as 📜 Business Analyst
+    participant PM as ⛩️ Project Manager
+    participant Designer as 🎨 UI/UX Designer
+    participant Dev as 💻 Fullstack Engineer
+    participant QA as 🧪 QA Engineer
+    participant DevOps as ⚙️ DevOps / SRE
+
+    User->>BA: Yêu cầu tính năng mới (Feature Request)
+    activate BA
+    BA->>BA: Phân tích sư phạm, FSRS, kiểm tra Atomicity
+    BA->>PM: Bàn giao BDD User Stories & Gherkin Scenarios
+    deactivate BA
+
+    activate PM
+    PM->>PM: Thiết lập WBS 5 tầng & Ký Scope Invariance Charter
+    PM->>Designer: Giao nhiệm vụ Thiết kế Giao diện Wa-Style
+    PM->>Dev: Giao nhiệm vụ Kiến trúc Mã nguồn & Routing
+    deactivate PM
+
+    activate Designer
+    Designer->>Designer: Thiết lập Design Tokens, Wagara SVGs, Karuta UI
+    Designer-->>Dev: Bàn giao Specs CSS, Token Nippon Colors & Component Wireframes
+    deactivate Designer
+
+    activate Dev
+    Dev->>Dev: Viết mã nguồn Next.js 15, Drizzle ORM, Suspense, Web Speech
+    Dev->>Dev: Tự kiểm định npx tsc --noEmit
+    Dev-->>QA: Bàn giao nhánh tính năng (Ready for Verification)
+    deactivate Dev
+
+    activate QA
+    QA->>QA: Chạy Vitest Suites, FSRS Invariants, Edge Cases EC-01..n
+    QA->>QA: Mô phỏng Clickstream thủ công
+    alt Có lỗi phát sinh
+        QA->>Dev: Gửi Báo cáo Lỗi (Bug Report with RCA)
+        Dev->>Dev: Sửa lỗi & hoàn trả
+    end
+    QA-->>PM: Ký biên bản Nghiệm thu Kiểm thử (QA Signoff)
+    deactivate QA
+
+    activate PM
+    PM->>DevOps: Kích hoạt Quy trình Phát hành (Release Protocol)
+    deactivate PM
+
+    activate DevOps
+    DevOps->>DevOps: Kiểm tra biến môi trường Vercel, Turso Latency, /api/health
+    DevOps->>DevOps: Thực hiện npx tsc, npm run test, npm run build
+    DevOps->>DevOps: Push git to origin main & Theo dõi Vercel Deployment
+    DevOps-->>User: Thông báo Triển khai Thành công (Production Live)
+    deactivate DevOps
+```
+
+---
+
+### 3. GIAO THỨC BÀN GIAO CHI TIẾT GIỮA CÁC VAI TRÒ (HANDOFF PROTOCOLS)
+
+#### Giao thức 1: BA $\rightarrow$ PM (Definition of Ready Handoff)
+- **Tài liệu bàn giao**: File PRD / User Story theo chuẩn Gherkin.
+- **Tiêu chí nghiệm thu bàn giao (Checklist)**:
+  - [ ] Có đầy đủ 3 kịch bản Gherkin: Happy Path, Edge Case, và Network Failure.
+  - [ ] Đã xác nhận không vi phạm nguyên tắc Thông tin tối thiểu (Atomicity).
+  - [ ] Đã chỉ rõ định dạng trọng âm Tokyo Pitch Accent và phiên âm Furigana.
+
+#### Giao thức 2: PM $\rightarrow$ Designer & Dev (Sprint Kickoff Handoff)
+- **Tài liệu bàn giao**: Kế hoạch phân tầng WBS (Level 1 $\rightarrow$ Level 5) kèm Scope Charter.
+- **Tiêu chí nghiệm thu bàn giao (Checklist)**:
+  - [ ] Scope được đóng khung rõ ràng: Danh sách In-Scope và Out-of-Scope (Non-Goals).
+  - [ ] Khẳng định ranh giới Zero-Backend-Regression: Schema DB và API contracts giữ nguyên.
+  - [ ] Chia nhỏ từng task đến mức micro-task nguyên tử (file nào, hàm nào, prop nào).
+
+#### Giao thức 3: Designer $\rightarrow$ Dev (Design Specs Handoff)
+- **Tài liệu bàn giao**: Mã CSS Data URI họa tiết Wagara, bảng màu biến CSS, keyframe animations.
+- **Tiêu chí nghiệm thu bàn giao (Checklist)**:
+  - [ ] 100% họa tiết là Vector Data URI (không dùng ảnh PNG/JPG nặng nề).
+  - [ ] Phông chữ chỉ định đúng: `Shippori Mincho` cho Hán tự, `Zen Maru Gothic` cho điều hướng.
+  - [ ] Đảm bảo độ tương phản chữ đạt chuẩn WCAG 2.1 AA.
+
+#### Giao thức 4: Dev $\rightarrow$ QA (Feature Ready for Test)
+- **Tài liệu bàn giao**: Mã nguồn sạch, types rõ ràng, vượt qua `npx tsc --noEmit`.
+- **Tiêu chí nghiệm thu bàn giao (Checklist)**:
+  - [ ] Component dùng `useSearchParams()` đã được bọc an toàn trong `<Suspense>`.
+  - [ ] URL Turso trong `src/db/client.ts` được chuẩn hóa HTTPS.
+  - [ ] Không có `any` thoát kiểu trong TypeScript.
+
+#### Giao thức 5: QA $\rightarrow$ PM (Quality Signoff)
+- **Tài liệu bàn giao**: Báo cáo kết quả chạy `npm run test` (Vitest), bảng kết quả 12 Test Cases.
+- **Tiêu chí nghiệm thu bàn giao (Checklist)**:
+  - [ ] 100% bài kiểm tra Vitest vượt qua.
+  - [ ] Các bất biến toán học của FSRS được bảo toàn.
+  - [ ] Toàn bộ tình huống biên (EC-01 đến EC-06) đã được thẩm định.
+
+#### Giao thức 6: PM $\rightarrow$ DevOps (Production Release Deployment)
+- **Tài liệu bàn giao**: Commit sạch trên git, sẵn sàng cho production build.
+- **Tiêu chí nghiệm thu bàn giao (Checklist)**:
+  - [ ] `npm run build` kết thúc với exit code 0.
+  - [ ] Endpoint `/api/health` phản hồi `status: "healthy"` với độ trễ Turso $< 50\text{ms}$.
+  - [ ] Vercel Dashboard đã nạp đủ các biến môi trường Production.
+
+---
+
+### 4. QUY TẮC CHUYỂN ĐỔI VAI TRÒ DÀNH CHO AGENT ĐỘC LẬP (SOLO AGENT MULTI-ROLE MODES)
+
+Khi một AI Agent hoạt động độc lập (pair-programming với người dùng), Agent cần tự giác **luân chuyển tâm thế và bộ kỹ năng (Mental Modes)** theo thứ tự:
+
+1. **Khi tiếp nhận yêu cầu mới**: Kích hoạt kỹ năng **`japanese-srs-business-analyst`** để chất vấn và làm rõ yêu cầu, viết User Story Gherkin.
+2. **Trước khi chạm vào code**: Kích hoạt kỹ năng **`japanese-srs-project-manager`** để thiết lập WBS phân tầng, xác định ranh giới Scope và cấm kỵ.
+3. **Khi thiết kế giao diện**: Kích hoạt kỹ năng **`japanese-srs-uiux-designer`** để lựa chọn token Nippon Colors và họa tiết Wagara.
+4. **Khi gõ mã nguồn**: Kích hoạt kỹ năng **`japanese-srs-fullstack-engineer`** để viết code TypeScript sạch sẽ, bọc Suspense, query Drizzle.
+5. **Sau khi viết code**: Kích hoạt kỹ năng **`japanese-srs-qa-engineer`** để chạy `npx tsc --noEmit`, `npm run test` và rà soát tình huống biên.
+6. **Trước khi bàn giao kết quả**: Kích hoạt kỹ năng **`japanese-srs-devops-sre`** để chạy `npm run build`, push git và đối soát sức khỏe deployment.
+
+---
+
+
+<a id="phan-3"></a>
+# PHẦN 3: PHẦN 3: CẨM NANG KỸ NĂNG ĐA VAI TRÒ PLAYBOOK (MASTER MULTI-ROLE ENGINEERING PLAYBOOK)
+*Tệp gốc: `doc\SKILL_AGENT_PLAYBOOK.md`*
+
+---
+
+## 🧠 TÀI LIỆU KỸ NĂNG: MASTER AGENT SKILL PLAYBOOK (MULTI-ROLE EDITION)
+### Dự án: Japanese SRS System (FSRS Spaced Repetition)
+### Thư mục Skills Antigravity: [`.agents/skills/`](file:///D:/project/japanese-srs-system/.agents/skills/)
+### Phiên bản: 2.0.0 (Toàn diện Đa Vai trò / Full Engineering Lifecycle)
+
+---
+
+#### 1. TỔNG QUAN HỆ THỐNG KỸ NĂNG ĐA VAI TRÒ (MULTI-ROLE SKILL SUITE)
+Để biến Agent từ một trợ lý lập trình thông thường thành một **Tổ hợp Kỹ thuật Phần mềm Độc lập, Chuyên nghiệp và Tinh nhuệ**, hệ thống đã thiết lập 8 kỹ năng Antigravity chuyên sâu cho toàn bộ các vai trò trong vòng đời phát triển phần mềm EdTech tiếng Nhật:
+
+```
+                                [ TOÀN BỘ VÒNG ĐỜI KỸ THUẬT PHẦN MỀM ]
+                                                   │
+        ┌───────────────┬──────────────────────────┼──────────────────────────┬───────────────┐
+        ▼               ▼                          ▼                          ▼               ▼
+   [ ROLE 1: BA ]  [ ROLE 2: PM ]           [ ROLE 3: DESIGNER ]       [ ROLE 4: DEV ]   [ ROLE 5 & 6 ]
+   Business        Project                  UI/UX Wa-Style             Fullstack         QA Engineer &
+   Analyst         Manager                  Architect                  Engineer          DevOps / SRE
+   (Nghiệp vụ      (Quản lý dự án           (Mỹ học Nhật Bản           (Lập trình        (Kiểm thử &
+    Sư phạm Nhật)   & WBS 5 tầng)            & Nippon Colors)           Next.js & FSRS)   Vận hành Cloud)
+```
+
+---
+
+#### 2. CHI TIẾT DANH MỤC 8 SKILLS VÀ ĐƯỜNG DẪN TRỰC TIẾP
+
+##### 1. Business Analyst (BA) — [`japanese-srs-business-analyst`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-business-analyst/SKILL.md)
+- **Tập trung**: Phân tích sư phạm tiếng Nhật (JLPT N5-N1, Joyo Kanji, Krashen $i+1$, Furigana Ruby, Tokyo Pitch Accent), mô hình trí nhớ FSRS DSR, viết User Stories và kịch bản nghiệm thu BDD/Gherkin (`Given-When-Then`), bảo vệ nguyên tắc Thông tin tối thiểu (Minimum Information Principle).
+
+##### 2. Project Manager (PM) — [`japanese-srs-project-manager`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-project-manager/SKILL.md)
+- **Tập trung**: Phân rã cấu trúc công việc WBS 5 tầng (từ Tầm nhìn vĩ mô đến Micro-tasks nguyên tử), ký cam kết ranh giới Scope (Scope Invariance Charter), giám sát ranh giới Zero-Backend-Regression, quản trị rủi ro serverless và chốt cổng phát hành (Release Gatekeeping).
+
+##### 3. UI/UX Designer — [`japanese-srs-uiux-designer`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-uiux-designer/SKILL.md)
+- **Tập trung**: Mỹ học truyền thống Wa-Style (Wabi-Sabi, Ma, Kanso), bảng màu Nippon Colors (Matcha, Torii, Sakura, Yamabuki, Asagi), họa tiết Wagara thuần Vector SVG (Seigaiha, Asanoha, Yagasuri), font chữ `Shippori Mincho` và `Zen Maru Gothic`, micro-interactions 60 FPS (Karuta 3D flip, Inkan stamp, Daruma mascot).
+
+##### 4. Fullstack Software Engineer — [`japanese-srs-fullstack-engineer`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-fullstack-engineer/SKILL.md)
+- **Tập trung**: Lập trình Next.js 15 App Router, kỹ thuật bọc Suspense cho `useSearchParams()`, truy vấn Drizzle ORM, tối ưu hóa Turso Cloud HTTPS REST cho Vercel Serverless (chống lỗi WebSocket và EROFS), triển khai FSRS engine, và Web Speech API tiếng Nhật.
+
+##### 5. Quality Assurance (QA) — [`japanese-srs-qa-engineer`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-qa-engineer/SKILL.md)
+- **Tập trung**: Kiểm thử bất biến toán học FSRS (Monotonicity, Lapse Bounds, Interval Ordering), viết test suite Vitest, mô phỏng kịch bản clickstream người dùng (Spacebar flip, 1-4 hotkeys), và ma trận kiểm thử tình huống biên (Empty Deck, corrupt pitch, rớt mạng offline).
+
+##### 6. DevOps & SRE — [`japanese-srs-devops-sre`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-devops-sre/SKILL.md)
+- **Tập trung**: Quản trị biến môi trường Vercel (Production/Preview/Dev), tối ưu hóa độ trễ Turso Cloud AWS Tokyo ($< 25\text{ms}$), giám sát endpoint `/api/health`, xử lý sự cố serverless (504 timeout, EROFS), và script đồng bộ dữ liệu `scripts/sync-turso.ts`.
+
+##### 7. Master Craftsman — [`japanese-srs-craftsman`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-craftsman/SKILL.md)
+- **Tập trung**: Kỹ năng nghệ nhân tổng hợp chi phối toàn bộ giao diện và linh hồn văn hóa Nhật Bản trong toàn dự án.
+
+##### 8. Deck Orchestrator — [`japanese-srs-deck-orchestrator`](file:///D:/project/japanese-srs-system/.agents/skills/japanese-srs-deck-orchestrator/SKILL.md)
+- **Tập trung**: Kỹ năng nghiệp vụ điều phối hàng đợi FSRS theo từng bộ thẻ, phân tách nhận thức (Cognitive Segregation) giữa Hán tự và Từ vựng, kiến trúc URL-First và mỹ học thẻ gỗ Kifuda.
+
+---
+
+#### 3. QUY TRÌNH PHỐI HỢP LIÊN VAI TRÒ (COLLABORATION PROTOCOL)
+Để tìm hiểu sâu hơn về sơ đồ tuần tự (Sequence Diagram), ma trận trách nhiệm RACI và giao thức bàn giao chi tiết giữa từng vai trò, hãy tham khảo tài liệu:
+👉 **[`doc/10_MULTI_ROLE_AGENT_COLLABORATION_GUIDE.md`](file:///D:/project/japanese-srs-system/doc/10_MULTI_ROLE_AGENT_COLLABORATION_GUIDE.md)**
+
+---
+
+#### 4. QUY CHUẨN KIỂM ĐỊNH TỰ ĐỘNG BẮT BUỘC TRƯỚC MỌI COMMIT
+Bất kỳ vai trò nào (đặc biệt là Dev, QA, và DevOps) trước khi kết thúc tác vụ hoặc tạo git commit đều bắt buộc phải chạy bộ 3 lệnh kiểm định:
+
+```bash
+# 1. Kiểm tra an toàn kiểu dữ liệu TypeScript
+npx tsc --noEmit
+
+# 2. Chạy toàn bộ Test Suites Vitest (19/19 tests)
+npm run test
+
+# 3. Biên dịch Production Build của Next.js
+npm run build
+```
+
+---
