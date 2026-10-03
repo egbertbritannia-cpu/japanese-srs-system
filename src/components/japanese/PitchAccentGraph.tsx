@@ -12,9 +12,14 @@ interface PitchAccentGraphProps {
  * Giúp người học ghi nhớ trực quan âm vực cao/thấp của từng âm tiết (Mora)
  */
 export function PitchAccentGraph({ reading, pattern }: PitchAccentGraphProps) {
+  // Chỉ vẽ đồ thị cao độ nếu chuỗi là từ đơn thuần Kana (Hiragana / Katakana), không chứa ký tự đặc biệt, dấu phẩy, ngoặc đơn
+  const trimmed = reading ? reading.trim() : '';
+  const isPureKanaWord = /^[\u3040-\u309F\u30A0-\u30FF\u30FC]+$/.test(trimmed);
+  if (!trimmed || !isPureKanaWord) return null;
+
   // Tách các mora cơ bản (xử lý âm ghép ゃ, ゅ, ょ, ゎ)
   const moras: string[] = [];
-  const chars = Array.from(reading);
+  const chars = Array.from(trimmed);
   for (let i = 0; i < chars.length; i++) {
     const char = chars[i];
     const next = chars[i + 1];

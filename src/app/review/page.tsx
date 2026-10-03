@@ -9,6 +9,7 @@ import { PitchAccentGraph } from '@/components/japanese/PitchAccentGraph';
 import { JapaneseSpeakerButton } from '@/components/japanese/JapaneseSpeakerButton';
 import { japaneseAudio } from '@/components/japanese/AudioEffects';
 import { parseClozeSegments, stripCloze } from '@/lib/cloze';
+import { parseCardDetails } from '@/lib/reading-parser';
 import { DarumaMascot } from '@/components/japanese/DarumaMascot';
 import { JapaneseArtBackdrop } from '@/components/art/JapaneseArtBackdrop';
 import { useFsrsScheduler } from '@/hooks/useFsrsScheduler';
@@ -829,148 +830,434 @@ function ReviewSessionContent() {
             {showAnswer ? '解答' : '出題'}
           </div>
 
-          {/* MẶT TRƯỚC: CHỮ KANJI VÀ CÁCH ĐỌC HIRAGANA */}
-          <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.35rem', marginBottom: '0.75rem' }}>
-            {/* 1. Dòng Hiragana cách đọc ở mặt trước */}
-            {currentCard.reading && currentCard.reading !== currentCard.kanji && (
-              <div
-                style={{
-                  fontFamily: 'var(--font-maru)',
-                  fontSize: '1.65rem',
-                  fontWeight: 700,
-                  color: '#B87B28',
-                  letterSpacing: '0.06em',
-                  background: 'rgba(200, 155, 88, 0.1)',
-                  padding: '0.2rem 1.15rem',
-                  borderRadius: '999px',
-                  border: '1.2px solid rgba(200, 155, 88, 0.28)',
-                  boxShadow: '0 2px 6px rgba(18, 36, 56, 0.04)',
-                }}
-              >
-                {currentCard.reading}
-              </div>
-            )}
+          {/* PARSED CARD DETAILS HELPER */}
+          {(() => {
+            const parsedCard = currentCard
+              ? parseCardDetails({
+                  type: currentCard.type,
+                  reading: currentCard.reading,
+                  meaning: currentCard.meaning,
+                  kanji: currentCard.kanji,
+                  deckName: currentCard.deckName,
+                  sentence: currentCard.sentence,
+                })
+              : null;
 
-            {/* 2. Chữ Hán Thư pháp Lớn */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <div
-                style={{
-                  fontFamily: 'var(--font-mincho)',
-                  fontSize: '4.5rem',
-                  fontWeight: 900,
-                  color: '#122438',
-                  letterSpacing: '0.04em',
-                  textShadow: '0 2px 4px rgba(0, 0, 0, 0.06)',
-                }}
-              >
-                {currentCard.kanji}
-              </div>
-              <JapaneseSpeakerButton text={currentCard.kanji} size={24} />
-            </div>
+            return (
+              <>
+                {/* MẶT TRƯỚC: CHỮ KANJI VÀ CÁCH ĐỌC */}
+                <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.45rem', marginBottom: '0.75rem', width: '100%' }}>
+                  {/* 1. Dòng Hiragana cách đọc ở mặt trước (chỉ dành cho Thẻ từ vựng Kotoba/N5, không hiện cho Thẻ Kanji để giữ nguyên Active Recall) */}
+                  {!parsedCard?.isKanji && currentCard.reading && currentCard.reading !== currentCard.kanji && (
+                    <div
+                      style={{
+                        fontFamily: 'var(--font-maru)',
+                        fontSize: '1.75rem',
+                        fontWeight: 800,
+                        color: '#9C6818',
+                        letterSpacing: '0.06em',
+                        background: 'rgba(200, 155, 88, 0.12)',
+                        padding: '0.25rem 1.25rem',
+                        borderRadius: '999px',
+                        border: '1.5px solid rgba(200, 155, 88, 0.32)',
+                        boxShadow: '0 2px 8px rgba(18, 36, 56, 0.04)',
+                      }}
+                    >
+                      {parsedCard?.pureReading || currentCard.reading}
+                    </div>
+                  )}
 
-            {/* 3. Huy hiệu phân biệt thể loại: Hán Tự (Kanji), Từ Vựng (Kotoba) hoặc JLPT N5 */}
-            <div
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.35rem',
-                marginTop: '0.15rem',
-                padding: '0.2rem 0.65rem',
-                borderRadius: '999px',
-                fontSize: '0.75rem',
-                fontFamily: 'var(--font-maru)',
-                fontWeight: 700,
-                background: isKanji ? '#FDF2F0' : targetDeckId === 'deck_n5' ? '#F0F9F2' : '#EDF4FA',
-                color: isKanji ? '#C83824' : targetDeckId === 'deck_n5' ? '#2A6B3D' : '#1E4B75',
-                border: `1px solid ${isKanji ? '#F5C6CB' : targetDeckId === 'deck_n5' ? '#C2E5CC' : '#B8D5E5'}`,
-              }}
-            >
-              {isKanji ? '🈳 Hán Tự (Kanji)' : targetDeckId === 'deck_n5' ? '🔰 Từ vựng JLPT N5' : '📖 Từ vựng Kotoba'}
-            </div>
-          </div>
+                  {/* 2. Chữ Hán Thư pháp Lớn */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+                    <div
+                      style={{
+                        fontFamily: 'var(--font-mincho)',
+                        fontSize: '4.8rem',
+                        fontWeight: 900,
+                        color: '#0F172A',
+                        letterSpacing: '0.04em',
+                        textShadow: '0 2px 8px rgba(18, 36, 56, 0.08)',
+                        lineHeight: 1.15,
+                      }}
+                    >
+                      {currentCard.kanji}
+                    </div>
+                    <JapaneseSpeakerButton text={currentCard.kanji} size={26} />
+                  </div>
 
-          {/* MẶT SAU: LẬT MỞ NỘI DUNG FURIGANA & Ý NGHĨA KHI BẤM XEM */}
-          {showAnswer ? (
-            <div
-              style={{
-                position: 'relative',
-                zIndex: 2,
-                width: '100%',
-                marginTop: '1rem',
-                paddingTop: '1.25rem',
-                borderTop: '1px solid #E8E0D2',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '0.85rem',
-                alignItems: 'center',
-                animation: 'fadeIn 0.3s ease forwards',
-              }}
-            >
-              {/* Đồ thị cao độ ngữ âm Tokyo Pitch Accent (nếu có reading) */}
-              {currentCard.reading && (
-                <div
-                  style={{
-                    background: 'rgba(255, 255, 255, 0.95)',
-                    padding: '0.75rem 1.25rem',
-                    borderRadius: '10px',
-                    border: '1px solid #E8E0D2',
-                    boxShadow: '0 2px 6px rgba(18, 36, 56, 0.04)',
-                  }}
-                >
-                  <PitchAccentGraph
-                    reading={currentCard.reading}
-                    pattern={getPitchPattern(currentCard.pitch)}
-                  />
-                </div>
-              )}
+                  {/* 3. Huy hiệu phân loại & Âm Hán Việt */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '0.25rem' }}>
+                    {/* Âm Hán Việt khi đã mở đáp án */}
+                    {showAnswer && parsedCard?.hanViet && (
+                      <div
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.35rem',
+                          background: 'linear-gradient(135deg, #FFF1F0 0%, #FFEBE8 100%)',
+                          border: '1.5px solid #F5C6CB',
+                          color: '#C83824',
+                          padding: '0.25rem 0.95rem',
+                          borderRadius: '999px',
+                          fontSize: '0.88rem',
+                          fontFamily: 'var(--font-mincho)',
+                          fontWeight: 800,
+                          letterSpacing: '0.06em',
+                          boxShadow: '0 2px 6px rgba(200, 56, 36, 0.08)',
+                        }}
+                      >
+                        漢 Âm Hán: {parsedCard.hanViet}
+                      </div>
+                    )}
 
-              {/* Ý nghĩa tiếng Việt */}
-              <div style={{ fontSize: '1.3rem', fontWeight: 800, color: '#122438', fontFamily: 'var(--font-maru)' }}>
-                {currentCard.meaning}
-              </div>
-
-              {/* Câu ví dụ ngữ cảnh i+1 (nếu có) */}
-              {currentCard.sentence && (
-                <div
-                  style={{
-                    width: '100%',
-                    background: 'rgba(255, 255, 255, 0.92)',
-                    padding: '0.85rem 1.25rem',
-                    borderRadius: '10px',
-                    border: '1px solid #E8E0D2',
-                    textAlign: 'left',
-                  }}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '0.98rem', color: '#122438', fontFamily: 'var(--font-mincho)', fontWeight: 600 }}>
-                      {parseClozeSegments(currentCard.sentence).map((seg, i) =>
-                        seg.isCloze ? (
-                          <span
-                            key={i}
-                            style={{
-                              fontWeight: 800,
-                              color: '#1F2421',
-                              borderBottom: '2px solid #88A752',
-                              paddingBottom: '1px',
-                            }}
-                          >
-                            {seg.text}
-                          </span>
-                        ) : (
-                          <span key={i}>{seg.text}</span>
-                        )
-                      )}
-                    </span>
-                    <JapaneseSpeakerButton text={stripCloze(currentCard.sentence)} size={18} />
+                    {/* Huy hiệu thể loại thẻ */}
+                    <div
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.35rem',
+                        padding: '0.25rem 0.85rem',
+                        borderRadius: '999px',
+                        fontSize: '0.78rem',
+                        fontFamily: 'var(--font-maru)',
+                        fontWeight: 700,
+                        background: isKanji ? '#FDF2F0' : targetDeckId === 'deck_n5' ? '#F0F9F2' : '#EDF4FA',
+                        color: isKanji ? '#C83824' : targetDeckId === 'deck_n5' ? '#2A6B3D' : '#1E4B75',
+                        border: `1.2px solid ${isKanji ? '#F5C6CB' : targetDeckId === 'deck_n5' ? '#C2E5CC' : '#B8D5E5'}`,
+                      }}
+                    >
+                      {isKanji ? '🈳 Hán Tự (Kanji)' : targetDeckId === 'deck_n5' ? '🔰 Từ vựng JLPT N5' : '📖 Từ vựng Kotoba'}
+                    </div>
                   </div>
                 </div>
-              )}
-            </div>
-          ) : (
-            <div style={{ marginTop: '1.5rem', color: '#786A5E', fontSize: '0.88rem', fontFamily: 'var(--font-maru)' }}>
-              Nhấn Space hoặc nút bên dưới để xem nghĩa
-            </div>
-          )}
+
+                {/* MẶT SAU: LẬT MỞ NỘI DUNG CÁCH ĐỌC & Ý NGHĨA KHI BẤM XEM */}
+                {showAnswer ? (
+                  <div
+                    style={{
+                      position: 'relative',
+                      zIndex: 2,
+                      width: '100%',
+                      marginTop: '1.15rem',
+                      paddingTop: '1.25rem',
+                      borderTop: '1.5px solid #E8DFCE',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '0.95rem',
+                      alignItems: 'center',
+                      animation: 'fadeIn 0.3s ease forwards',
+                    }}
+                  >
+                    {/* 1. KHỐI CÁCH ĐỌC KUN-YOMI & ON-YOMI (DÀNH CHO KANJI HOẶC THẺ CÓ ĐỌC ĐA NĂNG) */}
+                    {parsedCard?.hasDetailedReadings ? (
+                      <div
+                        style={{
+                          width: '100%',
+                          display: 'grid',
+                          gridTemplateColumns:
+                            parsedCard.kunYomi.length > 0 && parsedCard.onYomi.length > 0
+                              ? 'repeat(auto-fit, minmax(230px, 1fr))'
+                              : '1fr',
+                          gap: '0.85rem',
+                        }}
+                      >
+                        {/* Khối KUN-YOMI (Âm thuần Nhật) */}
+                        {parsedCard.kunYomi.length > 0 && (
+                          <div
+                            style={{
+                              background: 'rgba(255, 255, 255, 0.98)',
+                              border: '1.5px solid #C4DCC5',
+                              borderRadius: '16px',
+                              padding: '1rem 1.15rem',
+                              boxShadow: '0 4px 16px rgba(42, 107, 61, 0.06)',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              alignItems: 'center',
+                              gap: '0.45rem',
+                            }}
+                          >
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                              <span
+                                style={{
+                                  background: '#2A6B3D',
+                                  color: '#FFFFFF',
+                                  fontSize: '0.78rem',
+                                  fontWeight: 800,
+                                  padding: '0.2rem 0.65rem',
+                                  borderRadius: '6px',
+                                  fontFamily: 'var(--font-maru)',
+                                  letterSpacing: '0.04em',
+                                }}
+                              >
+                                訓 KUN-YOMI
+                              </span>
+                              <span style={{ fontSize: '0.78rem', color: '#4A6B52', fontWeight: 600 }}>
+                                Âm thuần Nhật
+                              </span>
+                            </div>
+
+                            <div
+                              style={{
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                gap: '0.65rem',
+                                width: '100%',
+                                marginTop: '0.25rem',
+                              }}
+                            >
+                              {parsedCard.kunYomi.map((kun, idx) => (
+                                <div
+                                  key={idx}
+                                  style={{
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '0.45rem',
+                                    background: '#F2F8F2',
+                                    padding: '0.35rem 0.85rem',
+                                    borderRadius: '10px',
+                                    border: '1.2px solid #CFE6D0',
+                                  }}
+                                >
+                                  <span
+                                    style={{
+                                      fontFamily: 'var(--font-maru)',
+                                      fontSize: '1.75rem',
+                                      fontWeight: 800,
+                                      color: '#133E1D',
+                                      letterSpacing: '0.04em',
+                                    }}
+                                  >
+                                    {kun}
+                                  </span>
+                                  <JapaneseSpeakerButton text={kun.replace(/\..*$/, '')} size={20} />
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Khối ON-YOMI (Âm Hán Nhật) */}
+                        {parsedCard.onYomi.length > 0 && (
+                          <div
+                            style={{
+                              background: 'rgba(255, 255, 255, 0.98)',
+                              border: '1.5px solid #F5C6CB',
+                              borderRadius: '16px',
+                              padding: '1rem 1.15rem',
+                              boxShadow: '0 4px 16px rgba(200, 56, 36, 0.06)',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              alignItems: 'center',
+                              gap: '0.45rem',
+                            }}
+                          >
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                              <span
+                                style={{
+                                  background: '#C83824',
+                                  color: '#FFFFFF',
+                                  fontSize: '0.78rem',
+                                  fontWeight: 800,
+                                  padding: '0.2rem 0.65rem',
+                                  borderRadius: '6px',
+                                  fontFamily: 'var(--font-maru)',
+                                  letterSpacing: '0.04em',
+                                }}
+                              >
+                                音 ON-YOMI
+                              </span>
+                              <span style={{ fontSize: '0.78rem', color: '#8F382E', fontWeight: 600 }}>
+                                Âm Hán Nhật
+                              </span>
+                            </div>
+
+                            <div
+                              style={{
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                gap: '0.65rem',
+                                width: '100%',
+                                marginTop: '0.25rem',
+                              }}
+                            >
+                              {parsedCard.onYomi.map((on, idx) => (
+                                <div
+                                  key={idx}
+                                  style={{
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '0.45rem',
+                                    background: '#FFF5F4',
+                                    padding: '0.35rem 0.85rem',
+                                    borderRadius: '10px',
+                                    border: '1.2px solid #FACFCB',
+                                  }}
+                                >
+                                  <span
+                                    style={{
+                                      fontFamily: 'var(--font-maru)',
+                                      fontSize: '1.75rem',
+                                      fontWeight: 800,
+                                      color: '#8A1F13',
+                                      letterSpacing: '0.04em',
+                                    }}
+                                  >
+                                    {on}
+                                  </span>
+                                  <JapaneseSpeakerButton text={on} size={20} />
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ) : currentCard.reading ? (
+                      /* KHỐI TỪ VỰNG THƯỜNG (KOTOBA / N5): HIRAGANA TO NỔI BẬT + PITCH ACCENT */
+                      <div
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.98)',
+                          padding: '0.9rem 1.6rem',
+                          borderRadius: '14px',
+                          border: '1.5px solid #E6DDCF',
+                          boxShadow: '0 4px 16px rgba(18, 36, 56, 0.05)',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          gap: '0.5rem',
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                          <span
+                            style={{
+                              fontFamily: 'var(--font-maru)',
+                              fontSize: '2.1rem',
+                              fontWeight: 800,
+                              color: '#122438',
+                              letterSpacing: '0.04em',
+                            }}
+                          >
+                            {parsedCard?.pureReading || currentCard.reading}
+                          </span>
+                          <JapaneseSpeakerButton text={parsedCard?.pureReading || currentCard.reading || ''} size={22} />
+                        </div>
+
+                        {/* Đồ thị cao độ ngữ âm Tokyo Pitch Accent (chỉ hiển thị khi có mẫu Pitch và chuỗi thuần kana) */}
+                        <PitchAccentGraph
+                          reading={parsedCard?.pureReading || currentCard.reading}
+                          pattern={getPitchPattern(currentCard.pitch)}
+                        />
+                      </div>
+                    ) : null}
+
+                    {/* 2. KHỐI Ý NGHĨA TIẾNG VIỆT — TO, ĐẬM, NỔI BẬT TRUNG TÂM */}
+                    <div
+                      style={{
+                        width: '100%',
+                        background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(252, 249, 242, 0.96) 100%)',
+                        border: '1.5px solid #E2D7C5',
+                        borderRadius: '16px',
+                        padding: '1.25rem 1.5rem',
+                        boxShadow: '0 8px 24px -4px rgba(18, 36, 56, 0.08), 0 2px 6px rgba(0, 0, 0, 0.02)',
+                        textAlign: 'center',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        gap: '0.35rem',
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: '0.76rem',
+                          fontFamily: 'var(--font-maru)',
+                          fontWeight: 800,
+                          color: '#8A7560',
+                          letterSpacing: '0.12em',
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        Ý Nghĩa Tiếng Việt
+                      </span>
+
+                      <div
+                        style={{
+                          fontSize: 'clamp(1.65rem, 4.5vw, 2.2rem)',
+                          fontWeight: 900,
+                          color: '#0E1726',
+                          fontFamily: 'var(--font-maru)',
+                          lineHeight: 1.35,
+                          letterSpacing: '0.01em',
+                        }}
+                      >
+                        {parsedCard?.cleanMeaning || currentCard.meaning}
+                      </div>
+                    </div>
+
+                    {/* 3. CÂU VÍ DỤ NGỮ CẢNH (i+1) — CHỈ HIỆN KHI CÂU CÓ THỰC NỘI DUNG */}
+                    {parsedCard?.hasRealSentence && currentCard.sentence && (
+                      <div
+                        style={{
+                          width: '100%',
+                          background: '#FFFFFF',
+                          padding: '1rem 1.25rem',
+                          borderRadius: '14px',
+                          border: '1.5px solid #E6DDCF',
+                          boxShadow: '0 4px 16px rgba(18, 36, 56, 0.05)',
+                          textAlign: 'left',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '0.45rem',
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: '0.75rem',
+                            color: '#8A7560',
+                            fontWeight: 800,
+                            letterSpacing: '0.08em',
+                            textTransform: 'uppercase',
+                          }}
+                        >
+                          Câu ví dụ ngữ cảnh (i+1)
+                        </span>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.75rem' }}>
+                          <span style={{ fontSize: '1.25rem', color: '#122438', fontFamily: 'var(--font-mincho)', fontWeight: 600, lineHeight: 1.45 }}>
+                            {parseClozeSegments(currentCard.sentence).map((seg, i) =>
+                              seg.isCloze ? (
+                                <span
+                                  key={i}
+                                  style={{
+                                    fontWeight: 800,
+                                    color: '#153E20',
+                                    background: '#EAF5EA',
+                                    borderBottom: '2.5px solid #43894C',
+                                    borderRadius: '3px',
+                                    padding: '0.1rem 0.35rem',
+                                  }}
+                                >
+                                  {seg.text}
+                                </span>
+                              ) : (
+                                <span key={i}>{seg.text}</span>
+                              )
+                            )}
+                          </span>
+                          <JapaneseSpeakerButton text={stripCloze(currentCard.sentence)} size={22} />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div style={{ marginTop: '1.5rem', color: '#786A5E', fontSize: '0.9rem', fontFamily: 'var(--font-maru)', fontWeight: 600 }}>
+                    Nhấn Space hoặc nút bên dưới để xem đáp án
+                  </div>
+                )}
+              </>
+            );
+          })()}
         </div>
       )}
 
