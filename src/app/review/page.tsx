@@ -588,7 +588,26 @@ function ReviewSessionContent() {
   }
 
   // 3. GIAO DIỆN PHIÊN ÔN TẬP KARUTA ACTIVE RECALL
-  const isKanji = currentCard ? (currentCard.type === 'Kanji' || (currentCard.deckName && currentCard.deckName.includes('Hán Tự'))) : false;
+  const isGrammar = currentCard
+    ? currentCard.type === 'GrammarPattern' ||
+      currentCard.deckId === 'grammar_jpd133' ||
+      Boolean(
+        currentCard.deckName &&
+          (currentCard.deckName.toLowerCase().includes('ngữ pháp') ||
+            currentCard.deckName.toLowerCase().includes('bunbou'))
+      ) ||
+      Boolean(
+        currentCard.kanji &&
+          (currentCard.kanji.startsWith('【文法') ||
+            currentCard.kanji.includes('Pattern') ||
+            currentCard.kanji.includes('{{c'))
+      )
+    : false;
+
+  const isKanji = currentCard && !isGrammar
+    ? currentCard.type === 'Kanji' ||
+      Boolean(currentCard.deckName && currentCard.deckName.includes('Hán Tự'))
+    : false;
 
   return (
     <main
@@ -696,14 +715,20 @@ function ReviewSessionContent() {
                   width: '20px',
                   height: '20px',
                   borderRadius: '4px',
-                  background: isKanji ? '#C83824' : targetDeckId === 'deck_n5' ? '#2A6B3D' : '#234B73',
+                  background: targetDeckId === 'grammar_jpd133' || isGrammar
+                    ? '#1E4B75'
+                    : isKanji
+                    ? '#C83824'
+                    : targetDeckId === 'deck_n5'
+                    ? '#2A6B3D'
+                    : '#234B73',
                   color: '#FFFFFF',
                   fontSize: '0.72rem',
                   fontFamily: 'var(--font-mincho)',
                   fontWeight: 800,
                 }}
               >
-                {isKanji ? '漢' : targetDeckId === 'deck_n5' ? 'N5' : '語'}
+                {targetDeckId === 'grammar_jpd133' || isGrammar ? '文' : isKanji ? '漢' : targetDeckId === 'deck_n5' ? 'N5' : '語'}
               </span>
               <span>{deckTitle}</span>
               <span style={{ fontSize: '0.75rem', color: '#786A5E' }}>▾</span>
@@ -882,8 +907,8 @@ function ReviewSessionContent() {
               <>
                 {/* MẶT TRƯỚC: CHỮ KANJI VÀ CÁCH ĐỌC */}
                 <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.45rem', marginBottom: '0.75rem', width: '100%' }}>
-                  {/* 1. Dòng Hiragana cách đọc ở mặt trước (chỉ dành cho Thẻ từ vựng Kotoba/N5, không hiện cho Thẻ Kanji để giữ nguyên Active Recall) */}
-                  {!parsedCard?.isKanji && currentCard.reading && currentCard.reading !== currentCard.kanji && (
+                  {/* 1. Dòng Hiragana cách đọc ở mặt trước (chỉ dành cho Thẻ từ vựng Kotoba/N5, không hiện cho Thẻ Kanji và Ngữ pháp để giữ nguyên Active Recall) */}
+                  {!isGrammar && !parsedCard?.isKanji && currentCard.reading && currentCard.reading !== currentCard.kanji && (
                     <div
                       style={{
                         fontFamily: 'var(--font-maru)',
@@ -902,22 +927,94 @@ function ReviewSessionContent() {
                     </div>
                   )}
 
-                  {/* 2. Chữ Hán Thư pháp Lớn */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+                  {/* 2. Chữ Hán Thư pháp Lớn (Hỗ trợ câu Cloze đục lỗ Active Recall) */}
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.85rem', width: '100%' }}>
                     <div
                       style={{
                         fontFamily: 'var(--font-mincho)',
-                        fontSize: '4.8rem',
+                        fontSize: currentCard.kanji.length > 15 ? '1.85rem' : currentCard.kanji.length > 8 ? '2.4rem' : '4.8rem',
                         fontWeight: 900,
                         color: '#0F172A',
                         letterSpacing: '0.04em',
                         textShadow: '0 2px 8px rgba(18, 36, 56, 0.08)',
-                        lineHeight: 1.15,
+                        lineHeight: 1.35,
+                        textAlign: 'center',
+                        wordBreak: 'break-word',
+                        maxWidth: '580px',
                       }}
                     >
-                      {currentCard.kanji}
+                      {currentCard.kanji.includes('{{c') ? (
+                        parseClozeSegments(currentCard.kanji).map((seg, i) =>
+                          seg.isCloze ? (
+                            showAnswer ? (
+                              <span
+                                key={i}
+                                style={{
+                                  color: '#153E20',
+                                  background: '#EAF5EA',
+                                  borderBottom: '3px solid #43894C',
+                                  borderRadius: '6px',
+                                  padding: '0.1rem 0.5rem',
+                                  margin: '0 0.2rem',
+                                  display: 'inline-block',
+                                }}
+                              >
+                                {seg.text}
+                              </span>
+                            ) : (
+                              <span
+                                key={i}
+                                style={{
+                                  color: '#C89B58',
+                                  background: 'rgba(200, 155, 88, 0.12)',
+                                  border: '2px dashed #C89B58',
+                                  borderRadius: '8px',
+                                  padding: '0.1rem 0.85rem',
+                                  margin: '0 0.25rem',
+                                  display: 'inline-block',
+                                  letterSpacing: '0.08em',
+                                }}
+                              >
+                                [ ... ? ... ]
+                              </span>
+                            )
+                          ) : (
+                            <span key={i}>{seg.text}</span>
+                          )
+                        )
+                      ) : currentCard.kanji.startsWith('【文法') ? (
+                        (() => {
+                          const pm = currentCard.kanji.match(/^【文法\s*([^】]+)】\s*\n?([\s\S]*)$/);
+                          if (!pm) return currentCard.kanji;
+                          return (
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.45rem' }}>
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  fontSize: '0.9rem',
+                                  fontWeight: 800,
+                                  fontFamily: 'var(--font-maru)',
+                                  color: '#1E4B75',
+                                  background: '#EDF4FA',
+                                  border: '1.2px solid #B8D5E5',
+                                  borderRadius: '6px',
+                                  padding: '0.15rem 0.75rem',
+                                  letterSpacing: '0.04em',
+                                }}
+                              >
+                                文法 {pm[1]}
+                              </span>
+                              <span style={{ fontSize: '1.85rem', fontWeight: 800, lineHeight: 1.35 }}>
+                                {pm[2]}
+                              </span>
+                            </div>
+                          );
+                        })()
+                      ) : (
+                        currentCard.kanji
+                      )}
                     </div>
-                    <JapaneseSpeakerButton text={currentCard.kanji} size={26} />
+                    <JapaneseSpeakerButton text={stripCloze(currentCard.kanji)} size={26} />
                   </div>
 
                   {/* 3. Huy hiệu phân loại & Âm Hán Việt */}
@@ -956,12 +1053,38 @@ function ReviewSessionContent() {
                         fontSize: '0.78rem',
                         fontFamily: 'var(--font-maru)',
                         fontWeight: 700,
-                        background: isKanji ? '#FDF2F0' : targetDeckId === 'deck_n5' ? '#F0F9F2' : '#EDF4FA',
-                        color: isKanji ? '#C83824' : targetDeckId === 'deck_n5' ? '#2A6B3D' : '#1E4B75',
-                        border: `1.2px solid ${isKanji ? '#F5C6CB' : targetDeckId === 'deck_n5' ? '#C2E5CC' : '#B8D5E5'}`,
+                        background: isGrammar
+                          ? '#EDF4FA'
+                          : isKanji
+                          ? '#FDF2F0'
+                          : targetDeckId === 'deck_n5'
+                          ? '#F0F9F2'
+                          : '#EDF4FA',
+                        color: isGrammar
+                          ? '#1E4B75'
+                          : isKanji
+                          ? '#C83824'
+                          : targetDeckId === 'deck_n5'
+                          ? '#2A6B3D'
+                          : '#1E4B75',
+                        border: `1.2px solid ${
+                          isGrammar
+                            ? '#B8D5E5'
+                            : isKanji
+                            ? '#F5C6CB'
+                            : targetDeckId === 'deck_n5'
+                            ? '#C2E5CC'
+                            : '#B8D5E5'
+                        }`,
                       }}
                     >
-                      {isKanji ? '🈳 Hán Tự (Kanji)' : targetDeckId === 'deck_n5' ? '🔰 Từ vựng JLPT N5' : '📖 Từ vựng Kotoba'}
+                      {isGrammar
+                        ? '📜 Ngữ pháp (Bunbou)'
+                        : isKanji
+                        ? '🈳 Hán Tự (Kanji)'
+                        : targetDeckId === 'deck_n5'
+                        ? '🔰 Từ vựng JLPT N5'
+                        : '📖 Từ vựng Kotoba'}
                     </div>
                   </div>
                 </div>
@@ -1219,12 +1342,20 @@ function ReviewSessionContent() {
 
                       <div
                         style={{
-                          fontSize: 'clamp(1.65rem, 4.5vw, 2.2rem)',
-                          fontWeight: 900,
+                          fontSize:
+                            (parsedCard?.cleanMeaning || currentCard.meaning).length > 80
+                              ? '1.08rem'
+                              : (parsedCard?.cleanMeaning || currentCard.meaning).length > 40
+                              ? '1.35rem'
+                              : 'clamp(1.65rem, 4.5vw, 2.2rem)',
+                          fontWeight: 800,
                           color: '#0E1726',
                           fontFamily: 'var(--font-maru)',
-                          lineHeight: 1.35,
+                          lineHeight: 1.45,
                           letterSpacing: '0.01em',
+                          whiteSpace: 'pre-line',
+                          textAlign: (parsedCard?.cleanMeaning || currentCard.meaning).length > 60 ? 'left' : 'center',
+                          width: '100%',
                         }}
                       >
                         {parsedCard?.cleanMeaning || currentCard.meaning}

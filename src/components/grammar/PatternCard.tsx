@@ -171,7 +171,7 @@ export function PatternCard({ pattern, accentColor = '#1B4268', defaultExpanded 
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              {pattern.examples.map((ex, idx) => (
+              {(pattern.examples || []).map((ex, idx) => (
                 <div
                   key={idx}
                   style={{

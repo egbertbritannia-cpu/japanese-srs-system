@@ -11,8 +11,9 @@
  */
 
 // Tạo thực thể RegExp mới cho mỗi lần gọi để loại bỏ hoàn toàn lỗi cờ 'g' lưu trạng thái (Stateful RegExp)
+// Hỗ trợ cả định dạng 1 hoặc 2 dấu ngoặc nhọn ({c1::...} hoặc {{c1::...}})
 export function createClozeRegex(): RegExp {
-  return /\{\{c\d+::([^:}]+)(?:::[^}]*)?\}\}/g;
+  return /\{+c\d+::([^:}]+)(?:::[^}]*)?\}+/g;
 }
 
 /**

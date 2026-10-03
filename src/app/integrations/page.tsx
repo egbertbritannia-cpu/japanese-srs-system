@@ -179,7 +179,7 @@ export default function IntegrationsPage() {
       const res = await fetch('/api/google/calendar/sync', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ studyTime, recurDaily }),
+        body: JSON.stringify({ time: studyTime, studyTime, recurDaily, mode: 'api_sync' }),
       });
       const data = await res.json();
       if (data.success) {

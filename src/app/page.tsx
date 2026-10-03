@@ -60,37 +60,44 @@ interface FocusCardDisplay {
 }
 
 function parseCardItemDisplay(card: FocusCardDisplay) {
+  const kanjiText = card.kanji || '';
+  const deckStr = (card.deckName || '').toLowerCase();
+  const meaningText = card.meaning || '';
+  const hasClozeSyntax = /\{\{c\d+::/.test(kanjiText);
   const isGrammar =
     card.type === 'GrammarPattern' ||
-    card.deckName?.toLowerCase().includes('ngữ pháp') ||
-    card.deckName?.toLowerCase().includes('bunbou') ||
-    card.kanji.startsWith('【文法') ||
-    card.kanji.includes('Pattern') ||
-    card.kanji.length > 8;
+    deckStr.includes('ngữ pháp') ||
+    deckStr.includes('bunbou') ||
+    kanjiText.startsWith('【文法') ||
+    kanjiText.includes('Pattern') ||
+    kanjiText.length > 8 ||
+    hasClozeSyntax;
 
   let grammarTag = '';
-  let mainSurface = card.kanji;
+  let mainSurface = kanjiText;
 
   if (isGrammar) {
-    const match = card.kanji.match(/【([^】]+)】\s*([\s\S]*)/);
+    const match = kanjiText.match(/【([^】]+)】\s*([\s\S]*)/);
     if (match) {
       grammarTag = match[1].trim(); // e.g. "文法 Pattern 72"
       mainSurface = match[2].trim(); // e.g. "V[て形] + います"
-    } else if (card.kanji.startsWith('【文法')) {
+    } else if (kanjiText.startsWith('【文法')) {
       grammarTag = '文法 Ngữ pháp';
-      mainSurface = card.kanji.replace(/【[^】]*】/, '').trim();
+      mainSurface = kanjiText.replace(/【[^】]*】/, '').trim();
+    } else if (hasClozeSyntax) {
+      grammarTag = '文法 · Thực hành mẫu câu';
     }
   }
 
   // Tách ý nghĩa chính và ghi chú cách dùng (nếu có)
-  let primaryMeaning = card.meaning;
+  let primaryMeaning = meaningText;
   let usageNote = '';
-  if (card.meaning.includes('💡 Cách dùng:')) {
-    const parts = card.meaning.split('💡 Cách dùng:');
+  if (meaningText.includes('💡 Cách dùng:')) {
+    const parts = meaningText.split('💡 Cách dùng:');
     primaryMeaning = parts[0].trim();
     usageNote = `💡 Cách dùng: ${parts[1].trim()}`;
-  } else if (card.meaning.includes('\n\n')) {
-    const parts = card.meaning.split('\n\n');
+  } else if (meaningText.includes('\n\n')) {
+    const parts = meaningText.split('\n\n');
     primaryMeaning = parts[0].trim();
     usageNote = parts.slice(1).join('\n\n').trim();
   }
@@ -101,6 +108,7 @@ function parseCardItemDisplay(card: FocusCardDisplay) {
     mainSurface,
     primaryMeaning,
     usageNote,
+    hasClozeSyntax,
   };
 }
 
@@ -628,7 +636,7 @@ export default async function DashboardPage() {
                           </div>
 
                           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-                            <JapaneseSpeakerButton text={mainSurface} size={18} />
+                            <JapaneseSpeakerButton text={stripCloze(mainSurface)} size={18} />
                             {card.isDue && (
                               <div
                                 style={{
@@ -674,14 +682,34 @@ export default async function DashboardPage() {
                           <span
                             style={{
                               fontFamily: 'var(--font-mincho), serif',
-                              fontSize: '1.25rem',
+                              fontSize: mainSurface.length > 20 ? '1.15rem' : '1.25rem',
                               fontWeight: 800,
                               color: '#1F2421',
                               letterSpacing: '0.02em',
-                              lineHeight: 1.35,
+                              lineHeight: 1.4,
                             }}
                           >
-                            {mainSurface}
+                            {parseClozeSegments(mainSurface).map((seg, i) =>
+                              seg.isCloze ? (
+                                <span
+                                  key={i}
+                                  style={{
+                                    fontWeight: 800,
+                                    color: '#153E20',
+                                    background: '#EAF5EA',
+                                    borderBottom: '2.5px solid #43894C',
+                                    borderRadius: '4px',
+                                    padding: '0.1rem 0.4rem',
+                                    margin: '0 0.15rem',
+                                    display: 'inline-block',
+                                  }}
+                                >
+                                  {seg.text}
+                                </span>
+                              ) : (
+                                <span key={i}>{seg.text}</span>
+                              )
+                            )}
                           </span>
                         </div>
 
@@ -718,7 +746,7 @@ export default async function DashboardPage() {
                             </p>
                           )}
 
-                          {card.example && (
+                          {card.example && stripCloze(card.example).trim() !== stripCloze(mainSurface).trim() && (
                             <p
                               style={{
                                 fontSize: '0.78rem',
@@ -791,7 +819,15 @@ export default async function DashboardPage() {
                                 lineHeight: 1.2,
                               }}
                             >
-                              {card.kanji}
+                              {parseClozeSegments(card.kanji).map((seg, i) =>
+                                seg.isCloze ? (
+                                  <span key={i} style={{ color: '#153E20', fontWeight: 800 }}>
+                                    {seg.text}
+                                  </span>
+                                ) : (
+                                  <span key={i}>{seg.text}</span>
+                                )
+                              )}
                             </span>
                           </div>
 
@@ -884,7 +920,7 @@ export default async function DashboardPage() {
                             marginLeft: '0.5rem',
                           }}
                         >
-                          <JapaneseSpeakerButton text={card.kanji} size={15} />
+                          <JapaneseSpeakerButton text={stripCloze(card.kanji)} size={15} />
 
                           {card.isDue && (
                             <div

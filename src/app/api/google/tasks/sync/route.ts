@@ -23,7 +23,17 @@ export async function POST(request: Request) {
       );
     }
 
-    const tokens = JSON.parse(tokenCookie);
+    let tokens;
+    try {
+      tokens = JSON.parse(tokenCookie);
+    } catch {
+      cookieStore.delete('google_tokens');
+      return NextResponse.json(
+        { error: 'Token đăng nhập Google không hợp lệ. Vui lòng kết nối lại tài khoản.', needsAuth: true },
+        { status: 401 }
+      );
+    }
+
     const client = getOAuth2Client();
     if (!client) {
       return NextResponse.json({ error: 'Chưa cấu hình Google Client' }, { status: 400 });
@@ -42,6 +52,14 @@ export async function POST(request: Request) {
       taskListId: result.taskListId,
     });
   } catch (error: any) {
+    if (error?.message?.includes('invalid_grant') || error?.code === 401) {
+      const cookieStore = await cookies();
+      cookieStore.delete('google_tokens');
+      return NextResponse.json(
+        { error: 'Phiên đăng nhập Google đã hết hạn. Vui lòng kết nối lại tài khoản.', needsAuth: true },
+        { status: 401 }
+      );
+    }
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

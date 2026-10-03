@@ -8,13 +8,12 @@ import { GoogleCalendarService } from '@/services/google/calendar.service';
  */
 export async function POST(request: Request) {
   try {
-    const {
-      time = '20:00',
-      durationMinutes = 20,
-      recurDaily = true,
-      dueCardCount = 15,
-      mode = 'quick_add', // 'quick_add' hoặc 'api_sync'
-    } = await request.json().catch(() => ({}));
+    const body = await request.json().catch(() => ({}));
+    const time = body.time || body.studyTime || '20:00';
+    const durationMinutes = body.durationMinutes || 20;
+    const recurDaily = body.recurDaily !== undefined ? body.recurDaily : true;
+    const dueCardCount = body.dueCardCount || 15;
+    const mode = body.mode || (body.studyTime ? 'api_sync' : 'quick_add');
 
     // Tính toán thời gian bắt đầu
     const [hours, minutes] = time.split(':').map(Number);
@@ -53,7 +52,19 @@ export async function POST(request: Request) {
         });
       }
 
-      const tokens = JSON.parse(tokenCookie);
+      let tokens;
+      try {
+        tokens = JSON.parse(tokenCookie);
+      } catch {
+        cookieStore.delete('google_tokens');
+        return NextResponse.json({
+          success: true,
+          quickAddUrl,
+          message: 'Token Google không hợp lệ. Vui lòng kết nối lại tài khoản.',
+          needsAuth: true,
+        });
+      }
+
       const client = getOAuth2Client();
       if (!client) {
         return NextResponse.json({ error: 'Chưa cấu hình Google Client' }, { status: 400 });

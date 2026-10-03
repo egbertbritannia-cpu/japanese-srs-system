@@ -183,4 +183,86 @@ describe('Audit Bug Remediation Test Suite (Verification of 55 Bugs Fixed)', () 
       expect(id1.startsWith('card_')).toBe(true);
     });
   });
+
+  describe('BUG-CLOZE-UI: Cloze Syntax Elimination & Segmentation', () => {
+    it('loại bỏ triệt để ký tự thô {c1:: và }} khỏi văn bản tiếng Nhật', () => {
+      const rawSingle = '{c1::私は横浜に住んでいます。}}';
+      const rawDouble = '{{c1::私は横浜に住んでいます。}}';
+      const rawWithHint = '{{c1::住んでいます::sinh sống}}';
+
+      expect(stripCloze(rawSingle)).toBe('私は横浜に住んでいます。');
+      expect(stripCloze(rawDouble)).toBe('私は横浜に住んでいます。');
+      expect(stripCloze(rawWithHint)).toBe('住んでいます');
+      expect(hasCloze(rawSingle)).toBe(true);
+      expect(hasCloze(rawDouble)).toBe(true);
+    });
+
+    it('phân tách chính xác các phân đoạn cloze để render highlight mỹ học', () => {
+      const sentence = '私は{{c1::横浜}}に{{c2::住んでいます}}。';
+      const segments = parseClozeSegments(sentence);
+
+      expect(segments).toEqual([
+        { text: '私は', isCloze: false },
+        { text: '横浜', isCloze: true },
+        { text: 'に', isCloze: false },
+        { text: '住んでいます', isCloze: true },
+        { text: '。', isCloze: false },
+      ]);
+    });
+  });
+
+  describe('BUG-GRAMMAR-UI: Grammar vs Kanji vs Vocab Card Classification', () => {
+    it('phân loại chính xác GrammarPattern và bộ grammar_jpd133 là Ngữ pháp (文)', () => {
+      const isGrammarCard = (card: { type: string; deckId: string; deck?: string; deckName?: string; kanji?: string }) => {
+        const kanjiText = card.kanji || '';
+        const deckText = (card.deckName || card.deck || '').toLowerCase();
+        return (
+          card.type === 'GrammarPattern' ||
+          card.deckId === 'grammar_jpd133' ||
+          deckText.includes('ngữ pháp') ||
+          deckText.includes('bunbou') ||
+          kanjiText.startsWith('【文法') ||
+          kanjiText.includes('Pattern') ||
+          kanjiText.includes('{{c')
+        );
+      };
+
+      const grammarCard1 = {
+        type: 'GrammarPattern',
+        deckId: 'grammar_jpd133',
+        deck: 'JPD133 - Ngữ pháp Bunbou',
+        kanji: '【文法 Pattern 72】\nV[て形] + います',
+      };
+      const grammarCard2 = {
+        type: 'GrammarPattern',
+        deckId: 'grammar_jpd133',
+        deck: 'JPD133 - Ngữ pháp Bunbou',
+        kanji: '{{c1::私は横浜に住んでいます。}}',
+      };
+      const vocabCard = {
+        type: 'Vocab',
+        deckId: 'deck_jpd133',
+        deck: 'JPD133 - Từ vựng Kotoba',
+        kanji: '住みます',
+      };
+      const kanjiCard = {
+        type: 'Kanji',
+        deckId: 'deck_jpd133_kanji',
+        deck: 'JPD133 - Hán Tự (Kanji)',
+        kanji: '住',
+      };
+      const edgeCaseCard = {
+        type: 'Vocab',
+        deckId: 'deck_jpd133',
+        deckName: 'JPD133 - Từ vựng Kotoba',
+        kanji: undefined,
+      };
+
+      expect(isGrammarCard(grammarCard1)).toBe(true);
+      expect(isGrammarCard(grammarCard2)).toBe(true);
+      expect(isGrammarCard(vocabCard)).toBe(false);
+      expect(isGrammarCard(kanjiCard)).toBe(false);
+      expect(isGrammarCard(edgeCaseCard)).toBe(false);
+    });
+  });
 });
