@@ -321,7 +321,7 @@ export default function CardsPage() {
                 width: '38px',
                 height: '38px',
                 borderRadius: '8px',
-                background: selectedDeck.includes('kanji') ? '#C83824' : '#1E4B75',
+                background: selectedDeck.includes('kanji') ? '#C83824' : selectedDeck.includes('n5') ? '#2A6B3D' : '#1E4B75',
                 color: '#FFFFFF',
                 display: 'flex',
                 alignItems: 'center',
@@ -331,7 +331,7 @@ export default function CardsPage() {
                 fontWeight: 800,
               }}
             >
-              {selectedDeck.includes('kanji') ? '漢' : '語'}
+              {selectedDeck.includes('kanji') ? '漢' : selectedDeck.includes('n5') ? 'N5' : '語'}
             </div>
             <div>
               <h3 style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.1rem', color: '#122438', fontWeight: 700, margin: 0 }}>
@@ -394,8 +394,8 @@ export default function CardsPage() {
                 fontWeight: 700,
               }}
             >
-              <th style={{ padding: '1rem 1.25rem' }}>Chữ Hán</th>
-              <th style={{ padding: '1rem 1.25rem' }}>Cách đọc Furigana</th>
+              <th style={{ padding: '1rem 1.25rem' }}>Chữ Hán &amp; Hiragana mặt trước</th>
+              <th style={{ padding: '1rem 1.25rem' }}>Cách đọc &amp; Cao độ</th>
               <th style={{ padding: '1rem 1.25rem' }}>Ý nghĩa tiếng Việt</th>
               <th style={{ padding: '1rem 1.25rem' }}>Trạng thái FSRS</th>
               <th style={{ padding: '1rem 1.25rem' }}>Phân loại</th>
@@ -421,18 +421,32 @@ export default function CardsPage() {
                       transition: 'background 0.2s',
                     }}
                   >
-                    {/* Mặt trước Kanji nổi bật */}
+                    {/* Mặt trước Kanji & Hiragana nổi bật */}
                     <td style={{ padding: '1.15rem 1.25rem' }}>
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-mincho)',
-                          fontSize: '1.65rem',
-                          fontWeight: 700,
-                          color: '#122438',
-                        }}
-                      >
-                        {card.kanji}
-                      </span>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-mincho)',
+                            fontSize: '1.65rem',
+                            fontWeight: 700,
+                            color: '#122438',
+                          }}
+                        >
+                          {card.kanji}
+                        </span>
+                        {card.reading && card.reading !== card.kanji && (
+                          <span
+                            style={{
+                              fontFamily: 'var(--font-maru)',
+                              fontSize: '0.88rem',
+                              color: '#B87B28',
+                              fontWeight: 700,
+                            }}
+                          >
+                            {card.reading}
+                          </span>
+                        )}
+                      </div>
                     </td>
 
                     {/* Furigana & Cao độ */}

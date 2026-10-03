@@ -29,14 +29,16 @@ describe('Turso Integration Test with Drizzle', () => {
     console.log('[Turso Test] Querying cards count from Turso...');
     const cardCount = await db.select({ total: count(cards.id) }).from(cards);
     console.log('[Turso Test] Cards total in Turso:', cardCount);
-    expect(cardCount[0].total).toBeGreaterThanOrEqual(381);
+    expect(cardCount[0].total).toBe(544);
 
     const deckList = await db.select().from(decks);
     console.log('[Turso Test] Decks in Turso:', deckList);
-    expect(deckList.length).toBeGreaterThanOrEqual(3);
+    expect(deckList.length).toBe(3);
+    const deckIds = deckList.map((d: any) => d.id).sort();
+    expect(deckIds).toEqual(['deck_jpd133', 'deck_jpd133_kanji', 'deck_n5']);
   });
 
-  it('should run GET /api/cards against Turso', async () => {
+  it('should run GET /api/cards against Turso and verify 3 distinct decks', async () => {
     const { GET: getCardsRoute } = await import('../src/app/api/cards/route');
     const req = new Request('http://localhost:3000/api/cards');
     const res = await getCardsRoute(req);
@@ -49,28 +51,42 @@ describe('Turso Integration Test with Drizzle', () => {
     console.log('[Turso Test API] Deck summaries:', body.deckSummaries);
 
     expect(body.success).toBe(true);
+    expect(body.data.length).toBe(544);
+    expect(body.decks.length).toBe(3);
   });
 
-  it('should test cards retrieval when filtering by deck or query', async () => {
+  it('should test cards retrieval when filtering by each separated deck', async () => {
     const { GET: getCardsRoute } = await import('../src/app/api/cards/route');
     
-    // Test filter by deck_jpd133
+    // 1. Kotoba Deck (252 cards)
     const req1 = new Request('http://localhost:3000/api/cards?deck=deck_jpd133');
     const res1 = await getCardsRoute(req1);
     const body1 = await res1.json();
     console.log('[Filter deck_jpd133] cards count:', body1.data?.length);
-    expect(body1.data.length).toBeGreaterThan(0);
+    expect(body1.data.length).toBe(252);
+    expect(body1.data.every((c: any) => c.type === 'Vocab')).toBe(true);
 
-    // Test filter by deck_n5 (which is not in decks table!)
+    // 2. Kanji Deck (232 cards)
+    const reqKanji = new Request('http://localhost:3000/api/cards?deck=deck_jpd133_kanji');
+    const resKanji = await getCardsRoute(reqKanji);
+    const bodyKanji = await resKanji.json();
+    console.log('[Filter deck_jpd133_kanji] cards count:', bodyKanji.data?.length);
+    expect(bodyKanji.data.length).toBe(232);
+    expect(bodyKanji.data.every((c: any) => c.type === 'Kanji')).toBe(true);
+
+    // 3. JLPT N5 Deck (60 cards)
     const req2 = new Request('http://localhost:3000/api/cards?deck=deck_n5');
     const res2 = await getCardsRoute(req2);
     const body2 = await res2.json();
     console.log('[Filter deck_n5] cards count:', body2.data?.length);
+    expect(body2.data.length).toBe(60);
+    expect(body2.data.every((c: any) => c.type === 'Vocab')).toBe(true);
 
-    // Test filter by invalid deck
+    // 4. Invalid deck filter
     const req3 = new Request('http://localhost:3000/api/cards?deck=non_existent');
     const res3 = await getCardsRoute(req3);
     const body3 = await res3.json();
     console.log('[Filter non_existent] cards count:', body3.data?.length);
+    expect(body3.data.length).toBe(0);
   });
 });

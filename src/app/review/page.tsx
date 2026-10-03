@@ -645,14 +645,14 @@ function ReviewSessionContent() {
                   width: '20px',
                   height: '20px',
                   borderRadius: '4px',
-                  background: isKanji ? '#C83824' : '#234B73',
+                  background: isKanji ? '#C83824' : targetDeckId === 'deck_n5' ? '#2A6B3D' : '#234B73',
                   color: '#FFFFFF',
                   fontSize: '0.72rem',
                   fontFamily: 'var(--font-mincho)',
                   fontWeight: 800,
                 }}
               >
-                {isKanji ? '漢' : '語'}
+                {isKanji ? '漢' : targetDeckId === 'deck_n5' ? 'N5' : '語'}
               </span>
               <span>{deckTitle}</span>
               <span style={{ fontSize: '0.75rem', color: '#786A5E' }}>▾</span>
@@ -813,21 +813,64 @@ function ReviewSessionContent() {
             {showAnswer ? '解答' : '出題'}
           </div>
 
-          {/* MẶT TRƯỚC: CHỮ KANJI HOẶC TỪ VỰNG THƯ PHÁP LỚN */}
-          <div style={{ position: 'relative', zIndex: 2, display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
+          {/* MẶT TRƯỚC: CHỮ KANJI VÀ CÁCH ĐỌC HIRAGANA */}
+          <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.35rem', marginBottom: '0.75rem' }}>
+            {/* 1. Dòng Hiragana cách đọc ở mặt trước */}
+            {currentCard.reading && currentCard.reading !== currentCard.kanji && (
+              <div
+                style={{
+                  fontFamily: 'var(--font-maru)',
+                  fontSize: '1.65rem',
+                  fontWeight: 700,
+                  color: '#B87B28',
+                  letterSpacing: '0.06em',
+                  background: 'rgba(200, 155, 88, 0.1)',
+                  padding: '0.2rem 1.15rem',
+                  borderRadius: '999px',
+                  border: '1.2px solid rgba(200, 155, 88, 0.28)',
+                  boxShadow: '0 2px 6px rgba(18, 36, 56, 0.04)',
+                }}
+              >
+                {currentCard.reading}
+              </div>
+            )}
+
+            {/* 2. Chữ Hán Thư pháp Lớn */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <div
+                style={{
+                  fontFamily: 'var(--font-mincho)',
+                  fontSize: '4.5rem',
+                  fontWeight: 900,
+                  color: '#122438',
+                  letterSpacing: '0.04em',
+                  textShadow: '0 2px 4px rgba(0, 0, 0, 0.06)',
+                }}
+              >
+                {currentCard.kanji}
+              </div>
+              <JapaneseSpeakerButton text={currentCard.kanji} size={24} />
+            </div>
+
+            {/* 3. Huy hiệu phân biệt thể loại: Hán Tự (Kanji), Từ Vựng (Kotoba) hoặc JLPT N5 */}
             <div
               style={{
-                fontFamily: 'var(--font-mincho)',
-                fontSize: '4.5rem',
-                fontWeight: 900,
-                color: '#122438',
-                letterSpacing: '0.04em',
-                textShadow: '0 2px 4px rgba(0, 0, 0, 0.06)',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+                marginTop: '0.15rem',
+                padding: '0.2rem 0.65rem',
+                borderRadius: '999px',
+                fontSize: '0.75rem',
+                fontFamily: 'var(--font-maru)',
+                fontWeight: 700,
+                background: isKanji ? '#FDF2F0' : targetDeckId === 'deck_n5' ? '#F0F9F2' : '#EDF4FA',
+                color: isKanji ? '#C83824' : targetDeckId === 'deck_n5' ? '#2A6B3D' : '#1E4B75',
+                border: `1px solid ${isKanji ? '#F5C6CB' : targetDeckId === 'deck_n5' ? '#C2E5CC' : '#B8D5E5'}`,
               }}
             >
-              {currentCard.kanji}
+              {isKanji ? '🈳 Hán Tự (Kanji)' : targetDeckId === 'deck_n5' ? '🔰 Từ vựng JLPT N5' : '📖 Từ vựng Kotoba'}
             </div>
-            <JapaneseSpeakerButton text={currentCard.kanji} size={24} />
           </div>
 
           {/* MẶT SAU: LẬT MỞ NỘI DUNG FURIGANA & Ý NGHĨA KHI BẤM XEM */}
