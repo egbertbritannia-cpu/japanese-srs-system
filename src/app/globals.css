@@ -775,5 +775,18 @@ html, body {
   }
 }
 
+/* ==========================================================================
+   TẦNG 6: TỐI ƯU HÓA HIỆU NĂNG RUNTIME & DI ĐỘNG (ZERO TAP DELAY)
+   Căn cứ: doc/performance/06-runtime-performance.md (Mục 5.1)
+   ========================================================================== */
+.btn-srs-rating,
+.btn-karuta-action,
+button.karuta-btn {
+  touch-action: manipulation; /* Triệt tiêu độ trễ 300ms double-tap zoom trên Safari/Chrome Mobile */
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
 
 

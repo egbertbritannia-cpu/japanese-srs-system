@@ -6,11 +6,12 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { cardId, rating } = body; // rating: 'Again' | 'Hard' | 'Good' | 'Easy' (hoặc 1, 2, 3, 4 theo FSRS)
+    const cardId = body.cardId;
+    const rating = body.rating || body.grade; // Hỗ trợ cả 2 định dạng rating hoặc grade ('Again' | 'Hard' | 'Good' | 'Easy')
 
     if (!cardId || !rating) {
       return NextResponse.json(
-        { error: 'cardId and rating are required' },
+        { error: 'cardId and rating (or grade) are required' },
         { status: 400 }
       );
     }

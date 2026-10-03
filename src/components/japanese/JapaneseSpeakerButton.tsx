@@ -2,29 +2,37 @@
 
 import React, { useState } from 'react';
 import { japaneseAudio } from './AudioEffects';
+import { JapaneseAudioPool } from '@/lib/audio-pool';
 
 interface SpeakerButtonProps {
   text: string;
   size?: number;
   label?: string;
+  audioUrl?: string;
 }
 
-export function JapaneseSpeakerButton({ text, size = 18, label }: SpeakerButtonProps) {
+export function JapaneseSpeakerButton({ text, size = 18, label, audioUrl }: SpeakerButtonProps) {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsPlaying(true);
-    japaneseAudio.speak(text);
+    if (audioUrl) {
+      JapaneseAudioPool.play(audioUrl);
+    } else {
+      japaneseAudio.speak(text);
+    }
     setTimeout(() => setIsPlaying(false), 1200);
   };
 
   return (
     <button
       type="button"
+      className="btn-karuta-action"
       onClick={handleClick}
       title={`Nghe phát âm: ${text}`}
       style={{
+        touchAction: 'manipulation',
         background: 'none',
         border: '1px solid var(--washi-border)',
         borderRadius: '6px',

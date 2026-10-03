@@ -8,6 +8,8 @@ import { ToriiIcon, FujiMountainIcon } from '@/components/japanese/Icons';
 import { JapaneseArtBackdrop } from '@/components/art/JapaneseArtBackdrop';
 import { KirieBottomNav } from '@/components/kirie/KirieBottomNav';
 
+import { ServiceWorkerRegister } from '@/components/pwa/ServiceWorkerRegister';
+
 const zenMaru = Zen_Maru_Gothic({
   weight: ['400', '700'],
   subsets: ['latin'],
@@ -54,8 +56,11 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#122438" />
       </head>
       <body className="washi-paper-bg" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', position: 'relative' }}>
+        <ServiceWorkerRegister />
         {/* Lớp nền đồ họa mỹ thuật áp phích Nhật Bản (Mặt trời Hinomaru, Cành mai Sumi-e, Hạc Đan Đỉnh) */}
         <JapanesePosterBackground />
 

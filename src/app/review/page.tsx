@@ -10,6 +10,16 @@ import { JapaneseSpeakerButton } from '@/components/japanese/JapaneseSpeakerButt
 import { japaneseAudio } from '@/components/japanese/AudioEffects';
 import { DarumaMascot } from '@/components/japanese/DarumaMascot';
 import { JapaneseArtBackdrop } from '@/components/art/JapaneseArtBackdrop';
+import { useFsrsScheduler } from '@/hooks/useFsrsScheduler';
+import { createEmptyCard, Rating, type Card, type RecordLog } from 'ts-fsrs';
+import {
+  cacheCardsLocally,
+  getOfflineCards,
+  recordPendingReview,
+  getUnsyncedReviewCount,
+  syncPendingReviewsToServer,
+} from '@/lib/offline-db';
+import { JapaneseAudioPool } from '@/lib/audio-pool';
 
 interface CardItem {
   id: string;
@@ -22,7 +32,11 @@ interface CardItem {
   deckName?: string;
   sentence?: string;
   state?: string;
-  due?: string | Date;
+  due?: string | number | Date;
+  stability?: number;
+  difficulty?: number;
+  reps?: number;
+  lapses?: number;
 }
 
 interface DeckItem {
@@ -75,6 +89,11 @@ function ReviewSessionContent() {
   const targetDeckId = searchParams.get('deck') || 'all';
   const initialMode = searchParams.get('mode') || 'fsrs_due';
 
+  const { calculateNextReview, isReady: isWorkerReady } = useFsrsScheduler();
+  const [fsrsNextStates, setFsrsNextStates] = useState<RecordLog | null>(null);
+  const [isOffline, setIsOffline] = useState(false);
+  const [unsyncedCount, setUnsyncedCount] = useState(0);
+
   const [loading, setLoading] = useState(true);
   const [deckList, setDeckList] = useState<DeckItem[]>([]);
   const [queue, setQueue] = useState<CardItem[]>([]);
@@ -92,37 +111,89 @@ function ReviewSessionContent() {
     Easy: 0,
   });
 
-  // Tải dữ liệu thẻ từ API /api/cards theo Deck đã chọn
+  // Tải dữ liệu thẻ từ API /api/cards theo Deck đã chọn với cơ chế Offline Fallback
   useEffect(() => {
     async function loadCards() {
       try {
         setLoading(true);
         const url = targetDeckId && targetDeckId !== 'all' ? `/api/cards?deck=${targetDeckId}` : '/api/cards';
-        const res = await fetch(url);
-        const data = await res.json();
+        let rawCards: CardItem[] = [];
+        let fetchedDecks: DeckItem[] = [];
 
-        if (data.success) {
-          const rawCards: CardItem[] = data.data || [];
-          setDeckList(data.decks || []);
+        try {
+          const res = await fetch(url);
+          const data = await res.json();
 
-          let studyCards: CardItem[] = [];
-          if (cramMode) {
-            studyCards = rawCards;
-          } else {
-            const now = new Date();
-            const dueCards = rawCards.filter((c) => {
-              if (!c.due) return true;
-              return new Date(c.due) <= now;
-            });
-            studyCards = dueCards.length > 0 ? dueCards : rawCards;
+          if (data.success) {
+            rawCards = data.data || [];
+            fetchedDecks = data.decks || [];
+            setIsOffline(false);
+
+            // Nạp thẻ vào bộ nhớ ngoại tuyến IndexedDB (Dexie.js)
+            if (rawCards.length > 0) {
+              cacheCardsLocally(
+                rawCards.map((c) => ({
+                  id: c.id,
+                  front: c.kanji,
+                  reading: c.reading,
+                  meaning: c.meaning,
+                  deckId: c.deckId,
+                  deckName: c.deckName,
+                  type: c.type,
+                  sentence: c.sentence,
+                  pitch: c.pitch,
+                  state: c.state,
+                  due: c.due,
+                  stability: c.stability,
+                  difficulty: c.difficulty,
+                }))
+              );
+            }
           }
-
-          setQueue(studyCards);
-          setCurrentIdx(1);
-          setShowAnswer(false);
-          setIsCompleted(false);
-          setGradesCount({ Again: 0, Hard: 0, Good: 0, Easy: 0 });
+        } catch (fetchErr) {
+          console.warn('[Review] API không phản hồi hoặc mất mạng, tự động nạp từ IndexedDB ngoại tuyến:', fetchErr);
+          setIsOffline(true);
+          const localCards = await getOfflineCards(targetDeckId);
+          rawCards = localCards.map((c) => ({
+            id: c.id,
+            kanji: c.front,
+            reading: c.reading,
+            meaning: c.meaning,
+            pitch: c.pitch,
+            type: c.type || 'vocab',
+            deckId: c.deckId,
+            deckName: c.deckName,
+            sentence: c.sentence,
+            state: c.state,
+            due: c.due ? new Date(c.due) : undefined,
+            stability: c.stability,
+            difficulty: c.difficulty,
+          }));
         }
+
+        setDeckList(fetchedDecks);
+
+        let studyCards: CardItem[] = [];
+        if (cramMode) {
+          studyCards = rawCards;
+        } else {
+          const now = new Date();
+          const dueCards = rawCards.filter((c) => {
+            if (!c.due) return true;
+            return new Date(c.due) <= now;
+          });
+          studyCards = dueCards.length > 0 ? dueCards : rawCards;
+        }
+
+        setQueue(studyCards);
+        setCurrentIdx(1);
+        setShowAnswer(false);
+        setIsCompleted(false);
+        setGradesCount({ Again: 0, Hard: 0, Good: 0, Easy: 0 });
+
+        // Cập nhật số bản ghi chưa đồng bộ
+        const count = await getUnsyncedReviewCount();
+        setUnsyncedCount(count);
       } catch (err) {
         console.error('Lỗi khi tải hàng đợi ôn tập:', err);
       } finally {
@@ -132,12 +203,86 @@ function ReviewSessionContent() {
     loadCards();
   }, [targetDeckId, cramMode]);
 
+  // Lắng nghe sự kiện kết nối mạng để tự động đồng bộ ngầm
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const handleNetworkChange = async () => {
+      const offline = !navigator.onLine;
+      setIsOffline(offline);
+      if (!offline) {
+        const syncRes = await syncPendingReviewsToServer();
+        if (syncRes.synced > 0) {
+          const count = await getUnsyncedReviewCount();
+          setUnsyncedCount(count);
+        }
+      }
+    };
+
+    setIsOffline(!navigator.onLine);
+    window.addEventListener('online', handleNetworkChange);
+    window.addEventListener('offline', handleNetworkChange);
+
+    return () => {
+      window.removeEventListener('online', handleNetworkChange);
+      window.removeEventListener('offline', handleNetworkChange);
+    };
+  }, []);
+
   const currentCard = queue && queue.length > 0 && currentIdx <= queue.length ? queue[currentIdx - 1] : null;
   const totalCards = queue ? queue.length : 0;
   const deckTitle =
     targetDeckId === 'all'
       ? 'Toàn bộ thẻ học'
       : deckList.find((d) => d.id === targetDeckId)?.name || 'Bộ thẻ chọn lọc';
+
+  // Tính toán trước trạng thái FSRS qua Dedicated Web Worker chạy ngầm khi đổi thẻ
+  useEffect(() => {
+    if (!currentCard) {
+      setFsrsNextStates(null);
+      return;
+    }
+
+    const empty = createEmptyCard();
+    const fsrsCard: Card = {
+      ...empty,
+      due: currentCard.due ? new Date(currentCard.due) : empty.due,
+      stability: currentCard.stability ?? empty.stability,
+      difficulty: currentCard.difficulty ?? empty.difficulty,
+      reps: currentCard.reps ?? 0,
+      lapses: currentCard.lapses ?? 0,
+      state: currentCard.state ? (currentCard.state as any) : empty.state,
+    };
+
+    calculateNextReview(fsrsCard)
+      .then((recordLog) => {
+        setFsrsNextStates(recordLog);
+      })
+      .catch((err) => {
+        console.warn('[Review FSRS Worker Error]', err);
+      });
+  }, [currentCard, calculateNextReview]);
+
+  // Chuyển đổi khoảng cách thời gian FSRS sang chuỗi hiển thị trực quan
+  const formatInterval = (rating: Rating.Again | Rating.Hard | Rating.Good | Rating.Easy): string => {
+    const item = fsrsNextStates ? fsrsNextStates[rating] : null;
+    if (!item) {
+      if (rating === Rating.Again) return '< 1 phút';
+      if (rating === Rating.Hard) return '~ 1.2 ngày';
+      if (rating === Rating.Good) return '~ 3.5 ngày';
+      return '~ 7.0 ngày';
+    }
+
+    const days = item.card.scheduled_days;
+    if (days < 1) {
+      const minutes = Math.max(1, Math.round(days * 24 * 60));
+      return `< ${minutes} phút`;
+    }
+    if (days === 1) return '1 ngày';
+    if (days < 30) return `${Math.round(days * 10) / 10} ngày`;
+    const months = Math.round(days / 30);
+    return `${months} tháng`;
+  };
 
   // Chuyển đổi định dạng Pitch Accent
   const getPitchPattern = (pitchStr?: string): number => {
@@ -152,29 +297,53 @@ function ReviewSessionContent() {
     japaneseAudio.playHyoshigi();
   }, []);
 
-  // Hành động Chấm điểm theo thuật toán FSRS
+  // Hành động Chấm điểm theo thuật toán FSRS (Bất đồng bộ không chặn luồng giao diện)
   const handleGrade = useCallback(
     async (grade: 'Again' | 'Hard' | 'Good' | 'Easy') => {
       if (!currentCard) return;
+
+      const ratingMap = {
+        Again: Rating.Again,
+        Hard: Rating.Hard,
+        Good: Rating.Good,
+        Easy: Rating.Easy,
+      } as const;
+
+      const ratingEnum = ratingMap[grade];
+      const scheduledDays = fsrsNextStates ? fsrsNextStates[ratingEnum]?.card?.scheduled_days : undefined;
 
       setGradesCount((prev) => ({
         ...prev,
         [grade]: prev[grade] + 1,
       }));
 
-      try {
-        await fetch('/api/review', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            cardId: currentCard.id,
-            grade,
-            responseTimeMs: 2500,
-          }),
-        });
-      } catch (err) {
-        console.error('Lỗi cập nhật FSRS:', err);
-      }
+      // Gửi ngầm không chặn UI (Optimistic UI update)
+      const submitReview = async () => {
+        try {
+          if (!navigator.onLine) {
+            throw new Error('Offline');
+          }
+          const res = await fetch('/api/review', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              cardId: currentCard.id,
+              rating: grade,
+              grade,
+              responseTimeMs: 2500,
+              scheduledDays,
+            }),
+          });
+          if (!res.ok) throw new Error('API review returned non-200');
+        } catch {
+          // Khi ngoại tuyến hoặc API lỗi, lập tức ghi vào IndexedDB Dexie
+          await recordPendingReview(currentCard.id, grade, scheduledDays, 2500);
+          const count = await getUnsyncedReviewCount();
+          setUnsyncedCount(count);
+        }
+      };
+
+      submitReview();
 
       setShowAnswer(false);
       if (currentIdx >= totalCards) {
@@ -184,7 +353,7 @@ function ReviewSessionContent() {
         setCurrentIdx((prev) => prev + 1);
       }
     },
-    [currentCard, currentIdx, totalCards]
+    [currentCard, currentIdx, totalCards, fsrsNextStates]
   );
 
   // Phím tắt thông minh: Space để lật, 1-4 để chấm điểm
@@ -389,22 +558,65 @@ function ReviewSessionContent() {
     <div style={{ maxWidth: '640px', margin: '1.5rem auto', padding: '0 1.25rem 3.5rem' }}>
       {/* THANH ĐIỀU HƯỚNG & TIẾN ĐỘ THÂN TRÚC */}
       <div style={{ marginBottom: '1.25rem' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-          <Link
-            href="/"
-            style={{
-              color: '#786A5E',
-              textDecoration: 'none',
-              fontSize: '0.88rem',
-              fontFamily: 'var(--font-maru)',
-              fontWeight: 600,
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.35rem',
-            }}
-          >
-            ← Quay lại Trang chủ
-          </Link>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <Link
+              href="/"
+              style={{
+                color: '#786A5E',
+                textDecoration: 'none',
+                fontSize: '0.88rem',
+                fontFamily: 'var(--font-maru)',
+                fontWeight: 600,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+              }}
+            >
+              ← Quay lại Trang chủ
+            </Link>
+
+            {isOffline && (
+              <span
+                style={{
+                  fontSize: '0.72rem',
+                  fontFamily: 'var(--font-maru)',
+                  fontWeight: 700,
+                  backgroundColor: '#FFF2F0',
+                  color: '#C83824',
+                  border: '1px solid #F5C6CB',
+                  borderRadius: '6px',
+                  padding: '0.15rem 0.45rem',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.25rem',
+                }}
+              >
+                ⚡ Ngoại tuyến (IndexedDB)
+              </span>
+            )}
+
+            {unsyncedCount > 0 && (
+              <span
+                title="Lượt ôn tập đã ghi nhận cục bộ và sẽ tự động đồng bộ khi có mạng"
+                style={{
+                  fontSize: '0.72rem',
+                  fontFamily: 'var(--font-maru)',
+                  fontWeight: 700,
+                  backgroundColor: '#FFF9E6',
+                  color: '#B87B28',
+                  border: '1px solid #FFEAA7',
+                  borderRadius: '6px',
+                  padding: '0.15rem 0.45rem',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.25rem',
+                }}
+              >
+                🔄 Chờ đồng bộ: {unsyncedCount}
+              </span>
+            )}
+          </div>
 
           {/* Quick Deck Switcher Button */}
           <div style={{ position: 'relative' }}>
@@ -709,8 +921,10 @@ function ReviewSessionContent() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.65rem', marginBottom: '0.5rem' }}>
             {/* NÚT 1: AGAIN (再 - Akane) */}
             <button
+              className="btn-srs-rating"
               onClick={() => handleGrade('Again')}
               style={{
+                touchAction: 'manipulation',
                 padding: '0.85rem 0.4rem',
                 backgroundColor: '#FFF7F6',
                 border: '1.5px solid #9E3324',
@@ -725,13 +939,15 @@ function ReviewSessionContent() {
               }}
             >
               <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 900, fontSize: '1.25rem' }}>再 (1)</span>
-              <span style={{ fontSize: '0.72rem', fontWeight: 600 }}>&lt; 1 phút</span>
+              <span style={{ fontSize: '0.72rem', fontWeight: 600 }}>{formatInterval(Rating.Again)}</span>
             </button>
 
             {/* NÚT 2: HARD (難 - Kohaku) */}
             <button
+              className="btn-srs-rating"
               onClick={() => handleGrade('Hard')}
               style={{
+                touchAction: 'manipulation',
                 padding: '0.85rem 0.4rem',
                 backgroundColor: '#FFFAF2',
                 border: '1.5px solid #B87B28',
@@ -746,13 +962,15 @@ function ReviewSessionContent() {
               }}
             >
               <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 900, fontSize: '1.25rem' }}>難 (2)</span>
-              <span style={{ fontSize: '0.72rem', fontWeight: 600 }}>~ 1.2 ngày</span>
+              <span style={{ fontSize: '0.72rem', fontWeight: 600 }}>{formatInterval(Rating.Hard)}</span>
             </button>
 
             {/* NÚT 3: GOOD (良 - Tokiwa) */}
             <button
+              className="btn-srs-rating"
               onClick={() => handleGrade('Good')}
               style={{
+                touchAction: 'manipulation',
                 padding: '0.85rem 0.4rem',
                 backgroundColor: '#3E734E',
                 border: '1.5px solid #2F593C',
@@ -768,13 +986,15 @@ function ReviewSessionContent() {
               }}
             >
               <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 900, fontSize: '1.25rem' }}>良 (3)</span>
-              <span style={{ fontSize: '0.72rem', color: '#EAF5EC', fontWeight: 600 }}>~ 3.5 ngày</span>
+              <span style={{ fontSize: '0.72rem', color: '#EAF5EC', fontWeight: 600 }}>{formatInterval(Rating.Good)}</span>
             </button>
 
             {/* NÚT 4: EASY (易 - Aizome) */}
             <button
+              className="btn-srs-rating"
               onClick={() => handleGrade('Easy')}
               style={{
+                touchAction: 'manipulation',
                 padding: '0.85rem 0.4rem',
                 backgroundColor: '#234B73',
                 border: '1.5px solid #1A3755',
@@ -790,7 +1010,7 @@ function ReviewSessionContent() {
               }}
             >
               <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 900, fontSize: '1.25rem' }}>易 (4)</span>
-              <span style={{ fontSize: '0.72rem', color: '#D4E5F5', fontWeight: 600 }}>~ 7.0 ngày</span>
+              <span style={{ fontSize: '0.72rem', color: '#D4E5F5', fontWeight: 600 }}>{formatInterval(Rating.Easy)}</span>
             </button>
           </div>
         </div>
