@@ -9,23 +9,30 @@ import { JapaneseArtBackdrop } from '@/components/art/JapaneseArtBackdrop';
 import { KirieBottomNav } from '@/components/kirie/KirieBottomNav';
 
 const zenMaru = Zen_Maru_Gothic({
-  weight: ['400', '500', '700', '900'],
+  weight: ['400', '700'],
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-maru',
+  preload: true,
+  fallback: ['system-ui', '-apple-system', 'Segoe UI', 'Hiragino Sans', 'sans-serif'],
+  adjustFontFallback: true,
 });
 
 const shipporiMincho = Shippori_Mincho({
-  weight: ['500', '700', '800'],
+  weight: ['700'],
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-mincho',
+  preload: false,
+  fallback: ['Yu Mincho', 'Hiragino Mincho ProN', 'Georgia', 'serif'],
+  adjustFontFallback: true,
 });
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-sans',
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -43,6 +50,11 @@ export default function RootLayout({
       lang="ja"
       className={`${zenMaru.variable} ${shipporiMincho.variable} ${plusJakarta.variable}`}
     >
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+      </head>
       <body className="washi-paper-bg" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', position: 'relative' }}>
         {/* Lớp nền đồ họa mỹ thuật áp phích Nhật Bản (Mặt trời Hinomaru, Cành mai Sumi-e, Hạc Đan Đỉnh) */}
         <JapanesePosterBackground />

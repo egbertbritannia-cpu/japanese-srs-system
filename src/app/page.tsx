@@ -1,7 +1,7 @@
-'use client';
-
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { db } from '@/db/client';
+import { cards, decks } from '@/db/schema';
+import { eq, desc, count, sql } from 'drizzle-orm';
 import { ToriiIcon } from '@/components/japanese/Icons';
 import { JapaneseArtBackdrop } from '@/components/art/JapaneseArtBackdrop';
 import { DeckSummaryDTO } from '@/core/cards/deck.types';
@@ -14,120 +14,180 @@ import {
 
 /**
  * Dashboard (Honmaru - 本丸)
- * Tái thiết kế trực quan theo phong cách Cắt giấy Washi Kirie & Sóng Biển Lớp (18337712357dc3b93a96a076cef25eae.jpg)
+ * Tái cấu trúc thành React Server Component (RSC):
+ * - Tối ưu hóa TTFB qua việc nạp dữ liệu trực tiếp trên máy chủ bằng Drizzle ORM
+ * - Gom nhóm thống kê trực tiếp trong SQL (GROUP BY), giảm 0ms Client RTT
+ * - Tự động revalidate sau mỗi 60 giây (Incremental Static Regeneration - ISR)
+ * - Tái thiết kế trực quan theo phong cách Cắt giấy Washi Kirie & Sóng Biển Lớp
  */
-export default function DashboardPage() {
-  const [deckSummaries, setDeckSummaries] = useState<DeckSummaryDTO[]>([]);
-  const [cardsList, setCardsList] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+export const revalidate = 60;
 
-  useEffect(() => {
-    async function loadDeckData() {
-      try {
-        setLoading(true);
-        const res = await fetch('/api/cards');
-        const json = await res.json();
-        if (json.success && json.deckSummaries) {
-          setDeckSummaries(json.deckSummaries);
-        } else if (json.decks) {
-          setDeckSummaries(
-            json.decks.map((d: any) => ({
-              id: d.id,
-              name: d.name,
-              description: d.description || '',
-              totalCards: 0,
-              dueCards: 0,
-              newCards: 0,
-              learnedCards: 0,
-            }))
-          );
-        }
-        if (json.data && Array.isArray(json.data)) {
-          setCardsList(json.data.slice(0, 5));
-        }
-      } catch (err) {
-        console.error('Lỗi khi nạp dữ liệu bộ thẻ:', err);
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadDeckData();
-  }, []);
+// 5 Thẻ bài tập trung mẫu chuẩn theo phong cách Kirie Washi
+const defaultFocusCards: KirieFocusItemData[] = [
+  {
+    id: 'f1',
+    title: 'Review new component specs with dev',
+    subtitle: '曖昧 (あいまい) · Mơ hồ, không rõ ràng',
+    timeOrLevel: '09:30',
+    statusText: 'Due now',
+    statusType: 'due-now',
+    barColor: 'navy',
+    href: '/review',
+    audioText: '曖昧',
+  },
+  {
+    id: 'f2',
+    title: 'Update sprint board before standup',
+    subtitle: '躊躇 (ちゅうちょ) · Do dự, ngập ngừng',
+    timeOrLevel: '11:00',
+    statusText: 'In progress',
+    statusType: 'in-progress',
+    barColor: 'denim',
+    href: '/review',
+    audioText: '躊躇',
+  },
+  {
+    id: 'f3',
+    title: 'Approve Q2 contractor invoices',
+    subtitle: '木漏れ日 (こもれび) · Nắng xuyên kẽ lá',
+    timeOrLevel: '13:30',
+    statusText: 'Pending',
+    statusType: 'pending',
+    barColor: 'gold',
+    href: '/review',
+    audioText: '木漏れ日',
+  },
+  {
+    id: 'f4',
+    title: 'QA walkthrough for Tide app v2.3',
+    subtitle: '一期一会 (いちごいちえ) · Đời người gặp một lần',
+    timeOrLevel: '15:00',
+    statusText: 'Not started',
+    statusType: 'not-started',
+    barColor: 'matcha',
+    href: '/review',
+    audioText: '一期一会',
+  },
+  {
+    id: 'f5',
+    title: 'Resolve blocked API auth issue',
+    subtitle: '切磋琢磨 (せっさたくま) · Cùng nhau nỗ lực rèn giũa',
+    timeOrLevel: '17:00',
+    statusText: 'Blocked',
+    statusType: 'blocked',
+    barColor: 'torii',
+    href: '/review',
+    audioText: '切磋琢磨',
+  },
+];
 
-  // Tổng hợp thống kê
-  const totalDue = deckSummaries.reduce((sum, d) => sum + d.dueCards, 0);
-  const totalNew = deckSummaries.reduce((sum, d) => sum + d.newCards, 0);
-  const totalCardsCount = deckSummaries.reduce((sum, d) => sum + d.totalCards, 0);
+interface DashboardCardItem {
+  id: string;
+  front: string;
+  reading: string | null;
+  meaning: string;
+  due: Date | number | null;
+  state: string;
+}
 
-  const stats = {
-    dueToday: totalDue > 0 ? totalDue : 6,
-    openTasks: totalCardsCount > 0 ? totalCardsCount : 38,
-    doneThisSprint: 94,
+interface DashboardData {
+  cardsList: DashboardCardItem[];
+  deckSummaries: DeckSummaryDTO[];
+  stats: {
+    dueToday: number;
+    openTasks: number;
+    doneThisSprint: number;
   };
+  totalCardsCount: number;
+}
 
-  // 5 Thẻ bài tập trung mẫu chuẩn theo 18337712357dc3b93a96a076cef25eae.jpg
-  const defaultFocusCards: KirieFocusItemData[] = [
-    {
-      id: 'f1',
-      title: 'Review new component specs with dev',
-      subtitle: '曖昧 (あいまい) · Mơ hồ, không rõ ràng',
-      timeOrLevel: '09:30',
-      statusText: 'Due now',
-      statusType: 'due-now',
-      barColor: 'navy',
-      href: '/review',
-      audioText: '曖昧',
-    },
-    {
-      id: 'f2',
-      title: 'Update sprint board before standup',
-      subtitle: '躊躇 (ちゅうちょ) · Do dự, ngập ngừng',
-      timeOrLevel: '11:00',
-      statusText: 'In progress',
-      statusType: 'in-progress',
-      barColor: 'denim',
-      href: '/review',
-      audioText: '躊躇',
-    },
-    {
-      id: 'f3',
-      title: 'Approve Q2 contractor invoices',
-      subtitle: '木漏れ日 (こもれび) · Nắng xuyên kẽ lá',
-      timeOrLevel: '13:30',
-      statusText: 'Pending',
-      statusType: 'pending',
-      barColor: 'gold',
-      href: '/review',
-      audioText: '木漏れ日',
-    },
-    {
-      id: 'f4',
-      title: 'QA walkthrough for Tide app v2.3',
-      subtitle: '一期一会 (いちごいちえ) · Đời người gặp một lần',
-      timeOrLevel: '15:00',
-      statusText: 'Not started',
-      statusType: 'not-started',
-      barColor: 'matcha',
-      href: '/review',
-      audioText: '一期一会',
-    },
-    {
-      id: 'f5',
-      title: 'Resolve blocked API auth issue',
-      subtitle: '切磋琢磨 (せっさたくま) · Cùng nhau nỗ lực rèn giũa',
-      timeOrLevel: '17:00',
-      statusText: 'Blocked',
-      statusType: 'blocked',
-      barColor: 'torii',
-      href: '/review',
-      audioText: '切磋琢磨',
-    },
-  ];
+async function getDashboardData(): Promise<DashboardData> {
+  try {
+    const now = Date.now();
+    const [cardList, allDecks, deckStatsRaw] = await Promise.all([
+      db
+        .select({
+          id: cards.id,
+          front: cards.front,
+          reading: cards.reading,
+          meaning: cards.meaning,
+          due: cards.due,
+          state: cards.state,
+        })
+        .from(cards)
+        .orderBy(desc(cards.createdAt))
+        .limit(5),
+      db.select().from(decks),
+      db
+        .select({
+          id: decks.id,
+          name: decks.name,
+          description: decks.description,
+          totalCards: count(cards.id),
+          dueCards: sql<number>`SUM(CASE WHEN ${cards.state} != 'New' AND ${cards.due} <= ${now} THEN 1 ELSE 0 END)`,
+          newCards: sql<number>`SUM(CASE WHEN ${cards.state} = 'New' THEN 1 ELSE 0 END)`,
+          learnedCards: sql<number>`SUM(CASE WHEN ${cards.state} = 'Review' THEN 1 ELSE 0 END)`,
+        })
+        .from(decks)
+        .leftJoin(cards, eq(cards.deckId, decks.id))
+        .groupBy(decks.id),
+    ]);
 
-  // Nếu trong kho có thẻ học thực tế, ánh xạ vào 5 hàng theo phong cách Kirie
+    const deckSummaries: DeckSummaryDTO[] = (deckStatsRaw as any[]).map((d) => ({
+      id: d.id,
+      name: d.name,
+      description: d.description || '',
+      totalCards: Number(d.totalCards || 0),
+      dueCards: Number(d.dueCards || 0),
+      newCards: Number(d.newCards || 0),
+      learnedCards: Number(d.learnedCards || 0),
+    }));
+
+    const finalDeckSummaries: DeckSummaryDTO[] = deckSummaries.length > 0 ? deckSummaries : allDecks.map((d: any) => ({
+      id: d.id,
+      name: d.name,
+      description: d.description || '',
+      totalCards: 0,
+      dueCards: 0,
+      newCards: 0,
+      learnedCards: 0,
+    }));
+
+    const totalDue = finalDeckSummaries.reduce((sum: number, d) => sum + d.dueCards, 0);
+    const totalCardsCount = finalDeckSummaries.reduce((sum: number, d) => sum + d.totalCards, 0);
+
+    return {
+      cardsList: cardList as DashboardCardItem[],
+      deckSummaries: finalDeckSummaries,
+      stats: {
+        dueToday: totalDue > 0 ? totalDue : 6,
+        openTasks: totalCardsCount > 0 ? totalCardsCount : 38,
+        doneThisSprint: 94,
+      },
+      totalCardsCount,
+    };
+  } catch (error) {
+    console.error('[Dashboard Server Fetch Error]', error);
+    return {
+      cardsList: [],
+      deckSummaries: [],
+      stats: {
+        dueToday: 6,
+        openTasks: 38,
+        doneThisSprint: 94,
+      },
+      totalCardsCount: 0,
+    };
+  }
+}
+
+export default async function DashboardPage() {
+  const { cardsList, deckSummaries, stats, totalCardsCount } = await getDashboardData();
+
+  // Ánh xạ thẻ học thực tế vào 5 hàng theo phong cách Kirie nếu có >= 3 thẻ
   const displayedFocusItems: KirieFocusItemData[] =
     cardsList.length >= 3
-      ? cardsList.slice(0, 5).map((c, idx) => {
+      ? cardsList.slice(0, 5).map((c: DashboardCardItem, idx) => {
           const barColors: ('navy' | 'denim' | 'gold' | 'matcha' | 'torii')[] = [
             'navy',
             'denim',
@@ -143,19 +203,19 @@ export default function DashboardPage() {
             { text: 'Blocked', type: 'blocked' },
           ];
           const timeSlots = ['09:30', '11:00', '13:30', '15:00', '17:00'];
-          const isDue = c.due ? new Date(c.due) <= new Date() : false;
+          const isDue = c.due ? new Date(c.due).getTime() <= Date.now() : false;
           const status = isDue ? statuses[0] : statuses[idx % statuses.length];
 
           return {
             id: c.id,
-            title: `${c.kanji || c.front || 'Thẻ học'}${c.reading ? ` (${c.reading})` : ''}`,
+            title: `${c.front || 'Thẻ học'}${c.reading ? ` (${c.reading})` : ''}`,
             subtitle: c.meaning || defaultFocusCards[idx % defaultFocusCards.length].title,
             timeOrLevel: timeSlots[idx % timeSlots.length],
             statusText: status.text,
             statusType: status.type,
             barColor: barColors[idx % barColors.length],
             href: '/review',
-            audioText: c.kanji || c.front,
+            audioText: c.front,
           };
         })
       : defaultFocusCards;
@@ -300,7 +360,7 @@ export default function DashboardPage() {
             />
           </div>
 
-          {loading ? (
+          {deckSummaries.length === 0 ? (
             <div
               style={{
                 padding: '1.25rem',
@@ -312,7 +372,7 @@ export default function DashboardPage() {
                 border: '1px solid #EBE4D6',
               }}
             >
-              Đang nạp bộ thẻ...
+              Chưa có bộ thẻ nào. Hãy tạo bộ thẻ đầu tiên để bắt đầu học!
             </div>
           ) : (
             deckSummaries.map((deck) => (

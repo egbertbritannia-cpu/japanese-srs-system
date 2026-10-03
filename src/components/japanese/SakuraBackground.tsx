@@ -1,37 +1,38 @@
-'use client';
+import React from 'react';
 
-import React, { useEffect, useState } from 'react';
+// 18 cánh hoa với tọa độ và chu kỳ xác định (Zero Javascript runtime overhead, no useState/useEffect)
+const STATIC_PETALS = [
+  { id: 0, left: '3.2%', size: 14, duration: 11, delay: -2, swayDuration: 4, opacity: 0.75 },
+  { id: 1, left: '8.8%', size: 11, duration: 13, delay: -5, swayDuration: 5, opacity: 0.65 },
+  { id: 2, left: '14.5%', size: 16, duration: 10, delay: -8, swayDuration: 3, opacity: 0.82 },
+  { id: 3, left: '20.1%', size: 12, duration: 14, delay: -1, swayDuration: 4, opacity: 0.70 },
+  { id: 4, left: '25.7%', size: 15, duration: 12, delay: -9, swayDuration: 6, opacity: 0.60 },
+  { id: 5, left: '31.2%', size: 10, duration: 15, delay: -3, swayDuration: 4, opacity: 0.85 },
+  { id: 6, left: '36.8%', size: 17, duration: 9, delay: -11, swayDuration: 5, opacity: 0.72 },
+  { id: 7, left: '42.4%', size: 13, duration: 13, delay: -4, swayDuration: 3, opacity: 0.68 },
+  { id: 8, left: '48.0%', size: 15, duration: 11, delay: -7, swayDuration: 4, opacity: 0.80 },
+  { id: 9, left: '53.6%', size: 11, duration: 14, delay: -2, swayDuration: 6, opacity: 0.62 },
+  { id: 10, left: '59.1%', size: 16, duration: 10, delay: -10, swayDuration: 4, opacity: 0.78 },
+  { id: 11, left: '64.7%', size: 12, duration: 12, delay: -6, swayDuration: 5, opacity: 0.70 },
+  { id: 12, left: '70.3%', size: 14, duration: 15, delay: -1, swayDuration: 3, opacity: 0.83 },
+  { id: 13, left: '75.9%', size: 18, duration: 11, delay: -8, swayDuration: 4, opacity: 0.65 },
+  { id: 14, left: '81.4%', size: 10, duration: 13, delay: -4, swayDuration: 6, opacity: 0.75 },
+  { id: 15, left: '87.0%', size: 15, duration: 9, delay: -12, swayDuration: 4, opacity: 0.82 },
+  { id: 16, left: '92.6%', size: 13, duration: 14, delay: -3, swayDuration: 5, opacity: 0.68 },
+  { id: 17, left: '97.2%', size: 16, duration: 12, delay: -7, swayDuration: 4, opacity: 0.74 },
+];
 
-interface PetalConfig {
-  id: number;
-  left: string;
-  size: number;
-  duration: number;
-  delay: number;
-  swayDuration: number;
-  opacity: number;
-}
-
+/**
+ * SakuraBackground
+ * Cánh hoa anh đào rơi tự nhiên theo mỹ học Wabi-Sabi
+ * - Hoàn toàn không tốn CPU tính toán runtime (Không dùng JS state / hooks)
+ * - Render tĩnh trực tiếp vào HTML ban đầu
+ * - Tăng tốc phần cứng 100% bằng GPU CSS Keyframes
+ */
 export function SakuraBackground() {
-  const [petals, setPetals] = useState<PetalConfig[]>([]);
-
-  useEffect(() => {
-    // Khởi tạo 18 cánh hoa với tham số ngẫu nhiên tự nhiên
-    const generated: PetalConfig[] = Array.from({ length: 18 }).map((_, i) => ({
-      id: i,
-      left: `${(i * 5.5 + Math.random() * 4).toFixed(1)}%`,
-      size: Math.floor(Math.random() * 8) + 10, // 10px - 18px
-      duration: Math.floor(Math.random() * 6) + 9, // 9s - 15s
-      delay: -(Math.random() * 12), // Tránh hiện tượng đồng loạt rơi từ đầu
-      swayDuration: Math.floor(Math.random() * 3) + 3, // 3s - 6s
-      opacity: Number((Math.random() * 0.4 + 0.5).toFixed(2)), // 0.5 - 0.9
-    }));
-    setPetals(generated);
-  }, []);
-
   return (
     <div className="sakura-container" aria-hidden="true">
-      {petals.map((petal) => (
+      {STATIC_PETALS.map((petal) => (
         <span
           key={petal.id}
           className="sakura-petal"
@@ -48,3 +49,5 @@ export function SakuraBackground() {
     </div>
   );
 }
+
+export default SakuraBackground;

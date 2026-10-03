@@ -147,6 +147,12 @@ function initSchemaDDL(execFn: (sql: string) => void) {
       credits_earned INTEGER NOT NULL DEFAULT 0,
       session_timestamp INTEGER NOT NULL
     );
+
+    -- Chỉ mục tăng tốc độ truy vấn (B-Tree Indexes)
+    CREATE INDEX IF NOT EXISTS idx_cards_deck_id ON cards(deck_id);
+    CREATE INDEX IF NOT EXISTS idx_cards_due_state ON cards(due, state);
+    CREATE INDEX IF NOT EXISTS idx_cards_created_at ON cards(created_at DESC);
+    CREATE INDEX IF NOT EXISTS idx_review_logs_card_id ON review_logs(card_id);
   `);
 }
 
@@ -165,10 +171,16 @@ function initDb() {
         ? rawTursoUrl.replace(/^libsql:\/\//, 'https://')
         : rawTursoUrl;
 
-      const client = createClient({
+      const client = (globalThis as any).__tursoClient ?? ((globalThis as any).__tursoClient = createClient({
         url,
         authToken: tursoAuthToken,
-      });
+        fetch: (input: any, init: any) => {
+          return fetch(input, {
+            ...init,
+            keepalive: true,
+          });
+        },
+      }));
 
       return drizzle(client, { schema });
     } catch (err: any) {
@@ -239,5 +251,5 @@ function initDb() {
   }
 }
 
-export const db: any = initDb();
+export const db: any = (globalThis as any).__drizzleDb ?? ((globalThis as any).__drizzleDb = initDb());
 export type DB = typeof db;

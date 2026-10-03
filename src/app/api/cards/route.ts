@@ -1,16 +1,20 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/db/client';
 import { cards, decks } from '@/db/schema';
-import { eq, desc } from 'drizzle-orm';
+import { eq, desc, sql, count } from 'drizzle-orm';
 import { validateAndSaveCard } from '@/agents/skills/card-creator.skill';
 
 /**
  * API Lấy danh sách thẻ học (Cards Library API)
+ * - Tối ưu hóa truy vấn song song qua Promise.all()
+ * - Tối ưu hóa gom nhóm thống kê trực tiếp trong nhân SQLite (SQL GROUP BY)
+ * - Thêm Cache-Control header cho CDN
  */
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const deckId = searchParams.get('deck');
+    const now = Date.now();
 
     const baseQuery = db
       .select({
@@ -31,53 +35,56 @@ export async function GET(request: Request) {
       .from(cards)
       .leftJoin(decks, eq(cards.deckId, decks.id));
 
-    const cardList =
-      deckId && deckId !== 'all'
-        ? await baseQuery.where(eq(cards.deckId, deckId)).orderBy(desc(cards.createdAt))
-        : await baseQuery.orderBy(desc(cards.createdAt));
+    // Thực hiện song song 3 truy vấn độc lập qua Promise.all
+    const [cardList, allDecks, deckStatsRaw] = await Promise.all([
+      (deckId && deckId !== 'all'
+        ? baseQuery.where(eq(cards.deckId, deckId)).orderBy(desc(cards.createdAt))
+        : baseQuery.orderBy(desc(cards.createdAt))
+      ).limit(100),
+      db.select().from(decks),
+      db
+        .select({
+          id: decks.id,
+          name: decks.name,
+          description: decks.description,
+          totalCards: count(cards.id),
+          dueCards: sql<number>`SUM(CASE WHEN ${cards.state} != 'New' AND ${cards.due} <= ${now} THEN 1 ELSE 0 END)`,
+          newCards: sql<number>`SUM(CASE WHEN ${cards.state} = 'New' THEN 1 ELSE 0 END)`,
+          learnedCards: sql<number>`SUM(CASE WHEN ${cards.state} = 'Review' THEN 1 ELSE 0 END)`,
+        })
+        .from(decks)
+        .leftJoin(cards, eq(cards.deckId, decks.id))
+        .groupBy(decks.id),
+    ]);
 
-    const allDecks = await db.select().from(decks);
+    const deckSummaries = (deckStatsRaw as any[]).map((d) => ({
+      id: d.id,
+      name: d.name,
+      description: d.description || '',
+      totalCards: Number(d.totalCards || 0),
+      dueCards: Number(d.dueCards || 0),
+      newCards: Number(d.newCards || 0),
+      learnedCards: Number(d.learnedCards || 0),
+    }));
 
-    // Tính toán số liệu thống kê cho từng bộ thẻ (Due, New, Total)
-    const now = new Date();
-    const allCardsForStats = await db
-      .select({
-        id: cards.id,
-        deckId: cards.deckId,
-        state: cards.state,
-        due: cards.due,
-      })
-      .from(cards);
-
-    const deckSummaries = allDecks.map((d: any) => {
-      const cardsInDeck = allCardsForStats.filter((c: any) => c.deckId === d.id);
-      const dueCards = cardsInDeck.filter(
-        (c: any) => c.state !== 'New' && new Date(c.due || 0) <= now
-      ).length;
-      const newCards = cardsInDeck.filter((c: any) => c.state === 'New').length;
-      const learnedCards = cardsInDeck.filter((c: any) => c.state === 'Review').length;
-
-      return {
-        id: d.id,
-        name: d.name,
-        description: d.description,
-        totalCards: cardsInDeck.length,
-        dueCards,
-        newCards,
-        learnedCards,
-      };
-    });
-
-    return NextResponse.json({
-      success: true,
-      data: cardList.map((c: any) => ({
-        ...c,
-        deck: c.deckName || 'Mặc định',
-      })),
-      decks: allDecks,
-      deckSummaries,
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        data: cardList.map((c: any) => ({
+          ...c,
+          deck: c.deckName || 'Mặc định',
+        })),
+        decks: allDecks,
+        deckSummaries,
+      },
+      {
+        headers: {
+          'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+        },
+      }
+    );
   } catch (error: any) {
+    console.error('[API Cards Error]', error);
     return NextResponse.json({ error: error?.message || 'Internal Server Error' }, { status: 500 });
   }
 }

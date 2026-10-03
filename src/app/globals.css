@@ -221,6 +221,7 @@ html, body {
   overflow: hidden;
   pointer-events: none;
   z-index: 1;
+  contain: strict; /* Cách ly hoàn toàn layout & paint khỏi phần còn lại của DOM */
 }
 
 .sakura-petal {
@@ -232,6 +233,20 @@ html, body {
   opacity: 0;
   will-change: transform, top, opacity;
   animation: sakuraFall 12s linear infinite, sakuraSway 4s ease-in-out infinite alternate;
+}
+
+/* Ẩn bớt cánh hoa trên thiết bị di động để giảm tải CPU và tiết kiệm pin */
+@media (max-width: 768px) {
+  .sakura-petal:nth-child(n+9) {
+    display: none !important;
+  }
+}
+
+/* Trợ năng: Vô hiệu hóa hiệu ứng rơi hoa khi người dùng bật chế độ giảm chuyển động */
+@media (prefers-reduced-motion: reduce) {
+  .sakura-container {
+    display: none !important;
+  }
 }
 
 /* --- CON DẤU SON INKAN (HANKO) --- */
