@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { SensuFanIcon } from '@/components/japanese/Icons';
+import { JapaneseSpeakerButton } from '@/components/japanese/JapaneseSpeakerButton';
 import { getContextConfig, RouteContextConfig } from '@/lib/rag/context-prompts';
 
 interface ChatMessage {
@@ -19,6 +20,7 @@ export function JapaneseSenseiChat() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Lấy cấu hình ngữ cảnh động theo route hiện tại
@@ -44,6 +46,12 @@ export function JapaneseSenseiChat() {
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages, isOpen]);
+
+  const handleCopyText = (id: string, text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
 
   const handleSendMessage = async (textToSend?: string) => {
     const query = (textToSend || input).trim();
@@ -75,7 +83,7 @@ export function JapaneseSenseiChat() {
         const senseiMsg: ChatMessage = {
           id: `sensei_${Date.now()}`,
           sender: 'sensei',
-          text: data.answer || 'Xin lỗi, Sensei chưa tìm thấy thông tin phù hợp.',
+          text: data.answer || 'Sensei đã ghi nhận câu hỏi nhưng chưa tìm thấy dữ liệu phù hợp trong giáo trình.',
           references: data.references,
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         };
@@ -110,31 +118,32 @@ export function JapaneseSenseiChat() {
           bottom: '88px',
           right: '20px',
           zIndex: 90,
-          width: '52px',
-          height: '52px',
+          width: '54px',
+          height: '54px',
           borderRadius: '50%',
-          background: 'linear-gradient(135deg, #1E4B75 0%, #0D233A 100%)',
-          border: '2px solid #C89B58',
-          boxShadow: '0 6px 20px rgba(18, 36, 56, 0.28)',
+          background: 'linear-gradient(135deg, #1E4B75 0%, #0A1C33 100%)',
+          border: '1.5px solid #D4AF37',
+          boxShadow: '0 8px 24px rgba(18, 36, 56, 0.28), 0 2px 6px rgba(0, 0, 0, 0.12)',
           color: '#FFFFFF',
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+          transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
-        <SensuFanIcon size={24} color="#C89B58" />
+        <SensuFanIcon size={26} color="#D4AF37" />
         <span
           style={{
             position: 'absolute',
-            top: '-2px',
-            right: '-2px',
+            top: '2px',
+            right: '2px',
             width: '12px',
             height: '12px',
             borderRadius: '50%',
             backgroundColor: '#C83824',
             border: '2px solid #FFFFFF',
+            boxShadow: '0 0 6px rgba(200, 56, 36, 0.6)',
           }}
         />
       </button>
@@ -146,53 +155,52 @@ export function JapaneseSenseiChat() {
           style={{
             position: 'fixed',
             inset: 0,
-            background: 'rgba(18, 36, 56, 0.45)',
-            backdropFilter: 'blur(3px)',
-            WebkitBackdropFilter: 'blur(3px)',
+            background: 'rgba(10, 28, 51, 0.45)',
+            backdropFilter: 'blur(4px)',
+            WebkitBackdropFilter: 'blur(4px)',
             zIndex: 95,
-            transition: 'opacity 0.2s',
+            transition: 'opacity 0.25s ease',
           }}
         />
       )}
 
-      {/* 3. NGĂN TRƯỢT HỘI THOẠI BÊN HÔNG (SIDE DRAWER) */}
+      {/* 3. NGĂN TRƯỢT HỘI THOẠI BÊN HÔNG (SIDE DRAWER - GLASSMORPHISM) */}
       <div
+        className="glass-drawer-surface"
         style={{
           position: 'fixed',
           top: 0,
           right: 0,
           bottom: 0,
           width: '100%',
-          maxWidth: '430px',
-          background: '#FAF7F0',
-          borderLeft: '2px solid #E6DDCF',
-          boxShadow: '-8px 0 32px rgba(18, 36, 56, 0.18)',
+          maxWidth: '440px',
           zIndex: 100,
           display: 'flex',
           flexDirection: 'column',
           transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
-          transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+          transition: 'transform 0.32s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
         {/* HEADER CỦA DRAWER */}
         <div
           style={{
             padding: '1.25rem 1.4rem',
-            background: '#122438',
+            background: 'linear-gradient(135deg, #0A1C33 0%, #153255 100%)',
             color: '#FFFFFF',
-            borderBottom: '2px solid #C89B58',
+            borderBottom: '1.5px solid rgba(200, 155, 88, 0.4)',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
+            boxShadow: '0 4px 14px rgba(0, 0, 0, 0.15)',
           }}
         >
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-              <span style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.15rem', fontWeight: 800 }}>
+              <span style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.2rem', fontWeight: 800, color: '#FAF8F5' }}>
                 Sensei AI · 日本語先生
               </span>
             </div>
-            <div style={{ fontSize: '0.76rem', color: '#E8D9BD', marginTop: '0.2rem', fontFamily: 'var(--font-maru)' }}>
+            <div className="micro-badge-label" style={{ background: 'rgba(255, 255, 255, 0.12)', color: '#E8D9BD', marginTop: '0.35rem' }}>
               {contextConfig.badgeText}
             </div>
           </div>
@@ -200,13 +208,15 @@ export function JapaneseSenseiChat() {
           <button
             onClick={() => setIsOpen(false)}
             style={{
-              background: 'none',
-              border: 'none',
-              color: '#E8D9BD',
-              fontSize: '1.5rem',
+              background: 'rgba(255, 255, 255, 0.1)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              borderRadius: '8px',
+              color: '#FAF8F5',
+              fontSize: '1.1rem',
               cursor: 'pointer',
-              padding: '0.2rem 0.5rem',
+              padding: '0.3rem 0.65rem',
               lineHeight: 1,
+              transition: 'background 0.2s',
             }}
           >
             ✕
@@ -216,11 +226,11 @@ export function JapaneseSenseiChat() {
         {/* DANH SÁCH CÂU HỎI GỢI Ý NHANH (PROMPT CHIPS THEO NGỮ CẢNH) */}
         <div
           style={{
-            padding: '0.65rem 1rem',
-            background: '#F0EBE0',
-            borderBottom: '1px solid #E4DAC9',
+            padding: '0.75rem 1rem',
+            background: 'rgba(240, 235, 224, 0.85)',
+            borderBottom: '1px solid var(--washi-border)',
             display: 'flex',
-            gap: '0.4rem',
+            gap: '0.45rem',
             overflowX: 'auto',
             whiteSpace: 'nowrap',
           }}
@@ -231,17 +241,18 @@ export function JapaneseSenseiChat() {
               onClick={() => handleSendMessage(chip)}
               disabled={loading}
               style={{
-                padding: '0.3rem 0.65rem',
+                padding: '0.35rem 0.75rem',
                 borderRadius: '999px',
-                border: '1px solid #D6C8B5',
+                border: '1px solid var(--washi-border)',
                 background: '#FFFFFF',
                 color: '#122438',
-                fontSize: '0.74rem',
+                fontSize: '0.76rem',
                 fontFamily: 'var(--font-maru)',
                 fontWeight: 600,
                 cursor: 'pointer',
                 flexShrink: 0,
-                transition: 'all 0.15s',
+                boxShadow: 'var(--shadow-washi-sm)',
+                transition: 'all 0.15s ease',
               }}
             >
               💬 {chip}
@@ -267,22 +278,22 @@ export function JapaneseSenseiChat() {
                 key={m.id}
                 style={{
                   alignSelf: isSensei ? 'flex-start' : 'flex-end',
-                  maxWidth: '88%',
+                  maxWidth: '90%',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '0.2rem',
+                  gap: '0.25rem',
                 }}
               >
                 <div
                   style={{
-                    padding: '0.85rem 1.1rem',
-                    borderRadius: isSensei ? '14px 14px 14px 2px' : '14px 14px 2px 14px',
+                    padding: '0.95rem 1.2rem',
+                    borderRadius: isSensei ? '16px 16px 16px 3px' : '16px 16px 3px 16px',
                     background: isSensei ? '#FFFFFF' : '#1E4B75',
                     color: isSensei ? '#122438' : '#FFFFFF',
-                    border: isSensei ? '1.2px solid #E6DDCF' : 'none',
-                    boxShadow: '0 2px 6px rgba(18, 36, 56, 0.05)',
-                    fontSize: '0.9rem',
-                    lineHeight: 1.55,
+                    border: isSensei ? '1px solid var(--washi-border)' : 'none',
+                    boxShadow: isSensei ? 'var(--shadow-washi-md)' : '0 4px 12px rgba(30, 75, 117, 0.25)',
+                    fontSize: '0.92rem',
+                    lineHeight: 1.6,
                     whiteSpace: 'pre-wrap',
                     wordBreak: 'break-word',
                   }}
@@ -290,34 +301,64 @@ export function JapaneseSenseiChat() {
                   {m.text}
                 </div>
 
-                {/* Tài liệu tham chiếu RAG nếu có */}
-                {m.references && m.references.length > 0 && (
-                  <div style={{ fontSize: '0.7rem', color: '#786A5E', padding: '0 0.4rem' }}>
-                    📖 Trích dẫn: {m.references.join(', ')}
+                {/* Hàng công cụ cho tin nhắn của Sensei: Nút Copy & Phát âm */}
+                {isSensei && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', padding: '0 0.5rem' }}>
+                    <button
+                      onClick={() => handleCopyText(m.id, m.text)}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        color: '#786A5E',
+                        fontSize: '0.72rem',
+                        cursor: 'pointer',
+                        padding: '0.15rem 0.35rem',
+                      }}
+                    >
+                      {copiedId === m.id ? '✓ Đã chép' : '📋 Sao chép'}
+                    </button>
+
+                    <JapaneseSpeakerButton text={m.text} size={15} />
+
+                    {m.references && m.references.length > 0 && (
+                      <span style={{ fontSize: '0.7rem', color: '#786A5E' }}>
+                        📖 {m.references.join(', ')}
+                      </span>
+                    )}
+
+                    <span style={{ fontSize: '0.68rem', color: '#A09386', marginLeft: 'auto' }}>
+                      {m.timestamp}
+                    </span>
                   </div>
                 )}
 
-                <span style={{ fontSize: '0.68rem', color: '#A09386', padding: '0 0.4rem', alignSelf: isSensei ? 'flex-start' : 'flex-end' }}>
-                  {m.timestamp}
-                </span>
+                {!isSensei && (
+                  <span style={{ fontSize: '0.68rem', color: '#A09386', padding: '0 0.4rem', alignSelf: 'flex-end' }}>
+                    {m.timestamp}
+                  </span>
+                )}
               </div>
             );
           })}
 
           {loading && (
             <div
+              className="sensei-thinking-glow"
               style={{
                 alignSelf: 'flex-start',
-                padding: '0.75rem 1rem',
-                borderRadius: '12px',
+                padding: '0.85rem 1.15rem',
+                borderRadius: '14px',
                 background: '#FFFFFF',
-                border: '1.2px solid #E6DDCF',
-                fontSize: '0.85rem',
-                color: '#786A5E',
-                fontStyle: 'italic',
+                border: '1.2px solid rgba(200, 155, 88, 0.4)',
+                fontSize: '0.86rem',
+                color: '#122438',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                boxShadow: 'var(--shadow-washi-sm)',
               }}
             >
-              ✍️ Sensei đang suy nghĩ và tra cứu bài học...
+              <span>✍️</span> Sensei đang tra cứu kiến thức và phân tích ngữ cảnh...
             </div>
           )}
 
@@ -331,11 +372,11 @@ export function JapaneseSenseiChat() {
             handleSendMessage();
           }}
           style={{
-            padding: '0.9rem 1.15rem',
-            background: '#FAF7F0',
-            borderTop: '1.2px solid #E6DDCF',
+            padding: '1rem 1.25rem',
+            background: 'rgba(250, 247, 242, 0.98)',
+            borderTop: '1px solid var(--washi-border)',
             display: 'flex',
-            gap: '0.5rem',
+            gap: '0.65rem',
             alignItems: 'center',
           }}
         >
@@ -347,14 +388,15 @@ export function JapaneseSenseiChat() {
             disabled={loading}
             style={{
               flex: 1,
-              padding: '0.75rem 1rem',
-              borderRadius: '10px',
-              border: '1.2px solid #D6C8B5',
+              padding: '0.8rem 1.1rem',
+              borderRadius: '12px',
+              border: '1.2px solid var(--washi-border)',
               background: '#FFFFFF',
               color: '#122438',
-              fontSize: '0.9rem',
+              fontSize: '0.92rem',
               outline: 'none',
               fontFamily: 'var(--font-sans)',
+              boxShadow: 'var(--shadow-washi-sm)',
             }}
           />
           <button
@@ -362,8 +404,8 @@ export function JapaneseSenseiChat() {
             disabled={loading || !input.trim()}
             className="btn-torii"
             style={{
-              padding: '0.75rem 1.15rem',
-              fontSize: '0.88rem',
+              padding: '0.8rem 1.25rem',
+              fontSize: '0.9rem',
               whiteSpace: 'nowrap',
               opacity: loading || !input.trim() ? 0.6 : 1,
             }}

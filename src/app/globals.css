@@ -40,11 +40,19 @@
   --sumi-faded:        #717C75;
   --sumi-water:        #9FAAA3;
 
-  /* Đổ bóng đa tầng Ambient Depth */
+  /* Đổ bóng đa tầng Ambient Depth (High-Aesthetic Designer Skill) */
   --shadow-washi-sm:   0 1px 3px rgba(31, 36, 33, 0.04), 0 1px 2px rgba(31, 36, 33, 0.02);
   --shadow-washi-md:   0 4px 6px -1px rgba(31, 36, 33, 0.05), 0 2px 4px -2px rgba(31, 36, 33, 0.03);
   --shadow-washi-lg:   0 10px 25px -5px rgba(31, 36, 33, 0.06), 0 8px 10px -6px rgba(31, 36, 33, 0.04);
   --shadow-karuta:     0 12px 32px -4px rgba(112, 141, 62, 0.12), 0 4px 12px -2px rgba(31, 36, 33, 0.04);
+  --shadow-ambient-high: 0 1px 2px 0 rgba(18, 36, 56, 0.05), 0 10px 25px -5px rgba(18, 36, 56, 0.08), 0 20px 48px -12px rgba(18, 36, 56, 0.12);
+  --shadow-ambient-glow: 0 0 0 1px rgba(200, 155, 88, 0.25), 0 14px 36px -6px rgba(200, 155, 88, 0.18);
+  --shadow-hover-lift: 0 1px 3px 0 rgba(18, 36, 56, 0.06), 0 14px 30px -4px rgba(18, 36, 56, 0.12);
+  
+  /* Micro-borders & Glass Sheen (Figma Design Bridge Token Scale) */
+  --border-micro: 1px solid rgba(18, 36, 56, 0.08);
+  --border-micro-gold: 1.2px solid rgba(200, 155, 88, 0.35);
+  --border-micro-sheen: 1px solid rgba(255, 255, 255, 0.28);
 }
 
 /* --- RESET TOÀN CỤC --- */
@@ -787,6 +795,93 @@ button.karuta-btn {
   user-select: none;
   -webkit-user-select: none;
 }
+
+/* ==========================================================================
+   HIGH-AESTHETIC CRAFTSMANSHIP & BENTO SYSTEM (Awwwards & Linear Tier)
+   Enforced via skills: high-aesthetic-designer & figma-design-bridge
+   ========================================================================== */
+
+/* 1. Asymmetric Bento Container */
+.bento-grid-container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.25rem;
+}
+
+.bento-col-12 { grid-column: span 12; }
+.bento-col-8  { grid-column: span 8; }
+.bento-col-7  { grid-column: span 7; }
+.bento-col-6  { grid-column: span 6; }
+.bento-col-5  { grid-column: span 5; }
+.bento-col-4  { grid-column: span 4; }
+
+@media (max-width: 900px) {
+  .bento-col-8,
+  .bento-col-7,
+  .bento-col-6,
+  .bento-col-5,
+  .bento-col-4 {
+    grid-column: span 12;
+  }
+}
+
+/* 2. Bento Card with 3-Layer Ambient Shadow & Translucent Micro-Border */
+.bento-card-artisan {
+  background: var(--washi-surface);
+  border: var(--border-micro);
+  border-radius: 18px;
+  box-shadow: var(--shadow-ambient-high);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bento-card-artisan:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover-lift);
+  border-color: rgba(200, 155, 88, 0.4);
+}
+
+/* 3. Micro-Typography & Editorial Text Hierarchy */
+.editorial-hero-title {
+  font-family: var(--font-mincho), serif;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  font-weight: 800;
+}
+
+.micro-badge-label {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.22rem 0.65rem;
+  border-radius: 9999px;
+}
+
+/* 4. Glassmorphism Chat Drawer */
+.glass-drawer-surface {
+  background: rgba(250, 247, 242, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-left: 1px solid rgba(18, 36, 56, 0.08);
+  box-shadow: -12px 0 40px rgba(18, 36, 56, 0.15);
+}
+
+/* 5. Smooth Pulse & Haptic Micro-Interaction */
+@keyframes senseiThinkingPulse {
+  0%, 100% { opacity: 0.6; transform: scale(0.98); }
+  50% { opacity: 1; transform: scale(1.02); }
+}
+
+.sensei-thinking-glow {
+  animation: senseiThinkingPulse 1.8s ease-in-out infinite;
+}
+
 
 
 
