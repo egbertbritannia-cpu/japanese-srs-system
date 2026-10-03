@@ -734,7 +734,7 @@ function ReviewSessionContent() {
               <span style={{ fontSize: '0.75rem', color: '#786A5E' }}>▾</span>
             </button>
 
-            {/* Dropdown Menu đổi bộ thẻ (BUG-UI-05) */}
+            {/* Dropdown Menu đổi bộ thẻ (VIS-REV-06: z-index & glassmorphism backdrop) */}
             {showDeckMenu && (
               <div
                 ref={deckMenuRef}
@@ -742,13 +742,16 @@ function ReviewSessionContent() {
                   position: 'absolute',
                   top: '115%',
                   right: 0,
-                  background: '#FFFFFF',
-                  border: '1.2px solid #E6DDCF',
-                  borderRadius: '12px',
-                  boxShadow: '0 8px 24px rgba(18, 36, 56, 0.12)',
+                  background: 'rgba(252, 249, 244, 0.97)',
+                  backdropFilter: 'blur(20px)',
+                  WebkitBackdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(200, 155, 88, 0.28)',
+                  borderRadius: '14px',
+                  boxShadow: '0 2px 4px rgba(18,36,56,0.04), 0 12px 32px -4px rgba(18,36,56,0.14), 0 28px 56px -16px rgba(18,36,56,0.10)',
                   minWidth: '240px',
-                  zIndex: 50,
+                  zIndex: 200,
                   padding: '0.5rem',
+                  animation: 'washi-slide-down 0.22s cubic-bezier(0.16, 1, 0.3, 1) both',
                 }}
               >
                 <div style={{ fontSize: '0.75rem', color: '#786A5E', padding: '0.4rem 0.6rem', fontWeight: 600 }}>
@@ -928,11 +931,19 @@ function ReviewSessionContent() {
                   )}
 
                   {/* 2. Chữ Hán Thư pháp Lớn (Hỗ trợ câu Cloze đục lỗ Active Recall) */}
+                  {/* VIS-REV-01: Fluid kanji font via computeOptimalKanjiFontSize — prevents mobile overflow */}
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.85rem', width: '100%' }}>
                     <div
                       style={{
                         fontFamily: 'var(--font-mincho)',
-                        fontSize: currentCard.kanji.length > 15 ? '1.85rem' : currentCard.kanji.length > 8 ? '2.4rem' : '4.8rem',
+                        fontSize: (() => {
+                          const len = currentCard.kanji.replace(/\{\{c\d+::|\}\}/g, '').length;
+                          if (len > 25) return 'clamp(1.1rem, 2.8vw, 1.55rem)';
+                          if (len > 18) return 'clamp(1.35rem, 3.5vw, 1.9rem)';
+                          if (len > 12) return 'clamp(1.65rem, 4.2vw, 2.4rem)';
+                          if (len > 6)  return 'clamp(2.2rem, 5.5vw, 3.2rem)';
+                          return 'clamp(3.2rem, 8vw, 4.8rem)';
+                        })(),
                         fontWeight: 900,
                         color: '#0F172A',
                         letterSpacing: '0.04em',
@@ -940,7 +951,8 @@ function ReviewSessionContent() {
                         lineHeight: 1.35,
                         textAlign: 'center',
                         wordBreak: 'break-word',
-                        maxWidth: '580px',
+                        maxWidth: '100%',
+                        overflowWrap: 'anywhere',
                       }}
                     >
                       {currentCard.kanji.includes('{{c') ? (
@@ -1112,11 +1124,12 @@ function ReviewSessionContent() {
                         style={{
                           width: '100%',
                           display: 'grid',
+                          /* VIS-REV-04: Fluid grid — clamp prevents single-column collapse on mobile */
                           gridTemplateColumns:
                             parsedCard.kunYomi.length > 0 && parsedCard.onYomi.length > 0
-                              ? 'repeat(auto-fit, minmax(230px, 1fr))'
+                              ? 'repeat(auto-fit, minmax(clamp(140px, 38vw, 230px), 1fr))'
                               : '1fr',
-                          gap: '0.85rem',
+                          gap: 'clamp(0.5rem, 2vw, 0.85rem)',
                         }}
                       >
                         {/* Khối KUN-YOMI (Âm thuần Nhật) */}
@@ -1311,20 +1324,23 @@ function ReviewSessionContent() {
                       </div>
                     ) : null}
 
-                    {/* 2. KHỐI Ý NGHĨA TIẾNG VIỆT — TO, ĐẬM, NỔI BẬT TRUNG TÂM */}
+                    {/* 2. KHỐI Ý NGHĨA TIẾNG VIỆT — VIS-REV-03: constrained height + scroll prevents FSRS button overflow */}
                     <div
                       style={{
                         width: '100%',
                         background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(252, 249, 242, 0.96) 100%)',
                         border: '1.5px solid #E2D7C5',
                         borderRadius: '16px',
-                        padding: '1.25rem 1.5rem',
+                        padding: '1.1rem 1.4rem',
                         boxShadow: '0 8px 24px -4px rgba(18, 36, 56, 0.08), 0 2px 6px rgba(0, 0, 0, 0.02)',
                         textAlign: 'center',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                         gap: '0.35rem',
+                        maxHeight: 'clamp(8rem, 28vh, 14rem)',
+                        overflowY: 'auto',
+                        WebkitOverflowScrolling: 'touch',
                       }}
                     >
                       <span
@@ -1335,6 +1351,11 @@ function ReviewSessionContent() {
                           color: '#8A7560',
                           letterSpacing: '0.12em',
                           textTransform: 'uppercase',
+                          position: 'sticky',
+                          top: 0,
+                          background: 'rgba(255,255,255,0.92)',
+                          width: '100%',
+                          paddingBottom: '0.3rem',
                         }}
                       >
                         Ý Nghĩa Tiếng Việt
@@ -1347,7 +1368,7 @@ function ReviewSessionContent() {
                               ? '1.08rem'
                               : (parsedCard?.cleanMeaning || currentCard.meaning).length > 40
                               ? '1.35rem'
-                              : 'clamp(1.65rem, 4.5vw, 2.2rem)',
+                              : 'clamp(1.55rem, 4vw, 2.1rem)',
                           fontWeight: 800,
                           color: '#0E1726',
                           fontFamily: 'var(--font-maru)',
@@ -1445,112 +1466,120 @@ function ReviewSessionContent() {
         </button>
       ) : (
         <div>
-          {/* 4 THẺ SƠN MÀI ĐÁNH GIÁ CHUẨN TÔNG MÀU KHOÁNG TRUYỀN THỐNG */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.65rem', marginBottom: '0.5rem' }}>
-            {/* NÚT 1: AGAIN (再 - Akane) - BUG-UI-03: minHeight: '52px', minWidth: '44px' */}
+          {/* VIS-REV-05: 4 FSRS Sơn Mài Buttons — Phân cấp thị giác + Tactile press feedback */}
+          {/* Layout: Again/Hard (ghost/secondary) | Good (primary CTA, visually dominant) | Easy (calm blue) */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 'clamp(0.4rem, 1.5vw, 0.65rem)', marginBottom: '0.5rem' }}>
+            {/* NÚT 1: AGAIN (再 - Akane) — Ghost destructive style */}
             <button
-              className="btn-srs-rating"
+              className="btn-srs-rating btn-srs-again"
               onClick={() => handleGrade('Again')}
               style={{
                 touchAction: 'manipulation',
-                minHeight: '52px',
+                minHeight: '60px',
                 minWidth: '44px',
                 width: '100%',
-                padding: '0.85rem 0.4rem',
-                backgroundColor: '#FFF7F6',
+                padding: '0.85rem 0.35rem',
+                backgroundColor: 'rgba(158, 51, 36, 0.06)',
                 border: '1.5px solid #9E3324',
-                borderRadius: '12px',
+                borderRadius: '14px',
                 color: '#9E3324',
                 cursor: 'pointer',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: '0.2rem',
-                transition: 'all 0.2s',
+                gap: '0.25rem',
+                transition: 'all 0.18s cubic-bezier(0.16, 1, 0.3, 1)',
+                boxShadow: '0 1px 3px rgba(158, 51, 36, 0.08)',
               }}
             >
-              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 900, fontSize: '1.25rem' }}>再 (1)</span>
-              <span style={{ fontSize: '0.72rem', fontWeight: 600 }}>{formatInterval(Rating.Again)}</span>
+              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 900, fontSize: 'clamp(1rem, 3vw, 1.28rem)', lineHeight: 1 }}>再</span>
+              <span style={{ fontSize: '0.68rem', fontWeight: 700, opacity: 0.85 }}>{formatInterval(Rating.Again)}</span>
+              <span style={{ fontSize: '0.6rem', fontWeight: 600, letterSpacing: '0.04em', opacity: 0.65 }}>① Again</span>
             </button>
 
-            {/* NÚT 2: HARD (難 - Kohaku) - BUG-UI-03 */}
+            {/* NÚT 2: HARD (難 - Kohaku) — Warm amber outline */}
             <button
-              className="btn-srs-rating"
+              className="btn-srs-rating btn-srs-hard"
               onClick={() => handleGrade('Hard')}
               style={{
                 touchAction: 'manipulation',
-                minHeight: '52px',
+                minHeight: '60px',
                 minWidth: '44px',
                 width: '100%',
-                padding: '0.85rem 0.4rem',
-                backgroundColor: '#FFFAF2',
+                padding: '0.85rem 0.35rem',
+                backgroundColor: 'rgba(184, 123, 40, 0.07)',
                 border: '1.5px solid #B87B28',
-                borderRadius: '12px',
+                borderRadius: '14px',
                 color: '#B87B28',
                 cursor: 'pointer',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: '0.2rem',
-                transition: 'all 0.2s',
+                gap: '0.25rem',
+                transition: 'all 0.18s cubic-bezier(0.16, 1, 0.3, 1)',
+                boxShadow: '0 1px 3px rgba(184, 123, 40, 0.08)',
               }}
             >
-              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 900, fontSize: '1.25rem' }}>難 (2)</span>
-              <span style={{ fontSize: '0.72rem', fontWeight: 600 }}>{formatInterval(Rating.Hard)}</span>
+              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 900, fontSize: 'clamp(1rem, 3vw, 1.28rem)', lineHeight: 1 }}>難</span>
+              <span style={{ fontSize: '0.68rem', fontWeight: 700, opacity: 0.85 }}>{formatInterval(Rating.Hard)}</span>
+              <span style={{ fontSize: '0.6rem', fontWeight: 600, letterSpacing: '0.04em', opacity: 0.65 }}>② Hard</span>
             </button>
 
-            {/* NÚT 3: GOOD (良 - Tokiwa) - BUG-UI-03 */}
+            {/* NÚT 3: GOOD (良 - Tokiwa) — PRIMARY CTA: filled, elevated, scale on hover */}
             <button
-              className="btn-srs-rating"
+              className="btn-srs-rating btn-srs-good"
               onClick={() => handleGrade('Good')}
               style={{
                 touchAction: 'manipulation',
-                minHeight: '52px',
+                minHeight: '60px',
                 minWidth: '44px',
                 width: '100%',
-                padding: '0.85rem 0.4rem',
-                backgroundColor: '#3E734E',
+                padding: '0.85rem 0.35rem',
+                background: 'linear-gradient(160deg, #4A8A5A 0%, #3E734E 100%)',
                 border: '1.5px solid #2F593C',
-                borderRadius: '12px',
+                borderRadius: '14px',
                 color: '#FFFFFF',
                 cursor: 'pointer',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: '0.2rem',
-                transition: 'all 0.2s',
-                boxShadow: '0 4px 12px rgba(62, 115, 78, 0.3)',
+                gap: '0.25rem',
+                transition: 'all 0.18s cubic-bezier(0.16, 1, 0.3, 1)',
+                boxShadow: '0 2px 4px rgba(62, 115, 78, 0.08), 0 6px 16px -2px rgba(62, 115, 78, 0.32), 0 12px 28px -8px rgba(62, 115, 78, 0.20)',
+                transform: 'translateY(-1px)',
               }}
             >
-              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 900, fontSize: '1.25rem' }}>良 (3)</span>
-              <span style={{ fontSize: '0.72rem', color: '#EAF5EC', fontWeight: 600 }}>{formatInterval(Rating.Good)}</span>
+              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 900, fontSize: 'clamp(1rem, 3vw, 1.28rem)', lineHeight: 1 }}>良</span>
+              <span style={{ fontSize: '0.68rem', color: '#D4F0DA', fontWeight: 700 }}>{formatInterval(Rating.Good)}</span>
+              <span style={{ fontSize: '0.6rem', color: '#B0E0BB', fontWeight: 600, letterSpacing: '0.04em' }}>③ Good</span>
             </button>
 
-            {/* NÚT 4: EASY (易 - Aizome) - BUG-UI-03 */}
+            {/* NÚT 4: EASY (易 - Aizome) — Deep indigo, calm but clear */}
             <button
-              className="btn-srs-rating"
+              className="btn-srs-rating btn-srs-easy"
               onClick={() => handleGrade('Easy')}
               style={{
                 touchAction: 'manipulation',
-                minHeight: '52px',
+                minHeight: '60px',
                 minWidth: '44px',
                 width: '100%',
-                padding: '0.85rem 0.4rem',
-                backgroundColor: '#234B73',
+                padding: '0.85rem 0.35rem',
+                background: 'linear-gradient(160deg, #2E5E8E 0%, #234B73 100%)',
                 border: '1.5px solid #1A3755',
-                borderRadius: '12px',
+                borderRadius: '14px',
                 color: '#FFFFFF',
                 cursor: 'pointer',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: '0.2rem',
-                transition: 'all 0.2s',
-                boxShadow: '0 4px 12px rgba(35, 75, 115, 0.3)',
+                gap: '0.25rem',
+                transition: 'all 0.18s cubic-bezier(0.16, 1, 0.3, 1)',
+                boxShadow: '0 2px 4px rgba(35,75,115,0.08), 0 6px 16px -2px rgba(35, 75, 115, 0.28)',
               }}
             >
-              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 900, fontSize: '1.25rem' }}>易 (4)</span>
-              <span style={{ fontSize: '0.72rem', color: '#D4E5F5', fontWeight: 600 }}>{formatInterval(Rating.Easy)}</span>
+              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 900, fontSize: 'clamp(1rem, 3vw, 1.28rem)', lineHeight: 1 }}>易</span>
+              <span style={{ fontSize: '0.68rem', color: '#D4E5F5', fontWeight: 700 }}>{formatInterval(Rating.Easy)}</span>
+              <span style={{ fontSize: '0.6rem', color: '#A8CBE8', fontWeight: 600, letterSpacing: '0.04em' }}>④ Easy</span>
             </button>
           </div>
         </div>

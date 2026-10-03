@@ -54,6 +54,28 @@
   --border-micro-gold: 1.2px solid rgba(200, 155, 88, 0.35);
   --border-micro-sheen: 1px solid rgba(255, 255, 255, 0.28);
 
+  /* --- OKLCH COLOR HARMONY TOKENS (HIGH-AESTHETIC-DESIGNER SCALE - VIS-SYS-02) --- */
+  --oklch-washi-base:       oklch(0.985 0.008 85.0);
+  --oklch-washi-surface:    oklch(0.995 0.003 85.0);
+  --oklch-sumi-ink:         oklch(0.220 0.015 220.0);
+  --oklch-sumi-muted:       oklch(0.480 0.020 80.0);
+  --oklch-torii-vermilion:  oklch(0.560 0.220 32.0);
+  --oklch-torii-glow:       oklch(0.560 0.220 32.0 / 0.22);
+  --oklch-matcha-green:     oklch(0.680 0.140 135.0);
+  --oklch-matcha-deep:      oklch(0.450 0.120 138.0);
+  --oklch-indigo-deep:      oklch(0.320 0.080 245.0);
+  --oklch-kintsugi-gold:    oklch(0.740 0.140 75.0);
+  --oklch-kintsugi-glow:    oklch(0.740 0.140 75.0 / 0.25);
+  --oklch-sakura-mist:      oklch(0.880 0.060 350.0);
+
+  /* Fluid Editorial Kanji Typography Clamps (VIS-SYS-01) */
+  --text-kanji-massive:  clamp(3.5rem, 8vw, 6.2rem);
+  --text-kanji-xl:       clamp(2.4rem, 5.5vw, 4.2rem);
+  --text-kanji-lg:       clamp(1.75rem, 3.8vw, 2.75rem);
+  --text-kanji-md:       clamp(1.35rem, 2.6vw, 1.85rem);
+  --text-body-editorial: clamp(0.92rem, 1.2vw, 1.08rem);
+  --text-caption-washi:  clamp(0.72rem, 0.9vw, 0.85rem);
+
   /* =======================================================
      JAPANESE GRAPHIC DESIGN IMPACT TYPOGRAPHY
      Source: Reference image 16993f123e6add9422185049d288cd94.webp
@@ -741,22 +763,25 @@ html, body {
   color: #FFFFFF;
 }
 
-/* 6. THANH ĐIỀU HƯỚNG ĐÁY WASHI (BOTTOM NAVIGATION BAR) */
+/* 6. THANH ĐIỀU HƯỚNG ĐÁY WASHI (BOTTOM NAVIGATION BAR - VIS-SYS-04) */
 .kirie-bottom-bar {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(250, 247, 242, 0.94);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-top: 1px solid #E8E0D2;
-  padding: 0.6rem 1rem 0.75rem;
+  background: rgba(250, 247, 242, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1.2px solid rgba(232, 224, 210, 0.9);
+  padding-top: 0.55rem;
+  padding-left: max(0.75rem, env(safe-area-inset-left, 0px));
+  padding-right: max(0.75rem, env(safe-area-inset-right, 0px));
+  padding-bottom: calc(0.55rem + env(safe-area-inset-bottom, 12px));
   z-index: 100;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  box-shadow: 0 -4px 16px rgba(18, 36, 56, 0.06);
+  box-shadow: 0 -4px 20px rgba(18, 36, 56, 0.08);
 }
 
 .kirie-nav-item {
@@ -769,7 +794,10 @@ html, body {
   font-family: var(--font-maru), sans-serif;
   font-size: 0.75rem;
   font-weight: 600;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  min-width: 48px;
+  min-height: 48px;
+  justify-content: center;
 }
 
 .kirie-nav-item.active {
@@ -784,13 +812,14 @@ html, body {
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .kirie-nav-item.active .kirie-nav-icon-box {
   background: #1A3E61;
   color: #FFFFFF;
-  box-shadow: 0 2px 8px rgba(26, 62, 97, 0.35);
+  box-shadow: 0 3px 10px rgba(26, 62, 97, 0.35);
+  transform: translateY(-2px);
 }
 
 @media (min-width: 769px) {
@@ -801,7 +830,7 @@ html, body {
 
 @media (max-width: 768px) {
   body {
-    padding-bottom: 74px;
+    padding-bottom: calc(76px + env(safe-area-inset-bottom, 12px));
   }
 }
 
@@ -816,6 +845,52 @@ button.karuta-btn {
   -webkit-tap-highlight-color: transparent;
   user-select: none;
   -webkit-user-select: none;
+}
+
+/* VIS-REV-05: Tactile press feedback — 60fps transform micro-animations */
+.btn-srs-rating:hover {
+  filter: brightness(1.06) saturate(1.08);
+  transform: translateY(-2px);
+}
+.btn-srs-rating:active {
+  transform: translateY(1px) scale(0.97);
+  filter: brightness(0.96);
+}
+.btn-srs-good:hover {
+  box-shadow: 0 2px 4px rgba(62,115,78,0.10), 0 10px 24px -2px rgba(62,115,78,0.40), 0 20px 44px -10px rgba(62,115,78,0.24) !important;
+  transform: translateY(-3px) !important;
+}
+.btn-srs-good:active {
+  transform: translateY(0px) scale(0.97) !important;
+  box-shadow: 0 2px 8px rgba(62,115,78,0.18) !important;
+}
+
+/* VIS-REV-06 & VIS-REV-07: Washi dropdown / modal slide-in animation (60fps GPU) */
+@keyframes washi-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes washi-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes washi-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 /* ==========================================================================
