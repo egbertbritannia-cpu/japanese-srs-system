@@ -29,9 +29,9 @@ interface DraftItem {
  * Thiết kế theo phong cách Bàn thư pháp Washi và Tranh cuộn Kakejiku truyền thống
  */
 export default function NewCardPage() {
-  const [activeTab, setActiveTab] = useState<'copilot' | 'manual'>('copilot');
+  const [activeTab, setActiveTab] = useState<'copilot' | 'manual'>('manual');
 
-  // State cho 1 ô nhập từ vựng duy nhất
+  // State cho 1 ô nhập từ vựng duy nhất (Copilot mode)
   const [targetWord, setTargetWord] = useState('');
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
   const [customReading, setCustomReading] = useState('');
@@ -39,6 +39,8 @@ export default function NewCardPage() {
   const [learnerLevel, setLearnerLevel] = useState<'N5' | 'N4' | 'N3' | 'N2' | 'N1'>('N4');
 
   const [loading, setLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState<string | null>(null);
   const [draftsList, setDraftsList] = useState<DraftItem[]>([]);
   const [masteredCount, setMasteredCount] = useState<number>(0);
   const [autoSplitNotice, setAutoSplitNotice] = useState<string | null>(null);
@@ -51,7 +53,7 @@ export default function NewCardPage() {
     meaning: '',
     sentence: '',
     pitch: '',
-    deck: 'JLPT N5',
+    deck: 'deck_jpd133',
   });
 
   const handleCopilotSubmit = async (e: React.FormEvent) => {
@@ -138,9 +140,51 @@ export default function NewCardPage() {
     }
   };
 
-  const handleManualSubmit = (e: React.FormEvent) => {
+  const handleManualSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert('Thẻ đã được tạo thành công theo chuẩn Atomicity!');
+    if (!formData.front.trim() || !formData.meaning.trim()) {
+      alert('Vui lòng nhập từ vựng và ý nghĩa');
+      return;
+    }
+
+    setSaving(true);
+    setSaveSuccess(null);
+    try {
+      const res = await fetch('/api/cards', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          deck_id: formData.deck,
+          type: formData.cardType,
+          front: formData.front.trim(),
+          reading: formData.reading.trim() || undefined,
+          meaning: formData.meaning.trim(),
+          sentence: formData.sentence.trim() || undefined,
+          pitch: formData.pitch.trim() || undefined,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        japaneseAudio.playSuzuBell();
+        setSaveSuccess(`Đã lưu thẻ "${formData.front}" thành công vào hệ thống!`);
+        setFormData((prev) => ({
+          ...prev,
+          front: '',
+          reading: '',
+          meaning: '',
+          sentence: '',
+          pitch: '',
+        }));
+        setTimeout(() => setSaveSuccess(null), 4000);
+      } else {
+        alert(data.error || 'Lỗi khi lưu thẻ học');
+      }
+    } catch {
+      alert('Không thể kết nối đến máy chủ API');
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -161,7 +205,7 @@ export default function NewCardPage() {
             marginBottom: '0.65rem',
           }}
         >
-          ← Quay lại danh mục thẻ
+          ← Danh mục
         </Link>
 
         {/* TRANH CUỘN KAKEJIKU MỘC BẢN HẠC TRẮNG NGẮM PHÚ SĨ */}
@@ -208,10 +252,10 @@ export default function NewCardPage() {
                   letterSpacing: '0.08em',
                 }}
               >
-                書道机 · SÁNG TÁC
+                書道机 · THÊM THẺ
               </span>
               <span style={{ fontSize: '0.82rem', color: '#E8D9BD', fontFamily: 'var(--font-maru)' }}>
-                Bàn thư pháp số &amp; AI Copilot
+                Bàn thư pháp số
               </span>
             </div>
 
@@ -225,20 +269,20 @@ export default function NewCardPage() {
                 textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
               }}
             >
-              Tạo thẻ học tiếng Nhật
+              Thêm thẻ học tiếng Nhật
             </h1>
 
             <p style={{ color: 'rgba(250, 248, 245, 0.9)', fontSize: '0.9rem', lineHeight: 1.5, margin: 0 }}>
-              Nhập từ vựng mục tiêu, AI sẽ tự động phân tích cao độ ngữ âm Tokyo, ngữ cảnh i+1 và ngữ nguyên học Hán tự.
+              Nhập từ vựng, chữ Hán và ý nghĩa để lưu vào hệ thống ôn tập FSRS.
             </p>
           </div>
         </div>
       </div>
 
-      {/* TABS CHUYỂN ĐỔI PHONG CÁCH THẺ GỖ */}
+      {/* TABS CHUYỂN ĐỔI - ẨN TAB AI KHỎI GIAO DIỆN (LOGIC VẪN ĐƯỢC GIỮ LẠI TRONG CODEBASE) */}
       <div
         style={{
-          display: 'flex',
+          display: 'none',
           gap: '0.5rem',
           marginBottom: '1.75rem',
           borderBottom: '1.5px solid #E6DDCF',
@@ -557,7 +601,7 @@ export default function NewCardPage() {
                       className="btn-torii"
                       style={{ width: '100%', padding: '0.85rem', fontSize: '0.95rem' }}
                     >
-                      Duyệt &amp; Lưu thẻ vào FSRS
+                      Lưu thẻ
                     </button>
                   ) : (
                     <div
@@ -572,7 +616,7 @@ export default function NewCardPage() {
                         fontFamily: 'var(--font-maru)',
                       }}
                     >
-                      Thẻ đã được lưu vào hệ thống ôn tập FSRS thành công!
+                      Thẻ đã được lưu thành công!
                     </div>
                   )}
                 </div>
@@ -597,25 +641,57 @@ export default function NewCardPage() {
             gap: '1.25rem',
           }}
         >
+          {saveSuccess && (
+            <div
+              style={{
+                padding: '0.85rem 1.15rem',
+                background: '#EBF5EE',
+                border: '1px solid #A3D9B1',
+                borderRadius: '8px',
+                color: '#265C35',
+                fontWeight: 700,
+                fontSize: '0.92rem',
+                fontFamily: 'var(--font-maru)',
+              }}
+            >
+              ✓ {saveSuccess}
+            </div>
+          )}
+
           <div>
             <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 600, color: '#122438', fontSize: '0.9rem' }}>
-              Loại thẻ học
+              Bộ thẻ
+            </label>
+            <select
+              value={formData.deck}
+              onChange={(e) => setFormData({ ...formData, deck: e.target.value })}
+              style={{ width: '100%', padding: '0.75rem', background: '#FFFFFF', border: '1.2px solid #E6DDCF', borderRadius: '8px', color: '#122438' }}
+            >
+              <option value="deck_jpd133">JPD133 - Từ vựng Kotoba</option>
+              <option value="deck_jpd133_kanji">JPD133 - Hán Tự (Kanji)</option>
+              <option value="deck_n5">JLPT N5 - Từ vựng Cốt lõi</option>
+            </select>
+          </div>
+
+          <div>
+            <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 600, color: '#122438', fontSize: '0.9rem' }}>
+              Loại thẻ
             </label>
             <select
               value={formData.cardType}
               onChange={(e) => setFormData({ ...formData, cardType: e.target.value })}
               style={{ width: '100%', padding: '0.75rem', background: '#FFFFFF', border: '1.2px solid #E6DDCF', borderRadius: '8px', color: '#122438' }}
             >
-              <option value="Vocab">Từ vựng (Vocabulary)</option>
+              <option value="Vocab">Từ vựng (Vocab)</option>
               <option value="Kanji">Chữ Hán (Kanji)</option>
-              <option value="Cloze">Điền từ ngữ cảnh (Cloze)</option>
-              <option value="Pitch">Cao độ ngữ âm (Pitch Accent)</option>
+              <option value="Cloze">Điền từ (Cloze)</option>
+              <option value="Pitch">Cao độ (Pitch)</option>
             </select>
           </div>
 
           <div>
             <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 600, color: '#122438', fontSize: '0.9rem' }}>
-              Từ vựng / Chữ Hán mặt trước
+              Mặt trước (Kanji / Từ vựng)
             </label>
             <input
               type="text"
@@ -624,6 +700,19 @@ export default function NewCardPage() {
               onChange={(e) => setFormData({ ...formData, front: e.target.value })}
               style={{ width: '100%', padding: '0.75rem', background: '#FFFFFF', border: '1.2px solid #E6DDCF', borderRadius: '8px', color: '#122438' }}
               required
+            />
+          </div>
+
+          <div>
+            <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 600, color: '#122438', fontSize: '0.9rem' }}>
+              Cách đọc (Hiragana / Furigana)
+            </label>
+            <input
+              type="text"
+              placeholder="ví dụ: さくら, たべる"
+              value={formData.reading}
+              onChange={(e) => setFormData({ ...formData, reading: e.target.value })}
+              style={{ width: '100%', padding: '0.75rem', background: '#FFFFFF', border: '1.2px solid #E6DDCF', borderRadius: '8px', color: '#122438' }}
             />
           </div>
 
@@ -641,9 +730,27 @@ export default function NewCardPage() {
             />
           </div>
 
-          <button type="submit" className="btn-torii" style={{ padding: '0.85rem', marginTop: '0.5rem' }}>
+          <div>
+            <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 600, color: '#122438', fontSize: '0.9rem' }}>
+              Câu ví dụ (tùy chọn)
+            </label>
+            <input
+              type="text"
+              placeholder="ví dụ: 桜の花が綺麗です。"
+              value={formData.sentence}
+              onChange={(e) => setFormData({ ...formData, sentence: e.target.value })}
+              style={{ width: '100%', padding: '0.75rem', background: '#FFFFFF', border: '1.2px solid #E6DDCF', borderRadius: '8px', color: '#122438' }}
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={saving}
+            className="btn-torii"
+            style={{ padding: '0.85rem', marginTop: '0.5rem', opacity: saving ? 0.7 : 1 }}
+          >
             <ToriiIcon size={16} color="#FFFFFF" />
-            Lưu thẻ học vào FSRS
+            {saving ? 'Đang lưu...' : 'Lưu thẻ'}
           </button>
         </form>
       )}

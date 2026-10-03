@@ -160,7 +160,7 @@ export default function CardsPage() {
                 fontFamily: 'var(--font-maru)',
               }}
             >
-              ← Về Trang chủ
+              ← Trang chủ
             </Link>
             <Link
               href="/cards/new"
@@ -172,7 +172,7 @@ export default function CardsPage() {
               }}
             >
               <ToriiIcon size={16} color="#FFFFFF" />
-              + Soạn thẻ mới với AI
+              + Thêm thẻ
             </Link>
           </div>
         </div>
@@ -358,7 +358,7 @@ export default function CardsPage() {
             }}
           >
             <ToriiIcon size={16} color="#FFFFFF" />
-            Ôn tập bộ này ngay →
+            Ôn tập →
           </Link>
         </div>
       )}

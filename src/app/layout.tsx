@@ -179,7 +179,7 @@ export default function RootLayout({
                   transition: 'background 0.2s',
                 }}
               >
-                🏯 Tổng quan
+                Trang chủ
               </Link>
               <Link
                 href="/cards"
@@ -194,7 +194,7 @@ export default function RootLayout({
                   transition: 'background 0.2s',
                 }}
               >
-                📜 Danh sách thẻ
+                Bộ thẻ
               </Link>
               <Link
                 href="/cards/new"
@@ -210,23 +210,7 @@ export default function RootLayout({
                   transition: 'all 0.2s',
                 }}
               >
-                ✨ AI Soạn thẻ
-              </Link>
-              <Link
-                href="/integrations"
-                style={{
-                  padding: '0.5rem 0.9rem',
-                  borderRadius: '8px',
-                  color: 'var(--asagi-teal)',
-                  background: 'var(--asagi-light)',
-                  textDecoration: 'none',
-                  fontSize: '0.9rem',
-                  fontFamily: 'var(--font-maru)',
-                  fontWeight: 700,
-                  transition: 'all 0.2s',
-                }}
-              >
-                🌐 Tiện ích Google
+                Thêm thẻ
               </Link>
               <Link
                 href="/review"
@@ -238,7 +222,7 @@ export default function RootLayout({
                 }}
               >
                 <ToriiIcon size={16} color="#FFFFFF" />
-                Ôn tập ngay
+                Ôn tập
               </Link>
             </nav>
           </div>

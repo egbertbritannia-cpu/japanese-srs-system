@@ -10,7 +10,7 @@ export function KirieBottomNav() {
   const navItems = [
     {
       id: 'home',
-      label: 'Home',
+      label: 'Trang chủ',
       href: '/',
       icon: (active: boolean) => (
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -20,24 +20,9 @@ export function KirieBottomNav() {
       ),
     },
     {
-      id: 'tasks',
-      label: 'Tasks',
+      id: 'cards',
+      label: 'Bộ thẻ',
       href: '/cards',
-      icon: (active: boolean) => (
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <line x1="8" y1="6" x2="21" y2="6" />
-          <line x1="8" y1="12" x2="21" y2="12" />
-          <line x1="8" y1="18" x2="21" y2="18" />
-          <circle cx="4" cy="6" r="1.5" fill="currentColor" />
-          <circle cx="4" cy="12" r="1.5" fill="currentColor" />
-          <circle cx="4" cy="18" r="1.5" fill="currentColor" />
-        </svg>
-      ),
-    },
-    {
-      id: 'projects',
-      label: 'Projects',
-      href: '/cards?tab=decks',
       icon: (active: boolean) => (
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
@@ -46,27 +31,25 @@ export function KirieBottomNav() {
       ),
     },
     {
-      id: 'employees',
-      label: 'Employees',
+      id: 'new',
+      label: 'Thêm thẻ',
       href: '/cards/new',
-      icon: (active: boolean) => (
+      icon: (_active: boolean) => (
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-          <circle cx="9" cy="7" r="4" />
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="8" x2="12" y2="16" />
+          <line x1="8" y1="12" x2="16" y2="12" />
         </svg>
       ),
     },
     {
-      id: 'reports',
-      label: 'Reports',
-      href: '/integrations',
-      icon: (active: boolean) => (
+      id: 'review',
+      label: 'Ôn tập',
+      href: '/review',
+      icon: (_active: boolean) => (
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <line x1="18" y1="20" x2="18" y2="10" />
-          <line x1="12" y1="20" x2="12" y2="4" />
-          <line x1="6" y1="20" x2="6" y2="14" />
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
         </svg>
       ),
     },

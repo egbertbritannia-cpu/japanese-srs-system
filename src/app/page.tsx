@@ -26,10 +26,10 @@ export const revalidate = 60;
 const defaultFocusCards: KirieFocusItemData[] = [
   {
     id: 'f1',
-    title: 'Review new component specs with dev',
-    subtitle: '曖昧 (あいまい) · Mơ hồ, không rõ ràng',
+    title: '曖昧 (あいまい)',
+    subtitle: 'Mơ hồ, không rõ ràng',
     timeOrLevel: '09:30',
-    statusText: 'Due now',
+    statusText: 'Cần ôn',
     statusType: 'due-now',
     barColor: 'navy',
     href: '/review',
@@ -37,10 +37,10 @@ const defaultFocusCards: KirieFocusItemData[] = [
   },
   {
     id: 'f2',
-    title: 'Update sprint board before standup',
-    subtitle: '躊躇 (ちゅうちょ) · Do dự, ngập ngừng',
+    title: '躊躇 (ちゅうちょ)',
+    subtitle: 'Do dự, ngập ngừng',
     timeOrLevel: '11:00',
-    statusText: 'In progress',
+    statusText: 'Đang học',
     statusType: 'in-progress',
     barColor: 'denim',
     href: '/review',
@@ -48,10 +48,10 @@ const defaultFocusCards: KirieFocusItemData[] = [
   },
   {
     id: 'f3',
-    title: 'Approve Q2 contractor invoices',
-    subtitle: '木漏れ日 (こもれび) · Nắng xuyên kẽ lá',
+    title: '木漏れ日 (こもれび)',
+    subtitle: 'Nắng xuyên kẽ lá',
     timeOrLevel: '13:30',
-    statusText: 'Pending',
+    statusText: 'Chờ ôn',
     statusType: 'pending',
     barColor: 'gold',
     href: '/review',
@@ -59,10 +59,10 @@ const defaultFocusCards: KirieFocusItemData[] = [
   },
   {
     id: 'f4',
-    title: 'QA walkthrough for Tide app v2.3',
-    subtitle: '一期一会 (いちごいちえ) · Đời người gặp một lần',
+    title: '一期一会 (いちごいちえ)',
+    subtitle: 'Đời người gặp một lần',
     timeOrLevel: '15:00',
-    statusText: 'Not started',
+    statusText: 'Mới',
     statusType: 'not-started',
     barColor: 'matcha',
     href: '/review',
@@ -70,10 +70,10 @@ const defaultFocusCards: KirieFocusItemData[] = [
   },
   {
     id: 'f5',
-    title: 'Resolve blocked API auth issue',
-    subtitle: '切磋琢磨 (せっさたくま) · Cùng nhau nỗ lực rèn giũa',
+    title: '切磋琢磨 (せっさたくま)',
+    subtitle: 'Cùng nhau nỗ lực rèn giũa',
     timeOrLevel: '17:00',
-    statusText: 'Blocked',
+    statusText: 'Khó',
     statusType: 'blocked',
     barColor: 'torii',
     href: '/review',
@@ -196,11 +196,11 @@ export default async function DashboardPage() {
             'torii',
           ];
           const statuses: { text: string; type: 'due-now' | 'in-progress' | 'pending' | 'not-started' | 'blocked' }[] = [
-            { text: 'Due now', type: 'due-now' },
-            { text: 'In progress', type: 'in-progress' },
-            { text: 'Pending', type: 'pending' },
-            { text: 'Not started', type: 'not-started' },
-            { text: 'Blocked', type: 'blocked' },
+            { text: 'Cần ôn', type: 'due-now' },
+            { text: 'Đang học', type: 'in-progress' },
+            { text: 'Chờ ôn', type: 'pending' },
+            { text: 'Mới', type: 'not-started' },
+            { text: 'Khó', type: 'blocked' },
           ];
           const timeSlots = ['09:30', '11:00', '13:30', '15:00', '17:00'];
           const isDue = c.due ? new Date(c.due).getTime() <= Date.now() : false;
@@ -209,7 +209,7 @@ export default async function DashboardPage() {
           return {
             id: c.id,
             title: `${c.front || 'Thẻ học'}${c.reading ? ` (${c.reading})` : ''}`,
-            subtitle: c.meaning || defaultFocusCards[idx % defaultFocusCards.length].title,
+            subtitle: c.meaning || defaultFocusCards[idx % defaultFocusCards.length].subtitle,
             timeOrLevel: timeSlots[idx % timeSlots.length],
             statusText: status.text,
             statusType: status.type,
@@ -243,23 +243,23 @@ export default async function DashboardPage() {
         {/* 2. BỘ 3 THẺ KPI SQUIRCLE CẮT GÓC LÓ GIẤY MÀU CHUẨN XÁC */}
         <div className="kirie-kpi-grid">
           <KirieKpiCard
-            title="Open"
-            value={stats.openTasks}
-            subtitle="across 6 projects"
+            title="Tổng thẻ"
+            value={totalCardsCount}
+            subtitle="3 bộ thẻ"
             accent="blue"
             href="/cards"
           />
           <KirieKpiCard
-            title="Due today"
+            title="Cần ôn"
             value={stats.dueToday}
-            subtitle="3 high priority"
+            subtitle="Hôm nay"
             accent="gold"
             href="/review"
           />
           <KirieKpiCard
-            title="Done this sprint"
+            title="Đã nhớ"
             value={stats.doneThisSprint}
-            subtitle="of 147 total"
+            subtitle="Thẻ bền vững"
             accent="green"
             href="/review"
           />
@@ -274,7 +274,7 @@ export default async function DashboardPage() {
 
         {/* 3. ĐƯỜNG PHÂN CÁCH SÓNG VÀNG TODAY'S FOCUS */}
         <div className="kirie-section-header">
-          <h2 className="kirie-section-title">Today&apos;s Focus</h2>
+          <h2 className="kirie-section-title">Mục tiêu hôm nay</h2>
           <div className="kirie-wave-divider-line">
             <svg
               style={{ position: 'absolute', right: 0, top: '-7px', width: '24px', height: '14px' }}
@@ -335,7 +335,7 @@ export default async function DashboardPage() {
               gap: '0.25rem',
             }}
           >
-            Ôn tất cả ({totalCardsCount}) →
+            Ôn tập →
           </Link>
         </div>
 

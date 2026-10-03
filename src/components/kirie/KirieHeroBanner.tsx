@@ -17,16 +17,16 @@ export function KirieHeroBanner({
   newCount = 38,
   learnedCount = 94,
 }: KirieHeroBannerProps) {
-  const [greeting, setGreeting] = useState('Good morning');
+  const [greeting, setGreeting] = useState('Chào buổi sáng');
 
   useEffect(() => {
     const hour = new Date().getHours();
     if (hour >= 5 && hour < 12) {
-      setGreeting('Good morning');
+      setGreeting('Chào buổi sáng');
     } else if (hour >= 12 && hour < 18) {
-      setGreeting('Good afternoon');
+      setGreeting('Chào buổi chiều');
     } else {
-      setGreeting('Good evening');
+      setGreeting('Chào buổi tối');
     }
   }, []);
 
@@ -57,7 +57,7 @@ export function KirieHeroBanner({
                   boxShadow: '0 2px 6px rgba(0, 0, 0, 0.16)',
                 }}
               >
-                <span>Sprint 8 · {dueCount} tasks due this week</span>
+                <span>Hôm nay · {dueCount} thẻ cần ôn</span>
               </div>
             </Link>
           </div>

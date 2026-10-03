@@ -410,15 +410,15 @@ function ReviewSessionContent() {
             Chưa có thẻ trong bộ này
           </h2>
           <p style={{ color: '#786A5E', fontSize: '0.95rem', marginBottom: '2rem' }}>
-            Bộ thẻ <strong>{deckTitle}</strong> hiện tại chưa có dữ liệu thẻ học. Bạn có thể nhờ AI soạn thêm thẻ mới.
+            Bộ thẻ <strong>{deckTitle}</strong> hiện tại chưa có dữ liệu thẻ học. Bạn có thể thêm thẻ mới để bắt đầu.
           </p>
 
           <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
             <Link href="/cards/new" className="btn-torii">
-              Nhờ AI soạn thẻ mới
+              Thêm thẻ
             </Link>
             <Link href="/" className="btn-washi">
-              Quay lại Trang chủ
+              Trang chủ
             </Link>
           </div>
         </div>
@@ -528,7 +528,7 @@ function ReviewSessionContent() {
 
             <div style={{ display: 'flex', justifyContent: 'center', gap: '0.85rem', flexWrap: 'wrap' }}>
               <Link href="/" className="btn-torii">
-                Về Trang chủ
+                Trang chủ
               </Link>
               <button
                 onClick={() => {
@@ -539,10 +539,10 @@ function ReviewSessionContent() {
                 }}
                 className="btn-washi"
               >
-                Ôn lại bộ này một lượt nữa
+                Ôn lại
               </button>
               <Link href="/cards" className="btn-washi">
-                Chọn bộ thẻ khác
+                Bộ thẻ
               </Link>
             </div>
           </div>
@@ -573,7 +573,7 @@ function ReviewSessionContent() {
                 gap: '0.35rem',
               }}
             >
-              ← Quay lại Trang chủ
+              ← Trang chủ
             </Link>
 
             {isOffline && (
@@ -936,7 +936,7 @@ function ReviewSessionContent() {
             </div>
           ) : (
             <div style={{ marginTop: '1.5rem', color: '#786A5E', fontSize: '0.88rem', fontFamily: 'var(--font-maru)' }}>
-              Nhấn phím Space hoặc nút bên dưới để xem nghĩa &amp; âm điệu
+              Nhấn Space hoặc nút bên dưới để xem nghĩa
             </div>
           )}
         </div>
@@ -956,7 +956,7 @@ function ReviewSessionContent() {
           }}
         >
           <SensuFanIcon size={20} color="#FFFFFF" />
-          Khám phá đáp án (Space)
+          Xem nghĩa (Space)
         </button>
       ) : (
         <div>
