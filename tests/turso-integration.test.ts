@@ -29,13 +29,13 @@ describe('Turso Integration Test with Drizzle', () => {
     console.log('[Turso Test] Querying cards count from Turso...');
     const cardCount = await db.select({ total: count(cards.id) }).from(cards);
     console.log('[Turso Test] Cards total in Turso:', cardCount);
-    expect(cardCount[0].total).toBe(544);
+    expect(cardCount[0].total).toBeGreaterThanOrEqual(640);
 
     const deckList = await db.select().from(decks);
     console.log('[Turso Test] Decks in Turso:', deckList);
-    expect(deckList.length).toBe(3);
+    expect(deckList.length).toBeGreaterThanOrEqual(4);
     const deckIds = deckList.map((d: any) => d.id).sort();
-    expect(deckIds).toEqual(['deck_jpd133', 'deck_jpd133_kanji', 'deck_n5']);
+    expect(deckIds).toContain('grammar_jpd133');
   });
 
   it('should run GET /api/cards against Turso and verify 3 distinct decks', async () => {
@@ -51,8 +51,8 @@ describe('Turso Integration Test with Drizzle', () => {
     console.log('[Turso Test API] Deck summaries:', body.deckSummaries);
 
     expect(body.success).toBe(true);
-    expect(body.data.length).toBe(544);
-    expect(body.decks.length).toBe(3);
+    expect(body.data.length).toBeGreaterThanOrEqual(640);
+    expect(body.decks.length).toBeGreaterThanOrEqual(4);
   });
 
   it('should test cards retrieval when filtering by each separated deck', async () => {

@@ -237,6 +237,27 @@ export default function RootLayout({
                 Động từ
               </Link>
               <Link
+                href="/grammar"
+                style={{
+                  padding: '0.5rem 0.9rem',
+                  borderRadius: '8px',
+                  color: '#1B4268',
+                  background: 'rgba(27, 66, 104, 0.08)',
+                  border: '1px solid rgba(27, 66, 104, 0.2)',
+                  textDecoration: 'none',
+                  fontSize: '0.9rem',
+                  fontFamily: 'var(--font-maru)',
+                  fontWeight: 700,
+                  transition: 'all 0.2s',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                }}
+              >
+                <span style={{ fontSize: '0.85rem' }}>🎋</span>
+                <span>Ngữ pháp</span>
+              </Link>
+              <Link
                 href="/cards/new"
                 style={{
                   padding: '0.5rem 0.9rem',

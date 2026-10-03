@@ -713,6 +713,106 @@ export default async function DashboardPage() {
 
           {/* CỘT PHẢI: BỘ THẺ HỌC TẬP & CHỈ SỐ THUẬT TOÁN FSRS (5 PHẦN) */}
           <aside style={{ flex: '1 1 38%', display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
+            {/* 0. TÍNH NĂNG MỚI: HỌC NGỮ PHÁP JPD133 (BUNBOU ENGINE) */}
+            <div
+              style={{
+                background: 'linear-gradient(135deg, #1B4268 0%, #20507B 100%)',
+                borderRadius: '16px',
+                padding: '1.25rem 1.35rem',
+                color: '#FFFFFF',
+                boxShadow: '0 4px 16px rgba(27, 66, 104, 0.2)',
+                position: 'relative',
+                overflow: 'hidden',
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-start',
+                  marginBottom: '0.65rem',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <span
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.2)',
+                      padding: '0.15rem 0.5rem',
+                      borderRadius: '4px',
+                      fontSize: '0.7rem',
+                      fontWeight: 800,
+                      letterSpacing: '0.05em',
+                    }}
+                  >
+                    MỚI · NEW
+                  </span>
+                  <span style={{ fontSize: '0.8rem', fontWeight: 600, opacity: 0.9 }}>
+                    JPD133 Bunbou
+                  </span>
+                </div>
+                <span style={{ fontSize: '1.25rem' }}>🎋</span>
+              </div>
+
+              <h3
+                style={{
+                  margin: '0 0 0.35rem',
+                  fontSize: '1.15rem',
+                  fontWeight: 900,
+                  fontFamily: 'var(--font-mincho), serif',
+                }}
+              >
+                Học Ngữ Pháp Nhật Bản
+              </h3>
+
+              <p
+                style={{
+                  margin: '0 0 1rem',
+                  fontSize: '0.82rem',
+                  opacity: 0.85,
+                  lineHeight: 1.45,
+                }}
+              >
+                32 mẫu câu Bài 8-11 kèm 204 bài tập SBT và sơ đồ cấu trúc trực quan.
+              </p>
+
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <Link
+                  href="/grammar"
+                  style={{
+                    flex: 1,
+                    padding: '0.55rem',
+                    background: '#FFFFFF',
+                    color: '#1B4268',
+                    borderRadius: '8px',
+                    fontWeight: 700,
+                    fontSize: '0.82rem',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+                  }}
+                >
+                  Xem bài học ➔
+                </Link>
+                <Link
+                  href="/grammar/practice"
+                  style={{
+                    flex: 1,
+                    padding: '0.55rem',
+                    background: 'rgba(255, 255, 255, 0.2)',
+                    color: '#FFFFFF',
+                    border: '1px solid rgba(255, 255, 255, 0.4)',
+                    borderRadius: '8px',
+                    fontWeight: 700,
+                    fontSize: '0.82rem',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                  }}
+                >
+                  Luyện bài tập ✍️
+                </Link>
+              </div>
+            </div>
+
             {/* 1. KHỐI BỘ THẺ HỌC TẬP (DECK COLLECTIONS) */}
             <div
               style={{
