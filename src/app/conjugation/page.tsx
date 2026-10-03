@@ -125,8 +125,23 @@ export default function ConjugationPage() {
   };
 
   return (
-    <div style={{ maxWidth: '960px', margin: '1.5rem auto', padding: '0 1.25rem 4rem' }}>
-      {/* 1. HERO BANNER MỘC BẢN PHÚ SĨ (Awwwards-Tier Editorial Hero) */}
+    <main
+      style={{
+        position: 'relative',
+        minHeight: '100vh',
+        padding: '1.5rem 1rem 5rem',
+      }}
+    >
+      {/* HÌNH NỀN ĐỒ HỌA MỸ THUẬT NHẬT BẢN TOÀN TRANG TỪ THƯ MỤC JAPANESE GRAPHIC DESIGN */}
+      <JapaneseArtBackdrop
+        src="/assets/art/japanese-graphic-contemporary.webp"
+        alt="Nghệ thuật đồ họa Nhật Bản đương đại"
+        opacity={0.05}
+        blendMode="multiply"
+      />
+
+      <div style={{ maxWidth: '960px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
+        {/* 1. HERO BANNER MỘC BẢN PHÚ SĨ (Awwwards-Tier Editorial Hero) */}
       <div
         className="bento-card-artisan"
         style={{
@@ -1483,6 +1498,7 @@ export default function ConjugationPage() {
           </div>
         </div>
       )}
-    </div>
+      </div>
+    </main>
   );
 }

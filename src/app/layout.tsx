@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Zen_Maru_Gothic, Shippori_Mincho, Plus_Jakarta_Sans } from 'next/font/google';
+import { Zen_Maru_Gothic, Shippori_Mincho, Plus_Jakarta_Sans, Bebas_Neue, Noto_Sans_JP } from 'next/font/google';
 import './globals.css';
 import { SakuraBackground } from '@/components/japanese/SakuraBackground';
 import { JapanesePosterBackground } from '@/components/japanese/JapanesePosterBackground';
@@ -39,6 +39,30 @@ const plusJakarta = Plus_Jakarta_Sans({
   preload: true,
 });
 
+// 新書体 1: Bebas Neue — 太字コンデンスド見出し体
+// 「I DESIGN FOR GROWTH」 スタイル — 大型ヒーローディスプレイ用
+// Source: Japanese graphic design reference (16993f123...webp)
+const bebasNeue = Bebas_Neue({
+  weight: ['400'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-display',
+  preload: false,
+  fallback: ['Impact', 'Arial Black', 'sans-serif'],
+});
+
+// 新書体 2: Noto Sans JP — 重量日本語ゴシック体 (Heavy/Black weight)
+// 縦書き装飾・ヒーローバナー日本語テキスト用
+// Source: Japanese graphic design reference — vertical Katakana display
+const notoSansJP = Noto_Sans_JP({
+  weight: ['400', '700', '900'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-noto',
+  preload: false,
+  fallback: ['Hiragino Sans', 'Yu Gothic', 'Meiryo', 'sans-serif'],
+});
+
 export const metadata: Metadata = {
   title: 'Japanese SRS System · 記憶道 (FSRS Spaced Repetition)',
   description: 'Hệ thống ghi nhớ lặp lại ngắt quãng tối ưu học tiếng Nhật kết hợp thuật toán FSRS & Nghệ thuật Văn hóa Nhật Bản',
@@ -52,7 +76,7 @@ export default function RootLayout({
   return (
     <html
       lang="ja"
-      className={`${zenMaru.variable} ${shipporiMincho.variable} ${plusJakarta.variable}`}
+      className={`${zenMaru.variable} ${shipporiMincho.variable} ${plusJakarta.variable} ${bebasNeue.variable} ${notoSansJP.variable}`}
     >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />

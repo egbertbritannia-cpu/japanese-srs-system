@@ -8,6 +8,7 @@ import { ToriiIcon, SensuFanIcon } from '@/components/japanese/Icons';
 import { PitchAccentGraph } from '@/components/japanese/PitchAccentGraph';
 import { JapaneseSpeakerButton } from '@/components/japanese/JapaneseSpeakerButton';
 import { japaneseAudio } from '@/components/japanese/AudioEffects';
+import { parseClozeSegments, stripCloze } from '@/lib/cloze';
 import { DarumaMascot } from '@/components/japanese/DarumaMascot';
 import { JapaneseArtBackdrop } from '@/components/art/JapaneseArtBackdrop';
 import { useFsrsScheduler } from '@/hooks/useFsrsScheduler';
@@ -555,8 +556,23 @@ function ReviewSessionContent() {
   const isKanji = currentCard ? (currentCard.type === 'Kanji' || (currentCard.deckName && currentCard.deckName.includes('Hán Tự'))) : false;
 
   return (
-    <div style={{ maxWidth: '640px', margin: '1.5rem auto', padding: '0 1.25rem 3.5rem' }}>
-      {/* THANH ĐIỀU HƯỚNG & TIẾN ĐỘ THÂN TRÚC */}
+    <main
+      style={{
+        position: 'relative',
+        minHeight: '100vh',
+        padding: '1.5rem 1rem 5rem',
+      }}
+    >
+      {/* HÌNH NỀN TRANH CẮT GIẤY KIRIE SÓNG BIỂN TẦNG 3D TOÀN TRANG ÔN TẬP */}
+      <JapaneseArtBackdrop
+        src="/assets/art/kirie-layered-waves.webp"
+        alt="Nghệ thuật Kirie sóng biển Nhật Bản"
+        opacity={0.065}
+        blendMode="multiply"
+      />
+
+      <div style={{ maxWidth: '640px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
+        {/* THANH ĐIỀU HƯỚNG & TIẾN ĐỘ THÂN TRÚC */}
       <div style={{ marginBottom: '1.25rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.5rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
@@ -927,9 +943,25 @@ function ReviewSessionContent() {
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span style={{ fontSize: '0.98rem', color: '#122438', fontFamily: 'var(--font-mincho)', fontWeight: 600 }}>
-                      {currentCard.sentence}
+                      {parseClozeSegments(currentCard.sentence).map((seg, i) =>
+                        seg.isCloze ? (
+                          <span
+                            key={i}
+                            style={{
+                              fontWeight: 800,
+                              color: '#1F2421',
+                              borderBottom: '2px solid #88A752',
+                              paddingBottom: '1px',
+                            }}
+                          >
+                            {seg.text}
+                          </span>
+                        ) : (
+                          <span key={i}>{seg.text}</span>
+                        )
+                      )}
                     </span>
-                    <JapaneseSpeakerButton text={currentCard.sentence} size={18} />
+                    <JapaneseSpeakerButton text={stripCloze(currentCard.sentence)} size={18} />
                   </div>
                 </div>
               )}
@@ -1058,7 +1090,8 @@ function ReviewSessionContent() {
           </div>
         </div>
       )}
-    </div>
+      </div>
+    </main>
   );
 }
 

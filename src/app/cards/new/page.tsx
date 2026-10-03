@@ -188,8 +188,23 @@ export default function NewCardPage() {
   };
 
   return (
-    <div style={{ maxWidth: '820px', margin: '1.5rem auto', padding: '0 1.25rem 3.5rem' }}>
-      {/* HEADER QUAY LẠI & TIÊU ĐỀ */}
+    <main
+      style={{
+        position: 'relative',
+        minHeight: '100vh',
+        padding: '1.5rem 1rem 5rem',
+      }}
+    >
+      {/* HÌNH NỀN HOA ANH ĐÀO MẠ KIM TOÀN TRANG TẠO THẺ */}
+      <JapaneseArtBackdrop
+        src="/assets/art/gold-sakura-washi.webp"
+        alt="Hoa anh đào mạ kim"
+        opacity={0.065}
+        blendMode="multiply"
+      />
+
+      <div style={{ maxWidth: '820px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
+        {/* HEADER QUAY LẠI & TIÊU ĐỀ */}
       <div style={{ marginBottom: '1.5rem' }}>
         <Link
           href="/cards"
@@ -754,6 +769,7 @@ export default function NewCardPage() {
           </button>
         </form>
       )}
-    </div>
+      </div>
+    </main>
   );
 }

@@ -6,6 +6,7 @@ import { ToriiIcon } from '@/components/japanese/Icons';
 import { JapaneseArtBackdrop } from '@/components/art/JapaneseArtBackdrop';
 import { JapaneseSpeakerButton } from '@/components/japanese/JapaneseSpeakerButton';
 import { DeckSummaryDTO } from '@/core/cards/deck.types';
+import { parseClozeSegments, stripCloze } from '@/lib/cloze';
 
 /**
  * Dashboard (Honmaru - 本丸)
@@ -609,7 +610,25 @@ export default async function DashboardPage() {
                             fontStyle: 'italic',
                           }}
                         >
-                          {card.example}
+                          {card.example
+                            ? parseClozeSegments(card.example).map((seg, i) =>
+                                seg.isCloze ? (
+                                  <span
+                                    key={i}
+                                    style={{
+                                      fontWeight: 700,
+                                      color: '#1F2421',
+                                      borderBottom: '1.5px solid #88A752',
+                                      fontStyle: 'normal',
+                                    }}
+                                  >
+                                    {seg.text}
+                                  </span>
+                                ) : (
+                                  <span key={i}>{seg.text}</span>
+                                )
+                              )
+                            : null}
                         </p>
                       </div>
                     </div>

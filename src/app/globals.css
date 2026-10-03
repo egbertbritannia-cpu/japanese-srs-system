@@ -53,6 +53,28 @@
   --border-micro: 1px solid rgba(18, 36, 56, 0.08);
   --border-micro-gold: 1.2px solid rgba(200, 155, 88, 0.35);
   --border-micro-sheen: 1px solid rgba(255, 255, 255, 0.28);
+
+  /* =======================================================
+     JAPANESE GRAPHIC DESIGN IMPACT TYPOGRAPHY
+     Source: Reference image 16993f123e6add9422185049d288cd94.webp
+     「I DESIGN FOR GROWTH」 style — Bebas Neue condensed display
+     「デジタル / クリスティ」 style — Noto Sans JP heavy vertical
+     ======================================================= */
+
+  /* Display Font: Bebas Neue (Bold Condensed Hero) */
+  --font-display:  var(--font-display, 'Impact', 'Arial Black', sans-serif);
+
+  /* Heavy Japanese Gothic: Noto Sans JP 900 */
+  --font-noto:     var(--font-noto, 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif);
+
+  /* Impact Scale — Typography Scale for Display Headings */
+  --display-size-hero:  clamp(3.5rem, 8vw, 7rem);   /* Hero XL: "GROWTH DESIGN" */
+  --display-size-lg:    clamp(2.5rem, 5vw, 4.5rem); /* Large: section headings  */
+  --display-size-md:    clamp(1.75rem, 3vw, 2.75rem); /* Medium: card headlines  */
+
+  /* Vertical Katakana Scale */
+  --vertical-kana-size-xl: clamp(2rem, 4vw, 3.5rem);   /* "デジタル" style  */
+  --vertical-kana-size-lg: clamp(1.5rem, 3vw, 2.5rem); /* Sub-decoration  */
 }
 
 /* --- RESET TOÀN CỤC --- */
@@ -884,4 +906,220 @@ button.karuta-btn {
 
 
 
+/* ==========================================================================
+   JAPANESE GRAPHIC DESIGN IMPACT TYPOGRAPHY SYSTEM
+   Source: Reference image 16993f123e6add9422185049d288cd94.webp
+   Inspired by: Neo-Japanism bold condensed poster design + vertical katakana
+   Applied by: japanese-srs-uiux-designer & japanese-srs-craftsman skills
+   ========================================================================== */
 
+/* ------------------------------------------------------------------
+   1. BEBAS NEUE DISPLAY CLASS SYSTEM
+      「I DESIGN FOR GROWTH」→「GROWTH DESIGN」impact heading style
+      Ultra-condensed, all-caps, kerned tight, heavy weight
+   ------------------------------------------------------------------ */
+
+/* Hero XL Display — Full-screen section titles, review completion banners */
+.display-hero {
+  font-family: var(--font-display), 'Impact', 'Arial Black', sans-serif;
+  font-size: var(--display-size-hero);
+  font-weight: 400; /* Bebas Neue is already maximum weight at 400 */
+  line-height: 0.92;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* Large Display — Page hero headings, deck titles, stats panels */
+.display-lg {
+  font-family: var(--font-display), 'Impact', 'Arial Black', sans-serif;
+  font-size: var(--display-size-lg);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+/* Medium Display — Card section labels, progress milestones */
+.display-md {
+  font-family: var(--font-display), 'Impact', 'Arial Black', sans-serif;
+  font-size: var(--display-size-md);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+/* Bebas Neue colored variants matching Nippon palette */
+.display-sumi     { color: var(--sumi-ink); }
+.display-torii    { color: var(--torii-red); }
+.display-matcha   { color: var(--matcha-deep); }
+.display-yamabuki { color: var(--yamabuki-amber); }
+.display-washi    { color: var(--washi-bg); } /* White/light on dark bg */
+
+/* ------------------------------------------------------------------
+   2. NOTO SANS JP HEAVY VERTICAL KATAKANA DECORATION
+      「デジタル」「クリスティ」style — bold vertical Japanese text
+      Appear as right-side or left-side decorative column text
+   ------------------------------------------------------------------ */
+
+/* Vertical Katakana XL — Hero side decoration (like the image right column) */
+.tategaki-kana-xl {
+  font-family: var(--font-noto), 'Hiragino Sans', 'Yu Gothic', sans-serif;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-size: var(--vertical-kana-size-xl);
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  color: var(--sumi-ink);
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Vertical Katakana LG — Sub-labels, secondary side text */
+.tategaki-kana-lg {
+  font-family: var(--font-noto), 'Hiragino Sans', 'Yu Gothic', sans-serif;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-size: var(--vertical-kana-size-lg);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  color: var(--sumi-charcoal);
+  user-select: none;
+}
+
+/* Color modifier: Torii Red vertical decoration */
+.tategaki-kana-xl.kana-torii,
+.tategaki-kana-lg.kana-torii { color: var(--torii-red); }
+
+/* Color modifier: Matcha Green vertical decoration */
+.tategaki-kana-xl.kana-matcha,
+.tategaki-kana-lg.kana-matcha { color: var(--matcha-deep); }
+
+/* Color modifier: Yamabuki Gold vertical decoration */
+.tategaki-kana-xl.kana-yamabuki,
+.tategaki-kana-lg.kana-yamabuki { color: var(--yamabuki-amber); }
+
+/* Color modifier: White on dark backgrounds */
+.tategaki-kana-xl.kana-white,
+.tategaki-kana-lg.kana-white { color: rgba(255, 255, 255, 0.92); }
+
+/* ------------------------------------------------------------------
+   3. NOTO SANS JP BODY TEXT SYSTEM
+      Replaces system-fallback Japanese text rendering
+      Ensures correct glyph weight for hiragana/katakana/kanji
+   ------------------------------------------------------------------ */
+
+/* Japanese body text with Noto Sans JP for clean glyph rendering */
+.jp-body {
+  font-family: var(--font-noto), var(--font-maru), 'Hiragino Sans', 'Yu Gothic', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.75;
+  letter-spacing: 0.02em;
+}
+
+/* Japanese label — medium weight for UI labels, badges, pills */
+.jp-label {
+  font-family: var(--font-noto), var(--font-maru), 'Hiragino Sans', sans-serif;
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+}
+
+/* Japanese heading — 900 weight for section headings in Japanese */
+.jp-heading {
+  font-family: var(--font-noto), var(--font-mincho), 'Hiragino Sans', sans-serif;
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* ------------------------------------------------------------------
+   4. COMBINED IMPACT LAYOUT PATTERNS
+      Composite patterns seen in the reference image
+   ------------------------------------------------------------------ */
+
+/* Bilingual hero stack: English Bebas Neue + Japanese Noto below */
+.hero-bilingual-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.hero-bilingual-stack .en-display {
+  font-family: var(--font-display), 'Impact', sans-serif;
+  font-weight: 400;
+  font-size: clamp(3rem, 7vw, 6rem);
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--sumi-ink);
+}
+
+.hero-bilingual-stack .jp-subtitle {
+  font-family: var(--font-noto), 'Hiragino Sans', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  line-height: 1.4;
+  color: var(--sumi-charcoal);
+  letter-spacing: 0.02em;
+}
+
+/* Side Katakana Column Decoration (right-rail vertical text block) */
+.kana-side-rail {
+  position: absolute;
+  right: -0.5rem;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  pointer-events: none;
+  user-select: none;
+  overflow: hidden;
+}
+
+/* Review completion / mastery banner with Bebas Neue */
+.mastery-display-banner {
+  font-family: var(--font-display), 'Impact', sans-serif;
+  font-size: clamp(4rem, 10vw, 8rem);
+  font-weight: 400;
+  line-height: 0.88;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-align: center;
+  background: linear-gradient(135deg, var(--torii-red) 0%, var(--yamabuki-amber) 50%, var(--matcha-primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ------------------------------------------------------------------
+   5. RESPONSIVE ADJUSTMENTS
+      Mobile-first: scale down display text on small screens
+   ------------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+  .display-hero { font-size: clamp(2.5rem, 12vw, 4rem); }
+  .display-lg   { font-size: clamp(1.75rem, 8vw, 3rem); }
+  .display-md   { font-size: clamp(1.25rem, 5vw, 2rem); }
+
+  .hero-bilingual-stack .en-display  { font-size: clamp(2rem, 10vw, 3.5rem); }
+  .hero-bilingual-stack .jp-subtitle { font-size: clamp(0.9rem, 3.5vw, 1.2rem); }
+
+  /* Hide large vertical decorative kana on very small screens */
+  .tategaki-kana-xl { display: none; }
+  .tategaki-kana-lg { font-size: 1.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mastery-display-banner {
+    background: var(--torii-red);
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: var(--torii-red);
+    background-clip: unset;
+  }
+}

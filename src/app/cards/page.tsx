@@ -70,8 +70,23 @@ export default function CardsPage() {
   });
 
   return (
-    <div style={{ maxWidth: '980px', margin: '1.5rem auto', padding: '0 1.25rem 3.5rem' }}>
-      {/* 1. HEADER CUỘN TRANH TOÀN CẢNH MỘC BẢN HOKUSAI HỒ SUWA */}
+    <main
+      style={{
+        position: 'relative',
+        minHeight: '100vh',
+        padding: '1.5rem 1rem 5rem',
+      }}
+    >
+      {/* HÌNH NỀN MỘC BẢN TOÀN TRANG TỪ BỘ SƯU TẬP ĐỒ HỌA NHẬT BẢN */}
+      <JapaneseArtBackdrop
+        src="/assets/art/vintage-woodblock-border.webp"
+        alt="Họa tiết mộc bản Phù Tang"
+        opacity={0.06}
+        blendMode="multiply"
+      />
+
+      <div style={{ maxWidth: '980px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
+        {/* 1. HEADER CUỘN TRANH TOÀN CẢNH MỘC BẢN HOKUSAI HỒ SUWA */}
       <div
         style={{
           position: 'relative',
@@ -522,6 +537,7 @@ export default function CardsPage() {
           </tbody>
         </table>
       </div>
-    </div>
+      </div>
+    </main>
   );
 }
