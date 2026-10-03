@@ -10,8 +10,10 @@
  *   - Nhiều cloze trong 1 câu đều được xử lý đúng
  */
 
-// Regex khớp {{cN::content}} hoặc {{cN::content::hint}}
-const CLOZE_REGEX = /\{\{c\d+::([^:}]+)(?:::[^}]*)?\}\}/g;
+// Tạo thực thể RegExp mới cho mỗi lần gọi để loại bỏ hoàn toàn lỗi cờ 'g' lưu trạng thái (Stateful RegExp)
+export function createClozeRegex(): RegExp {
+  return /\{\{c\d+::([^:}]+)(?:::[^}]*)?\}\}/g;
+}
 
 /**
  * Trả về bản plain-text của câu (strip toàn bộ markup cloze).
@@ -20,7 +22,8 @@ const CLOZE_REGEX = /\{\{c\d+::([^:}]+)(?:::[^}]*)?\}\}/g;
  * Ví dụ: "{{c1::私}}は学生です" → "私は学生です"
  */
 export function stripCloze(text: string): string {
-  return text.replace(CLOZE_REGEX, '$1');
+  if (!text) return '';
+  return text.replace(createClozeRegex(), '$1');
 }
 
 /**
@@ -38,14 +41,13 @@ export interface ClozeSegment {
 }
 
 export function parseClozeSegments(text: string): ClozeSegment[] {
+  if (!text) return [];
   const segments: ClozeSegment[] = [];
+  const regex = createClozeRegex();
   let lastIndex = 0;
 
-  // Reset regex state (global flag stateful)
-  CLOZE_REGEX.lastIndex = 0;
-
   let match: RegExpExecArray | null;
-  while ((match = CLOZE_REGEX.exec(text)) !== null) {
+  while ((match = regex.exec(text)) !== null) {
     // Text thường trước cloze
     if (match.index > lastIndex) {
       segments.push({ text: text.slice(lastIndex, match.index), isCloze: false });
@@ -68,6 +70,6 @@ export function parseClozeSegments(text: string): ClozeSegment[] {
  * Dùng để quyết định render path đơn giản vs highlight.
  */
 export function hasCloze(text: string): boolean {
-  CLOZE_REGEX.lastIndex = 0;
-  return CLOZE_REGEX.test(text);
+  if (!text) return false;
+  return createClozeRegex().test(text);
 }

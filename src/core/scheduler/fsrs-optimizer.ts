@@ -223,7 +223,7 @@ export async function optimizeFsrsParameters(
 
   // Giao thức Hồi phục Khẩn cấp (Emergency Rollback Protocol)
   // Nếu RMSE > 0.45 hoặc NaN hoặc Log-loss > 2.0 -> Ngay lập tức khôi phục bộ trọng số chuẩn
-  if (isNaN(finalEval.rmse) || finalEval.rmse > 0.45 || finalEval.logLoss > 2.0) {
+  if (isNaN(finalEval.rmse) || isNaN(finalEval.logLoss) || currentW.some((w) => isNaN(w)) || finalEval.rmse > 0.45 || finalEval.logLoss > 2.0) {
     const fallbackEval = evaluateFSRSLoss(DEFAULT_FSRS_V5_WEIGHTS, history);
     return {
       weights: [...DEFAULT_FSRS_V5_WEIGHTS],

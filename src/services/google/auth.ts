@@ -51,7 +51,9 @@ export function getOAuth2Client(redirectUri?: string) {
   return new google.auth.OAuth2(clientId, clientSecret, redirect);
 }
 
-export function generateAuthUrl(redirectUri?: string): string | null {
+import crypto from 'crypto';
+
+export function generateAuthUrl(redirectUri?: string, state?: string): string | null {
   const oauth2Client = getOAuth2Client(redirectUri);
   if (!oauth2Client) return null;
 
@@ -59,6 +61,22 @@ export function generateAuthUrl(redirectUri?: string): string | null {
     access_type: 'offline',
     prompt: 'consent',
     scope: GOOGLE_SCOPES,
+    ...(state ? { state } : {}),
   });
+}
+
+export function generateAuthUrlWithState(redirectUri?: string): { url: string; state: string } | null {
+  const oauth2Client = getOAuth2Client(redirectUri);
+  if (!oauth2Client) return null;
+
+  const state = crypto.randomBytes(32).toString('hex');
+  const url = oauth2Client.generateAuthUrl({
+    access_type: 'offline',
+    prompt: 'consent',
+    scope: GOOGLE_SCOPES,
+    state,
+  });
+
+  return { url, state };
 }
 

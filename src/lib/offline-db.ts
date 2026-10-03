@@ -69,6 +69,28 @@ export async function cacheCardsLocally(cards: LocalCard[]): Promise<void> {
 }
 
 /**
+ * Làm mới toàn bộ cache của một bộ thẻ (Cache Invalidation - BUG-OFF-03)
+ * Xóa các thẻ cũ đã bị xóa trên máy chủ để không để lại thẻ ma (ghost cards)
+ */
+export async function syncCardsCacheForDeck(deckId: string, serverCards: LocalCard[]): Promise<void> {
+  if (typeof window === 'undefined' && typeof indexedDB === 'undefined') return;
+  try {
+    await offlineDb.transaction('rw', offlineDb.cards, async () => {
+      await offlineDb.cards.where('deckId').equals(deckId).delete();
+      await offlineDb.cards.bulkPut(
+        serverCards.map((c) => ({
+          ...c,
+          due: c.due ? new Date(c.due).getTime() : Date.now(),
+          updatedAt: Date.now(),
+        }))
+      );
+    });
+  } catch (err) {
+    console.warn('[OfflineDB] syncCardsCacheForDeck error:', err);
+  }
+}
+
+/**
  * Đọc danh sách thẻ bài từ IndexedDB khi không có kết nối mạng
  */
 export async function getOfflineCards(deckId?: string): Promise<LocalCard[]> {
@@ -130,7 +152,9 @@ export async function getUnsyncedReviewCount(): Promise<number> {
 }
 
 /**
- * Đồng bộ toàn bộ lượt ôn tập ngoại tuyến lên máy chủ (/api/review)
+ * Đồng bộ toàn bộ lượt ôn tập ngoại tuyến lên máy chủ (/api/review hoặc /api/review/batch)
+ * - Sử dụng Web Locks API ngăn chặn race condition giữa nhiều tab (BUG-OFF-01)
+ * - Ưu tiên đồng bộ hàng loạt Batch Sync thay vì lặp tuần tự (BUG-OFF-02)
  */
 export async function syncPendingReviewsToServer(
   endpoint = '/api/review'
@@ -139,6 +163,21 @@ export async function syncPendingReviewsToServer(
     return { synced: 0, failed: 0 };
   }
 
+  // Khóa Web Locks API để tránh race condition khi nhiều tab cùng online (BUG-OFF-01)
+  if (typeof navigator !== 'undefined' && 'locks' in navigator) {
+    return await navigator.locks.request('offline_review_sync_lock', { ifAvailable: true }, async (lock) => {
+      if (!lock) {
+        console.log('[OfflineDB] Một tab khác đang tiến hành đồng bộ, bỏ qua.');
+        return { synced: 0, failed: 0 };
+      }
+      return await executeSyncBatch(endpoint);
+    });
+  }
+
+  return await executeSyncBatch(endpoint);
+}
+
+async function executeSyncBatch(endpoint: string): Promise<{ synced: number; failed: number }> {
   let synced = 0;
   let failed = 0;
 
@@ -152,6 +191,35 @@ export async function syncPendingReviewsToServer(
       return { synced: 0, failed: 0 };
     }
 
+    // 1. Ưu tiên đồng bộ theo lô Batch Sync nếu có nhiều bản ghi (BUG-OFF-02)
+    if (pending.length > 1) {
+      try {
+        const batchEndpoint = endpoint.includes('/batch') ? endpoint : '/api/review/batch';
+        const batchRes = await fetch(batchEndpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            reviews: pending.map((p) => ({
+              id: p.id,
+              cardId: p.cardId,
+              rating: p.rating,
+              scheduledDays: p.scheduledDays,
+              reviewTime: p.reviewedAt,
+            })),
+          }),
+        });
+
+        if (batchRes.ok) {
+          const ids = pending.map((p) => p.id);
+          await offlineDb.pendingReviews.where('id').anyOf(ids).delete();
+          return { synced: pending.length, failed: 0 };
+        }
+      } catch (batchErr) {
+        console.warn('[OfflineDB] Batch sync failed, falling back to individual sync:', batchErr);
+      }
+    }
+
+    // 2. Fallback: đồng bộ tuần tự từng bản ghi
     for (const item of pending) {
       try {
         const res = await fetch(endpoint, {

@@ -92,7 +92,16 @@ export function romajiToHiragana(input: string): string {
   let i = 0;
 
   while (i < str.length) {
-    // 1. Kiểm tra âm ngắt (Sokuon) - hai phụ âm giống nhau liên tiếp (trừ nn)
+    // 1. Kiểm tra âm ngắt (Sokuon) - hai phụ âm giống nhau liên tiếp (trừ nn) hoặc dạng Hepburn 'tch'
+    if (
+      (i + 2 < str.length && str.substring(i, i + 3) === 'tch') ||
+      (i + 1 < str.length && str.substring(i, i + 2) === 'tc')
+    ) {
+      result += 'っ';
+      i++;
+      continue;
+    }
+
     if (
       i + 1 < str.length &&
       str[i] === str[i + 1] &&
@@ -218,6 +227,8 @@ export function evaluateConjugation(
       explanation = 'Lưu ý ngoại lệ quan trọng: 行く (iku) có đuôi ku nhưng KHÔNG chia là 行いて, mà chia là 行って (促音便 âm ngắt)!';
     } else if (verb.isException && verb.group === 1) {
       explanation = `Chú ý: ${verb.kanji} (${verb.hiragana}) là động từ Nhóm 1 (Godan) có đuôi ru, biến âm ngắt thành ${verb.te_form.hiragana}, không phải Nhóm 2!`;
+    } else if (['問う', '乞う'].includes(verb.kanji)) {
+      explanation = `Ngoại lệ cổ điển đặc biệt: ${verb.kanji} (${verb.hiragana}) tuy có đuôi [う] nhưng biến âm U thành [うて] (${verb.te_form.hiragana}) chứ không biến âm ngắt!`;
     } else if (verb.group === 1) {
       const lastChar = verb.hiragana.slice(-1);
       if (['う', 'つ', 'る'].includes(lastChar)) {

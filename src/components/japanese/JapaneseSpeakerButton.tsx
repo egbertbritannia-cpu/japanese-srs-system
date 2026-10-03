@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { japaneseAudio } from './AudioEffects';
 import { JapaneseAudioPool } from '@/lib/audio-pool';
+import { stripCloze } from '@/lib/cloze';
 
 interface SpeakerButtonProps {
   text: string;
@@ -17,12 +18,16 @@ export function JapaneseSpeakerButton({ text, size = 18, label, audioUrl }: Spea
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsPlaying(true);
+    const cleanText = stripCloze(text).replace(/\s*\((On|Kun):[^)]*\)/gi, '').trim();
+
     if (audioUrl) {
       JapaneseAudioPool.play(audioUrl);
+      setTimeout(() => setIsPlaying(false), 1200);
     } else {
-      japaneseAudio.speak(text);
+      japaneseAudio.speak(cleanText, () => setIsPlaying(false));
+      // Fallback timer dựa trên độ dài văn bản
+      setTimeout(() => setIsPlaying(false), Math.max(1200, cleanText.length * 200));
     }
-    setTimeout(() => setIsPlaying(false), 1200);
   };
 
   return (

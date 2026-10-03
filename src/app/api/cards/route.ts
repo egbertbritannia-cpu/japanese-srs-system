@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/db/client';
 import { cards, decks } from '@/db/schema';
-import { eq, desc, sql, count } from 'drizzle-orm';
+import { eq, desc, sql, count, and, or, like } from 'drizzle-orm';
 import { validateAndSaveCard } from '@/agents/skills/card-creator.skill';
 
 /**
@@ -38,9 +38,23 @@ export async function GET(request: Request) {
       .from(cards)
       .leftJoin(decks, eq(cards.deckId, decks.id));
 
-    // Xây dựng điều kiện lọc theo Deck nếu có
-    const filteredQuery = (deckId && deckId !== 'all')
-      ? baseQuery.where(eq(cards.deckId, deckId))
+    // Xây dựng điều kiện lọc theo Deck và từ khóa tìm kiếm (BUG-DB-02)
+    const conditions = [];
+    if (deckId && deckId !== 'all') {
+      conditions.push(eq(cards.deckId, deckId));
+    }
+    if (search) {
+      conditions.push(
+        or(
+          like(cards.front, `%${search}%`),
+          like(cards.reading, `%${search}%`),
+          like(cards.meaning, `%${search}%`)
+        )
+      );
+    }
+
+    const filteredQuery = conditions.length > 0
+      ? baseQuery.where(and(...conditions))
       : baseQuery;
 
     // Thực hiện song song 3 truy vấn độc lập qua Promise.all
@@ -55,7 +69,7 @@ export async function GET(request: Request) {
           totalCards: count(cards.id),
           dueCards: sql<number>`SUM(CASE WHEN ${cards.state} != 'New' AND (CASE WHEN ${cards.due} > 10000000000 THEN ${cards.due} ELSE ${cards.due} * 1000 END) <= ${nowMs} THEN 1 ELSE 0 END)`,
           newCards: sql<number>`SUM(CASE WHEN ${cards.state} = 'New' THEN 1 ELSE 0 END)`,
-          learnedCards: sql<number>`SUM(CASE WHEN ${cards.state} = 'Review' THEN 1 ELSE 0 END)`,
+          learnedCards: sql<number>`SUM(CASE WHEN ${cards.state} != 'New' THEN 1 ELSE 0 END)`,
         })
         .from(decks)
         .leftJoin(cards, eq(cards.deckId, decks.id))

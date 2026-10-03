@@ -25,7 +25,12 @@ addEventListener('message', (event: MessageEvent<FsrsWorkerRequest>) => {
   const { id, card, now } = event.data;
 
   try {
-    const schedulingCards = fsrs.repeat(card, new Date(now));
+    const hydratedCard: Card = {
+      ...card,
+      due: card.due ? new Date(card.due) : new Date(),
+      last_review: card.last_review ? new Date(card.last_review) : undefined,
+    };
+    const schedulingCards = fsrs.repeat(hydratedCard, new Date(now));
 
     const response: FsrsWorkerResponse = {
       id,

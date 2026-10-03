@@ -1,18 +1,17 @@
 import { NextResponse } from 'next/server';
-import { generateAuthUrl, getRedirectUri } from '@/services/google/auth';
+import { generateAuthUrlWithState, getRedirectUri } from '@/services/google/auth';
 
 /**
  * Endpoint điều hướng trực tiếp sang Google OAuth (Native 302 Redirect)
- * Giúp người dùng click là nhảy thẳng sang trang đăng nhập Google ngay lập tức,
- * không phụ thuộc vào JavaScript fetch hay bị chặn popup.
+ * Đính kèm CSRF State Token vào Cookie bảo vệ (BUG-SEC-03)
  */
 export async function GET(request: Request) {
   const { origin } = new URL(request.url);
   try {
     const redirectUri = getRedirectUri(origin);
-    const url = generateAuthUrl(redirectUri);
+    const authData = generateAuthUrlWithState(redirectUri);
 
-    if (!url) {
+    if (!authData) {
       return NextResponse.redirect(
         `${origin}/integrations?error=${encodeURIComponent(
           'Chưa cấu hình GOOGLE_CLIENT_ID hoặc GOOGLE_CLIENT_SECRET trên Vercel'
@@ -20,7 +19,16 @@ export async function GET(request: Request) {
       );
     }
 
-    return NextResponse.redirect(url);
+    const response = NextResponse.redirect(authData.url);
+    response.cookies.set('oauth_state', authData.state, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 600, // 10 phút
+    });
+
+    return response;
   } catch (error: any) {
     const { origin } = new URL(request.url);
     return NextResponse.redirect(

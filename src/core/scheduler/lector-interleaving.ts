@@ -42,9 +42,10 @@ export function calculateCosineDistance(vecA: number[], vecB: number[]): number 
     normB += vecB[i] * vecB[i];
   }
 
-  if (normA === 0 || normB === 0) return 1.0;
-  const similarity = dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
-  const clampedSim = Math.max(-1.0, Math.min(1.0, similarity));
+  const magnitude = Math.sqrt(normA) * Math.sqrt(normB);
+  if (magnitude < 1e-12 || isNaN(magnitude)) return 1.0;
+  const similarity = dotProduct / magnitude;
+  const clampedSim = Math.max(-1.0, Math.min(1.0, isNaN(similarity) ? 0 : similarity));
   return 1.0 - clampedSim;
 }
 
@@ -176,7 +177,7 @@ export function interleaveCardQueue(
 
       const candidateScore = distanceBonus - queuePositionPenalty;
 
-      if (candidateScore > bestScore) {
+      if (!Number.isNaN(candidateScore) && candidateScore > bestScore) {
         bestScore = candidateScore;
         bestIndex = i;
       }

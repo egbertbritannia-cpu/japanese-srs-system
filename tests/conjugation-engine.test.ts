@@ -21,10 +21,17 @@ describe('Japanese Verb Conjugation Engine & Transliteration Suite', () => {
       expect(romajiToHiragana('katte')).toBe('かって');
     });
 
-    it('should handle hatsuon (n sound)', () => {
+    it('should handle hatsuon (n sound) and double n (nn)', () => {
       expect(romajiToHiragana('nonde')).toBe('のんで');
       expect(romajiToHiragana('yonde')).toBe('よんで');
       expect(romajiToHiragana('shinde')).toBe('しんで');
+      expect(romajiToHiragana('shinnde')).toBe('しんで');
+    });
+
+    it('should handle Hepburn tch sokuon correctly', () => {
+      expect(romajiToHiragana('matcha')).toBe('まっちゃ');
+      expect(romajiToHiragana('kocchi')).toBe('こっち');
+      expect(romajiToHiragana('kotchi')).toBe('こっち');
     });
 
     it('should handle dakuon and handakuon', () => {

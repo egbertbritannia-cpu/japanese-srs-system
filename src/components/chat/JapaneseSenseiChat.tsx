@@ -14,6 +14,21 @@ interface ChatMessage {
   timestamp: string;
 }
 
+/**
+ * Bộ dựng Markdown an toàn thuần React (BUG-RAG-05)
+ * Tránh nguy cơ XSS khi hiển thị phản hồi từ AI mà vẫn làm đậm được **chữ**
+ */
+function renderSafeMarkdown(text: string) {
+  if (!text) return null;
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return <strong key={i} style={{ color: 'var(--matcha-deep, #3E734E)' }}>{part.slice(2, -2)}</strong>;
+    }
+    return part;
+  });
+}
+
 export function JapaneseSenseiChat() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
@@ -298,7 +313,7 @@ export function JapaneseSenseiChat() {
                     wordBreak: 'break-word',
                   }}
                 >
-                  {m.text}
+                  {renderSafeMarkdown(m.text)}
                 </div>
 
                 {/* Hàng công cụ cho tin nhắn của Sensei: Nút Copy & Phát âm */}

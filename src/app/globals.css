@@ -599,7 +599,7 @@ html, body {
 .kirie-kpi-desc {
   font-family: var(--font-sans), sans-serif;
   font-size: 0.74rem;
-  color: #786A5E;
+  color: #544538;
   margin: 0;
   line-height: 1.25;
 }
@@ -700,7 +700,7 @@ html, body {
   font-family: var(--font-sans), monospace;
   font-size: 0.92rem;
   font-weight: 600;
-  color: #786A5E;
+  color: #544538;
 }
 
 /* 5. HUY HIỆU VIÊN THUỐC MÀU KHOÁNG IWA-ENOGU */
@@ -765,7 +765,7 @@ html, body {
   align-items: center;
   gap: 0.25rem;
   text-decoration: none;
-  color: #786A5E;
+  color: #544538;
   font-family: var(--font-maru), sans-serif;
   font-size: 0.75rem;
   font-weight: 600;

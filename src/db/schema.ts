@@ -57,7 +57,7 @@ export const reviewLogs = sqliteTable(
     id: text('id').primaryKey(),
     cardId: text('card_id')
       .notNull()
-      .references(() => cards.id),
+      .references(() => cards.id, { onDelete: 'cascade' }),
     rating: text('rating').notNull(), // 'Again' | 'Hard' | 'Good' | 'Easy'
     state: text('state').notNull(),
     due: integer('due', { mode: 'timestamp' }).notNull(),

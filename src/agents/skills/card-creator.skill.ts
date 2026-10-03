@@ -1,6 +1,12 @@
 import { CardRepository } from '@/db/repositories/card-repository';
 import { CardValidator } from '@/core/cards/card.validator';
 import { Flashcard } from '@/core/cards/card.types';
+import crypto from 'crypto';
+
+export function generateDeterministicCardId(front: string, deckId: string): string {
+  const hash = crypto.createHash('sha256').update(`${deckId}:${front.trim()}`).digest('hex');
+  return `card_${hash.substring(0, 16)}`;
+}
 
 export interface CardDraftDTO {
   deck_id: string;
@@ -50,9 +56,30 @@ export async function validateAndSaveCard(
     );
   }
 
-  // 2. Tạo ID và lưu trực tiếp vào bảng `cards` trong SQLite
-  const card_id = `card_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  // 2. Tạo ID ổn định theo mã băm nội dung để tránh xung đột khóa chính (BUG-TEST-01)
+  const card_id = (card_draft as any).id || generateDeterministicCardId(card_draft.front, card_draft.deck_id);
   const now = new Date();
+
+  // Kiểm tra tính lũy kế (idempotency): Nếu thẻ đã tồn tại trong CSDL, cập nhật thông tin thay vì quăng lỗi UNIQUE
+  const existingCard = await CardRepository.getCardById(card_id);
+  if (existingCard) {
+    await CardRepository.updateCardState(card_id, {
+      deckId: card_draft.deck_id,
+      type: card_draft.type,
+      front: card_draft.front,
+      reading: card_draft.reading,
+      meaning: card_draft.meaning,
+      sentence: card_draft.sentence,
+      pitch: card_draft.pitch,
+      tags: card_draft.tags ? JSON.stringify(card_draft.tags) : '[]',
+      updatedAt: now,
+    });
+
+    return {
+      card_id,
+      status: 'created',
+    };
+  }
 
   await CardRepository.createCard({
     id: card_id,

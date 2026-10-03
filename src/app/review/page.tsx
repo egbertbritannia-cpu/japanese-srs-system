@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, Suspense } from 'react';
+import { useState, useEffect, useCallback, Suspense, useRef } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -94,7 +94,11 @@ function ReviewSessionContent() {
   const { calculateNextReview, isReady: isWorkerReady } = useFsrsScheduler();
   const [fsrsNextStates, setFsrsNextStates] = useState<RecordLog | null>(null);
   const [isOffline, setIsOffline] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const [unsyncedCount, setUnsyncedCount] = useState(0);
+
+  const cardStartTimeRef = useRef<number>(Date.now());
+  const deckMenuRef = useRef<HTMLDivElement>(null);
 
   const [loading, setLoading] = useState(true);
   const [deckList, setDeckList] = useState<DeckItem[]>([]);
@@ -205,8 +209,9 @@ function ReviewSessionContent() {
     loadCards();
   }, [targetDeckId, cramMode]);
 
-  // Lắng nghe sự kiện kết nối mạng để tự động đồng bộ ngầm
+  // Đánh dấu component đã mounted để loại bỏ Hydration Mismatch (BUG-UI-01)
   useEffect(() => {
+    setIsMounted(true);
     if (typeof window === 'undefined') return;
 
     const handleNetworkChange = async () => {
@@ -230,6 +235,32 @@ function ReviewSessionContent() {
       window.removeEventListener('offline', handleNetworkChange);
     };
   }, []);
+
+  // Đóng dropdown bộ thẻ khi bấm Escape hoặc nhấp chuột ra ngoài (BUG-UI-05)
+  useEffect(() => {
+    if (!showDeckMenu) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (deckMenuRef.current && !deckMenuRef.current.contains(e.target as Node)) {
+        setShowDeckMenu(false);
+      }
+    };
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setShowDeckMenu(false);
+      }
+    };
+    document.addEventListener('pointerdown', handleClickOutside);
+    document.addEventListener('keydown', handleEscape);
+    return () => {
+      document.removeEventListener('pointerdown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [showDeckMenu]);
+
+  // Cập nhật mốc thời gian bắt đầu xem thẻ để đo chính xác responseTimeMs (BUG-FSRS-06)
+  useEffect(() => {
+    cardStartTimeRef.current = Date.now();
+  }, [currentIdx]);
 
   const currentCard = queue && queue.length > 0 && currentIdx <= queue.length ? queue[currentIdx - 1] : null;
   const totalCards = queue ? queue.length : 0;
@@ -319,6 +350,9 @@ function ReviewSessionContent() {
         [grade]: prev[grade] + 1,
       }));
 
+      // Đo lường độ trôi chảy truy xuất (Retrieval Fluency - BUG-FSRS-06)
+      const responseTimeMs = Math.max(100, Math.round(Date.now() - cardStartTimeRef.current));
+
       // Gửi ngầm không chặn UI (Optimistic UI update)
       const submitReview = async () => {
         try {
@@ -332,14 +366,14 @@ function ReviewSessionContent() {
               cardId: currentCard.id,
               rating: grade,
               grade,
-              responseTimeMs: 2500,
+              responseTimeMs,
               scheduledDays,
             }),
           });
           if (!res.ok) throw new Error('API review returned non-200');
         } catch {
           // Khi ngoại tuyến hoặc API lỗi, lập tức ghi vào IndexedDB Dexie
-          await recordPendingReview(currentCard.id, grade, scheduledDays, 2500);
+          await recordPendingReview(currentCard.id, grade, scheduledDays, responseTimeMs);
           const count = await getUnsyncedReviewCount();
           setUnsyncedCount(count);
         }
@@ -593,7 +627,7 @@ function ReviewSessionContent() {
               ← Trang chủ
             </Link>
 
-            {isOffline && (
+            {isMounted && isOffline && (
               <span
                 style={{
                   fontSize: '0.72rem',
@@ -613,7 +647,7 @@ function ReviewSessionContent() {
               </span>
             )}
 
-            {unsyncedCount > 0 && (
+            {isMounted && unsyncedCount > 0 && (
               <span
                 title="Lượt ôn tập đã ghi nhận cục bộ và sẽ tự động đồng bộ khi có mạng"
                 style={{
@@ -675,9 +709,10 @@ function ReviewSessionContent() {
               <span style={{ fontSize: '0.75rem', color: '#786A5E' }}>▾</span>
             </button>
 
-            {/* Dropdown Menu đổi bộ thẻ */}
+            {/* Dropdown Menu đổi bộ thẻ (BUG-UI-05) */}
             {showDeckMenu && (
               <div
+                ref={deckMenuRef}
                 style={{
                   position: 'absolute',
                   top: '115%',
@@ -1281,12 +1316,15 @@ function ReviewSessionContent() {
         <div>
           {/* 4 THẺ SƠN MÀI ĐÁNH GIÁ CHUẨN TÔNG MÀU KHOÁNG TRUYỀN THỐNG */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.65rem', marginBottom: '0.5rem' }}>
-            {/* NÚT 1: AGAIN (再 - Akane) */}
+            {/* NÚT 1: AGAIN (再 - Akane) - BUG-UI-03: minHeight: '52px', minWidth: '44px' */}
             <button
               className="btn-srs-rating"
               onClick={() => handleGrade('Again')}
               style={{
                 touchAction: 'manipulation',
+                minHeight: '52px',
+                minWidth: '44px',
+                width: '100%',
                 padding: '0.85rem 0.4rem',
                 backgroundColor: '#FFF7F6',
                 border: '1.5px solid #9E3324',
@@ -1304,12 +1342,15 @@ function ReviewSessionContent() {
               <span style={{ fontSize: '0.72rem', fontWeight: 600 }}>{formatInterval(Rating.Again)}</span>
             </button>
 
-            {/* NÚT 2: HARD (難 - Kohaku) */}
+            {/* NÚT 2: HARD (難 - Kohaku) - BUG-UI-03 */}
             <button
               className="btn-srs-rating"
               onClick={() => handleGrade('Hard')}
               style={{
                 touchAction: 'manipulation',
+                minHeight: '52px',
+                minWidth: '44px',
+                width: '100%',
                 padding: '0.85rem 0.4rem',
                 backgroundColor: '#FFFAF2',
                 border: '1.5px solid #B87B28',
@@ -1327,12 +1368,15 @@ function ReviewSessionContent() {
               <span style={{ fontSize: '0.72rem', fontWeight: 600 }}>{formatInterval(Rating.Hard)}</span>
             </button>
 
-            {/* NÚT 3: GOOD (良 - Tokiwa) */}
+            {/* NÚT 3: GOOD (良 - Tokiwa) - BUG-UI-03 */}
             <button
               className="btn-srs-rating"
               onClick={() => handleGrade('Good')}
               style={{
                 touchAction: 'manipulation',
+                minHeight: '52px',
+                minWidth: '44px',
+                width: '100%',
                 padding: '0.85rem 0.4rem',
                 backgroundColor: '#3E734E',
                 border: '1.5px solid #2F593C',
@@ -1351,12 +1395,15 @@ function ReviewSessionContent() {
               <span style={{ fontSize: '0.72rem', color: '#EAF5EC', fontWeight: 600 }}>{formatInterval(Rating.Good)}</span>
             </button>
 
-            {/* NÚT 4: EASY (易 - Aizome) */}
+            {/* NÚT 4: EASY (易 - Aizome) - BUG-UI-03 */}
             <button
               className="btn-srs-rating"
               onClick={() => handleGrade('Easy')}
               style={{
                 touchAction: 'manipulation',
+                minHeight: '52px',
+                minWidth: '44px',
+                width: '100%',
                 padding: '0.85rem 0.4rem',
                 backgroundColor: '#234B73',
                 border: '1.5px solid #1A3755',

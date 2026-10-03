@@ -86,6 +86,14 @@ export async function POST(request: Request) {
       rowCount: sheetResult.rowCount,
     });
   } catch (error: any) {
+    if (error?.message?.includes('invalid_grant') || error?.code === 401) {
+      const cookieStore = await cookies();
+      cookieStore.delete('google_tokens');
+      return NextResponse.json(
+        { error: 'Phiên đăng nhập Google đã hết hạn. Vui lòng kết nối lại tài khoản.', needsAuth: true },
+        { status: 401 }
+      );
+    }
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

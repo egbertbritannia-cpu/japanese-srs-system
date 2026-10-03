@@ -15,9 +15,20 @@ class JapaneseAudioEngine {
       }
     }
     if (this.ctx && this.ctx.state === 'suspended') {
-      this.ctx.resume();
+      this.ctx.resume().catch(() => {});
     }
     return this.ctx;
+  }
+
+  /**
+   * Mở khóa AudioContext khi người dùng tương tác lần đầu (BUG-AUD-01)
+   */
+  public unlockAudioContext() {
+    if (typeof window === 'undefined') return;
+    const ctx = this.getContext();
+    if (ctx && ctx.state === 'suspended') {
+      ctx.resume().catch(() => {});
+    }
   }
 
   /**
@@ -111,9 +122,13 @@ class JapaneseAudioEngine {
 
   /**
    * Phát âm tiếng Nhật tự nhiên thông qua Web Speech API (Dual Coding)
+   * Đồng thời đồng bộ callback onEnd với giao diện (BUG-AUD-05)
    */
-  speak(text: string) {
-    if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
+  speak(text: string, onEnd?: () => void) {
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
+      if (onEnd) onEnd();
+      return;
+    }
 
     try {
       window.speechSynthesis.cancel(); // Dừng câu trước đó nếu đang đọc
@@ -121,11 +136,28 @@ class JapaneseAudioEngine {
       utterance.lang = 'ja-JP';
       utterance.rate = 0.88; // Tốc độ chuẩn cho người học tiếng Nhật
       utterance.pitch = 1.05; // Cao độ tự nhiên, rõ ràng
+      if (onEnd) {
+        utterance.onend = () => onEnd();
+        utterance.onerror = () => onEnd();
+      }
       window.speechSynthesis.speak(utterance);
     } catch {
-      // Speech synthesis not available
+      if (onEnd) onEnd();
     }
   }
 }
 
 export const japaneseAudio = new JapaneseAudioEngine();
+
+// Tự động mở khóa AudioContext trên cử chỉ chạm/click đầu tiên (BUG-AUD-01)
+if (typeof window !== 'undefined') {
+  const unlock = () => {
+    japaneseAudio.unlockAudioContext();
+    window.removeEventListener('touchstart', unlock);
+    window.removeEventListener('click', unlock);
+    window.removeEventListener('keydown', unlock);
+  };
+  window.addEventListener('touchstart', unlock, { once: true, passive: true });
+  window.addEventListener('click', unlock, { once: true, passive: true });
+  window.addEventListener('keydown', unlock, { once: true, passive: true });
+}

@@ -12,6 +12,13 @@
     "http://localhost:3000/*",
     "https://*.vercel.app/*"
   ],
+  "externally_connectable": {
+    "matches": [
+      "https://japanese-srs-system-git-main-cassius1.vercel.app/*",
+      "https://*.vercel.app/*",
+      "http://localhost:3000/*"
+    ]
+  },
   "background": {
     "service_worker": "background.js"
   },
