@@ -1,0 +1,43 @@
+# .github/workflows/performance.yml
+name: ⚡ Kiểm Toán Hiệu Suất Tự Động (Lighthouse CI & Performance Gate)
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  performance-gate:
+    name: Core Web Vitals & Bundle Guard
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Tải mã nguồn (Checkout Repository)
+        uses: actions/checkout@v4
+
+      - name: 🟢 Thiết lập môi trường Node.js 20 LTS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: 📦 Cài đặt thư viện dependencies
+        run: npm ci
+
+      - name: 🧪 Chạy toàn bộ kiểm thử Unit Test (Vitest)
+        run: npm test
+
+      - name: 🏗️ Biên dịch Next.js Production Build
+        run: npm run build
+        env:
+          TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
+          TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
+
+      - name: 🚦 Cài đặt Lighthouse CI CLI
+        run: npm install -g @lhci/cli@0.14.x
+
+      - name: 🔬 Chạy bài kiểm tra Lighthouse CI
+        run: lhci autorun
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

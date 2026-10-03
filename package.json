@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "vitest run",
+    "optimize-images": "node scripts/optimize-art-images.mjs",
+    "ci:perf": "lhci autorun",
     "db:turso:init": "npx tsx scripts/init-turso.ts",
     "db:import:jpd133": "npx tsx scripts/import-jpd133.ts",
     "db:import:kanji": "npx tsx scripts/import-kanji.ts"

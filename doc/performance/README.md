@@ -82,12 +82,12 @@ Từ báo cáo kiểm toán thực tế mã nguồn (`src/app/`, `src/components
 ### 🟠 Giai đoạn 3: Tái Cấu Trúc Kiến Trúc (Tuần 2)
 - [x] Chuyển đổi `src/app/page.tsx` từ Client Component sang **React Server Component**.
 - [x] Chuyển đổi các hiệu ứng của `SakuraBackground.tsx` sang thuần túy CSS GPU keyframes.
-- [ ] Tích hợp React 19 Server Actions thay thế các mutation endpoints REST.
+- [x] Tích hợp React 19 Server Actions (`src/app/actions/srs.ts`) thay thế các mutation endpoints REST.
 
 ### 🔵 Giai đoạn 4: Nâng Cao & Tự Động Hóa (Tuần 3 - 4)
 - [x] Chuyển thuật toán FSRS sang **Dedicated Web Worker** (`src/workers/fsrs.worker.ts`) & tích hợp màn hình ôn tập `/review`.
 - [x] Triển khai cơ sở dữ liệu ngoại tuyến **IndexedDB (Dexie.js)** và Service Worker PWA (`public/sw.js`).
-- [ ] Thiết lập quy trình kiểm duyệt hiệu năng tự động trên CI/CD qua **Lighthouse CI**.
+- [x] Thiết lập quy trình kiểm duyệt hiệu năng tự động trên CI/CD qua **Lighthouse CI** (`lighthouserc.js`, `.github/workflows/performance.yml`) & RUM Telemetry (`src/lib/telemetry.ts`, `/api/telemetry`).
 
 ---
 

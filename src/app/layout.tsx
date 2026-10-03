@@ -9,6 +9,7 @@ import { JapaneseArtBackdrop } from '@/components/art/JapaneseArtBackdrop';
 import { KirieBottomNav } from '@/components/kirie/KirieBottomNav';
 
 import { ServiceWorkerRegister } from '@/components/pwa/ServiceWorkerRegister';
+import { PerformanceTracker } from '@/components/telemetry/PerformanceTracker';
 
 const zenMaru = Zen_Maru_Gothic({
   weight: ['400', '700'],
@@ -58,9 +59,16 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#122438" />
+        <link
+          rel="preload"
+          as="image"
+          href="/assets/art/golden-waves-kin-nami.avif"
+          type="image/avif"
+        />
       </head>
       <body className="washi-paper-bg" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', position: 'relative' }}>
         <ServiceWorkerRegister />
+        <PerformanceTracker />
         {/* Lớp nền đồ họa mỹ thuật áp phích Nhật Bản (Mặt trời Hinomaru, Cành mai Sumi-e, Hạc Đan Đỉnh) */}
         <JapanesePosterBackground />
 
