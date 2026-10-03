@@ -4,90 +4,30 @@ import { cards, decks } from '@/db/schema';
 import { eq, desc, count, sql } from 'drizzle-orm';
 import { ToriiIcon } from '@/components/japanese/Icons';
 import { JapaneseArtBackdrop } from '@/components/art/JapaneseArtBackdrop';
+import { JapaneseSpeakerButton } from '@/components/japanese/JapaneseSpeakerButton';
 import { DeckSummaryDTO } from '@/core/cards/deck.types';
-import {
-  KirieHeroBanner,
-  KirieKpiCard,
-  KirieFocusListItem,
-  KirieFocusItemData,
-} from '@/components/kirie';
 
 /**
  * Dashboard (Honmaru - 本丸)
- * Tái cấu trúc thành React Server Component (RSC):
- * - Tối ưu hóa TTFB qua việc nạp dữ liệu trực tiếp trên máy chủ bằng Drizzle ORM
- * - Gom nhóm thống kê trực tiếp trong SQL (GROUP BY), giảm 0ms Client RTT
+ * Tái thiết kế theo Biến thể 'Honmaru 3A - Zen Washi Study Ledger':
+ * - Tối ưu hóa TTFB qua việc nạp dữ liệu trực tiếp trên máy chủ bằng Drizzle ORM (RSC)
  * - Tự động revalidate sau mỗi 60 giây (Incremental Static Regeneration - ISR)
- * - Tái thiết kế trực quan theo phong cách Cắt giấy Washi Kirie & Sóng Biển Lớp
+ * - Tinh giản tối đa: Chỉ 1 nút hành động chính 'Ôn thẻ đến hạn', bỏ nút phụ và dải thống kê thừa
+ * - Phủ mờ nhẹ tranh sóng biển Nhật Bản (1000_F_262528819) từ bộ sưu tập văn hóa ukiyo-e
+ * - Định dạng thông tin người học: Cassius (Mục tiêu N3)
  */
 export const revalidate = 60;
-
-// 5 Thẻ bài tập trung mẫu chuẩn theo phong cách Kirie Washi
-const defaultFocusCards: KirieFocusItemData[] = [
-  {
-    id: 'f1',
-    title: '曖昧 (あいまい)',
-    subtitle: 'Mơ hồ, không rõ ràng',
-    timeOrLevel: '09:30',
-    statusText: 'Cần ôn',
-    statusType: 'due-now',
-    barColor: 'navy',
-    href: '/review',
-    audioText: '曖昧',
-  },
-  {
-    id: 'f2',
-    title: '躊躇 (ちゅうちょ)',
-    subtitle: 'Do dự, ngập ngừng',
-    timeOrLevel: '11:00',
-    statusText: 'Đang học',
-    statusType: 'in-progress',
-    barColor: 'denim',
-    href: '/review',
-    audioText: '躊躇',
-  },
-  {
-    id: 'f3',
-    title: '木漏れ日 (こもれび)',
-    subtitle: 'Nắng xuyên kẽ lá',
-    timeOrLevel: '13:30',
-    statusText: 'Chờ ôn',
-    statusType: 'pending',
-    barColor: 'gold',
-    href: '/review',
-    audioText: '木漏れ日',
-  },
-  {
-    id: 'f4',
-    title: '一期一会 (いちごいちえ)',
-    subtitle: 'Đời người gặp một lần',
-    timeOrLevel: '15:00',
-    statusText: 'Mới',
-    statusType: 'not-started',
-    barColor: 'matcha',
-    href: '/review',
-    audioText: '一期一会',
-  },
-  {
-    id: 'f5',
-    title: '切磋琢磨 (せっさたくま)',
-    subtitle: 'Cùng nhau nỗ lực rèn giũa',
-    timeOrLevel: '17:00',
-    statusText: 'Khó',
-    statusType: 'blocked',
-    barColor: 'torii',
-    href: '/review',
-    audioText: '切磋琢磨',
-  },
-];
 
 interface DashboardCardItem {
   id: string;
   front: string;
   reading: string | null;
   meaning: string;
+  sentence?: string | null;
   due: Date | number | null;
   state: string;
+  stability?: number | null;
+  reps?: number | null;
 }
 
 interface DashboardData {
@@ -101,6 +41,92 @@ interface DashboardData {
   totalCardsCount: number;
 }
 
+interface FocusCardDisplay {
+  id: string;
+  kanji: string;
+  reading: string;
+  pitch: string;
+  meaning: string;
+  example: string;
+  deckName: string;
+  stability: string;
+  reps: number;
+  isDue: boolean;
+}
+
+// 5 thẻ bài mẫu chuẩn ngữ nghĩa theo phong cách Karuta Zen Washi 3A
+const defaultZenCards: FocusCardDisplay[] = [
+  {
+    id: 'f1',
+    kanji: '曖昧',
+    reading: 'あいまい',
+    pitch: 'Atamadaka [1]',
+    meaning: 'Mơ hồ, không rõ ràng',
+    example: '「曖昧な返事をするな」 (Đừng trả lời mập mờ, hãy dứt khoát)',
+    deckName: 'Minna no Nihongo Chuukyuu (N3)',
+    stability: '4.2 ngày',
+    reps: 5,
+    isDue: true,
+  },
+  {
+    id: 'f2',
+    kanji: '躊躇',
+    reading: 'ちゅうちょ',
+    pitch: 'Heiban [0]',
+    meaning: 'Do dự, chần chừ, ngập ngừng',
+    example: '「躊躇せずに発言する」 (Không ngập ngừng mà lên tiếng ngay)',
+    deckName: 'Minna no Nihongo Chuukyuu (N3)',
+    stability: '6.8 ngày',
+    reps: 7,
+    isDue: true,
+  },
+  {
+    id: 'f3',
+    kanji: '木漏れ日',
+    reading: 'こもれび',
+    pitch: 'Nakadaka [3]',
+    meaning: 'Ánh nắng xuyên qua kẽ lá',
+    example: '「森の中で木漏れ日を楽しむ」 (Thưởng thức nắng len qua tán cây trong rừng)',
+    deckName: 'Từ vựng Tự nhiên & Đời sống',
+    stability: '12.1 ngày',
+    reps: 9,
+    isDue: true,
+  },
+  {
+    id: 'f4',
+    kanji: '一期一会',
+    reading: 'いちごいちえ',
+    pitch: 'Heiban [0]',
+    meaning: 'Đời người gặp gỡ một lần, quý trọng duyên',
+    example: '「一期一会の精神でおもてなしをする」 (Tiếp đón với tinh thần chỉ gặp một lần)',
+    deckName: 'Thành ngữ 4 chữ (Yojijukugo)',
+    stability: '18.5 ngày',
+    reps: 11,
+    isDue: true,
+  },
+  {
+    id: 'f5',
+    kanji: '切磋琢磨',
+    reading: 'せっさたくま',
+    pitch: 'Heiban [0]',
+    meaning: 'Cùng nhau nỗ lực, rèn giũa tài năng',
+    example: '「仲間と切磋琢磨して実力をつける」 (Cùng bạn bè rèn giũa nâng cao năng lực)',
+    deckName: 'Thành ngữ 4 chữ (Yojijukugo)',
+    stability: '24.0 ngày',
+    reps: 14,
+    isDue: true,
+  },
+];
+
+function getFormattedVietnameseDate(): string {
+  const days = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+  const now = new Date();
+  const dayName = days[now.getDay()];
+  const date = String(now.getDate()).padStart(2, '0');
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  return `${dayName}, ${date} Tháng ${month}`;
+}
+
 async function getDashboardData(): Promise<DashboardData> {
   try {
     const now = Date.now();
@@ -111,8 +137,11 @@ async function getDashboardData(): Promise<DashboardData> {
           front: cards.front,
           reading: cards.reading,
           meaning: cards.meaning,
+          sentence: cards.sentence,
           due: cards.due,
           state: cards.state,
+          stability: cards.stability,
+          reps: cards.reps,
         })
         .from(cards)
         .orderBy(desc(cards.createdAt))
@@ -143,15 +172,18 @@ async function getDashboardData(): Promise<DashboardData> {
       learnedCards: Number(d.learnedCards || 0),
     }));
 
-    const finalDeckSummaries: DeckSummaryDTO[] = deckSummaries.length > 0 ? deckSummaries : allDecks.map((d: any) => ({
-      id: d.id,
-      name: d.name,
-      description: d.description || '',
-      totalCards: 0,
-      dueCards: 0,
-      newCards: 0,
-      learnedCards: 0,
-    }));
+    const finalDeckSummaries: DeckSummaryDTO[] =
+      deckSummaries.length > 0
+        ? deckSummaries
+        : allDecks.map((d: any) => ({
+            id: d.id,
+            name: d.name,
+            description: d.description || '',
+            totalCards: 0,
+            dueCards: 0,
+            newCards: 0,
+            learnedCards: 0,
+          }));
 
     const totalDue = finalDeckSummaries.reduce((sum: number, d) => sum + d.dueCards, 0);
     const totalCardsCount = finalDeckSummaries.reduce((sum: number, d) => sum + d.totalCards, 0);
@@ -160,7 +192,7 @@ async function getDashboardData(): Promise<DashboardData> {
       cardsList: cardList as DashboardCardItem[],
       deckSummaries: finalDeckSummaries,
       stats: {
-        dueToday: totalDue > 0 ? totalDue : 6,
+        dueToday: totalDue > 0 ? totalDue : 12,
         openTasks: totalCardsCount > 0 ? totalCardsCount : 38,
         doneThisSprint: 94,
       },
@@ -172,7 +204,7 @@ async function getDashboardData(): Promise<DashboardData> {
       cardsList: [],
       deckSummaries: [],
       stats: {
-        dueToday: 6,
+        dueToday: 12,
         openTasks: 38,
         doneThisSprint: 94,
       },
@@ -182,261 +214,752 @@ async function getDashboardData(): Promise<DashboardData> {
 }
 
 export default async function DashboardPage() {
-  const { cardsList, deckSummaries, stats, totalCardsCount } = await getDashboardData();
+  const { cardsList, deckSummaries, stats } = await getDashboardData();
+  const currentDateFormatted = getFormattedVietnameseDate();
 
-  // Ánh xạ thẻ học thực tế vào 5 hàng theo phong cách Kirie nếu có >= 3 thẻ
-  const displayedFocusItems: KirieFocusItemData[] =
+  // Ánh xạ thẻ từ cơ sở dữ liệu nếu có, hoặc dùng danh sách 5 từ Karuta Zen mẫu
+  const displayedCards: FocusCardDisplay[] =
     cardsList.length >= 3
-      ? cardsList.slice(0, 5).map((c: DashboardCardItem, idx) => {
-          const barColors: ('navy' | 'denim' | 'gold' | 'matcha' | 'torii')[] = [
-            'navy',
-            'denim',
-            'gold',
-            'matcha',
-            'torii',
-          ];
-          const statuses: { text: string; type: 'due-now' | 'in-progress' | 'pending' | 'not-started' | 'blocked' }[] = [
-            { text: 'Cần ôn', type: 'due-now' },
-            { text: 'Đang học', type: 'in-progress' },
-            { text: 'Chờ ôn', type: 'pending' },
-            { text: 'Mới', type: 'not-started' },
-            { text: 'Khó', type: 'blocked' },
-          ];
-          const timeSlots = ['09:30', '11:00', '13:30', '15:00', '17:00'];
-          const isDue = c.due ? new Date(c.due).getTime() <= Date.now() : false;
-          const status = isDue ? statuses[0] : statuses[idx % statuses.length];
-
+      ? cardsList.slice(0, 5).map((c, idx) => {
+          const fallback = defaultZenCards[idx % defaultZenCards.length];
+          const isDue = c.due ? new Date(c.due).getTime() <= Date.now() : true;
           return {
             id: c.id,
-            title: `${c.front || 'Thẻ học'}${c.reading ? ` (${c.reading})` : ''}`,
-            subtitle: c.meaning || defaultFocusCards[idx % defaultFocusCards.length].subtitle,
-            timeOrLevel: timeSlots[idx % timeSlots.length],
-            statusText: status.text,
-            statusType: status.type,
-            barColor: barColors[idx % barColors.length],
-            href: '/review',
-            audioText: c.front,
+            kanji: c.front || fallback.kanji,
+            reading: c.reading || fallback.reading,
+            pitch: fallback.pitch,
+            meaning: c.meaning || fallback.meaning,
+            example: c.sentence || fallback.example,
+            deckName: deckSummaries[idx % deckSummaries.length]?.name || fallback.deckName,
+            stability: c.stability ? `${c.stability.toFixed(1)} ngày` : fallback.stability,
+            reps: c.reps ?? fallback.reps,
+            isDue,
           };
         })
-      : defaultFocusCards;
+      : defaultZenCards;
 
   return (
     <main
       style={{
-        maxWidth: '540px',
-        width: '100%',
-        margin: '0.75rem auto 4.5rem',
-        padding: '0 0.85rem 2rem',
+        position: 'relative',
+        minHeight: '100vh',
+        padding: '1.5rem 1rem 5rem',
       }}
     >
-      {/* =========================================================================
-          1. WASHI KIRIE HERO BANNER: INDIGO SKY, 3D WAVES & ORIGAMI SAILBOAT
-          ========================================================================= */}
-      <section style={{ marginBottom: '0.25rem' }}>
-        <KirieHeroBanner
-          userName="Yuna"
-          dueCount={stats.dueToday}
-          newCount={stats.openTasks}
-          learnedCount={stats.doneThisSprint}
-        />
+      {/* 1. HÌNH NỀN SÓNG BIỂN NHẬT BẢN MỜ NHẸ (UKIO-E WAVES TỪ THƯ MỤC BỘ SƯU TẬP) */}
+      <JapaneseArtBackdrop
+        src="/assets/art/1000_F_262528819_Qw2fofco2EOrkIdYmcjx20sBECBZ5mFM.jpg"
+        alt="Họa tiết sóng biển Nhật Bản"
+        opacity={0.065}
+        blendMode="multiply"
+      />
 
-        {/* 2. BỘ 3 THẺ KPI SQUIRCLE CẮT GÓC LÓ GIẤY MÀU CHUẨN XÁC */}
-        <div className="kirie-kpi-grid">
-          <KirieKpiCard
-            title="Tổng thẻ"
-            value={totalCardsCount}
-            subtitle="3 bộ thẻ"
-            accent="blue"
-            href="/cards"
-          />
-          <KirieKpiCard
-            title="Cần ôn"
-            value={stats.dueToday}
-            subtitle="Hôm nay"
-            accent="gold"
-            href="/review"
-          />
-          <KirieKpiCard
-            title="Đã nhớ"
-            value={stats.doneThisSprint}
-            subtitle="Thẻ bền vững"
-            accent="green"
-            href="/review"
-          />
-        </div>
-
-        {/* 3 CHẤM ĐIỀU HƯỚNG CAROUSEL DOTS (ACTIVE NAVY + 2 INACTIVE SAND) */}
-        <div className="kirie-dots" aria-hidden="true">
-          <span className="kirie-dot active" />
-          <span className="kirie-dot" />
-          <span className="kirie-dot" />
-        </div>
-
-        {/* 3. ĐƯỜNG PHÂN CÁCH SÓNG VÀNG TODAY'S FOCUS */}
-        <div className="kirie-section-header">
-          <h2 className="kirie-section-title">Mục tiêu hôm nay</h2>
-          <div className="kirie-wave-divider-line">
-            <svg
-              style={{ position: 'absolute', right: 0, top: '-7px', width: '24px', height: '14px' }}
-              viewBox="0 0 24 14"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M1 11 C6 7, 12 14, 18 8 C21 5, 23 9, 24 9"
-                stroke="#D4AF37"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-              />
-            </svg>
-          </div>
-        </div>
-
-        {/* 4. DANH SÁCH 5 THẺ BÀI VẠCH SƠN MÀI ĐỨNG BÊN TRÁI & HUY HIỆU VIÊN THUỐC */}
-        <div className="kirie-task-list">
-          {displayedFocusItems.map((item) => (
-            <KirieFocusListItem key={item.id} item={item} />
-          ))}
-        </div>
-      </section>
-
-      {/* =========================================================================
-          5. DANH MỤC BỘ THẺ HỌC TẬP (DECK SELECTION) - PHONG CÁCH WASHI TINH TẾ
-          ========================================================================= */}
-      <section style={{ marginTop: '2rem' }}>
-        <div
+      {/* KHUNG NỘI DUNG CHÍNH (MAX WIDTH 1140PX THEO DESIGN 3A) */}
+      <div
+        style={{
+          maxWidth: '1140px',
+          margin: '0 auto',
+          position: 'relative',
+          zIndex: 10,
+        }}
+      >
+        {/* =========================================================================
+            2. TOP STUDY LEDGER: TINH GIẢN, GỌN GÀNG, DUY NHẤT 1 NÚT ÔN TẬP
+            ========================================================================= */}
+        <section
           style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: '0.85rem',
+            background: 'rgba(255, 255, 255, 0.92)',
+            backdropFilter: 'blur(8px)',
+            border: '1.5px solid #E8E2D8',
+            borderRadius: '20px',
+            padding: '1.75rem 2rem',
+            marginBottom: '2rem',
+            boxShadow: '0 4px 16px rgba(31, 36, 33, 0.03)',
+            position: 'relative',
+            overflow: 'hidden',
           }}
         >
-          <span
-            style={{
-              fontSize: '0.9rem',
-              fontWeight: 700,
-              color: '#122438',
-              fontFamily: 'var(--font-sans), sans-serif',
-            }}
-          >
-            📚 Thư viện Bộ thẻ (Decks)
-          </span>
-
-          <Link
-            href="/review?deck=all"
-            style={{
-              fontSize: '0.78rem',
-              color: '#20527D',
-              fontWeight: 600,
-              textDecoration: 'none',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.25rem',
-            }}
-          >
-            Ôn tập →
-          </Link>
-        </div>
-
-        {/* Danh sách các bộ thẻ bo góc mềm mại phong cách Washi */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', position: 'relative' }}>
-          {/* Lớp nền nghệ thuật mạ kim Washi mờ tinh tế (Bảo toàn hợp đồng kiểm thử JapaneseArtBackdrop) */}
           <div
             style={{
-              position: 'absolute',
-              inset: 0,
-              borderRadius: '16px',
-              overflow: 'hidden',
-              pointerEvents: 'none',
-              opacity: 0.06,
+              display: 'flex',
+              flexWrap: 'wrap',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '1.5rem',
+              position: 'relative',
+              zIndex: 2,
             }}
           >
-            <JapaneseArtBackdrop
-              src="/assets/art/golden-waves-kin-nami.jpg"
-              alt="Họa tiết sóng vàng Kin-nami"
-              opacity={0.12}
-              blendMode="multiply"
-            />
-          </div>
+            {/* Tiêu đề & Thông tin ngày học */}
+            <div style={{ maxWidth: '640px' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  marginBottom: '0.4rem',
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: '0.78rem',
+                    fontWeight: 700,
+                    color: '#6E8A3C',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.04em',
+                    fontFamily: 'var(--font-maru), sans-serif',
+                  }}
+                >
+                  Nhật ký học tập hôm nay
+                </span>
+                <span style={{ color: '#E8E2D8' }}>·</span>
+                <span
+                  style={{
+                    fontSize: '0.8rem',
+                    color: '#717C75',
+                    fontFamily: 'var(--font-sans), sans-serif',
+                  }}
+                >
+                  {currentDateFormatted}
+                </span>
+              </div>
 
-          {deckSummaries.length === 0 ? (
+              <h1
+                style={{
+                  fontFamily: 'var(--font-mincho), serif',
+                  fontSize: 'clamp(1.75rem, 3.5vw, 2.35rem)',
+                  fontWeight: 800,
+                  color: '#1F2421',
+                  letterSpacing: '-0.02em',
+                  margin: 0,
+                  lineHeight: 1.25,
+                }}
+              >
+                Hôm nay:{' '}
+                <span style={{ color: '#D9381E' }}>{stats.dueToday} thẻ</span> đến hạn
+              </h1>
+
+              <p
+                style={{
+                  fontSize: '0.88rem',
+                  color: '#717C75',
+                  margin: '0.45rem 0 0',
+                  lineHeight: 1.5,
+                  fontWeight: 500,
+                }}
+              >
+                Duy trì tỷ lệ gợi nhớ 90% theo thuật toán FSRS · Dự kiến hoàn thành trong ~6 phút
+              </p>
+            </div>
+
+            {/* Cụm tương tác: Người học Cassius & Nút bấm Ôn tập Torii son duy nhất */}
             <div
               style={{
-                padding: '1.25rem',
-                textAlign: 'center',
-                color: '#766759',
-                fontSize: '0.85rem',
-                background: '#FAF7F0',
-                borderRadius: '12px',
-                border: '1px solid #EBE4D6',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1.25rem',
+                flexWrap: 'wrap',
               }}
             >
-              Chưa có bộ thẻ nào. Hãy tạo bộ thẻ đầu tiên để bắt đầu học!
-            </div>
-          ) : (
-            deckSummaries.map((deck) => (
+              {/* Thẻ học viên Cassius */}
               <div
-                key={deck.id}
                 style={{
-                  background: '#FAF7F0',
-                  border: '1.2px solid #EBE4D6',
-                  borderRadius: '14px',
-                  padding: '1rem 1.15rem',
                   display: 'flex',
-                  justifyContent: 'space-between',
                   alignItems: 'center',
-                  boxShadow: '0 2px 6px rgba(45, 35, 20, 0.03)',
-                  transition: 'transform 0.2s ease',
+                  gap: '0.75rem',
+                  padding: '0.4rem 0.85rem',
+                  background: 'rgba(250, 248, 245, 0.85)',
+                  border: '1px solid #E8E2D8',
+                  borderRadius: '12px',
+                }}
+              >
+                <div
+                  style={{
+                    width: '32px',
+                    height: '32px',
+                    borderRadius: '50%',
+                    background: '#1F2421',
+                    color: '#FFFFFF',
+                    fontWeight: 700,
+                    fontSize: '0.75rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontFamily: 'var(--font-maru), sans-serif',
+                  }}
+                >
+                  CS
+                </div>
+                <div>
+                  <p
+                    style={{
+                      fontSize: '0.82rem',
+                      fontWeight: 700,
+                      color: '#1F2421',
+                      margin: 0,
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    Cassius
+                  </p>
+                  <p
+                    style={{
+                      fontSize: '0.72rem',
+                      color: '#717C75',
+                      margin: 0,
+                    }}
+                  >
+                    Mục tiêu: N3
+                  </p>
+                </div>
+              </div>
+
+              {/* Nút hành động chính duy nhất: Ôn {stats.dueToday} thẻ đến hạn */}
+              <Link
+                href="/review"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.65rem',
+                  background: 'linear-gradient(135deg, #E64A19 0%, #D9381E 100%)',
+                  color: '#FFFFFF',
+                  padding: '0.85rem 1.65rem',
+                  borderRadius: '12px',
+                  fontWeight: 700,
+                  fontSize: '0.95rem',
+                  textDecoration: 'none',
+                  boxShadow: '0 4px 14px rgba(217, 56, 30, 0.28)',
+                  transition: 'transform 0.2s, box-shadow 0.2s',
+                }}
+              >
+                <ToriiIcon size={18} color="#FFFFFF" />
+                <span>Ôn {stats.dueToday} thẻ đến hạn</span>
+                <span
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.22)',
+                    color: '#FFFFFF',
+                    fontSize: '0.72rem',
+                    fontFamily: 'monospace',
+                    padding: '0.15rem 0.45rem',
+                    borderRadius: '4px',
+                    marginLeft: '0.2rem',
+                  }}
+                >
+                  Space
+                </span>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* =========================================================================
+            3. BỐ CỤC 2 CỘT CÂN ĐỐI (7 CỘT THẺ KANJI : 5 CỘT BỘ BÀI & FSRS)
+            ========================================================================= */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gap: '2rem',
+            alignItems: 'start',
+          }}
+        >
+          {/* CỘT TRÁI: HÀNG ĐỢI THẺ ĐẾN HẠN HÔM NAY (7 PHẦN) */}
+          <section style={{ flex: '1 1 60%' }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginBottom: '1rem',
+              }}
+            >
+              <div>
+                <h2
+                  style={{
+                    fontSize: '1.05rem',
+                    fontWeight: 700,
+                    color: '#1F2421',
+                    margin: 0,
+                    fontFamily: 'var(--font-sans), sans-serif',
+                  }}
+                >
+                  Hàng đợi thẻ đến hạn hôm nay
+                </h2>
+                <p
+                  style={{
+                    fontSize: '0.78rem',
+                    color: '#717C75',
+                    margin: '0.2rem 0 0',
+                  }}
+                >
+                  5 thẻ ưu tiên hàng đầu theo lịch lặp lại FSRS
+                </p>
+              </div>
+
+              <span
+                style={{
+                  fontSize: '0.78rem',
+                  fontWeight: 600,
+                  color: '#6E8A3C',
+                  background: '#EBF2DF',
+                  padding: '0.25rem 0.65rem',
+                  borderRadius: '6px',
+                }}
+              >
+                {displayedCards.length} / {stats.dueToday} hiển thị
+              </span>
+            </div>
+
+            {/* DANH SÁCH THẺ KANJI KARUTA CHUẨN THẨM MỸ WASHI */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+              {displayedCards.map((card) => (
+                <div
+                  key={card.id}
+                  style={{
+                    background: '#FFFFFF',
+                    border: '1.2px solid #E8E2D8',
+                    borderRadius: '14px',
+                    padding: '1.15rem 1.25rem',
+                    boxShadow: '0 2px 6px rgba(31, 36, 33, 0.02)',
+                    transition: 'all 0.2s ease',
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      justifyContent: 'space-between',
+                      gap: '1rem',
+                    }}
+                  >
+                    {/* Phần thân nội dung từ vựng */}
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
+                      {/* Hộp Kanji nổi bật */}
+                      <div
+                        style={{
+                          minWidth: '68px',
+                          height: '56px',
+                          padding: '0 0.6rem',
+                          background: '#FAF8F5',
+                          border: '1px solid #E8E2D8',
+                          borderRadius: '10px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flexShrink: 0,
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-mincho), serif',
+                            fontSize: card.kanji.length > 3 ? '1.25rem' : '1.5rem',
+                            fontWeight: 700,
+                            color: '#1F2421',
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          {card.kanji}
+                        </span>
+                      </div>
+
+                      {/* Chi tiết phát âm, cao độ & nghĩa */}
+                      <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                          <span
+                            style={{
+                              fontFamily: 'var(--font-mincho), serif',
+                              fontSize: '0.92rem',
+                              fontWeight: 600,
+                              color: '#6E8A3C',
+                            }}
+                          >
+                            {card.reading}
+                          </span>
+                          <span
+                            style={{
+                              fontSize: '0.72rem',
+                              fontFamily: 'monospace',
+                              color: '#717C75',
+                              background: '#FAF8F5',
+                              padding: '0.1rem 0.4rem',
+                              borderRadius: '4px',
+                              border: '1px solid #E8E2D8',
+                            }}
+                          >
+                            {card.pitch}
+                          </span>
+                        </div>
+
+                        <h3
+                          style={{
+                            fontSize: '0.92rem',
+                            fontWeight: 700,
+                            color: '#1F2421',
+                            margin: '0.25rem 0 0',
+                          }}
+                        >
+                          {card.meaning}
+                        </h3>
+
+                        <p
+                          style={{
+                            fontSize: '0.78rem',
+                            color: '#717C75',
+                            margin: '0.3rem 0 0',
+                            fontStyle: 'italic',
+                          }}
+                        >
+                          {card.example}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Nút phát âm & Huy hiệu trạng thái Đến hạn */}
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'flex-end',
+                        justifyContent: 'space-between',
+                        height: '56px',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <JapaneseSpeakerButton text={card.kanji} size={15} />
+
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.35rem',
+                          fontSize: '0.72rem',
+                          color: '#D9381E',
+                          fontWeight: 600,
+                        }}
+                      >
+                        <span
+                          style={{
+                            width: '6px',
+                            height: '6px',
+                            borderRadius: '50%',
+                            background: '#D9381E',
+                          }}
+                        />
+                        <span>Đến hạn</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Thông tin ngầm định FSRS & Tên bộ thẻ */}
+                  <div
+                    style={{
+                      marginTop: '0.85rem',
+                      paddingTop: '0.65rem',
+                      borderTop: '1px solid #F2ECE1',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      fontSize: '0.73rem',
+                      color: '#717C75',
+                    }}
+                  >
+                    <span>📁 {card.deckName}</span>
+                    <span>
+                      Độ ổn định FSRS: {card.stability} · Lặp lại: {card.reps} lần
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Liên kết xem toàn bộ danh sách thẻ */}
+            <div style={{ textAlign: 'center', paddingTop: '1.25rem' }}>
+              <Link
+                href="/cards"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                  fontSize: '0.82rem',
+                  fontWeight: 600,
+                  color: '#6E8A3C',
+                  textDecoration: 'none',
+                }}
+              >
+                <span>Xem toàn bộ {stats.dueToday} thẻ trong danh sách hàng đợi</span>
+                <span>→</span>
+              </Link>
+            </div>
+          </section>
+
+          {/* CỘT PHẢI: BỘ THẺ HỌC TẬP & CHỈ SỐ THUẬT TOÁN FSRS (5 PHẦN) */}
+          <aside style={{ flex: '1 1 38%', display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
+            {/* 1. KHỐI BỘ THẺ HỌC TẬP (DECK COLLECTIONS) */}
+            <div
+              style={{
+                background: '#FFFFFF',
+                border: '1.2px solid #E8E2D8',
+                borderRadius: '16px',
+                padding: '1.35rem 1.45rem',
+                boxShadow: '0 2px 6px rgba(31, 36, 33, 0.02)',
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginBottom: '1rem',
                 }}
               >
                 <div>
-                  <h3
+                  <h2
                     style={{
-                      fontSize: '0.96rem',
+                      fontSize: '1.02rem',
                       fontWeight: 700,
-                      color: '#142536',
+                      color: '#1F2421',
                       margin: 0,
                       fontFamily: 'var(--font-sans), sans-serif',
                     }}
                   >
-                    {deck.name}
-                  </h3>
+                    Bộ thẻ học tập
+                  </h2>
                   <p
                     style={{
-                      fontSize: '0.78rem',
-                      color: '#766759',
+                      fontSize: '0.76rem',
+                      color: '#717C75',
                       margin: '0.2rem 0 0',
                     }}
                   >
-                    {deck.totalCards} thẻ · {deck.dueCards} cần ôn
+                    {deckSummaries.length} bộ thẻ đang được kích hoạt
                   </p>
                 </div>
 
                 <Link
-                  href={`/review?deck=${deck.id}`}
+                  href="/cards/new"
                   style={{
+                    fontSize: '0.78rem',
+                    fontWeight: 700,
+                    color: '#6E8A3C',
+                    textDecoration: 'none',
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '0.35rem',
-                    padding: '0.45rem 0.95rem',
-                    borderRadius: '8px',
-                    background: '#1D4A72',
-                    color: '#FFFFFF',
-                    fontSize: '0.82rem',
-                    fontWeight: 700,
-                    textDecoration: 'none',
-                    boxShadow: '0 2px 6px rgba(29, 74, 114, 0.25)',
+                    gap: '0.2rem',
                   }}
                 >
-                  <ToriiIcon size={14} color="#FFFFFF" />
-                  Ôn tập
+                  <span>+ Thêm bộ</span>
                 </Link>
               </div>
-            ))
-          )}
+
+              {/* Danh sách từng bộ thẻ */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                {deckSummaries.length === 0 ? (
+                  <p style={{ fontSize: '0.82rem', color: '#717C75', textAlign: 'center', padding: '1rem 0' }}>
+                    Chưa có bộ thẻ nào trong kho.
+                  </p>
+                ) : (
+                  deckSummaries.map((deck) => (
+                    <div
+                      key={deck.id}
+                      style={{
+                        border: '1px solid #E8E2D8',
+                        borderRadius: '12px',
+                        padding: '0.9rem 1rem',
+                        background: '#FAF8F5',
+                        transition: 'border-color 0.2s',
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'flex-start',
+                          justifyContent: 'space-between',
+                          gap: '0.75rem',
+                        }}
+                      >
+                        <div>
+                          <h3
+                            style={{
+                              fontSize: '0.88rem',
+                              fontWeight: 700,
+                              color: '#1F2421',
+                              margin: 0,
+                            }}
+                          >
+                            {deck.name}
+                          </h3>
+                          <p
+                            style={{
+                              fontSize: '0.75rem',
+                              color: '#717C75',
+                              margin: '0.2rem 0 0',
+                            }}
+                          >
+                            {deck.description || 'Bộ từ vựng tiếng Nhật'}
+                          </p>
+                        </div>
+
+                        <span
+                          style={{
+                            fontSize: '0.75rem',
+                            fontWeight: 700,
+                            color: deck.dueCards > 0 ? '#D9381E' : '#717C75',
+                            background: deck.dueCards > 0 ? '#FCEEEA' : '#F2ECE1',
+                            padding: '0.15rem 0.5rem',
+                            borderRadius: '4px',
+                            flexShrink: 0,
+                          }}
+                        >
+                          {deck.dueCards} đến hạn
+                        </span>
+                      </div>
+
+                      <div
+                        style={{
+                          marginTop: '0.75rem',
+                          paddingTop: '0.6rem',
+                          borderTop: '1px solid #E8E2D8',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          fontSize: '0.75rem',
+                          color: '#717C75',
+                        }}
+                      >
+                        <span>
+                          {deck.newCards} mới · Tổng {deck.totalCards} thẻ
+                        </span>
+
+                        <Link
+                          href={`/review?deck=${deck.id}`}
+                          style={{
+                            fontSize: '0.78rem',
+                            fontWeight: 700,
+                            color: '#D9381E',
+                            textDecoration: 'none',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.2rem',
+                          }}
+                        >
+                          <span>Ôn bộ này</span>
+                          <span>→</span>
+                        </Link>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+
+            {/* 2. CHỈ SỐ THUẬT TOÁN FSRS-4.5 (MINH BẠCH & KHOA HỌC) */}
+            <div
+              style={{
+                background: '#FFFFFF',
+                border: '1.2px solid #E8E2D8',
+                borderRadius: '16px',
+                padding: '1.35rem 1.45rem',
+                boxShadow: '0 2px 6px rgba(31, 36, 33, 0.02)',
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  marginBottom: '0.85rem',
+                }}
+              >
+                <span style={{ fontSize: '1.15rem' }}>🧠</span>
+                <h2
+                  style={{
+                    fontSize: '0.96rem',
+                    fontWeight: 700,
+                    color: '#1F2421',
+                    margin: 0,
+                  }}
+                >
+                  Chỉ số thuật toán FSRS-4.5
+                </h2>
+              </div>
+
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.55rem',
+                  fontSize: '0.78rem',
+                  color: '#717C75',
+                }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    paddingBottom: '0.45rem',
+                    borderBottom: '1px solid #F2ECE1',
+                  }}
+                >
+                  <span>Tỷ lệ nhớ mục tiêu (Target Retention)</span>
+                  <strong style={{ color: '#1F2421' }}>90.0%</strong>
+                </div>
+
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    paddingBottom: '0.45rem',
+                    borderBottom: '1px solid #F2ECE1',
+                  }}
+                >
+                  <span>Độ ổn định trung bình (Mean Stability)</span>
+                  <strong style={{ color: '#1F2421' }}>18.4 ngày</strong>
+                </div>
+
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    paddingBottom: '0.45rem',
+                    borderBottom: '1px solid #F2ECE1',
+                  }}
+                >
+                  <span>Độ khó trung bình (Mean Difficulty)</span>
+                  <strong style={{ color: '#1F2421' }}>4.7 / 10</strong>
+                </div>
+
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <span>Đợt thẻ kế tiếp dự kiến</span>
+                  <strong style={{ color: '#6E8A3C' }}>18:00 hôm nay ({stats.dueToday} thẻ)</strong>
+                </div>
+              </div>
+
+              <p
+                style={{
+                  fontSize: '0.72rem',
+                  color: '#717C75',
+                  marginTop: '0.85rem',
+                  paddingTop: '0.75rem',
+                  borderTop: '1px solid #E8E2D8',
+                  lineHeight: 1.45,
+                  margin: '0.85rem 0 0',
+                }}
+              >
+                Thuật toán FSRS tự động điều chỉnh khoảng cách ôn tập dựa trên phản hồi 4 mức (Again / Hard / Good / Easy) để giảm thiểu số lần lặp lại thừa.
+              </p>
+            </div>
+          </aside>
         </div>
-      </section>
+      </div>
     </main>
   );
 }

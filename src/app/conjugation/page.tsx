@@ -18,14 +18,18 @@ import {
 export default function ConjugationPage() {
   const allVerbs = getAllVerbs();
 
-  // Tab chế độ: theory (Lý thuyết), drill (Luyện điền từ), speed (Lướt nhanh)
+  // Tab chế độ: drill (Luyện điền từ), speed (Lướt nhanh), theory (Cẩm nang Bento)
   const [mode, setMode] = useState<'drill' | 'theory' | 'speed'>('drill');
 
-  // Lọc theo nhóm
+  // Lọc theo nhóm động từ
   const [selectedGroup, setSelectedGroup] = useState<1 | 2 | 3 | 'exceptions' | 'all'>('all');
 
-  // Thể cần luyện tập: 'te' hoặc 'ru'
+  // Thể cần luyện tập: 'te' (Thể Te) hoặc 'ru' (Thể Ru/Từ điển)
   const [targetForm, setTargetForm] = useState<'te' | 'ru'>('te');
+
+  // Trạng thái mở Sổ tay lý thuyết xem bất cứ lúc nào (Modal/Cheatsheet)
+  const [isCheatsheetOpen, setIsCheatsheetOpen] = useState(false);
+  const [cheatsheetTab, setCheatsheetTab] = useState<'groups' | 'te' | 'ru' | 'exceptions'>('groups');
 
   // Từ khóa tìm kiếm trong bảng tra cứu (Chế độ lý thuyết)
   const [searchQuery, setSearchQuery] = useState('');
@@ -36,6 +40,7 @@ export default function ConjugationPage() {
   const [evaluation, setEvaluation] = useState<EvaluationResult | null>(null);
   const [score, setScore] = useState({ correct: 0, total: 0 });
   const [showAnswerHint, setShowAnswerHint] = useState(false);
+  const [showGroupHint, setShowGroupHint] = useState(false); // Ban đầu che nhóm động từ để người học tự tư duy
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Chế độ Lướt nhanh (Speed Drill State)
@@ -66,12 +71,23 @@ export default function ConjugationPage() {
   const currentVerb = filteredVerbs[currentIdx % filteredVerbs.length] || allVerbs[0];
   const speedVerb = filteredVerbs[speedIdx % filteredVerbs.length] || allVerbs[0];
 
-  // Tự động focus vào input khi đổi câu
+  // Tự động focus vào input khi đổi câu hoặc đổi thể
   useEffect(() => {
     if (mode === 'drill') {
       inputRef.current?.focus();
     }
   }, [currentIdx, mode, targetForm]);
+
+  // Phím tắt Esc để đóng sổ tay lý thuyết
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isCheatsheetOpen) {
+        setIsCheatsheetOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isCheatsheetOpen]);
 
   // Xử lý nộp câu trả lời điền từ
   const handleSubmitAnswer = (e?: React.FormEvent) => {
@@ -80,6 +96,7 @@ export default function ConjugationPage() {
 
     const result = evaluateConjugation(userInput, currentVerb, targetForm);
     setEvaluation(result);
+    setShowGroupHint(true); // Tự động mở nhóm sau khi nộp đáp án để người học đối chiếu
 
     setScore((prev) => ({
       correct: prev.correct + (result.isCorrect ? 1 : 0),
@@ -88,9 +105,6 @@ export default function ConjugationPage() {
 
     if (result.isCorrect) {
       japaneseAudio.playSuzuBell();
-      setTimeout(() => {
-        handleNextQuestion();
-      }, 1200);
     }
   };
 
@@ -98,7 +112,16 @@ export default function ConjugationPage() {
     setUserInput('');
     setEvaluation(null);
     setShowAnswerHint(false);
+    setShowGroupHint(false);
     setCurrentIdx((prev) => (prev + 1) % filteredVerbs.length);
+  };
+
+  // Chuyển sang luyện thể còn lại của cùng một từ
+  const handleSwitchFormForCurrentVerb = (newForm: 'te' | 'ru') => {
+    setTargetForm(newForm);
+    setUserInput('');
+    setEvaluation(null);
+    setShowAnswerHint(false);
   };
 
   return (
@@ -148,7 +171,7 @@ export default function ConjugationPage() {
               動詞の道 · ĐỘNG TỪ
             </span>
             <span style={{ fontSize: '0.82rem', color: '#E8D9BD', fontFamily: 'var(--font-maru)', letterSpacing: '0.02em' }}>
-              Thể Te (て) &amp; Thể Ru (る) · Song ngữ Kana / Romaji
+              Thể nguyên bản → Thể Te (て) &amp; Thể Ru (る)
             </span>
           </div>
 
@@ -165,10 +188,10 @@ export default function ConjugationPage() {
           </h1>
 
           <p style={{ color: 'rgba(250, 248, 245, 0.9)', fontSize: '0.92rem', lineHeight: 1.55, margin: '0 0 1.25rem 0' }}>
-            50 động từ cốt lõi, quy tắc âm biến ngũ đoạn và bài ca vần thể Te. Cho phép gõ trực tiếp Hiragana hoặc Romaji.
+            Bắt đầu từ thể nguyên bản, phân loại và điền thể Te hoặc Ru tương ứng. Tra cứu lý thuyết mọi lúc.
           </p>
 
-          <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
             <Link
               href="/"
               className="btn-washi"
@@ -199,6 +222,30 @@ export default function ConjugationPage() {
             >
               Bộ thẻ
             </Link>
+
+            {/* NÚT MỞ SỔ TAY LÝ THUYẾT BẤT CỨ LÚC NÀO TRÊN HEADER */}
+            <button
+              onClick={() => setIsCheatsheetOpen(true)}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.4rem',
+                padding: '0.55rem 1.15rem',
+                borderRadius: '8px',
+                border: '1px solid #D4AF37',
+                background: 'rgba(212, 175, 55, 0.25)',
+                color: '#FBF8F1',
+                fontSize: '0.86rem',
+                fontWeight: 700,
+                fontFamily: 'var(--font-maru)',
+                cursor: 'pointer',
+                backdropFilter: 'blur(8px)',
+                WebkitBackdropFilter: 'blur(8px)',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              📜 Sổ tay lý thuyết
+            </button>
           </div>
         </div>
 
@@ -298,50 +345,21 @@ export default function ConjugationPage() {
           </button>
         </div>
 
-        {/* Lựa chọn thể cần luyện */}
-        {mode !== 'theory' && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-            <span style={{ fontSize: '0.82rem', color: '#786A5E', fontWeight: 700, fontFamily: 'var(--font-maru)' }}>
-              Thể:
-            </span>
-            <button
-              onClick={() => { setTargetForm('te'); setEvaluation(null); setUserInput(''); }}
-              style={{
-                padding: '0.4rem 0.9rem',
-                borderRadius: '8px',
-                border: '1.2px solid',
-                borderColor: targetForm === 'te' ? '#C83824' : 'var(--washi-border)',
-                background: targetForm === 'te' ? '#C83824' : '#FFFFFF',
-                color: targetForm === 'te' ? '#FFFFFF' : '#122438',
-                fontSize: '0.84rem',
-                fontWeight: 700,
-                cursor: 'pointer',
-                boxShadow: targetForm === 'te' ? '0 2px 6px rgba(200, 56, 36, 0.25)' : 'none',
-                transition: 'all 0.15s ease',
-              }}
-            >
-              Thể Te (て)
-            </button>
-            <button
-              onClick={() => { setTargetForm('ru'); setEvaluation(null); setUserInput(''); }}
-              style={{
-                padding: '0.4rem 0.9rem',
-                borderRadius: '8px',
-                border: '1.2px solid',
-                borderColor: targetForm === 'ru' ? '#1E4B75' : 'var(--washi-border)',
-                background: targetForm === 'ru' ? '#1E4B75' : '#FFFFFF',
-                color: targetForm === 'ru' ? '#FFFFFF' : '#122438',
-                fontSize: '0.84rem',
-                fontWeight: 700,
-                cursor: 'pointer',
-                boxShadow: targetForm === 'ru' ? '0 2px 8px rgba(30, 75, 117, 0.25)' : 'none',
-                transition: 'all 0.15s ease',
-              }}
-            >
-              Thể Ru (る)
-            </button>
-          </div>
-        )}
+        {/* NÚT MỞ SỔ TAY LÝ THUYẾT TRÊN THANH CÔNG CỤ */}
+        <button
+          onClick={() => setIsCheatsheetOpen(true)}
+          className="btn-washi"
+          style={{
+            padding: '0.55rem 1.1rem',
+            fontSize: '0.85rem',
+            gap: '0.35rem',
+            color: '#B8853C',
+            borderColor: '#D4AF37',
+            background: '#FFFDF9',
+          }}
+        >
+          <span>📜</span> Quy tắc chia &amp; Nhóm
+        </button>
       </div>
 
       {/* BỘ LỌC THEO NHÓM ĐỘNG TỪ */}
@@ -366,6 +384,7 @@ export default function ConjugationPage() {
                 setSpeedIdx(0);
                 setEvaluation(null);
                 setUserInput('');
+                setShowGroupHint(false);
               }}
               style={{
                 padding: '0.35rem 0.85rem',
@@ -387,10 +406,11 @@ export default function ConjugationPage() {
       </div>
 
       {/* =========================================================================
-          CHẾ ĐỘ 1: LUYỆN ĐIỀN TỪ (INPUT DRILL - High-Aesthetic Card)
+          CHẾ ĐỘ 1: LUYỆN ĐIỀN TỪ (INPUT DRILL)
+          Quy trình: Ban đầu chỉ đưa thể nguyên bản -> sau đó mới phân ra điền Te hoặc Ru
           ========================================================================= */}
       {mode === 'drill' && (
-        <div style={{ maxWidth: '640px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '660px', margin: '0 auto' }}>
           <div
             className="bento-card-artisan"
             style={{
@@ -405,31 +425,92 @@ export default function ConjugationPage() {
               blendMode="multiply"
             />
 
-            {/* Chỉ báo thứ tự câu */}
+            {/* HEADER CARD: Thứ tự câu và Nút tra cứu lý thuyết nhanh */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-              <span
-                className="micro-badge-label"
-                style={{
-                  background: currentVerb.group === 1 ? '#EDF4FA' : currentVerb.group === 2 ? '#EBF5EE' : '#FDF2F0',
-                  color: currentVerb.group === 1 ? '#1E4B75' : currentVerb.group === 2 ? '#2A6B3D' : '#C83824',
-                  border: `1px solid ${currentVerb.group === 1 ? '#B8D5E5' : currentVerb.group === 2 ? '#C2E5CC' : '#F5C6CB'}`,
-                }}
-              >
-                Nhóm {currentVerb.group} {currentVerb.isException ? '★ Ngoại lệ' : ''}
-              </span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span className="micro-badge-label" style={{ background: '#FAF7F0', color: '#122438', border: '1px solid var(--washi-border)' }}>
+                  ĐỘNG TỪ NGUYÊN BẢN
+                </span>
 
-              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 800, fontSize: '0.92rem', color: '#786A5E' }}>
-                {currentIdx + 1} / {filteredVerbs.length}
-              </span>
+                {/* Nhóm động từ: Ban đầu ẩn để người học tự động não, chỉ hiện khi click hoặc khi đã nộp bài */}
+                {showGroupHint ? (
+                  <span
+                    className="micro-badge-label"
+                    style={{
+                      background: currentVerb.group === 1 ? '#EDF4FA' : currentVerb.group === 2 ? '#EBF5EE' : '#FDF2F0',
+                      color: currentVerb.group === 1 ? '#1E4B75' : currentVerb.group === 2 ? '#2A6B3D' : '#C83824',
+                      border: `1px solid ${currentVerb.group === 1 ? '#B8D5E5' : currentVerb.group === 2 ? '#C2E5CC' : '#F5C6CB'}`,
+                    }}
+                  >
+                    Nhóm {currentVerb.group} {currentVerb.isException ? '★ Ngoại lệ' : ''}
+                  </span>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => setShowGroupHint(true)}
+                    title="Bấm để xem nhóm động từ nếu bạn quên"
+                    style={{
+                      background: 'none',
+                      border: '1px dashed #D6C8B5',
+                      borderRadius: '999px',
+                      padding: '0.2rem 0.6rem',
+                      fontSize: '0.72rem',
+                      color: '#786A5E',
+                      cursor: 'pointer',
+                      fontFamily: 'var(--font-maru)',
+                    }}
+                  >
+                    ❓ Xem nhóm
+                  </button>
+                )}
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                <button
+                  type="button"
+                  onClick={() => setIsCheatsheetOpen(true)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#B8853C',
+                    fontSize: '0.78rem',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.2rem',
+                    padding: '0.2rem 0.4rem',
+                  }}
+                >
+                  📜 Sổ tay
+                </button>
+                <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 800, fontSize: '0.92rem', color: '#786A5E' }}>
+                  {currentIdx + 1} / {filteredVerbs.length}
+                </span>
+              </div>
             </div>
 
-            {/* Động từ mục tiêu */}
-            <div style={{ textAlign: 'center', margin: '1.25rem 0' }}>
+            {/* BƯỚC 1: HIỂN THỊ THỂ NGUYÊN BẢN (Gốc từ vựng) */}
+            <div
+              style={{
+                textAlign: 'center',
+                padding: '1.25rem 1.5rem',
+                background: 'linear-gradient(180deg, #FAF8F5 0%, #FFFFFF 100%)',
+                borderRadius: '16px',
+                border: '1px solid var(--washi-border)',
+                margin: '0 0 1.5rem 0',
+                boxShadow: 'var(--shadow-washi-sm)',
+              }}
+            >
+              <div style={{ fontSize: '0.74rem', color: '#786A5E', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.35rem' }}>
+                Từ nguyên mẫu (辞書形)
+              </div>
+
               <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.75rem' }}>
                 <span
                   style={{
                     fontFamily: 'var(--font-mincho)',
-                    fontSize: 'clamp(2.8rem, 6vw, 3.5rem)',
+                    fontSize: 'clamp(2.8rem, 6vw, 3.6rem)',
                     fontWeight: 900,
                     color: '#122438',
                     letterSpacing: '-0.02em',
@@ -440,40 +521,106 @@ export default function ConjugationPage() {
                 <JapaneseSpeakerButton text={currentVerb.kanji} size={28} />
               </div>
 
-              <div style={{ fontFamily: 'var(--font-maru)', fontSize: '1.25rem', color: '#B87B28', fontWeight: 700, marginTop: '0.25rem' }}>
+              <div style={{ fontFamily: 'var(--font-maru)', fontSize: '1.3rem', color: '#B87B28', fontWeight: 700, marginTop: '0.2rem' }}>
                 {currentVerb.hiragana} ({currentVerb.romaji})
               </div>
 
-              <div style={{ fontSize: '1.05rem', color: '#122438', fontWeight: 600, marginTop: '0.5rem' }}>
+              <div style={{ fontSize: '1.1rem', color: '#122438', fontWeight: 600, marginTop: '0.5rem' }}>
                 Ý nghĩa: <strong>{currentVerb.meaning_vi}</strong>
+              </div>
+
+              <div style={{ fontSize: '0.84rem', color: '#786A5E', marginTop: '0.35rem', fontStyle: 'italic' }}>
+                Thể lịch sự: <strong>{currentVerb.masu_form.kanji}</strong> ({currentVerb.masu_form.hiragana})
               </div>
             </div>
 
-            {/* Đề bài yêu cầu */}
-            <div
-              style={{
-                textAlign: 'center',
-                margin: '1.5rem 0 1rem',
-                padding: '0.75rem',
-                background: 'var(--washi-bg)',
-                border: '1px solid var(--washi-border)',
-                borderRadius: '10px',
-                color: '#122438',
-                fontWeight: 700,
-                fontSize: '0.92rem',
-                fontFamily: 'var(--font-maru)',
-              }}
-            >
-              👉 Điền <strong>{targetForm === 'te' ? 'Thể Te (て形)' : 'Thể Ru (辞書形)'}</strong> của từ này:
+            {/* BƯỚC 2: PHÂN RA THỂ CẦN ĐIỀN (CHỌN THỂ TE HOẶC THỂ RU) */}
+            <div style={{ marginBottom: '1.25rem' }}>
+              <div style={{ fontSize: '0.82rem', color: '#786A5E', fontWeight: 700, marginBottom: '0.5rem', textAlign: 'center' }}>
+                👇 Chọn thể bạn muốn thực hành cho từ này:
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem' }}>
+                <button
+                  type="button"
+                  onClick={() => handleSwitchFormForCurrentVerb('te')}
+                  style={{
+                    padding: '0.75rem 1rem',
+                    borderRadius: '12px',
+                    border: '1.5px solid',
+                    borderColor: targetForm === 'te' ? '#C83824' : 'var(--washi-border)',
+                    background: targetForm === 'te' ? '#FFF5F4' : '#FFFFFF',
+                    color: targetForm === 'te' ? '#C83824' : '#122438',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '0.2rem',
+                    boxShadow: targetForm === 'te' ? '0 4px 12px rgba(200, 56, 36, 0.15)' : 'none',
+                    transition: 'all 0.2s ease',
+                  }}
+                >
+                  <span style={{ fontSize: '0.76rem', fontWeight: 700, textTransform: 'uppercase' }}>
+                    {targetForm === 'te' ? '● ĐANG LUYỆN' : 'CHỌN'}
+                  </span>
+                  <span style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.15rem', fontWeight: 800 }}>
+                    Thể Te (て形)
+                  </span>
+                  <span style={{ fontSize: '0.75rem', color: '#786A5E' }}>Nối câu, yêu cầu, tiếp diễn</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleSwitchFormForCurrentVerb('ru')}
+                  style={{
+                    padding: '0.75rem 1rem',
+                    borderRadius: '12px',
+                    border: '1.5px solid',
+                    borderColor: targetForm === 'ru' ? '#1E4B75' : 'var(--washi-border)',
+                    background: targetForm === 'ru' ? '#F0F6FC' : '#FFFFFF',
+                    color: targetForm === 'ru' ? '#1E4B75' : '#122438',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '0.2rem',
+                    boxShadow: targetForm === 'ru' ? '0 4px 12px rgba(30, 75, 117, 0.15)' : 'none',
+                    transition: 'all 0.2s ease',
+                  }}
+                >
+                  <span style={{ fontSize: '0.76rem', fontWeight: 700, textTransform: 'uppercase' }}>
+                    {targetForm === 'ru' ? '● ĐANG LUYỆN' : 'CHỌN'}
+                  </span>
+                  <span style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.15rem', fontWeight: 800 }}>
+                    Thể Ru (辞書形)
+                  </span>
+                  <span style={{ fontSize: '0.75rem', color: '#786A5E' }}>Thể nguyên mẫu từ điển</span>
+                </button>
+              </div>
             </div>
 
-            {/* Form nhập đáp án */}
+            {/* KHUNG NHẬP LIỆU CÂU TRẢ LỜI */}
             <form onSubmit={handleSubmitAnswer} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+              <div
+                style={{
+                  padding: '0.65rem',
+                  background: targetForm === 'te' ? '#FAF0EE' : '#EDF4FA',
+                  borderRadius: '10px',
+                  color: targetForm === 'te' ? '#A32415' : '#1E4B75',
+                  fontWeight: 700,
+                  fontSize: '0.9rem',
+                  fontFamily: 'var(--font-maru)',
+                  textAlign: 'center',
+                }}
+              >
+                👉 Hãy điền <strong>{targetForm === 'te' ? 'Thể Te (て形)' : 'Thể Ru (辞書形)'}</strong> của từ &ldquo;{currentVerb.kanji}&rdquo;:
+              </div>
+
               <div style={{ position: 'relative' }}>
                 <input
                   ref={inputRef}
                   type="text"
-                  placeholder="Gõ Hiragana (たべて) hoặc Romaji (tabete)..."
+                  placeholder="Gõ Hiragana hoặc Romaji (vd: tabete, nonde)..."
                   value={userInput}
                   onChange={(e) => {
                     setUserInput(e.target.value);
@@ -500,7 +647,7 @@ export default function ConjugationPage() {
                   }}
                 />
 
-                {/* Bản xem trước Hiragana tức thì khi gõ Romaji */}
+                {/* Nhận diện Hiragana tức thời khi người học gõ Romaji */}
                 {userInput.trim() && (
                   <div style={{ marginTop: '0.4rem', textAlign: 'center', fontSize: '0.85rem', color: '#786A5E', fontFamily: 'var(--font-maru)' }}>
                     Nhận diện: <strong>{romajiToHiragana(userInput)}</strong>
@@ -508,8 +655,8 @@ export default function ConjugationPage() {
                 )}
               </div>
 
-              {/* Nút hành động ngắn gọn chuẩn 1-2 từ */}
-              <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.5rem' }}>
+              {/* Nút hành động ngắn gọn */}
+              <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.4rem' }}>
                 <button
                   type="submit"
                   className="btn-torii"
@@ -550,27 +697,61 @@ export default function ConjugationPage() {
                   boxShadow: 'var(--shadow-washi-sm)',
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 800, fontSize: '1rem', fontFamily: 'var(--font-maru)' }}>
-                  {evaluation.isCorrect ? '✓ Hoàn toàn chính xác!' : '✗ Chưa đúng!'}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span style={{ fontWeight: 800, fontSize: '1.05rem', fontFamily: 'var(--font-maru)' }}>
+                    {evaluation.isCorrect ? '✓ Hoàn toàn chính xác!' : '✗ Chưa chính xác!'}
+                  </span>
+                  <JapaneseSpeakerButton text={evaluation.expectedKanji} size={20} />
                 </div>
 
-                <div style={{ marginTop: '0.45rem', fontSize: '0.95rem' }}>
+                <div style={{ marginTop: '0.45rem', fontSize: '0.96rem' }}>
                   Đáp án chuẩn: <strong>{evaluation.expectedKanji}</strong> ({evaluation.expectedHiragana} / {evaluation.expectedRomaji})
                 </div>
 
                 {evaluation.ruleExplanation && (
-                  <div style={{ marginTop: '0.5rem', fontSize: '0.86rem', lineHeight: 1.5, borderTop: '1px dashed rgba(0,0,0,0.15)', paddingTop: '0.5rem' }}>
+                  <div style={{ marginTop: '0.55rem', fontSize: '0.86rem', lineHeight: 1.55, borderTop: '1px dashed rgba(0,0,0,0.15)', paddingTop: '0.5rem' }}>
                     💡 {evaluation.ruleExplanation}
                   </div>
                 )}
+
+                {/* Nút gợi ý: Luyện tiếp thể còn lại của từ này trước khi qua từ mới */}
+                <div style={{ display: 'flex', gap: '0.65rem', marginTop: '0.85rem', flexWrap: 'wrap' }}>
+                  <button
+                    type="button"
+                    onClick={() => handleSwitchFormForCurrentVerb(targetForm === 'te' ? 'ru' : 'te')}
+                    className="btn-washi"
+                    style={{
+                      flex: 1,
+                      padding: '0.6rem 0.9rem',
+                      fontSize: '0.84rem',
+                      color: targetForm === 'te' ? '#1E4B75' : '#C83824',
+                      borderColor: targetForm === 'te' ? '#1E4B75' : '#C83824',
+                      background: '#FFFFFF',
+                    }}
+                  >
+                    ↻ Luyện tiếp {targetForm === 'te' ? 'Thể Ru (る)' : 'Thể Te (て)'} của từ này
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleNextQuestion}
+                    className="btn-torii"
+                    style={{
+                      padding: '0.6rem 1.15rem',
+                      fontSize: '0.84rem',
+                    }}
+                  >
+                    Từ tiếp theo →
+                  </button>
+                </div>
               </div>
             )}
 
             {/* Khung gợi ý đáp án */}
             {showAnswerHint && !evaluation && (
               <div style={{ marginTop: '1rem', padding: '0.9rem', background: '#FFF9E6', border: '1px solid #FFEAA7', borderRadius: '10px', fontSize: '0.88rem', color: '#8A6D1C' }}>
-                💡 Gợi ý: Thể Masu là <strong>{currentVerb.masu_form.kanji}</strong> ({currentVerb.masu_form.hiragana}).
-                {currentVerb.group === 1 && ' Nhóm 1 hãy chú ý đuôi âm để áp dụng đúng quy tắc biến âm!'}
+                💡 Gợi ý: {currentVerb.kanji} thuộc <strong>Nhóm {currentVerb.group}</strong> {currentVerb.isException ? '(★ Ngoại lệ)' : ''}.
+                Đuôi nguyên thể là <strong>{currentVerb.hiragana.slice(-1)}</strong>.
+                {targetForm === 'te' ? ' Hãy áp dụng quy tắc biến âm thể Te!' : ' Hãy xem lại dạng nguyên mẫu thể Ru!'}
               </div>
             )}
 
@@ -639,8 +820,11 @@ export default function ConjugationPage() {
             </span>
 
             {!isSpeedFlipped ? (
-              // MẶT TRƯỚC
+              // MẶT TRƯỚC: THỂ NGUYÊN BẢN
               <div>
+                <div style={{ fontSize: '0.78rem', color: '#786A5E', fontWeight: 700, textTransform: 'uppercase', marginBottom: '0.4rem' }}>
+                  Thể nguyên mẫu
+                </div>
                 <div style={{ fontFamily: 'var(--font-mincho)', fontSize: 'clamp(3rem, 7vw, 4rem)', fontWeight: 900, color: '#122438' }}>
                   {speedVerb.kanji}
                 </div>
@@ -651,11 +835,11 @@ export default function ConjugationPage() {
                   {speedVerb.meaning_vi}
                 </div>
                 <p style={{ color: '#786A5E', fontSize: '0.84rem', marginTop: '1.5rem', fontFamily: 'var(--font-maru)' }}>
-                  (Nhấp vào thẻ để lật xem cách chia)
+                  (Nhấp vào thẻ để lật xem cách chia Thể Te &amp; Thể Ru)
                 </p>
               </div>
             ) : (
-              // MẶT SAU
+              // MẶT SAU: CÁC THỂ ĐÃ CHIA
               <div style={{ width: '100%' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem', marginBottom: '1.25rem' }}>
                   <div style={{ background: '#FAF8F5', padding: '1.1rem', borderRadius: '14px', border: '1px solid var(--washi-border)' }}>
@@ -724,7 +908,6 @@ export default function ConjugationPage() {
 
       {/* =========================================================================
           CHẾ ĐỘ 3: CẨM NANG BENTO GRID (Awwwards-Tier Asymmetric Bento Layout)
-          Enforced by high-aesthetic-designer & openmaic pedagogical principles
           ========================================================================= */}
       {mode === 'theory' && (
         <div className="bento-grid-container">
@@ -967,6 +1150,335 @@ export default function ConjugationPage() {
                   ))}
                 </tbody>
               </table>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* =========================================================================
+          SỔ TAY LÝ THUYẾT POPOVER MODAL (MỞ RA XEM BẤT CỨ LÚC NÀO KHI ĐANG LUYỆN TẬP)
+          Đáp ứng 100% yêu cầu người dùng: "chuẩn bị sẵn lý thuyết cách chia, phân nhóm có sẵn để mình mở ra xem bất cứ lúc nào"
+          ========================================================================= */}
+      {isCheatsheetOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 150,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '1.25rem',
+          }}
+        >
+          {/* Backdrop mờ che phủ toàn màn hình */}
+          <div
+            onClick={() => setIsCheatsheetOpen(false)}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'rgba(10, 28, 51, 0.55)',
+              backdropFilter: 'blur(6px)',
+              WebkitBackdropFilter: 'blur(6px)',
+            }}
+          />
+
+          {/* Khung Makimono Sổ tay lý thuyết */}
+          <div
+            className="bento-card-artisan"
+            style={{
+              position: 'relative',
+              zIndex: 2,
+              width: '100%',
+              maxWidth: '720px',
+              maxHeight: '90vh',
+              background: '#FAF8F5',
+              border: '2px solid #C89B58',
+              boxShadow: '0 16px 48px rgba(10, 28, 51, 0.35)',
+              display: 'flex',
+              flexDirection: 'column',
+              overflow: 'hidden',
+            }}
+          >
+            {/* Header Sổ tay */}
+            <div
+              style={{
+                padding: '1.1rem 1.5rem',
+                background: 'linear-gradient(135deg, #10253F 0%, #1D436C 100%)',
+                color: '#FFFFFF',
+                borderBottom: '1.5px solid #D4AF37',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <div>
+                <div style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.25rem', fontWeight: 800, color: '#FAF8F5' }}>
+                  📜 Sổ Tay Bí Kíp Chia Động Từ · 動詞活用便覧
+                </div>
+                <div style={{ fontSize: '0.76rem', color: '#E8D9BD', marginTop: '0.2rem', fontFamily: 'var(--font-maru)' }}>
+                  Tra cứu tức thì quy tắc 3 nhóm, biến âm thể Te và thể Ru
+                </div>
+              </div>
+
+              <button
+                onClick={() => setIsCheatsheetOpen(false)}
+                title="Đóng (phím Esc)"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.12)',
+                  border: '1px solid rgba(255, 255, 255, 0.25)',
+                  borderRadius: '8px',
+                  color: '#FAF8F5',
+                  fontSize: '1.1rem',
+                  cursor: 'pointer',
+                  padding: '0.35rem 0.75rem',
+                  lineHeight: 1,
+                }}
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* 4 Tabs tra cứu con */}
+            <div
+              style={{
+                display: 'flex',
+                gap: '0.35rem',
+                padding: '0.75rem 1.25rem',
+                background: '#F0EBE0',
+                borderBottom: '1px solid var(--washi-border)',
+                overflowX: 'auto',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {[
+                { id: 'groups', label: '1. Phân 3 nhóm' },
+                { id: 'te', label: '2. Biến âm Thể Te' },
+                { id: 'ru', label: '3. Quy tắc Thể Ru' },
+                { id: 'exceptions', label: '4. Ngoại lệ & Ca vần' },
+              ].map((tab) => {
+                const isActive = cheatsheetTab === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setCheatsheetTab(tab.id as any)}
+                    style={{
+                      padding: '0.4rem 0.85rem',
+                      borderRadius: '8px',
+                      border: '1px solid',
+                      borderColor: isActive ? '#1E4B75' : 'transparent',
+                      background: isActive ? '#1E4B75' : '#FFFFFF',
+                      color: isActive ? '#FFFFFF' : '#122438',
+                      fontSize: '0.82rem',
+                      fontWeight: isActive ? 700 : 500,
+                      cursor: 'pointer',
+                      fontFamily: 'var(--font-maru)',
+                    }}
+                  >
+                    {tab.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Nội dung chi tiết từng Tab trong Sổ tay */}
+            <div style={{ padding: '1.5rem', overflowY: 'auto', flex: 1, fontSize: '0.9rem', lineHeight: 1.6 }}>
+              {/* TAB 1: PHÂN 3 NHÓM ĐỘNG TỪ */}
+              {cheatsheetTab === 'groups' && (
+                <div>
+                  <h3 style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.2rem', color: '#122438', marginBottom: '0.75rem' }}>
+                    Cách nhận diện 3 Nhóm Động từ tiếng Nhật
+                  </h3>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                    <div style={{ padding: '0.85rem', background: '#FFFFFF', borderRadius: '12px', borderLeft: '4px solid #B8853C' }}>
+                      <strong style={{ color: '#B8853C' }}>Nhóm 3 (Bất quy tắc):</strong> Chỉ có đúng 2 động từ:
+                      <ul style={{ paddingLeft: '1.25rem', marginTop: '0.35rem' }}>
+                        <li><strong>する (suru):</strong> Làm → thể Masu: <em>します</em>, thể Te: <em>して</em>.</li>
+                        <li><strong>来る (くる - kuru):</strong> Đến → thể Masu: <em>来ます (きます)</em>, thể Te: <em>来て (きて)</em>.</li>
+                      </ul>
+                    </div>
+
+                    <div style={{ padding: '0.85rem', background: '#FFFFFF', borderRadius: '12px', borderLeft: '4px solid #2A6B3D' }}>
+                      <strong style={{ color: '#2A6B3D' }}>Nhóm 2 (Ichidan - 一段):</strong>
+                      <p style={{ margin: '0.3rem 0' }}>
+                        Tận cùng là <strong>る (ru)</strong> và âm đứng trước <strong>る</strong> thuộc cột <strong>I</strong> hoặc cột <strong>E</strong>.
+                      </p>
+                      <div style={{ background: '#F0F7F2', padding: '0.5rem 0.75rem', borderRadius: '8px', fontSize: '0.85rem' }}>
+                        ✓ Ví dụ: 食べる (tab<strong>e</strong>-ru) - cột E; 見る (m<strong>i</strong>-ru) - cột I; 起きる (ok<strong>i</strong>-ru) - cột I.<br />
+                        ✓ Quy tắc chia: <strong>Bỏ る + て / ます</strong> (食べる → 食べて / 食べます).
+                      </div>
+                    </div>
+
+                    <div style={{ padding: '0.85rem', background: '#FFFFFF', borderRadius: '12px', borderLeft: '4px solid #1E4B75' }}>
+                      <strong style={{ color: '#1E4B75' }}>Nhóm 1 (Godan - 五段):</strong>
+                      <p style={{ margin: '0.3rem 0' }}>
+                        Tất cả các động từ còn lại tận cùng là cột <strong>U</strong>: <em>う, つ, る, む, ぶ, ぬ, く, ぐ, す</em> (kể cả từ có đuôi -iru/-eru nhưng thuộc nhóm 1 ngoại lệ).
+                      </p>
+                      <div style={{ background: '#EDF4FA', padding: '0.5rem 0.75rem', borderRadius: '8px', fontSize: '0.85rem' }}>
+                        ✓ Quy tắc chia thể Te: Biến âm theo nhóm phụ âm (xem Tab 2).
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* TAB 2: BIẾN ÂM THỂ TE */}
+              {cheatsheetTab === 'te' && (
+                <div>
+                  <h3 style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.2rem', color: '#122438', marginBottom: '0.5rem' }}>
+                    Quy tắc Biến âm Thể Te (て形の音便)
+                  </h3>
+                  <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
+                    <thead>
+                      <tr style={{ background: '#FAF7F0', borderBottom: '1.5px solid var(--washi-border)' }}>
+                        <th style={{ padding: '0.6rem 0.75rem' }}>Đuôi từ điển</th>
+                        <th style={{ padding: '0.6rem 0.75rem' }}>Chuyển sang thể Te</th>
+                        <th style={{ padding: '0.6rem 0.75rem' }}>Ví dụ</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr style={{ borderBottom: '1px solid var(--washi-border)' }}>
+                        <td style={{ padding: '0.65rem', fontWeight: 700, color: '#C83824' }}>う, つ, る</td>
+                        <td style={{ padding: '0.65rem', fontWeight: 800, color: '#1E4B75' }}>〜 って (âm ngắt)</td>
+                        <td style={{ padding: '0.65rem' }}>買う → <strong>買って</strong>, 待つ → <strong>待って</strong>, 取る → <strong>取って</strong></td>
+                      </tr>
+                      <tr style={{ borderBottom: '1px solid var(--washi-border)', background: 'rgba(250,248,245,0.6)' }}>
+                        <td style={{ padding: '0.65rem', fontWeight: 700, color: '#C83824' }}>む, ぶ, ぬ</td>
+                        <td style={{ padding: '0.65rem', fontWeight: 800, color: '#1E4B75' }}>〜 んで (âm mũi)</td>
+                        <td style={{ padding: '0.65rem' }}>飲む → <strong>飲んで</strong>, 遊ぶ → <strong>遊んで</strong>, 死ぬ → <strong>死んで</strong></td>
+                      </tr>
+                      <tr style={{ borderBottom: '1px solid var(--washi-border)' }}>
+                        <td style={{ padding: '0.65rem', fontWeight: 700, color: '#C83824' }}>く (ku)</td>
+                        <td style={{ padding: '0.65rem', fontWeight: 800, color: '#1E4B75' }}>〜 いて (âm i)</td>
+                        <td style={{ padding: '0.65rem' }}>書く → <strong>書いて</strong>, 聞く → <strong>聞いて</strong></td>
+                      </tr>
+                      <tr style={{ borderBottom: '1px solid var(--washi-border)', background: 'rgba(250,248,245,0.6)' }}>
+                        <td style={{ padding: '0.65rem', fontWeight: 700, color: '#C83824' }}>ぐ (gu)</td>
+                        <td style={{ padding: '0.65rem', fontWeight: 800, color: '#1E4B75' }}>〜 いで (âm i đục)</td>
+                        <td style={{ padding: '0.65rem' }}>泳ぐ → <strong>泳いで</strong>, 急ぐ → <strong>急いで</strong></td>
+                      </tr>
+                      <tr style={{ borderBottom: '1px solid var(--washi-border)' }}>
+                        <td style={{ padding: '0.65rem', fontWeight: 700, color: '#C83824' }}>す (su)</td>
+                        <td style={{ padding: '0.65rem', fontWeight: 800, color: '#1E4B75' }}>〜 して</td>
+                        <td style={{ padding: '0.65rem' }}>話す → <strong>話して</strong>, 貸す → <strong>貸して</strong></td>
+                      </tr>
+                      <tr style={{ borderBottom: '1px solid var(--washi-border)', background: '#FFF2F0' }}>
+                        <td style={{ padding: '0.65rem', fontWeight: 800, color: '#C83824' }}>★ 行く (iku)</td>
+                        <td style={{ padding: '0.65rem', fontWeight: 800, color: '#C83824' }}>行って (itte)</td>
+                        <td style={{ padding: '0.65rem' }}><strong>Bắt buộc biến âm ngắt</strong> (không chia 行いて!)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              )}
+
+              {/* TAB 3: QUY TẮC THỂ RU (TỪ ĐIỂN) */}
+              {cheatsheetTab === 'ru' && (
+                <div>
+                  <h3 style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.2rem', color: '#122438', marginBottom: '0.75rem' }}>
+                    Quy tắc Thể Ru (Thể Từ Điển - 辞書形)
+                  </h3>
+                  <p style={{ color: '#786A5E', fontSize: '0.85rem', marginBottom: '0.85rem' }}>
+                    Thể nguyên mẫu (Dictionary Form) dùng khi tra từ điển, nói chuyện thân mật, hoặc đi trước các ngữ pháp `ことができる`, `まえに`, `つもり`...
+                  </p>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                    <div style={{ padding: '0.85rem', background: '#FFFFFF', borderRadius: '10px', border: '1px solid var(--washi-border)' }}>
+                      <strong>1. Từ Thể Masu sang Thể Ru (Nhóm 1):</strong>
+                      <p style={{ margin: '0.25rem 0', fontSize: '0.85rem' }}>
+                        Đổi âm trước <strong>ます</strong> từ cột <strong>I</strong> sang cột <strong>U</strong> tương ứng:
+                      </p>
+                      <div style={{ background: '#FAF8F5', padding: '0.45rem 0.75rem', borderRadius: '6px', fontSize: '0.84rem' }}>
+                        ・か<strong>き</strong>ます → か<strong>く</strong> (kaku)<br />
+                        ・の<strong>み</strong>ます → の<strong>む</strong> (nomu)<br />
+                        ・い<strong>き</strong>ます → い<strong>く</strong> (iku)<br />
+                        ・はな<strong>し</strong>ます → はな<strong>す</strong> (hanasu)
+                      </div>
+                    </div>
+
+                    <div style={{ padding: '0.85rem', background: '#FFFFFF', borderRadius: '10px', border: '1px solid var(--washi-border)' }}>
+                      <strong>2. Từ Thể Masu sang Thể Ru (Nhóm 2):</strong>
+                      <p style={{ margin: '0.25rem 0', fontSize: '0.85rem' }}>
+                        Chỉ cần bỏ <strong>ます</strong> và thêm <strong>る</strong>:
+                      </p>
+                      <div style={{ background: '#FAF8F5', padding: '0.45rem 0.75rem', borderRadius: '6px', fontSize: '0.84rem' }}>
+                        ・たべます → たべ<strong>る</strong> (taberu)<br />
+                        ・みます → み<strong>る</strong> (miru)<br />
+                        ・ねます → ね<strong>る</strong> (neru)
+                      </div>
+                    </div>
+
+                    <div style={{ padding: '0.85rem', background: '#FFFFFF', borderRadius: '10px', border: '1px solid var(--washi-border)' }}>
+                      <strong>3. Nhóm 3 (Bất quy tắc):</strong>
+                      <div style={{ background: '#FAF8F5', padding: '0.45rem 0.75rem', borderRadius: '6px', fontSize: '0.84rem' }}>
+                        ・します → <strong>する</strong> (suru)<br />
+                        ・きます → <strong>くる</strong> (kuru)
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* TAB 4: NGOẠI LỆ & BÀI CA VẦN */}
+              {cheatsheetTab === 'exceptions' && (
+                <div>
+                  <h3 style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.2rem', color: '#122438', marginBottom: '0.5rem' }}>
+                    Top 6 Ngoại Lệ Bẫy &amp; Bài Ca Vần Nhớ Thần Tốc
+                  </h3>
+
+                  <div style={{ marginBottom: '1rem', padding: '0.85rem', background: '#FFF7F6', borderRadius: '12px', border: '1px solid #F5C6CB' }}>
+                    <div style={{ fontWeight: 800, color: '#C83824', marginBottom: '0.4rem' }}>
+                      ⚠️ 6 Động từ kết thúc bằng -iru / -eru nhưng là NHÓM 1:
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.45rem', fontSize: '0.82rem' }}>
+                      <div>1. <strong>帰る (kaeru):</strong> Về → 帰って</div>
+                      <div>2. <strong>切る (kiru):</strong> Cắt → 切って</div>
+                      <div>3. <strong>知る (shiru):</strong> Biết → 知って</div>
+                      <div>4. <strong>入る (hairu):</strong> Vào → 入って</div>
+                      <div>5. <strong>走る (hashiru):</strong> Chạy → 走って</div>
+                      <div>6. <strong>行く (iku):</strong> Đi → 行って (Ngoại lệ ku)</div>
+                    </div>
+                  </div>
+
+                  <div style={{ padding: '1rem', background: '#FFFFFF', borderRadius: '12px', border: '1px solid #D4AF37' }}>
+                    <div style={{ fontWeight: 800, color: '#B8853C', marginBottom: '0.4rem', fontFamily: 'var(--font-maru)' }}>
+                      🎵 Bài ca vần biến âm thể Te truyền miệng:
+                    </div>
+                    <div style={{ fontFamily: 'var(--font-maru)', fontSize: '0.92rem', lineHeight: 1.8, color: '#122438' }}>
+                      🎵 <strong>I - Chi - Ri</strong> biến thành <strong>TTE</strong> (って)<br />
+                      🎵 <strong>Mi - Bi - Ni</strong> biến thành <strong>NDE</strong> (んで)<br />
+                      🎵 <strong>Ki</strong> thành <strong>ITE</strong>, <strong>Gi</strong> thành <strong>IDE</strong><br />
+                      🎵 <strong>Shi</strong> giữ nguyên <strong>SHITE</strong>, <strong>Iku</strong> là <strong>ITTE</strong>!
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Footer Sổ tay */}
+            <div
+              style={{
+                padding: '0.75rem 1.5rem',
+                background: '#FAF8F5',
+                borderTop: '1px solid var(--washi-border)',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <span style={{ fontSize: '0.78rem', color: '#786A5E' }}>
+                💡 Bấm <strong>Esc</strong> hoặc nút Đóng để quay lại bài tập
+              </span>
+              <button
+                type="button"
+                onClick={() => setIsCheatsheetOpen(false)}
+                className="btn-washi"
+                style={{ padding: '0.45rem 1.25rem', fontSize: '0.85rem' }}
+              >
+                Đóng
+              </button>
             </div>
           </div>
         </div>
