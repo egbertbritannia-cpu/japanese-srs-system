@@ -74,19 +74,19 @@ Từ báo cáo kiểm toán thực tế mã nguồn (`src/app/`, `src/components
 - [x] Cắt giảm font weights trong `src/app/layout.tsx` chỉ giữ `400` và `700`.
 
 ### 🟡 Giai đoạn 2: Tối Ưu Hóa Assets & Database (Ngày 3 - 5)
-- [ ] Chạy script `scripts/optimize-art-images.mjs` nén 26 ảnh sang AVIF và sinh `art-manifest.json`.
-- [ ] Cập nhật `src/components/art/JapaneseArtBackdrop.tsx` sử dụng ảnh AVIF và `blurDataURL`.
-- [ ] Bổ sung các chỉ mục B-Tree (`idx_cards_deck_id`, `idx_cards_due_state`, `idx_cards_created_at`) vào SQLite/Turso.
-- [ ] Refactor API route `src/app/api/cards/route.ts` sang câu lệnh `GROUP BY` song song.
+- [x] Chạy script `scripts/optimize-art-images.mjs` nén 26 ảnh sang AVIF và sinh `art-manifest.json`.
+- [x] Cập nhật `src/components/art/JapaneseArtBackdrop.tsx` sử dụng ảnh AVIF và `blurDataURL`.
+- [x] Bổ sung các chỉ mục B-Tree (`idx_cards_deck_id`, `idx_cards_due_state`, `idx_cards_created_at`) vào SQLite/Turso.
+- [x] Refactor API route `src/app/api/cards/route.ts` sang câu lệnh `GROUP BY` song song.
 
 ### 🟠 Giai đoạn 3: Tái Cấu Trúc Kiến Trúc (Tuần 2)
-- [ ] Chuyển đổi `src/app/page.tsx` từ Client Component sang **React Server Component**.
-- [ ] Chuyển đổi các hiệu ứng của `SakuraBackground.tsx` sang thuần túy CSS GPU keyframes.
+- [x] Chuyển đổi `src/app/page.tsx` từ Client Component sang **React Server Component**.
+- [x] Chuyển đổi các hiệu ứng của `SakuraBackground.tsx` sang thuần túy CSS GPU keyframes.
 - [ ] Tích hợp React 19 Server Actions thay thế các mutation endpoints REST.
 
 ### 🔵 Giai đoạn 4: Nâng Cao & Tự Động Hóa (Tuần 3 - 4)
-- [ ] Chuyển thuật toán FSRS sang **Dedicated Web Worker** (`src/workers/fsrs.worker.ts`).
-- [ ] Triển khai cơ sở dữ liệu ngoại tuyến **IndexedDB (Dexie.js)** và Service Worker PWA (`public/sw.js`).
+- [x] Chuyển thuật toán FSRS sang **Dedicated Web Worker** (`src/workers/fsrs.worker.ts`) & tích hợp màn hình ôn tập `/review`.
+- [x] Triển khai cơ sở dữ liệu ngoại tuyến **IndexedDB (Dexie.js)** và Service Worker PWA (`public/sw.js`).
 - [ ] Thiết lập quy trình kiểm duyệt hiệu năng tự động trên CI/CD qua **Lighthouse CI**.
 
 ---
