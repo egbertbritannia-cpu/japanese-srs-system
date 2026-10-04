@@ -21,7 +21,7 @@
 | **Sprint 2** | **Đại tu Đấu trường Ôn tập Karuta Active Recall & Pitch Accent** | `VIS-REV-01`, `VIS-REV-02`, `VIS-REV-03`, `VIS-REV-04`, `VIS-REV-05`, `VIS-REV-06`, `VIS-REV-07`, `VIS-COPILOT-04` | ✅ HOÀN THÀNH | ✅ 111/111 pass |
 | **Sprint 3** | **Thư viện Thẻ học Tanzakucho & Trang chủ Dashboard Sổ cái Washi** | `VIS-CARD-01` -> `06`, `VIS-HOME-01` -> `06` | ✅ HOÀN THÀNH | ✅ 111/111 pass |
 | **Sprint 4** | **Đấu trường Chia Động từ & Bàn Thư pháp Tạo thẻ Shodo Desk** | `VIS-CONJ-01` -> `06`, `VIS-NEW-01` -> `05` | ✅ HOÀN THÀNH | ✅ 111/111 pass (31/31 build routes) |
-| **Sprint 5** | **Giáo trình Ngữ pháp Bunbou & Sensei AI Trợ lý Đồng hành** | `VIS-GRAM-01` -> `06`, `VIS-PRAC-01` -> `05`, `VIS-COPILOT-01`, `02`, `03`, `05` | 🟡 Tiếp theo | Đang chờ |
+| **Sprint 5** | **Giáo trình Ngữ pháp Bunbou & Sensei AI Trợ lý Đồng hành** | `VIS-GRAM-01` -> `06`, `VIS-PRAC-01` -> `05`, `VIS-INT-01` -> `05`, `VIS-COPILOT-01`, `02`, `03`, `05` | ✅ HOÀN THÀNH | ✅ 111/111 pass (31/31 build routes) |
 
 ---
 
@@ -72,3 +72,26 @@
 - [x] `VIS-NEW-03`: Tích hợp bộ chọn trực quan 4 mẫu hình cao độ Pitch Accent Tokyo (`[0] 平板 Heiban`, `[1] 頭高 Atamadaka`, `[2] 中高 Nakadaka`, `[3] 尾高 Odaka`).
 - [x] `VIS-NEW-04`: Nâng cấp nút nộp thẻ Shodo Stamp Submit với dấu mộc son Torii và tactile active feedback.
 - [x] `VIS-NEW-05`: Huy hiệu thành tựu nhận thức `💎 Trí tuệ AI · Chuẩn hóa FSRS Atomic` thay thế cảnh báo lỗi phân tách từ vựng.
+
+### 📌 Sprint 5: Giáo trình Ngữ pháp Bunbou & Sensei AI Trợ lý Đồng hành (✅ HOÀN THÀNH)
+- [x] `VIS-GRAM-01`: Thay thế font Bebas phương Tây bằng `Shippori Mincho` Wabi-Sabi trên Gallery Banner.
+- [x] `VIS-GRAM-02`: Điều chỉnh tọa độ watermark chữ Hán `文法` (`right: 1rem, bottom: 0, contain: paint, fontSize: clamp(5rem, 14vw, 7.5rem)`), loại bỏ hoàn toàn tràn cuộn ngang.
+- [x] `VIS-GRAM-03`: Nâng cấp thanh tiến độ dòng chảy mộc bản Ryusui với backdrop blur và tỉ lệ phần trăm trực quan.
+- [x] `VIS-GRAM-04`: Tái cấu trúc sơ đồ thành phần câu `StructureDiagram` với các mũi tên bán nguyệt `➔` và màu sắc Wabi-Sabi ngữ nghĩa (Động từ, Trợ từ, Tính từ, Danh từ).
+- [x] `VIS-GRAM-05`: Áp dụng hệ thống khoảng cách linh hoạt `clamp(1.2rem, 3.5vw, 2rem)` và gap `clamp(1rem, 3vw, 2rem)` cho thẻ mẫu câu `PatternCard`.
+- [x] `VIS-GRAM-06`: Tích hợp hệ thống nhãn kép Wabi-Sabi phân biệt câu chuẩn giáo trình JPD133 (`🏮 Mẫu chuẩn giáo trình JPD133`) và câu ứng dụng giao tiếp (`🌿 Câu mở rộng giao tiếp`).
+- [x] `VIS-PRAC-01`: Bổ sung phím tắt số `[1], [2], [3], [4]` và hiệu ứng nâng khối quang học (Elevation Lift) cho 4 nút trắc nghiệm.
+- [x] `VIS-PRAC-02`: Loại bỏ giật bố cục (Zero CLS) khi hiển thị giải thích sư phạm với container hiệu ứng mở mượt mà.
+- [x] `VIS-PRAC-03`: Tích hợp thanh tiến độ đính kèm búp bê Daruma đỏ son `🏮 Câu X/Y (Z%)`.
+- [x] `VIS-PRAC-04`: Nâng cấp màn hình hoàn thành bài tập với triện son chúc mừng `大当り (Đại thắng)` và huy hiệu độ chính xác FSRS.
+- [x] `VIS-PRAC-05`: Chuẩn hóa ô đục lỗ thành Hộp Đục Lỗ Trống Wabi-Sabi `( ❓ )` viền đứt vàng hổ phách `#C89B58` trên nền giấy mờ đào.
+- [x] `VIS-INT-01`: Quy hoạch toàn trang Tích hợp thành Lưới Bento 4 Khối thống nhất (Pillar Status, Google Sheets, Google Calendar, Google Tasks).
+- [x] `VIS-INT-02`: Tích hợp đèn LED xung nhịp Pulse Glow quang học ngọc bích `#10B981` cho trạng thái kết nối Google.
+- [x] `VIS-INT-03`: Bổ sung nút dán nhanh Clipboard và định dạng lại bảng xem trước từ vựng Sheets 3 cột chuẩn mực.
+- [x] `VIS-INT-04`: Tích hợp thông báo Toast Washi nổi bật khi sao chép Redirect URI an toàn.
+- [x] `VIS-INT-05`: Thiết kế bộ chọn giờ học Zen với các nút bấm khung giờ nhanh (`🌅 07:00`, `☀️ 12:30`, `🏮 20:00`, `🌙 22:00`).
+- [x] `VIS-COPILOT-01`: Tối ưu hóa tọa độ nút nổi FAB trên mobile (`bottom: 5.5rem, right: 1.25rem`) tránh xung đột hoàn toàn với thanh điều hướng đáy `KirieBottomNav`.
+- [x] `VIS-COPILOT-02`: Nâng cấp ngăn kéo chat thành Ngăn Kéo Thiền Định Sensei Washi (`backdrop-filter: blur(24px)`, viền vàng Kintsugi `rgba(200, 155, 88, 0.4)`).
+- [x] `VIS-COPILOT-03`: Tích hợp bộ phân tích cú pháp Markdown giàu thẩm mỹ, tự động hiển thị Hán tự bằng font `Shippori Mincho` và thẻ highlight xanh tre.
+- [x] `VIS-COPILOT-05`: Tinh chỉnh các chip câu hỏi gợi ý nhanh dạng viên thuốc bo tròn mềm mại chống tràn viền.
+

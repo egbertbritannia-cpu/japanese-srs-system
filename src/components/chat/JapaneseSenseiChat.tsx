@@ -15,17 +15,56 @@ interface ChatMessage {
 }
 
 /**
- * Bộ dựng Markdown an toàn thuần React (BUG-RAG-05)
- * Tránh nguy cơ XSS khi hiển thị phản hồi từ AI mà vẫn làm đậm được **chữ**
+ * Bộ dựng Typography và Markdown an toàn thuần React (VIS-COPILOT-03, BUG-RAG-05)
+ * Tự động phát hiện Kanji/Kana để gán Shippori Mincho, làm nổi bật cấu trúc ngữ pháp
  */
 function renderSafeMarkdown(text: string) {
   if (!text) return null;
-  const parts = text.split(/(\*\*[^*]+\*\*)/g);
-  return parts.map((part, i) => {
-    if (part.startsWith('**') && part.endsWith('**')) {
-      return <strong key={i} style={{ color: 'var(--matcha-deep, #3E734E)' }}>{part.slice(2, -2)}</strong>;
+
+  // Split by bold tokens first: **text**
+  const boldParts = text.split(/(\*\*[^*]+\*\*)/g);
+
+  return boldParts.map((boldPart, i) => {
+    if (boldPart.startsWith('**') && boldPart.endsWith('**')) {
+      const content = boldPart.slice(2, -2);
+      const hasKanji = /[\u4E00-\u9FAF]/.test(content);
+      return (
+        <strong
+          key={i}
+          style={{
+            color: '#2A6B3D',
+            fontFamily: hasKanji ? 'var(--font-mincho, "Shippori Mincho", serif)' : 'inherit',
+            fontWeight: 800,
+            background: 'rgba(42, 107, 61, 0.08)',
+            padding: '0.1rem 0.35rem',
+            borderRadius: '4px',
+          }}
+        >
+          {content}
+        </strong>
+      );
     }
-    return part;
+
+    // Split by Japanese text tokens (Kanji / Kana sequences)
+    const jpParts = boldPart.split(/([\u4E00-\u9FAF\u3040-\u309F\u30A0-\u30FF]+)/g);
+    return jpParts.map((part, j) => {
+      if (/[\u4E00-\u9FAF]/.test(part)) {
+        return (
+          <span
+            key={`${i}-${j}`}
+            style={{
+              fontFamily: 'var(--font-mincho, "Shippori Mincho", serif)',
+              fontWeight: 700,
+              color: '#1E4B75',
+              fontSize: '1.05em',
+            }}
+          >
+            {part}
+          </span>
+        );
+      }
+      return <span key={`${i}-${j}`}>{part}</span>;
+    });
   });
 }
 
@@ -36,7 +75,18 @@ export function JapaneseSenseiChat() {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Detect mobile viewport for FAB positioning (VIS-COPILOT-01)
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Lấy cấu hình ngữ cảnh động theo route hiện tại
   const contextConfig: RouteContextConfig = getContextConfig(pathname || '/');
@@ -123,22 +173,22 @@ export function JapaneseSenseiChat() {
 
   return (
     <>
-      {/* 1. NÚT NỔI FLOATING ACTION BUTTON (FAB) GÓC MÀN HÌNH */}
+      {/* 1. NÚT NỔI FLOATING ACTION BUTTON (FAB) GÓC MÀN HÌNH (VIS-COPILOT-01) */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         title="Trợ giảng Nhật ngữ Sensei AI (RAG)"
         aria-label="Mở Trợ giảng Nhật ngữ Sensei AI"
         style={{
           position: 'fixed',
-          bottom: '88px',
-          right: '20px',
+          bottom: isMobile ? '5.5rem' : '2rem',
+          right: isMobile ? '1.25rem' : '2rem',
           zIndex: 90,
-          width: '54px',
-          height: '54px',
+          width: '56px',
+          height: '56px',
           borderRadius: '50%',
           background: 'linear-gradient(135deg, #1E4B75 0%, #0A1C33 100%)',
           border: '1.5px solid #D4AF37',
-          boxShadow: '0 8px 24px rgba(18, 36, 56, 0.28), 0 2px 6px rgba(0, 0, 0, 0.12)',
+          boxShadow: '0 8px 28px rgba(18, 36, 56, 0.32), 0 2px 8px rgba(0, 0, 0, 0.15)',
           color: '#FFFFFF',
           cursor: 'pointer',
           display: 'flex',
@@ -147,18 +197,18 @@ export function JapaneseSenseiChat() {
           transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
-        <SensuFanIcon size={26} color="#D4AF37" />
+        <SensuFanIcon size={28} color="#D4AF37" />
         <span
           style={{
             position: 'absolute',
-            top: '2px',
-            right: '2px',
+            top: '3px',
+            right: '3px',
             width: '12px',
             height: '12px',
             borderRadius: '50%',
             backgroundColor: '#C83824',
             border: '2px solid #FFFFFF',
-            boxShadow: '0 0 6px rgba(200, 56, 36, 0.6)',
+            boxShadow: '0 0 8px rgba(200, 56, 36, 0.8)',
           }}
         />
       </button>
@@ -171,15 +221,15 @@ export function JapaneseSenseiChat() {
             position: 'fixed',
             inset: 0,
             background: 'rgba(10, 28, 51, 0.45)',
-            backdropFilter: 'blur(4px)',
-            WebkitBackdropFilter: 'blur(4px)',
+            backdropFilter: 'blur(6px)',
+            WebkitBackdropFilter: 'blur(6px)',
             zIndex: 95,
             transition: 'opacity 0.25s ease',
           }}
         />
       )}
 
-      {/* 3. NGĂN TRƯỢT HỘI THOẠI BÊN HÔNG (SIDE DRAWER - GLASSMORPHISM) */}
+      {/* 3. NGĂN TRƯỢT HỘI THOẠI BÊN HÔNG (SIDE DRAWER - GLASSMORPHISM - VIS-COPILOT-02) */}
       <div
         className="glass-drawer-surface"
         style={{
@@ -188,10 +238,15 @@ export function JapaneseSenseiChat() {
           right: 0,
           bottom: 0,
           width: '100%',
-          maxWidth: '440px',
+          maxWidth: '460px',
           zIndex: 100,
           display: 'flex',
           flexDirection: 'column',
+          background: 'rgba(255, 255, 255, 0.94)',
+          backdropFilter: 'blur(24px)',
+          WebkitBackdropFilter: 'blur(24px)',
+          borderLeft: '1.5px solid rgba(200, 155, 88, 0.4)',
+          boxShadow: '-8px 0 36px rgba(18, 36, 56, 0.18)',
           transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
           transition: 'transform 0.32s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
@@ -211,11 +266,11 @@ export function JapaneseSenseiChat() {
         >
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-              <span style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.2rem', fontWeight: 800, color: '#FAF8F5' }}>
+              <span style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.25rem', fontWeight: 800, color: '#FAF8F5' }}>
                 Sensei AI · 日本語先生
               </span>
             </div>
-            <div className="micro-badge-label" style={{ background: 'rgba(255, 255, 255, 0.12)', color: '#E8D9BD', marginTop: '0.35rem' }}>
+            <div className="micro-badge-label" style={{ background: 'rgba(255, 255, 255, 0.15)', color: '#E8D9BD', marginTop: '0.35rem', borderRadius: '4px', padding: '0.15rem 0.5rem' }}>
               {contextConfig.badgeText}
             </div>
           </div>
@@ -223,13 +278,13 @@ export function JapaneseSenseiChat() {
           <button
             onClick={() => setIsOpen(false)}
             style={{
-              background: 'rgba(255, 255, 255, 0.1)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
+              background: 'rgba(255, 255, 255, 0.12)',
+              border: '1px solid rgba(255, 255, 255, 0.25)',
               borderRadius: '8px',
               color: '#FAF8F5',
               fontSize: '1.1rem',
               cursor: 'pointer',
-              padding: '0.3rem 0.65rem',
+              padding: '0.35rem 0.75rem',
               lineHeight: 1,
               transition: 'background 0.2s',
             }}
@@ -238,16 +293,17 @@ export function JapaneseSenseiChat() {
           </button>
         </div>
 
-        {/* DANH SÁCH CÂU HỎI GỢI Ý NHANH (PROMPT CHIPS THEO NGỮ CẢNH) */}
+        {/* DANH SÁCH CÂU HỎI GỢI Ý NHANH (PROMPT CHIPS - VIS-COPILOT-05) */}
         <div
           style={{
             padding: '0.75rem 1rem',
-            background: 'rgba(240, 235, 224, 0.85)',
-            borderBottom: '1px solid var(--washi-border)',
+            background: 'rgba(245, 242, 235, 0.9)',
+            borderBottom: '1px solid var(--washi-border, #E6E1DA)',
             display: 'flex',
-            gap: '0.45rem',
+            gap: '0.5rem',
             overflowX: 'auto',
             whiteSpace: 'nowrap',
+            scrollbarWidth: 'none',
           }}
         >
           {contextConfig.suggestedChips.map((chip, idx) => (
@@ -256,18 +312,18 @@ export function JapaneseSenseiChat() {
               onClick={() => handleSendMessage(chip)}
               disabled={loading}
               style={{
-                padding: '0.35rem 0.75rem',
+                padding: '0.4rem 0.85rem',
                 borderRadius: '999px',
-                border: '1px solid var(--washi-border)',
+                border: '1.2px solid #E6DDCF',
                 background: '#FFFFFF',
                 color: '#122438',
-                fontSize: '0.76rem',
-                fontFamily: 'var(--font-maru)',
-                fontWeight: 600,
+                fontSize: '0.78rem',
+                fontFamily: 'var(--font-maru, sans-serif)',
+                fontWeight: 700,
                 cursor: 'pointer',
                 flexShrink: 0,
-                boxShadow: 'var(--shadow-washi-sm)',
-                transition: 'all 0.15s ease',
+                boxShadow: '0 2px 6px rgba(0,0,0,0.03)',
+                transition: 'all 0.15s cubic-bezier(0.16, 1, 0.3, 1)',
               }}
             >
               💬 {chip}
@@ -275,7 +331,7 @@ export function JapaneseSenseiChat() {
           ))}
         </div>
 
-        {/* KHU VỰC HIỂN THỊ NỘI DUNG TIN NHẮN */}
+        {/* KHU VỰC HIỂN THỊ NỘI DUNG TIN NHẮN (VIS-COPILOT-03) */}
         <div
           style={{
             flex: 1,
@@ -284,6 +340,7 @@ export function JapaneseSenseiChat() {
             display: 'flex',
             flexDirection: 'column',
             gap: '1rem',
+            background: 'rgba(250, 248, 245, 0.5)',
           }}
         >
           {messages.map((m) => {
@@ -293,22 +350,22 @@ export function JapaneseSenseiChat() {
                 key={m.id}
                 style={{
                   alignSelf: isSensei ? 'flex-start' : 'flex-end',
-                  maxWidth: '90%',
+                  maxWidth: '92%',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '0.25rem',
+                  gap: '0.3rem',
                 }}
               >
                 <div
                   style={{
-                    padding: '0.95rem 1.2rem',
-                    borderRadius: isSensei ? '16px 16px 16px 3px' : '16px 16px 3px 16px',
+                    padding: '1rem 1.25rem',
+                    borderRadius: isSensei ? '18px 18px 18px 4px' : '18px 18px 4px 18px',
                     background: isSensei ? '#FFFFFF' : '#1E4B75',
                     color: isSensei ? '#122438' : '#FFFFFF',
-                    border: isSensei ? '1px solid var(--washi-border)' : 'none',
-                    boxShadow: isSensei ? 'var(--shadow-washi-md)' : '0 4px 12px rgba(30, 75, 117, 0.25)',
-                    fontSize: '0.92rem',
-                    lineHeight: 1.6,
+                    border: isSensei ? '1.2px solid var(--washi-border, #E6E1DA)' : 'none',
+                    boxShadow: isSensei ? '0 4px 14px rgba(18, 36, 56, 0.05)' : '0 4px 14px rgba(30, 75, 117, 0.25)',
+                    fontSize: '0.94rem',
+                    lineHeight: 1.65,
                     whiteSpace: 'pre-wrap',
                     wordBreak: 'break-word',
                   }}
@@ -316,7 +373,7 @@ export function JapaneseSenseiChat() {
                   {renderSafeMarkdown(m.text)}
                 </div>
 
-                {/* Hàng công cụ cho tin nhắn của Sensei: Nút Copy & Phát âm */}
+                {/* Hàng công cụ cho tin nhắn của Sensei */}
                 {isSensei && (
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', padding: '0 0.5rem' }}>
                     <button
@@ -325,9 +382,10 @@ export function JapaneseSenseiChat() {
                         background: 'none',
                         border: 'none',
                         color: '#786A5E',
-                        fontSize: '0.72rem',
+                        fontSize: '0.74rem',
                         cursor: 'pointer',
                         padding: '0.15rem 0.35rem',
+                        fontWeight: 600,
                       }}
                     >
                       {copiedId === m.id ? '✓ Đã chép' : '📋 Sao chép'}
@@ -336,19 +394,19 @@ export function JapaneseSenseiChat() {
                     <JapaneseSpeakerButton text={m.text} size={15} />
 
                     {m.references && m.references.length > 0 && (
-                      <span style={{ fontSize: '0.7rem', color: '#786A5E' }}>
+                      <span style={{ fontSize: '0.72rem', color: '#786A5E' }}>
                         📖 {m.references.join(', ')}
                       </span>
                     )}
 
-                    <span style={{ fontSize: '0.68rem', color: '#A09386', marginLeft: 'auto' }}>
+                    <span style={{ fontSize: '0.7rem', color: '#A09386', marginLeft: 'auto', fontFamily: 'var(--font-mono, monospace)' }}>
                       {m.timestamp}
                     </span>
                   </div>
                 )}
 
                 {!isSensei && (
-                  <span style={{ fontSize: '0.68rem', color: '#A09386', padding: '0 0.4rem', alignSelf: 'flex-end' }}>
+                  <span style={{ fontSize: '0.7rem', color: '#A09386', padding: '0 0.4rem', alignSelf: 'flex-end', fontFamily: 'var(--font-mono, monospace)' }}>
                     {m.timestamp}
                   </span>
                 )}
@@ -361,16 +419,16 @@ export function JapaneseSenseiChat() {
               className="sensei-thinking-glow"
               style={{
                 alignSelf: 'flex-start',
-                padding: '0.85rem 1.15rem',
-                borderRadius: '14px',
+                padding: '0.9rem 1.25rem',
+                borderRadius: '16px',
                 background: '#FFFFFF',
                 border: '1.2px solid rgba(200, 155, 88, 0.4)',
-                fontSize: '0.86rem',
+                fontSize: '0.88rem',
                 color: '#122438',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.5rem',
-                boxShadow: 'var(--shadow-washi-sm)',
+                gap: '0.55rem',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.04)',
               }}
             >
               <span>✍️</span> Sensei đang tra cứu kiến thức và phân tích ngữ cảnh...
@@ -389,7 +447,7 @@ export function JapaneseSenseiChat() {
           style={{
             padding: '1rem 1.25rem',
             background: 'rgba(250, 247, 242, 0.98)',
-            borderTop: '1px solid var(--washi-border)',
+            borderTop: '1px solid var(--washi-border, #E6E1DA)',
             display: 'flex',
             gap: '0.65rem',
             alignItems: 'center',
@@ -403,15 +461,15 @@ export function JapaneseSenseiChat() {
             disabled={loading}
             style={{
               flex: 1,
-              padding: '0.8rem 1.1rem',
+              padding: '0.85rem 1.15rem',
               borderRadius: '12px',
-              border: '1.2px solid var(--washi-border)',
+              border: '1.2px solid var(--washi-border, #E6E1DA)',
               background: '#FFFFFF',
               color: '#122438',
               fontSize: '0.92rem',
               outline: 'none',
               fontFamily: 'var(--font-sans)',
-              boxShadow: 'var(--shadow-washi-sm)',
+              boxShadow: '0 2px 6px rgba(0,0,0,0.03)',
             }}
           />
           <button
@@ -419,9 +477,10 @@ export function JapaneseSenseiChat() {
             disabled={loading || !input.trim()}
             className="btn-torii"
             style={{
-              padding: '0.8rem 1.25rem',
-              fontSize: '0.9rem',
+              padding: '0.85rem 1.35rem',
+              fontSize: '0.92rem',
               whiteSpace: 'nowrap',
+              borderRadius: '12px',
               opacity: loading || !input.trim() ? 0.6 : 1,
             }}
           >

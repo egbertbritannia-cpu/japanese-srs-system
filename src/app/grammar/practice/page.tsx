@@ -36,46 +36,12 @@ function PracticeContent() {
     fetchQueue();
   }, [lessonId]);
 
-  if (loading) {
-    return (
-      <div style={{ textAlign: 'center', padding: '4rem 1rem', color: '#8B7B6D' }}>
-        <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🎋</div>
-        <div style={{ fontSize: '1.1rem', fontWeight: 600 }}>Đang chuẩn bị bộ câu hỏi ngữ pháp...</div>
-      </div>
-    );
-  }
-
-  if (exercises.length === 0) {
-    return (
-      <div style={{ textAlign: 'center', padding: '4rem 1rem', maxWidth: '500px', margin: '0 auto' }}>
-        <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>🌸</div>
-        <h2 style={{ fontSize: '1.4rem', color: '#1F2421', marginBottom: '0.5rem' }}>Chưa có câu hỏi nào</h2>
-        <p style={{ color: '#666', marginBottom: '1.5rem' }}>
-          Hiện chưa có bài tập nào khả dụng cho mục đã chọn.
-        </p>
-        <Link
-          href="/grammar"
-          style={{
-            padding: '0.75rem 1.5rem',
-            background: '#1B4268',
-            color: '#FFFFFF',
-            borderRadius: '10px',
-            textDecoration: 'none',
-            fontWeight: 700,
-          }}
-        >
-          Quay lại danh sách bài học
-        </Link>
-      </div>
-    );
-  }
-
   const current = exercises[currentIndex];
   const total = exercises.length;
-  const progressPercent = Math.round(((currentIndex) / total) * 100);
+  const progressPercent = total > 0 ? Math.round(((currentIndex) / total) * 100) : 0;
 
   const handleSelectOption = async (optionKey: 'A' | 'B' | 'C' | 'D') => {
-    if (isAnswered) return;
+    if (isAnswered || !current) return;
 
     setSelectedOption(optionKey);
     setIsAnswered(true);
@@ -111,27 +77,127 @@ function PracticeContent() {
     }
   };
 
-  // Completion Screen
+  // Keyboard shortcut listener (VIS-PRAC-01)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+
+      if (!isAnswered && !isComplete && current) {
+        if (e.key === '1' || e.key === 'a' || e.key === 'A') {
+          e.preventDefault();
+          handleSelectOption('A');
+        } else if (e.key === '2' || e.key === 'b' || e.key === 'B') {
+          e.preventDefault();
+          handleSelectOption('B');
+        } else if (e.key === '3' || e.key === 'c' || e.key === 'C') {
+          e.preventDefault();
+          handleSelectOption('C');
+        } else if (e.key === '4' || e.key === 'd' || e.key === 'D') {
+          e.preventDefault();
+          handleSelectOption('D');
+        }
+      } else if (isAnswered && !isComplete) {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowRight') {
+          e.preventDefault();
+          handleNext();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isAnswered, isComplete, current, currentIndex, total]);
+
+  if (loading) {
+    return (
+      <div style={{ textAlign: 'center', padding: '4rem 1rem', color: '#8B7B6D' }}>
+        <div style={{ fontSize: '2.5rem', marginBottom: '1rem', animation: 'pulse 1.5s infinite' }}>🎋</div>
+        <div style={{ fontSize: '1.15rem', fontWeight: 700, fontFamily: 'var(--font-mincho, serif)' }}>
+          Đang chuẩn bị bộ câu hỏi ngữ pháp...
+        </div>
+      </div>
+    );
+  }
+
+  if (exercises.length === 0) {
+    return (
+      <div style={{ textAlign: 'center', padding: '4rem 1rem', maxWidth: '500px', margin: '0 auto' }}>
+        <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>🌸</div>
+        <h2 style={{ fontSize: '1.4rem', color: '#1F2421', marginBottom: '0.5rem', fontFamily: 'var(--font-mincho, serif)' }}>
+          Chưa có câu hỏi nào
+        </h2>
+        <p style={{ color: '#666', marginBottom: '1.5rem', fontSize: '0.92rem' }}>
+          Hiện chưa có bài tập nào khả dụng cho mục đã chọn.
+        </p>
+        <Link
+          href="/grammar"
+          style={{
+            padding: '0.75rem 1.5rem',
+            background: '#1B4268',
+            color: '#FFFFFF',
+            borderRadius: '10px',
+            textDecoration: 'none',
+            fontWeight: 700,
+            boxShadow: '0 3px 10px rgba(27,66,104,0.2)',
+          }}
+        >
+          Quay lại danh sách bài học
+        </Link>
+      </div>
+    );
+  }
+
+  // Completion Screen (VIS-PRAC-04)
   if (isComplete) {
-    const accuracy = Math.round((correctCount / total) * 100);
+    const accuracy = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+    const isMastered = accuracy >= 80;
 
     return (
       <div
         style={{
-          maxWidth: '540px',
+          maxWidth: '560px',
           margin: '2rem auto',
           background: '#FFFFFF',
-          borderRadius: '20px',
-          padding: '2.5rem 2rem',
+          borderRadius: '24px',
+          padding: 'clamp(2rem, 5vw, 3rem) clamp(1.5rem, 4vw, 2.5rem)',
           textAlign: 'center',
-          boxShadow: '0 8px 30px rgba(0, 0, 0, 0.08)',
+          boxShadow: '0 12px 40px rgba(18, 36, 56, 0.1)',
           border: '1.5px solid var(--washi-border, #E6E1DA)',
+          position: 'relative',
+          overflow: 'hidden',
         }}
       >
-        <div style={{ fontSize: '3.5rem', marginBottom: '0.75rem' }}>🎊</div>
+        {/* Hanko Celebration Stamp */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '1.5rem',
+            right: '1.5rem',
+            width: '64px',
+            height: '64px',
+            border: '2.5px solid #C83824',
+            borderRadius: '50%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#C83824',
+            fontWeight: 900,
+            fontSize: '1rem',
+            fontFamily: 'var(--font-mincho, serif)',
+            transform: 'rotate(-12deg)',
+            opacity: 0.85,
+            boxShadow: 'inset 0 0 6px rgba(200, 56, 36, 0.2)',
+          }}
+        >
+          {isMastered ? '大当り' : '精進'}
+        </div>
+
+        <div style={{ fontSize: '3.5rem', marginBottom: '0.75rem' }}>
+          {isMastered ? '🌸' : '🎋'}
+        </div>
         <h2
           style={{
-            fontSize: '1.8rem',
+            fontSize: 'clamp(1.5rem, 3.5vw, 1.85rem)',
             fontWeight: 900,
             color: '#1B4268',
             fontFamily: 'var(--font-mincho, "Shippori Mincho", serif)',
@@ -140,47 +206,58 @@ function PracticeContent() {
         >
           HOÀN THÀNH PHIÊN LUYỆN TẬP!
         </h2>
-        <p style={{ color: '#666', fontSize: '0.95rem', margin: '0 0 1.75rem' }}>
-          Bạn đã hoàn thành tất cả các bài tập ngữ pháp trong phiên này.
+        <p style={{ color: '#666', fontSize: '0.95rem', margin: '0 0 1.75rem', fontFamily: 'var(--font-maru, sans-serif)' }}>
+          Bạn đã hoàn thành toàn bộ bài tập ngữ pháp trong phiên này.
         </p>
 
         {/* Score Badge */}
         <div
           style={{
-            background: 'rgba(27, 66, 104, 0.05)',
-            border: '2px solid #1B4268',
-            borderRadius: '16px',
-            padding: '1.25rem',
+            background: isMastered ? 'rgba(42, 107, 61, 0.06)' : 'rgba(27, 66, 104, 0.05)',
+            border: `2px solid ${isMastered ? '#2A6B3D' : '#1B4268'}`,
+            borderRadius: '18px',
+            padding: '1.5rem',
             marginBottom: '2rem',
+            boxShadow: '0 4px 16px rgba(0,0,0,0.03)',
           }}
         >
-          <div style={{ fontSize: '0.85rem', color: '#888', fontWeight: 600, textTransform: 'uppercase' }}>
-            Tỷ lệ chính xác (Accuracy)
+          <div style={{ fontSize: '0.82rem', color: '#888', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            TỶ LỆ CHÍNH XÁC (ACCURACY)
           </div>
-          <div style={{ fontSize: '2.5rem', fontWeight: 900, color: '#1B4268', margin: '0.25rem 0' }}>
+          <div
+            style={{
+              fontSize: '3rem',
+              fontWeight: 900,
+              color: isMastered ? '#2A6B3D' : '#1B4268',
+              margin: '0.35rem 0',
+              fontFamily: 'var(--font-mono, monospace)',
+            }}
+          >
             {accuracy}%
           </div>
-          <div style={{ fontSize: '0.9rem', color: '#4A6B22', fontWeight: 600 }}>
+          <div style={{ fontSize: '0.95rem', color: isMastered ? '#2A6B3D' : '#1B4268', fontWeight: 700 }}>
             {correctCount} / {total} câu trả lời đúng
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
           <Link
             href="/grammar"
             style={{
               flex: 1,
+              minWidth: '160px',
               padding: '0.85rem 1.25rem',
-              borderRadius: '10px',
+              borderRadius: '12px',
               border: '1.5px solid #1B4268',
               color: '#1B4268',
               textDecoration: 'none',
               fontWeight: 700,
-              fontSize: '0.9rem',
+              fontSize: '0.92rem',
+              textAlign: 'center',
             }}
           >
-            Về danh sách bài học
+            ← Danh sách bài học
           </Link>
           <button
             onClick={() => {
@@ -192,99 +269,121 @@ function PracticeContent() {
             }}
             style={{
               flex: 1,
+              minWidth: '160px',
               padding: '0.85rem 1.25rem',
-              borderRadius: '10px',
+              borderRadius: '12px',
               background: '#1B4268',
               color: '#FFFFFF',
               border: 'none',
               fontWeight: 700,
-              fontSize: '0.9rem',
+              fontSize: '0.92rem',
               cursor: 'pointer',
-              boxShadow: '0 3px 10px rgba(27, 66, 104, 0.25)',
+              boxShadow: '0 4px 14px rgba(27, 66, 104, 0.25)',
+              transition: 'all 0.2s ease',
             }}
           >
-            Luyện tập tiếp ➔
+            Luyện tập lại ➔
           </button>
         </div>
       </div>
     );
   }
 
-  const options: Array<{ key: 'A' | 'B' | 'C' | 'D'; text: string }> = [
-    { key: 'A' as const, text: current.optionA || '' },
-    { key: 'B' as const, text: current.optionB || '' },
-    { key: 'C' as const, text: current.optionC || '' },
-    { key: 'D' as const, text: current.optionD || '' },
-  ].filter((opt): opt is { key: 'A' | 'B' | 'C' | 'D'; text: string } => !!opt.text);
+  const options: Array<{ key: 'A' | 'B' | 'C' | 'D'; text: string; num: number }> = [
+    { key: 'A' as const, text: current.optionA || '', num: 1 },
+    { key: 'B' as const, text: current.optionB || '', num: 2 },
+    { key: 'C' as const, text: current.optionC || '', num: 3 },
+    { key: 'D' as const, text: current.optionD || '', num: 4 },
+  ].filter((opt): opt is { key: 'A' | 'B' | 'C' | 'D'; text: string; num: number } => !!opt.text);
 
   return (
-    <div style={{ maxWidth: '640px', margin: '0 auto', paddingBottom: '5rem' }}>
-      {/* Top Header & Progress */}
+    <div style={{ maxWidth: '680px', margin: '0 auto', paddingBottom: '5rem' }}>
+      {/* VIS-PRAC-03: Top Header & Progress with Daruma */}
       <div style={{ marginBottom: '1.5rem' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.65rem' }}>
           <Link
             href="/grammar"
             style={{
               color: '#8B7B6D',
               textDecoration: 'none',
               fontSize: '0.85rem',
+              fontWeight: 600,
               display: 'flex',
               alignItems: 'center',
-              gap: '0.25rem',
+              gap: '0.35rem',
             }}
           >
             ✕ Thoát
           </Link>
-          <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#1B4268' }}>
-            Câu {currentIndex + 1} / {total}
-          </span>
+
+          {/* Daruma Badge */}
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.45rem',
+              padding: '0.25rem 0.75rem',
+              borderRadius: '999px',
+              background: '#FFF2F0',
+              border: '1.2px solid #F5C6CB',
+              color: '#C83824',
+              fontSize: '0.82rem',
+              fontWeight: 800,
+              fontFamily: 'var(--font-maru, sans-serif)',
+            }}
+          >
+            <span>🏮</span>
+            <span>Câu {currentIndex + 1}/{total} ({progressPercent}%)</span>
+          </div>
         </div>
 
         {/* Progress Bar */}
-        <div style={{ height: '6px', background: '#E6E1DA', borderRadius: '3px', overflow: 'hidden' }}>
+        <div style={{ height: '8px', background: '#E6E1DA', borderRadius: '4px', overflow: 'hidden', boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.06)' }}>
           <div
             style={{
               height: '100%',
-              width: `${progressPercent}%`,
+              width: `${Math.max(progressPercent, 5)}%`,
               background: 'linear-gradient(90deg, #88A752, #1B4268)',
-              transition: 'width 0.3s ease',
+              borderRadius: '4px',
+              transition: 'width 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
             }}
           />
         </div>
       </div>
 
-      {/* Main Question Card */}
+      {/* Main Question Card (VIS-PRAC-05: Wabi-Sabi Active Blank Box) */}
       <div
         style={{
           background: '#FFFFFF',
-          borderRadius: '18px',
+          borderRadius: '20px',
           border: '1.5px solid var(--washi-border, #E6E1DA)',
-          padding: '2rem 1.75rem',
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06)',
+          padding: 'clamp(1.5rem, 4vw, 2.25rem)',
+          boxShadow: '0 6px 24px rgba(18, 36, 56, 0.06)',
           marginBottom: '1.5rem',
         }}
       >
         <div
           style={{
             display: 'inline-block',
-            padding: '0.2rem 0.6rem',
+            padding: '0.25rem 0.65rem',
             background: 'rgba(27, 66, 104, 0.08)',
             color: '#1B4268',
             borderRadius: '6px',
-            fontSize: '0.75rem',
-            fontWeight: 700,
+            fontSize: '0.76rem',
+            fontWeight: 800,
             textTransform: 'uppercase',
-            marginBottom: '1rem',
+            marginBottom: '1.15rem',
+            letterSpacing: '0.05em',
           }}
         >
           {current.exerciseType === 'cloze' ? 'ĐIỀN VÀO CHỖ TRỐNG' : 'TRẮC NGHIỆM NGỮ PHÁP'}
         </div>
 
-        {/* Sentence */}
+        {/* Sentence with Wabi-Sabi Active Recall Blank Box */}
         <div
           style={{
-            fontSize: '1.35rem',
-            lineHeight: 1.8,
+            fontSize: 'clamp(1.25rem, 3.2vw, 1.5rem)',
+            lineHeight: 1.85,
             color: '#1F2421',
             fontWeight: 700,
             fontFamily: 'var(--font-mincho, "Shippori Mincho", serif)',
@@ -298,16 +397,20 @@ function PracticeContent() {
                 style={
                   seg.isCloze
                     ? {
-                        padding: '0.1rem 0.5rem',
-                        borderBottom: '3px solid #88A752',
-                        color: isAnswered ? '#2B6B3D' : '#88A752',
-                        background: 'rgba(136, 167, 82, 0.1)',
-                        borderRadius: '4px',
+                        padding: '0.2rem 0.65rem',
+                        margin: '0 0.2rem',
+                        border: isAnswered ? '1.5px solid #2B6B3D' : '1.5px dashed #C89B58',
+                        color: isAnswered ? '#2B6B3D' : '#B8853C',
+                        background: isAnswered ? 'rgba(43, 107, 61, 0.08)' : 'rgba(200, 155, 88, 0.12)',
+                        borderRadius: '8px',
+                        display: 'inline-block',
+                        fontWeight: 800,
+                        boxShadow: isAnswered ? 'none' : '0 0 8px rgba(200, 155, 88, 0.2)',
                       }
                     : {}
                 }
               >
-                {seg.isCloze && !isAnswered ? ' ( ❓ ) ' : seg.text}
+                {seg.isCloze ? (isAnswered ? (current.answerText || seg.text) : ' ( ❓ ) ') : seg.text}
               </span>
             ))
           ) : (
@@ -320,143 +423,201 @@ function PracticeContent() {
           <div
             style={{
               fontSize: '0.95rem',
-              color: '#666',
+              color: '#555',
               borderTop: '1px dashed #ECE8E1',
-              paddingTop: '0.85rem',
+              paddingTop: '0.95rem',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
+              fontFamily: 'var(--font-maru, sans-serif)',
             }}
           >
-            <span>💬 Dịch: <strong>{current.promptText}</strong></span>
-            <JapaneseSpeakerButton text={current.answerText} size={16} />
+            <span>💬 Dịch: <strong style={{ color: '#1B4268' }}>{current.promptText}</strong></span>
+            <JapaneseSpeakerButton text={current.answerText || current.sentenceWithCloze || ''} size={18} />
           </div>
         )}
       </div>
 
-      {/* 4 Options */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.5rem' }}>
-        {options.map(opt => {
+      {/* 4 Options (VIS-PRAC-01: Keyboard Shortcuts [1..4] & Optical Lift) */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', marginBottom: '1.5rem' }}>
+        {options.map((opt) => {
+          const isSelected = selectedOption === opt.key;
+          const isCorrect = opt.key === current.correctOption;
+
           let btnBg = '#FFFFFF';
-          let borderColor = '#E6E1DA';
-          let textColor = '#1F2421';
+          let borderColor = '#E2D7C5';
+          let textColor = '#122438';
+          let keyBg = '#F0EBE0';
+          let keyColor = '#122438';
 
           if (isAnswered) {
-            if (opt.key === current.correctOption) {
-              btnBg = '#E8F4E8';
-              borderColor = '#2B6B3D';
-              textColor = '#2B6B3D';
-            } else if (opt.key === selectedOption) {
-              btnBg = '#FFEBEE';
-              borderColor = '#D9381E';
-              textColor = '#D9381E';
+            if (isCorrect) {
+              btnBg = '#F0F9F2';
+              borderColor = '#2A6B3D';
+              textColor = '#2A6B3D';
+              keyBg = '#2A6B3D';
+              keyColor = '#FFFFFF';
+            } else if (isSelected) {
+              btnBg = '#FFF2F0';
+              borderColor = '#C83824';
+              textColor = '#C83824';
+              keyBg = '#C83824';
+              keyColor = '#FFFFFF';
             } else {
               btnBg = '#FAFAF9';
+              borderColor = '#E6E1DA';
               textColor = '#888';
+              keyBg = '#F0EDE8';
+              keyColor = '#888';
             }
           }
 
           return (
             <button
               key={opt.key}
+              type="button"
               onClick={() => handleSelectOption(opt.key)}
               disabled={isAnswered}
               style={{
                 display: 'flex',
                 alignItems: 'center',
+                gap: '0.85rem',
                 padding: '1rem 1.25rem',
+                borderRadius: '16px',
+                border: `1.5px solid ${borderColor}`,
                 background: btnBg,
-                border: `2px solid ${borderColor}`,
-                borderRadius: '12px',
-                fontSize: '1.05rem',
                 color: textColor,
-                fontWeight: 600,
-                textAlign: 'left',
                 cursor: isAnswered ? 'default' : 'pointer',
-                transition: 'all 0.15s ease',
-                boxShadow: '0 2px 6px rgba(0, 0, 0, 0.03)',
+                boxShadow: isSelected
+                  ? isCorrect
+                    ? '0 4px 16px rgba(42, 107, 61, 0.15)'
+                    : '0 4px 16px rgba(200, 56, 36, 0.15)'
+                  : '0 2px 8px rgba(18, 36, 56, 0.04)',
+                transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                textAlign: 'left',
+                width: '100%',
               }}
             >
+              {/* Keyboard badge [1..4] / [A..D] */}
               <span
                 style={{
-                  width: '28px',
-                  height: '28px',
-                  borderRadius: '50%',
-                  background: isAnswered && opt.key === current.correctOption ? '#2B6B3D' : '#F0EDE8',
-                  color: isAnswered && opt.key === current.correctOption ? '#FFFFFF' : '#666',
-                  display: 'flex',
+                  width: '34px',
+                  height: '34px',
+                  borderRadius: '10px',
+                  background: keyBg,
+                  color: keyColor,
+                  display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '0.85rem',
+                  fontFamily: 'var(--font-mono, monospace)',
                   fontWeight: 800,
-                  marginRight: '0.85rem',
+                  fontSize: '0.88rem',
                   flexShrink: 0,
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
+                }}
+              >
+                [{opt.num}]
+              </span>
+
+              <span
+                style={{
+                  fontFamily: 'var(--font-mincho, "Shippori Mincho", serif)',
+                  fontSize: '1.15rem',
+                  fontWeight: 600,
+                  lineHeight: 1.4,
+                  flex: 1,
+                }}
+              >
+                {opt.text}
+              </span>
+
+              <span
+                style={{
+                  fontSize: '0.78rem',
+                  fontWeight: 800,
+                  color: isAnswered && isCorrect ? '#2A6B3D' : '#8B7B6D',
+                  fontFamily: 'var(--font-maru, sans-serif)',
                 }}
               >
                 {opt.key}
               </span>
-              <span style={{ flex: 1 }}>{opt.text}</span>
             </button>
           );
         })}
       </div>
 
-      {/* Answer Explanation Box (Appears after answer) */}
-      {isAnswered && (
-        <div
-          style={{
-            background: selectedOption === current.correctOption ? '#F1F8E9' : '#FFF3E0',
-            border: `1.5px solid ${selectedOption === current.correctOption ? '#88A752' : '#FF9800'}`,
-            borderRadius: '14px',
-            padding: '1.25rem',
-            marginBottom: '1.5rem',
-            animation: 'fadeIn 0.2s ease',
-          }}
-        >
+      {/* VIS-PRAC-02: Zero-CLS Pedagogical Explanation Box */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateRows: isAnswered ? '1fr' : '0fr',
+          transition: 'grid-template-rows 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease',
+          opacity: isAnswered ? 1 : 0,
+          overflow: 'hidden',
+        }}
+      >
+        <div style={{ minHeight: 0 }}>
           <div
             style={{
-              fontWeight: 800,
-              fontSize: '1rem',
-              color: selectedOption === current.correctOption ? '#2B6B3D' : '#E65100',
-              marginBottom: '0.4rem',
+              background: selectedOption === current.correctOption ? 'rgba(240, 249, 242, 0.95)' : 'rgba(255, 242, 240, 0.95)',
+              border: `1.5px solid ${selectedOption === current.correctOption ? '#2A6B3D' : '#C83824'}`,
+              borderRadius: '16px',
+              padding: '1.25rem 1.4rem',
+              marginBottom: '1.5rem',
+              boxShadow: '0 4px 16px rgba(0,0,0,0.04)',
             }}
           >
-            {selectedOption === current.correctOption ? '✨ CHÍNH XÁC (正解)!' : '❌ CHƯA CHÍNH XÁC'}
-          </div>
-
-          <div style={{ fontSize: '0.9rem', color: '#333', lineHeight: 1.5, marginBottom: '0.5rem' }}>
-            {current.explanationVi || 'Đáp án đúng theo quy tắc ngữ pháp.'}
-          </div>
-
-          {current.explanationJa && (
-            <div style={{ fontSize: '0.8rem', color: '#666', fontStyle: 'italic' }}>
-              {current.explanationJa}
-            </div>
-          )}
-
-          <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'flex-end' }}>
-            <button
-              onClick={handleNext}
+            <div
               style={{
-                padding: '0.75rem 1.5rem',
-                background: '#1B4268',
-                color: '#FFFFFF',
-                borderRadius: '10px',
-                border: 'none',
-                fontWeight: 700,
-                fontSize: '0.95rem',
-                cursor: 'pointer',
-                display: 'inline-flex',
+                fontWeight: 800,
+                fontSize: '1rem',
+                color: selectedOption === current.correctOption ? '#2A6B3D' : '#C83824',
+                marginBottom: '0.5rem',
+                display: 'flex',
                 alignItems: 'center',
-                gap: '0.4rem',
-                boxShadow: '0 3px 10px rgba(27, 66, 104, 0.2)',
+                gap: '0.45rem',
               }}
             >
-              <span>{currentIndex + 1 < total ? 'Câu tiếp theo ➔' : 'Xem kết quả ➔'}</span>
-            </button>
+              <span>{selectedOption === current.correctOption ? '✨ 正解 (Chính xác)!' : '❌ Chưa chính xác'}</span>
+            </div>
+
+            <div style={{ fontSize: '0.92rem', color: '#122438', lineHeight: 1.6, marginBottom: '0.65rem' }}>
+              <strong>🏮 Giải thích: </strong>
+              {current.explanationVi || 'Đáp án chính xác theo quy tắc ngữ pháp của bài học.'}
+            </div>
+
+            {current.explanationJa && (
+              <div style={{ fontSize: '0.84rem', color: '#666', fontStyle: 'italic', fontFamily: 'var(--font-mincho, serif)' }}>
+                {current.explanationJa}
+              </div>
+            )}
+
+            <div style={{ marginTop: '1.15rem', display: 'flex', justifyContent: 'flex-end' }}>
+              <button
+                type="button"
+                onClick={handleNext}
+                style={{
+                  padding: '0.8rem 1.6rem',
+                  background: '#1B4268',
+                  color: '#FFFFFF',
+                  borderRadius: '12px',
+                  border: 'none',
+                  fontWeight: 800,
+                  fontSize: '0.95rem',
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  boxShadow: '0 4px 14px rgba(27, 66, 104, 0.25)',
+                  transition: 'all 0.2s ease',
+                }}
+              >
+                <span>{currentIndex + 1 < total ? 'Câu tiếp theo (Enter) ➔' : 'Xem kết quả ➔'}</span>
+              </button>
+            </div>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
