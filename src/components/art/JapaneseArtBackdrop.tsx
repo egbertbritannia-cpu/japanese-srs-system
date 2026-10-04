@@ -17,7 +17,7 @@ export interface JapaneseArtBackdropProps {
 
 // VIS-SYS-03: Contrast filter presets (Wabi-Sabi tonal shift + saturation calibration)
 const CONTRAST_FILTER_MAP: Record<string, string> = {
-  none:   'none',
+  none: 'none',
   subtle: 'contrast(1.05) saturate(0.88) brightness(0.97)',
   medium: 'contrast(1.12) saturate(0.78) brightness(0.93)',
   strong: 'contrast(1.22) saturate(0.65) brightness(0.88)',
@@ -37,7 +37,7 @@ const CONTRAST_FILTER_MAP: Record<string, string> = {
 export function JapaneseArtBackdrop({
   src,
   alt,
-  opacity = 0.2,
+  opacity = 0.9,
   blendMode = 'multiply',
   objectFit = 'cover',
   objectPosition = 'center',

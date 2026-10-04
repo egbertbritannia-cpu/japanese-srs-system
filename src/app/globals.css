@@ -3,70 +3,110 @@
    ========================================================================== */
 
 :root {
-  /* --- BẢNG MÀU TRUYỀN THỐNG NHẬT BẢN TƯƠI SÁNG (NIPPON COLORS) --- */
-  --washi-bg:          #FAF8F5; /* Giấy dó Washi truyền thống */
-  --washi-surface:     #FFFFFF; /* Bề mặt thẻ trắng ngà */
-  --washi-card:        #FCFBF9; /* Thẻ bài thủ công */
-  --washi-border:      #E8E2D8; /* Đường viền nhẹ */
-  --washi-border-soft: #F2ECE3;
+  /* --- 1. NHÓM GIẤY DÓ & NỀN THIỀN ĐỊNH (Torinoko Washi Canvas Base) --- */
+  --washi-base:          #F7F4EB; /* Nền chính toàn trang (êm dịu thị giác, chống lóa) */
+  --washi-bg:            #F7F4EB;
+  --washi-card:          #FAF8F2; /* Bề mặt thẻ bài học, card nội dung nổi */
+  --washi-surface:       #FAF8F2;
+  --washi-deep:          #EFEAE0; /* Nền phụ, ô input, thanh breadcrumb, bãi cát Zen */
+  --washi-sunken:        #E7E0D2; /* Trạng thái hover sâu, viền khối nhúng */
+  --washi-border:        #DFD9CB; /* Đường kẻ chia cắt, khung viền thanh mảnh */
+  --washi-border-soft:   #EBE5D8; /* Viền phụ rất mờ cho danh sách chi tiết */
+  --washi-subtle:        #EBE5D8;
 
-  /* Xanh Matcha & Sóng Seigaiha chuẩn ảnh người dùng */
-  --matcha-primary:    #88A752;
-  --matcha-deep:       #6E8A3C;
-  --matcha-light:      #A3C16F;
-  --matcha-subtle:     #EBF2DF;
-  --matcha-tint:       #F5F8EE;
+  /* --- 2. NHÓM MỰC MÀI THƯ PHÁP (Sumi Ink Hierarchy) --- */
+  --sumi-deep:           #1A1918; /* Nồng Mặc (濃墨) - Tiêu đề H1/H2, chữ Kanji lớn, Logo */
+  --sumi-ink:            #1A1918;
+  --sumi-body:           #47433E; /* Trung Mặc (中墨) - Đoạn văn bản đọc, công thức câu */
+  --sumi-charcoal:       #47433E;
+  --sumi-faint:          #878278; /* Đạm Mặc (淡墨) - Nhãn phụ, timestamp, Furigana rt, shortcut */
+  --sumi-faded:          #878278;
+  --sumi-ghost:          #BCB7AC; /* Mặc tàn - Placeholder, icon vô hiệu hóa */
+  --sumi-water:          #BCB7AC;
 
-  /* Đỏ son Torii & Dấu ấn Inkan */
-  --torii-red:         #D9381E;
-  --torii-hover:       #B82C15;
-  --torii-subtle:      #FCEEEA;
-  --torii-glow:        rgba(217, 56, 30, 0.25);
+  /* --- 3. NHÓM ĐỎ KHOÁNG THẠCH CHU SA & SƠN MÀI (Bengara & Urushi Torii) --- */
+  --bengara-red:         #9E3223; /* Màu hành động chính (CTA Ôn tập, nút bấm Torii) */
+  --bengara:             #9E3223;
+  --bengara-hover:       #83271A; /* Trạng thái hover / active khi nhấn */
+  --bengara-soft:        #FDF2F0; /* Nền phụ mỏng cho badge đến hạn, tag cảnh báo */
+  --bengara-border:      #E8A99F; /* Viền thẻ trạng thái FSRS Again [1] */
+  --bengara-hanko:       rgba(158, 50, 35, 0.08); /* Màu đổ bóng con dấu triện Hanko */
+  --torii-red:           #9E3223;
+  --torii-hover:         #83271A;
+  --torii-subtle:        #FDF2F0;
+  --torii-glow:          rgba(158, 50, 35, 0.25);
+
+  /* --- 4. NHÓM LAM CHÀM SAMURAI (Aizome & Kachiiro) --- */
+  --aizome-navy:         #16253B; /* Khối bài học cao cấp JPD133, banner ngữ pháp */
+  --aizome:              #16253B;
+  --aizome-surface:      #203450; /* Nền button phụ trong card chàm, hover */
+  --aizome-soft:         #EDF2F7; /* Nền tag mẫu câu N4, N3, tag [3] Good */
+  --aizome-border:       #BDCCDC; /* Viền cho trạng thái hồi tưởng Tốt */
+  --aizome-textLight:    #F0F4F8; /* Văn bản tương phản cao trên nền chàm */
+  --indigo-deep:         #16253B;
+
+  /* --- 5. NHÓM VÀNG KIM TRẦM & THẾP VÀNG KINTSUGI (Kincha & Kogane) --- */
+  --kincha-gold:         #AF7E36; /* Đường nứt Kintsugi, badge thuật toán FSRS */
+  --kincha:              #AF7E36;
+  --kincha-shimmer:      #D6A657; /* Ánh sáng phát quang khi nối thẻ thành công */
+  --kincha-soft:         #FBF5E8; /* Nền khối thẻ Khó [2], tag số lượng */
+  --kincha-border:       #E5CCA0; /* Viền thẻ đánh giá [2] FSRS Hard */
+  --kintsugi-gold:       #AF7E36;
+  --yamabuki-gold:       #AF7E36;
+  --yamabuki-light:      #FBF5E8;
+  --yamabuki-amber:      #AF7E36;
+
+  /* --- 6. NHÓM XANH RÊU THIỀN VIỆN & TRÀ ĐẠO (Koke-iro & Matcha) --- */
+  --koke-green:          #485642; /* Nút thêm thẻ mới, trạng thái hoàn thành Dễ [4] */
+  --koke:                #485642;
+  --koke-matcha:         #697858; /* Thẻ tag tích cực, biểu tượng tiết khí mùa */
+  --koke-soft:           #EFF4EE; /* Nền nhẹ cho thẻ 0 đến hạn, badge thành công */
+  --koke-border:         #C6D8C4; /* Viền đánh giá FSRS Easy [4] */
+  --matcha-primary:      #697858;
+  --matcha-deep:         #485642;
+  --matcha-light:        #8B9E78;
+  --matcha-subtle:       #EFF4EE;
+  --matcha-tint:         #F7FAF6;
 
   /* Hoa anh đào Sakura */
-  --sakura-pink:       #F472B6;
-  --sakura-petal:      #FFB7C5;
-  --sakura-light:      #FFF0F5;
-  --sakura-deep:       #DB2777;
+  --sakura-pink:         #E89DA8;
+  --sakura-petal:        #F5CED3;
+  --sakura-light:        #FDF5F6;
+  --sakura-deep:         #C26372;
 
-  /* Vàng kim Yamabuki */
-  --yamabuki-gold:     #F59E0B;
-  --yamabuki-light:    #FEF3C7;
-  --yamabuki-amber:    #D97706;
-
-  /* Mực Nho Sumi-iro */
-  --sumi-ink:          #1F2421;
-  --sumi-charcoal:     #3B433E;
-  --sumi-faded:        #717C75;
-  --sumi-water:        #9FAAA3;
+  /* --- 7. FSRS FUNCTIONAL SYSTEM --- */
+  --fsrs-again:          var(--bengara-red);
+  --fsrs-hard:           var(--kincha-gold);
+  --fsrs-good:           var(--aizome-navy);
+  --fsrs-easy:           var(--koke-green);
 
   /* Đổ bóng đa tầng Ambient Depth (High-Aesthetic Designer Skill) */
-  --shadow-washi-sm:   0 1px 3px rgba(31, 36, 33, 0.04), 0 1px 2px rgba(31, 36, 33, 0.02);
-  --shadow-washi-md:   0 4px 6px -1px rgba(31, 36, 33, 0.05), 0 2px 4px -2px rgba(31, 36, 33, 0.03);
-  --shadow-washi-lg:   0 10px 25px -5px rgba(31, 36, 33, 0.06), 0 8px 10px -6px rgba(31, 36, 33, 0.04);
-  --shadow-karuta:     0 12px 32px -4px rgba(112, 141, 62, 0.12), 0 4px 12px -2px rgba(31, 36, 33, 0.04);
-  --shadow-ambient-high: 0 1px 2px 0 rgba(18, 36, 56, 0.05), 0 10px 25px -5px rgba(18, 36, 56, 0.08), 0 20px 48px -12px rgba(18, 36, 56, 0.12);
-  --shadow-ambient-glow: 0 0 0 1px rgba(200, 155, 88, 0.25), 0 14px 36px -6px rgba(200, 155, 88, 0.18);
-  --shadow-hover-lift: 0 1px 3px 0 rgba(18, 36, 56, 0.06), 0 14px 30px -4px rgba(18, 36, 56, 0.12);
+  --shadow-washi-sm:   0 1px 3px rgba(26, 25, 24, 0.04), 0 1px 2px rgba(26, 25, 24, 0.02);
+  --shadow-washi-md:   0 4px 6px -1px rgba(26, 25, 24, 0.05), 0 2px 4px -2px rgba(26, 25, 24, 0.03);
+  --shadow-washi-lg:   0 10px 25px -5px rgba(26, 25, 24, 0.06), 0 8px 10px -6px rgba(26, 25, 24, 0.04);
+  --shadow-karuta:     0 12px 32px -4px rgba(72, 86, 66, 0.12), 0 4px 12px -2px rgba(26, 25, 24, 0.04);
+  --shadow-ambient-high: 0 1px 2px 0 rgba(22, 37, 59, 0.05), 0 10px 25px -5px rgba(22, 37, 59, 0.08), 0 20px 48px -12px rgba(22, 37, 59, 0.12);
+  --shadow-ambient-glow: 0 0 0 1px rgba(175, 126, 54, 0.25), 0 14px 36px -6px rgba(175, 126, 54, 0.18);
+  --shadow-hover-lift: 0 1px 3px 0 rgba(22, 37, 59, 0.06), 0 14px 30px -4px rgba(22, 37, 59, 0.12);
   
   /* Micro-borders & Glass Sheen (Figma Design Bridge Token Scale) */
-  --border-micro: 1px solid rgba(18, 36, 56, 0.08);
-  --border-micro-gold: 1.2px solid rgba(200, 155, 88, 0.35);
+  --border-micro: 1px solid rgba(22, 37, 59, 0.08);
+  --border-micro-gold: 1.2px solid rgba(175, 126, 54, 0.35);
   --border-micro-sheen: 1px solid rgba(255, 255, 255, 0.28);
 
   /* --- OKLCH COLOR HARMONY TOKENS (HIGH-AESTHETIC-DESIGNER SCALE - VIS-SYS-02) --- */
-  --oklch-washi-base:       oklch(0.985 0.008 85.0);
-  --oklch-washi-surface:    oklch(0.995 0.003 85.0);
-  --oklch-sumi-ink:         oklch(0.220 0.015 220.0);
-  --oklch-sumi-muted:       oklch(0.480 0.020 80.0);
-  --oklch-torii-vermilion:  oklch(0.560 0.220 32.0);
-  --oklch-torii-glow:       oklch(0.560 0.220 32.0 / 0.22);
-  --oklch-matcha-green:     oklch(0.680 0.140 135.0);
-  --oklch-matcha-deep:      oklch(0.450 0.120 138.0);
-  --oklch-indigo-deep:      oklch(0.320 0.080 245.0);
-  --oklch-kintsugi-gold:    oklch(0.740 0.140 75.0);
-  --oklch-kintsugi-glow:    oklch(0.740 0.140 75.0 / 0.25);
-  --oklch-sakura-mist:      oklch(0.880 0.060 350.0);
+  --oklch-washi-base:       oklch(0.965 0.012 85.0);
+  --oklch-washi-surface:    oklch(0.978 0.008 85.0);
+  --oklch-sumi-ink:         oklch(0.180 0.008 55.0);
+  --oklch-sumi-muted:       oklch(0.550 0.012 75.0);
+  --oklch-torii-vermilion:  oklch(0.480 0.160 28.0);
+  --oklch-torii-glow:       oklch(0.480 0.160 28.0 / 0.22);
+  --oklch-matcha-green:     oklch(0.520 0.065 125.0);
+  --oklch-matcha-deep:      oklch(0.420 0.055 128.0);
+  --oklch-indigo-deep:      oklch(0.240 0.045 245.0);
+  --oklch-kintsugi-gold:    oklch(0.580 0.115 72.0);
+  --oklch-kintsugi-glow:    oklch(0.580 0.115 72.0 / 0.25);
+  --oklch-sakura-mist:      oklch(0.780 0.065 15.0);
 
   /* Fluid Editorial Kanji Typography Clamps (VIS-SYS-01) */
   --text-kanji-massive:  clamp(3.5rem, 8vw, 6.2rem);
@@ -117,9 +157,9 @@ html, body {
 
 /* --- HỌA TIẾT TRUYỀN THỐNG WAGARA --- */
 
-/* 1. Sóng Seigaiha chuẩn màu xanh Matcha #88A752 (Khớp 100% Ảnh chụp người dùng) */
+/* 1. Sóng Seigaiha chuẩn màu xanh Matcha #697858 (Khớp 100% Bộ mã màu Dentōshoku) */
 .wagara-seigaiha-matcha {
-  background-color: #88a752;
+  background-color: var(--koke-matcha);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='32' viewBox='0 0 64 32'%3E%3Cpath d='M0 32 A32 32 0 0 1 64 32 M6 32 A26 26 0 0 1 58 32 M12 32 A20 20 0 0 1 52 32 M18 32 A14 14 0 0 1 46 32 M24 32 A8 8 0 0 1 40 32 M-32 16 A32 32 0 0 1 32 16 M-26 16 A26 26 0 0 1 26 16 M-20 16 A20 20 0 0 1 20 16 M-14 16 A14 14 0 0 1 14 16 M-8 16 A8 8 0 0 1 8 16 M32 16 A32 32 0 0 1 96 16 M38 16 A26 26 0 0 1 90 16 M44 16 A20 20 0 0 1 84 16 M50 16 A14 14 0 0 1 78 16 M56 16 A8 8 0 0 1 72 16 M0 0 A32 32 0 0 1 64 0 M6 0 A26 26 0 0 1 58 0 M12 0 A20 20 0 0 1 52 0 M18 0 A14 14 0 0 1 46 0 M24 0 A8 8 0 0 1 40 0' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E");
   background-size: 64px 32px;
 }
@@ -127,20 +167,20 @@ html, body {
 /* 2. Sóng Seigaiha mờ nhạt làm nền thẻ & Hero banner */
 .wagara-seigaiha-subtle {
   background-color: var(--washi-surface);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='32' viewBox='0 0 64 32'%3E%3Cpath d='M0 32 A32 32 0 0 1 64 32 M6 32 A26 26 0 0 1 58 32 M12 32 A20 20 0 0 1 52 32 M18 32 A14 14 0 0 1 46 32 M24 32 A8 8 0 0 1 40 32 M-32 16 A32 32 0 0 1 32 16 M-26 16 A26 26 0 0 1 26 16 M-20 16 A20 20 0 0 1 20 16 M-14 16 A14 14 0 0 1 14 16 M-8 16 A8 8 0 0 1 8 16 M32 16 A32 32 0 0 1 96 16 M38 16 A26 26 0 0 1 90 16 M44 16 A20 20 0 0 1 84 16 M50 16 A14 14 0 0 1 78 16 M56 16 A8 8 0 0 1 72 16 M0 0 A32 32 0 0 1 64 0 M6 0 A26 26 0 0 1 58 0 M12 0 A20 20 0 0 1 52 0 M18 0 A14 14 0 0 1 46 0 M24 0 A8 8 0 0 1 40 0' fill='none' stroke='rgba(136, 167, 82, 0.14)' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='32' viewBox='0 0 64 32'%3E%3Cpath d='M0 32 A32 32 0 0 1 64 32 M6 32 A26 26 0 0 1 58 32 M12 32 A20 20 0 0 1 52 32 M18 32 A14 14 0 0 1 46 32 M24 32 A8 8 0 0 1 40 32 M-32 16 A32 32 0 0 1 32 16 M-26 16 A26 26 0 0 1 26 16 M-20 16 A20 20 0 0 1 20 16 M-14 16 A14 14 0 0 1 14 16 M-8 16 A8 8 0 0 1 8 16 M32 16 A32 32 0 0 1 96 16 M38 16 A26 26 0 0 1 90 16 M44 16 A20 20 0 0 1 84 16 M50 16 A14 14 0 0 1 78 16 M56 16 A8 8 0 0 1 72 16 M0 0 A32 32 0 0 1 64 0 M6 0 A26 26 0 0 1 58 0 M12 0 A20 20 0 0 1 52 0 M18 0 A14 14 0 0 1 46 0 M24 0 A8 8 0 0 1 40 0' fill='none' stroke='rgba(105, 120, 88, 0.14)' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
   background-size: 64px 32px;
 }
 
 /* 3. Vân lông tên Yagasuri */
 .wagara-yagasuri {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cpath d='M0 0 L20 20 L40 0 L40 20 L20 40 L0 20 Z' fill='rgba(136, 167, 82, 0.25)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cpath d='M0 0 L20 20 L40 0 L40 20 L20 40 L0 20 Z' fill='rgba(105, 120, 88, 0.25)'/%3E%3C/svg%3E");
   background-size: 20px 20px;
 }
 
 /* 4. Vân giấy dó Washi */
 .washi-paper-bg {
   background-color: var(--washi-bg);
-  background-image: radial-gradient(#E8E2D8 0.75px, transparent 0.75px), radial-gradient(#F0EAE1 0.75px, #FAF8F5 0.75px);
+  background-image: radial-gradient(#E8E2D8 0.75px, transparent 0.75px), radial-gradient(#F0EAE1 0.75px, #FAF8F2 0.75px);
   background-size: 28px 28px;
   background-position: 0 0, 14px 14px;
 }
@@ -152,7 +192,7 @@ html, body {
   justify-content: center;
   gap: 0.5rem;
   padding: 0.85rem 1.75rem;
-  background: linear-gradient(135deg, #E64A19 0%, #D9381E 100%);
+  background: linear-gradient(135deg, var(--bengara-red) 0%, var(--bengara-hover) 100%);
   color: #FFFFFF;
   border: none;
   border-radius: 10px;
@@ -160,14 +200,14 @@ html, body {
   font-weight: 700;
   font-size: 1rem;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(217, 56, 30, 0.35);
+  box-shadow: 0 4px 14px rgba(158, 50, 35, 0.35);
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none;
 }
 .btn-torii:hover {
-  background: linear-gradient(135deg, #D9381E 0%, #B82C15 100%);
+  background: linear-gradient(135deg, var(--bengara-hover) 0%, #6E1F14 100%);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(217, 56, 30, 0.45);
+  box-shadow: 0 6px 20px rgba(158, 50, 35, 0.45);
 }
 .btn-torii:active {
   transform: translateY(0);
@@ -180,7 +220,7 @@ html, body {
   gap: 0.5rem;
   padding: 0.85rem 1.75rem;
   background: var(--washi-surface);
-  color: var(--sumi-charcoal);
+  color: var(--sumi-body);
   border: 1px solid var(--washi-border);
   border-radius: 10px;
   font-family: var(--font-maru), sans-serif;
@@ -192,9 +232,9 @@ html, body {
   text-decoration: none;
 }
 .btn-washi:hover {
-  background: #FFFFFF;
-  border-color: var(--matcha-primary);
-  color: var(--matcha-deep);
+  background: var(--washi-surface);
+  border-color: var(--kincha-gold);
+  color: var(--sumi-deep);
   transform: translateY(-1px);
   box-shadow: var(--shadow-washi-md);
 }
@@ -205,7 +245,7 @@ html, body {
   justify-content: center;
   gap: 0.5rem;
   padding: 0.85rem 1.75rem;
-  background: linear-gradient(135deg, #88A752 0%, #708D3E 100%);
+  background: linear-gradient(135deg, var(--koke-matcha) 0%, var(--koke-green) 100%);
   color: #FFFFFF;
   border: none;
   border-radius: 10px;
@@ -213,13 +253,13 @@ html, body {
   font-weight: 700;
   font-size: 1rem;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(112, 141, 62, 0.3);
+  box-shadow: 0 4px 14px rgba(72, 86, 66, 0.3);
   transition: all 0.25s ease;
   text-decoration: none;
 }
 .btn-matcha:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(112, 141, 62, 0.4);
+  box-shadow: 0 6px 18px rgba(72, 86, 66, 0.4);
 }
 
 /* --- THẺ BÀI KARUTA (HYAKUNIN ISSHU CARD) --- */
@@ -233,7 +273,7 @@ html, body {
   overflow: hidden;
 }
 .card-karuta:hover {
-  border-color: var(--matcha-primary);
+  border-color: var(--kincha-gold);
   box-shadow: var(--shadow-karuta);
   transform: translateY(-3px);
 }
@@ -244,8 +284,8 @@ html, body {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #88A752, #A3C16F, #D9381E);
-  opacity: 0.8;
+  background: linear-gradient(90deg, var(--koke-matcha), var(--kincha-gold), var(--bengara-red));
+  opacity: 0.85;
 }
 
 /* --- HOẠT HỌA CÁNH HOA SAKURA --- */
@@ -315,14 +355,14 @@ html, body {
   justify-content: center;
   width: 42px;
   height: 42px;
-  border: 2px solid var(--torii-red);
+  border: 2px solid var(--bengara-red);
   border-radius: 6px;
-  color: var(--torii-red);
+  color: var(--bengara-red);
   font-family: var(--font-mincho), serif;
   font-weight: 800;
   font-size: 1.25rem;
-  background: rgba(217, 56, 30, 0.05);
-  box-shadow: inset 0 0 0 1px rgba(217, 56, 30, 0.3);
+  background: var(--bengara-hanko);
+  box-shadow: inset 0 0 0 1px rgba(158, 50, 35, 0.3);
   animation: inkanStamp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
@@ -337,9 +377,9 @@ html, body {
 
 /* 1. Hinomaru Disc: Crimson Rising Sun Accent */
 .hinomaru-disc {
-  background: radial-gradient(circle at 35% 35%, #EF4444 0%, #D9381E 65%, #B82C15 100%);
+  background: radial-gradient(circle at 35% 35%, #B83B2C 0%, var(--bengara-red) 65%, var(--bengara-hover) 100%);
   border-radius: 9999px;
-  box-shadow: 0 4px 16px rgba(217, 56, 30, 0.35);
+  box-shadow: 0 4px 16px rgba(158, 50, 35, 0.35);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -365,14 +405,14 @@ html, body {
   position: relative;
   border-radius: 12px;
   overflow: hidden;
-  border: 2px solid #D4AF37;
-  box-shadow: 0 8px 24px rgba(31, 36, 33, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
-  background: #1F2421;
+  border: 2px solid var(--kincha-gold);
+  box-shadow: 0 8px 24px rgba(26, 25, 24, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  background: var(--sumi-deep);
 }
 
 /* 4. Kifuda Tablet Card (Thẻ gỗ đền thần đạo & trà thất) */
 .card-kifuda {
-  background: #FFFFFF;
+  background: var(--washi-card);
   border: 1.5px solid var(--washi-border);
   border-radius: 14px;
   box-shadow: var(--shadow-washi-md);
@@ -382,17 +422,17 @@ html, body {
 }
 .card-kifuda:hover {
   transform: translateY(-4px);
-  border-color: var(--matcha-primary);
-  box-shadow: 0 12px 28px -4px rgba(112, 141, 62, 0.22);
+  border-color: var(--kincha-gold);
+  box-shadow: 0 12px 28px -4px rgba(175, 126, 54, 0.22);
 }
 
 /* 5. Authentic Hyakunin Isshu Karuta Card (Thẻ bài thơ cổ lót lụa) */
 .card-hyakunin-isshu {
-  background: #FCFBF7;
-  border: 3px solid #1E3A8A;
-  outline: 1.5px solid #D4AF37;
+  background: var(--washi-card);
+  border: 2.5px solid var(--aizome-navy);
+  outline: 1.5px solid var(--kincha-gold);
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(30, 58, 138, 0.18), inset 0 0 0 1px rgba(212, 175, 55, 0.4);
+  box-shadow: 0 10px 30px rgba(22, 37, 59, 0.18), inset 0 0 0 1px rgba(175, 126, 54, 0.4);
   position: relative;
   transition: all 0.3s ease;
 }
@@ -408,8 +448,8 @@ html, body {
 
 /* 7. Gold Leaf Foil Flecks (Dát vàng mạ kim Kin-paku) */
 .kinpaku-border {
-  border: 1.5px solid #F59E0B;
-  box-shadow: 0 0 8px rgba(245, 158, 11, 0.25);
+  border: 1.5px solid var(--kincha-gold);
+  box-shadow: 0 0 8px rgba(175, 126, 54, 0.25);
 }
 
 /* ==========================================================================
@@ -419,20 +459,20 @@ html, body {
 
 /* 8. Hikifuda Advertising Card (引札 · Áp phích thương mại mộc bản thời Minh Trị/Đại Chính) */
 .card-hikifuda {
-  background: #FCFBF7;
-  border: 2px solid #BC002D;
-  outline: 2px solid #D4AF37;
+  background: var(--washi-card);
+  border: 2px solid var(--bengara-red);
+  outline: 2px solid var(--kincha-gold);
   outline-offset: -5px;
   border-radius: 12px;
-  box-shadow: 0 10px 28px rgba(31, 29, 26, 0.08), 0 2px 6px rgba(188, 0, 45, 0.06);
+  box-shadow: 0 10px 28px rgba(26, 25, 24, 0.08), 0 2px 6px rgba(158, 50, 35, 0.06);
   position: relative;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .card-hikifuda:hover {
   transform: translateY(-4px);
-  box-shadow: 0 16px 36px rgba(188, 0, 45, 0.16), 0 4px 12px rgba(212, 175, 55, 0.2);
-  outline-color: #F59E0B;
+  box-shadow: 0 16px 36px rgba(158, 50, 35, 0.16), 0 4px 12px rgba(175, 126, 54, 0.2);
+  outline-color: var(--kincha-shimmer);
 }
 
 /* 9. Tate-gaki Framed Box (Khung triện dọc 「日本の広告」 như trên slide 4 & 7) */
@@ -443,9 +483,9 @@ html, body {
   font-family: var(--font-mincho), serif;
   font-weight: 800;
   padding: 0.75rem 0.35rem;
-  border: 1.5px solid #BC002D;
-  background: rgba(255, 253, 248, 0.95);
-  box-shadow: 0 2px 8px rgba(188, 0, 45, 0.1);
+  border: 1.5px solid var(--bengara-red);
+  background: rgba(250, 248, 242, 0.95);
+  box-shadow: 0 2px 8px rgba(158, 50, 35, 0.1);
   border-radius: 3px;
   display: inline-flex;
   align-items: center;
@@ -458,14 +498,14 @@ html, body {
   align-items: center;
   gap: 0.25rem;
   padding: 0.2rem 0.65rem;
-  background: #BC002D;
+  background: var(--bengara-red);
   color: #FFFFFF;
   font-family: var(--font-mincho), serif;
   font-size: 0.75rem;
   font-weight: 800;
   border-radius: 3px;
   letter-spacing: 0.08em;
-  box-shadow: 0 2px 6px rgba(188, 0, 45, 0.25);
+  box-shadow: 0 2px 6px rgba(158, 50, 35, 0.25);
 }
 
 /* 11. Responsive rules for Japanese Poster Background */
@@ -489,12 +529,12 @@ html, body {
 
 /* 1. KHUNG HERO BẦU TRỜI ĐÊM AIZOME */
 .kirie-hero-wrapper {
-  background: linear-gradient(180deg, #0A1C33 0%, #132F52 55%, #1E436E 100%);
+  background: linear-gradient(180deg, #101B2B 0%, var(--aizome-navy) 55%, var(--aizome-surface) 100%);
   border-radius: 24px;
   overflow: hidden;
   position: relative;
   color: #FFFFFF;
-  box-shadow: 0 14px 36px rgba(10, 28, 51, 0.25);
+  box-shadow: 0 14px 36px rgba(22, 37, 59, 0.25);
   margin-bottom: 1.5rem;
 }
 
@@ -535,12 +575,12 @@ html, body {
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: #F9F6F0;
-  border: 2px solid #D4AF37;
+  background: var(--washi-card);
+  border: 2px solid var(--kincha-gold);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #122438;
+  color: var(--aizome-navy);
   font-family: var(--font-mincho), serif;
   font-size: 1.15rem;
   font-weight: 800;
@@ -570,21 +610,21 @@ html, body {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #D9CEB4;
+  background: var(--washi-sunken);
   transition: all 0.2s ease;
 }
 
 .kirie-dot.active {
-  background: #1B4268;
+  background: var(--aizome-navy);
   transform: scale(1.15);
 }
 
 .kirie-kpi-card {
-  background: #FAF6EE;
-  border: 1.2px solid #E6DDCF;
+  background: var(--washi-card);
+  border: 1.2px solid var(--washi-border);
   border-radius: 16px;
   padding: 1.1rem 0.9rem 1.3rem;
-  box-shadow: 0 4px 12px rgba(45, 35, 20, 0.07), 0 1px 3px rgba(45, 35, 20, 0.04);
+  box-shadow: 0 4px 12px rgba(26, 25, 24, 0.05), 0 1px 3px rgba(26, 25, 24, 0.03);
   position: relative;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -594,15 +634,15 @@ html, body {
 
 .kirie-kpi-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 24px -4px rgba(18, 36, 56, 0.12);
-  border-color: #D4AF37;
+  box-shadow: 0 10px 24px -4px rgba(22, 37, 59, 0.12);
+  border-color: var(--kincha-gold);
 }
 
 .kirie-kpi-label {
   font-family: var(--font-sans), sans-serif;
   font-size: 0.84rem;
   font-weight: 600;
-  color: #122438;
+  color: var(--sumi-deep);
   margin-bottom: 0.35rem;
 }
 
@@ -614,14 +654,14 @@ html, body {
   margin-bottom: 0.35rem;
 }
 
-.number-blue { color: #20527D; }
-.number-gold { color: #B8853C; }
-.number-green { color: #2B6B3D; }
+.number-blue { color: var(--aizome-navy); }
+.number-gold { color: var(--kincha-gold); }
+.number-green { color: var(--koke-green); }
 
 .kirie-kpi-desc {
   font-family: var(--font-sans), sans-serif;
   font-size: 0.74rem;
-  color: #544538;
+  color: var(--sumi-body);
   margin: 0;
   line-height: 1.25;
 }
@@ -638,7 +678,7 @@ html, body {
   font-family: var(--font-sans), sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
-  color: #122438;
+  color: var(--sumi-deep);
   letter-spacing: -0.01em;
   white-space: nowrap;
 }
@@ -646,7 +686,7 @@ html, body {
 .kirie-wave-divider-line {
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, #D4AF37 0%, rgba(212, 175, 55, 0.5) 85%, transparent 100%);
+  background: linear-gradient(90deg, var(--kincha-gold) 0%, rgba(175, 126, 54, 0.5) 85%, transparent 100%);
   position: relative;
 }
 
@@ -666,14 +706,14 @@ html, body {
 }
 
 .kirie-task-item {
-  background: #FAF8F2;
-  border: 1.2px solid #E8E0D2;
+  background: var(--washi-card);
+  border: 1.2px solid var(--washi-border);
   border-radius: 12px;
   padding: 1.1rem 1.4rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 2px 6px rgba(18, 36, 56, 0.03);
+  box-shadow: 0 2px 6px rgba(22, 37, 59, 0.03);
   position: relative;
   overflow: hidden;
   transition: all 0.25s ease;
@@ -682,10 +722,10 @@ html, body {
 }
 
 .kirie-task-item:hover {
-  background: #FFFFFF;
-  border-color: #D4AF37;
+  background: var(--washi-card);
+  border-color: var(--kincha-gold);
   transform: translateX(4px);
-  box-shadow: 0 4px 14px rgba(18, 36, 56, 0.08);
+  box-shadow: 0 4px 14px rgba(22, 37, 59, 0.08);
 }
 
 /* Vạch sơn mài đứng bên trái (Left Vertical Bar) */
@@ -698,17 +738,17 @@ html, body {
   border-radius: 4px 0 0 4px;
 }
 
-.bar-navy   { background: #1E4B75; }
-.bar-denim  { background: #3E75A1; }
-.bar-gold   { background: #C89B58; }
-.bar-matcha { background: #3D7A4D; }
-.bar-torii  { background: #C83824; }
+.bar-navy   { background: var(--aizome-navy); }
+.bar-denim  { background: var(--aizome-surface); }
+.bar-gold   { background: var(--kincha-gold); }
+.bar-matcha { background: var(--koke-green); }
+.bar-torii  { background: var(--bengara-red); }
 
 .kirie-task-text {
   font-family: var(--font-maru), sans-serif;
   font-weight: 700;
   font-size: 1.05rem;
-  color: #122438;
+  color: var(--sumi-deep);
   margin-left: 0.5rem;
 }
 
@@ -722,7 +762,7 @@ html, body {
   font-family: var(--font-sans), monospace;
   font-size: 0.92rem;
   font-weight: 600;
-  color: #544538;
+  color: var(--sumi-body);
 }
 
 /* 5. HUY HIỆU VIÊN THUỐC MÀU KHOÁNG IWA-ENOGU */
@@ -737,15 +777,15 @@ html, body {
 }
 
 .pill-due-now {
-  background: #C89B58;
+  background: var(--kincha-gold);
   color: #FFFFFF;
-  box-shadow: 0 2px 6px rgba(200, 155, 88, 0.3);
+  box-shadow: 0 2px 6px rgba(175, 126, 54, 0.3);
 }
 
 .pill-in-progress {
-  background: #4A7FA8;
+  background: var(--aizome-surface);
   color: #FFFFFF;
-  box-shadow: 0 2px 6px rgba(74, 127, 168, 0.3);
+  box-shadow: 0 2px 6px rgba(32, 52, 80, 0.3);
 }
 
 .pill-pending {
@@ -759,7 +799,7 @@ html, body {
 }
 
 .pill-blocked {
-  background: #1F3A52;
+  background: var(--aizome-navy);
   color: #FFFFFF;
 }
 
@@ -769,10 +809,10 @@ html, body {
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(250, 247, 242, 0.96);
+  background: rgba(247, 244, 235, 0.96);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-top: 1.2px solid rgba(232, 224, 210, 0.9);
+  border-top: 1.2px solid var(--washi-border);
   padding-top: 0.55rem;
   padding-left: max(0.75rem, env(safe-area-inset-left, 0px));
   padding-right: max(0.75rem, env(safe-area-inset-right, 0px));
@@ -781,7 +821,7 @@ html, body {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  box-shadow: 0 -4px 20px rgba(18, 36, 56, 0.08);
+  box-shadow: 0 -4px 20px rgba(22, 37, 59, 0.08);
 }
 
 .kirie-nav-item {
@@ -790,7 +830,7 @@ html, body {
   align-items: center;
   gap: 0.25rem;
   text-decoration: none;
-  color: #544538;
+  color: var(--sumi-faint);
   font-family: var(--font-maru), sans-serif;
   font-size: 0.75rem;
   font-weight: 600;
@@ -801,7 +841,7 @@ html, body {
 }
 
 .kirie-nav-item.active {
-  color: #1A3E61;
+  color: var(--aizome-navy);
   font-weight: 800;
 }
 
@@ -816,9 +856,9 @@ html, body {
 }
 
 .kirie-nav-item.active .kirie-nav-icon-box {
-  background: #1A3E61;
-  color: #FFFFFF;
-  box-shadow: 0 3px 10px rgba(26, 62, 97, 0.35);
+  background: var(--aizome-navy);
+  color: var(--aizome-textLight);
+  box-shadow: 0 3px 10px rgba(22, 37, 59, 0.35);
   transform: translateY(-2px);
 }
 
@@ -857,12 +897,12 @@ button.karuta-btn {
   filter: brightness(0.96);
 }
 .btn-srs-good:hover {
-  box-shadow: 0 2px 4px rgba(62,115,78,0.10), 0 10px 24px -2px rgba(62,115,78,0.40), 0 20px 44px -10px rgba(62,115,78,0.24) !important;
+  box-shadow: 0 2px 4px rgba(22, 37, 59, 0.10), 0 10px 24px -2px rgba(22, 37, 59, 0.35), 0 20px 44px -10px rgba(22, 37, 59, 0.20) !important;
   transform: translateY(-3px) !important;
 }
 .btn-srs-good:active {
   transform: translateY(0px) scale(0.97) !important;
-  box-shadow: 0 2px 8px rgba(62,115,78,0.18) !important;
+  box-shadow: 0 2px 8px rgba(22, 37, 59, 0.18) !important;
 }
 
 /* VIS-REV-06 & VIS-REV-07: Washi dropdown / modal slide-in animation (60fps GPU) */

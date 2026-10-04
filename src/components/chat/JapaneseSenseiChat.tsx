@@ -197,7 +197,7 @@ export function JapaneseSenseiChat() {
           transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
-        <SensuFanIcon size={28} color="#D4AF37" />
+        <SensuFanIcon size={28} color="#AF7E36" />
         <span
           style={{
             position: 'absolute',
@@ -206,9 +206,9 @@ export function JapaneseSenseiChat() {
             width: '12px',
             height: '12px',
             borderRadius: '50%',
-            backgroundColor: '#C83824',
-            border: '2px solid #FFFFFF',
-            boxShadow: '0 0 8px rgba(200, 56, 36, 0.8)',
+            backgroundColor: '#9E3223',
+            border: '2px solid #FAF8F2',
+            boxShadow: '0 0 8px rgba(158, 50, 35, 0.8)',
           }}
         />
       </button>
@@ -220,7 +220,7 @@ export function JapaneseSenseiChat() {
           style={{
             position: 'fixed',
             inset: 0,
-            background: 'rgba(10, 28, 51, 0.45)',
+            background: 'rgba(22, 37, 59, 0.45)',
             backdropFilter: 'blur(6px)',
             WebkitBackdropFilter: 'blur(6px)',
             zIndex: 95,
@@ -242,11 +242,11 @@ export function JapaneseSenseiChat() {
           zIndex: 100,
           display: 'flex',
           flexDirection: 'column',
-          background: 'rgba(255, 255, 255, 0.94)',
+          background: 'rgba(250, 248, 242, 0.94)',
           backdropFilter: 'blur(24px)',
           WebkitBackdropFilter: 'blur(24px)',
-          borderLeft: '1.5px solid rgba(200, 155, 88, 0.4)',
-          boxShadow: '-8px 0 36px rgba(18, 36, 56, 0.18)',
+          borderLeft: '1.5px solid rgba(175, 126, 54, 0.4)',
+          boxShadow: '-8px 0 36px rgba(22, 37, 59, 0.18)',
           transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
           transition: 'transform 0.32s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
@@ -255,9 +255,9 @@ export function JapaneseSenseiChat() {
         <div
           style={{
             padding: '1.25rem 1.4rem',
-            background: 'linear-gradient(135deg, #0A1C33 0%, #153255 100%)',
+            background: 'linear-gradient(135deg, #101B2B 0%, #16253B 100%)',
             color: '#FFFFFF',
-            borderBottom: '1.5px solid rgba(200, 155, 88, 0.4)',
+            borderBottom: '1.5px solid rgba(175, 126, 54, 0.4)',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -266,11 +266,11 @@ export function JapaneseSenseiChat() {
         >
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-              <span style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.25rem', fontWeight: 800, color: '#FAF8F5' }}>
+              <span style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.25rem', fontWeight: 800, color: '#FAF8F2' }}>
                 Sensei AI · 日本語先生
               </span>
             </div>
-            <div className="micro-badge-label" style={{ background: 'rgba(255, 255, 255, 0.15)', color: '#E8D9BD', marginTop: '0.35rem', borderRadius: '4px', padding: '0.15rem 0.5rem' }}>
+            <div className="micro-badge-label" style={{ background: 'rgba(255, 255, 255, 0.15)', color: '#FBF5E8', marginTop: '0.35rem', borderRadius: '4px', padding: '0.15rem 0.5rem' }}>
               {contextConfig.badgeText}
             </div>
           </div>
@@ -281,7 +281,7 @@ export function JapaneseSenseiChat() {
               background: 'rgba(255, 255, 255, 0.12)',
               border: '1px solid rgba(255, 255, 255, 0.25)',
               borderRadius: '8px',
-              color: '#FAF8F5',
+              color: '#FAF8F2',
               fontSize: '1.1rem',
               cursor: 'pointer',
               padding: '0.35rem 0.75rem',
@@ -297,8 +297,8 @@ export function JapaneseSenseiChat() {
         <div
           style={{
             padding: '0.75rem 1rem',
-            background: 'rgba(245, 242, 235, 0.9)',
-            borderBottom: '1px solid var(--washi-border, #E6E1DA)',
+            background: 'rgba(247, 244, 235, 0.9)',
+            borderBottom: '1px solid var(--washi-border, #DFD9CB)',
             display: 'flex',
             gap: '0.5rem',
             overflowX: 'auto',
@@ -314,9 +314,9 @@ export function JapaneseSenseiChat() {
               style={{
                 padding: '0.4rem 0.85rem',
                 borderRadius: '999px',
-                border: '1.2px solid #E6DDCF',
-                background: '#FFFFFF',
-                color: '#122438',
+                border: '1.2px solid #DFD9CB',
+                background: '#FAF8F2',
+                color: '#1A1918',
                 fontSize: '0.78rem',
                 fontFamily: 'var(--font-maru, sans-serif)',
                 fontWeight: 700,
@@ -340,7 +340,7 @@ export function JapaneseSenseiChat() {
             display: 'flex',
             flexDirection: 'column',
             gap: '1rem',
-            background: 'rgba(250, 248, 245, 0.5)',
+            background: 'rgba(247, 244, 235, 0.5)',
           }}
         >
           {messages.map((m) => {
@@ -360,10 +360,10 @@ export function JapaneseSenseiChat() {
                   style={{
                     padding: '1rem 1.25rem',
                     borderRadius: isSensei ? '18px 18px 18px 4px' : '18px 18px 4px 18px',
-                    background: isSensei ? '#FFFFFF' : '#1E4B75',
-                    color: isSensei ? '#122438' : '#FFFFFF',
-                    border: isSensei ? '1.2px solid var(--washi-border, #E6E1DA)' : 'none',
-                    boxShadow: isSensei ? '0 4px 14px rgba(18, 36, 56, 0.05)' : '0 4px 14px rgba(30, 75, 117, 0.25)',
+                    background: isSensei ? '#FAF8F2' : '#16253B',
+                    color: isSensei ? '#1A1918' : '#F0F4F8',
+                    border: isSensei ? '1.2px solid var(--washi-border, #DFD9CB)' : 'none',
+                    boxShadow: isSensei ? '0 4px 14px rgba(26, 25, 24, 0.05)' : '0 4px 14px rgba(22, 37, 59, 0.25)',
                     fontSize: '0.94rem',
                     lineHeight: 1.65,
                     whiteSpace: 'pre-wrap',
@@ -381,7 +381,7 @@ export function JapaneseSenseiChat() {
                       style={{
                         background: 'none',
                         border: 'none',
-                        color: '#786A5E',
+                        color: '#878278',
                         fontSize: '0.74rem',
                         cursor: 'pointer',
                         padding: '0.15rem 0.35rem',
@@ -394,19 +394,19 @@ export function JapaneseSenseiChat() {
                     <JapaneseSpeakerButton text={m.text} size={15} />
 
                     {m.references && m.references.length > 0 && (
-                      <span style={{ fontSize: '0.72rem', color: '#786A5E' }}>
+                      <span style={{ fontSize: '0.72rem', color: '#878278' }}>
                         📖 {m.references.join(', ')}
                       </span>
                     )}
 
-                    <span style={{ fontSize: '0.7rem', color: '#A09386', marginLeft: 'auto', fontFamily: 'var(--font-mono, monospace)' }}>
+                    <span style={{ fontSize: '0.7rem', color: '#BCB7AC', marginLeft: 'auto', fontFamily: 'var(--font-mono, monospace)' }}>
                       {m.timestamp}
                     </span>
                   </div>
                 )}
 
                 {!isSensei && (
-                  <span style={{ fontSize: '0.7rem', color: '#A09386', padding: '0 0.4rem', alignSelf: 'flex-end', fontFamily: 'var(--font-mono, monospace)' }}>
+                  <span style={{ fontSize: '0.7rem', color: '#BCB7AC', padding: '0 0.4rem', alignSelf: 'flex-end', fontFamily: 'var(--font-mono, monospace)' }}>
                     {m.timestamp}
                   </span>
                 )}
@@ -421,10 +421,10 @@ export function JapaneseSenseiChat() {
                 alignSelf: 'flex-start',
                 padding: '0.9rem 1.25rem',
                 borderRadius: '16px',
-                background: '#FFFFFF',
-                border: '1.2px solid rgba(200, 155, 88, 0.4)',
+                background: '#FAF8F2',
+                border: '1.2px solid rgba(175, 126, 54, 0.4)',
                 fontSize: '0.88rem',
-                color: '#122438',
+                color: '#1A1918',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.55rem',
@@ -446,8 +446,8 @@ export function JapaneseSenseiChat() {
           }}
           style={{
             padding: '1rem 1.25rem',
-            background: 'rgba(250, 247, 242, 0.98)',
-            borderTop: '1px solid var(--washi-border, #E6E1DA)',
+            background: 'rgba(247, 244, 235, 0.98)',
+            borderTop: '1px solid var(--washi-border, #DFD9CB)',
             display: 'flex',
             gap: '0.65rem',
             alignItems: 'center',
@@ -463,9 +463,9 @@ export function JapaneseSenseiChat() {
               flex: 1,
               padding: '0.85rem 1.15rem',
               borderRadius: '12px',
-              border: '1.2px solid var(--washi-border, #E6E1DA)',
-              background: '#FFFFFF',
-              color: '#122438',
+              border: '1.2px solid var(--washi-border, #DFD9CB)',
+              background: '#FAF8F2',
+              color: '#1A1918',
               fontSize: '0.92rem',
               outline: 'none',
               fontFamily: 'var(--font-sans)',

@@ -101,7 +101,7 @@ export default function RootLayout({
         <SakuraBackground />
 
         {/* Thanh son đỏ nóc cổng Torii trên cùng (Torii Kasagi Top Bar) */}
-        <div style={{ height: '4px', background: 'linear-gradient(90deg, #D9381E, #F59E0B, #88A752)' }} />
+        <div style={{ height: '4px', background: 'linear-gradient(90deg, #9E3223, #AF7E36, #485642)' }} />
 
         {/* HEADER / NAVIGATION BAR CHUẨN NHẬT */}
         <header
@@ -109,7 +109,7 @@ export default function RootLayout({
             position: 'sticky',
             top: 0,
             zIndex: 50,
-            background: 'rgba(253, 251, 247, 0.92)',
+            background: 'rgba(247, 244, 235, 0.95)',
             backdropFilter: 'blur(12px)',
             borderBottom: '1px solid var(--washi-border)',
             boxShadow: 'var(--shadow-washi-sm)',
@@ -141,17 +141,17 @@ export default function RootLayout({
                 style={{
                   width: '38px',
                   height: '38px',
-                  border: '2px solid #D9381E',
+                  border: '2px solid #9E3223',
                   borderRadius: '6px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: '#D9381E',
+                  color: '#9E3223',
                   fontFamily: 'var(--font-mincho)',
                   fontWeight: 800,
                   fontSize: '1.15rem',
-                  background: 'rgba(217, 56, 30, 0.06)',
-                  boxShadow: '0 2px 6px rgba(217, 56, 30, 0.15)',
+                  background: 'rgba(158, 50, 35, 0.08)',
+                  boxShadow: '0 2px 6px rgba(158, 50, 35, 0.15)',
                 }}
               >
                 日学
@@ -241,9 +241,9 @@ export default function RootLayout({
                 style={{
                   padding: '0.5rem 0.9rem',
                   borderRadius: '8px',
-                  color: '#1B4268',
-                  background: 'rgba(27, 66, 104, 0.08)',
-                  border: '1px solid rgba(27, 66, 104, 0.2)',
+                  color: '#16253B',
+                  background: '#EDF2F7',
+                  border: '1px solid #BDCCDC',
                   textDecoration: 'none',
                   fontSize: '0.9rem',
                   fontFamily: 'var(--font-maru)',

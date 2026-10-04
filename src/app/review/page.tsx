@@ -828,7 +828,7 @@ function ReviewSessionContent() {
         <div
           style={{
             height: '6px',
-            background: '#E8E0D2',
+            background: '#E7E0D2',
             borderRadius: '999px',
             overflow: 'hidden',
           }}
@@ -837,7 +837,7 @@ function ReviewSessionContent() {
             style={{
               height: '100%',
               width: `${progressPercent}%`,
-              background: 'linear-gradient(90deg, #C89B58 0%, #1E4B75 100%)',
+              background: 'linear-gradient(90deg, #AF7E36 0%, #16253B 100%)',
               borderRadius: '999px',
               transition: 'width 0.4s ease',
             }}
@@ -857,10 +857,10 @@ function ReviewSessionContent() {
             justifyContent: 'center',
             textAlign: 'center',
             marginBottom: '1.5rem',
-            background: showAnswer ? 'linear-gradient(180deg, #FFFFFF 0%, #FAF8F2 100%)' : '#FAF7F0',
-            border: '2px solid #C89B58',
+            background: showAnswer ? 'linear-gradient(180deg, #FAF8F2 0%, #F7F4EB 100%)' : '#FAF8F2',
+            border: '2px solid #AF7E36',
             borderRadius: '18px',
-            boxShadow: '0 12px 32px rgba(18, 36, 56, 0.08)',
+            boxShadow: '0 12px 32px rgba(22, 37, 59, 0.08)',
             position: 'relative',
             overflow: 'hidden',
           }}
@@ -882,7 +882,7 @@ function ReviewSessionContent() {
               fontFamily: 'var(--font-mincho)',
               fontSize: '0.82rem',
               color: '#FFFFFF',
-              background: showAnswer ? '#3E734E' : '#C83824',
+              background: showAnswer ? '#485642' : '#9E3223',
               padding: '0.25rem 0.65rem',
               borderRadius: '4px',
               fontWeight: 800,
@@ -917,13 +917,13 @@ function ReviewSessionContent() {
                         fontFamily: 'var(--font-maru)',
                         fontSize: '1.75rem',
                         fontWeight: 800,
-                        color: '#9C6818',
+                        color: '#AF7E36',
                         letterSpacing: '0.06em',
-                        background: 'rgba(200, 155, 88, 0.12)',
+                        background: '#FBF5E8',
                         padding: '0.25rem 1.25rem',
                         borderRadius: '999px',
-                        border: '1.5px solid rgba(200, 155, 88, 0.32)',
-                        boxShadow: '0 2px 8px rgba(18, 36, 56, 0.04)',
+                        border: '1.5px solid #E5CCA0',
+                        boxShadow: '0 2px 8px rgba(22, 37, 59, 0.04)',
                       }}
                     >
                       {parsedCard?.pureReading || currentCard.reading}
@@ -945,9 +945,9 @@ function ReviewSessionContent() {
                           return 'clamp(3.2rem, 8vw, 4.8rem)';
                         })(),
                         fontWeight: 900,
-                        color: '#0F172A',
+                        color: '#1A1918',
                         letterSpacing: '0.04em',
-                        textShadow: '0 2px 8px rgba(18, 36, 56, 0.08)',
+                        textShadow: '0 2px 8px rgba(22, 37, 59, 0.08)',
                         lineHeight: 1.35,
                         textAlign: 'center',
                         wordBreak: 'break-word',
@@ -962,9 +962,9 @@ function ReviewSessionContent() {
                               <span
                                 key={i}
                                 style={{
-                                  color: '#153E20',
-                                  background: '#EAF5EA',
-                                  borderBottom: '3px solid #43894C',
+                                  color: '#485642',
+                                  background: '#EFF4EE',
+                                  borderBottom: '3px solid #697858',
                                   borderRadius: '6px',
                                   padding: '0.1rem 0.5rem',
                                   margin: '0 0.2rem',
@@ -977,9 +977,9 @@ function ReviewSessionContent() {
                               <span
                                 key={i}
                                 style={{
-                                  color: '#C89B58',
-                                  background: 'rgba(200, 155, 88, 0.12)',
-                                  border: '2px dashed #C89B58',
+                                  color: '#AF7E36',
+                                  background: '#FBF5E8',
+                                  border: '2px dashed #AF7E36',
                                   borderRadius: '8px',
                                   padding: '0.1rem 0.85rem',
                                   margin: '0 0.25rem',
@@ -1006,9 +1006,9 @@ function ReviewSessionContent() {
                                   fontSize: '0.9rem',
                                   fontWeight: 800,
                                   fontFamily: 'var(--font-maru)',
-                                  color: '#1E4B75',
-                                  background: '#EDF4FA',
-                                  border: '1.2px solid #B8D5E5',
+                                  color: '#16253B',
+                                  background: '#EDF2F7',
+                                  border: '1.2px solid #BDCCDC',
                                   borderRadius: '6px',
                                   padding: '0.15rem 0.75rem',
                                   letterSpacing: '0.04em',
@@ -1038,16 +1038,16 @@ function ReviewSessionContent() {
                           display: 'inline-flex',
                           alignItems: 'center',
                           gap: '0.35rem',
-                          background: 'linear-gradient(135deg, #FFF1F0 0%, #FFEBE8 100%)',
-                          border: '1.5px solid #F5C6CB',
-                          color: '#C83824',
+                          background: '#FDF2F0',
+                          border: '1.5px solid #E8A99F',
+                          color: '#9E3223',
                           padding: '0.25rem 0.95rem',
                           borderRadius: '999px',
                           fontSize: '0.88rem',
                           fontFamily: 'var(--font-mincho)',
                           fontWeight: 800,
                           letterSpacing: '0.06em',
-                          boxShadow: '0 2px 6px rgba(200, 56, 36, 0.08)',
+                          boxShadow: '0 2px 6px rgba(158, 50, 35, 0.08)',
                         }}
                       >
                         漢 Âm Hán: {parsedCard.hanViet}
@@ -1066,27 +1066,27 @@ function ReviewSessionContent() {
                         fontFamily: 'var(--font-maru)',
                         fontWeight: 700,
                         background: isGrammar
-                          ? '#EDF4FA'
+                          ? '#EDF2F7'
                           : isKanji
                           ? '#FDF2F0'
                           : targetDeckId === 'deck_n5'
-                          ? '#F0F9F2'
-                          : '#EDF4FA',
+                          ? '#EFF4EE'
+                          : '#EDF2F7',
                         color: isGrammar
-                          ? '#1E4B75'
+                          ? '#16253B'
                           : isKanji
-                          ? '#C83824'
+                          ? '#9E3223'
                           : targetDeckId === 'deck_n5'
-                          ? '#2A6B3D'
-                          : '#1E4B75',
+                          ? '#485642'
+                          : '#16253B',
                         border: `1.2px solid ${
                           isGrammar
-                            ? '#B8D5E5'
+                            ? '#BDCCDC'
                             : isKanji
-                            ? '#F5C6CB'
+                            ? '#E8A99F'
                             : targetDeckId === 'deck_n5'
-                            ? '#C2E5CC'
-                            : '#B8D5E5'
+                            ? '#C6D8C4'
+                            : '#BDCCDC'
                         }`,
                       }}
                     >
@@ -1110,7 +1110,7 @@ function ReviewSessionContent() {
                       width: '100%',
                       marginTop: '1.15rem',
                       paddingTop: '1.25rem',
-                      borderTop: '1.5px solid #E8DFCE',
+                      borderTop: '1.5px solid #DFD9CB',
                       display: 'flex',
                       flexDirection: 'column',
                       gap: '0.95rem',
@@ -1136,11 +1136,11 @@ function ReviewSessionContent() {
                         {parsedCard.kunYomi.length > 0 && (
                           <div
                             style={{
-                              background: 'rgba(255, 255, 255, 0.98)',
-                              border: '1.5px solid #C4DCC5',
+                              background: '#FAF8F2',
+                              border: '1.5px solid #C6D8C4',
                               borderRadius: '16px',
                               padding: '1rem 1.15rem',
-                              boxShadow: '0 4px 16px rgba(42, 107, 61, 0.06)',
+                              boxShadow: '0 4px 16px rgba(72, 86, 66, 0.06)',
                               display: 'flex',
                               flexDirection: 'column',
                               alignItems: 'center',
@@ -1150,7 +1150,7 @@ function ReviewSessionContent() {
                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
                               <span
                                 style={{
-                                  background: '#2A6B3D',
+                                  background: '#485642',
                                   color: '#FFFFFF',
                                   fontSize: '0.78rem',
                                   fontWeight: 800,
@@ -1162,7 +1162,7 @@ function ReviewSessionContent() {
                               >
                                 訓 KUN-YOMI
                               </span>
-                              <span style={{ fontSize: '0.78rem', color: '#4A6B52', fontWeight: 600 }}>
+                              <span style={{ fontSize: '0.78rem', color: '#485642', fontWeight: 600 }}>
                                 Âm thuần Nhật
                               </span>
                             </div>
@@ -1185,10 +1185,10 @@ function ReviewSessionContent() {
                                     display: 'inline-flex',
                                     alignItems: 'center',
                                     gap: '0.45rem',
-                                    background: '#F2F8F2',
+                                    background: '#EFF4EE',
                                     padding: '0.35rem 0.85rem',
                                     borderRadius: '10px',
-                                    border: '1.2px solid #CFE6D0',
+                                    border: '1.2px solid #C6D8C4',
                                   }}
                                 >
                                   <span
@@ -1196,7 +1196,7 @@ function ReviewSessionContent() {
                                       fontFamily: 'var(--font-maru)',
                                       fontSize: '1.75rem',
                                       fontWeight: 800,
-                                      color: '#133E1D',
+                                      color: '#485642',
                                       letterSpacing: '0.04em',
                                     }}
                                   >
@@ -1213,11 +1213,11 @@ function ReviewSessionContent() {
                         {parsedCard.onYomi.length > 0 && (
                           <div
                             style={{
-                              background: 'rgba(255, 255, 255, 0.98)',
-                              border: '1.5px solid #F5C6CB',
+                              background: '#FAF8F2',
+                              border: '1.5px solid #E8A99F',
                               borderRadius: '16px',
                               padding: '1rem 1.15rem',
-                              boxShadow: '0 4px 16px rgba(200, 56, 36, 0.06)',
+                              boxShadow: '0 4px 16px rgba(158, 50, 35, 0.06)',
                               display: 'flex',
                               flexDirection: 'column',
                               alignItems: 'center',
@@ -1227,7 +1227,7 @@ function ReviewSessionContent() {
                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
                               <span
                                 style={{
-                                  background: '#C83824',
+                                  background: '#9E3223',
                                   color: '#FFFFFF',
                                   fontSize: '0.78rem',
                                   fontWeight: 800,
@@ -1239,7 +1239,7 @@ function ReviewSessionContent() {
                               >
                                 音 ON-YOMI
                               </span>
-                              <span style={{ fontSize: '0.78rem', color: '#8F382E', fontWeight: 600 }}>
+                              <span style={{ fontSize: '0.78rem', color: '#9E3223', fontWeight: 600 }}>
                                 Âm Hán Nhật
                               </span>
                             </div>
@@ -1262,10 +1262,10 @@ function ReviewSessionContent() {
                                     display: 'inline-flex',
                                     alignItems: 'center',
                                     gap: '0.45rem',
-                                    background: '#FFF5F4',
+                                    background: '#FDF2F0',
                                     padding: '0.35rem 0.85rem',
                                     borderRadius: '10px',
-                                    border: '1.2px solid #FACFCB',
+                                    border: '1.2px solid #E8A99F',
                                   }}
                                 >
                                   <span
@@ -1273,7 +1273,7 @@ function ReviewSessionContent() {
                                       fontFamily: 'var(--font-maru)',
                                       fontSize: '1.75rem',
                                       fontWeight: 800,
-                                      color: '#8A1F13',
+                                      color: '#9E3223',
                                       letterSpacing: '0.04em',
                                     }}
                                   >
@@ -1290,11 +1290,11 @@ function ReviewSessionContent() {
                       /* KHỐI TỪ VỰNG THƯỜNG (KOTOBA / N5): HIRAGANA TO NỔI BẬT + PITCH ACCENT */
                       <div
                         style={{
-                          background: 'rgba(255, 255, 255, 0.98)',
+                          background: '#FAF8F2',
                           padding: '0.9rem 1.6rem',
                           borderRadius: '14px',
-                          border: '1.5px solid #E6DDCF',
-                          boxShadow: '0 4px 16px rgba(18, 36, 56, 0.05)',
+                          border: '1.5px solid #DFD9CB',
+                          boxShadow: '0 4px 16px rgba(22, 37, 59, 0.05)',
                           display: 'flex',
                           flexDirection: 'column',
                           alignItems: 'center',
@@ -1307,7 +1307,7 @@ function ReviewSessionContent() {
                               fontFamily: 'var(--font-maru)',
                               fontSize: '2.1rem',
                               fontWeight: 800,
-                              color: '#122438',
+                              color: '#1A1918',
                               letterSpacing: '0.04em',
                             }}
                           >
@@ -1328,11 +1328,11 @@ function ReviewSessionContent() {
                     <div
                       style={{
                         width: '100%',
-                        background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(252, 249, 242, 0.96) 100%)',
-                        border: '1.5px solid #E2D7C5',
+                        background: 'linear-gradient(135deg, #FAF8F2 0%, #F7F4EB 100%)',
+                        border: '1.5px solid #DFD9CB',
                         borderRadius: '16px',
                         padding: '1.1rem 1.4rem',
-                        boxShadow: '0 8px 24px -4px rgba(18, 36, 56, 0.08), 0 2px 6px rgba(0, 0, 0, 0.02)',
+                        boxShadow: '0 8px 24px -4px rgba(22, 37, 59, 0.08), 0 2px 6px rgba(0, 0, 0, 0.02)',
                         textAlign: 'center',
                         display: 'flex',
                         flexDirection: 'column',
@@ -1348,12 +1348,12 @@ function ReviewSessionContent() {
                           fontSize: '0.76rem',
                           fontFamily: 'var(--font-maru)',
                           fontWeight: 800,
-                          color: '#8A7560',
+                          color: '#878278',
                           letterSpacing: '0.12em',
                           textTransform: 'uppercase',
                           position: 'sticky',
                           top: 0,
-                          background: 'rgba(255,255,255,0.92)',
+                          background: 'rgba(250, 248, 242, 0.92)',
                           width: '100%',
                           paddingBottom: '0.3rem',
                         }}
@@ -1370,7 +1370,7 @@ function ReviewSessionContent() {
                               ? '1.35rem'
                               : 'clamp(1.55rem, 4vw, 2.1rem)',
                           fontWeight: 800,
-                          color: '#0E1726',
+                          color: '#1A1918',
                           fontFamily: 'var(--font-maru)',
                           lineHeight: 1.45,
                           letterSpacing: '0.01em',
@@ -1388,11 +1388,11 @@ function ReviewSessionContent() {
                       <div
                         style={{
                           width: '100%',
-                          background: '#FFFFFF',
+                          background: '#FAF8F2',
                           padding: '1rem 1.25rem',
                           borderRadius: '14px',
-                          border: '1.5px solid #E6DDCF',
-                          boxShadow: '0 4px 16px rgba(18, 36, 56, 0.05)',
+                          border: '1.5px solid #DFD9CB',
+                          boxShadow: '0 4px 16px rgba(22, 37, 59, 0.05)',
                           textAlign: 'left',
                           display: 'flex',
                           flexDirection: 'column',
@@ -1402,7 +1402,7 @@ function ReviewSessionContent() {
                         <span
                           style={{
                             fontSize: '0.75rem',
-                            color: '#8A7560',
+                            color: '#878278',
                             fontWeight: 800,
                             letterSpacing: '0.08em',
                             textTransform: 'uppercase',
@@ -1411,16 +1411,16 @@ function ReviewSessionContent() {
                           Câu ví dụ ngữ cảnh (i+1)
                         </span>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.75rem' }}>
-                          <span style={{ fontSize: '1.25rem', color: '#122438', fontFamily: 'var(--font-mincho)', fontWeight: 600, lineHeight: 1.45 }}>
+                          <span style={{ fontSize: '1.25rem', color: '#1A1918', fontFamily: 'var(--font-mincho)', fontWeight: 600, lineHeight: 1.45 }}>
                             {parseClozeSegments(currentCard.sentence).map((seg, i) =>
                               seg.isCloze ? (
                                 <span
                                   key={i}
                                   style={{
                                     fontWeight: 800,
-                                    color: '#153E20',
-                                    background: '#EAF5EA',
-                                    borderBottom: '2.5px solid #43894C',
+                                    color: '#485642',
+                                    background: '#EFF4EE',
+                                    borderBottom: '2.5px solid #697858',
                                     borderRadius: '3px',
                                     padding: '0.1rem 0.35rem',
                                   }}
@@ -1438,7 +1438,7 @@ function ReviewSessionContent() {
                     )}
                   </div>
                 ) : (
-                  <div style={{ marginTop: '1.5rem', color: '#786A5E', fontSize: '0.9rem', fontFamily: 'var(--font-maru)', fontWeight: 600 }}>
+                  <div style={{ marginTop: '1.5rem', color: '#878278', fontSize: '0.9rem', fontFamily: 'var(--font-maru)', fontWeight: 600 }}>
                     Nhấn Space hoặc nút bên dưới để xem đáp án
                   </div>
                 )}
@@ -1457,7 +1457,7 @@ function ReviewSessionContent() {
             width: '100%',
             padding: '1.05rem',
             fontSize: '1.1rem',
-            boxShadow: '0 6px 20px rgba(200, 56, 36, 0.3)',
+            boxShadow: '0 6px 20px rgba(158, 50, 35, 0.35)',
             letterSpacing: '0.02em',
           }}
         >
@@ -1469,7 +1469,7 @@ function ReviewSessionContent() {
           {/* VIS-REV-05: 4 FSRS Sơn Mài Buttons — Phân cấp thị giác + Tactile press feedback */}
           {/* Layout: Again/Hard (ghost/secondary) | Good (primary CTA, visually dominant) | Easy (calm blue) */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 'clamp(0.4rem, 1.5vw, 0.65rem)', marginBottom: '0.5rem' }}>
-            {/* NÚT 1: AGAIN (再 - Akane) — Ghost destructive style */}
+            {/* NÚT 1: AGAIN (再/破 - Bengara) — Ghost/soft style */}
             <button
               className="btn-srs-rating btn-srs-again"
               onClick={() => handleGrade('Again')}
@@ -1479,25 +1479,25 @@ function ReviewSessionContent() {
                 minWidth: '44px',
                 width: '100%',
                 padding: '0.85rem 0.35rem',
-                backgroundColor: 'rgba(158, 51, 36, 0.06)',
-                border: '1.5px solid #9E3324',
+                backgroundColor: '#FDF2F0',
+                border: '1.5px solid #E8A99F',
                 borderRadius: '14px',
-                color: '#9E3324',
+                color: '#9E3223',
                 cursor: 'pointer',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 gap: '0.25rem',
                 transition: 'all 0.18s cubic-bezier(0.16, 1, 0.3, 1)',
-                boxShadow: '0 1px 3px rgba(158, 51, 36, 0.08)',
+                boxShadow: '0 1px 3px rgba(158, 50, 35, 0.08)',
               }}
             >
-              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 900, fontSize: 'clamp(1rem, 3vw, 1.28rem)', lineHeight: 1 }}>再</span>
-              <span style={{ fontSize: '0.68rem', fontWeight: 700, opacity: 0.85 }}>{formatInterval(Rating.Again)}</span>
-              <span style={{ fontSize: '0.6rem', fontWeight: 600, letterSpacing: '0.04em', opacity: 0.65 }}>① Again</span>
+              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 900, fontSize: 'clamp(1rem, 3vw, 1.28rem)', lineHeight: 1 }}>破</span>
+              <span style={{ fontSize: '0.68rem', fontWeight: 700, opacity: 0.9 }}>{formatInterval(Rating.Again)}</span>
+              <span style={{ fontSize: '0.6rem', fontWeight: 600, letterSpacing: '0.04em', opacity: 0.75 }}>① Quên</span>
             </button>
 
-            {/* NÚT 2: HARD (難 - Kohaku) — Warm amber outline */}
+            {/* NÚT 2: HARD (磨/難 - Kincha) — Warm gold/amber outline */}
             <button
               className="btn-srs-rating btn-srs-hard"
               onClick={() => handleGrade('Hard')}
@@ -1507,25 +1507,25 @@ function ReviewSessionContent() {
                 minWidth: '44px',
                 width: '100%',
                 padding: '0.85rem 0.35rem',
-                backgroundColor: 'rgba(184, 123, 40, 0.07)',
-                border: '1.5px solid #B87B28',
+                backgroundColor: '#FBF5E8',
+                border: '1.5px solid #E5CCA0',
                 borderRadius: '14px',
-                color: '#B87B28',
+                color: '#8C601E',
                 cursor: 'pointer',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 gap: '0.25rem',
                 transition: 'all 0.18s cubic-bezier(0.16, 1, 0.3, 1)',
-                boxShadow: '0 1px 3px rgba(184, 123, 40, 0.08)',
+                boxShadow: '0 1px 3px rgba(175, 126, 54, 0.08)',
               }}
             >
-              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 900, fontSize: 'clamp(1rem, 3vw, 1.28rem)', lineHeight: 1 }}>難</span>
-              <span style={{ fontSize: '0.68rem', fontWeight: 700, opacity: 0.85 }}>{formatInterval(Rating.Hard)}</span>
-              <span style={{ fontSize: '0.6rem', fontWeight: 600, letterSpacing: '0.04em', opacity: 0.65 }}>② Hard</span>
+              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 900, fontSize: 'clamp(1rem, 3vw, 1.28rem)', lineHeight: 1 }}>磨</span>
+              <span style={{ fontSize: '0.68rem', fontWeight: 700, opacity: 0.9 }}>{formatInterval(Rating.Hard)}</span>
+              <span style={{ fontSize: '0.6rem', fontWeight: 600, letterSpacing: '0.04em', opacity: 0.75 }}>② Khó</span>
             </button>
 
-            {/* NÚT 3: GOOD (良 - Tokiwa) — PRIMARY CTA: filled, elevated, scale on hover */}
+            {/* NÚT 3: GOOD (継/良 - Aizome) — PRIMARY CTA: Samurai indigo, elevated, scale on hover */}
             <button
               className="btn-srs-rating btn-srs-good"
               onClick={() => handleGrade('Good')}
@@ -1535,8 +1535,8 @@ function ReviewSessionContent() {
                 minWidth: '44px',
                 width: '100%',
                 padding: '0.85rem 0.35rem',
-                background: 'linear-gradient(160deg, #4A8A5A 0%, #3E734E 100%)',
-                border: '1.5px solid #2F593C',
+                background: 'linear-gradient(160deg, #203450 0%, #16253B 100%)',
+                border: '1.5px solid #BDCCDC',
                 borderRadius: '14px',
                 color: '#FFFFFF',
                 cursor: 'pointer',
@@ -1545,16 +1545,16 @@ function ReviewSessionContent() {
                 alignItems: 'center',
                 gap: '0.25rem',
                 transition: 'all 0.18s cubic-bezier(0.16, 1, 0.3, 1)',
-                boxShadow: '0 2px 4px rgba(62, 115, 78, 0.08), 0 6px 16px -2px rgba(62, 115, 78, 0.32), 0 12px 28px -8px rgba(62, 115, 78, 0.20)',
+                boxShadow: '0 2px 4px rgba(22, 37, 59, 0.08), 0 6px 16px -2px rgba(22, 37, 59, 0.32), 0 12px 28px -8px rgba(22, 37, 59, 0.20)',
                 transform: 'translateY(-1px)',
               }}
             >
-              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 900, fontSize: 'clamp(1rem, 3vw, 1.28rem)', lineHeight: 1 }}>良</span>
-              <span style={{ fontSize: '0.68rem', color: '#D4F0DA', fontWeight: 700 }}>{formatInterval(Rating.Good)}</span>
-              <span style={{ fontSize: '0.6rem', color: '#B0E0BB', fontWeight: 600, letterSpacing: '0.04em' }}>③ Good</span>
+              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 900, fontSize: 'clamp(1rem, 3vw, 1.28rem)', lineHeight: 1 }}>継</span>
+              <span style={{ fontSize: '0.68rem', color: '#EDF2F7', fontWeight: 700 }}>{formatInterval(Rating.Good)}</span>
+              <span style={{ fontSize: '0.6rem', color: '#BDCCDC', fontWeight: 600, letterSpacing: '0.04em' }}>③ Tốt</span>
             </button>
 
-            {/* NÚT 4: EASY (易 - Aizome) — Deep indigo, calm but clear */}
+            {/* NÚT 4: EASY (悟/易 - Koke/Matcha) — Zen moss green, calm & clear */}
             <button
               className="btn-srs-rating btn-srs-easy"
               onClick={() => handleGrade('Easy')}
@@ -1564,8 +1564,8 @@ function ReviewSessionContent() {
                 minWidth: '44px',
                 width: '100%',
                 padding: '0.85rem 0.35rem',
-                background: 'linear-gradient(160deg, #2E5E8E 0%, #234B73 100%)',
-                border: '1.5px solid #1A3755',
+                background: 'linear-gradient(160deg, #697858 0%, #485642 100%)',
+                border: '1.5px solid #C6D8C4',
                 borderRadius: '14px',
                 color: '#FFFFFF',
                 cursor: 'pointer',
@@ -1574,12 +1574,12 @@ function ReviewSessionContent() {
                 alignItems: 'center',
                 gap: '0.25rem',
                 transition: 'all 0.18s cubic-bezier(0.16, 1, 0.3, 1)',
-                boxShadow: '0 2px 4px rgba(35,75,115,0.08), 0 6px 16px -2px rgba(35, 75, 115, 0.28)',
+                boxShadow: '0 2px 4px rgba(72, 86, 66, 0.08), 0 6px 16px -2px rgba(72, 86, 66, 0.28)',
               }}
             >
-              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 900, fontSize: 'clamp(1rem, 3vw, 1.28rem)', lineHeight: 1 }}>易</span>
-              <span style={{ fontSize: '0.68rem', color: '#D4E5F5', fontWeight: 700 }}>{formatInterval(Rating.Easy)}</span>
-              <span style={{ fontSize: '0.6rem', color: '#A8CBE8', fontWeight: 600, letterSpacing: '0.04em' }}>④ Easy</span>
+              <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 900, fontSize: 'clamp(1rem, 3vw, 1.28rem)', lineHeight: 1 }}>悟</span>
+              <span style={{ fontSize: '0.68rem', color: '#EFF4EE', fontWeight: 700 }}>{formatInterval(Rating.Easy)}</span>
+              <span style={{ fontSize: '0.6rem', color: '#C6D8C4', fontWeight: 600, letterSpacing: '0.04em' }}>④ Dễ</span>
             </button>
           </div>
         </div>
