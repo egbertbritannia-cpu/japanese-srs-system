@@ -222,6 +222,77 @@ function initSchemaDDL(execFn: (sql: string) => void) {
 
     CREATE INDEX IF NOT EXISTS idx_grammar_exercises_pattern_id ON grammar_exercises(pattern_id);
     CREATE INDEX IF NOT EXISTS idx_grammar_exercises_type ON grammar_exercises(exercise_type);
+    -- ========================================================================
+    -- ========================================================================
+    -- 11. HỆ THỐNG IELTS (ENGLISH STUDY TRACKING ENGINE)
+    -- ========================================================================
+    CREATE TABLE IF NOT EXISTS eng_materials (
+      id TEXT PRIMARY KEY,
+      type TEXT NOT NULL,
+      title TEXT NOT NULL,
+      publisher TEXT,
+      year_published INTEGER,
+      total_tests INTEGER,
+      created_at INTEGER NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS ielts_sessions (
+      id TEXT PRIMARY KEY,
+      material_id TEXT,
+      test_number TEXT,
+      section TEXT NOT NULL,
+      start_time INTEGER NOT NULL,
+      end_time INTEGER,
+      total_duration_seconds INTEGER,
+      current_score_band INTEGER,
+      target_score_band INTEGER,
+      session_status TEXT NOT NULL,
+      created_at INTEGER NOT NULL,
+      FOREIGN KEY (material_id) REFERENCES eng_materials(id)
+    );
+
+    CREATE TABLE IF NOT EXISTS ielts_practice_logs (
+      id TEXT PRIMARY KEY,
+      session_id TEXT,
+      question_number INTEGER NOT NULL,
+      question_type TEXT,
+      user_answer TEXT,
+      correct_answer TEXT,
+      is_correct INTEGER,
+      time_spent_seconds INTEGER,
+      notes TEXT,
+      created_at INTEGER NOT NULL,
+      FOREIGN KEY (session_id) REFERENCES ielts_sessions(id)
+    );
+
+    CREATE TABLE IF NOT EXISTS ielts_mistakes (
+      id TEXT PRIMARY KEY,
+      log_id TEXT,
+      mistake_category TEXT,
+      root_cause_analysis TEXT,
+      action_plan_for_improvement TEXT,
+      is_resolved INTEGER,
+      created_at INTEGER NOT NULL,
+      FOREIGN KEY (log_id) REFERENCES ielts_practice_logs(id)
+    );
+
+    CREATE TABLE IF NOT EXISTS eng_vocab (
+      id TEXT PRIMARY KEY,
+      log_id TEXT,
+      word TEXT NOT NULL,
+      part_of_speech TEXT,
+      phonetic TEXT,
+      primary_meaning TEXT,
+      context_sentence TEXT,
+      synonyms TEXT,
+      tags TEXT,
+      fsrs_stability REAL NOT NULL DEFAULT 0,
+      fsrs_difficulty REAL NOT NULL DEFAULT 0,
+      fsrs_due INTEGER NOT NULL DEFAULT 0,
+      fsrs_state TEXT NOT NULL DEFAULT 'New',
+      created_at INTEGER NOT NULL,
+      FOREIGN KEY (log_id) REFERENCES ielts_practice_logs(id)
+    );
   `);
 }
 
