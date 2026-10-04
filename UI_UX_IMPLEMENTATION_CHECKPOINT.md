@@ -20,8 +20,8 @@
 | **Sprint 1** | **Hạ tầng Thẩm mỹ, Typography Toàn cục & Điều hướng Di động** | `VIS-SYS-01`, `VIS-SYS-02`, `VIS-SYS-03`, `VIS-SYS-04` | ✅ HOÀN THÀNH | ✅ 111/111 pass |
 | **Sprint 2** | **Đại tu Đấu trường Ôn tập Karuta Active Recall & Pitch Accent** | `VIS-REV-01`, `VIS-REV-02`, `VIS-REV-03`, `VIS-REV-04`, `VIS-REV-05`, `VIS-REV-06`, `VIS-REV-07`, `VIS-COPILOT-04` | ✅ HOÀN THÀNH | ✅ 111/111 pass |
 | **Sprint 3** | **Thư viện Thẻ học Tanzakucho & Trang chủ Dashboard Sổ cái Washi** | `VIS-CARD-01` -> `06`, `VIS-HOME-01` -> `06` | ✅ HOÀN THÀNH | ✅ 111/111 pass |
-| **Sprint 4** | **Đấu trường Chia Động từ & Bàn Thư pháp Tạo thẻ Shodo Desk** | `VIS-CONJ-01` -> `06`, `VIS-NEW-01` -> `05` | 🟡 Tiếp theo | Đang chờ |
-| **Sprint 5** | **Giáo trình Ngữ pháp Bunbou & Sensei AI Trợ lý Đồng hành** | `VIS-GRAM-01` -> `06`, `VIS-PRAC-01` -> `05`, `VIS-COPILOT-01`, `02`, `03`, `05` | ⚪ Chưa bắt đầu | Đang chờ |
+| **Sprint 4** | **Đấu trường Chia Động từ & Bàn Thư pháp Tạo thẻ Shodo Desk** | `VIS-CONJ-01` -> `06`, `VIS-NEW-01` -> `05` | ✅ HOÀN THÀNH | ✅ 111/111 pass (31/31 build routes) |
+| **Sprint 5** | **Giáo trình Ngữ pháp Bunbou & Sensei AI Trợ lý Đồng hành** | `VIS-GRAM-01` -> `06`, `VIS-PRAC-01` -> `05`, `VIS-COPILOT-01`, `02`, `03`, `05` | 🟡 Tiếp theo | Đang chờ |
 
 ---
 
@@ -59,3 +59,16 @@
 - [x] `VIS-CARD-04`: Nâng cấp thanh tìm kiếm Sumi-e với icon cọ lông `🖌️`, vòng sáng phản quang Kintsugi và nút xóa nhanh `✕`.
 - [x] `VIS-CARD-05`: Thiết kế dải nút lọc bộ thẻ bo tròn mềm mại, chuyển màu Indigo quý phái khi active.
 - [x] `VIS-CARD-06`: Nâng cấp huy hiệu FSRS (`Đã củng cố` / `Mới tiếp nhận`) với con dấu chấm ngọc bích / hổ phách Kintsugi.
+
+### 📌 Sprint 4: Đấu trường Chia Động từ & Bàn Thư pháp Tạo thẻ Shodo Desk (✅ HOÀN THÀNH)
+- [x] `VIS-CONJ-01`: Tối ưu hóa bàn phím ảo Kana thu gọn theo nhu cầu (Collapsible Drawer) kèm gợi ý Romaji realtime.
+- [x] `VIS-CONJ-02`: Nâng cấp Tấm Thẻ Động Từ Hoàng Gia Wabi-Sabi (`Imperial Wabi-Sabi Verb Plaque`) với typography Shippori Mincho $3.2\text{rem}$, Furigana ngọc bích, nhãn nhóm động từ và nút loa phát âm.
+- [x] `VIS-CONJ-03`: Tái cấu trúc Sổ tay lý thuyết thành `Bento Cheatsheet Kakejiku` với Sticky Anchor Pill Navigation 4 tab, backdrop blur $16\text{px}$.
+- [x] `VIS-CONJ-04`: Tăng tốc phần cứng GPU cho Speed Drill 3D card flip (`transform-style: preserve-3d`, `backface-visibility: hidden`, `transform: translate3d(0,0,0)`).
+- [x] `VIS-CONJ-05`: Khối phản hồi Kintsugi với đường viền ánh vàng kim `#C89B58` khi chính giải và son trầm `#C83824` khi sai lệch biến âm.
+- [x] `VIS-CONJ-06`: Nâng cao độ tương phản bảng Bento đối chiếu biến âm đạt chuẩn WCAG AAA với mực đen chàm `#122438` và đỏ son `#9E2413`.
+- [x] `VIS-NEW-01`: Thiết kế thanh Segmented Control Pill chuyển Tab Copilot / Thủ công mượt mà không bị giật bố cục (`minHeight: 480px`).
+- [x] `VIS-NEW-02`: Tái thiết kế bản nháp AI Mining theo phong cách cuộn thư Kakejiku 3 tầng (Nghĩa cốt lõi, Câu ngữ cảnh, Ghi chú tầm nguyên Kanji).
+- [x] `VIS-NEW-03`: Tích hợp bộ chọn trực quan 4 mẫu hình cao độ Pitch Accent Tokyo (`[0] 平板 Heiban`, `[1] 頭高 Atamadaka`, `[2] 中高 Nakadaka`, `[3] 尾高 Odaka`).
+- [x] `VIS-NEW-04`: Nâng cấp nút nộp thẻ Shodo Stamp Submit với dấu mộc son Torii và tactile active feedback.
+- [x] `VIS-NEW-05`: Huy hiệu thành tựu nhận thức `💎 Trí tuệ AI · Chuẩn hóa FSRS Atomic` thay thế cảnh báo lỗi phân tách từ vựng.

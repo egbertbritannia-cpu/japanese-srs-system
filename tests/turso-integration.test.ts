@@ -36,7 +36,7 @@ describe('Turso Integration Test with Drizzle', () => {
     expect(deckList.length).toBeGreaterThanOrEqual(4);
     const deckIds = deckList.map((d: any) => d.id).sort();
     expect(deckIds).toContain('grammar_jpd133');
-  });
+  }, 20000);
 
   it('should run GET /api/cards against Turso and verify 3 distinct decks', async () => {
     const { GET: getCardsRoute } = await import('../src/app/api/cards/route');

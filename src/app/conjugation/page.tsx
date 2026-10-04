@@ -41,7 +41,13 @@ export default function ConjugationPage() {
   const [score, setScore] = useState({ correct: 0, total: 0 });
   const [showAnswerHint, setShowAnswerHint] = useState(false);
   const [showGroupHint, setShowGroupHint] = useState(false); // Ban đầu che nhóm động từ để người học tự tư duy
+  const [showKeypad, setShowKeypad] = useState(false); // Bàn phím ảo Kana thu gọn theo nhu cầu
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleInsertKana = (char: string) => {
+    setUserInput((prev) => prev + char);
+    inputRef.current?.focus();
+  };
 
   // Chế độ Lướt nhanh (Speed Drill State)
   const [speedIdx, setSpeedIdx] = useState(0);
@@ -505,20 +511,21 @@ export default function ConjugationPage() {
               </div>
             </div>
 
-            {/* BƯỚC 1: HIỂN THỊ THỂ NGUYÊN BẢN (Gốc từ vựng) */}
+            {/* BƯỚC 1: HIỂN THỊ THỂ NGUYÊN BẢN (Imperial Wabi-Sabi Verb Plaque) */}
             <div
               style={{
                 textAlign: 'center',
-                padding: '1.25rem 1.5rem',
-                background: 'linear-gradient(180deg, #FAF8F5 0%, #FFFFFF 100%)',
-                borderRadius: '16px',
-                border: '1px solid var(--washi-border)',
+                padding: '1.5rem 1.75rem',
+                background: 'linear-gradient(180deg, rgba(250, 248, 245, 0.95) 0%, rgba(255, 255, 255, 0.98) 100%)',
+                borderRadius: '20px',
+                border: '1.2px solid rgba(200, 155, 88, 0.3)',
                 margin: '0 0 1.5rem 0',
-                boxShadow: 'var(--shadow-washi-sm)',
+                boxShadow: '0 2px 10px rgba(18, 36, 56, 0.04), 0 1px 3px rgba(18, 36, 56, 0.02)',
+                position: 'relative',
               }}
             >
-              <div style={{ fontSize: '0.74rem', color: '#786A5E', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.35rem' }}>
-                Từ nguyên mẫu (辞書形)
+              <div style={{ fontSize: '0.74rem', color: '#786A5E', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.35rem', fontFamily: 'var(--font-maru)' }}>
+                Từ nguyên mẫu · 辞書形
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.75rem' }}>
@@ -529,6 +536,7 @@ export default function ConjugationPage() {
                     fontWeight: 900,
                     color: '#122438',
                     letterSpacing: '-0.02em',
+                    textShadow: '0 1px 2px rgba(18, 36, 56, 0.08)',
                   }}
                 >
                   {currentVerb.kanji}
@@ -537,7 +545,7 @@ export default function ConjugationPage() {
               </div>
 
               <div style={{ fontFamily: 'var(--font-maru)', fontSize: '1.3rem', color: '#B87B28', fontWeight: 700, marginTop: '0.2rem' }}>
-                {currentVerb.hiragana} ({currentVerb.romaji})
+                {currentVerb.hiragana} <span style={{ fontSize: '1rem', color: '#786A5E', fontWeight: 500 }}>({currentVerb.romaji})</span>
               </div>
 
               <div style={{ fontSize: '1.1rem', color: '#122438', fontWeight: 600, marginTop: '0.5rem' }}>
@@ -614,12 +622,13 @@ export default function ConjugationPage() {
               </div>
             </div>
 
-            {/* KHUNG NHẬP LIỆU CÂU TRẢ LỜI */}
+            {/* KHUNG NHẬP LIỆU CÂU TRẢ LỜI & BÀN PHÍM ẢO THU GỌN */}
             <form onSubmit={handleSubmitAnswer} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
               <div
                 style={{
                   padding: '0.65rem',
-                  background: targetForm === 'te' ? '#FAF0EE' : '#EDF4FA',
+                  background: targetForm === 'te' ? 'rgba(200, 56, 36, 0.06)' : 'rgba(30, 75, 117, 0.06)',
+                  border: `1.2px solid ${targetForm === 'te' ? 'rgba(200, 56, 36, 0.2)' : 'rgba(30, 75, 117, 0.2)'}`,
                   borderRadius: '10px',
                   color: targetForm === 'te' ? '#A32415' : '#1E4B75',
                   fontWeight: 700,
@@ -670,6 +679,103 @@ export default function ConjugationPage() {
                 )}
               </div>
 
+              {/* Mẹo gõ Romaji & Nút mở phím ảo */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem', fontSize: '0.78rem', color: '#786A5E', fontFamily: 'var(--font-maru)' }}>
+                <span>
+                  💡 Mẹo: Gõ Romaji tự chuyển thành Hiragana (vd: <code style={{ color: '#C83824', fontWeight: 700 }}>yonnde</code> → <code style={{ color: '#2A6B3D', fontWeight: 700 }}>よんで</code>)
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setShowKeypad(!showKeypad)}
+                  style={{
+                    background: 'none',
+                    border: '1px solid #D8CDB8',
+                    borderRadius: '6px',
+                    padding: '0.2rem 0.55rem',
+                    fontSize: '0.76rem',
+                    color: '#1E4B75',
+                    cursor: 'pointer',
+                    fontWeight: 700,
+                  }}
+                >
+                  {showKeypad ? '▲ Ẩn phím ảo' : '⌨️ Mở phím ảo Kana'}
+                </button>
+              </div>
+
+              {/* Bàn phím ảo Kana tinh gọn (Collapsible Drawer) */}
+              {showKeypad && (
+                <div
+                  style={{
+                    background: 'rgba(250, 247, 240, 0.96)',
+                    border: '1.2px solid #E2D7C5',
+                    borderRadius: '12px',
+                    padding: '0.75rem',
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '0.35rem',
+                    justifyContent: 'center',
+                    maxHeight: '180px',
+                    overflowY: 'auto',
+                    boxShadow: 'inset 0 1px 3px rgba(18, 36, 56, 0.04)',
+                  }}
+                >
+                  {[
+                    'あ', 'い', 'う', 'え', 'お',
+                    'か', 'き', 'く', 'け', 'こ',
+                    'さ', 'し', 'す', 'せ', 'そ',
+                    'た', 'ち', 'つ', 'て', 'と',
+                    'な', 'に', 'ぬ', 'ね', 'の',
+                    'は', 'ひ', 'ふ', 'へ', 'ほ',
+                    'ま', 'み', 'む', 'め', 'も',
+                    'や', 'ゆ', 'よ',
+                    'ら', 'り', 'る', 'れ', 'ろ',
+                    'わ', 'を', 'ん', 'っ',
+                    'が', 'ぎ', 'ぐ', 'げ', 'ご',
+                    'ざ', 'じ', 'ず', 'ぜ', 'ぞ',
+                    'だ', 'ぢ', 'づ', 'で', 'ど',
+                    'ば', 'び', 'ぶ', 'べ', 'ぼ',
+                    'ぱ', 'ぴ', 'ぷ', 'ぺ', 'ぽ',
+                  ].map((char) => (
+                    <button
+                      key={char}
+                      type="button"
+                      onClick={() => handleInsertKana(char)}
+                      style={{
+                        padding: '0.35rem 0.55rem',
+                        background: '#FFFFFF',
+                        border: '1px solid #E6DDCF',
+                        borderRadius: '6px',
+                        fontFamily: 'var(--font-maru)',
+                        fontSize: '0.88rem',
+                        fontWeight: 700,
+                        color: '#122438',
+                        cursor: 'pointer',
+                        transition: 'all 0.15s ease',
+                      }}
+                    >
+                      {char}
+                    </button>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={() => setUserInput((prev) => prev.slice(0, -1))}
+                    style={{
+                      padding: '0.35rem 0.65rem',
+                      background: '#FFF2F0',
+                      border: '1px solid #F5C6CB',
+                      borderRadius: '6px',
+                      fontFamily: 'var(--font-maru)',
+                      fontSize: '0.82rem',
+                      fontWeight: 700,
+                      color: '#C83824',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    ⌫ Xóa
+                  </button>
+                </div>
+              )}
+
               {/* Nút hành động ngắn gọn */}
               <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.4rem' }}>
                 <button
@@ -699,28 +805,30 @@ export default function ConjugationPage() {
               </div>
             </form>
 
-            {/* Phản hồi sau khi chấm điểm */}
+            {/* Phản hồi sau khi chấm điểm (Kintsugi Aesthetics) */}
             {evaluation && (
               <div
                 style={{
                   marginTop: '1.25rem',
-                  padding: '1.1rem 1.25rem',
-                  borderRadius: '14px',
-                  background: evaluation.isCorrect ? '#EBF5EE' : '#FFF2F0',
-                  border: `1.2px solid ${evaluation.isCorrect ? '#A3D9B1' : '#F5C6CB'}`,
-                  color: evaluation.isCorrect ? '#265C35' : '#A32415',
-                  boxShadow: 'var(--shadow-washi-sm)',
+                  padding: '1.15rem 1.35rem',
+                  borderRadius: '16px',
+                  background: evaluation.isCorrect ? 'rgba(42, 107, 61, 0.06)' : 'rgba(200, 56, 36, 0.06)',
+                  border: `1.5px solid ${evaluation.isCorrect ? '#C89B58' : 'rgba(200, 56, 36, 0.28)'}`,
+                  color: evaluation.isCorrect ? '#1B522A' : '#9E2413',
+                  boxShadow: evaluation.isCorrect
+                    ? '0 4px 16px rgba(200, 155, 88, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8)'
+                    : '0 4px 16px rgba(200, 56, 36, 0.08)',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <span style={{ fontWeight: 800, fontSize: '1.05rem', fontFamily: 'var(--font-maru)' }}>
-                    {evaluation.isCorrect ? '✓ Hoàn toàn chính xác!' : '✗ Chưa chính xác!'}
+                  <span style={{ fontWeight: 800, fontSize: '1.05rem', fontFamily: 'var(--font-maru)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    {evaluation.isCorrect ? '✨ 正解 · Hoàn toàn chính xác!' : '⚠️ Chưa chính xác · Hãy chú ý quy tắc biến âm!'}
                   </span>
                   <JapaneseSpeakerButton text={evaluation.expectedKanji} size={20} />
                 </div>
 
                 <div style={{ marginTop: '0.45rem', fontSize: '0.96rem' }}>
-                  Đáp án chuẩn: <strong>{evaluation.expectedKanji}</strong> ({evaluation.expectedHiragana} / {evaluation.expectedRomaji})
+                  Đáp án chuẩn: <strong style={{ color: '#122438' }}>{evaluation.expectedKanji}</strong> ({evaluation.expectedHiragana} / {evaluation.expectedRomaji})
                 </div>
 
                 {evaluation.ruleExplanation && (
@@ -790,57 +898,74 @@ export default function ConjugationPage() {
       )}
 
       {/* =========================================================================
-          CHẾ ĐỘ 2: HỌC LƯỚT NHANH (SPEED DRILL - 3D Tactile Card)
+          CHẾ ĐỘ 2: HỌC LƯỚT NHANH (SPEED DRILL - 3D Tactile Card GPU Accelerated)
           ========================================================================= */}
       {mode === 'speed' && (
-        <div style={{ maxWidth: '620px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '620px', margin: '0 auto', perspective: '1200px' }}>
           <div
             onClick={() => setIsSpeedFlipped(!isSpeedFlipped)}
-            className="bento-card-artisan"
             style={{
-              padding: '3rem 2rem',
-              textAlign: 'center',
+              position: 'relative',
+              width: '100%',
+              minHeight: '380px',
               cursor: 'pointer',
-              minHeight: '340px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              background: '#FFFFFF',
-              border: '1.5px solid rgba(200, 155, 88, 0.45)',
+              transformStyle: 'preserve-3d',
+              WebkitTransformStyle: 'preserve-3d',
+              transition: 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)',
+              transform: isSpeedFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+              willChange: 'transform',
             }}
           >
-            <JapaneseArtBackdrop
-              src="/assets/art/gold-sakura-washi.jpg"
-              alt="Họa tiết"
-              opacity={0.06}
-              blendMode="multiply"
-            />
-
-            <span
-              className="micro-badge-label"
+            {/* MẶT TRƯỚC: THỂ NGUYÊN BẢN (GPU Hardware Accelerated) */}
+            <div
+              className="bento-card-artisan"
               style={{
                 position: 'absolute',
-                top: '1.25rem',
-                left: '1.25rem',
-                background: speedVerb.group === 1 ? '#EDF4FA' : '#EBF5EE',
-                color: speedVerb.group === 1 ? '#1E4B75' : '#2A6B3D',
+                inset: 0,
+                padding: '3rem 2rem',
+                textAlign: 'center',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                background: '#FFFFFF',
+                border: '1.5px solid rgba(200, 155, 88, 0.45)',
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden',
+                transform: 'translate3d(0, 0, 0)',
+                WebkitTransform: 'translate3d(0, 0, 0)',
               }}
             >
-              Nhóm {speedVerb.group} {speedVerb.isException ? '★ Ngoại lệ' : ''}
-            </span>
+              <JapaneseArtBackdrop
+                src="/assets/art/gold-sakura-washi.webp"
+                alt="Họa tiết"
+                opacity={0.06}
+                blendMode="multiply"
+              />
 
-            <span style={{ position: 'absolute', top: '1.25rem', right: '1.25rem', fontSize: '0.88rem', color: '#786A5E', fontWeight: 700 }}>
-              {speedIdx + 1} / {filteredVerbs.length}
-            </span>
+              <span
+                className="micro-badge-label"
+                style={{
+                  position: 'absolute',
+                  top: '1.25rem',
+                  left: '1.25rem',
+                  background: speedVerb.group === 1 ? '#EDF4FA' : '#EBF5EE',
+                  color: speedVerb.group === 1 ? '#1E4B75' : '#2A6B3D',
+                  border: `1px solid ${speedVerb.group === 1 ? '#B8D5E5' : '#C2E5CC'}`,
+                }}
+              >
+                Nhóm {speedVerb.group} {speedVerb.isException ? '★ Ngoại lệ' : ''}
+              </span>
 
-            {!isSpeedFlipped ? (
-              // MẶT TRƯỚC: THỂ NGUYÊN BẢN
+              <span style={{ position: 'absolute', top: '1.25rem', right: '1.25rem', fontSize: '0.88rem', color: '#786A5E', fontWeight: 700 }}>
+                {speedIdx + 1} / {filteredVerbs.length}
+              </span>
+
               <div>
-                <div style={{ fontSize: '0.78rem', color: '#786A5E', fontWeight: 700, textTransform: 'uppercase', marginBottom: '0.4rem' }}>
-                  Thể nguyên mẫu
+                <div style={{ fontSize: '0.78rem', color: '#786A5E', fontWeight: 700, textTransform: 'uppercase', marginBottom: '0.4rem', letterSpacing: '0.05em' }}>
+                  Thể nguyên mẫu · 辞書形
                 </div>
-                <div style={{ fontFamily: 'var(--font-mincho)', fontSize: 'clamp(3rem, 7vw, 4rem)', fontWeight: 900, color: '#122438' }}>
+                <div style={{ fontFamily: 'var(--font-mincho)', fontSize: 'clamp(3rem, 7vw, 4.2rem)', fontWeight: 900, color: '#122438', textShadow: '0 2px 8px rgba(18, 36, 56, 0.08)' }}>
                   {speedVerb.kanji}
                 </div>
                 <div style={{ fontFamily: 'var(--font-maru)', fontSize: '1.35rem', color: '#B87B28', fontWeight: 700, marginTop: '0.4rem' }}>
@@ -850,42 +975,80 @@ export default function ConjugationPage() {
                   {speedVerb.meaning_vi}
                 </div>
                 <p style={{ color: '#786A5E', fontSize: '0.84rem', marginTop: '1.5rem', fontFamily: 'var(--font-maru)' }}>
-                  (Nhấp vào thẻ để lật xem cách chia Thể Te &amp; Thể Ru)
+                  👆 Nhấp để lật xem Thể Te &amp; Thể Masu
                 </p>
               </div>
-            ) : (
-              // MẶT SAU: CÁC THỂ ĐÃ CHIA
+            </div>
+
+            {/* MẶT SAU: CÁC THỂ ĐÃ CHIA (GPU Hardware Accelerated) */}
+            <div
+              className="bento-card-artisan"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                padding: '2.5rem 1.75rem',
+                textAlign: 'center',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                background: '#FAF8F5',
+                border: '1.5px solid #C89B58',
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden',
+                transform: 'rotateY(180deg) translate3d(0, 0, 0)',
+                WebkitTransform: 'rotateY(180deg) translate3d(0, 0, 0)',
+              }}
+            >
               <div style={{ width: '100%' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem', marginBottom: '1.25rem' }}>
-                  <div style={{ background: '#FAF8F5', padding: '1.1rem', borderRadius: '14px', border: '1px solid var(--washi-border)' }}>
+                <span
+                  className="micro-badge-label"
+                  style={{
+                    position: 'absolute',
+                    top: '1.25rem',
+                    left: '1.25rem',
+                    background: '#FAF7F0',
+                    color: '#C83824',
+                    border: '1px solid rgba(200, 56, 36, 0.25)',
+                  }}
+                >
+                  Đáp án chia thể
+                </span>
+
+                <span style={{ position: 'absolute', top: '1.25rem', right: '1.25rem', fontSize: '0.88rem', color: '#786A5E', fontWeight: 700 }}>
+                  {speedIdx + 1} / {filteredVerbs.length}
+                </span>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem', marginBottom: '1.25rem', marginTop: '1.5rem' }}>
+                  <div style={{ background: '#FFFFFF', padding: '1.1rem', borderRadius: '14px', border: '1px solid rgba(200, 56, 36, 0.2)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
                     <div className="micro-badge-label" style={{ color: '#C83824', padding: 0 }}>THỂ TE (て形)</div>
                     <div style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.65rem', fontWeight: 800, color: '#122438', marginTop: '0.25rem' }}>
                       {speedVerb.te_form.kanji}
                     </div>
-                    <div style={{ fontSize: '0.88rem', color: '#786A5E', marginTop: '0.2rem' }}>
+                    <div style={{ fontSize: '0.88rem', color: '#1E4B75', fontWeight: 600, marginTop: '0.2rem' }}>
                       {speedVerb.te_form.hiragana} ({speedVerb.te_form.romaji})
                     </div>
                   </div>
 
-                  <div style={{ background: '#FAF8F5', padding: '1.1rem', borderRadius: '14px', border: '1px solid var(--washi-border)' }}>
+                  <div style={{ background: '#FFFFFF', padding: '1.1rem', borderRadius: '14px', border: '1px solid rgba(30, 75, 117, 0.2)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
                     <div className="micro-badge-label" style={{ color: '#1E4B75', padding: 0 }}>THỂ MASU (ます)</div>
                     <div style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.65rem', fontWeight: 800, color: '#122438', marginTop: '0.25rem' }}>
                       {speedVerb.masu_form.kanji}
                     </div>
-                    <div style={{ fontSize: '0.88rem', color: '#786A5E', marginTop: '0.2rem' }}>
+                    <div style={{ fontSize: '0.88rem', color: '#1E4B75', fontWeight: 600, marginTop: '0.2rem' }}>
                       {speedVerb.masu_form.hiragana} ({speedVerb.masu_form.romaji})
                     </div>
                   </div>
                 </div>
 
-                <div style={{ fontSize: '0.95rem', color: '#122438', fontStyle: 'italic' }}>
+                <div style={{ fontSize: '0.95rem', color: '#122438', fontWeight: 600, fontStyle: 'italic', background: '#FFFFFF', padding: '0.75rem 1rem', borderRadius: '10px', border: '1px solid var(--washi-border)' }}>
                   &ldquo;{speedVerb.example.sentence}&rdquo;
-                </div>
-                <div style={{ fontSize: '0.82rem', color: '#786A5E', marginTop: '0.25rem' }}>
-                  {speedVerb.example.meaning}
+                  <div style={{ fontSize: '0.82rem', color: '#786A5E', marginTop: '0.25rem', fontStyle: 'normal' }}>
+                    {speedVerb.example.meaning}
+                  </div>
                 </div>
               </div>
-            )}
+            </div>
           </div>
 
           {/* Nút lướt câu tiếp theo */}
@@ -903,9 +1066,9 @@ export default function ConjugationPage() {
             <button
               onClick={() => setIsSpeedFlipped(!isSpeedFlipped)}
               className="btn-washi"
-              style={{ flex: 1, padding: '0.85rem' }}
+              style={{ flex: 1, padding: '0.85rem', borderColor: '#C89B58', color: '#122438', fontWeight: 700 }}
             >
-              {isSpeedFlipped ? 'Mặt trước' : 'Lật'}
+              {isSpeedFlipped ? 'Mặt trước' : 'Lật xem'}
             </button>
             <button
               onClick={() => {
@@ -943,36 +1106,36 @@ export default function ConjugationPage() {
               <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
                 <thead>
                   <tr style={{ background: '#FAF7F0', borderBottom: '1.5px solid var(--washi-border)' }}>
-                    <th style={{ padding: '0.65rem 0.75rem' }}>Đuôi nguyên thể</th>
-                    <th style={{ padding: '0.65rem 0.75rem' }}>Biến âm thể Te</th>
-                    <th style={{ padding: '0.65rem 0.75rem' }}>Ví dụ minh họa</th>
+                    <th style={{ padding: '0.65rem 0.75rem', color: '#122438' }}>Đuôi nguyên thể</th>
+                    <th style={{ padding: '0.65rem 0.75rem', color: '#122438' }}>Biến âm thể Te</th>
+                    <th style={{ padding: '0.65rem 0.75rem', color: '#122438' }}>Ví dụ minh họa</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr style={{ borderBottom: '1px solid var(--washi-border)' }}>
                     <td style={{ padding: '0.75rem', fontWeight: 700, color: '#C83824' }}>う, つ, る</td>
                     <td style={{ padding: '0.75rem', fontWeight: 800, color: '#1E4B75' }}>〜 って (âm ngắt)</td>
-                    <td style={{ padding: '0.75rem' }}>買う → <strong>買って</strong>, 待つ → <strong>待って</strong>, 取る → <strong>取って</strong></td>
+                    <td style={{ padding: '0.75rem', color: '#122438' }}>買う → <strong style={{ color: '#C83824' }}>買って</strong>, 待つ → <strong style={{ color: '#C83824' }}>待って</strong>, 取る → <strong style={{ color: '#C83824' }}>取って</strong></td>
                   </tr>
                   <tr style={{ borderBottom: '1px solid var(--washi-border)', background: 'rgba(250,248,245,0.5)' }}>
                     <td style={{ padding: '0.75rem', fontWeight: 700, color: '#C83824' }}>む, ぶ, ぬ</td>
                     <td style={{ padding: '0.75rem', fontWeight: 800, color: '#1E4B75' }}>〜 んで (âm mũi đục)</td>
-                    <td style={{ padding: '0.75rem' }}>飲む → <strong>飲んで</strong>, 遊ぶ → <strong>遊んで</strong>, 死ぬ → <strong>死んで</strong></td>
+                    <td style={{ padding: '0.75rem', color: '#122438' }}>飲む → <strong style={{ color: '#1E4B75' }}>飲んで</strong>, 遊ぶ → <strong style={{ color: '#1E4B75' }}>遊んで</strong>, 死ぬ → <strong style={{ color: '#1E4B75' }}>死んで</strong></td>
                   </tr>
                   <tr style={{ borderBottom: '1px solid var(--washi-border)' }}>
                     <td style={{ padding: '0.75rem', fontWeight: 700, color: '#C83824' }}>く (ku)</td>
                     <td style={{ padding: '0.75rem', fontWeight: 800, color: '#1E4B75' }}>〜 いて (âm i)</td>
-                    <td style={{ padding: '0.75rem' }}>書く → <strong>書いて</strong>, 聞く → <strong>聞いて</strong></td>
+                    <td style={{ padding: '0.75rem', color: '#122438' }}>書く → <strong style={{ color: '#1E4B75' }}>書いて</strong>, 聞く → <strong style={{ color: '#1E4B75' }}>聞いて</strong></td>
                   </tr>
                   <tr style={{ borderBottom: '1px solid var(--washi-border)', background: 'rgba(250,248,245,0.5)' }}>
                     <td style={{ padding: '0.75rem', fontWeight: 700, color: '#C83824' }}>ぐ (gu)</td>
                     <td style={{ padding: '0.75rem', fontWeight: 800, color: '#1E4B75' }}>〜 いで (âm i đục)</td>
-                    <td style={{ padding: '0.75rem' }}>泳ぐ → <strong>泳いで</strong>, 急ぐ → <strong>急いで</strong></td>
+                    <td style={{ padding: '0.75rem', color: '#122438' }}>泳ぐ → <strong style={{ color: '#1E4B75' }}>泳いで</strong>, 急ぐ → <strong style={{ color: '#1E4B75' }}>急いで</strong></td>
                   </tr>
                   <tr style={{ borderBottom: '1px solid var(--washi-border)' }}>
                     <td style={{ padding: '0.75rem', fontWeight: 700, color: '#C83824' }}>す (su)</td>
                     <td style={{ padding: '0.75rem', fontWeight: 800, color: '#1E4B75' }}>〜 して</td>
-                    <td style={{ padding: '0.75rem' }}>話す → <strong>話して</strong>, 貸す → <strong>貸して</strong></td>
+                    <td style={{ padding: '0.75rem', color: '#122438' }}>話す → <strong style={{ color: '#1E4B75' }}>話して</strong>, 貸す → <strong style={{ color: '#1E4B75' }}>貸して</strong></td>
                   </tr>
                 </tbody>
               </table>
@@ -990,17 +1153,17 @@ export default function ConjugationPage() {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.84rem', lineHeight: 1.5 }}>
               <div style={{ padding: '0.65rem 0.8rem', background: '#F0F7F2', borderRadius: '10px', borderLeft: '4px solid #2A6B3D' }}>
-                <strong>Nhóm 2 (Ichidan):</strong> Đuôi trước Masu là cột <em>I</em> hoặc <em>E</em> + <em>RU</em>.
+                <strong style={{ color: '#144020' }}>Nhóm 2 (Ichidan):</strong> Đuôi trước Masu là cột <em>I</em> hoặc <em>E</em> + <em>RU</em>.
                 <div style={{ color: '#2A6B3D', fontWeight: 700, marginTop: '0.2rem' }}>Quy tắc: Bỏ る + て/ます</div>
               </div>
 
               <div style={{ padding: '0.65rem 0.8rem', background: '#EDF4FA', borderRadius: '10px', borderLeft: '4px solid #1E4B75' }}>
-                <strong>Nhóm 1 (Godan):</strong> Đa số động từ đuôi cột <em>U</em>.
+                <strong style={{ color: '#0F2C47' }}>Nhóm 1 (Godan):</strong> Đa số động từ đuôi cột <em>U</em>.
                 <div style={{ color: '#1E4B75', fontWeight: 700, marginTop: '0.2rem' }}>Quy tắc: Biến âm theo đuôi</div>
               </div>
 
               <div style={{ padding: '0.65rem 0.8rem', background: '#FFF9E6', borderRadius: '10px', borderLeft: '4px solid #B8853C' }}>
-                <strong>Nhóm 3 (Bất quy tắc):</strong>
+                <strong style={{ color: '#664B16' }}>Nhóm 3 (Bất quy tắc):</strong>
                 <div style={{ color: '#B8853C', fontWeight: 700, marginTop: '0.2rem' }}>する → して | 来る → 来て (きて)</div>
               </div>
             </div>
@@ -1015,31 +1178,31 @@ export default function ConjugationPage() {
               6 Động Từ Ngoại Lệ
             </h3>
             <p style={{ fontSize: '0.82rem', color: '#786A5E', margin: '0 0 0.85rem 0' }}>
-              Các từ đuôi nhìn giống Nhóm 2 nhưng thực tế thuộc <strong>Nhóm 1</strong>, hoặc biến âm khác biệt:
+              Các từ đuôi nhìn giống Nhóm 2 nhưng thực tế thuộc <strong style={{ color: '#122438' }}>Nhóm 1</strong>, hoặc biến âm khác biệt:
             </p>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.65rem', fontSize: '0.84rem' }}>
-              <div style={{ padding: '0.5rem 0.7rem', background: '#FAF8F5', borderRadius: '8px', border: '1px solid var(--washi-border)' }}>
+              <div style={{ padding: '0.5rem 0.7rem', background: '#FAF8F5', borderRadius: '8px', border: '1px solid var(--washi-border)', color: '#122438' }}>
                 <strong>1. 行く (iku):</strong> Đi<br />
                 <span style={{ color: '#C83824', fontWeight: 800 }}>→ 行って (itte)</span> (không chia iite!)
               </div>
-              <div style={{ padding: '0.5rem 0.7rem', background: '#FAF8F5', borderRadius: '8px', border: '1px solid var(--washi-border)' }}>
+              <div style={{ padding: '0.5rem 0.7rem', background: '#FAF8F5', borderRadius: '8px', border: '1px solid var(--washi-border)', color: '#122438' }}>
                 <strong>2. 帰る (kaeru):</strong> Về<br />
                 <span style={{ color: '#1E4B75', fontWeight: 800 }}>→ 帰って (Nhóm 1)</span>
               </div>
-              <div style={{ padding: '0.5rem 0.7rem', background: '#FAF8F5', borderRadius: '8px', border: '1px solid var(--washi-border)' }}>
+              <div style={{ padding: '0.5rem 0.7rem', background: '#FAF8F5', borderRadius: '8px', border: '1px solid var(--washi-border)', color: '#122438' }}>
                 <strong>3. 切る (kiru):</strong> Cắt<br />
                 <span style={{ color: '#1E4B75', fontWeight: 800 }}>→ 切って (Nhóm 1)</span>
               </div>
-              <div style={{ padding: '0.5rem 0.7rem', background: '#FAF8F5', borderRadius: '8px', border: '1px solid var(--washi-border)' }}>
+              <div style={{ padding: '0.5rem 0.7rem', background: '#FAF8F5', borderRadius: '8px', border: '1px solid var(--washi-border)', color: '#122438' }}>
                 <strong>4. 知る (shiru):</strong> Biết<br />
                 <span style={{ color: '#1E4B75', fontWeight: 800 }}>→ 知って (Nhóm 1)</span>
               </div>
-              <div style={{ padding: '0.5rem 0.7rem', background: '#FAF8F5', borderRadius: '8px', border: '1px solid var(--washi-border)' }}>
+              <div style={{ padding: '0.5rem 0.7rem', background: '#FAF8F5', borderRadius: '8px', border: '1px solid var(--washi-border)', color: '#122438' }}>
                 <strong>5. 入る (hairu):</strong> Vào<br />
                 <span style={{ color: '#1E4B75', fontWeight: 800 }}>→ 入って (Nhóm 1)</span>
               </div>
-              <div style={{ padding: '0.5rem 0.7rem', background: '#FAF8F5', borderRadius: '8px', border: '1px solid var(--washi-border)' }}>
+              <div style={{ padding: '0.5rem 0.7rem', background: '#FAF8F5', borderRadius: '8px', border: '1px solid var(--washi-border)', color: '#122438' }}>
                 <strong>6. 走る (hashiru):</strong> Chạy<br />
                 <span style={{ color: '#1E4B75', fontWeight: 800 }}>→ 走って (Nhóm 1)</span>
               </div>
@@ -1071,10 +1234,10 @@ export default function ConjugationPage() {
                 boxShadow: 'var(--shadow-washi-sm)',
               }}
             >
-              🎵 <strong>I - Chi - Ri</strong> biến thành <strong>TTE</strong> (って)<br />
-              🎵 <strong>Mi - Bi - Ni</strong> biến thành <strong>NDE</strong> (んで)<br />
-              🎵 <strong>Ki</strong> thành <strong>ITE</strong>, <strong>Gi</strong> thành <strong>IDE</strong><br />
-              🎵 <strong>Shi</strong> giữ nguyên <strong>SHITE</strong>, <strong>Iku</strong> là <strong>ITTE</strong>!
+              🎵 <strong>I - Chi - Ri</strong> biến thành <strong style={{ color: '#C83824' }}>TTE</strong> (って)<br />
+              🎵 <strong>Mi - Bi - Ni</strong> biến thành <strong style={{ color: '#1E4B75' }}>NDE</strong> (んで)<br />
+              🎵 <strong>Ki</strong> thành <strong style={{ color: '#1E4B75' }}>ITE</strong>, <strong>Gi</strong> thành <strong style={{ color: '#1E4B75' }}>IDE</strong><br />
+              🎵 <strong>Shi</strong> giữ nguyên <strong style={{ color: '#1E4B75' }}>SHITE</strong>, <strong>Iku</strong> là <strong style={{ color: '#C83824' }}>ITTE</strong>!
             </div>
           </div>
 
@@ -1115,14 +1278,14 @@ export default function ConjugationPage() {
               <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
                 <thead>
                   <tr style={{ background: '#FAF7F0', borderBottom: '1.5px solid var(--washi-border)' }}>
-                    <th style={{ padding: '0.65rem 0.75rem' }}>STT</th>
-                    <th style={{ padding: '0.65rem 0.75rem' }}>Hán tự</th>
-                    <th style={{ padding: '0.65rem 0.75rem' }}>Hiragana</th>
-                    <th style={{ padding: '0.65rem 0.75rem' }}>Nghĩa</th>
-                    <th style={{ padding: '0.65rem 0.75rem' }}>Nhóm</th>
-                    <th style={{ padding: '0.65rem 0.75rem' }}>Thể Te (て)</th>
-                    <th style={{ padding: '0.65rem 0.75rem' }}>Thể Ru (る)</th>
-                    <th style={{ padding: '0.65rem 0.75rem' }}>Phát âm</th>
+                    <th style={{ padding: '0.65rem 0.75rem', color: '#122438' }}>STT</th>
+                    <th style={{ padding: '0.65rem 0.75rem', color: '#122438' }}>Hán tự</th>
+                    <th style={{ padding: '0.65rem 0.75rem', color: '#122438' }}>Hiragana</th>
+                    <th style={{ padding: '0.65rem 0.75rem', color: '#122438' }}>Nghĩa</th>
+                    <th style={{ padding: '0.65rem 0.75rem', color: '#122438' }}>Nhóm</th>
+                    <th style={{ padding: '0.65rem 0.75rem', color: '#122438' }}>Thể Te (て)</th>
+                    <th style={{ padding: '0.65rem 0.75rem', color: '#122438' }}>Thể Ru (る)</th>
+                    <th style={{ padding: '0.65rem 0.75rem', color: '#122438' }}>Phát âm</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -1135,11 +1298,11 @@ export default function ConjugationPage() {
                       }}
                     >
                       <td style={{ padding: '0.65rem 0.75rem', color: '#786A5E' }}>{idx + 1}</td>
-                      <td style={{ padding: '0.65rem 0.75rem', fontFamily: 'var(--font-mincho)', fontWeight: 800, fontSize: '1.15rem' }}>
+                      <td style={{ padding: '0.65rem 0.75rem', fontFamily: 'var(--font-mincho)', fontWeight: 800, fontSize: '1.15rem', color: '#122438' }}>
                         {v.kanji}
                       </td>
                       <td style={{ padding: '0.65rem 0.75rem', color: '#1E4B75', fontWeight: 600 }}>{v.hiragana}</td>
-                      <td style={{ padding: '0.65rem 0.75rem', fontWeight: 600 }}>{v.meaning_vi}</td>
+                      <td style={{ padding: '0.65rem 0.75rem', fontWeight: 600, color: '#122438' }}>{v.meaning_vi}</td>
                       <td style={{ padding: '0.65rem 0.75rem' }}>
                         <span
                           className="micro-badge-label"
@@ -1188,15 +1351,15 @@ export default function ConjugationPage() {
             padding: '1.25rem',
           }}
         >
-          {/* Backdrop mờ che phủ toàn màn hình */}
+          {/* Backdrop mờ che phủ toàn màn hình với high blur */}
           <div
             onClick={() => setIsCheatsheetOpen(false)}
             style={{
               position: 'absolute',
               inset: 0,
-              background: 'rgba(10, 28, 51, 0.55)',
-              backdropFilter: 'blur(6px)',
-              WebkitBackdropFilter: 'blur(6px)',
+              background: 'rgba(10, 28, 51, 0.65)',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
             }}
           />
 
@@ -1207,19 +1370,22 @@ export default function ConjugationPage() {
               position: 'relative',
               zIndex: 2,
               width: '100%',
-              maxWidth: '720px',
+              maxWidth: '740px',
               maxHeight: '90vh',
               background: '#FAF8F5',
               border: '2px solid #C89B58',
-              boxShadow: '0 16px 48px rgba(10, 28, 51, 0.35)',
+              boxShadow: '0 20px 50px rgba(10, 28, 51, 0.45)',
               display: 'flex',
               flexDirection: 'column',
               overflow: 'hidden',
             }}
           >
-            {/* Header Sổ tay */}
+            {/* Header Sổ tay (Sticky Header) */}
             <div
               style={{
+                position: 'sticky',
+                top: 0,
+                zIndex: 10,
                 padding: '1.1rem 1.5rem',
                 background: 'linear-gradient(135deg, #10253F 0%, #1D436C 100%)',
                 color: '#FFFFFF',
@@ -1256,13 +1422,18 @@ export default function ConjugationPage() {
               </button>
             </div>
 
-            {/* 4 Tabs tra cứu con */}
+            {/* 4 Tabs tra cứu con (Sticky Anchor Navigation Pill Container) */}
             <div
               style={{
+                position: 'sticky',
+                top: '58px',
+                zIndex: 9,
                 display: 'flex',
-                gap: '0.35rem',
+                gap: '0.45rem',
                 padding: '0.75rem 1.25rem',
-                background: '#F0EBE0',
+                background: 'rgba(240, 235, 224, 0.95)',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
                 borderBottom: '1px solid var(--washi-border)',
                 overflowX: 'auto',
                 whiteSpace: 'nowrap',
@@ -1280,16 +1451,18 @@ export default function ConjugationPage() {
                     key={tab.id}
                     onClick={() => setCheatsheetTab(tab.id as any)}
                     style={{
-                      padding: '0.4rem 0.85rem',
+                      padding: '0.45rem 0.95rem',
                       borderRadius: '8px',
                       border: '1px solid',
                       borderColor: isActive ? '#1E4B75' : 'transparent',
                       background: isActive ? '#1E4B75' : '#FFFFFF',
                       color: isActive ? '#FFFFFF' : '#122438',
-                      fontSize: '0.82rem',
-                      fontWeight: isActive ? 700 : 500,
+                      fontSize: '0.84rem',
+                      fontWeight: isActive ? 800 : 600,
                       cursor: 'pointer',
                       fontFamily: 'var(--font-maru)',
+                      boxShadow: isActive ? '0 2px 6px rgba(30, 75, 117, 0.2)' : 'none',
+                      transition: 'all 0.2s ease',
                     }}
                   >
                     {tab.label}
@@ -1307,31 +1480,31 @@ export default function ConjugationPage() {
                     Cách nhận diện 3 Nhóm Động từ tiếng Nhật
                   </h3>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-                    <div style={{ padding: '0.85rem', background: '#FFFFFF', borderRadius: '12px', borderLeft: '4px solid #B8853C' }}>
+                    <div style={{ padding: '0.85rem', background: '#FFFFFF', borderRadius: '12px', borderLeft: '4px solid #B8853C', color: '#122438' }}>
                       <strong style={{ color: '#B8853C' }}>Nhóm 3 (Bất quy tắc):</strong> Chỉ có đúng 2 động từ:
                       <ul style={{ paddingLeft: '1.25rem', marginTop: '0.35rem' }}>
-                        <li><strong>する (suru):</strong> Làm → thể Masu: <em>します</em>, thể Te: <em>して</em>.</li>
-                        <li><strong>来る (くる - kuru):</strong> Đến → thể Masu: <em>来ます (きます)</em>, thể Te: <em>来て (きて)</em>.</li>
+                        <li><strong style={{ color: '#122438' }}>する (suru):</strong> Làm → thể Masu: <em>します</em>, thể Te: <em>して</em>.</li>
+                        <li><strong style={{ color: '#122438' }}>来る (くる - kuru):</strong> Đến → thể Masu: <em>来ます (きます)</em>, thể Te: <em>来て (きて)</em>.</li>
                       </ul>
                     </div>
 
-                    <div style={{ padding: '0.85rem', background: '#FFFFFF', borderRadius: '12px', borderLeft: '4px solid #2A6B3D' }}>
+                    <div style={{ padding: '0.85rem', background: '#FFFFFF', borderRadius: '12px', borderLeft: '4px solid #2A6B3D', color: '#122438' }}>
                       <strong style={{ color: '#2A6B3D' }}>Nhóm 2 (Ichidan - 一段):</strong>
                       <p style={{ margin: '0.3rem 0' }}>
                         Tận cùng là <strong>る (ru)</strong> và âm đứng trước <strong>る</strong> thuộc cột <strong>I</strong> hoặc cột <strong>E</strong>.
                       </p>
-                      <div style={{ background: '#F0F7F2', padding: '0.5rem 0.75rem', borderRadius: '8px', fontSize: '0.85rem' }}>
+                      <div style={{ background: '#F0F7F2', padding: '0.5rem 0.75rem', borderRadius: '8px', fontSize: '0.85rem', color: '#144020' }}>
                         ✓ Ví dụ: 食べる (tab<strong>e</strong>-ru) - cột E; 見る (m<strong>i</strong>-ru) - cột I; 起きる (ok<strong>i</strong>-ru) - cột I.<br />
                         ✓ Quy tắc chia: <strong>Bỏ る + て / ます</strong> (食べる → 食べて / 食べます).
                       </div>
                     </div>
 
-                    <div style={{ padding: '0.85rem', background: '#FFFFFF', borderRadius: '12px', borderLeft: '4px solid #1E4B75' }}>
+                    <div style={{ padding: '0.85rem', background: '#FFFFFF', borderRadius: '12px', borderLeft: '4px solid #1E4B75', color: '#122438' }}>
                       <strong style={{ color: '#1E4B75' }}>Nhóm 1 (Godan - 五段):</strong>
                       <p style={{ margin: '0.3rem 0' }}>
                         Tất cả các động từ còn lại tận cùng là cột <strong>U</strong>: <em>う, つ, る, む, ぶ, ぬ, く, ぐ, す</em> (kể cả từ có đuôi -iru/-eru nhưng thuộc nhóm 1 ngoại lệ).
                       </p>
-                      <div style={{ background: '#EDF4FA', padding: '0.5rem 0.75rem', borderRadius: '8px', fontSize: '0.85rem' }}>
+                      <div style={{ background: '#EDF4FA', padding: '0.5rem 0.75rem', borderRadius: '8px', fontSize: '0.85rem', color: '#0F2C47' }}>
                         ✓ Quy tắc chia thể Te: Biến âm theo nhóm phụ âm (xem Tab 2).
                       </div>
                     </div>
@@ -1348,41 +1521,41 @@ export default function ConjugationPage() {
                   <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
                     <thead>
                       <tr style={{ background: '#FAF7F0', borderBottom: '1.5px solid var(--washi-border)' }}>
-                        <th style={{ padding: '0.6rem 0.75rem' }}>Đuôi từ điển</th>
-                        <th style={{ padding: '0.6rem 0.75rem' }}>Chuyển sang thể Te</th>
-                        <th style={{ padding: '0.6rem 0.75rem' }}>Ví dụ</th>
+                        <th style={{ padding: '0.6rem 0.75rem', color: '#122438' }}>Đuôi từ điển</th>
+                        <th style={{ padding: '0.6rem 0.75rem', color: '#122438' }}>Chuyển sang thể Te</th>
+                        <th style={{ padding: '0.6rem 0.75rem', color: '#122438' }}>Ví dụ</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr style={{ borderBottom: '1px solid var(--washi-border)' }}>
                         <td style={{ padding: '0.65rem', fontWeight: 700, color: '#C83824' }}>う, つ, る</td>
                         <td style={{ padding: '0.65rem', fontWeight: 800, color: '#1E4B75' }}>〜 って (âm ngắt)</td>
-                        <td style={{ padding: '0.65rem' }}>買う → <strong>買って</strong>, 待つ → <strong>待って</strong>, 取る → <strong>取って</strong></td>
+                        <td style={{ padding: '0.65rem', color: '#122438' }}>買う → <strong style={{ color: '#C83824' }}>買って</strong>, 待つ → <strong style={{ color: '#C83824' }}>待って</strong>, 取る → <strong style={{ color: '#C83824' }}>取って</strong></td>
                       </tr>
                       <tr style={{ borderBottom: '1px solid var(--washi-border)', background: 'rgba(250,248,245,0.6)' }}>
                         <td style={{ padding: '0.65rem', fontWeight: 700, color: '#C83824' }}>む, ぶ, ぬ</td>
                         <td style={{ padding: '0.65rem', fontWeight: 800, color: '#1E4B75' }}>〜 んで (âm mũi)</td>
-                        <td style={{ padding: '0.65rem' }}>飲む → <strong>飲んで</strong>, 遊ぶ → <strong>遊んで</strong>, 死ぬ → <strong>死んで</strong></td>
+                        <td style={{ padding: '0.65rem', color: '#122438' }}>飲む → <strong style={{ color: '#1E4B75' }}>飲んで</strong>, 遊ぶ → <strong style={{ color: '#1E4B75' }}>遊んで</strong>, 死ぬ → <strong style={{ color: '#1E4B75' }}>死んで</strong></td>
                       </tr>
                       <tr style={{ borderBottom: '1px solid var(--washi-border)' }}>
                         <td style={{ padding: '0.65rem', fontWeight: 700, color: '#C83824' }}>く (ku)</td>
                         <td style={{ padding: '0.65rem', fontWeight: 800, color: '#1E4B75' }}>〜 いて (âm i)</td>
-                        <td style={{ padding: '0.65rem' }}>書く → <strong>書いて</strong>, 聞く → <strong>聞いて</strong></td>
+                        <td style={{ padding: '0.65rem', color: '#122438' }}>書く → <strong style={{ color: '#1E4B75' }}>書いて</strong>, 聞く → <strong style={{ color: '#1E4B75' }}>聞いて</strong></td>
                       </tr>
                       <tr style={{ borderBottom: '1px solid var(--washi-border)', background: 'rgba(250,248,245,0.6)' }}>
                         <td style={{ padding: '0.65rem', fontWeight: 700, color: '#C83824' }}>ぐ (gu)</td>
                         <td style={{ padding: '0.65rem', fontWeight: 800, color: '#1E4B75' }}>〜 いで (âm i đục)</td>
-                        <td style={{ padding: '0.65rem' }}>泳ぐ → <strong>泳いで</strong>, 急ぐ → <strong>急いで</strong></td>
+                        <td style={{ padding: '0.65rem', color: '#122438' }}>泳ぐ → <strong style={{ color: '#1E4B75' }}>泳いで</strong>, 急ぐ → <strong style={{ color: '#1E4B75' }}>急いで</strong></td>
                       </tr>
                       <tr style={{ borderBottom: '1px solid var(--washi-border)' }}>
                         <td style={{ padding: '0.65rem', fontWeight: 700, color: '#C83824' }}>す (su)</td>
                         <td style={{ padding: '0.65rem', fontWeight: 800, color: '#1E4B75' }}>〜 して</td>
-                        <td style={{ padding: '0.65rem' }}>話す → <strong>話して</strong>, 貸す → <strong>貸して</strong></td>
+                        <td style={{ padding: '0.65rem', color: '#122438' }}>話す → <strong style={{ color: '#1E4B75' }}>話して</strong>, 貸す → <strong style={{ color: '#1E4B75' }}>貸して</strong></td>
                       </tr>
                       <tr style={{ borderBottom: '1px solid var(--washi-border)', background: '#FFF2F0' }}>
                         <td style={{ padding: '0.65rem', fontWeight: 800, color: '#C83824' }}>★ 行く (iku)</td>
                         <td style={{ padding: '0.65rem', fontWeight: 800, color: '#C83824' }}>行って (itte)</td>
-                        <td style={{ padding: '0.65rem' }}><strong>Bắt buộc biến âm ngắt</strong> (không chia 行いて!)</td>
+                        <td style={{ padding: '0.65rem', color: '#9E2413' }}><strong>Bắt buộc biến âm ngắt</strong> (không chia 行いて!)</td>
                       </tr>
                     </tbody>
                   </table>
@@ -1400,36 +1573,36 @@ export default function ConjugationPage() {
                   </p>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                    <div style={{ padding: '0.85rem', background: '#FFFFFF', borderRadius: '10px', border: '1px solid var(--washi-border)' }}>
+                    <div style={{ padding: '0.85rem', background: '#FFFFFF', borderRadius: '10px', border: '1px solid var(--washi-border)', color: '#122438' }}>
                       <strong>1. Từ Thể Masu sang Thể Ru (Nhóm 1):</strong>
                       <p style={{ margin: '0.25rem 0', fontSize: '0.85rem' }}>
                         Đổi âm trước <strong>ます</strong> từ cột <strong>I</strong> sang cột <strong>U</strong> tương ứng:
                       </p>
-                      <div style={{ background: '#FAF8F5', padding: '0.45rem 0.75rem', borderRadius: '6px', fontSize: '0.84rem' }}>
-                        ・か<strong>き</strong>ます → か<strong>く</strong> (kaku)<br />
-                        ・の<strong>み</strong>ます → の<strong>む</strong> (nomu)<br />
-                        ・い<strong>き</strong>ます → い<strong>く</strong> (iku)<br />
-                        ・はな<strong>し</strong>ます → はな<strong>す</strong> (hanasu)
+                      <div style={{ background: '#FAF8F5', padding: '0.45rem 0.75rem', borderRadius: '6px', fontSize: '0.84rem', color: '#122438' }}>
+                        ・か<strong style={{ color: '#C83824' }}>き</strong>ます → か<strong style={{ color: '#1E4B75' }}>く</strong> (kaku)<br />
+                        ・の<strong style={{ color: '#C83824' }}>み</strong>ます → の<strong style={{ color: '#1E4B75' }}>む</strong> (nomu)<br />
+                        ・い<strong style={{ color: '#C83824' }}>き</strong>ます → い<strong style={{ color: '#1E4B75' }}>く</strong> (iku)<br />
+                        ・はな<strong style={{ color: '#C83824' }}>し</strong>ます → はな<strong style={{ color: '#1E4B75' }}>す</strong> (hanasu)
                       </div>
                     </div>
 
-                    <div style={{ padding: '0.85rem', background: '#FFFFFF', borderRadius: '10px', border: '1px solid var(--washi-border)' }}>
+                    <div style={{ padding: '0.85rem', background: '#FFFFFF', borderRadius: '10px', border: '1px solid var(--washi-border)', color: '#122438' }}>
                       <strong>2. Từ Thể Masu sang Thể Ru (Nhóm 2):</strong>
                       <p style={{ margin: '0.25rem 0', fontSize: '0.85rem' }}>
                         Chỉ cần bỏ <strong>ます</strong> và thêm <strong>る</strong>:
                       </p>
-                      <div style={{ background: '#FAF8F5', padding: '0.45rem 0.75rem', borderRadius: '6px', fontSize: '0.84rem' }}>
-                        ・たべます → たべ<strong>る</strong> (taberu)<br />
-                        ・みます → み<strong>る</strong> (miru)<br />
-                        ・ねます → ね<strong>る</strong> (neru)
+                      <div style={{ background: '#FAF8F5', padding: '0.45rem 0.75rem', borderRadius: '6px', fontSize: '0.84rem', color: '#122438' }}>
+                        ・たべます → たべ<strong style={{ color: '#2A6B3D' }}>る</strong> (taberu)<br />
+                        ・みます → み<strong style={{ color: '#2A6B3D' }}>る</strong> (miru)<br />
+                        ・ねます → ね<strong style={{ color: '#2A6B3D' }}>る</strong> (neru)
                       </div>
                     </div>
 
-                    <div style={{ padding: '0.85rem', background: '#FFFFFF', borderRadius: '10px', border: '1px solid var(--washi-border)' }}>
+                    <div style={{ padding: '0.85rem', background: '#FFFFFF', borderRadius: '10px', border: '1px solid var(--washi-border)', color: '#122438' }}>
                       <strong>3. Nhóm 3 (Bất quy tắc):</strong>
-                      <div style={{ background: '#FAF8F5', padding: '0.45rem 0.75rem', borderRadius: '6px', fontSize: '0.84rem' }}>
-                        ・します → <strong>する</strong> (suru)<br />
-                        ・きます → <strong>くる</strong> (kuru)
+                      <div style={{ background: '#FAF8F5', padding: '0.45rem 0.75rem', borderRadius: '6px', fontSize: '0.84rem', color: '#122438' }}>
+                        ・します → <strong style={{ color: '#B8853C' }}>する</strong> (suru)<br />
+                        ・きます → <strong style={{ color: '#B8853C' }}>くる</strong> (kuru)
                       </div>
                     </div>
                   </div>
@@ -1447,13 +1620,13 @@ export default function ConjugationPage() {
                     <div style={{ fontWeight: 800, color: '#C83824', marginBottom: '0.4rem' }}>
                       ⚠️ 6 Động từ kết thúc bằng -iru / -eru nhưng là NHÓM 1:
                     </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.45rem', fontSize: '0.82rem' }}>
-                      <div>1. <strong>帰る (kaeru):</strong> Về → 帰って</div>
-                      <div>2. <strong>切る (kiru):</strong> Cắt → 切って</div>
-                      <div>3. <strong>知る (shiru):</strong> Biết → 知って</div>
-                      <div>4. <strong>入る (hairu):</strong> Vào → 入って</div>
-                      <div>5. <strong>走る (hashiru):</strong> Chạy → 走って</div>
-                      <div>6. <strong>行く (iku):</strong> Đi → 行って (Ngoại lệ ku)</div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.45rem', fontSize: '0.82rem', color: '#122438' }}>
+                      <div>1. <strong>帰る (kaeru):</strong> Về → <strong style={{ color: '#1E4B75' }}>帰って</strong></div>
+                      <div>2. <strong>切る (kiru):</strong> Cắt → <strong style={{ color: '#1E4B75' }}>切って</strong></div>
+                      <div>3. <strong>知る (shiru):</strong> Biết → <strong style={{ color: '#1E4B75' }}>知って</strong></div>
+                      <div>4. <strong>入る (hairu):</strong> Vào → <strong style={{ color: '#1E4B75' }}>入って</strong></div>
+                      <div>5. <strong>走る (hashiru):</strong> Chạy → <strong style={{ color: '#1E4B75' }}>走って</strong></div>
+                      <div>6. <strong>行く (iku):</strong> Đi → <strong style={{ color: '#C83824' }}>行って</strong> (Ngoại lệ ku)</div>
                     </div>
                   </div>
 
@@ -1462,10 +1635,10 @@ export default function ConjugationPage() {
                       🎵 Bài ca vần biến âm thể Te truyền miệng:
                     </div>
                     <div style={{ fontFamily: 'var(--font-maru)', fontSize: '0.92rem', lineHeight: 1.8, color: '#122438' }}>
-                      🎵 <strong>I - Chi - Ri</strong> biến thành <strong>TTE</strong> (って)<br />
-                      🎵 <strong>Mi - Bi - Ni</strong> biến thành <strong>NDE</strong> (んで)<br />
-                      🎵 <strong>Ki</strong> thành <strong>ITE</strong>, <strong>Gi</strong> thành <strong>IDE</strong><br />
-                      🎵 <strong>Shi</strong> giữ nguyên <strong>SHITE</strong>, <strong>Iku</strong> là <strong>ITTE</strong>!
+                      🎵 <strong>I - Chi - Ri</strong> biến thành <strong style={{ color: '#C83824' }}>TTE</strong> (って)<br />
+                      🎵 <strong>Mi - Bi - Ni</strong> biến thành <strong style={{ color: '#1E4B75' }}>NDE</strong> (んで)<br />
+                      🎵 <strong>Ki</strong> thành <strong style={{ color: '#1E4B75' }}>ITE</strong>, <strong>Gi</strong> thành <strong style={{ color: '#1E4B75' }}>IDE</strong><br />
+                      🎵 <strong>Shi</strong> giữ nguyên <strong style={{ color: '#1E4B75' }}>SHITE</strong>, <strong>Iku</strong> là <strong style={{ color: '#C83824' }}>ITTE</strong>!
                     </div>
                   </div>
                 </div>
