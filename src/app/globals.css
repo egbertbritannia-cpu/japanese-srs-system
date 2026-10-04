@@ -1257,3 +1257,41 @@ button.karuta-btn {
   }
 }
 
+
+/* ==========================================================================
+   BRITISH CLASSIC AESTHETICS (ENGLISH/IELTS MODE)
+   ========================================================================== */
+.english-mode {
+  --primary-color: #002147; /* Oxford Blue */
+  --secondary-color: #A3C1AD; /* Cambridge Blue */
+  --error-color: #990000; /* Crimson Red */
+  --bg-color: #FDFBF7; /* Parchment White */
+  --text-color: #4A4A4A; /* Tweed Gray */
+
+  --font-serif: 'Playfair Display', 'Crimson Text', serif;
+  --font-sans: 'Inter', 'Roboto', sans-serif;
+
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-sans);
+}
+
+.english-mode h1,
+.english-mode h2,
+.english-mode h3,
+.english-mode h4,
+.english-mode h5,
+.english-mode h6 {
+  font-family: var(--font-serif);
+  color: var(--primary-color);
+}
+
+.english-mode .british-border {
+  border: 3px double var(--primary-color);
+  padding: 1rem;
+}
+
+.english-mode .tartan-bg {
+  /* Simple placeholder for tartan background */
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,33,71,0.05) 10px, rgba(0,33,71,0.05) 20px);
+}
