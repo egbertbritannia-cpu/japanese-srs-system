@@ -34,6 +34,7 @@ planning/
 | **Phase 5** | **[05_PHASE_5_KIRIE_PAPER_CUTOUT_AND_WAVE_REDESIGN.md](05_PHASE_5_KIRIE_PAPER_CUTOUT_AND_WAVE_REDESIGN.md)** | **2 tệp** (19, 20) | Ngôn ngữ thiết kế cắt giấy thủ công Washi Kirie, Lớp sóng biển 3D đổ bóng đa tầng `kirie-shadow-deep`, Màu chàm Aizome `#20507B`, Thanh điều hướng nổi KirieBottomNav và tối ưu hóa di động 60fps. | Hoàn thành |
 | **Phase 6** | **[06_PHASE_6_PERFORMANCE_OPTIMIZATION_AND_SRE.md](06_PHASE_6_PERFORMANCE_OPTIMIZATION_AND_SRE.md)** | **10 tệp** (perf 00-07, Index, Readme) | Kiểm toán kiến trúc toàn diện, Tối ưu Next.js 15 App Router, Nén tài nguyên WebP/AVIF, Giảm thiểu độ trễ Turso Cloud qua HTTPS REST, Bộ nhớ đệm Offline IndexedDB, Audio Pool và Hệ thống Giám sát Telemetry RUM. | Hoàn thành |
 | **Phase 7** | **[07_PHASE_7_JPD133_GRAMMAR_LEARNING_ENGINE.md](07_PHASE_7_JPD133_GRAMMAR_LEARNING_ENGINE.md)** | **4 tệp** (Plan, Encyclopedia, Bank, Checkpoint) | Trích xuất toàn diện 2 tài liệu giáo trình JPD133, Thiết kế 3 bảng DDL ngữ pháp, 32 cấu trúc chi tiết, 204 câu hỏi bài tập kèm lời giải, 96 thẻ FSRS ngữ pháp, Bộ giao diện `/grammar`, `/grammar/[lessonId]`, `/grammar/practice` và đồng bộ Turso Cloud. | Hoàn thành |
+| **Phase 8** | **[08_PHASE_8_ENGLISH_IELTS_TRACKING.md](08_PHASE_8_ENGLISH_IELTS_TRACKING.md)** | **1 tệp** | Xây dựng hệ thống theo dõi tiến độ học tiếng Anh/IELTS độc lập, ERD mở rộng (Sessions, Logs, Mistakes, Vocab), Mỹ học British Classic và chuẩn bị kiến trúc đồng bộ thẻ FSRS tương lai. | Lên kế hoạch |
 
 ---
 
@@ -48,6 +49,7 @@ graph TD
     classDef phase5 fill:#E8F4F8,stroke:#20507B,stroke-width:2px,color:#1F2421;
     classDef phase6 fill:#FFF8E7,stroke:#D97706,stroke-width:2px,color:#1F2421;
     classDef phase7 fill:#F0FDF4,stroke:#15803D,stroke-width:2px,color:#1F2421;
+    classDef phase8 fill:#FDFBF7,stroke:#002147,stroke-width:2px,color:#1F2421;
 
     subgraph P1 ["Phase 1: Mỹ học Wa-Style & Giao diện Cốt lõi"]
         A1["Nippon Colors Token & Wagara"]:::phase1 --> A2["4 Màn hình Cốt lõi (Dashboard, Cards, Review, New)"]:::phase1
@@ -80,7 +82,11 @@ graph TD
         G1["32 Mẫu ngữ pháp & 204 Bài tập SBT"]:::phase7 --> G2["FSRS Grammar Cards (640 Cards Total) & Turso Cloud"]:::phase7
     end
 
-    P1 --> P2 --> P3 --> P4 --> P5 --> P6 --> P7
+    subgraph P8 ["Phase 8: Hệ thống Theo dõi Tiếng Anh & IELTS"]
+        H1["Global Language Switcher & British Classic Design"]:::phase8 --> H2["IELTS Sessions, Practice Logs & Scalable ERD"]:::phase8
+    end
+
+    P1 --> P2 --> P3 --> P4 --> P5 --> P6 --> P7 --> P8
 ```
 
 ---
