@@ -619,7 +619,7 @@ function ReviewSessionContent() {
     >
       {/* HÌNH NỀN TRANH CẮT GIẤY KIRIE SÓNG BIỂN TẦNG 3D TOÀN TRANG ÔN TẬP */}
       <JapaneseArtBackdrop
-        src="/assets/art/kirie-layered-waves.webp"
+        src="/assets/art/kirie-layered-waves.jpg"
         alt="Nghệ thuật Kirie sóng biển Nhật Bản"
         opacity={0.065}
         blendMode="multiply"
