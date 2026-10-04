@@ -1,3 +1,4 @@
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Zen_Maru_Gothic, Shippori_Mincho, Plus_Jakarta_Sans, Bebas_Neue, Noto_Sans_JP } from 'next/font/google';
@@ -285,6 +286,7 @@ export default function RootLayout({
                 <ToriiIcon size={16} color="#FFFFFF" />
                 Ôn tập
               </Link>
+            <LanguageSwitcher />
             </nav>
           </div>
         </header>

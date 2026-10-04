@@ -251,3 +251,74 @@ export const grammarExercises = sqliteTable(
     exerciseTypeIdx: index('idx_grammar_exercises_type').on(table.exerciseType),
   })
 );
+
+// ============================================================================
+// ENGLISH IELTS TRACKING ENGINE (PHASE 8)
+// ============================================================================
+
+export const engMaterials = sqliteTable('eng_materials', {
+  id: text('id').primaryKey(),
+  type: text('type').notNull(), // "book | course | web"
+  title: text('title').notNull(),
+  publisher: text('publisher'),
+  yearPublished: integer('year_published'),
+  totalTests: integer('total_tests'),
+  createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
+});
+
+export const ieltsSessions = sqliteTable('ielts_sessions', {
+  id: text('id').primaryKey(),
+  materialId: text('material_id').references(() => engMaterials.id),
+  testNumber: text('test_number'), // e.g., "Test 1"
+  section: text('section').notNull(), // "Listening | Reading | Writing | Speaking"
+  startTime: integer('start_time').notNull(),
+  endTime: integer('end_time'),
+  totalDurationSeconds: integer('total_duration_seconds'),
+  currentScoreBand: integer('current_score_band'),
+  targetScoreBand: integer('target_score_band'),
+  sessionStatus: text('session_status').notNull(), // "in_progress | completed | reviewed"
+  createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
+});
+
+export const ieltsPracticeLogs = sqliteTable('ielts_practice_logs', {
+  id: text('id').primaryKey(),
+  sessionId: text('session_id').references(() => ieltsSessions.id),
+  questionNumber: integer('question_number').notNull(),
+  questionType: text('question_type'), // "Multiple Choice | T/F/NG | Matching | etc."
+  userAnswer: text('user_answer'),
+  correctAnswer: text('correct_answer'),
+  isCorrect: integer('is_correct', { mode: 'boolean' }),
+  timeSpentSeconds: integer('time_spent_seconds'),
+  notes: text('notes'),
+  createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
+});
+
+export const ieltsMistakes = sqliteTable('ielts_mistakes', {
+  id: text('id').primaryKey(),
+  logId: text('log_id').references(() => ieltsPracticeLogs.id),
+  mistakeCategory: text('mistake_category'), // "Vocabulary | Grammar | Distraction | Time Management"
+  rootCauseAnalysis: text('root_cause_analysis'),
+  actionPlanForImprovement: text('action_plan_for_improvement'),
+  isResolved: integer('is_resolved', { mode: 'boolean' }),
+  createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
+});
+
+export const engVocab = sqliteTable('eng_vocab', {
+  id: text('id').primaryKey(),
+  logId: text('log_id').references(() => ieltsPracticeLogs.id), // "Optional reference to where it was found"
+  word: text('word').notNull(),
+  partOfSpeech: text('part_of_speech'),
+  phonetic: text('phonetic'),
+  primaryMeaning: text('primary_meaning'),
+  contextSentence: text('context_sentence'),
+  synonyms: text('synonyms'), // "JSON array"
+  tags: text('tags'), // "JSON array: ['ielts', 'academic']"
+
+  // Forward Compatibility with FSRS
+  fsrsStability: real('fsrs_stability').default(0).notNull(),
+  fsrsDifficulty: real('fsrs_difficulty').default(0).notNull(),
+  fsrsDue: integer('fsrs_due').default(0).notNull(),
+  fsrsState: text('fsrs_state').default('New').notNull(),
+
+  createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
+});
