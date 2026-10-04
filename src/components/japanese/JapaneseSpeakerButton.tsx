@@ -38,17 +38,21 @@ export function JapaneseSpeakerButton({ text, size = 18, label, audioUrl }: Spea
       title={`Nghe phát âm: ${text}`}
       style={{
         touchAction: 'manipulation',
-        background: 'none',
-        border: '1px solid var(--washi-border)',
-        borderRadius: '6px',
-        padding: '0.25rem 0.5rem',
+        border: '1.2px solid var(--washi-border, #E8E2D8)',
+        borderRadius: '8px',
+        padding: label ? '0.35rem 0.65rem' : '0.35rem',
+        minWidth: label ? undefined : `${size + 14}px`,
+        height: `${size + 14}px`,
         cursor: 'pointer',
         display: 'inline-flex',
         alignItems: 'center',
-        gap: '0.3rem',
-        color: isPlaying ? 'var(--torii-red)' : 'var(--matcha-deep)',
-        backgroundColor: isPlaying ? 'var(--torii-subtle)' : 'var(--washi-surface)',
-        transition: 'all 0.2s',
+        justifyContent: 'center',
+        gap: '0.35rem',
+        color: isPlaying ? '#C83824' : '#2A6B3D',
+        backgroundColor: isPlaying ? 'rgba(200, 56, 36, 0.08)' : 'rgba(255, 255, 255, 0.92)',
+        boxShadow: isPlaying ? '0 0 0 3px rgba(200, 155, 88, 0.2)' : '0 1px 2px rgba(18, 36, 56, 0.04)',
+        flexShrink: 0,
+        transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
       }}
     >
       <svg
@@ -61,8 +65,9 @@ export function JapaneseSpeakerButton({ text, size = 18, label, audioUrl }: Spea
         strokeLinecap="round"
         strokeLinejoin="round"
         style={{
-          transform: isPlaying ? 'scale(1.15)' : 'scale(1)',
-          transition: 'transform 0.2s',
+          transform: isPlaying ? 'scale(1.1)' : 'scale(1)',
+          transition: 'transform 0.2s ease',
+          flexShrink: 0,
         }}
       >
         <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill={isPlaying ? 'currentColor' : 'none'} />

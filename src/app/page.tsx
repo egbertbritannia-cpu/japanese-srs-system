@@ -320,8 +320,9 @@ export default async function DashboardPage() {
       <JapaneseArtBackdrop
         src="/assets/art/1000_F_262528819_Qw2fofco2EOrkIdYmcjx20sBECBZ5mFM.jpg"
         alt="Họa tiết sóng biển Nhật Bản"
-        opacity={0.065}
+        opacity={0.045}
         blendMode="multiply"
+        contrastBoost="subtle"
       />
 
       {/* KHUNG NỘI DUNG CHÍNH (MAX WIDTH 1140PX THEO DESIGN 3A) */}
@@ -338,13 +339,19 @@ export default async function DashboardPage() {
             ========================================================================= */}
         <section
           style={{
-            background: 'rgba(255, 255, 255, 0.92)',
-            backdropFilter: 'blur(8px)',
-            border: '1.5px solid #E8E2D8',
-            borderRadius: '20px',
-            padding: '1.75rem 2rem',
-            marginBottom: '2rem',
-            boxShadow: '0 4px 16px rgba(31, 36, 33, 0.03)',
+            background: 'rgba(255, 255, 255, 0.94)',
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            border: '1.2px solid rgba(200, 155, 88, 0.25)',
+            borderRadius: '24px',
+            padding: 'clamp(1.25rem, 3vw, 2.25rem)',
+            marginBottom: '2.25rem',
+            boxShadow: `
+              0 1px 2px 0 rgba(18, 36, 56, 0.05),
+              0 12px 28px -6px rgba(18, 36, 56, 0.07),
+              0 32px 64px -12px rgba(18, 36, 56, 0.08),
+              inset 0 1px 1px 0 rgba(255, 255, 255, 0.9)
+            `,
             position: 'relative',
             overflow: 'hidden',
           }}
@@ -406,7 +413,7 @@ export default async function DashboardPage() {
                 }}
               >
                 Hôm nay:{' '}
-                <span style={{ color: '#D9381E' }}>{stats.dueToday} thẻ</span> đến hạn
+                <span style={{ color: '#C83824' }}>{stats.dueToday} thẻ</span> đến hạn
               </h1>
 
               <p
@@ -582,12 +589,13 @@ export default async function DashboardPage() {
                   <div
                     key={card.id}
                     style={{
-                      background: '#FFFFFF',
-                      border: '1.2px solid #E8E2D8',
-                      borderRadius: '14px',
-                      padding: '1.15rem 1.25rem',
-                      boxShadow: '0 2px 6px rgba(31, 36, 33, 0.02)',
-                      transition: 'all 0.2s ease',
+                      background: 'rgba(255, 255, 255, 0.96)',
+                      backdropFilter: 'blur(8px)',
+                      border: '1.2px solid rgba(232, 226, 216, 0.9)',
+                      borderRadius: '16px',
+                      padding: '1.2rem 1.35rem',
+                      boxShadow: '0 2px 8px rgba(18, 36, 56, 0.03), 0 1px 2px rgba(18, 36, 56, 0.02)',
+                      transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
                       overflow: 'hidden',
                     }}
                   >
@@ -644,12 +652,14 @@ export default async function DashboardPage() {
                                   alignItems: 'center',
                                   gap: '0.35rem',
                                   fontSize: '0.72rem',
-                                  color: '#D9381E',
+                                  fontFamily: 'var(--font-maru)',
+                                  color: '#B5301E',
                                   fontWeight: 700,
-                                  background: '#FFF2F0',
-                                  border: '1px solid #F5C6CB',
-                                  padding: '0.15rem 0.55rem',
+                                  background: 'rgba(200, 56, 36, 0.06)',
+                                  border: '1.2px solid rgba(200, 56, 36, 0.22)',
+                                  padding: '0.2rem 0.65rem',
                                   borderRadius: '999px',
+                                  letterSpacing: '0.02em',
                                 }}
                               >
                                 <span
@@ -657,10 +667,11 @@ export default async function DashboardPage() {
                                     width: '6px',
                                     height: '6px',
                                     borderRadius: '50%',
-                                    background: '#D9381E',
+                                    background: '#C83824',
+                                    boxShadow: '0 0 6px rgba(200, 56, 36, 0.4)',
                                   }}
                                 />
-                                <span>Đến hạn</span>
+                                <span>Đến kỳ ôn tập</span>
                               </div>
                             )}
                           </div>
@@ -746,35 +757,65 @@ export default async function DashboardPage() {
                             </p>
                           )}
 
-                          {card.example && stripCloze(card.example).trim() !== stripCloze(mainSurface).trim() && (
-                            <p
-                              style={{
-                                fontSize: '0.78rem',
-                                color: '#717C75',
-                                margin: '0.2rem 0 0',
-                                fontStyle: 'italic',
-                                wordBreak: 'break-word',
-                              }}
-                            >
-                              {parseClozeSegments(card.example).map((seg, i) =>
-                                seg.isCloze ? (
-                                  <span
-                                    key={i}
-                                    style={{
-                                      fontWeight: 700,
-                                      color: '#1F2421',
-                                      borderBottom: '1.5px solid #88A752',
-                                      fontStyle: 'normal',
-                                    }}
-                                  >
-                                    {seg.text}
-                                  </span>
-                                ) : (
-                                  <span key={i}>{seg.text}</span>
-                                )
-                              )}
-                            </p>
-                          )}
+                          {(() => {
+                            const cleanFront = stripCloze(mainSurface).trim();
+                            const cleanExample = card.example ? stripCloze(card.example).trim() : '';
+                            const isMeaningRedundant = cleanExample === cleanFront;
+
+                            if (!card.example || isMeaningRedundant) return null;
+
+                            return (
+                              <div
+                                style={{
+                                  marginTop: '0.4rem',
+                                  padding: '0.5rem 0.75rem',
+                                  background: 'rgba(250, 247, 240, 0.75)',
+                                  borderLeft: '3px solid #C89B58',
+                                  borderRadius: '0 8px 8px 0',
+                                  display: 'flex',
+                                  flexDirection: 'column',
+                                  gap: '0.15rem',
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    fontFamily: 'var(--font-maru)',
+                                    fontSize: '0.72rem',
+                                    fontWeight: 700,
+                                    color: '#8A7560',
+                                    letterSpacing: '0.04em',
+                                  }}
+                                >
+                                  🍃 Ngữ cảnh minh họa:
+                                </span>
+                                <span
+                                  style={{
+                                    fontFamily: 'var(--font-mincho)',
+                                    fontSize: '0.88rem',
+                                    color: '#122438',
+                                    lineHeight: 1.45,
+                                  }}
+                                >
+                                  {parseClozeSegments(card.example).map((seg, i) =>
+                                    seg.isCloze ? (
+                                      <span
+                                        key={i}
+                                        style={{
+                                          fontWeight: 700,
+                                          color: '#122438',
+                                          borderBottom: '1.5px solid #C89B58',
+                                        }}
+                                      >
+                                        {seg.text}
+                                      </span>
+                                    ) : (
+                                      <span key={i}>{seg.text}</span>
+                                    )
+                                  )}
+                                </span>
+                              </div>
+                            );
+                          })()}
                         </div>
                       </div>
                     ) : (
@@ -876,35 +917,43 @@ export default async function DashboardPage() {
                               {card.meaning}
                             </h3>
 
-                            {card.example && (
-                              <p
-                                style={{
-                                  fontSize: '0.78rem',
-                                  color: '#717C75',
-                                  margin: '0.3rem 0 0',
-                                  fontStyle: 'italic',
-                                  wordBreak: 'break-word',
-                                }}
-                              >
-                                {parseClozeSegments(card.example).map((seg, i) =>
-                                  seg.isCloze ? (
-                                    <span
-                                      key={i}
-                                      style={{
-                                        fontWeight: 700,
-                                        color: '#1F2421',
-                                        borderBottom: '1.5px solid #88A752',
-                                        fontStyle: 'normal',
-                                      }}
-                                    >
-                                      {seg.text}
-                                    </span>
-                                  ) : (
-                                    <span key={i}>{seg.text}</span>
-                                  )
-                                )}
-                              </p>
-                            )}
+                            {(() => {
+                              const cleanFront = stripCloze(card.kanji).trim();
+                              const cleanExample = card.example ? stripCloze(card.example).trim() : '';
+                              const isRedundant = cleanExample === cleanFront;
+
+                              if (!card.example || isRedundant) return null;
+
+                              return (
+                                <p
+                                  style={{
+                                    fontSize: '0.78rem',
+                                    color: '#717C75',
+                                    margin: '0.3rem 0 0',
+                                    fontStyle: 'italic',
+                                    wordBreak: 'break-word',
+                                  }}
+                                >
+                                  {parseClozeSegments(card.example).map((seg, i) =>
+                                    seg.isCloze ? (
+                                      <span
+                                        key={i}
+                                        style={{
+                                          fontWeight: 700,
+                                          color: '#1F2421',
+                                          borderBottom: '1.5px solid #88A752',
+                                          fontStyle: 'normal',
+                                        }}
+                                      >
+                                        {seg.text}
+                                      </span>
+                                    ) : (
+                                      <span key={i}>{seg.text}</span>
+                                    )
+                                  )}
+                                </p>
+                              );
+                            })()}
                           </div>
                         </div>
 
@@ -925,12 +974,17 @@ export default async function DashboardPage() {
                           {card.isDue && (
                             <div
                               style={{
-                                display: 'flex',
+                                display: 'inline-flex',
                                 alignItems: 'center',
                                 gap: '0.35rem',
                                 fontSize: '0.72rem',
-                                color: '#D9381E',
-                                fontWeight: 600,
+                                fontFamily: 'var(--font-maru)',
+                                color: '#B5301E',
+                                fontWeight: 700,
+                                background: 'rgba(200, 56, 36, 0.06)',
+                                border: '1.2px solid rgba(200, 56, 36, 0.22)',
+                                padding: '0.15rem 0.55rem',
+                                borderRadius: '999px',
                                 whiteSpace: 'nowrap',
                               }}
                             >
@@ -939,10 +993,11 @@ export default async function DashboardPage() {
                                   width: '6px',
                                   height: '6px',
                                   borderRadius: '50%',
-                                  background: '#D9381E',
+                                  background: '#C83824',
+                                  boxShadow: '0 0 6px rgba(200, 56, 36, 0.4)',
                                 }}
                               />
-                              <span>Đến hạn</span>
+                              <span>Đến kỳ ôn tập</span>
                             </div>
                           )}
                         </div>

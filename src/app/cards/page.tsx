@@ -237,26 +237,77 @@ export default function CardsPage() {
           gap: '1rem',
         }}
       >
-        {/* Input Tìm kiếm */}
-        <div style={{ position: 'relative' }}>
+        {/* Input Tìm kiếm Sumi-e */}
+        <div style={{ position: 'relative', width: '100%' }}>
+          <span
+            style={{
+              position: 'absolute',
+              left: '1rem',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              fontSize: '1.1rem',
+              pointerEvents: 'none',
+              opacity: 0.65,
+              zIndex: 2,
+            }}
+          >
+            🖌️
+          </span>
           <input
             type="text"
-            placeholder="Tìm kiếm từ vựng, chữ Kanji, cách đọc Furigana hoặc nghĩa..."
+            placeholder="Tìm kiếm từ vựng, chữ Kanji, cách đọc Furigana hoặc ngữ nghĩa..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             style={{
               width: '100%',
-              padding: '0.8rem 1.15rem',
+              padding: '0.85rem 2.5rem 0.85rem 2.85rem',
               background: '#FFFFFF',
-              border: '1.2px solid #E6DDCF',
-              borderRadius: '10px',
+              border: '1.5px solid #E2D7C5',
+              borderRadius: '12px',
               color: '#122438',
               fontSize: '0.95rem',
               outline: 'none',
               fontFamily: 'var(--font-sans)',
-              transition: 'border-color 0.2s',
+              boxShadow: '0 2px 6px rgba(18, 36, 56, 0.03)',
+              transition: 'border-color 0.2s, box-shadow 0.2s',
+            }}
+            onFocus={(e) => {
+              e.target.style.borderColor = '#C89B58';
+              e.target.style.boxShadow = '0 0 0 3px rgba(200, 155, 88, 0.18)';
+            }}
+            onBlur={(e) => {
+              e.target.style.borderColor = '#E2D7C5';
+              e.target.style.boxShadow = '0 2px 6px rgba(18, 36, 56, 0.03)';
             }}
           />
+          {searchTerm && (
+            <button
+              type="button"
+              onClick={() => setSearchTerm('')}
+              aria-label="Xóa tìm kiếm"
+              style={{
+                position: 'absolute',
+                right: '0.85rem',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: 'rgba(18, 36, 56, 0.06)',
+                border: 'none',
+                borderRadius: '50%',
+                width: '24px',
+                height: '24px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#786A5E',
+                cursor: 'pointer',
+                fontSize: '0.8rem',
+                padding: 0,
+                transition: 'background 0.15s',
+              }}
+            >
+              ✕
+            </button>
+          )}
         </div>
 
         {/* Nút lọc thẻ thanh lịch */}
@@ -267,16 +318,17 @@ export default function CardsPage() {
           <button
             onClick={() => setSelectedDeck('all')}
             style={{
-              padding: '0.4rem 0.95rem',
-              borderRadius: '8px',
+              padding: '0.45rem 1rem',
+              borderRadius: '999px',
               border: '1.2px solid',
               borderColor: selectedDeck === 'all' ? '#1E4B75' : '#E6DDCF',
-              background: selectedDeck === 'all' ? '#1E4B75' : '#FFFFFF',
+              background: selectedDeck === 'all' ? 'linear-gradient(135deg, #1E4B75 0%, #15385B 100%)' : '#FFFFFF',
               color: selectedDeck === 'all' ? '#FFFFFF' : '#122438',
               fontWeight: selectedDeck === 'all' ? 700 : 500,
               fontSize: '0.84rem',
               fontFamily: 'var(--font-maru)',
               cursor: 'pointer',
+              boxShadow: selectedDeck === 'all' ? '0 2px 8px rgba(30, 75, 117, 0.25)' : '0 1px 3px rgba(18, 36, 56, 0.02)',
               transition: 'all 0.2s',
             }}
           >
@@ -291,16 +343,17 @@ export default function CardsPage() {
                 key={d.id}
                 onClick={() => setSelectedDeck(d.id)}
                 style={{
-                  padding: '0.4rem 0.95rem',
-                  borderRadius: '8px',
+                  padding: '0.45rem 1rem',
+                  borderRadius: '999px',
                   border: '1.2px solid',
                   borderColor: isSelected ? '#1E4B75' : '#E6DDCF',
-                  background: isSelected ? '#1E4B75' : '#FFFFFF',
+                  background: isSelected ? 'linear-gradient(135deg, #1E4B75 0%, #15385B 100%)' : '#FFFFFF',
                   color: isSelected ? '#FFFFFF' : '#122438',
                   fontWeight: isSelected ? 700 : 500,
                   fontSize: '0.84rem',
                   fontFamily: 'var(--font-maru)',
                   cursor: 'pointer',
+                  boxShadow: isSelected ? '0 2px 8px rgba(30, 75, 117, 0.25)' : '0 1px 3px rgba(18, 36, 56, 0.02)',
                   transition: 'all 0.2s',
                 }}
               >
@@ -405,211 +458,224 @@ export default function CardsPage() {
           objectPosition="top right"
         />
 
-        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', position: 'relative', zIndex: 1 }}>
-          <thead>
-            <tr
-              style={{
-                background: '#F0EBE0',
-                borderBottom: '1.5px solid #E2D7C5',
-                color: '#122438',
-                fontSize: '0.85rem',
-                fontFamily: 'var(--font-maru)',
-                fontWeight: 700,
-              }}
-            >
-              <th style={{ padding: '1rem 1.25rem' }}>Chữ Hán &amp; Hiragana mặt trước</th>
-              <th style={{ padding: '1rem 1.25rem' }}>Cách đọc &amp; Cao độ</th>
-              <th style={{ padding: '1rem 1.25rem' }}>Ý nghĩa tiếng Việt</th>
-              <th style={{ padding: '1rem 1.25rem' }}>Trạng thái FSRS</th>
-              <th style={{ padding: '1rem 1.25rem' }}>Phân loại</th>
-            </tr>
-          </thead>
-          <tbody>
-            {loading ? (
-              <tr>
-                <td colSpan={5} style={{ padding: '3rem', textAlign: 'center', color: '#786A5E' }}>
-                  Đang tải dữ liệu thư viện thẻ học...
-                </td>
+        <div style={{ width: '100%', overflowX: 'auto', WebkitOverflowScrolling: 'touch', position: 'relative', zIndex: 1 }}>
+          <table style={{ width: '100%', minWidth: '700px', borderCollapse: 'collapse', textAlign: 'left' }}>
+            <thead>
+              <tr
+                style={{
+                  background: '#F0EBE0',
+                  borderBottom: '1.5px solid #E2D7C5',
+                  color: '#122438',
+                  fontSize: '0.85rem',
+                  fontFamily: 'var(--font-maru)',
+                  fontWeight: 700,
+                }}
+              >
+                <th style={{ padding: '1rem 1.25rem' }}>Chữ Hán &amp; Hiragana mặt trước</th>
+                <th style={{ padding: '1rem 1.25rem' }}>Cách đọc &amp; Cao độ</th>
+                <th style={{ padding: '1rem 1.25rem' }}>Ý nghĩa tiếng Việt</th>
+                <th style={{ padding: '1rem 1.25rem' }}>Trạng thái FSRS</th>
+                <th style={{ padding: '1rem 1.25rem' }}>Phân loại</th>
               </tr>
-            ) : filteredCards.length > 0 ? (
-              filteredCards.map((card, idx) => {
-                const kanjiText = card.kanji || '';
-                const deckText = (card.deckName || card.deck || '').toLowerCase();
-                const isGrammar =
-                  card.type === 'GrammarPattern' ||
-                  card.deckId === 'grammar_jpd133' ||
-                  deckText.includes('ngữ pháp') ||
-                  deckText.includes('bunbou') ||
-                  kanjiText.startsWith('【文法') ||
-                  kanjiText.includes('Pattern') ||
-                  kanjiText.includes('{{c');
+            </thead>
+            <tbody>
+              {loading ? (
+                <tr>
+                  <td colSpan={5} style={{ padding: '3rem', textAlign: 'center', color: '#786A5E' }}>
+                    Đang tải dữ liệu thư viện thẻ học...
+                  </td>
+                </tr>
+              ) : filteredCards.length > 0 ? (
+                filteredCards.map((card, idx) => {
+                  const kanjiText = card.kanji || '';
+                  const deckText = (card.deckName || card.deck || '').toLowerCase();
+                  const isGrammar =
+                    card.type === 'GrammarPattern' ||
+                    card.deckId === 'grammar_jpd133' ||
+                    deckText.includes('ngữ pháp') ||
+                    deckText.includes('bunbou') ||
+                    kanjiText.startsWith('【文法') ||
+                    kanjiText.includes('Pattern') ||
+                    kanjiText.includes('{{c');
 
-                const isKanji = !isGrammar && (card.type === 'Kanji' || deckText.includes('hán tự') || deckText.includes('kanji'));
+                  const isKanji = !isGrammar && (card.type === 'Kanji' || deckText.includes('hán tự') || deckText.includes('kanji'));
 
-                const patternMatch = kanjiText.match(/^【文法\s*([^】]+)】\s*\n?([\s\S]*)$/);
+                  const patternMatch = kanjiText.match(/^【文法\s*([^】]+)】\s*\n?([\s\S]*)$/);
 
-                return (
-                  <tr
-                    key={card.id}
-                    style={{
-                      borderBottom: '1px solid #ECE4D6',
-                      background: idx % 2 === 0 ? 'rgba(255, 255, 255, 0.7)' : 'rgba(250, 247, 240, 0.7)',
-                      transition: 'background 0.2s',
-                    }}
-                  >
-                    {/* Mặt trước Kanji & Hiragana nổi bật */}
-                    <td style={{ padding: '1.15rem 1.25rem' }}>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                        {patternMatch ? (
-                          <>
-                            <div style={{ display: 'inline-flex', alignItems: 'center' }}>
+                  return (
+                    <tr
+                      key={card.id}
+                      style={{
+                        borderBottom: '1px solid #ECE4D6',
+                        background: idx % 2 === 0 ? 'rgba(255, 255, 255, 0.7)' : 'rgba(250, 247, 240, 0.7)',
+                        transition: 'background 0.2s',
+                      }}
+                    >
+                      {/* Mặt trước Kanji & Hiragana nổi bật */}
+                      <td style={{ padding: '1.15rem 1.25rem' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                          {patternMatch ? (
+                            <>
+                              <div style={{ display: 'inline-flex', alignItems: 'center' }}>
+                                <span
+                                  style={{
+                                    fontFamily: 'var(--font-maru)',
+                                    fontSize: '0.74rem',
+                                    fontWeight: 800,
+                                    color: '#1E4B75',
+                                    background: '#EDF4FA',
+                                    border: '1.2px solid #B8D5E5',
+                                    borderRadius: '5px',
+                                    padding: '0.12rem 0.5rem',
+                                    letterSpacing: '0.04em',
+                                  }}
+                                >
+                                  文法 {patternMatch[1]}
+                                </span>
+                              </div>
                               <span
                                 style={{
-                                  fontFamily: 'var(--font-maru)',
-                                  fontSize: '0.74rem',
-                                  fontWeight: 800,
-                                  color: '#1E4B75',
-                                  background: '#EDF4FA',
-                                  border: '1.2px solid #B8D5E5',
-                                  borderRadius: '5px',
-                                  padding: '0.12rem 0.5rem',
-                                  letterSpacing: '0.04em',
+                                  fontFamily: 'var(--font-mincho)',
+                                  fontSize: '1.25rem',
+                                  fontWeight: 700,
+                                  color: '#122438',
+                                  lineHeight: 1.35,
                                 }}
                               >
-                                文法 {patternMatch[1]}
+                                {patternMatch[2]}
                               </span>
-                            </div>
+                            </>
+                          ) : (
                             <span
                               style={{
                                 fontFamily: 'var(--font-mincho)',
-                                fontSize: '1.25rem',
+                                fontSize: kanjiText.length > 25 ? '1.05rem' : kanjiText.length > 15 ? '1.2rem' : '1.65rem',
                                 fontWeight: 700,
                                 color: '#122438',
                                 lineHeight: 1.35,
                               }}
                             >
-                              {patternMatch[2]}
+                              {parseClozeSegments(kanjiText).map((seg, i) =>
+                                seg.isCloze ? (
+                                  <span
+                                    key={i}
+                                    style={{
+                                      color: '#153E20',
+                                      background: '#EAF5EA',
+                                      borderBottom: '2px solid #43894C',
+                                      borderRadius: '3px',
+                                      padding: '0.05rem 0.35rem',
+                                      margin: '0 0.15rem',
+                                    }}
+                                  >
+                                    {seg.text}
+                                  </span>
+                                ) : (
+                                  <span key={i}>{seg.text}</span>
+                                )
+                              )}
                             </span>
-                          </>
-                        ) : (
-                          <span
-                            style={{
-                              fontFamily: 'var(--font-mincho)',
-                              fontSize: kanjiText.length > 25 ? '1.05rem' : kanjiText.length > 15 ? '1.2rem' : '1.65rem',
-                              fontWeight: 700,
-                              color: '#122438',
-                              lineHeight: 1.35,
-                            }}
-                          >
-                            {parseClozeSegments(kanjiText).map((seg, i) =>
-                              seg.isCloze ? (
-                                <span
-                                  key={i}
-                                  style={{
-                                    color: '#153E20',
-                                    background: '#EAF5EA',
-                                    borderBottom: '2px solid #43894C',
-                                    borderRadius: '3px',
-                                    padding: '0.05rem 0.35rem',
-                                    margin: '0 0.15rem',
-                                  }}
-                                >
-                                  {seg.text}
-                                </span>
-                              ) : (
-                                <span key={i}>{seg.text}</span>
-                              )
-                            )}
+                          )}
+                        </div>
+                      </td>
+
+                      {/* Furigana & Cao độ */}
+                      <td style={{ padding: '1.15rem 1.25rem' }}>
+                        <div style={{ fontFamily: 'var(--font-maru)', fontSize: '0.96rem', color: '#1E4B75', fontWeight: 600 }}>
+                          {stripCloze(card.reading) || '—'}
+                        </div>
+                        {card.pitch && (
+                          <span style={{ fontSize: '0.74rem', color: '#786A5E', display: 'inline-block', marginTop: '0.2rem' }}>
+                            Cao độ: {card.pitch}
                           </span>
                         )}
-                      </div>
-                    </td>
+                      </td>
 
-                    {/* Furigana & Cao độ */}
-                    <td style={{ padding: '1.15rem 1.25rem' }}>
-                      <div style={{ fontFamily: 'var(--font-maru)', fontSize: '0.96rem', color: '#1E4B75', fontWeight: 600 }}>
-                        {stripCloze(card.reading) || '—'}
-                      </div>
-                      {card.pitch && (
-                        <span style={{ fontSize: '0.74rem', color: '#786A5E', display: 'inline-block', marginTop: '0.2rem' }}>
-                          Cao độ: {card.pitch}
-                        </span>
-                      )}
-                    </td>
+                      {/* Ý nghĩa */}
+                      <td style={{ padding: '1.15rem 1.25rem', color: '#2B2B2B', fontSize: '0.92rem', whiteSpace: 'pre-line', lineHeight: 1.5 }}>
+                        {card.meaning}
+                      </td>
 
-                    {/* Ý nghĩa */}
-                    <td style={{ padding: '1.15rem 1.25rem', color: '#2B2B2B', fontSize: '0.92rem', whiteSpace: 'pre-line', lineHeight: 1.5 }}>
-                      {card.meaning}
-                    </td>
-
-                    {/* Trạng thái nhận thức FSRS */}
-                    <td style={{ padding: '1.15rem 1.25rem' }}>
-                      <span
-                        style={{
-                          display: 'inline-block',
-                          padding: '0.25rem 0.65rem',
-                          background: card.state === 'Review' ? '#EBF5EE' : '#EDF4FA',
-                          color: card.state === 'Review' ? '#3E734E' : '#234B73',
-                          border: `1px solid ${card.state === 'Review' ? '#99C7A5' : '#A2C4E3'}`,
-                          borderRadius: '6px',
-                          fontSize: '0.76rem',
-                          fontFamily: 'var(--font-maru)',
-                          fontWeight: 700,
-                        }}
-                      >
-                        {card.state === 'Review' ? 'Đã củng cố' : 'Mới tiếp nhận'}
-                      </span>
-                    </td>
-
-                    {/* Con dấu & Nhãn Phân loại */}
-                    <td style={{ padding: '1.15rem 1.25rem' }}>
-                      <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}>
+                      {/* Trạng thái nhận thức FSRS */}
+                      <td style={{ padding: '1.15rem 1.25rem' }}>
                         <span
                           style={{
                             display: 'inline-flex',
                             alignItems: 'center',
-                            justifyContent: 'center',
-                            width: '26px',
-                            height: '26px',
-                            border: `1.5px solid ${isGrammar ? '#1E4B75' : isKanji ? '#C83824' : '#2A6B3D'}`,
-                            borderRadius: '4px',
-                            color: isGrammar ? '#1E4B75' : isKanji ? '#C83824' : '#2A6B3D',
-                            fontFamily: 'var(--font-mincho)',
-                            fontWeight: 800,
-                            fontSize: '0.85rem',
-                            background: isGrammar ? '#EDF4FA' : isKanji ? '#FFF2F0' : '#F0F9F2',
-                            boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
-                          }}
-                        >
-                          {isGrammar ? '文' : isKanji ? '漢' : '語'}
-                        </span>
-                        <span
-                          style={{
+                            gap: '0.35rem',
+                            padding: '0.25rem 0.65rem',
+                            background: card.state === 'Review' ? 'rgba(42, 107, 61, 0.08)' : 'rgba(200, 155, 88, 0.08)',
+                            color: card.state === 'Review' ? '#1E522C' : '#8A5818',
+                            border: `1.2px solid ${card.state === 'Review' ? 'rgba(42, 107, 61, 0.25)' : 'rgba(200, 155, 88, 0.25)'}`,
+                            borderRadius: '999px',
+                            fontSize: '0.76rem',
                             fontFamily: 'var(--font-maru)',
-                            fontSize: '0.82rem',
                             fontWeight: 700,
-                            color: isGrammar ? '#1E4B75' : isKanji ? '#C83824' : '#2A6B3D',
                           }}
                         >
-                          {isGrammar ? 'Ngữ pháp' : isKanji ? 'Hán tự' : 'Từ vựng'}
+                          <span
+                            style={{
+                              width: '6px',
+                              height: '6px',
+                              borderRadius: '50%',
+                              background: card.state === 'Review' ? '#2A6B3D' : '#C89B58',
+                              boxShadow: card.state === 'Review' ? '0 0 6px rgba(42, 107, 61, 0.35)' : '0 0 6px rgba(200, 155, 88, 0.35)',
+                            }}
+                          />
+                          {card.state === 'Review' ? 'Đã củng cố' : 'Mới tiếp nhận'}
                         </span>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })
-            ) : (
-              <tr>
-                <td colSpan={5} style={{ padding: '3rem', textAlign: 'center', color: '#786A5E' }}>
-                  <SensuFanIcon size={32} color="#C89B58" />
-                  <p style={{ marginTop: '0.75rem', fontSize: '0.95rem', fontFamily: 'var(--font-mincho)' }}>
-                    Không tìm thấy thẻ học nào phù hợp với bộ lọc
-                  </p>
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+                      </td>
+
+                      {/* Con dấu & Nhãn Phân loại */}
+                      <td style={{ padding: '1.15rem 1.25rem' }}>
+                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}>
+                          <span
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              width: '26px',
+                              height: '26px',
+                              border: `1.5px solid ${isGrammar ? '#1E4B75' : isKanji ? '#C83824' : '#2A6B3D'}`,
+                              borderRadius: '5px',
+                              color: isGrammar ? '#1E4B75' : isKanji ? '#C83824' : '#2A6B3D',
+                              fontFamily: 'var(--font-mincho)',
+                              fontWeight: 800,
+                              fontSize: '0.85rem',
+                              background: isGrammar ? '#EDF4FA' : isKanji ? '#FFF2F0' : '#F0F9F2',
+                              boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+                            }}
+                          >
+                            {isGrammar ? '文' : isKanji ? '漢' : '語'}
+                          </span>
+                          <span
+                            style={{
+                              fontFamily: 'var(--font-maru)',
+                              fontSize: '0.82rem',
+                              fontWeight: 700,
+                              color: isGrammar ? '#1E4B75' : isKanji ? '#C83824' : '#2A6B3D',
+                            }}
+                          >
+                            {isGrammar ? 'Ngữ pháp' : isKanji ? 'Hán tự' : 'Từ vựng'}
+                          </span>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
+              ) : (
+                <tr>
+                  <td colSpan={5} style={{ padding: '3rem', textAlign: 'center', color: '#786A5E' }}>
+                    <SensuFanIcon size={32} color="#C89B58" />
+                    <p style={{ marginTop: '0.75rem', fontSize: '0.95rem', fontFamily: 'var(--font-mincho)' }}>
+                      Không tìm thấy thẻ học nào phù hợp với bộ lọc
+                    </p>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
       </div>
     </main>
