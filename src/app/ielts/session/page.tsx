@@ -24,6 +24,9 @@ export default function IeltsSessionTracker() {
   // Timer states
   const [timeLeft, setTimeLeft] = useState<number>(SECTION_DURATIONS.Reading);
   const [isRunning, setIsRunning] = useState<boolean>(false);
+  const [timeUpNotice, setTimeUpNotice] = useState<boolean>(false);
+  const [submitting, setSubmitting] = useState<boolean>(false);
+  const [confirmClear, setConfirmClear] = useState<boolean>(false);
   const [savedNotification, setSavedNotification] = useState<string>('');
 
   // Khôi phục draft từ LocalStorage
@@ -63,7 +66,6 @@ export default function IeltsSessionTracker() {
       // Ignore
     }
   }, [section, testType, answers, writingTask1, writingTask2, timeLeft]);
-
   // Bộ đếm ngược Timer
   useEffect(() => {
     let timer: any = null;
@@ -73,13 +75,46 @@ export default function IeltsSessionTracker() {
       }, 1000);
     } else if (timeLeft === 0 && isRunning) {
       setIsRunning(false);
-      alert(`⏰ Hết giờ làm bài phần ${section}!`);
+      setTimeUpNotice(true);
     }
     return () => clearInterval(timer);
   }, [isRunning, timeLeft, section]);
 
+  const handleSubmitSession = () => {
+    setSubmitting(true);
+    const answeredCount = Object.values(answers).filter((v) => v && v.trim().length > 0).length;
+    const sessionResult = {
+      id: `ielts_${Date.now()}`,
+      section,
+      testType,
+      materialTitle,
+      date: new Date().toLocaleDateString('vi-VN'),
+      timestamp: Date.now(),
+      answeredCount,
+      totalQuestions: 40,
+      writingTask1,
+      writingTask2,
+      writingTask1Words: wordCount(writingTask1),
+      writingTask2Words: wordCount(writingTask2),
+      timeSpentMinutes: Math.round((SECTION_DURATIONS[section] - timeLeft) / 60),
+    };
+
+    try {
+      const historyStr = localStorage.getItem('ielts_session_history');
+      const history = historyStr ? JSON.parse(historyStr) : [];
+      history.unshift(sessionResult);
+      localStorage.setItem('ielts_session_history', JSON.stringify(history));
+      localStorage.removeItem(`ielts_draft_${section}`);
+    } catch (e) {
+      console.error('Error saving session:', e);
+    }
+
+    window.location.href = `/ielts/review?section=${section}&session=${sessionResult.id}`;
+  };
+
   const handleSectionChange = (newSection: SectionType) => {
     setIsRunning(false);
+    setTimeUpNotice(false);
     setSection(newSection);
     setTimeLeft(SECTION_DURATIONS[newSection]);
   };
@@ -98,13 +133,16 @@ export default function IeltsSessionTracker() {
   };
 
   const handleClearDraft = () => {
-    if (confirm('Bạn có chắc chắn muốn xóa toàn bộ câu trả lời nháp của phần này?')) {
-      setAnswers({});
-      setWritingTask1('');
-      setWritingTask2('');
-      setTimeLeft(SECTION_DURATIONS[section]);
-      setIsRunning(false);
+    setAnswers({});
+    setWritingTask1('');
+    setWritingTask2('');
+    setTimeLeft(SECTION_DURATIONS[section]);
+    setIsRunning(false);
+    setConfirmClear(false);
+    try {
       localStorage.removeItem(`ielts_draft_${section}`);
+    } catch {
+      // Ignore
     }
   };
 
@@ -223,22 +261,89 @@ export default function IeltsSessionTracker() {
             >
               Đặt lại
             </button>
-            <button
-              onClick={handleClearDraft}
-              style={{
-                backgroundColor: '#FEE2E2',
-                color: '#991B1B',
-                padding: '0.75rem 1.25rem',
-                border: '1px solid #FCA5A5',
-                borderRadius: '6px',
-                fontSize: '0.95rem',
-                cursor: 'pointer',
-              }}
-            >
-              Xóa nháp
-            </button>
+            {!confirmClear ? (
+              <button
+                onClick={() => setConfirmClear(true)}
+                style={{
+                  backgroundColor: '#FEE2E2',
+                  color: '#991B1B',
+                  padding: '0.75rem 1.25rem',
+                  border: '1px solid #FCA5A5',
+                  borderRadius: '6px',
+                  fontSize: '0.95rem',
+                  cursor: 'pointer',
+                }}
+              >
+                Xóa nháp
+              </button>
+            ) : (
+              <div style={{ display: 'flex', gap: '0.35rem', alignItems: 'center' }}>
+                <button
+                  onClick={handleClearDraft}
+                  style={{
+                    backgroundColor: '#DC2626',
+                    color: '#FFFFFF',
+                    padding: '0.75rem 1rem',
+                    border: 'none',
+                    borderRadius: '6px',
+                    fontSize: '0.85rem',
+                    fontWeight: 'bold',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Xác nhận xóa
+                </button>
+                <button
+                  onClick={() => setConfirmClear(false)}
+                  style={{
+                    backgroundColor: '#E5E7EB',
+                    color: '#374151',
+                    padding: '0.75rem 0.75rem',
+                    border: 'none',
+                    borderRadius: '6px',
+                    fontSize: '0.85rem',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Hủy
+                </button>
+              </div>
+            )}
           </div>
         </div>
+
+        {timeUpNotice && (
+          <div style={{
+            marginTop: '1.25rem',
+            padding: '0.85rem 1.25rem',
+            borderRadius: '6px',
+            backgroundColor: '#FEF2F2',
+            border: '1.5px solid #F87171',
+            color: '#991B1B',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '1rem'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600 }}>
+              <span>⏰</span>
+              <span>Hết giờ làm bài phần {section}! Bạn hãy kiểm tra lại các câu đã làm và nhấn nút Nộp bài bên dưới.</span>
+            </div>
+            <button
+              onClick={() => setTimeUpNotice(false)}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: '#991B1B',
+                cursor: 'pointer',
+                fontWeight: 'bold',
+                fontSize: '1rem'
+              }}
+            >
+              ✕
+            </button>
+          </div>
+        )}
 
         <div style={{ marginTop: '1rem', fontSize: '0.85rem', color: '#059669', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem' }}>
           <span>✓ Đang tự động lưu bài làm vào bộ nhớ cục bộ (Auto-save).</span>
@@ -446,6 +551,53 @@ export default function IeltsSessionTracker() {
           />
         </div>
       )}
+
+      {/* Session Action Footer */}
+      <div style={{
+        marginTop: '2.5rem',
+        padding: '1.5rem',
+        backgroundColor: '#FFFFFF',
+        borderRadius: '8px',
+        border: '1.5px solid #E5E7EB',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        gap: '1rem',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
+      }}>
+        <div>
+          <h4 style={{ margin: 0, color: 'var(--primary-color)', fontSize: '1.1rem' }}>
+            Hoàn thành phần thi {section} ({testType.toUpperCase()})
+          </h4>
+          <p style={{ margin: '0.25rem 0 0', fontSize: '0.85rem', color: '#6B7280' }}>
+            Toàn bộ câu trả lời và thời gian sẽ được lưu lại cho bước phân tích lỗi &amp; Band Score.
+          </p>
+        </div>
+        <div style={{ display: 'flex', gap: '0.75rem' }}>
+          <button
+            onClick={handleSubmitSession}
+            disabled={submitting}
+            style={{
+              padding: '0.85rem 2rem',
+              backgroundColor: '#059669',
+              color: '#FFFFFF',
+              border: 'none',
+              borderRadius: '6px',
+              fontWeight: 'bold',
+              fontSize: '1rem',
+              cursor: submitting ? 'not-allowed' : 'pointer',
+              boxShadow: '0 2px 8px rgba(5,150,105,0.25)',
+              transition: 'all 0.2s ease',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem'
+            }}
+          >
+            <span>{submitting ? 'Đang lưu bài...' : '✓ Nộp bài & Phân tích kết quả'}</span>
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

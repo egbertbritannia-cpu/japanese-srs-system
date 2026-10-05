@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ToriiIcon, SensuFanIcon } from '@/components/japanese/Icons';
@@ -33,10 +33,22 @@ interface DeckItem {
  */
 export default function CardsPage() {
   const [searchTerm, setSearchTerm] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
   const [selectedDeck, setSelectedDeck] = useState('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(25);
   const [cardsList, setCardsList] = useState<CardItem[]>([]);
   const [decksList, setDecksList] = useState<DeckItem[]>([]);
   const [loading, setLoading] = useState(true);
+
+  // Debounce tìm kiếm 200ms để tránh lag nhập liệu khi có 676+ thẻ
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchTerm);
+      setCurrentPage(1);
+    }, 200);
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
 
   useEffect(() => {
     async function fetchCards() {
@@ -57,25 +69,35 @@ export default function CardsPage() {
     fetchCards();
   }, []);
 
-  const filteredCards = cardsList.filter((card) => {
-    const kanjiStr = (card.kanji || '').toLowerCase();
-    const readingStr = (card.reading || '').toLowerCase();
-    const meaningStr = (card.meaning || '').toLowerCase();
-    const deckStr = (card.deckName || card.deck || '').toLowerCase();
-    const searchLower = searchTerm.toLowerCase();
+  const filteredCards = useMemo(() => {
+    const searchLower = debouncedSearch.toLowerCase().trim();
+    return cardsList.filter((card) => {
+      const kanjiStr = (card.kanji || '').toLowerCase();
+      const readingStr = (card.reading || '').toLowerCase();
+      const meaningStr = (card.meaning || '').toLowerCase();
+      const deckStr = (card.deckName || card.deck || '').toLowerCase();
 
-    const matchesSearch =
-      kanjiStr.includes(searchLower) ||
-      readingStr.includes(searchLower) ||
-      meaningStr.includes(searchLower);
+      const matchesSearch =
+        !searchLower ||
+        kanjiStr.includes(searchLower) ||
+        readingStr.includes(searchLower) ||
+        meaningStr.includes(searchLower);
 
-    const matchesDeck =
-      selectedDeck === 'all' ||
-      card.deckId === selectedDeck ||
-      deckStr.includes(selectedDeck.toLowerCase());
+      const matchesDeck =
+        selectedDeck === 'all' ||
+        card.deckId === selectedDeck ||
+        deckStr.includes(selectedDeck.toLowerCase());
 
-    return matchesSearch && matchesDeck;
-  });
+      return matchesSearch && matchesDeck;
+    });
+  }, [cardsList, debouncedSearch, selectedDeck]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredCards.length / pageSize));
+  const safePage = Math.min(currentPage, totalPages);
+  const paginatedCards = useMemo(() => {
+    const start = (safePage - 1) * pageSize;
+    return filteredCards.slice(start, start + pageSize);
+  }, [filteredCards, safePage, pageSize]);
 
   return (
     <main
@@ -486,7 +508,7 @@ export default function CardsPage() {
                   </td>
                 </tr>
               ) : filteredCards.length > 0 ? (
-                filteredCards.map((card, idx) => {
+                paginatedCards.map((card, idx) => {
                   const kanjiText = card.kanji || '';
                   const deckText = (card.deckName || card.deck || '').toLowerCase();
                   const isGrammar =
@@ -677,6 +699,99 @@ export default function CardsPage() {
           </table>
         </div>
       </div>
+
+      {/* THANH PHÂN TRANG (PAGINATION BAR) */}
+      {!loading && filteredCards.length > 0 && (
+        <div
+          style={{
+            marginTop: '1.25rem',
+            padding: '1rem 1.25rem',
+            background: '#FFFFFF',
+            borderRadius: '12px',
+            border: '1.2px solid #E6DDCF',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '1rem',
+            boxShadow: '0 2px 8px rgba(18, 36, 56, 0.04)',
+          }}
+        >
+          {/* Thông tin số lượng */}
+          <div style={{ fontSize: '0.85rem', color: '#786A5E', fontFamily: 'var(--font-maru)' }}>
+            Hiển thị <strong>{Math.min(filteredCards.length, (safePage - 1) * pageSize + 1)}</strong> -{' '}
+            <strong>{Math.min(filteredCards.length, safePage * pageSize)}</strong> trong tổng số{' '}
+            <strong>{filteredCards.length}</strong> thẻ
+          </div>
+
+          {/* Điều hướng trang */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+            <button
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              disabled={safePage <= 1}
+              style={{
+                padding: '0.4rem 0.8rem',
+                borderRadius: '6px',
+                border: '1.2px solid #D5CFC7',
+                background: safePage <= 1 ? '#F5F2EC' : '#FFFFFF',
+                color: safePage <= 1 ? '#A89F91' : '#122438',
+                cursor: safePage <= 1 ? 'not-allowed' : 'pointer',
+                fontSize: '0.84rem',
+                fontWeight: 600,
+                fontFamily: 'var(--font-maru)',
+              }}
+            >
+              ◀ Trước
+            </button>
+
+            <span style={{ padding: '0 0.5rem', fontSize: '0.85rem', fontWeight: 700, color: '#1E4B75' }}>
+              Trang {safePage} / {totalPages}
+            </span>
+
+            <button
+              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+              disabled={safePage >= totalPages}
+              style={{
+                padding: '0.4rem 0.8rem',
+                borderRadius: '6px',
+                border: '1.2px solid #D5CFC7',
+                background: safePage >= totalPages ? '#F5F2EC' : '#FFFFFF',
+                color: safePage >= totalPages ? '#A89F91' : '#122438',
+                cursor: safePage >= totalPages ? 'not-allowed' : 'pointer',
+                fontSize: '0.84rem',
+                fontWeight: 600,
+                fontFamily: 'var(--font-maru)',
+              }}
+            >
+              Sau ▶
+            </button>
+
+            {/* Bộ chọn số lượng hiển thị */}
+            <select
+              value={pageSize}
+              onChange={(e) => {
+                setPageSize(Number(e.target.value));
+                setCurrentPage(1);
+              }}
+              style={{
+                marginLeft: '0.5rem',
+                padding: '0.4rem 0.6rem',
+                borderRadius: '6px',
+                border: '1.2px solid #D5CFC7',
+                background: '#FFFFFF',
+                color: '#122438',
+                fontSize: '0.82rem',
+                fontWeight: 600,
+                fontFamily: 'var(--font-maru)',
+              }}
+            >
+              <option value={25}>25 thẻ / trang</option>
+              <option value={50}>50 thẻ / trang</option>
+              <option value={100}>100 thẻ / trang</option>
+            </select>
+          </div>
+        </div>
+      )}
       </div>
     </main>
   );

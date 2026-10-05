@@ -7,23 +7,26 @@
 ### 📌 GIỚI THIỆU & MỤC TIÊU TÁI CẤU TRÚC TÀI LIỆU
 Thực hiện chỉ đạo tái cấu trúc tài liệu quy hoạch: **Gom tất cả tài liệu planning vào một folder duy nhất (`/planning`), và những plan cùng giai đoạn thì gộp lại thành 1 file duy nhất**. 
 
-Toàn bộ 36 tài liệu phân mảnh trước đây đã được chuẩn hóa, loại bỏ trùng lặp, biên tập thống nhất và gom gọn thành **7 Tệp Tài Liệu Tương Ứng Với 7 Giai Đoạn Phát Triển** có cấu trúc phân tầng hoàn chỉnh:
+Toàn bộ các tài liệu đã được chuẩn hóa, loại bỏ trùng lặp, biên tập thống nhất và phân tầng hoàn chỉnh theo 9 Giai đoạn Phát triển:
 
 ```
 planning/
-├── README.md                                           # [TÀI LIỆU NÀY] Mục lục tổng hợp & Lộ trình 7 giai đoạn
+├── README.md                                           # [TÀI LIỆU NÀY] Mục lục tổng hợp & Lộ trình 9 giai đoạn
 ├── 01_PHASE_1_WA_STYLE_UI_REDESIGN.md                  # Giai đoạn 1: Tái thiết kế Giao diện Wa-Style (Gộp 9 tệp)
 ├── 02_PHASE_2_DECK_BASED_SRS_AND_AGENT_WORKFLOW.md     # Giai đoạn 2: Ôn tập Phân tách Bộ thẻ & Phối hợp Đa Agent (Gộp 3 tệp)
 ├── 03_PHASE_3_JAPANESE_GRAPHIC_DESIGN_AND_WA_ART.md    # Giai đoạn 3: Đồ họa Hiện đại & Tranh Hội họa Wa-Art (Gộp 2 tệp)
 ├── 04_PHASE_4_COGNITIVE_SCIENCE_AND_FOUR_PILLARS.md    # Giai đoạn 4: Khoa học Nhận thức & 4 Trụ Cột FSRS (Gộp 6 tệp)
 ├── 05_PHASE_5_KIRIE_PAPER_CUTOUT_AND_WAVE_REDESIGN.md  # Giai đoạn 5: Nghệ thuật Cắt giấy Kirie & Mobile Nav (Gộp 2 tệp)
 ├── 06_PHASE_6_PERFORMANCE_OPTIMIZATION_AND_SRE.md      # Giai đoạn 6: Kỹ thuật Hiệu năng & Giám sát Telemetry (Gộp 10 tệp)
-└── 07_PHASE_7_JPD133_GRAMMAR_LEARNING_ENGINE.md        # Giai đoạn 7: Động cơ Ngữ pháp JPD133 Bunbou Engine (Gộp 4 tệp)
+├── 07_PHASE_7_JPD133_GRAMMAR_LEARNING_ENGINE.md        # Giai đoạn 7: Động cơ Ngữ pháp JPD133 Bunbou Engine (Gộp 4 tệp)
+├── 08_PHASE_8_ENGLISH_IELTS_TRACKING.md                # Giai đoạn 8: Hệ thống Theo dõi Tiếng Anh & Khảo thí IELTS
+├── 09_PHASE_9_UI_UX_AUDIT_AND_COMPREHENSIVE_REDESIGN_PLAN.md # Giai đoạn 9: Kiểm toán Toàn diện UI/UX (>50k từ) & Lộ trình Đại tu
+└── audit-modules/                                      # 12 Mô-đun Kiểm toán Chuyên sâu Độc lập
 ```
 
 ---
 
-### 🗺️ BẢNG ĐIỀU HƯỚNG 7 GIAI ĐOẠN QUY HOẠCH CHI TIẾT
+### 🗺️ BẢNG ĐIỀU HƯỚNG 9 GIAI ĐOẠN QUY HOẠCH CHI TIẾT
 
 | Giai đoạn | Tên Tài liệu Quy hoạch | Số tệp đã gộp | Trọng tâm & Sản phẩm bàn giao cốt lõi | Trạng thái |
 | :---: | :--- | :---: | :--- | :---: |
@@ -34,7 +37,8 @@ planning/
 | **Phase 5** | **[05_PHASE_5_KIRIE_PAPER_CUTOUT_AND_WAVE_REDESIGN.md](05_PHASE_5_KIRIE_PAPER_CUTOUT_AND_WAVE_REDESIGN.md)** | **2 tệp** (19, 20) | Ngôn ngữ thiết kế cắt giấy thủ công Washi Kirie, Lớp sóng biển 3D đổ bóng đa tầng `kirie-shadow-deep`, Màu chàm Aizome `#20507B`, Thanh điều hướng nổi KirieBottomNav và tối ưu hóa di động 60fps. | Hoàn thành |
 | **Phase 6** | **[06_PHASE_6_PERFORMANCE_OPTIMIZATION_AND_SRE.md](06_PHASE_6_PERFORMANCE_OPTIMIZATION_AND_SRE.md)** | **10 tệp** (perf 00-07, Index, Readme) | Kiểm toán kiến trúc toàn diện, Tối ưu Next.js 15 App Router, Nén tài nguyên WebP/AVIF, Giảm thiểu độ trễ Turso Cloud qua HTTPS REST, Bộ nhớ đệm Offline IndexedDB, Audio Pool và Hệ thống Giám sát Telemetry RUM. | Hoàn thành |
 | **Phase 7** | **[07_PHASE_7_JPD133_GRAMMAR_LEARNING_ENGINE.md](07_PHASE_7_JPD133_GRAMMAR_LEARNING_ENGINE.md)** | **4 tệp** (Plan, Encyclopedia, Bank, Checkpoint) | Trích xuất toàn diện 2 tài liệu giáo trình JPD133, Thiết kế 3 bảng DDL ngữ pháp, 32 cấu trúc chi tiết, 204 câu hỏi bài tập kèm lời giải, 96 thẻ FSRS ngữ pháp, Bộ giao diện `/grammar`, `/grammar/[lessonId]`, `/grammar/practice` và đồng bộ Turso Cloud. | Hoàn thành |
-| **Phase 8** | **[08_PHASE_8_ENGLISH_IELTS_TRACKING.md](08_PHASE_8_ENGLISH_IELTS_TRACKING.md)** | **1 tệp** | Xây dựng hệ thống theo dõi tiến độ học tiếng Anh/IELTS độc lập, ERD mở rộng (Sessions, Logs, Mistakes, Vocab), Mỹ học British Classic và chuẩn bị kiến trúc đồng bộ thẻ FSRS tương lai. | Lên kế hoạch |
+| **Phase 8** | **[08_PHASE_8_ENGLISH_IELTS_TRACKING.md](08_PHASE_8_ENGLISH_IELTS_TRACKING.md)** | **1 tệp** | Xây dựng hệ thống theo dõi tiến độ học tiếng Anh/IELTS độc lập, ERD mở rộng (Sessions, Logs, Mistakes, Vocab), Mỹ học British Classic và chuẩn bị kiến trúc đồng bộ thẻ FSRS tương lai. | Hoàn thành |
+| **Phase 9** | **[09_PHASE_9_UI_UX_AUDIT_AND_COMPREHENSIVE_REDESIGN_PLAN.md](09_PHASE_9_UI_UX_AUDIT_AND_COMPREHENSIVE_REDESIGN_PLAN.md)** | **12 mô-đun** (>52,500 từ) | Báo cáo kiểm toán toàn diện 14 trang màn hình theo ma trận 4 chiều (Thừa, Thiếu, Sai, Lỗi hiển thị), 111 khiếm khuyết được đánh số ID khoa học, triệt tiêu 100% rác nhận thức, ảo hóa danh mục thẻ, vật lý lật Karuta và lộ trình 4 Sprints Zero-Backend-Regression. | Phê duyệt & Sẵn sàng Thực thi |
 
 ---
 
@@ -50,6 +54,7 @@ graph TD
     classDef phase6 fill:#FFF8E7,stroke:#D97706,stroke-width:2px,color:#1F2421;
     classDef phase7 fill:#F0FDF4,stroke:#15803D,stroke-width:2px,color:#1F2421;
     classDef phase8 fill:#FDFBF7,stroke:#002147,stroke-width:2px,color:#1F2421;
+    classDef phase9 fill:#FFF5F5,stroke:#9E3223,stroke-width:2px,color:#1F2421;
 
     subgraph P1 ["Phase 1: Mỹ học Wa-Style & Giao diện Cốt lõi"]
         A1["Nippon Colors Token & Wagara"]:::phase1 --> A2["4 Màn hình Cốt lõi (Dashboard, Cards, Review, New)"]:::phase1
@@ -86,12 +91,17 @@ graph TD
         H1["Global Language Switcher & British Classic Design"]:::phase8 --> H2["IELTS Sessions, Practice Logs & Scalable ERD"]:::phase8
     end
 
-    P1 --> P2 --> P3 --> P4 --> P5 --> P6 --> P7 --> P8
+    subgraph P9 ["Phase 9: Kiểm toán Toàn diện UI/UX & Tái thiết kế Công thái học"]
+        I1["Ma trận Lỗi 4 Chiều (111 Defects) & Khung Tâm lý Học Nhận thức"]:::phase9 --> I2["Lộ trình 4 Sprints Đại tu & Cam kết Zero-Backend-Regression"]:::phase9
+    end
+
+    P1 --> P2 --> P3 --> P4 --> P5 --> P6 --> P7 --> P8 --> P9
 ```
 
 ---
 
 ### 🛡️ CAM KẾT CHẤT LƯỢNG & RÀNG BUỘC KỸ THUẬT (ENGINEERING INVARIANTS)
-1. **Zero Backend Regression:** Tuyệt đối không làm thay đổi các bảng cơ sở dữ liệu đã ổn định (`cards`, `decks`, `review_logs`). Mọi bảng mới (như `grammar_lessons`, `grammar_patterns`, `grammar_exercises`) được mở rộng an toàn bằng DDL tách biệt.
-2. **Kiểm thử tự động đạt 100%:** Luôn duy trì vượt qua toàn bộ 20 test suites (95 bài kiểm thử) trước bất kỳ lần bàn giao hoặc đẩy mã nguồn lên môi trường Production.
+1. **Zero Backend Regression:** Tuyệt đối không làm thay đổi các bảng cơ sở dữ liệu đã ổn định (`cards`, `decks`, `review_logs`). Mọi bảng mới được mở rộng an toàn bằng DDL tách biệt.
+2. **Kiểm thử tự động đạt 100%:** Luôn duy trì vượt qua toàn bộ 21 test suites (111 bài kiểm thử) trước bất kỳ lần bàn giao hoặc đẩy mã nguồn lên môi trường Production.
 3. **Mỹ học Wabi-Sabi chuẩn mực:** Mọi tính năng mới bắt buộc áp dụng thống nhất các Design Tokens trong hệ thống màu sắc Nippon Colors, font chữ Mincho/Maru và các họa tiết Wagara truyền thống.
+

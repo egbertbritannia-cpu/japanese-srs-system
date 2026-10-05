@@ -7,6 +7,18 @@ import { parseClozeSegments } from '@/lib/cloze';
 import { JapaneseSpeakerButton } from '@/components/japanese/JapaneseSpeakerButton';
 import Link from 'next/link';
 
+interface AnswerRecord {
+  exerciseId: string;
+  selectedOption: string;
+  correctOption: string;
+  isCorrect: boolean;
+  questionSentence: string;
+  explanationVi: string;
+  explanationJa?: string;
+  selectedText: string;
+  correctText: string;
+}
+
 function PracticeContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -19,6 +31,8 @@ function PracticeContent() {
   const [isAnswered, setIsAnswered] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
+  const [records, setRecords] = useState<AnswerRecord[]>([]);
+  const [showMistakesView, setShowMistakesView] = useState(false);
 
   useEffect(() => {
     async function fetchQueue() {
@@ -26,7 +40,25 @@ function PracticeContent() {
         setLoading(true);
         const res = await fetch(`/api/grammar/practice?lessonId=${lessonId}&limit=15`);
         const data = await res.json();
-        setExercises(data.exercises || []);
+        const loadedExercises: GrammarExercise[] = data.exercises || [];
+        setExercises(loadedExercises);
+
+        // Khôi phục bản nháp phiên luyện tập từ sessionStorage (DEF-UI-PRAC-003)
+        try {
+          const saved = sessionStorage.getItem(`bunbou_drill_${lessonId}`);
+          if (saved) {
+            const parsed = JSON.parse(saved);
+            if (parsed.currentIndex !== undefined && parsed.currentIndex < loadedExercises.length) {
+              setCurrentIndex(parsed.currentIndex);
+            }
+            if (parsed.correctCount !== undefined) {
+              setCorrectCount(parsed.correctCount);
+            }
+            if (Array.isArray(parsed.records)) {
+              setRecords(parsed.records);
+            }
+          }
+        } catch {}
       } catch (err) {
         console.error('Failed to load grammar exercises:', err);
       } finally {
@@ -35,6 +67,26 @@ function PracticeContent() {
     }
     fetchQueue();
   }, [lessonId]);
+
+  // Tự động lưu tiến trình phiên vào sessionStorage
+  useEffect(() => {
+    if (exercises.length > 0 && !isComplete) {
+      try {
+        sessionStorage.setItem(
+          `bunbou_drill_${lessonId}`,
+          JSON.stringify({
+            currentIndex,
+            correctCount,
+            records,
+          })
+        );
+      } catch {}
+    } else if (isComplete) {
+      try {
+        sessionStorage.removeItem(`bunbou_drill_${lessonId}`);
+      } catch {}
+    }
+  }, [currentIndex, correctCount, records, isComplete, exercises.length, lessonId]);
 
   const current = exercises[currentIndex];
   const total = exercises.length;
@@ -50,6 +102,29 @@ function PracticeContent() {
     if (isCorrect) {
       setCorrectCount(prev => prev + 1);
     }
+
+    const optMap: Record<string, string> = {
+      A: current.optionA || '',
+      B: current.optionB || '',
+      C: current.optionC || '',
+      D: current.optionD || '',
+    };
+
+    const correctOpt = current.correctOption || 'A';
+    const sentenceText = current.sentenceWithCloze || current.question || current.promptText || '';
+
+    const newRecord: AnswerRecord = {
+      exerciseId: current.id,
+      selectedOption: optionKey,
+      correctOption: correctOpt,
+      isCorrect,
+      questionSentence: sentenceText,
+      explanationVi: current.explanationVi || '',
+      explanationJa: current.explanationJa || '',
+      selectedText: optMap[optionKey] || optionKey,
+      correctText: optMap[correctOpt] || correctOpt,
+    };
+    setRecords(prev => [...prev.filter(r => r.exerciseId !== current.id), newRecord]);
 
     // Gửi FSRS review grade (optimistic)
     try {
@@ -151,11 +226,26 @@ function PracticeContent() {
   if (isComplete) {
     const accuracy = total > 0 ? Math.round((correctCount / total) * 100) : 0;
     const isMastered = accuracy >= 80;
+    const mistakes = records.filter(r => !r.isCorrect);
+
+    const handleRedrillMistakes = () => {
+      const missedIds = new Set(mistakes.map(m => m.exerciseId));
+      const filtered = exercises.filter(ex => missedIds.has(ex.id));
+      if (filtered.length > 0) {
+        setExercises(filtered);
+        setCurrentIndex(0);
+        setSelectedOption(null);
+        setIsAnswered(false);
+        setCorrectCount(0);
+        setIsComplete(false);
+        setRecords([]);
+      }
+    };
 
     return (
       <div
         style={{
-          maxWidth: '560px',
+          maxWidth: '580px',
           margin: '2rem auto',
           background: '#FFFFFF',
           borderRadius: '24px',
@@ -217,7 +307,7 @@ function PracticeContent() {
             border: `2px solid ${isMastered ? '#2A6B3D' : '#1B4268'}`,
             borderRadius: '18px',
             padding: '1.5rem',
-            marginBottom: '2rem',
+            marginBottom: '1.5rem',
             boxShadow: '0 4px 16px rgba(0,0,0,0.03)',
           }}
         >
@@ -239,6 +329,96 @@ function PracticeContent() {
             {correctCount} / {total} câu trả lời đúng
           </div>
         </div>
+
+        {/* Mistakes Review Drawer / Accordion (DEF-UI-PRAC-009) */}
+        {mistakes.length > 0 && (
+          <div style={{ marginBottom: '1.75rem', textAlign: 'left' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+              <button
+                type="button"
+                onClick={() => setShowMistakesView(!showMistakesView)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#C83824',
+                  fontWeight: 800,
+                  fontSize: '0.92rem',
+                  fontFamily: 'var(--font-maru)',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                  padding: 0,
+                }}
+              >
+                <span>{showMistakesView ? '▼ Đóng rà soát' : '▶ Rà soát'} {mistakes.length} câu làm sai</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={handleRedrillMistakes}
+                style={{
+                  padding: '0.4rem 0.85rem',
+                  borderRadius: '8px',
+                  background: '#FFF2F0',
+                  border: '1.2px solid #FCA5A5',
+                  color: '#991B1B',
+                  fontSize: '0.82rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  fontFamily: 'var(--font-maru)',
+                  transition: 'all 0.2s',
+                }}
+              >
+                ⚡ Luyện lại các câu sai ({mistakes.length})
+              </button>
+            </div>
+
+            {showMistakesView && (
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.85rem',
+                maxHeight: '340px',
+                overflowY: 'auto',
+                padding: '0.75rem',
+                background: '#FAF8F5',
+                borderRadius: '14px',
+                border: '1.5px solid #E6E1DA',
+              }}>
+                {mistakes.map((m, idx) => (
+                  <div
+                    key={m.exerciseId}
+                    style={{
+                      background: '#FFFFFF',
+                      borderRadius: '10px',
+                      padding: '0.85rem 1rem',
+                      border: '1px solid #E6DDCF',
+                      fontSize: '0.88rem',
+                    }}
+                  >
+                    <div style={{ fontFamily: 'var(--font-mincho)', fontSize: '1rem', fontWeight: 700, color: '#122438', marginBottom: '0.45rem' }}>
+                      {idx + 1}. {m.questionSentence}
+                    </div>
+                    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.45rem' }}>
+                      <span style={{ color: '#991B1B', background: '#FEE2E2', padding: '0.15rem 0.5rem', borderRadius: '4px', fontSize: '0.78rem', fontWeight: 600 }}>
+                        Đã chọn: [{m.selectedOption}] {m.selectedText} ✕
+                      </span>
+                      <span style={{ color: '#166534', background: '#DCFCE7', padding: '0.15rem 0.5rem', borderRadius: '4px', fontSize: '0.78rem', fontWeight: 700 }}>
+                        Đúng: [{m.correctOption}] {m.correctText} ✓
+                      </span>
+                    </div>
+                    {m.explanationVi && (
+                      <div style={{ fontSize: '0.82rem', color: '#4B5563', lineHeight: 1.45 }}>
+                        💡 <strong>Giải thích:</strong> {m.explanationVi}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Action Buttons */}
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -266,6 +446,7 @@ function PracticeContent() {
               setIsAnswered(false);
               setCorrectCount(0);
               setIsComplete(false);
+              setRecords([]);
             }}
             style={{
               flex: 1,

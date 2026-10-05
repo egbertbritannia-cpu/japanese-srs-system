@@ -117,6 +117,13 @@ function ReviewSessionContent() {
     Easy: 0,
   });
 
+  // Lịch sử chấm điểm phục vụ tính năng Hoàn tác FSRS Undo (DEF-UI-KARUTA-003)
+  const [reviewHistory, setReviewHistory] = useState<Array<{
+    cardIdx: number;
+    grade: 'Again' | 'Hard' | 'Good' | 'Easy';
+  }>>([]);
+  const [undoToast, setUndoToast] = useState<string | null>(null);
+
   // Tải dữ liệu thẻ từ API /api/cards theo Deck đã chọn với cơ chế Offline Fallback
   useEffect(() => {
     async function loadCards() {
@@ -350,6 +357,12 @@ function ReviewSessionContent() {
         [grade]: prev[grade] + 1,
       }));
 
+      // Lưu vào lịch sử hoàn tác (DEF-UI-KARUTA-003)
+      setReviewHistory((prev) => [
+        ...prev,
+        { cardIdx: currentIdx, grade },
+      ]);
+
       // Đo lường độ trôi chảy truy xuất (Retrieval Fluency - BUG-FSRS-06)
       const responseTimeMs = Math.max(100, Math.round(Date.now() - cardStartTimeRef.current));
 
@@ -392,10 +405,44 @@ function ReviewSessionContent() {
     [currentCard, currentIdx, totalCards, fsrsNextStates]
   );
 
-  // Phím tắt thông minh: Space để lật, 1-4 để chấm điểm
+  // Hành động Hoàn tác kết quả chấm điểm (Undo Grade - DEF-UI-KARUTA-003)
+  const handleUndo = useCallback(() => {
+    if (reviewHistory.length === 0) return;
+    const lastItem = reviewHistory[reviewHistory.length - 1];
+    setReviewHistory((prev) => prev.slice(0, -1));
+    setCurrentIdx(lastItem.cardIdx);
+    setShowAnswer(true);
+    setIsCompleted(false);
+
+    setGradesCount((prev) => ({
+      ...prev,
+      [lastItem.grade]: Math.max(0, prev[lastItem.grade] - 1),
+    }));
+
+    japaneseAudio.playWashiPaper();
+    setUndoToast('Đã hoàn tác kết quả chấm điểm (Phím Z)');
+    setTimeout(() => setUndoToast(null), 2500);
+  }, [reviewHistory]);
+
+  // Phím tắt thông minh: Space để lật, 1-4 để chấm điểm, Z để hoàn tác
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+
+      if ((e.key === 'z' || e.key === 'Z') && !e.ctrlKey && !e.metaKey) {
+        if (reviewHistory.length > 0) {
+          e.preventDefault();
+          handleUndo();
+          return;
+        }
+      }
+      if (e.key === 'z' && (e.ctrlKey || e.metaKey)) {
+        if (reviewHistory.length > 0) {
+          e.preventDefault();
+          handleUndo();
+          return;
+        }
+      }
 
       if (e.code === 'Space' && !showAnswer) {
         e.preventDefault();
@@ -410,7 +457,7 @@ function ReviewSessionContent() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [showAnswer, handleReveal, handleGrade]);
+  }, [showAnswer, handleReveal, handleGrade, reviewHistory, handleUndo]);
 
   const progressPercent = totalCards > 0 ? Math.round((currentIdx / totalCards) * 100) : 0;
 
@@ -845,11 +892,12 @@ function ReviewSessionContent() {
         </div>
       </div>
 
-      {/* THẺ BÀI TRUYỀN THỐNG HYAKUNIN ISSHU KARUTA CÓ VÂN SÓNG VÀNG RINPA */}
+      {/* THẺ BÀI TRUYỀN THỐNG HYAKUNIN ISSHU KARUTA 3D (DEF-UI-KARUTA-001) */}
       {currentCard && (
         <div
+          className={`karuta-3d-scene ${showAnswer ? 'flipped' : ''}`}
           style={{
-            minHeight: '380px',
+            minHeight: '440px',
             padding: '2.5rem 2rem',
             display: 'flex',
             flexDirection: 'column',
@@ -858,11 +906,12 @@ function ReviewSessionContent() {
             textAlign: 'center',
             marginBottom: '1.5rem',
             background: showAnswer ? 'linear-gradient(180deg, #FAF8F2 0%, #F7F4EB 100%)' : '#FAF8F2',
-            border: '2px solid #AF7E36',
+            border: showAnswer ? '2px solid #485642' : '2px solid #AF7E36',
             borderRadius: '18px',
             boxShadow: '0 12px 32px rgba(22, 37, 59, 0.08)',
             position: 'relative',
             overflow: 'hidden',
+            transition: 'border-color 0.4s ease, background 0.4s ease',
           }}
         >
           <JapaneseArtBackdrop
@@ -910,26 +959,7 @@ function ReviewSessionContent() {
               <>
                 {/* MẶT TRƯỚC: CHỮ KANJI VÀ CÁCH ĐỌC */}
                 <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.45rem', marginBottom: '0.75rem', width: '100%' }}>
-                  {/* 1. Dòng Hiragana cách đọc ở mặt trước (chỉ dành cho Thẻ từ vựng Kotoba/N5, không hiện cho Thẻ Kanji và Ngữ pháp để giữ nguyên Active Recall) */}
-                  {!isGrammar && !parsedCard?.isKanji && currentCard.reading && currentCard.reading !== currentCard.kanji && (
-                    <div
-                      style={{
-                        fontFamily: 'var(--font-maru)',
-                        fontSize: '1.75rem',
-                        fontWeight: 800,
-                        color: '#AF7E36',
-                        letterSpacing: '0.06em',
-                        background: '#FBF5E8',
-                        padding: '0.25rem 1.25rem',
-                        borderRadius: '999px',
-                        border: '1.5px solid #E5CCA0',
-                        boxShadow: '0 2px 8px rgba(22, 37, 59, 0.04)',
-                      }}
-                    >
-                      {parsedCard?.pureReading || currentCard.reading}
-                    </div>
-                  )}
-
+                  {/* DEF-UI-KARUTA-002: BẢO VỆ ACTIVE RECALL — TUYỆT ĐỐI KHÔNG HIỂN THỊ CÁCH ĐỌC Ở MẶT TRƯỚC */}
                   {/* 2. Chữ Hán Thư pháp Lớn (Hỗ trợ câu Cloze đục lỗ Active Recall) */}
                   {/* VIS-REV-01: Fluid kanji font via computeOptimalKanjiFontSize — prevents mobile overflow */}
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.85rem', width: '100%' }}>
@@ -1449,6 +1479,63 @@ function ReviewSessionContent() {
       )}
 
       {/* KHU VỰC NÚT TƯƠNG TÁC ACTIVE RECALL */}
+      {/* Nút Hoàn Tác Chấm Điểm Thẻ Trước (DEF-UI-KARUTA-003) */}
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '0.65rem' }}>
+        {reviewHistory.length > 0 && (
+          <button
+            type="button"
+            onClick={handleUndo}
+            title="Hoàn tác thẻ trước đó (Phím tắt: Z)"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              padding: '0.35rem 0.85rem',
+              backgroundColor: '#FAF8F2',
+              border: '1.5px solid #AF7E36',
+              borderRadius: '8px',
+              color: '#AF7E36',
+              fontFamily: 'var(--font-maru)',
+              fontSize: '0.82rem',
+              fontWeight: 700,
+              cursor: 'pointer',
+              boxShadow: '0 2px 6px rgba(175, 126, 54, 0.12)',
+              transition: 'all 0.2s ease',
+            }}
+          >
+            <span style={{ fontSize: '1rem', lineHeight: 1 }}>↩</span> Hoàn tác (Z)
+          </button>
+        )}
+      </div>
+
+      {/* Thông báo Toast Hoàn Tác */}
+      {undoToast && (
+        <div
+          role="status"
+          style={{
+            position: 'fixed',
+            bottom: '5.5rem',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            backgroundColor: '#1B4268',
+            color: '#FFFFFF',
+            padding: '0.65rem 1.4rem',
+            borderRadius: '999px',
+            fontSize: '0.9rem',
+            fontWeight: 700,
+            fontFamily: 'var(--font-maru)',
+            boxShadow: '0 8px 24px rgba(27, 66, 104, 0.25)',
+            zIndex: 100,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            animation: 'fadeIn 0.2s ease forwards',
+          }}
+        >
+          <span>↩</span> {undoToast}
+        </div>
+      )}
+
       {!showAnswer ? (
         <button
           onClick={handleReveal}

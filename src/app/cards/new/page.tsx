@@ -41,6 +41,10 @@ export default function NewCardPage() {
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState<string | null>(null);
+  const [copilotError, setCopilotError] = useState<string | null>(null);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [previewFlipped, setPreviewFlipped] = useState<boolean>(false);
+  const [isComposing, setIsComposing] = useState<boolean>(false);
   const [draftsList, setDraftsList] = useState<DraftItem[]>([]);
   const [masteredCount, setMasteredCount] = useState<number>(0);
   const [autoSplitNotice, setAutoSplitNotice] = useState<string | null>(null);
@@ -62,6 +66,7 @@ export default function NewCardPage() {
 
     setLoading(true);
     setAutoSplitNotice(null);
+    setCopilotError(null);
 
     try {
       const res = await fetch('/api/copilot/draft', {
@@ -87,10 +92,10 @@ export default function NewCardPage() {
           );
         }
       } else {
-        alert(data.feedback || data.error || 'Có lỗi xảy ra trong quá trình sinh thẻ');
+        setCopilotError(data.feedback || data.error || 'Có lỗi xảy ra trong quá trình sinh thẻ');
       }
     } catch {
-      alert('Không thể kết nối đến máy chủ AI Copilot API');
+      setCopilotError('Không thể kết nối đến máy chủ AI Copilot API');
     } finally {
       setLoading(false);
     }
@@ -117,6 +122,7 @@ export default function NewCardPage() {
   };
 
   const handleApproveDraft = async (draft: DraftItem) => {
+    setCopilotError(null);
     try {
       const res = await fetch('/api/copilot/draft', {
         method: 'PUT',
@@ -133,22 +139,23 @@ export default function NewCardPage() {
           prev.map((d) => (d.id === draft.id ? { ...d, approved: true } : d))
         );
       } else {
-        alert(data.error || 'Không thể lưu thẻ học');
+        setCopilotError(data.error || 'Không thể lưu thẻ học');
       }
     } catch {
-      alert('Lỗi khi phê duyệt và lưu thẻ học vào SQLite/Turso');
+      setCopilotError('Lỗi khi phê duyệt và lưu thẻ học vào SQLite/Turso');
     }
   };
 
   const handleManualSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.front.trim() || !formData.meaning.trim()) {
-      alert('Vui lòng nhập từ vựng và ý nghĩa');
+      setFormError('Vui lòng nhập từ vựng (Mặt trước) và ý nghĩa cốt lõi tiếng Việt');
       return;
     }
 
     setSaving(true);
     setSaveSuccess(null);
+    setFormError(null);
     try {
       const res = await fetch('/api/cards', {
         method: 'POST',
@@ -176,12 +183,13 @@ export default function NewCardPage() {
           sentence: '',
           pitch: '',
         }));
+        setPreviewFlipped(false);
         setTimeout(() => setSaveSuccess(null), 4000);
       } else {
-        alert(data.error || 'Lỗi khi lưu thẻ học');
+        setFormError(data.error || 'Lỗi khi lưu thẻ học');
       }
     } catch {
-      alert('Không thể kết nối đến máy chủ API');
+      setFormError('Không thể kết nối đến máy chủ API');
     } finally {
       setSaving(false);
     }
@@ -203,7 +211,7 @@ export default function NewCardPage() {
         blendMode="multiply"
       />
 
-      <div style={{ maxWidth: '820px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
+      <div style={{ maxWidth: activeTab === 'manual' ? '1140px' : '820px', margin: '0 auto', position: 'relative', zIndex: 10, transition: 'max-width 0.3s ease' }}>
         {/* HEADER QUAY LẠI & TIÊU ĐỀ */}
       <div style={{ marginBottom: '1.5rem' }}>
         <Link
@@ -498,6 +506,26 @@ export default function NewCardPage() {
             </div>
           </form>
 
+          {copilotError && (
+            <div
+              style={{
+                background: '#FEF2F2',
+                border: '1.2px solid #FCA5A5',
+                borderRadius: '12px',
+                padding: '0.9rem 1.2rem',
+                marginBottom: '1.5rem',
+                color: '#991B1B',
+                fontSize: '0.9rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.65rem',
+              }}
+            >
+              <span>⚠</span>
+              <span>{copilotError}</span>
+            </div>
+          )}
+
           {/* THÔNG BÁO TỰ ĐỘNG PHÂN TÁCH NÉT NGHĨA - HUY HIỆU THÀNH TỰU NHẬN THỨC (VIS-NEW-05) */}
           {autoSplitNotice && (
             <div
@@ -688,191 +716,433 @@ export default function NewCardPage() {
         </div>
       )}
 
-      {/* TAB 2: MANUAL CREATION (VIS-NEW-03, VIS-NEW-04) */}
+      {/* TAB 2: MANUAL CREATION (VIS-NEW-03, VIS-NEW-04) + LIVE TANZAKU PREVIEW */}
       {activeTab === 'manual' && (
-        <form
-          onSubmit={handleManualSubmit}
-          className="bento-card-artisan"
-          style={{
-            background: '#FAF7F0',
-            padding: '2rem 2.25rem',
-            borderRadius: '16px',
-            border: '1.5px solid #C89B58',
-            boxShadow: '0 6px 20px rgba(18, 36, 56, 0.05)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '1.25rem',
-            minHeight: '480px',
-          }}
-        >
-          {saveSuccess && (
-            <div
-              style={{
-                padding: '0.85rem 1.15rem',
-                background: '#EBF5EE',
-                border: '1px solid #A3D9B1',
-                borderRadius: '8px',
-                color: '#265C35',
-                fontWeight: 700,
-                fontSize: '0.92rem',
-                fontFamily: 'var(--font-maru)',
-              }}
-            >
-              ✓ {saveSuccess}
-            </div>
-          )}
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
-            <div>
-              <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 700, color: '#122438', fontSize: '0.9rem' }}>
-                Bộ thẻ
-              </label>
-              <select
-                value={formData.deck}
-                onChange={(e) => setFormData({ ...formData, deck: e.target.value })}
-                style={{ width: '100%', padding: '0.75rem', background: '#FFFFFF', border: '1.2px solid #E6DDCF', borderRadius: '8px', color: '#122438', fontSize: '0.9rem' }}
-              >
-                <option value="deck_jpd133">JPD133 - Từ vựng Kotoba</option>
-                <option value="deck_jpd133_kanji">JPD133 - Hán Tự (Kanji)</option>
-                <option value="deck_n5">JLPT N5 - Từ vựng Cốt lõi</option>
-              </select>
-            </div>
-
-            <div>
-              <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 700, color: '#122438', fontSize: '0.9rem' }}>
-                Loại thẻ
-              </label>
-              <select
-                value={formData.cardType}
-                onChange={(e) => setFormData({ ...formData, cardType: e.target.value })}
-                style={{ width: '100%', padding: '0.75rem', background: '#FFFFFF', border: '1.2px solid #E6DDCF', borderRadius: '8px', color: '#122438', fontSize: '0.9rem' }}
-              >
-                <option value="Vocab">Từ vựng (Vocab)</option>
-                <option value="Kanji">Chữ Hán (Kanji)</option>
-                <option value="Cloze">Điền từ (Cloze)</option>
-                <option value="Pitch">Cao độ (Pitch)</option>
-              </select>
-            </div>
-          </div>
-
-          <div>
-            <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 700, color: '#122438', fontSize: '0.9rem' }}>
-              Mặt trước (Kanji / Từ vựng)
-            </label>
-            <input
-              type="text"
-              placeholder="ví dụ: 桜, 食べる"
-              value={formData.front}
-              onChange={(e) => setFormData({ ...formData, front: e.target.value })}
-              style={{ width: '100%', padding: '0.75rem 0.95rem', background: '#FFFFFF', border: '1.2px solid #E6DDCF', borderRadius: '8px', color: '#122438', fontSize: '1.1rem', fontFamily: 'var(--font-mincho)' }}
-              required
-            />
-          </div>
-
-          <div>
-            <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 700, color: '#122438', fontSize: '0.9rem' }}>
-              Cách đọc (Hiragana / Furigana)
-            </label>
-            <input
-              type="text"
-              placeholder="ví dụ: さくら, たべる"
-              value={formData.reading}
-              onChange={(e) => setFormData({ ...formData, reading: e.target.value })}
-              style={{ width: '100%', padding: '0.75rem 0.95rem', background: '#FFFFFF', border: '1.2px solid #E6DDCF', borderRadius: '8px', color: '#122438', fontSize: '0.95rem', fontFamily: 'var(--font-maru)' }}
-            />
-          </div>
-
-          {/* CHỌN MẪU CAO ĐỘ PITCH ACCENT TRỰC QUAN (VIS-NEW-03) */}
-          <div>
-            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 700, color: '#122438', fontSize: '0.9rem' }}>
-              Mẫu hình Cao độ Pitch Accent Tokyo:
-            </label>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '0.65rem' }}>
-              {[
-                { id: '0', label: '平板 Heiban [0]', symbol: '_ ‾ ‾ (Bằng)' },
-                { id: '1', label: '頭高 Atamadaka [1]', symbol: '‾ _ _ (Đỉnh 1)' },
-                { id: '2', label: '中高 Nakadaka [2]', symbol: '_ ‾ _ (Núi)' },
-                { id: '3', label: '尾高 Odaka [3]', symbol: '_ ‾ [ \\ ] (Hạ trợ từ)' },
-              ].map((pattern) => {
-                const isSelected = formData.pitch === pattern.id;
-                return (
-                  <button
-                    key={pattern.id}
-                    type="button"
-                    onClick={() => setFormData({ ...formData, pitch: isSelected ? '' : pattern.id })}
-                    style={{
-                      padding: '0.65rem 0.85rem',
-                      borderRadius: '10px',
-                      border: `1.5px solid ${isSelected ? '#1E4B75' : '#E6DDCF'}`,
-                      background: isSelected ? '#EDF4FA' : '#FFFFFF',
-                      color: isSelected ? '#1E4B75' : '#122438',
-                      cursor: 'pointer',
-                      textAlign: 'left',
-                      transition: 'all 0.18s ease',
-                      boxShadow: isSelected ? '0 2px 8px rgba(30, 75, 117, 0.12)' : 'none',
-                    }}
-                  >
-                    <div style={{ fontWeight: 800, fontSize: '0.84rem', fontFamily: 'var(--font-maru)' }}>
-                      {pattern.label}
-                    </div>
-                    <div style={{ fontSize: '0.78rem', color: isSelected ? '#1E4B75' : '#786A5E', marginTop: '0.2rem' }}>
-                      {pattern.symbol}
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          <div>
-            <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 700, color: '#122438', fontSize: '0.9rem' }}>
-              Ý nghĩa tiếng Việt
-            </label>
-            <input
-              type="text"
-              placeholder="ví dụ: Hoa anh đào"
-              value={formData.meaning}
-              onChange={(e) => setFormData({ ...formData, meaning: e.target.value })}
-              style={{ width: '100%', padding: '0.75rem 0.95rem', background: '#FFFFFF', border: '1.2px solid #E6DDCF', borderRadius: '8px', color: '#122438', fontSize: '0.95rem' }}
-              required
-            />
-          </div>
-
-          <div>
-            <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 700, color: '#122438', fontSize: '0.9rem' }}>
-              Câu ví dụ (tùy chọn)
-            </label>
-            <input
-              type="text"
-              placeholder="ví dụ: 桜の花が綺麗です。"
-              value={formData.sentence}
-              onChange={(e) => setFormData({ ...formData, sentence: e.target.value })}
-              style={{ width: '100%', padding: '0.75rem 0.95rem', background: '#FFFFFF', border: '1.2px solid #E6DDCF', borderRadius: '8px', color: '#122438', fontSize: '0.95rem' }}
-            />
-          </div>
-
-          {/* NÚT LƯU THẺ THỦ CÔNG - SHODO STAMP SUBMIT (VIS-NEW-04) */}
-          <button
-            type="submit"
-            disabled={saving}
-            className="btn-torii"
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
+          gap: '1.75rem',
+          alignItems: 'start',
+        }}>
+          {/* CỘT TRÁI: BÀN THƯ PHÁP NHẬP LIỆU (SHODO FORM) */}
+          <form
+            onSubmit={handleManualSubmit}
+            className="bento-card-artisan"
             style={{
-              padding: '0.95rem',
-              marginTop: '0.5rem',
-              opacity: saving ? 0.75 : 1,
-              fontSize: '1rem',
-              fontWeight: 700,
-              boxShadow: '0 4px 16px rgba(200, 56, 36, 0.3)',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '0.5rem',
+              background: '#FAF7F0',
+              padding: '2rem 2.25rem',
+              borderRadius: '16px',
+              border: '1.5px solid #C89B58',
+              boxShadow: '0 6px 20px rgba(18, 36, 56, 0.05)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '1.25rem',
             }}
           >
-            <ToriiIcon size={18} color="#FFFFFF" />
-            {saving ? 'Đang đóng dấu mộc lưu thẻ...' : 'Lưu thẻ vào hệ thống'}
-          </button>
-        </form>
+            {/* THÔNG BÁO LỖI / THÀNH CÔNG */}
+            {saveSuccess && (
+              <div
+                style={{
+                  padding: '0.85rem 1.15rem',
+                  background: '#EBF5EE',
+                  border: '1px solid #A3D9B1',
+                  borderRadius: '8px',
+                  color: '#265C35',
+                  fontWeight: 700,
+                  fontSize: '0.92rem',
+                  fontFamily: 'var(--font-maru)',
+                }}
+              >
+                ✓ {saveSuccess}
+              </div>
+            )}
+            {formError && (
+              <div
+                style={{
+                  padding: '0.85rem 1.15rem',
+                  background: '#FEF2F2',
+                  border: '1px solid #FCA5A5',
+                  borderRadius: '8px',
+                  color: '#991B1B',
+                  fontWeight: 700,
+                  fontSize: '0.92rem',
+                  fontFamily: 'var(--font-maru)',
+                }}
+              >
+                ⚠ {formError}
+              </div>
+            )}
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '1rem' }}>
+              <div>
+                <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 700, color: '#122438', fontSize: '0.9rem' }}>
+                  Bộ thẻ
+                </label>
+                <select
+                  value={formData.deck}
+                  onChange={(e) => setFormData({ ...formData, deck: e.target.value })}
+                  style={{ width: '100%', padding: '0.75rem', background: '#FFFFFF', border: '1.2px solid #E6DDCF', borderRadius: '8px', color: '#122438', fontSize: '0.9rem' }}
+                >
+                  <option value="deck_jpd133">JPD133 - Từ vựng Kotoba</option>
+                  <option value="deck_jpd133_kanji">JPD133 - Hán Tự (Kanji)</option>
+                  <option value="deck_n5">JLPT N5 - Từ vựng Cốt lõi</option>
+                </select>
+              </div>
+
+              <div>
+                <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 700, color: '#122438', fontSize: '0.9rem' }}>
+                  Loại thẻ
+                </label>
+                <select
+                  value={formData.cardType}
+                  onChange={(e) => setFormData({ ...formData, cardType: e.target.value })}
+                  style={{ width: '100%', padding: '0.75rem', background: '#FFFFFF', border: '1.2px solid #E6DDCF', borderRadius: '8px', color: '#122438', fontSize: '0.9rem' }}
+                >
+                  <option value="Vocab">Từ vựng (Vocab)</option>
+                  <option value="Kanji">Chữ Hán (Kanji)</option>
+                  <option value="Cloze">Điền từ (Cloze)</option>
+                  <option value="Pitch">Cao độ (Pitch)</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 700, color: '#122438', fontSize: '0.9rem' }}>
+                Mặt trước (Kanji / Từ vựng)
+              </label>
+              <input
+                type="text"
+                placeholder="ví dụ: 桜, 食べる"
+                value={formData.front}
+                onChange={(e) => setFormData({ ...formData, front: e.target.value })}
+                onCompositionStart={() => setIsComposing(true)}
+                onCompositionEnd={() => setIsComposing(false)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && (isComposing || (e as any).nativeEvent?.isComposing)) {
+                    e.preventDefault();
+                  }
+                }}
+                style={{ width: '100%', padding: '0.75rem 0.95rem', background: '#FFFFFF', border: '1.2px solid #E6DDCF', borderRadius: '8px', color: '#122438', fontSize: '1.1rem', fontFamily: 'var(--font-mincho)' }}
+                required
+              />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 700, color: '#122438', fontSize: '0.9rem' }}>
+                Cách đọc (Hiragana / Furigana)
+              </label>
+              <input
+                type="text"
+                placeholder="ví dụ: さくら, たべる"
+                value={formData.reading}
+                onChange={(e) => setFormData({ ...formData, reading: e.target.value })}
+                onCompositionStart={() => setIsComposing(true)}
+                onCompositionEnd={() => setIsComposing(false)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && (isComposing || (e as any).nativeEvent?.isComposing)) {
+                    e.preventDefault();
+                  }
+                }}
+                style={{ width: '100%', padding: '0.75rem 0.95rem', background: '#FFFFFF', border: '1.2px solid #E6DDCF', borderRadius: '8px', color: '#122438', fontSize: '0.95rem', fontFamily: 'var(--font-maru)' }}
+              />
+            </div>
+
+            {/* CHỌN MẪU CAO ĐỘ PITCH ACCENT TRỰC QUAN (VIS-NEW-03) */}
+            <div>
+              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 700, color: '#122438', fontSize: '0.9rem' }}>
+                Mẫu hình Cao độ Pitch Accent Tokyo:
+              </label>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '0.65rem' }}>
+                {[
+                  { id: '0', label: '平板 Heiban [0]', symbol: '_ ‾ ‾ (Bằng)' },
+                  { id: '1', label: '頭高 Atamadaka [1]', symbol: '‾ _ _ (Đỉnh 1)' },
+                  { id: '2', label: '中高 Nakadaka [2]', symbol: '_ ‾ _ (Núi)' },
+                  { id: '3', label: '尾高 Odaka [3]', symbol: '_ ‾ [ \\ ] (Hạ)' },
+                ].map((pattern) => {
+                  const isSelected = formData.pitch === pattern.id;
+                  return (
+                    <button
+                      key={pattern.id}
+                      type="button"
+                      onClick={() => setFormData({ ...formData, pitch: isSelected ? '' : pattern.id })}
+                      style={{
+                        padding: '0.6rem 0.75rem',
+                        borderRadius: '10px',
+                        border: `1.5px solid ${isSelected ? '#1E4B75' : '#E6DDCF'}`,
+                        background: isSelected ? '#EDF4FA' : '#FFFFFF',
+                        color: isSelected ? '#1E4B75' : '#122438',
+                        cursor: 'pointer',
+                        textAlign: 'left',
+                        transition: 'all 0.18s ease',
+                        boxShadow: isSelected ? '0 2px 8px rgba(30, 75, 117, 0.12)' : 'none',
+                      }}
+                    >
+                      <div style={{ fontWeight: 800, fontSize: '0.8rem', fontFamily: 'var(--font-maru)' }}>
+                        {pattern.label}
+                      </div>
+                      <div style={{ fontSize: '0.74rem', color: isSelected ? '#1E4B75' : '#786A5E', marginTop: '0.2rem' }}>
+                        {pattern.symbol}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div>
+              <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 700, color: '#122438', fontSize: '0.9rem' }}>
+                Ý nghĩa tiếng Việt
+              </label>
+              <input
+                type="text"
+                placeholder="ví dụ: Hoa anh đào"
+                value={formData.meaning}
+                onChange={(e) => setFormData({ ...formData, meaning: e.target.value })}
+                onCompositionStart={() => setIsComposing(true)}
+                onCompositionEnd={() => setIsComposing(false)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && (isComposing || (e as any).nativeEvent?.isComposing)) {
+                    e.preventDefault();
+                  }
+                }}
+                style={{ width: '100%', padding: '0.75rem 0.95rem', background: '#FFFFFF', border: '1.2px solid #E6DDCF', borderRadius: '8px', color: '#122438', fontSize: '0.95rem' }}
+                required
+              />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 700, color: '#122438', fontSize: '0.9rem' }}>
+                Câu ví dụ (tùy chọn)
+              </label>
+              <input
+                type="text"
+                placeholder="ví dụ: 桜の花が綺麗です。"
+                value={formData.sentence}
+                onChange={(e) => setFormData({ ...formData, sentence: e.target.value })}
+                onCompositionStart={() => setIsComposing(true)}
+                onCompositionEnd={() => setIsComposing(false)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && (isComposing || (e as any).nativeEvent?.isComposing)) {
+                    e.preventDefault();
+                  }
+                }}
+                style={{ width: '100%', padding: '0.75rem 0.95rem', background: '#FFFFFF', border: '1.2px solid #E6DDCF', borderRadius: '8px', color: '#122438', fontSize: '0.95rem' }}
+              />
+            </div>
+
+            {/* NÚT LƯU THẺ THỦ CÔNG - SHODO STAMP SUBMIT (VIS-NEW-04) */}
+            <button
+              type="submit"
+              disabled={saving}
+              className="btn-torii"
+              style={{
+                padding: '0.95rem',
+                marginTop: '0.5rem',
+                opacity: saving ? 0.75 : 1,
+                fontSize: '1rem',
+                fontWeight: 700,
+                boxShadow: '0 4px 16px rgba(200, 56, 36, 0.3)',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.5rem',
+              }}
+            >
+              <ToriiIcon size={18} color="#FFFFFF" />
+              {saving ? 'Đang đóng dấu mộc lưu thẻ...' : 'Lưu thẻ vào hệ thống'}
+            </button>
+          </form>
+
+          {/* CỘT PHẢI: MÔ PHỎNG THẺ THƠ TANZAKU THỜI GIAN THỰC (LIVE PREVIEW) */}
+          <div
+            className="bento-card-artisan"
+            style={{
+              background: '#FAF7F0',
+              padding: '2rem',
+              borderRadius: '16px',
+              border: '1.5px solid #C89B58',
+              boxShadow: '0 6px 20px rgba(18, 36, 56, 0.05)',
+              position: 'sticky',
+              top: '2rem',
+            }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+              <div>
+                <span style={{ fontSize: '0.78rem', color: '#786A5E', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  Mô phỏng Thẻ thơ Tanzaku
+                </span>
+                <h3 style={{ margin: '0.2rem 0 0', fontFamily: 'var(--font-mincho)', fontSize: '1.2rem', color: '#122438' }}>
+                  {previewFlipped ? 'Mặt sau (Đáp án & FSRS)' : 'Mặt trước (Truy hồi chủ động)'}
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setPreviewFlipped(!previewFlipped)}
+                style={{
+                  padding: '0.45rem 0.85rem',
+                  borderRadius: '8px',
+                  border: '1.2px solid #1E4B75',
+                  background: previewFlipped ? '#1E4B75' : '#FFFFFF',
+                  color: previewFlipped ? '#FFFFFF' : '#1E4B75',
+                  fontWeight: 700,
+                  fontSize: '0.82rem',
+                  cursor: 'pointer',
+                  fontFamily: 'var(--font-maru)',
+                  transition: 'all 0.2s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                }}
+              >
+                <span>↻ Lật thẻ</span>
+              </button>
+            </div>
+
+            {/* KHUNG THẺ 3D KARUTA / TANZAKU PREVIEW */}
+            <div
+              onClick={() => setPreviewFlipped(!previewFlipped)}
+              style={{
+                cursor: 'pointer',
+                background: '#FFFFFF',
+                borderRadius: '14px',
+                border: '1.5px solid #E6DDCF',
+                boxShadow: '0 8px 24px rgba(18, 36, 56, 0.07)',
+                padding: '2rem 1.5rem',
+                minHeight: '360px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                position: 'relative',
+                transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+              }}
+            >
+              {/* Thẻ meta (Deck & Type) */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{
+                  fontSize: '0.75rem',
+                  padding: '0.25rem 0.65rem',
+                  borderRadius: '999px',
+                  background: '#EDF4FA',
+                  color: '#1E4B75',
+                  fontWeight: 700,
+                  fontFamily: 'var(--font-maru)',
+                }}>
+                  {formData.deck === 'deck_jpd133_kanji' ? 'Hán Tự Kanji' : formData.deck === 'deck_n5' ? 'JLPT N5' : 'Kotoba JPD133'}
+                </span>
+                <span style={{
+                  fontSize: '0.75rem',
+                  padding: '0.25rem 0.65rem',
+                  borderRadius: '999px',
+                  background: '#FAF0E6',
+                  color: '#C83824',
+                  fontWeight: 700,
+                }}>
+                  {formData.cardType}
+                </span>
+              </div>
+
+              {!previewFlipped ? (
+                /* MẶT TRƯỚC: ACTIVE RECALL */
+                <div style={{ textAlign: 'center', margin: 'auto 0' }}>
+                  <div style={{
+                    fontFamily: 'var(--font-mincho)',
+                    fontSize: '3.6rem',
+                    fontWeight: 900,
+                    color: '#122438',
+                    letterSpacing: '0.04em',
+                    lineHeight: 1.15,
+                  }}>
+                    {formData.front.trim() || '桜'}
+                  </div>
+                  <p style={{ marginTop: '0.85rem', color: '#786A5E', fontSize: '0.82rem', fontFamily: 'var(--font-maru)' }}>
+                    Nhấn vào thẻ hoặc nút &quot;Lật thẻ&quot; để kiểm tra mặt sau
+                  </p>
+                </div>
+              ) : (
+                /* MẶT SAU: FULL ANSWER & COGNITIVE CUES */
+                <div style={{ margin: 'auto 0' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.85rem' }}>
+                    <div>
+                      <div style={{ fontFamily: 'var(--font-maru)', fontSize: '1.35rem', fontWeight: 800, color: '#1E4B75' }}>
+                        {formData.reading.trim() || 'さくら'}
+                      </div>
+                      <div style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.6rem', fontWeight: 800, color: '#122438', marginTop: '0.15rem' }}>
+                        {formData.front.trim() || '桜'}
+                      </div>
+                    </div>
+                    {formData.front && (
+                      <div onClick={(e) => e.stopPropagation()}>
+                        <JapaneseSpeakerButton text={formData.front} size={22} />
+                      </div>
+                    )}
+                  </div>
+
+                  {formData.pitch && (
+                    <div style={{ marginBottom: '0.85rem', padding: '0.5rem 0.75rem', background: '#FAF8F5', borderRadius: '8px', border: '1px solid #E6DDCF' }}>
+                      <div style={{ fontSize: '0.72rem', color: '#786A5E', fontWeight: 700, marginBottom: '0.25rem' }}>
+                        CAO ĐỘ TOKYO PITCH ACCENT [{formData.pitch}]
+                      </div>
+                      <PitchAccentGraph
+                        reading={formData.reading.trim() || formData.front.trim() || 'さくら'}
+                        pattern={parseInt(formData.pitch, 10) || 0}
+                      />
+                    </div>
+                  )}
+
+                  <div style={{
+                    padding: '0.75rem 0.9rem',
+                    background: '#EDF7EE',
+                    borderRadius: '8px',
+                    border: '1px solid #C2E5CC',
+                    marginBottom: '0.85rem',
+                  }}>
+                    <div style={{ fontSize: '0.72rem', color: '#2A6B3D', fontWeight: 800, textTransform: 'uppercase' }}>
+                      Ý nghĩa cốt lõi tiếng Việt
+                    </div>
+                    <div style={{ fontSize: '1.05rem', fontWeight: 700, color: '#144020', marginTop: '0.15rem' }}>
+                      {formData.meaning.trim() || 'Hoa anh đào'}
+                    </div>
+                  </div>
+
+                  {formData.sentence.trim() && (
+                    <div style={{
+                      padding: '0.75rem 0.9rem',
+                      background: '#F8FAFC',
+                      borderRadius: '8px',
+                      border: '1px solid #E2E8F0',
+                    }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div style={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 800 }}>
+                          CÂU VÍ DỤ NGỮ CẢNH
+                        </div>
+                        <div onClick={(e) => e.stopPropagation()}>
+                          <JapaneseSpeakerButton text={formData.sentence} size={16} />
+                        </div>
+                      </div>
+                      <div style={{ fontSize: '0.88rem', color: '#1E293B', marginTop: '0.25rem', lineHeight: 1.5 }}>
+                        {formData.sentence}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Chân thẻ */}
+              <div style={{
+                borderTop: '1px dashed #E6DDCF',
+                paddingTop: '0.65rem',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                fontSize: '0.75rem',
+                color: '#786A5E',
+              }}>
+                <span>FSRS v4.5 Active Recall</span>
+                <span>Chuẩn Washi Wa-Style</span>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
       </div>
     </main>

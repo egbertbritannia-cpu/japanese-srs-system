@@ -180,7 +180,7 @@ export function JapaneseSenseiChat() {
         aria-label="Mở Trợ giảng Nhật ngữ Sensei AI"
         style={{
           position: 'fixed',
-          bottom: isMobile ? '5.5rem' : '2rem',
+          bottom: isMobile ? 'calc(5.75rem + env(safe-area-inset-bottom, 0px))' : '2rem',
           right: isMobile ? '1.25rem' : '2rem',
           zIndex: 90,
           width: '56px',
@@ -238,7 +238,7 @@ export function JapaneseSenseiChat() {
           right: 0,
           bottom: 0,
           width: '100%',
-          maxWidth: '460px',
+          maxWidth: isMobile ? '100%' : '460px',
           zIndex: 100,
           display: 'flex',
           flexDirection: 'column',
@@ -445,7 +445,7 @@ export function JapaneseSenseiChat() {
             handleSendMessage();
           }}
           style={{
-            padding: '1rem 1.25rem',
+            padding: isMobile ? '0.85rem 1rem calc(0.85rem + env(safe-area-inset-bottom, 0px))' : '1rem 1.25rem',
             background: 'rgba(247, 244, 235, 0.98)',
             borderTop: '1px solid var(--washi-border, #DFD9CB)',
             display: 'flex',

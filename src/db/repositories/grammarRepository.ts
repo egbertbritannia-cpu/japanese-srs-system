@@ -167,6 +167,38 @@ export class GrammarRepository {
       .from(grammarExercises)
       .limit(limit);
   }
+
+  /**
+   * Lấy toàn bộ danh sách mẫu ngữ pháp phục vụ Grammar Omnisearch
+   */
+  static async getAllPatternsSummary(): Promise<any[]> {
+    try {
+      const rows = await db
+        .select({
+          id: grammarPatterns.id,
+          lessonId: grammarPatterns.lessonId,
+          patternNumber: grammarPatterns.patternNumber,
+          patternTemplate: grammarPatterns.patternTemplate,
+          meaningVi: grammarPatterns.meaningVi,
+          jlptLevel: grammarPatterns.jlptLevel,
+        })
+        .from(grammarPatterns)
+        .orderBy(asc(grammarPatterns.lessonId), asc(grammarPatterns.patternNumber));
+
+      return rows.map((r: any) => ({
+        id: r.id,
+        lessonId: r.lessonId,
+        patternNumber: r.patternNumber,
+        titleJa: r.patternTemplate,
+        titleVi: r.meaningVi,
+        romaji: '',
+        jlptLevel: r.jlptLevel,
+        meaning: r.meaningVi,
+      }));
+    } catch {
+      return [];
+    }
+  }
 }
 
 export const grammarRepository = GrammarRepository;

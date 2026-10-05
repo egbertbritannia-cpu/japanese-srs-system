@@ -28,6 +28,13 @@ export default function IntegrationsPage() {
   const [connecting, setConnecting] = useState(false);
   const [copiedUri, setCopiedUri] = useState(false);
 
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(null), 3000);
+  };
+
   // Fetch status on load & capture query params
   useEffect(() => {
     fetchStatus();
@@ -35,8 +42,12 @@ export default function IntegrationsPage() {
 
   function handleCopyUri() {
     if (typeof navigator !== 'undefined') {
-      navigator.clipboard.writeText('https://japanese-srs-system-git-main-cassius1.vercel.app/api/google/callback');
+      const origin = typeof window !== 'undefined' && window.location.origin
+        ? window.location.origin
+        : 'https://japanese-srs-system.vercel.app';
+      navigator.clipboard.writeText(`${origin}/api/google/callback`);
       setCopiedUri(true);
+      showToast('Đã sao chép Redirect URI chuẩn theo tên miền hiện tại!');
       setTimeout(() => setCopiedUri(false), 2500);
     }
   }
@@ -58,13 +69,12 @@ export default function IntegrationsPage() {
   }
 
   async function handleDisconnectGoogle() {
-    if (!confirm('Bạn có chắc muốn ngắt kết nối tài khoản Google?')) return;
     try {
       await fetch('/api/google/disconnect', { method: 'POST' });
       await fetchStatus();
-      alert('Đã ngắt kết nối Google thành công.');
+      showToast('Đã ngắt kết nối Google thành công.');
     } catch {
-      alert('Lỗi khi ngắt kết nối');
+      showToast('Lỗi khi ngắt kết nối tài khoản Google.');
     }
   }
 
@@ -146,15 +156,15 @@ export default function IntegrationsPage() {
       });
       const data = await res.json();
       if (data.success) {
-        alert(`Đã nạp thành công ${data.importedCount} thẻ vào hệ thống!`);
+        showToast(`Đã nạp thành công ${data.importedCount} thẻ vào hệ thống!`);
         setSheetPreview([]);
         setSheetUrl('');
         setSheetMessage(null);
       } else {
-        alert(data.error || 'Lỗi khi nạp dữ liệu');
+        showToast(data.error || 'Lỗi khi nạp dữ liệu');
       }
     } catch {
-      alert('Lỗi kết nối máy chủ');
+      showToast('Lỗi kết nối máy chủ');
     } finally {
       setLoading(false);
     }
@@ -162,9 +172,12 @@ export default function IntegrationsPage() {
 
   // 2. Google Calendar
   function handleCalendarQuickAdd() {
+    const origin = typeof window !== 'undefined' && window.location.origin
+      ? window.location.origin
+      : 'https://japanese-srs-system.vercel.app';
     const title = encodeURIComponent('Ôn tập tiếng Nhật FSRS (484 thẻ)');
     const details = encodeURIComponent(
-      'Phiên học ngắt quãng FSRS hàng ngày giúp củng cố trí nhớ dài hạn.\nĐường link vào học: https://japanese-srs-system.vercel.app/review'
+      `Phiên học ngắt quãng FSRS hàng ngày giúp củng cố trí nhớ dài hạn.\nĐường link vào học: ${origin}/review`
     );
     const [h, m] = studyTime.split(':');
     const startHour = h || '20';
@@ -881,6 +894,34 @@ export default function IntegrationsPage() {
             )}
           </div>
         </div>
+
+        {/* Wa-Style Toast Notification (DEF-UI-KURA-002) */}
+        {toastMessage && (
+          <div
+            role="status"
+            style={{
+              position: 'fixed',
+              bottom: '5.5rem',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              backgroundColor: '#1B4268',
+              color: '#FFFFFF',
+              padding: '0.65rem 1.4rem',
+              borderRadius: '999px',
+              fontSize: '0.9rem',
+              fontWeight: 700,
+              fontFamily: 'var(--font-maru)',
+              boxShadow: '0 8px 24px rgba(27, 66, 104, 0.25)',
+              zIndex: 100,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              animation: 'fadeIn 0.2s ease forwards',
+            }}
+          >
+            <span>🏮</span> {toastMessage}
+          </div>
+        )}
       </div>
     </main>
   );

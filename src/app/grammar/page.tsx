@@ -11,8 +11,11 @@ export const metadata: Metadata = {
 };
 
 async function GrammarData() {
-  const data = await grammarRepository.getAllLessonsWithStats();
-  return <GrammarGallery lessons={data.lessons} stats={data.stats} />;
+  const [data, patterns] = await Promise.all([
+    grammarRepository.getAllLessonsWithStats(),
+    grammarRepository.getAllPatternsSummary(),
+  ]);
+  return <GrammarGallery lessons={data.lessons} stats={data.stats} allPatterns={patterns} />;
 }
 
 export default function GrammarPage() {

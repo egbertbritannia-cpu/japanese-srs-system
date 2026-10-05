@@ -67,7 +67,32 @@ export async function POST(request: Request) {
     // 1. Tìm thẻ hiện tại trong database
     const existingCards = await db.select().from(cards).where(eq(cards.id, cardId));
     if (existingCards.length === 0) {
-      return NextResponse.json({ error: `Card with id ${cardId} not found` }, { status: 404 });
+      // DEF-UI-PRAC-001: Nếu là thẻ ngữ pháp phát sinh từ practice drill, tự động đăng ký vào kho thẻ
+      if (cardId.startsWith('grammar_cloze_') || cardId.startsWith('grammar_rec_')) {
+        const patternId = cardId.replace(/^grammar_(?:cloze|rec)_/, '');
+        const newCard = {
+          id: cardId,
+          deckId: 'grammar_jpd133',
+          type: 'GrammarPattern',
+          front: `【文法】${patternId}`,
+          reading: '',
+          meaning: `Bài tập củng cố mẫu ngữ pháp ${patternId}`,
+          stability: 0,
+          difficulty: 5,
+          elapsedDays: 0,
+          scheduledDays: 0,
+          reps: 0,
+          lapses: 0,
+          state: 'New',
+          due: new Date(),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        };
+        await db.insert(cards).values(newCard as any);
+        existingCards.push(newCard as any);
+      } else {
+        return NextResponse.json({ error: `Card with id ${cardId} not found` }, { status: 404 });
+      }
     }
     const currentCard = existingCards[0];
 
