@@ -1193,18 +1193,18 @@ export default async function DashboardPage() {
                 </div>
 
                 <Link
-                  href="/cards/new"
+                  href="/cards"
                   style={{
                     fontSize: '0.78rem',
                     fontWeight: 700,
-                    color: '#6E8A3C',
+                    color: '#20507B',
                     textDecoration: 'none',
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '0.2rem',
                   }}
                 >
-                  <span>+ Thêm bộ</span>
+                  <span>Thư viện thẻ ➔</span>
                 </Link>
               </div>
 

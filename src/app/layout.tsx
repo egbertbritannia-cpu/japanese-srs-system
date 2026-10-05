@@ -260,22 +260,6 @@ export default function RootLayout({
                 <span>Ngữ pháp</span>
               </Link>
               <Link
-                href="/cards/new"
-                style={{
-                  padding: '0.5rem 0.9rem',
-                  borderRadius: '8px',
-                  color: 'var(--matcha-deep)',
-                  background: 'var(--matcha-subtle)',
-                  textDecoration: 'none',
-                  fontSize: '0.9rem',
-                  fontFamily: 'var(--font-maru)',
-                  fontWeight: 700,
-                  transition: 'all 0.2s',
-                }}
-              >
-                Thêm thẻ
-              </Link>
-              <Link
                 href="/review"
                 className="btn-torii"
                 style={{

@@ -208,7 +208,7 @@ export default function CardsPage() {
               ← Trang chủ
             </Link>
             <Link
-              href="/cards/new"
+              href="/review"
               className="btn-torii"
               style={{
                 boxShadow: '0 4px 16px rgba(200, 56, 36, 0.35)',
@@ -217,7 +217,7 @@ export default function CardsPage() {
               }}
             >
               <ToriiIcon size={16} color="#FFFFFF" />
-              + Thêm thẻ
+              Ôn tập ngay →
             </Link>
           </div>
         </div>

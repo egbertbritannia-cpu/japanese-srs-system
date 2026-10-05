@@ -493,12 +493,12 @@ function ReviewSessionContent() {
             Chưa có thẻ trong bộ này
           </h2>
           <p style={{ color: '#786A5E', fontSize: '0.95rem', marginBottom: '2rem' }}>
-            Bộ thẻ <strong>{deckTitle}</strong> hiện tại chưa có dữ liệu thẻ học. Bạn có thể thêm thẻ mới để bắt đầu.
+            Bộ thẻ <strong>{deckTitle}</strong> hiện tại chưa có dữ liệu thẻ học đến hạn.
           </p>
 
           <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-            <Link href="/cards/new" className="btn-torii">
-              Thêm thẻ
+            <Link href="/cards" className="btn-torii">
+              Thư viện thẻ
             </Link>
             <Link href="/" className="btn-washi">
               Trang chủ

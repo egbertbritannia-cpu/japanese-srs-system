@@ -69,7 +69,7 @@ export class GoogleTasksService {
         tasklist: taskListId,
         requestBody: {
           title: `[FSRS] Nạp ${goals.newCount} từ vựng mới chuẩn i+1`,
-          notes: 'Khám phá thẻ mới tại Shodo Desk: https://japanese-srs-system.vercel.app/cards/new',
+          notes: 'Khám phá thẻ mới trong thư viện: https://japanese-srs-system.vercel.app/cards',
           due: dueDate,
         },
       });
