@@ -39,7 +39,13 @@ planning/
 | **Phase 7** | **[07_PHASE_7_JPD133_GRAMMAR_LEARNING_ENGINE.md](07_PHASE_7_JPD133_GRAMMAR_LEARNING_ENGINE.md)** | **4 tệp** (Plan, Encyclopedia, Bank, Checkpoint) | Trích xuất toàn diện 2 tài liệu giáo trình JPD133, Thiết kế 3 bảng DDL ngữ pháp, 32 cấu trúc chi tiết, 204 câu hỏi bài tập kèm lời giải, 96 thẻ FSRS ngữ pháp, Bộ giao diện `/grammar`, `/grammar/[lessonId]`, `/grammar/practice` và đồng bộ Turso Cloud. | Hoàn thành |
 | **Phase 8** | **[08_PHASE_8_ENGLISH_IELTS_TRACKING.md](08_PHASE_8_ENGLISH_IELTS_TRACKING.md)** | **1 tệp** | Xây dựng hệ thống theo dõi tiến độ học tiếng Anh/IELTS độc lập, ERD mở rộng (Sessions, Logs, Mistakes, Vocab), Mỹ học British Classic và chuẩn bị kiến trúc đồng bộ thẻ FSRS tương lai. | Hoàn thành |
 | **Phase 9** | **[09_PHASE_9_UI_UX_AUDIT_AND_COMPREHENSIVE_REDESIGN_PLAN.md](09_PHASE_9_UI_UX_AUDIT_AND_COMPREHENSIVE_REDESIGN_PLAN.md)** | **12 mô-đun** (>52,500 từ) | Báo cáo kiểm toán toàn diện 14 trang màn hình theo ma trận 4 chiều (Thừa, Thiếu, Sai, Lỗi hiển thị), 111 khiếm khuyết được đánh số ID khoa học, triệt tiêu 100% rác nhận thức, ảo hóa danh mục thẻ, vật lý lật Karuta và lộ trình 4 Sprints Zero-Backend-Regression. | Hoàn thành |
-| **Phase 10** | **[10_PHASE_10_DO_BAI_MINNA_LEARNING_SYSTEM_MIGRATION_PLAN.md](10_PHASE_10_DO_BAI_MINNA_LEARNING_SYSTEM_MIGRATION_PLAN.md)** | **1 tệp** | Chuyển đổi toàn diện trải nghiệm học tập từ Flashcard 3D sang Bàn Dò bài Minna (kế thừa Dò bài - Minna.xlsm: Bốc -> Hiện -> Đã thuộc / Chưa thuộc), Hàng đợi lặp lại trong phiên (Cột D-E-F), bảo toàn 100% thuật toán FSRS v4.5 và đo lường độ trễ Bjork Latency. | Phê duyệt & Sẵn sàng Thực thi |
+| **Phase 10** | **[10_PHASE_10_DO_BAI_MINNA_LEARNING_SYSTEM_MIGRATION_PLAN.md](10_PHASE_10_DO_BAI_MINNA_LEARNING_SYSTEM_MIGRATION_PLAN.md)** | **1 tệp** | Chuyển đổi toàn diện trải nghiệm học tập từ Flashcard 3D sang Bàn Dò bài Minna (kế thừa Dò bài - Minna.xlsm: Bốc -> Hiện -> Đã thuộc / Chưa thuộc), Hàng đợi lặp lại trong phiên (Cột D-E-F), bảo toàn 100% thuật toán FSRS v4.5 và đo lường độ trễ Bjork Latency. | 📋 Đang Lập Kế Hoạch Chi Tiết |
+
+---
+
+### 🛡️ ĐIỀU LỆ RÀNG BUỘC TOÀN HỆ THỐNG DÀNH CHO AI AGENTS
+Mọi Agent hoặc Kỹ sư khi làm việc trên kho mã nguồn này **BẮT BUỘC** phải tuân thủ nghiêm ngặt 6 Điều Răn Tối Cao tại:
+👉 **[`AGENTS.md`](../AGENTS.md)** và **[`.agents/rules/SYSTEM_CONSTRAINTS.md`](../.agents/rules/SYSTEM_CONSTRAINTS.md)** (Ngăn chặn phá vỡ Database Schema, cấm vi phạm thuật toán FSRS, cấm tự ý thực thi khi đang ở bước lập kế hoạch).
 
 ---
 

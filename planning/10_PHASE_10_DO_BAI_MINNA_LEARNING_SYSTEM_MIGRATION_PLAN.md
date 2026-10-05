@@ -1,36 +1,155 @@
 # 🎯 KẾ HOẠCH TỔNG THỂ GIAI ĐOẠN 10: CHUYỂN ĐỔI HỆ THỐNG HỌC TẬP TỪ FLASHCARD SANG "DÒ BÀI MINNA" TÍCH HỢP FSRS
 > **Mã dự án:** `PHASE-10-DO-BAI-MIGRATION`  
-> **Phiên bản:** `1.0.0-PROD`  
+> **Phiên bản:** `1.1.0-PLANNING`  
+> **Trạng thái:** 📋 **ĐANG TRONG BƯỚC LẬP KẾ HOẠCH CHI TIẾT (CHƯA THỰC THI CODE - CHỜ DUYỆT)**  
 > **Tài liệu tham chiếu thực tế:** `D:\JLPT\Dò bài - Minna.xlsm` (4 Macro VBA & 5 Worksheet)  
 > **Tài liệu đặc tả kỹ thuật:** [doc/DO_BAI_LEARNING_SPECIFICATION.md](file:///d:/project/japanese-srs-system/doc/DO_BAI_LEARNING_SPECIFICATION.md)  
-> **Nguyên tắc bất biến:** **Zero Backend Regression** — Bảo toàn 100% database schema Turso, 100% thuật toán FSRS v4.5, và 21/21 Vitest test suites.
+> **Điều lệ ràng buộc Agent:** [AGENTS.md](file:///d:/project/japanese-srs-system/AGENTS.md) & [.agents/rules/SYSTEM_CONSTRAINTS.md](file:///d:/project/japanese-srs-system/.agents/rules/SYSTEM_CONSTRAINTS.md)  
+> **Cam kết cốt lõi:** **Kế thừa 100% công trình nghiên cứu khoa học nhận thức, thuật toán FSRS v4.5 và hạ tầng SRS đã xây dựng từ các giai đoạn trước (Phases 1-9), chuyển hóa trọn vẹn vào trải nghiệm phản xạ Dò bài.**  
+> **Nguyên tắc bất biến:** **Zero Backend Regression** — Bảo toàn 100% database schema Turso, 100% logic FSRS v4.5, 100% dữ liệu 676 thẻ học, và 21/21 Vitest test suites.
 
 ---
 
 ## 1. KHUNG RANH GIỚI VÀ PHẠM VI BIẾN ĐỔI (SCOPE INVARIANCE CHARTER)
 
 > [!IMPORTANT]
-> ### ⛩️ BẢN CAM KẾT PHẠM VI (SCOPE INVARIANCE CHARTER)
+> ### ⛩️ BẢN CAM KẾT PHẠM VI & BẢO TỒN NGHIÊN CỨU (SCOPE & RESEARCH INVARIANCE CHARTER)
 > 
-> * **IN-SCOPE (Phạm vi bắt buộc triển khai):**
->   1. **Thay thế hoàn toàn mô hình Flashcard 3D (Karuta flip):** Loại bỏ hoạt ảnh lật thẻ trước/sau, loại bỏ gánh nặng nhận thức chọn 4 nút đánh giá (`Again / Hard / Good / Easy`).
->   2. **Triển khai Bàn Dò Bài Phản Xạ Minna (`DoBaiDesk`):** Tái hiện 100% logic của file `Dò bài - Minna.xlsm` với chu trình 3 bước: **Bốc** (`Draw`) ➔ **Hiện** (`Reveal`) ➔ **Đã thuộc** (`Mastered`) / **Chưa thuộc** (`Retry`).
->   3. **Hàng đợi Dò lại trong phiên (In-Session Re-queue - Cột D-E-F):** Các từ bấm "Chưa thuộc" sẽ được đưa ngay vào danh sách chờ và tự động xen kẽ lặp lại sau mỗi 2 - 3 từ trong cùng phiên học.
->   4. **Bộ phím tắt siêu tốc (Zero-Friction Hotkeys):** `Space` (Hiện/Ẩn), `Enter` hoặc `1` (Đã thuộc), `Backspace` hoặc `2` (Chưa thuộc), `Z` (Hoàn tác), `P` (Phát âm).
->   5. **Đồng bộ tự động vào FSRS v4.5 & Bjork Latency Dynamics:** Thuật toán Spaced Repetition chạy ngầm, tự động quy đổi thời gian phản xạ (từ lúc Bốc đến lúc Hiện) thành độ ổn định (stability) và khoảng cách ngày ôn tập.
->   6. **Hỗ trợ 2 chiều dò linh hoạt:** Dò Thuận (Nhật ➔ Việt) và Dò Nghịch (Việt ➔ Nhật), cùng chế độ Dò riêng từ vấp ngã (Sheet `Luyện dò bài`).
+> * **KẾ THỪA NGUYÊN VẸN CÁC CÔNG TRÌNH NGHIÊN CỨU & THUẬT TOÁN SRS (Research Invariants):**
+>   1. **Thuật toán Spaced Repetition FSRS v4.5:** Giữ nguyên 100% mô hình toán học DSR (Difficulty - Stability - Retrievability), công thức suy giảm trí nhớ Ebbinghaus, và cơ chế tính toán ngày ôn tập tối ưu.
+>   2. **Khoa học Nhận thức Bjork (Retrieval Latency Dynamics):** Tiếp tục đo lường chính xác độ trễ phản xạ ($\Delta t$) từ lúc Bốc đến lúc Hiện để định lượng Storage Strength vs. Retrieval Strength.
+>   3. **Thuyết Tải Nhận Thức (Cognitive Load Theory):** Loại bỏ tải ngoại lai (Extraneous Load) của thẻ xoay 3D và sự phân vân chọn 4 nút đánh giá chủ quan; chuyển sang nhận diện phản xạ 2 nút (Đã thuộc / Chưa thuộc) và để thuật toán tự động quy đổi FSRS grade.
+>   4. **Thuyết Mã Hóa Kép (Dual Coding Theory):** Duy trì đồng thời thị giác (Chữ Hán thư pháp Mincho, Furigana Maru Gothic, Wagara pattern, đồ thị Pitch Accent) và thính giác (âm thanh Washi, Hyoshigi, Suzu, Web Speech API phát âm chuẩn Tokyo).
+>   5. **Nguyên lý Nguyên tử & Ngữ cảnh $i+1$ (Cloze Deletion):** Giữ nguyên bộ phân tách Cloze `{{c1::...}}`, câu ví dụ ngữ cảnh, và bộ phân tích âm Hán Việt `parseCardDetails`.
+>   6. **Hạ tầng Ngoại tuyến Dexie.js (Offline-First):** Tiếp tục lưu trữ đệm trong IndexedDB và tự động đồng bộ ngầm khi có mạng.
+>   7. **Mỹ học Wa-Style & Nghệ thuật Bản địa:** Bảo tồn các lớp hình nền nghệ thuật `<JapaneseArtBackdrop ... />` theo đúng kiểm thử mỹ học `art-backdrop.test.ts`.
 > 
-> * **OUT-OF-SCOPE (Non-Goals - Tuyệt đối không thực hiện):**
+> * **IN-SCOPE (Phạm vi chuyển đổi Giao diện & Trải nghiệm):**
+>   1. **Loại bỏ mô hình Flashcard 3D lật mặt:** Thay thế thẻ bài Karuta xoay lật bằng Bàn Dò Bài Phản Xạ 1 màn hình cố định (`DoBaiDesk`).
+>   2. **Triển khai Chu trình Dò bài Minna 3 bước:** **Bốc** (`Draw`) ➔ **Hiện** (`Reveal`) ➔ **Đã thuộc** (`Mastered`) / **Chưa thuộc** (`Retry`).
+>   3. **Tích hợp Hàng đợi Lặp lại trong phiên (Micro-loop - Cột D-E-F Excel):** Các từ bấm "Chưa thuộc" được đưa ngay vào danh sách chờ và tự động xen kẽ lặp lại sau mỗi 2 - 3 từ cho đến khi thuộc hẳn trong phiên.
+>   4. **Bộ phím tắt công thái học siêu tốc:** `Space` (Hiện/Ẩn), `Enter`/`1` (Đã thuộc), `Backspace`/`2` (Chưa thuộc), `Z` (Hoàn tác), `P` (Phát âm).
+>   5. **Hỗ trợ 2 chiều dò:** Dò Thuận (Nhật ➔ Việt) và Dò Nghịch (Việt ➔ Nhật), cùng chế độ Dò riêng từ nợ (Sheet `Luyện dò bài`).
+> 
+> * **OUT-OF-SCOPE (Non-Goals - Tuyệt đối không thay đổi):**
 >   1. **KHÔNG thay đổi cấu trúc bảng cơ sở dữ liệu (`src/db/schema.ts`):** Giữ nguyên bảng `cards`, `decks`, `review_logs`, `retrieval_latency_logs`.
->   2. **KHÔNG xóa hoặc sửa thuật toán toán học FSRS lõi (`src/core/scheduler/fsrs-engine.ts`):** Chỉ tích hợp lớp chuyển đổi (Adapter/Facade).
->   3. **KHÔNG phá vỡ API Contracts hiện hành:** API `/api/review` tiếp tục nhận request chuẩn và phản hồi đúng schema.
->   4. **KHÔNG xóa bỏ dữ liệu học tập đã lưu:** 676 thẻ học hiện có trên Turso LibSQL phải được giữ nguyên vẹn.
+>   2. **KHÔNG sửa đổi thuật toán toán học FSRS lõi (`src/core/scheduler/fsrs-engine.ts`):** Chỉ tích hợp lớp chuyển đổi (Adapter/Facade).
+>   3. **KHÔNG thay đổi API Contracts:** Endpoint `/api/review` tiếp tục nhận request và phản hồi chuẩn schema.
+>   4. **KHÔNG xóa bỏ hoặc làm mất dữ liệu học tập:** 676 thẻ học hiện có trên Turso LibSQL được bảo toàn tuyệt đối.
+>   5. **KHÔNG thực thi mã nguồn khi người dùng chưa phê duyệt:** Mọi hành động trong bước này chỉ tập trung hoàn thiện kế hoạch và đặc tả.
 
 ---
 
-## 2. KHUNG KIẾN TRÚC HỆ THỐNG MỚI (ARCHITECTURAL FRAMEWORK)
+## 2. KẾ THỪA TOÀN DIỆN CÔNG TRÌNH NGHIÊN CỨU KHOA HỌC NHẬN THỨC & THUẬT TOÁN SRS/FSRS NỀN TẢNG
 
-### 2.1. Máy Trạng thái Hữu hạn (Finite State Machine - FSM) của Phiên Dò bài
+> [!NOTE]
+> ### 🏛️ TỔNG HỢP DI SẢN NGHIÊN CỨU & NGUYÊN LÝ CHUYỂN HÓA
+> Phương pháp **Dò Bài Minna** không phủ định các công trình nghiên cứu đồ sộ từ Giai đoạn 1 đến Giai đoạn 9 (Cognitive Science, FSRS v4.5, Bjork Latency, Dual Coding, Cloze Deletion, Pitch Accent, SRE Offline-First), mà ngược lại, **nó đóng vai trò là "chiếc vỏ công thái học hoàn hảo"** giúp giải phóng tối đa sức mạnh của các thuật toán nhận thức này mà không làm phiền hay tạo áp lực lên người học.
+
+### 2.1. Bốn Trụ Cột Khoa Học Nhận Thức Được Bảo Lưu Tuyệt Đối (Cognitive Pillars)
+
+1. **Thuyết Tải Nhận Thức (Cognitive Load Theory - Sweller):**
+   * *Vấn đề của Flashcard 3D cũ:* Tạo ra **Tải ngoại lai (Extraneous Cognitive Load)** không cần thiết: Người học phải đợi hiệu ứng lật thẻ xoay vòng 3D, phân vân chủ quan giữa 4 nút `Again`, `Hard`, `Good`, `Easy` ("Từ này mình nhớ hơi chậm thì là Hard hay Good?").
+   * *Giải pháp Dò Bài Minna:* Triệt tiêu 100% tải ngoại lai. Giao diện phẳng 1 màn hình cố định (Zero Layout Shift). Não bộ chỉ tập trung vào 1 câu hỏi duy nhất: **"Từ này mình ĐÃ THUỘC hay CHƯA THUỘC?"**. Mọi sự phân cấp vi mô về độ nhớ được giao toàn quyền cho thuật toán đo thời gian phản xạ khách quan.
+
+2. **Khó Khăn Mong Muốn & Động Lực Học Độ Trễ Phản Xạ (Bjork's Desirable Difficulties & Latency Dynamics):**
+   * *Nguyên lý Robert Bjork:* Phân biệt rạch ròi giữa **Sức mạnh Truy xuất (Retrieval Strength)** và **Sức mạnh Lưu trữ (Storage Strength)**. Việc hồi tưởng một từ khi chưa nhìn thấy đáp án chính là hình thức rèn luyện củng cố thần kinh mạnh mẽ nhất (Retrieval Practice).
+   * *Cơ chế Dò Bài:*
+     * Khi thẻ được **Bốc**, ô nghĩa tiếng Việt bị che mờ hoàn toàn ($C_1 = \emptyset$), ép buộc não bộ kích hoạt mạng lưới nơ-ron để tự tìm kiếm ý nghĩa.
+     * Đồng hồ đo độ trễ $\Delta t = t_{\text{Hiện}} - t_{\text{Bốc}}$ ghi nhận chính xác từng mili-giây.
+     * Người học nhớ ra tức thì ($\Delta t < 1.5\text{s}$) phản ánh Retrieval Strength cực cao $\rightarrow$ Tự động xếp hạng `FSRS Easy`.
+     * Người học nhớ ra sau nỗ lực suy nghĩ ($1.5\text{s} \le \Delta t \le 6.0\text{s}$) đại diện cho Desirable Difficulty lý tưởng $\rightarrow$ Xếp hạng `FSRS Good`.
+     * Người học mất nhiều thời gian ($> 6.0\text{s}$) $\rightarrow$ Xếp hạng `FSRS Hard`.
+
+3. **Thuyết Mã Hóa Kép (Dual-Coding Theory - Paivio):**
+   * Não bộ ghi nhớ từ vựng tiếng Nhật tốt nhất khi kích hoạt đồng thời 2 kênh: **Thị giác (Visual Channel)** và **Thính giác (Verbal/Auditory Channel)**.
+   * *Bảo tồn trong Dò Bài:*
+     * Kênh thị giác: Chữ Hán Kanji thư pháp lớn (`Shippori Mincho`), Hiragana tròn trịa (`Zen Maru Gothic`), đồ thị cao độ ngữ âm Tokyo (`PitchAccentGraph`), hoa văn giấy Washi và nền mộc bản Ukiyo-e (`JapaneseArtBackdrop`).
+     * Kênh thính giác: Âm thanh lật giấy Washi mộc mạc khi bung đáp án, tiếng gõ phách Hyoshigi dứt khoát khi bốc từ, tiếng chuông đồng Suzu khi hoàn thành phiên, và Web Speech API phát âm chuẩn xác ngữ âm bản xứ.
+
+4. **Nguyên Lý Thông Tin Tối Thiểu & Ngữ Cảnh $i+1$ (Cloze Deletion & Krashen Input Hypothesis):**
+   * Giữ nguyên bộ giải mã cú pháp đục lỗ Cloze `parseClozeSegments` và `stripCloze`.
+   * Các mẫu ngữ pháp (ví dụ: `【文法 N5】...`) và câu ví dụ ngữ cảnh $i+1$ vẫn được hiển thị nguyên vẹn ngay bên dưới ô nghĩa tiếng Việt khi người học bấm "Hiện", đảm bảo từ vựng luôn gắn liền với ngữ cảnh giao tiếp tự nhiên.
+
+---
+
+### 2.2. Bảo Tồn 100% Thuật Toán Spaced Repetition FSRS v4.5 (Mathematical Invariants)
+
+Hệ thống tiếp tục sử dụng thư viện chuẩn `ts-fsrs` và Dedicated Web Worker chạy ngầm, không sửa đổi bất kỳ công thức toán học nào:
+
+* **Mô hình DSR (Difficulty - Stability - Retrievability):**
+  * Độ khó ($D \in [1, 10]$): Đo lường độ phức tạp cố hữu của từ vựng.
+  * Độ ổn định ($S \ge 0.1$ ngày): Khoảng thời gian để xác suất nhớ giảm còn $90\%$.
+  * Khả năng gợi nhớ ($R(t, S)$) theo quy luật suy giảm Ebbinghaus:
+    $$R(t, S) = \left(1 + \text{FACTOR} \cdot \frac{t}{S}\right)^{-\text{DECAY}}$$
+* **Hàm chuyển dịch trạng thái khi người học bấm "ĐÃ THUỘC" (Review Success):**
+  $$S_{\text{new}}(D, S, R, G) = S \cdot \left(1 + e^{w_8} \cdot (11 - D) \cdot S^{-w_9} \cdot (e^{w_{10} \cdot (1 - R)} - 1) \cdot \text{grade\_bonus}\right)$$
+* **Hàm suy giảm khi người học bấm "CHƯA THUỘC" (Lapse / Forget):**
+  $$S_{\text{lapse}}(D, S, R) = w_{11} \cdot D^{-w_{12}} \cdot \left((S + 1)^{w_{13}} - 1\right) \cdot e^{w_{14} \cdot (1 - R)}$$
+* **Lập lịch ngày ôn tập tiếp theo ($I$):**
+  $$I(r, S) = \frac{S}{\text{FACTOR}} \cdot \left(r^{-1/\text{DECAY}} - 1\right)$$
+* **Dedicated Web Worker (`useFsrsScheduler`):** Tính toán trước toàn bộ các khoảng cách ngày `scheduled_days` cho thẻ kế tiếp mà không tiêu tốn tài nguyên main-thread, bảo đảm tốc độ 60fps mượt mà.
+
+---
+
+### 2.3. Mô Hình Hợp Nhất 2 Vòng Lặp: Micro-Loop (Excel) + Macro-Loop (FSRS Cloud)
+
+Sự kết hợp giữa Excel `Dò bài - Minna.xlsm` và thuật toán FSRS tạo nên **Mô hình 2 Vòng Lặp Bổ Trợ Hoàn Hảo (Dual-Loop Synergy)** giải quyết triệt để khuyết tật của từng hệ thống đơn lẻ:
+
+```mermaid
+flowchart TB
+    subgraph MicroLoop ["VÒNG LẶP VI MÔ: TRONG PHIÊN HỌC (IN-SESSION MICRO-LOOP)"]
+        direction TB
+        Boc[1. BỐC TỪ<br/>Kanji + Hiragana] --> SuyNghi[2. Tự nhẩm nghĩa tiếng Việt]
+        SuyNghi --> Hien[3. Bấm HIỆN<br/>Đối chiếu đáp án]
+        Hien --> PhanXac{Đã thuộc hay Chưa?}
+        
+        PhanXac -- CHƯA THUỘC (Lapse) --> DEF[LƯU VÀO CỘT D-E-F<br/>Danh sách nợ trong phiên]
+        DEF -. Thuật toán Xen kẽ .-> Boc
+        PhanXac -- ĐÃ THUỘC (Mastered) --> MasteredInSession[XÓA KHỎI PHIÊN DÒ<br/>(DeleteAll2)]
+    end
+
+    subgraph MacroLoop ["VÒNG LẶP VĨ MÔ: XUYÊN THỜI GIAN (CROSS-SESSION MACRO-LOOP)"]
+        direction TB
+        Adapter[Bộ Quy Đổi Phản Xạ Nhận Thức<br/>Cognitive Reflex Adapter]
+        FSRSEngine[Động cơ FSRS v4.5]
+        TursoDB[(Turso Cloud LibSQL)]
+        
+        PhanXac --> Adapter
+        Adapter --> FSRSEngine
+        FSRSEngine --> TursoDB
+        TursoDB -. Lên lịch Due sau 1d, 3d, 7d, 30d .-> NextSession[Phiên ôn tập tương lai]
+    end
+
+    style MicroLoop fill:#FAF6EE,stroke:#AF7E36,stroke-width:2px
+    style MacroLoop fill:#EDF2F7,stroke:#1E4B75,stroke-width:2px
+```
+
+* **Vấn đề của SRS/Anki thuần túy:** Khi người học bấm "Again", thẻ bị đẩy sang ngày hôm sau hoặc chỉ xuất hiện sau 10 phút. Nếu trong phiên có 40 từ, người học dễ dàng "quên mất là mình vừa quên từ nào", không có cảm giác sở hữu danh sách lỗi sai.
+* **Vấn đề của Excel thuần túy:** Tách được cột D-E-F rất hay, nhưng **hoàn toàn thủ công và không có thuật toán giãn cách thời gian**. Người học không biết bao giờ thì từ này sẽ bị quên trở lại để xếp lịch ôn sau 3 ngày hay 1 tuần.
+* **Giải pháp hợp nhất:**
+  * **Vòng lặp Vi mô (Trong phiên):** Đảm bảo người học rời khỏi bàn học với **100% từ đã được thuộc ngay hôm nay** thông qua cơ chế lặp lại xen kẽ cột D-E-F.
+  * **Vòng lặp Vĩ mô (Xuyên thời gian):** FSRS chịu trách nhiệm tính toán ngày gọi lại từ vựng vào đúng thời điểm nơ-ron chuẩn bị suy yếu, đảm bảo trí nhớ dài hạn bền vững.
+
+---
+
+### 2.4. Bảo Tồn Hạ Tầng SRE & Khả Năng Vận Hành Ngoại Tuyến (Offline-First Invariants)
+
+1. **Hạ tầng Cục bộ Dexie.js (IndexedDB):**
+   * Nếu người học mất kết nối mạng giữa chừng, toàn bộ các lượt chấm phản xạ từ Bàn Dò Bài được ghi nhận tức thì vào IndexedDB qua `recordPendingReview`.
+   * Khi phát hiện có mạng trở lại (`online` event), hệ thống ngầm đẩy dữ liệu về server qua `syncPendingReviewsToServer` mà không làm gián đoạn buổi học.
+2. **Bảo tồn Dữ liệu & An Toàn Backend (Zero Schema Regression):**
+   * Không sửa đổi bất kỳ cột nào của bảng `cards`, `decks`, `review_logs`, `retrieval_latency_logs`.
+   * 676 thẻ học Minna, Kanji, Ngữ pháp đang vận hành trên Turso production được bảo lưu nguyên vẹn 100%.
+3. **Bảo đảm Kiểm thử Tự động (Vitest Test Suite Invariants):**
+   * Giữ vững 21 test suites (111 unit & integration tests).
+   * Đặc biệt bảo tồn `<JapaneseArtBackdrop ... />` trong trang review để vượt qua bài kiểm tra mỹ thuật `tests/art-backdrop.test.ts`.
+
+---
+
+## 3. KHUNG KIẾN TRÚC HỆ THỐNG MỚI (ARCHITECTURAL FRAMEWORK)
+
+### 3.1. Máy Trạng thái Hữu hạn (Finite State Machine - FSM) của Phiên Dò bài
 
 ```mermaid
 stateDiagram-v2
@@ -73,7 +192,7 @@ stateDiagram-v2
 
 ---
 
-### 2.2. Ma Trận Quy Đổi Nhận Thức sang Thuật Toán FSRS (Cognitive-to-FSRS Adapter)
+### 3.2. Ma Trận Quy Đổi Nhận Thức sang Thuật Toán FSRS (Cognitive-to-FSRS Adapter)
 
 Để bảo toàn thuật toán FSRS hiện tại mà không ép người học phải suy nghĩ 4 nút bấm, hệ thống sử dụng **Bộ Quy Đổi Phản Xạ Nhận Thức (Cognitive Reflex Adapter)**:
 
@@ -88,11 +207,11 @@ stateDiagram-v2
 
 ---
 
-## 3. SKETCH DESIGN & THIẾT KẾ CÔNG THÁI HỌC BỐ CỤC (WIREFRAME & LAYOUT ARCHITECTURE)
+## 4. SKETCH DESIGN & THIẾT KẾ CÔNG THÁI HỌC BỐ CỤC (WIREFRAME & LAYOUT ARCHITECTURE)
 
 Nhằm đảm bảo trải nghiệm học tập vượt trội, loại bỏ hoàn toàn cảm giác cồng kềnh của Flashcard 3D và chuyển hóa xuất sắc tinh thần của file Excel `Dò bài - Minna.xlsm`, dưới đây là bản phác thảo chi tiết bố cục (Sketch Design) cho toàn bộ các trạng thái giao diện trên Desktop và Mobile:
 
-### 3.1. Phác thảo Tổng thể Không gian Bàn Dò Bài (Desktop 2-Column Bento Grid)
+### 4.1. Phác thảo Tổng thể Không gian Bàn Dò Bài (Desktop 2-Column Bento Grid)
 
 Trên màn hình Desktop ($> 980\text{px}$), giao diện tổ chức theo cấu trúc Bento Grid 2 cột:
 * **Cột Trái (Chiếm 72% bề ngang):** Khung Bàn Dò Bài Phản Xạ Trung Tâm (`DoBaiDesk`) và Bảng phím tắt công thái học (`DoBaiHotkeysBar`).
@@ -132,7 +251,7 @@ Trên màn hình Desktop ($> 980\text{px}$), giao diện tổ chức theo cấu 
 
 ---
 
-### 3.2. Sketch Chi tiết Trạng thái 1: "BỐC TỪ" (State: Drawn / Masked Answer)
+### 4.2. Sketch Chi tiết Trạng thái 1: "BỐC TỪ" (State: Drawn / Masked Answer)
 
 Khi vừa bắt đầu hoặc sau khi chốt từ trước, hệ thống bốc từ ngẫu nhiên từ hàng đợi. Lúc này, **Nghĩa tiếng Việt bị giấu hoàn toàn** để kích hoạt phản xạ tự nhớ:
 
@@ -169,7 +288,7 @@ Khi vừa bắt đầu hoặc sau khi chốt từ trước, hệ thống bốc t
 
 ---
 
-### 3.3. Sketch Chi tiết Trạng thái 2: "HIỆN NGHĨA" (State: Revealed / Active Comparison)
+### 4.3. Sketch Chi tiết Trạng thái 2: "HIỆN NGHĨA" (State: Revealed / Active Comparison)
 
 Ngay khi bấm phím `Space` hoặc nhấn nút **[Hiện nghĩa]**, khung nghĩa bung ra tức thì (0ms jank), âm thanh lật giấy xột xoạt Washi vang lên và Web Speech API tự động phát âm:
 
@@ -212,7 +331,7 @@ Ngay khi bấm phím `Space` hoặc nhấn nút **[Hiện nghĩa]**, khung nghĩ
 
 ---
 
-### 3.4. Sketch Chi tiết Trạng thái 3: "DÒ NGHỊCH" (State: Reverse Drill VI ➔ JA)
+### 4.4. Sketch Chi tiết Trạng thái 3: "DÒ NGHỊCH" (State: Reverse Drill VI ➔ JA)
 
 Phục vụ nhu cầu luyện tập nói, viết và phản xạ dịch Việt - Nhật:
 
@@ -238,7 +357,7 @@ Phục vụ nhu cầu luyện tập nói, viết và phản xạ dịch Việt -
 
 ---
 
-### 3.5. Sketch Bố cục Trên Thiết Bị Di Động (Mobile Responsive < 768px)
+### 4.5. Sketch Bố cục Trên Thiết Bị Di Động (Mobile Responsive < 768px)
 
 Trên smartphone, không gian màn hình hẹp được tối ưu hóa theo trục dọc:
 
@@ -275,7 +394,7 @@ Trên smartphone, không gian màn hình hẹp được tối ưu hóa theo tr�
 
 ---
 
-### 3.6. Bảng Thông Số Thiết Kế Hệ Thống (Design Tokens & Typography)
+### 4.6. Bảng Thông Số Thiết Kế Hệ Thống (Design Tokens & Typography)
 
 | Khối giao diện | Thuộc tính Style | Giá trị Token & CSS | Ý nghĩa thẩm mỹ Wa-Style |
 | :--- | :--- | :--- | :--- |
@@ -289,7 +408,7 @@ Trên smartphone, không gian màn hình hẹp được tối ưu hóa theo tr�
 
 ---
 
-## 4. BẢNG PHÂN RÃ CÔNG VIỆC CHI TIẾT (WORK BREAKDOWN STRUCTURE - WBS)
+## 5. BẢNG PHÂN RÃ CÔNG VIỆC CHI TIẾT (WORK BREAKDOWN STRUCTURE - WBS)
 
 ### SPRINT 1: XÂY DỰNG KHUNG BÀN DÒ BÀI & CƠ CHẾ BỐC - HIỆN (P0 CORE)
 * **WBS-10.1 (DoBaiDesk Component):**
@@ -348,7 +467,7 @@ Trên smartphone, không gian màn hình hẹp được tối ưu hóa theo tr�
 
 ---
 
-## 5. MA TRẬN QUẢN TRỊ RỦI RO (PROJECT RISK MATRIX)
+## 6. MA TRẬN QUẢN TRỊ RỦI RO (PROJECT RISK MATRIX)
 
 | Rủi ro kỹ thuật | Mức độ | Khả năng | Giải pháp khắc phục & Dự phòng (Mitigation Strategy) |
 | :--- | :---: | :---: | :--- |
@@ -359,7 +478,7 @@ Trên smartphone, không gian màn hình hẹp được tối ưu hóa theo tr�
 
 ---
 
-## 6. TIÊU CHUẨN NGHIỆM THU (DEFINITION OF DONE - DOD)
+## 7. TIÊU CHUẨN NGHIỆM THU (DEFINITION OF DONE - DOD)
 
 Hạng mục Giai đoạn 10 chỉ được đóng lại khi thỏa mãn toàn bộ các điều kiện:
 1. Giao diện trang `/review` hiển thị đúng chuẩn **Bàn Dò Bài Minna** (không còn thẻ lật 3D).

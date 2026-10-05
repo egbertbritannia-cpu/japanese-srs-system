@@ -19,5 +19,6 @@ Toàn bộ các tài liệu phân mảnh trước đây đã được chuẩn h�
 9. **[09_PHASE_9_UI_UX_AUDIT_AND_COMPREHENSIVE_REDESIGN_PLAN.md](../planning/09_PHASE_9_UI_UX_AUDIT_AND_COMPREHENSIVE_REDESIGN_PLAN.md)**: Giai đoạn 9 - Báo cáo Kiểm toán Toàn diện UI/UX (>50k từ), Ma trận Lỗi 4 Chiều & Lộ trình Đại tu Công thái học.
 10. **[10_PHASE_10_DO_BAI_MINNA_LEARNING_SYSTEM_MIGRATION_PLAN.md](../planning/10_PHASE_10_DO_BAI_MINNA_LEARNING_SYSTEM_MIGRATION_PLAN.md)**: Giai đoạn 10 - Chuyển đổi Toàn diện từ Flashcard sang Bàn Dò Bài Minna Phản Xạ Tức Thì, Hàng đợi Lặp lại Trong phiên (Cột D-E-F) & Tích hợp FSRS.
 
-👉 **Truy cập Mục lục và Lộ trình phát triển hoàn chỉnh tại:** [`planning/README.md`](../planning/README.md)
+👉 **Truy cập Mục lục và Lộ trình phát triển hoàn chỉnh tại:** [`planning/README.md`](../planning/README.md)  
+👉 **Quy tắc bất biến & Ràng buộc hệ thống dành cho AI Agents:** [`AGENTS.md`](../AGENTS.md) | [`.agents/rules/SYSTEM_CONSTRAINTS.md`](../.agents/rules/SYSTEM_CONSTRAINTS.md)
 
