@@ -1,8 +1,10 @@
 # 🎯 KẾ HOẠCH TỔNG THỂ GIAI ĐOẠN 10: CHUYỂN ĐỔI HỆ THỐNG HỌC TẬP TỪ FLASHCARD SANG "DÒ BÀI MINNA" TÍCH HỢP FSRS
 > **Mã dự án:** `PHASE-10-DO-BAI-MIGRATION`  
-> **Phiên bản:** `1.1.0-PLANNING`  
-> **Trạng thái:** 📋 **ĐANG TRONG BƯỚC LẬP KẾ HOẠCH CHI TIẾT (CHƯA THỰC THI CODE - CHỜ DUYỆT)**  
-> **Tài liệu tham chiếu thực tế:** `D:\JLPT\Dò bài - Minna.xlsm` (4 Macro VBA & 5 Worksheet)  
+> **Phiên bản:** `1.2.0-PLANNING`  
+> **Trạng thái:** 📋 **ĐANG TRONG BƯỚC LẬP KẾ HOẠCH CHI TIẾT (ĐÃ GỘP TÍNH NĂNG THEO DÕI SLOT JPD133 - CHỜ DUYỆT THỰC THI)**  
+> **Tài liệu tham chiếu thực tế:**  
+>   1. `D:\JLPT\Dò bài - Minna.xlsm` (4 Macro VBA & 5 Worksheet - Mô hình Dò bài phản xạ & Cột nợ D-E-F)  
+>   2. `D:\semester-5\JPD133\Tổng Hợp Từ Vựng & Ngữ Pháp Tiếng Nhật JPD133 - Minna no Nihongo - Studocu.html` (Phân phối 8 Slot học kỳ 5 Minna)  
 > **Tài liệu đặc tả kỹ thuật:** [doc/DO_BAI_LEARNING_SPECIFICATION.md](file:///d:/project/japanese-srs-system/doc/DO_BAI_LEARNING_SPECIFICATION.md)  
 > **Điều lệ ràng buộc Agent:** [AGENTS.md](file:///d:/project/japanese-srs-system/AGENTS.md) & [.agents/rules/SYSTEM_CONSTRAINTS.md](file:///d:/project/japanese-srs-system/.agents/rules/SYSTEM_CONSTRAINTS.md)  
 > **Cam kết cốt lõi:** **Kế thừa 100% công trình nghiên cứu khoa học nhận thức, thuật toán FSRS v4.5 và hạ tầng SRS đã xây dựng từ các giai đoạn trước (Phases 1-9), chuyển hóa trọn vẹn vào trải nghiệm phản xạ Dò bài.**  
@@ -30,9 +32,13 @@
 >   3. **Tích hợp Hàng đợi Lặp lại trong phiên (Micro-loop - Cột D-E-F Excel):** Các từ bấm "Chưa thuộc" được đưa ngay vào danh sách chờ và tự động xen kẽ lặp lại sau mỗi 2 - 3 từ cho đến khi thuộc hẳn trong phiên.
 >   4. **Bộ phím tắt công thái học siêu tốc:** `Space` (Hiện/Ẩn), `Enter`/`1` (Đã thuộc), `Backspace`/`2` (Chưa thuộc), `Z` (Hoàn tác), `P` (Phát âm).
 >   5. **Hỗ trợ 2 chiều dò:** Dò Thuận (Nhật ➔ Việt) và Dò Nghịch (Việt ➔ Nhật), cùng chế độ Dò riêng từ nợ (Sheet `Luyện dò bài`).
+>   6. **Theo dõi Tiến độ & Dò Bài Phân Tầng Theo Slot Học JPD133 (JPD133 Slot-based Tracking):**
+>      * Bóc tách và gắn thẻ hệ thống thẻ học JPD133 theo 8 Slot chuẩn từ tài liệu `D:\semester-5\JPD133\...Studocu.html` (Slot 1: Gia Đình, Slot 2: Ngoại hình/Tính cách, Slot 3: Cho/Nhận, Slot 4: Sở thích, Slot 5: Động từ Thể từ điển Vる, Slot 6: Khả năng, Slot 8: Thể て liên kết, Slot 10: Chỉ đường, Cảm giác & Xin phép/Cấm đoán/Đã chưa).
+>      * Bổ sung thanh chọn Slot (Slot Filter Tabs: `[Tất cả] [Slot 1] [Slot 2]... [Slot 10]`) trong Bàn Dò Bài `/review`.
+>      * Đo lường % Mastery theo từng Slot độc lập.
 > 
 > * **OUT-OF-SCOPE (Non-Goals - Tuyệt đối không thay đổi):**
->   1. **KHÔNG thay đổi cấu trúc bảng cơ sở dữ liệu (`src/db/schema.ts`):** Giữ nguyên bảng `cards`, `decks`, `review_logs`, `retrieval_latency_logs`.
+>   1. **KHÔNG thay đổi cấu trúc bảng cơ sở dữ liệu (`src/db/schema.ts`):** Tính năng theo dõi Slot JPD133 tận dụng 100% cột `tags: text('tags')` sẵn có lưu mảng JSON `["jpd133", "slot-1", ...]`. Giữ nguyên bảng `cards`, `decks`, `review_logs`, `retrieval_latency_logs`.
 >   2. **KHÔNG sửa đổi thuật toán toán học FSRS lõi (`src/core/scheduler/fsrs-engine.ts`):** Chỉ tích hợp lớp chuyển đổi (Adapter/Facade).
 >   3. **KHÔNG thay đổi API Contracts:** Endpoint `/api/review` tiếp tục nhận request và phản hồi chuẩn schema.
 >   4. **KHÔNG xóa bỏ hoặc làm mất dữ liệu học tập:** 676 thẻ học hiện có trên Turso LibSQL được bảo toàn tuyệt đối.
@@ -207,6 +213,46 @@ stateDiagram-v2
 
 ---
 
+### 3.3. Cấu Trúc Dữ Liệu & Phân Nhóm Thẻ Theo Slot Học JPD133 (Slot Curriculum Hierarchy)
+
+Để phục vụ nhu cầu bám sát chương trình học kỳ 5 trên lớp theo tài liệu `D:\semester-5\JPD133\Tổng Hợp Từ Vựng & Ngữ Pháp Tiếng Nhật JPD133 - Minna no Nihongo - Studocu.html`, hệ thống xây dựng mô hình phân tầng thẻ học theo **8 Slot học cốt lõi**:
+
+```mermaid
+graph TD
+    JPD[Deck JPD133 · Minna no Nihongo] --> S1["Slot 1: Gia Đình & Cư Trú (Tag: slot-1)"]
+    JPD --> S2["Slot 2: Ngoại Hình & Tính Chất (Tag: slot-2)"]
+    JPD --> S3["Slot 3: Đồ Vật & Cho/Nhận (Tag: slot-3)"]
+    JPD --> S4["Slot 4: Sở Thích & Tần Suất (Tag: slot-4)"]
+    JPD --> S5["Slot 5: Động Từ Thể Từ Điển Vる (Tag: slot-5)"]
+    JPD --> S6["Slot 6: Khả Năng & Hoạt Động (Tag: slot-6)"]
+    JPD --> S8["Slot 8: Chuỗi Hành Động Thể て (Tag: slot-8)"]
+    JPD --> S10["Slot 10: Chỉ Đường & Quy Tắc (Tag: slot-10)"]
+
+    S1 --> S1_V["📖 Từ vựng: 両親, 父, 母, 兄, 弟, 姉, 妹..."]
+    S1 --> S1_G["📝 Ngữ pháp: N を もっています (Sở hữu/Cư trú)"]
+    S1 --> S1_K["🈳 Hán tự: いる / います"]
+
+    S3 --> S3_V["📖 Từ vựng: Quà tặng, Bưu phẩm..."]
+    S3 --> S3_G["📝 Ngữ pháp: あげます / もらいます / くれます"]
+
+    S5 --> S5_G["📝 Ngữ pháp: Quy tắc chia Vます ➔ Vる (3 nhóm)"]
+    
+    S10 --> S10_G1["📝 Ngữ pháp: Vてもいいですか (Xin phép)"]
+    S10 --> S10_G2["📝 Ngữ pháp: もうVましたか (Đã/Chưa)"]
+```
+
+#### Ma Trận Định Danh Thẻ Theo Slot (Tag-based Storage Invariant):
+* Thay vì tạo bảng mới làm gãy database schema, hệ thống sử dụng trường **`tags: text('tags')`** đã có sẵn trong bảng `cards`.
+* Chuỗi JSON Tag chuẩn hóa:
+  * Thẻ từ vựng Slot 1: `["jpd133", "slot-1", "vocab", "family"]`
+  * Thẻ ngữ pháp Slot 3: `["jpd133", "slot-3", "grammar", "cho-nhan"]`
+  * Thẻ Hán tự Slot 4: `["jpd133", "slot-4", "kanji"]`
+* **Cơ chế truy vấn linh hoạt:**
+  * Lấy toàn bộ JPD133: `GET /api/cards?deck=grammar_jpd133`
+  * Lấy riêng theo Slot: `GET /api/cards?deck=grammar_jpd133&slot=3` (truy vấn nhanh qua `tags LIKE '%"slot-3"%'` hoặc lọc trực tiếp trong Dexie IndexedDB).
+
+---
+
 ## 4. SKETCH DESIGN & THIẾT KẾ CÔNG THÁI HỌC BỐ CỤC (WIREFRAME & LAYOUT ARCHITECTURE)
 
 Nhằm đảm bảo trải nghiệm học tập vượt trội, loại bỏ hoàn toàn cảm giác cồng kềnh của Flashcard 3D và chuyển hóa xuất sắc tinh thần của file Excel `Dò bài - Minna.xlsm`, dưới đây là bản phác thảo chi tiết bố cục (Sketch Design) cho toàn bộ các trạng thái giao diện trên Desktop và Mobile:
@@ -219,13 +265,14 @@ Trên màn hình Desktop ($> 980\text{px}$), giao diện tổ chức theo cấu 
 
 ```
 +-------------------------------------------------------------------------------------------------------------+
-| 🎋 JPD133 - Từ vựng Kotoba   |   Tiến độ: [████████░░░░░░░] 14/45   |  Chế độ: [Thuận JA➔VI ▾]  |  🎐 Âm thanh  |
+| 🎋 JPD133 - Minna            |  Tiến độ: [████████░░░░░░░] 14/45  |  Chế độ: [Thuận JA➔VI ▾]  |  🎐 Âm thanh|
+| 🔖 LỌC THEO SLOT:  [Tất cả]  [Slot 1]  [Slot 2]  [★ Slot 3]  [Slot 4]  [Slot 5]  [Slot 6]  [Slot 8]  [Slot 10]|
 +-------------------------------------------------------------------------------------------------------------+
 |                                                                             |                               |
 |   ========================= KHUNG DÒ BÀI CHÍNH (72%) ====================   |  === CỘT TỪ CHƯA THUỘC (28%) ===
 |   |                                                                     |   |                               |
 |   |   +-------------------------------------------------------------+   |   |  📋 TỪ ĐANG NỢ (CỘT D-E-F)    |
-|   |   |  TAG: Bài 1 · Danh từ                                       |   |   |  (Tự động lặp lại xen kẽ)     |
+|   |   |  TAG: JPD133 · Slot 3 · Cho / Nhận (Ageru/Kureru/Morau)     |   |   |  (Tự động lặp lại xen kẽ)     |
 |   |   |                                                             |   |   |                               |
 |   |   |                   私                  わたし     🔊         |   |   |  1. 辞書 (じしょ)             |
 |   |   |                (Kanji)              (Hiragana)              |   |   |     từ điển                   |
@@ -435,6 +482,11 @@ Trên smartphone, không gian màn hình hẹp được tối ưu hóa theo tr�
   * **Chế độ 1: Dò Thuận (Nhật ➔ Việt):** Hiện Kanji/Hiragana, giấu Tiếng Việt (mặc định theo macro `DrawName_A_B`).
   * **Chế độ 2: Dò Nghịch (Việt ➔ Nhật):** Hiện Nghĩa tiếng Việt, giấu Kanji & Hiragana (phục vụ người học luyện phản xạ nói/viết).
   * **Chế độ 3: Luyện Dò Từ Vấp Ngã (Tương tự Sheet `Luyện dò bài`):** Cho phép lọc nhanh chỉ dò những từ đang nằm trong danh sách Chưa thuộc hoặc có Retrievability $< 70\%$.
+* **WBS-10.4b (JPD133 Slot Tracker & Tagging Pipeline):**
+  * Xây dựng component `DoBaiSlotFilter.tsx`: Thanh chọn Slot linh hoạt (`[Tất cả]`, `[Slot 1]`, `[Slot 2]`, `[Slot 3]`, `[Slot 4]`, `[Slot 5]`, `[Slot 6]`, `[Slot 8]`, `[Slot 10]`) hiển thị khi chọn deck JPD133.
+  * Chuẩn hóa và gán tag `slot-1` đến `slot-10` cho toàn bộ từ vựng, Hán tự và cấu trúc ngữ pháp JPD133 bám sát tài liệu Studocu (`Tổng Hợp Từ Vựng & Ngữ Pháp Tiếng Nhật JPD133 - Minna no Nihongo - Studocu.html`).
+  * Hỗ trợ lọc tức thì tại client hoặc qua API parameter `GET /api/cards?deck=grammar_jpd133&slot=3`.
+  * Đo lường và hiển thị tỷ lệ thuộc (% Mastery) theo từng Slot độc lập.
 * **WBS-10.5 (Bjork Latency Dynamics Integration):**
   * Ghi nhận chính xác `durationMs = t_reveal - t_draw`.
   * Truyền `durationMs` trong payload gửi đến `POST /api/review`.
@@ -488,4 +540,5 @@ Hạng mục Giai đoạn 10 chỉ được đóng lại khi thỏa mãn toàn b
 5. `npx tsc --noEmit` thoát mã 0.
 6. `npm test` toàn bộ các test suites đều xanh 100%.
 7. `npm run build` sinh mã tối ưu cho tất cả 34 routes.
-8. Git commit sạch và push an toàn lên nhánh `main`.
+8. Hỗ trợ lọc và dò bài mượt mà theo từng Slot học của bộ JPD133 (Slot 1, 2, 3, 4, 5, 6, 8, 10).
+9. Git commit sạch và push an toàn lên nhánh `main`.

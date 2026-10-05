@@ -175,6 +175,17 @@ graph LR
    * Hiện Nghĩa tiếng Việt -> Người học viết/nhẩm Kanji & Hiragana -> Bấm Hiện -> So khớp tiếng Nhật.
 3. **Dò Riêng Danh Sách Chưa Thuộc (Tương tự Sheet `Luyện dò bài`):**
    * Cho phép chọn riêng các từ đã từng bị bấm "Chưa thuộc" hoặc các từ có tỷ lệ quên cao (Retrievability thấp) để dò bài cấp tốc.
+4. **Dò Bài Phân Tầng Theo Slot Học JPD133 (Tham chiếu tài liệu Studocu):**
+   * Cho phép học viên lọc và dò bài theo từng Slot cụ thể của môn JPD133:
+     * **Slot 1:** Gia Đình & Tình trạng Cư trú (`N を もっています`)
+     * **Slot 2:** Ngoại hình & Tính cách (`S は N が じょうず / へた です`)
+     * **Slot 3:** Đồ vật & Cấu trúc Cho - Nhận (`あげます`, `もらいます`, `くれます`)
+     * **Slot 4:** Sở thích & Tần suất (`しゅみは...`, `Vることができます`)
+     * **Slot 5:** Động từ Thể Từ Điển (辞書形 - Vる) và 3 nhóm động từ
+     * **Slot 6:** Khả năng & Năng lực (`Vることができます / できません`)
+     * **Slot 8:** Thể て liên kết chuỗi hành động (`V1て、V2て、...Vます`)
+     * **Slot 10:** Chỉ đường, Cảm giác + Xin phép/Cấm đoán (`Vてもいいですか`) + Đã/Chưa (`もうVましたか`).
+   * Thanh chọn Slot (Slot Filter Tabs) hiển thị trực quan, cho phép học viên ôn tập đúng nội dung chuẩn bị cho buổi học tiếp theo trên lớp.
 
 ---
 
