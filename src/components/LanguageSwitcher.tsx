@@ -2,12 +2,22 @@
 
 import React from 'react';
 import { useLanguageStore } from '@/store/languageStore';
+import { useRouter, usePathname } from 'next/navigation';
 
 export function LanguageSwitcher() {
   const { appLanguageMode, toggleLanguage } = useLanguageStore();
+  const router = useRouter();
+  const pathname = usePathname();
 
-  // Khi ở chế độ tiếng Anh, ta có thể áp class 'english-mode' vào thẻ html hoặc body.
-  // Thực tế, để đồng bộ với React, ta dùng useEffect.
+  const handleToggle = () => {
+    toggleLanguage();
+    if (appLanguageMode === 'ja') {
+      router.push('/ielts');
+    } else {
+      router.push('/');
+    }
+  };
+
   React.useEffect(() => {
     if (appLanguageMode === 'en') {
       document.documentElement.classList.add('english-mode');
@@ -16,9 +26,27 @@ export function LanguageSwitcher() {
     }
   }, [appLanguageMode]);
 
+  React.useEffect(() => {
+    // Also toggle based on pathname to ensure correct state if navigating directly
+    if (pathname.startsWith('/ielts') && appLanguageMode !== 'en') {
+        useLanguageStore.getState().setLanguage('en');
+    } else if (!pathname.startsWith('/ielts') && appLanguageMode !== 'ja') {
+        useLanguageStore.getState().setLanguage('ja');
+    }
+  }, [pathname]);
+
+  // Don't render until hydration completes to avoid hydration mismatch
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
     <button
-      onClick={toggleLanguage}
+      onClick={handleToggle}
+      className="language-switcher-btn"
       style={{
         padding: '0.4rem 0.8rem',
         borderRadius: '6px',
@@ -32,7 +60,7 @@ export function LanguageSwitcher() {
       }}
       title={appLanguageMode === 'ja' ? "Chuyển sang tiếng Anh (IELTS)" : "Switch to Japanese (Kiokudō)"}
     >
-      {appLanguageMode === 'ja' ? '🇯🇵 JA' : '🇬🇧 EN'}
+      {appLanguageMode === 'ja' ? '🇬🇧 EN' : '🇯🇵 JA'}
     </button>
   );
 }
