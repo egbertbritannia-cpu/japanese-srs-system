@@ -5,13 +5,15 @@ import { useLanguageStore } from '@/store/languageStore';
 import { useRouter, usePathname } from 'next/navigation';
 
 export function LanguageSwitcher() {
-  const { appLanguageMode, toggleLanguage } = useLanguageStore();
+  const { appLanguageMode, setLanguage } = useLanguageStore();
   const router = useRouter();
   const pathname = usePathname();
 
   const handleToggle = () => {
-    toggleLanguage();
-    if (appLanguageMode === 'ja') {
+    const nextMode = appLanguageMode === 'ja' ? 'en' : 'ja';
+    setLanguage(nextMode);
+
+    if (nextMode === 'en') {
       router.push('/ielts');
     } else {
       router.push('/');
@@ -33,7 +35,7 @@ export function LanguageSwitcher() {
     } else if (!pathname.startsWith('/ielts') && appLanguageMode !== 'ja') {
         useLanguageStore.getState().setLanguage('ja');
     }
-  }, [pathname]);
+  }, [pathname, appLanguageMode]);
 
   // Don't render until hydration completes to avoid hydration mismatch
   const [mounted, setMounted] = React.useState(false);
