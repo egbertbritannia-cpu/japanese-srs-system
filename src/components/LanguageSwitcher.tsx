@@ -1,38 +1,61 @@
 'use client';
 
 import React from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 import { useLanguageStore } from '@/store/languageStore';
 
 export function LanguageSwitcher() {
-  const { appLanguageMode, toggleLanguage } = useLanguageStore();
+  const pathname = usePathname();
+  const router = useRouter();
+  const { appLanguageMode, setLanguage } = useLanguageStore();
 
-  // Khi ở chế độ tiếng Anh, ta có thể áp class 'english-mode' vào thẻ html hoặc body.
-  // Thực tế, để đồng bộ với React, ta dùng useEffect.
+  const isEnglishRoute = pathname?.startsWith('/ielts');
+
+  // Luôn đồng bộ trạng thái mode theo route hiện tại
   React.useEffect(() => {
-    if (appLanguageMode === 'en') {
+    if (isEnglishRoute) {
+      if (appLanguageMode !== 'en') setLanguage('en');
       document.documentElement.classList.add('english-mode');
     } else {
+      if (appLanguageMode !== 'ja') setLanguage('ja');
       document.documentElement.classList.remove('english-mode');
     }
-  }, [appLanguageMode]);
+  }, [pathname, isEnglishRoute, appLanguageMode, setLanguage]);
+
+  const handleToggle = () => {
+    if (isEnglishRoute) {
+      setLanguage('ja');
+      router.push('/');
+    } else {
+      setLanguage('en');
+      router.push('/ielts');
+    }
+  };
 
   return (
     <button
-      onClick={toggleLanguage}
+      type="button"
+      onClick={handleToggle}
       style={{
-        padding: '0.4rem 0.8rem',
+        padding: '0.4rem 0.85rem',
         borderRadius: '6px',
-        border: '1px solid var(--washi-border)',
-        background: appLanguageMode === 'ja' ? '#9E3223' : '#002147',
+        border: isEnglishRoute ? '1px solid #A3C1AD' : '1px solid var(--washi-border)',
+        background: isEnglishRoute ? '#002147' : '#9E3223',
         color: '#FFFFFF',
-        fontFamily: appLanguageMode === 'ja' ? 'var(--font-maru)' : 'var(--font-serif)',
+        fontFamily: isEnglishRoute ? 'var(--font-sans), sans-serif' : 'var(--font-maru), sans-serif',
         fontWeight: 'bold',
         cursor: 'pointer',
-        fontSize: '0.8rem'
+        fontSize: '0.82rem',
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '0.35rem',
+        transition: 'all 0.2s ease',
+        boxShadow: '0 2px 5px rgba(0,0,0,0.15)'
       }}
-      title={appLanguageMode === 'ja' ? "Chuyển sang tiếng Anh (IELTS)" : "Switch to Japanese (Kiokudō)"}
+      title={isEnglishRoute ? "Chuyển về Tiếng Nhật (Kiokudō)" : "Chuyển sang Tiếng Anh (IELTS Tracker)"}
     >
-      {appLanguageMode === 'ja' ? '🇯🇵 JA' : '🇬🇧 EN'}
+      <span>{isEnglishRoute ? '🇬🇧' : '🇯🇵'}</span>
+      <span>{isEnglishRoute ? 'IELTS Mode' : '日本語'}</span>
     </button>
   );
 }

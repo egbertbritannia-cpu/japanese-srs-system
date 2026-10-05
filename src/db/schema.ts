@@ -263,6 +263,7 @@ export const engMaterials = sqliteTable('eng_materials', {
   publisher: text('publisher'),
   yearPublished: integer('year_published'),
   totalTests: integer('total_tests'),
+  testType: text('test_type').default('academic').notNull(), // "academic | general"
   createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
 });
 
@@ -270,12 +271,15 @@ export const ieltsSessions = sqliteTable('ielts_sessions', {
   id: text('id').primaryKey(),
   materialId: text('material_id').references(() => engMaterials.id),
   testNumber: text('test_number'), // e.g., "Test 1"
+  testType: text('test_type').default('academic').notNull(), // "academic | general"
   section: text('section').notNull(), // "Listening | Reading | Writing | Speaking"
   startTime: integer('start_time').notNull(),
   endTime: integer('end_time'),
   totalDurationSeconds: integer('total_duration_seconds'),
-  currentScoreBand: integer('current_score_band'),
-  targetScoreBand: integer('target_score_band'),
+  rawScore: integer('raw_score'), // e.g. 32
+  maxScore: integer('max_score').default(40), // e.g. 40
+  currentScoreBand: real('current_score_band'), // e.g. 6.5, 7.0, 7.5, 8.0 (real float)
+  targetScoreBand: real('target_score_band'), // e.g. 7.5, 8.0 (real float)
   sessionStatus: text('session_status').notNull(), // "in_progress | completed | reviewed"
   createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
 });
@@ -283,12 +287,15 @@ export const ieltsSessions = sqliteTable('ielts_sessions', {
 export const ieltsPracticeLogs = sqliteTable('ielts_practice_logs', {
   id: text('id').primaryKey(),
   sessionId: text('session_id').references(() => ieltsSessions.id),
-  questionNumber: integer('question_number').notNull(),
-  questionType: text('question_type'), // "Multiple Choice | T/F/NG | Matching | etc."
+  questionNumber: integer('question_number').notNull(), // 1..40 or task 1, 2
+  questionType: text('question_type'), // "Multiple Choice | T/F/NG | Matching | Essay | Cue Card"
   userAnswer: text('user_answer'),
   correctAnswer: text('correct_answer'),
   isCorrect: integer('is_correct', { mode: 'boolean' }),
   timeSpentSeconds: integer('time_spent_seconds'),
+  submissionText: text('submission_text'), // For Writing essay / Speaking transcription
+  audioUrl: text('audio_url'), // For Speaking audio recordings
+  criteriaScores: text('criteria_scores'), // JSON: {"TR": 7.0, "CC": 7.5, "LR": 7.0, "GRA": 7.0}
   notes: text('notes'),
   createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
 });
@@ -296,7 +303,8 @@ export const ieltsPracticeLogs = sqliteTable('ielts_practice_logs', {
 export const ieltsMistakes = sqliteTable('ielts_mistakes', {
   id: text('id').primaryKey(),
   logId: text('log_id').references(() => ieltsPracticeLogs.id),
-  mistakeCategory: text('mistake_category'), // "Vocabulary | Grammar | Distraction | Time Management"
+  sessionId: text('session_id').references(() => ieltsSessions.id), // Support macro-level session mistakes
+  mistakeCategory: text('mistake_category'), // "Comprehension | Vocabulary | Grammar | Distraction | Time Management | Careless"
   rootCauseAnalysis: text('root_cause_analysis'),
   actionPlanForImprovement: text('action_plan_for_improvement'),
   isResolved: integer('is_resolved', { mode: 'boolean' }),
@@ -305,20 +313,28 @@ export const ieltsMistakes = sqliteTable('ielts_mistakes', {
 
 export const engVocab = sqliteTable('eng_vocab', {
   id: text('id').primaryKey(),
-  logId: text('log_id').references(() => ieltsPracticeLogs.id), // "Optional reference to where it was found"
+  materialId: text('material_id').references(() => engMaterials.id),
+  sessionId: text('session_id').references(() => ieltsSessions.id),
+  logId: text('log_id').references(() => ieltsPracticeLogs.id), // Optional specific question reference
   word: text('word').notNull(),
   partOfSpeech: text('part_of_speech'),
   phonetic: text('phonetic'),
   primaryMeaning: text('primary_meaning'),
   contextSentence: text('context_sentence'),
-  synonyms: text('synonyms'), // "JSON array"
-  tags: text('tags'), // "JSON array: ['ielts', 'academic']"
+  synonyms: text('synonyms'), // JSON array
+  tags: text('tags'), // JSON array: ['ielts', 'academic']
 
-  // Forward Compatibility with FSRS
+  // Complete Forward Compatibility with FSRS Engine
   fsrsStability: real('fsrs_stability').default(0).notNull(),
   fsrsDifficulty: real('fsrs_difficulty').default(0).notNull(),
-  fsrsDue: integer('fsrs_due').default(0).notNull(),
-  fsrsState: text('fsrs_state').default('New').notNull(),
+  fsrsDue: integer('fsrs_due', { mode: 'timestamp' }), // Timestamp or null for unactivated SRS
+  fsrsState: text('fsrs_state').default('New').notNull(), // 'New' | 'Learning' | 'Review' | 'Relearning'
+  reps: integer('reps').default(0).notNull(),
+  lapses: integer('lapses').default(0).notNull(),
+  elapsedDays: integer('elapsed_days').default(0).notNull(),
+  scheduledDays: integer('scheduled_days').default(0).notNull(),
+  lastReview: integer('last_review', { mode: 'timestamp' }),
 
   createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
+  updatedAt: integer('updated_at', { mode: 'timestamp' }),
 });
