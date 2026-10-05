@@ -86,22 +86,210 @@ stateDiagram-v2
 
 ---
 
-### 2.3. Cấu Trúc Khối Dữ Liệu Bàn Dò Bài (Component Architecture)
+---
+
+## 3. SKETCH DESIGN & THIẾT KẾ CÔNG THÁI HỌC BỐ CỤC (WIREFRAME & LAYOUT ARCHITECTURE)
+
+Nhằm đảm bảo trải nghiệm học tập vượt trội, loại bỏ hoàn toàn cảm giác cồng kềnh của Flashcard 3D và chuyển hóa xuất sắc tinh thần của file Excel `Dò bài - Minna.xlsm`, dưới đây là bản phác thảo chi tiết bố cục (Sketch Design) cho toàn bộ các trạng thái giao diện trên Desktop và Mobile:
+
+### 3.1. Phác thảo Tổng thể Không gian Bàn Dò Bài (Desktop 2-Column Bento Grid)
+
+Trên màn hình Desktop ($> 980\text{px}$), giao diện tổ chức theo cấu trúc Bento Grid 2 cột:
+* **Cột Trái (Chiếm 72% bề ngang):** Khung Bàn Dò Bài Phản Xạ Trung Tâm (`DoBaiDesk`) và Bảng phím tắt công thái học (`DoBaiHotkeysBar`).
+* **Cột Phải (Chiếm 28% bề ngang):** Thanh Dock Từ Chưa Thuộc Trong Phiên (`DoBaiUnlearnedDrawer` — Cột D-E-F Excel) hiển thị trực tiếp các từ đang nợ để não bộ ghi nhận ngay tức thì.
 
 ```
-src/app/review/
-├── page.tsx                           <-- [TÁI CẤU TRÚC] Controller điều phối phiên Dò bài & FSRS
-├── components/
-│   ├── DoBaiDesk.tsx                  <-- [MỚI] Khung bàn dò bài chính (Bốc, Hiện, Kanji, Hiragana, Nghĩa)
-│   ├── DoBaiHotkeysBar.tsx            <-- [MỚI] Bảng chỉ dẫn phím tắt trực quan phong cách Wa-Style
-│   ├── DoBaiUnlearnedDrawer.tsx       <-- [MỚI] Ngăn kéo / Cột hiển thị danh sách từ chưa thuộc (Cột D-E-F)
-│   ├── DoBaiModeSelector.tsx          <-- [MỚI] Thanh chọn chế độ: Thuận (JA->VI), Nghịch (VI->JA), Luyện từ sai
-│   └── DoBaiSessionSummary.tsx        <-- [CẬP NHẬN] Màn hình tổng kết phiên dò bài kèm danh sách từ cần củng cố
++-------------------------------------------------------------------------------------------------------------+
+| 🎋 JPD133 - Từ vựng Kotoba   |   Tiến độ: [████████░░░░░░░] 14/45   |  Chế độ: [Thuận JA➔VI ▾]  |  🎐 Âm thanh  |
++-------------------------------------------------------------------------------------------------------------+
+|                                                                             |                               |
+|   ========================= KHUNG DÒ BÀI CHÍNH (72%) ====================   |  === CỘT TỪ CHƯA THUỘC (28%) ===
+|   |                                                                     |   |                               |
+|   |   +-------------------------------------------------------------+   |   |  📋 TỪ ĐANG NỢ (CỘT D-E-F)    |
+|   |   |  TAG: Bài 1 · Danh từ                                       |   |   |  (Tự động lặp lại xen kẽ)     |
+|   |   |                                                             |   |   |                               |
+|   |   |                   私                  わたし     🔊         |   |   |  1. 辞書 (じしょ)             |
+|   |   |                (Kanji)              (Hiragana)              |   |   |     từ điển                   |
+|   |   |                                                             |   |   |     [⏳ Sắp lặp lại sau 1 từ] |
+|   |   |   - - - - - - - - - - - - - - - - - - - - - - - - - - - -   |   |   |                               |
+|   |   |                                                             |   |   |  2. 手帳 (てちょう)           |
+|   |   |   [ KHUNG NGHĨA TIẾNG VIỆT & NGỮ CẢNH: CHE MỜ HOẶC MỞ ]     |   |   |     sổ tay                    |
+|   |   |   tôi (Ngôi thứ I số ít)                                    |   |   |     [⏳ Sắp lặp lại sau 3 từ] |
+|   |   |   Ví dụ: 私はベトナム人です。                               |   |   |                               |
+|   |   +-------------------------------------------------------------+   |   |  3. [お] 土産 (おみやげ)      |
+|   |                                                                     |   |     quà                       |
+|   |   [ ⏱️ Phản xạ: 1.2s ]                           [ ↩ Hoàn tác (Z) ]  |   |     [⏳ Sắp lặp lại sau 4 từ] |
+|   |                                                                     |   |                               |
+|   |   +---------------------------+   +-----------------------------+   |   |  ---------------------------  |
+|   |   |  ✕ CHƯA THUỘC (Bksp / 2)  |   |   ✓ ĐÃ THUỘC (Enter / 1)    |   |   |  ⚡ Tổng nợ: 3 từ             |
+|   |   |  (Đưa vào cột nợ D-E-F)   |   |   (FSRS Good/Easy & Bốc mới)|   |   |  (Thuộc hết mới hoàn thành!)  |
+|   |   +---------------------------+   +-----------------------------+   |   |                               |
+|   =======================================================================   |                               |
+|                                                                             |                               |
+|   [ CHỈ DẪN PHÍM TẮT:  Space: Hiện/Ẩn  |  Enter/1: Đã thuộc  |  Bksp/2: Chưa thuộc  |  Z: Hoàn tác  |  P: Loa ]    |
++-------------------------------------------------------------------------------------------------------------+
 ```
 
 ---
 
-## 3. BẢNG PHÂN RÃ CÔNG VIỆC CHI TIẾT (WORK BREAKDOWN STRUCTURE - WBS)
+### 3.2. Sketch Chi tiết Trạng thái 1: "BỐC TỪ" (State: Drawn / Masked Answer)
+
+Khi vừa bắt đầu hoặc sau khi chốt từ trước, hệ thống bốc từ ngẫu nhiên từ hàng đợi. Lúc này, **Nghĩa tiếng Việt bị giấu hoàn toàn** để kích hoạt phản xạ tự nhớ:
+
+```
++---------------------------------------------------------------------------------------+
+|  JLPT N5 · BÀI 1                                                   Thẻ thứ: 14 / 45   |
+|                                                                                       |
+|                                 私                                                    |
+|                                                                                       |
+|                              わたし                                                   |
+|                                                                                       |
+|                             [ 🔊 Nghe phát âm (P) ]                                   |
+|                                                                                       |
+|   +-------------------------------------------------------------------------------+   |
+|   |  🔒 NGHĨA TIẾNG VIỆT & NGỮ CẢNH                                               |   |
+|   |                                                                               |   |
+|   |     [ 👁️‍🗨️ Nhẩm nghĩa trong đầu... Bấm SPACE hoặc nút dưới để HIỆN NGHĨA ]     |   |
+|   |                                                                               |   |
+|   +-------------------------------------------------------------------------------+   |
+|                                                                                       |
+|   ⏱️ Đang đo độ trễ phản xạ: 0.9s...                                                  |
+|                                                                                       |
+|   +-------------------------------------------------------------------------------+   |
+|   |                                                                               |   |
+|   |                     [  👁️  HIỆN NGHĨA TIẾNG VIỆT  (Phím Space)  ]             |   |
+|   |                                                                               |   |
+|   +-------------------------------------------------------------------------------+   |
+|                                                                                       |
+|      (Nút Đã thuộc & Chưa thuộc đang ở trạng thái mờ chờ bạn xem đáp án)              |
++---------------------------------------------------------------------------------------+
+```
+
+* **Đặc điểm mỹ học:** Khung nghĩa mang màu giấy Washi mờ (`rgba(250, 248, 245, 0.6)`), viền nét đứt thanh mảnh gợi ý vị trí đáp án, triệt tiêu hoàn toàn Layout Shift khi mở.
+
+---
+
+### 3.3. Sketch Chi tiết Trạng thái 2: "HIỆN NGHĨA" (State: Revealed / Active Comparison)
+
+Ngay khi bấm phím `Space` hoặc nhấn nút **[Hiện nghĩa]**, khung nghĩa bung ra tức thì (0ms jank), âm thanh lật giấy xột xoạt Washi vang lên và Web Speech API tự động phát âm:
+
+```
++---------------------------------------------------------------------------------------+
+|  JLPT N5 · BÀI 1                                                   Thẻ thứ: 14 / 45   |
+|                                                                                       |
+|                                 私                                                    |
+|                                                                                       |
+|                              わたし                                                   |
+|                                                                                       |
+|                             [ 🔊 Đang phát âm... ]                                    |
+|                                                                                       |
+|   +-------------------------------------------------------------------------------+   |
+|   |  📖 NGHĨA CHÍNH:                                                              |   |
+|   |  tôi (Đại từ nhân xưng ngôi thứ I số ít)                                      |   |
+|   |                                                                               |   |
+|   |  💬 CÂU VÍ DỤ MINH HỌA:                                                       |   |
+|   |  私はベトナム人です。 (Tôi là người Việt Nam.)                                |   |
+|   +-------------------------------------------------------------------------------+   |
+|                                                                                       |
+|   ⏱️ Thời gian phản xạ: 1.2s  •  Đánh giá: Phản xạ tức thì (FSRS Easy)               |
+|                                                                                       |
+|   +---------------------------------------+   +-----------------------------------+   |
+|   |                                       |   |                                   |   |
+|   |       ✕  CHƯA THUỘC                   |   |       ✓  ĐÃ THUỘC                 |   |
+|   |       (Backspace / Phím 2)            |   |       (Enter / Phím 1)            |   |
+|   |       • Lưu vào cột nợ D-E-F          |   |       • Tăng stability FSRS       |   |
+|   |       • Sẽ bốc lại sau 2 từ           |   |       • Chuyển từ mới ngay        |   |
+|   |                                       |   |                                   |   |
+|   +---------------------------------------+   +-----------------------------------+   |
+|                                                                                       |
+|                          [ ↩ Hoàn tác bấm nhầm (Ctrl+Z / Z) ]                         |
++---------------------------------------------------------------------------------------+
+```
+
+* **Cơ chế màu sắc nhận thức:**
+  * Nút **ĐÃ THUỘC:** Nền xanh Matcha sâu (`#386641`), chữ trắng tương phản cao, đổ bóng nhẹ.
+  * Nút **CHƯA THUỘC:** Nền đỏ son Shu-iro cổ điển (`#B5301E`), biểu tượng chữ `✕` dứt khoát.
+
+---
+
+### 3.4. Sketch Chi tiết Trạng thái 3: "DÒ NGHỊCH" (State: Reverse Drill VI ➔ JA)
+
+Phục vụ nhu cầu luyện tập nói, viết và phản xạ dịch Việt - Nhật:
+
+```
++---------------------------------------------------------------------------------------+
+|  CHẾ ĐỘ: DÒ NGHỊCH (VIỆT ➔ NHẬT)                                  Thẻ thứ: 08 / 45   |
+|                                                                                       |
+|                         bác sĩ (nghề nghiệp)                                          |
+|                         Gợi ý ngữ cảnh: Người khám chữa bệnh tại bệnh viện            |
+|                                                                                       |
+|   +-------------------------------------------------------------------------------+   |
+|   |  🔒 CHỮ HÁN & CÁCH ĐỌC TIẾNG NHẬT                                             |   |
+|   |                                                                               |   |
+|   |     [ 👁️‍🗨️ Tự nhẩm Kanji & Hiragana... Bấm SPACE để ĐỐI CHIẾU ]                  |   |
+|   |                                                                               |   |
+|   +-------------------------------------------------------------------------------+   |
+|                                                                                       |
+|   +-------------------------------------------------------------------------------+   |
+|   |                  [  👁️  HIỆN ĐÁP ÁN TIẾNG NHẬT  (Phím Space)  ]                 |   |
+|   +-------------------------------------------------------------------------------+   |
++---------------------------------------------------------------------------------------+
+```
+
+---
+
+### 3.5. Sketch Bố cục Trên Thiết Bị Di Động (Mobile Responsive < 768px)
+
+Trên smartphone, không gian màn hình hẹp được tối ưu hóa theo trục dọc:
+
+```
++-----------------------------------------+
+| [🎋 JPD133]  14/45 [████░░]   [🎐] [✕]  |
++-----------------------------------------+
+|                                         |
+|                 私                      |
+|                                         |
+|               わたし                    |
+|             [ 🔊 Loa ]                  |
+|                                         |
+|  +-----------------------------------+  |
+|  | tôi (Ngôi thứ I số ít)            |  |
+|  | 私はベトナム人です。               |  |
+|  +-----------------------------------+  |
+|                                         |
+|  ⏱️ Phản xạ: 1.1s                        |
+|                                         |
+|  +-----------------------------------+  |
+|  |    📋 3 từ đang nợ (Chạm để xem)  |  |
+|  +-----------------------------------+  |
+|                                         |
+|  +-------------------+-----------------+
+|  |  ✕ CHƯA THUỘC     |  ✓ ĐÃ THUỘC     |
+|  |  (Cột nợ D-E-F)   |  (Thuộc lòng)   |
+|  +-------------------+-----------------+
+|  |    [ 👁️ BẤM HIỆN / ĐỔI MẶT ]        |
++-----------------------------------------+
+```
+
+* Nút chạm đạt tiêu chuẩn ngón tay cái: chiều cao tối thiểu $52\text{px}$, vùng đệm $12\text{px}$, phím chuyển đổi Hiện/Ẩn đặt ngay tầm với thuận tiện nhất.
+
+---
+
+### 3.6. Bảng Thông Số Thiết Kế Hệ Thống (Design Tokens & Typography)
+
+| Khối giao diện | Thuộc tính Style | Giá trị Token & CSS | Ý nghĩa thẩm mỹ Wa-Style |
+| :--- | :--- | :--- | :--- |
+| **Nền Bàn Dò Bài** | `background` | `var(--washi-base, #FAF8F5)` | Giấy Washi tự nhiên, giảm chói mắt khi học đêm |
+| **Chữ Hán Kanji** | `font-family`, `font-size` | `var(--font-mincho), serif`, `3.2rem` (`52px`) | Uy nghi, đậm nét thư pháp Shodo truyền thống |
+| **Cách đọc Hiragana** | `font-family`, `font-size` | `var(--font-maru), sans-serif`, `1.6rem` (`26px`) | Tròn trịa, mềm mại, dễ đọc ngay cả ở khoảng cách xa |
+| **Khung Đáp Án** | `border`, `border-radius` | `1.5px solid #E8E2D8`, `14px` | Khung viền mộc bản mộc mạc, bo góc công thái học |
+| **Nút ĐÃ THUỘC** | `background`, `color` | `#386641` (Matcha sâu), `#FFFFFF` | Cảm giác thành tựu vững chãi, khích lệ tâm lý |
+| **Nút CHƯA THUỘC** | `background`, `color` | `#B5301E` (Đỏ son Shu-iro), `#FFFFFF` | Báo hiệu cần chú ý mà không gây ức chế tiêu cực |
+| **Thanh Cột Nợ** | `background` | `rgba(235, 242, 223, 0.6)` | Màu lá trà non nhẹ nhàng, phân tách rõ ràng với bàn dò |
+
+---
+
+## 4. BẢNG PHÂN RÃ CÔNG VIỆC CHI TIẾT (WORK BREAKDOWN STRUCTURE - WBS)
 
 ### SPRINT 1: XÂY DỰNG KHUNG BÀN DÒ BÀI & CƠ CHẾ BỐC - HIỆN (P0 CORE)
 * **WBS-10.1 (DoBaiDesk Component):**
@@ -160,7 +348,7 @@ src/app/review/
 
 ---
 
-## 4. MA TRẬN QUẢN TRỊ RỦI RO (PROJECT RISK MATRIX)
+## 5. MA TRẬN QUẢN TRỊ RỦI RO (PROJECT RISK MATRIX)
 
 | Rủi ro kỹ thuật | Mức độ | Khả năng | Giải pháp khắc phục & Dự phòng (Mitigation Strategy) |
 | :--- | :---: | :---: | :--- |
@@ -171,7 +359,7 @@ src/app/review/
 
 ---
 
-## 5. TIÊU CHUẨN NGHIỆM THU (DEFINITION OF DONE - DOD)
+## 6. TIÊU CHUẨN NGHIỆM THU (DEFINITION OF DONE - DOD)
 
 Hạng mục Giai đoạn 10 chỉ được đóng lại khi thỏa mãn toàn bộ các điều kiện:
 1. Giao diện trang `/review` hiển thị đúng chuẩn **Bàn Dò Bài Minna** (không còn thẻ lật 3D).
