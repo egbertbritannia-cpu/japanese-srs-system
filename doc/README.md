@@ -17,6 +17,7 @@ Toàn bộ các tài liệu phân mảnh trước đây đã được chuẩn h�
 7. **[07_PHASE_7_JPD133_GRAMMAR_LEARNING_ENGINE.md](../planning/07_PHASE_7_JPD133_GRAMMAR_LEARNING_ENGINE.md)**: Giai đoạn 7 - Động cơ Học Ngữ pháp JPD133 Bunbou Engine (Gộp 4 tệp: Kế hoạch, Bách khoa toàn thư, Ngân hàng bài tập, Checkpoint).
 8. **[08_PHASE_8_ENGLISH_IELTS_TRACKING.md](../planning/08_PHASE_8_ENGLISH_IELTS_TRACKING.md)**: Giai đoạn 8 - Hệ thống Theo dõi Tiếng Anh & Khảo thí IELTS.
 9. **[09_PHASE_9_UI_UX_AUDIT_AND_COMPREHENSIVE_REDESIGN_PLAN.md](../planning/09_PHASE_9_UI_UX_AUDIT_AND_COMPREHENSIVE_REDESIGN_PLAN.md)**: Giai đoạn 9 - Báo cáo Kiểm toán Toàn diện UI/UX (>50k từ), Ma trận Lỗi 4 Chiều & Lộ trình Đại tu Công thái học.
+10. **[10_PHASE_10_DO_BAI_MINNA_LEARNING_SYSTEM_MIGRATION_PLAN.md](../planning/10_PHASE_10_DO_BAI_MINNA_LEARNING_SYSTEM_MIGRATION_PLAN.md)**: Giai đoạn 10 - Chuyển đổi Toàn diện từ Flashcard sang Bàn Dò Bài Minna Phản Xạ Tức Thì, Hàng đợi Lặp lại Trong phiên (Cột D-E-F) & Tích hợp FSRS.
 
 👉 **Truy cập Mục lục và Lộ trình phát triển hoàn chỉnh tại:** [`planning/README.md`](../planning/README.md)
 

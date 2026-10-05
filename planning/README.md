@@ -38,7 +38,8 @@ planning/
 | **Phase 6** | **[06_PHASE_6_PERFORMANCE_OPTIMIZATION_AND_SRE.md](06_PHASE_6_PERFORMANCE_OPTIMIZATION_AND_SRE.md)** | **10 tệp** (perf 00-07, Index, Readme) | Kiểm toán kiến trúc toàn diện, Tối ưu Next.js 15 App Router, Nén tài nguyên WebP/AVIF, Giảm thiểu độ trễ Turso Cloud qua HTTPS REST, Bộ nhớ đệm Offline IndexedDB, Audio Pool và Hệ thống Giám sát Telemetry RUM. | Hoàn thành |
 | **Phase 7** | **[07_PHASE_7_JPD133_GRAMMAR_LEARNING_ENGINE.md](07_PHASE_7_JPD133_GRAMMAR_LEARNING_ENGINE.md)** | **4 tệp** (Plan, Encyclopedia, Bank, Checkpoint) | Trích xuất toàn diện 2 tài liệu giáo trình JPD133, Thiết kế 3 bảng DDL ngữ pháp, 32 cấu trúc chi tiết, 204 câu hỏi bài tập kèm lời giải, 96 thẻ FSRS ngữ pháp, Bộ giao diện `/grammar`, `/grammar/[lessonId]`, `/grammar/practice` và đồng bộ Turso Cloud. | Hoàn thành |
 | **Phase 8** | **[08_PHASE_8_ENGLISH_IELTS_TRACKING.md](08_PHASE_8_ENGLISH_IELTS_TRACKING.md)** | **1 tệp** | Xây dựng hệ thống theo dõi tiến độ học tiếng Anh/IELTS độc lập, ERD mở rộng (Sessions, Logs, Mistakes, Vocab), Mỹ học British Classic và chuẩn bị kiến trúc đồng bộ thẻ FSRS tương lai. | Hoàn thành |
-| **Phase 9** | **[09_PHASE_9_UI_UX_AUDIT_AND_COMPREHENSIVE_REDESIGN_PLAN.md](09_PHASE_9_UI_UX_AUDIT_AND_COMPREHENSIVE_REDESIGN_PLAN.md)** | **12 mô-đun** (>52,500 từ) | Báo cáo kiểm toán toàn diện 14 trang màn hình theo ma trận 4 chiều (Thừa, Thiếu, Sai, Lỗi hiển thị), 111 khiếm khuyết được đánh số ID khoa học, triệt tiêu 100% rác nhận thức, ảo hóa danh mục thẻ, vật lý lật Karuta và lộ trình 4 Sprints Zero-Backend-Regression. | Phê duyệt & Sẵn sàng Thực thi |
+| **Phase 9** | **[09_PHASE_9_UI_UX_AUDIT_AND_COMPREHENSIVE_REDESIGN_PLAN.md](09_PHASE_9_UI_UX_AUDIT_AND_COMPREHENSIVE_REDESIGN_PLAN.md)** | **12 mô-đun** (>52,500 từ) | Báo cáo kiểm toán toàn diện 14 trang màn hình theo ma trận 4 chiều (Thừa, Thiếu, Sai, Lỗi hiển thị), 111 khiếm khuyết được đánh số ID khoa học, triệt tiêu 100% rác nhận thức, ảo hóa danh mục thẻ, vật lý lật Karuta và lộ trình 4 Sprints Zero-Backend-Regression. | Hoàn thành |
+| **Phase 10** | **[10_PHASE_10_DO_BAI_MINNA_LEARNING_SYSTEM_MIGRATION_PLAN.md](10_PHASE_10_DO_BAI_MINNA_LEARNING_SYSTEM_MIGRATION_PLAN.md)** | **1 tệp** | Chuyển đổi toàn diện trải nghiệm học tập từ Flashcard 3D sang Bàn Dò bài Minna (kế thừa Dò bài - Minna.xlsm: Bốc -> Hiện -> Đã thuộc / Chưa thuộc), Hàng đợi lặp lại trong phiên (Cột D-E-F), bảo toàn 100% thuật toán FSRS v4.5 và đo lường độ trễ Bjork Latency. | Phê duyệt & Sẵn sàng Thực thi |
 
 ---
 
@@ -55,6 +56,7 @@ graph TD
     classDef phase7 fill:#F0FDF4,stroke:#15803D,stroke-width:2px,color:#1F2421;
     classDef phase8 fill:#FDFBF7,stroke:#002147,stroke-width:2px,color:#1F2421;
     classDef phase9 fill:#FFF5F5,stroke:#9E3223,stroke-width:2px,color:#1F2421;
+    classDef phase10 fill:#F5F9F7,stroke:#20507B,stroke-width:2px,color:#1F2421;
 
     subgraph P1 ["Phase 1: Mỹ học Wa-Style & Giao diện Cốt lõi"]
         A1["Nippon Colors Token & Wagara"]:::phase1 --> A2["4 Màn hình Cốt lõi (Dashboard, Cards, Review, New)"]:::phase1
@@ -95,7 +97,11 @@ graph TD
         I1["Ma trận Lỗi 4 Chiều (111 Defects) & Khung Tâm lý Học Nhận thức"]:::phase9 --> I2["Lộ trình 4 Sprints Đại tu & Cam kết Zero-Backend-Regression"]:::phase9
     end
 
-    P1 --> P2 --> P3 --> P4 --> P5 --> P6 --> P7 --> P8 --> P9
+    subgraph P10 ["Phase 10: Chuyển đổi Mô hình Dò bài Minna & Tích hợp FSRS"]
+        J1["Bàn Dò Bài Phản Xạ Minna (Bốc -> Hiện -> Thuộc / Chưa thuộc)"]:::phase10 --> J2["In-Session Retry Queue (Cột D-E-F) & Bjork Latency FSRS"]:::phase10
+    end
+
+    P1 --> P2 --> P3 --> P4 --> P5 --> P6 --> P7 --> P8 --> P9 --> P10
 ```
 
 ---
