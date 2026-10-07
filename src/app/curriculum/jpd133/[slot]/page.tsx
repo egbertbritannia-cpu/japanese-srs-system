@@ -23,14 +23,14 @@ export default async function JPD133SlotPage({
         <p style={{ color: 'var(--sumi-charcoal)', marginTop: '0.35rem' }}>{slot.titleVn}</p>
         <div style={{ display: 'flex', gap: '0.65rem', flexWrap: 'wrap', marginTop: '1rem' }}>
           <Link
-            href={`/review?curriculum=jpd133&slot=${slot.slotNumber}&mode=dobai`}
+            href={`/review/dobai?curriculum=jpd133&slot=${slot.slotNumber}&mode=dobai`}
             className="btn-torii"
             style={{ textDecoration: 'none' }}
           >
             Dò bài Slot này
           </Link>
           <Link
-            href={`/review?curriculum=jpd133&slot=${slot.slotNumber}&mode=karuta`}
+            href={`/review/dobai?curriculum=jpd133&slot=${slot.slotNumber}&mode=karuta`}
             className="btn-washi"
             style={{ textDecoration: 'none' }}
           >
