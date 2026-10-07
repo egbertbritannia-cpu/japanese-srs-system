@@ -1,5 +1,6 @@
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { GlobalSoundToggle } from '@/components/audio/GlobalSoundToggle';
+import { MikazukiThemeToggle } from '@/components/theme/MikazukiThemeToggle';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Zen_Maru_Gothic, Shippori_Mincho, Plus_Jakarta_Sans, Bebas_Neue, Noto_Sans_JP } from 'next/font/google';
@@ -260,6 +261,42 @@ export default function RootLayout({
                 <span>Ngữ pháp</span>
               </Link>
               <Link
+                href="/demo/drive"
+                style={{
+                  padding: '0.5rem 0.9rem',
+                  borderRadius: '8px',
+                  color: 'var(--sumi-charcoal)',
+                  textDecoration: 'none',
+                  fontSize: '0.9rem',
+                  fontFamily: 'var(--font-maru)',
+                  fontWeight: 600,
+                  transition: 'background 0.2s',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                }}
+              >
+                <span>Kho Media</span>
+              </Link>
+              <Link
+                href="/curriculum/jpd133"
+                style={{
+                  padding: '0.5rem 0.9rem',
+                  borderRadius: '8px',
+                  color: 'var(--sumi-charcoal)',
+                  textDecoration: 'none',
+                  fontSize: '0.9rem',
+                  fontFamily: 'var(--font-maru)',
+                  fontWeight: 600,
+                  transition: 'background 0.2s',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                }}
+              >
+                <span>JPD133</span>
+              </Link>
+              <Link
                 href="/review"
                 className="btn-torii"
                 style={{
@@ -271,6 +308,7 @@ export default function RootLayout({
                 <ToriiIcon size={16} color="#FFFFFF" />
                 Ôn tập
               </Link>
+              <MikazukiThemeToggle />
               <GlobalSoundToggle />
               <LanguageSwitcher />
             </nav>
