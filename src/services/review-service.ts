@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm';
 import { FSRS, Rating, State, createEmptyCard, generatorParameters } from 'ts-fsrs';
-import { db } from '@/db/client';
+import { db, TURSO_DATABASE_URL } from '@/db/client';
 import { cards, reviewLogs } from '@/db/schema';
 
 export type ReviewRating = 'Again' | 'Hard' | 'Good' | 'Easy';
@@ -265,19 +265,7 @@ async function applyReviewInTransaction(tx: any, input: NormalizedReviewInput): 
     input.reviewedAt
   );
 
-  const logRow: NewReviewLog = {
-    id: input.eventId,
-    cardId: input.cardId,
-    rating: transition.rating,
-    state: transition.state,
-    due: transition.due,
-    stability: transition.stability,
-    difficulty: transition.difficulty,
-    elapsedDays: transition.elapsedDays,
-    lastElapsedDays: transition.lastElapsedDays,
-    scheduledDays: transition.scheduledDays,
-    reviewTime: input.reviewedAt,
-  };
+  const logRow = buildReviewLog(input, transition);
 
   // The card snapshot and immutable review event are one atomic mutation.
   await tx
@@ -298,6 +286,63 @@ async function applyReviewInTransaction(tx: any, input: NormalizedReviewInput): 
 
   await tx.insert(reviewLogs).values(logRow);
 
+  return transitionToResult(input, transition);
+}
+
+
+function requireCardSync(tx: any, cardId: string, reviewedAt: Date): CardRow {
+  const found = tx.select().from(cards).where(eq(cards.id, cardId)).limit(1).all();
+  if (found.length > 0) {
+    return found[0] as CardRow;
+  }
+
+  if (cardId.startsWith('grammar_cloze_') || cardId.startsWith('grammar_rec_')) {
+    const patternId = cardId.replace(/^grammar_(?:cloze|rec)_/, '');
+    const newCard: typeof cards.$inferInsert = {
+      id: cardId,
+      deckId: 'grammar_jpd133',
+      type: 'GrammarPattern',
+      front: `【文法】${patternId}`,
+      reading: '',
+      meaning: `Bài tập củng cố mẫu ngữ pháp ${patternId}`,
+      stability: 0,
+      difficulty: 5,
+      elapsedDays: 0,
+      scheduledDays: 0,
+      reps: 0,
+      lapses: 0,
+      state: 'New',
+      due: reviewedAt,
+      createdAt: reviewedAt,
+      updatedAt: reviewedAt,
+    };
+    tx.insert(cards).values(newCard).run();
+    return newCard as CardRow;
+  }
+
+  throw new ReviewServiceError('CARD_NOT_FOUND', `Card with id ${cardId} not found.`, 404);
+}
+
+function buildReviewLog(input: NormalizedReviewInput, transition: ReviewTransition): NewReviewLog {
+  return {
+    id: input.eventId,
+    cardId: input.cardId,
+    rating: transition.rating,
+    state: transition.state,
+    due: transition.due,
+    stability: transition.stability,
+    difficulty: transition.difficulty,
+    elapsedDays: transition.elapsedDays,
+    lastElapsedDays: transition.lastElapsedDays,
+    scheduledDays: transition.scheduledDays,
+    reviewTime: input.reviewedAt,
+  };
+}
+
+function transitionToResult(
+  input: NormalizedReviewInput,
+  transition: ReviewTransition
+): ReviewResult {
   return {
     eventId: input.eventId,
     status: 'applied',
@@ -311,8 +356,53 @@ async function applyReviewInTransaction(tx: any, input: NormalizedReviewInput): 
   };
 }
 
+function applyReviewInSyncTransaction(tx: any, input: NormalizedReviewInput): ReviewResult {
+  const duplicate = tx
+    .select()
+    .from(reviewLogs)
+    .where(eq(reviewLogs.id, input.eventId))
+    .limit(1)
+    .all();
+
+  if (duplicate.length > 0) {
+    return duplicateToResult(duplicate[0]);
+  }
+
+  const currentCard = requireCardSync(tx, input.cardId, input.reviewedAt);
+  const transition = calculateReviewTransition(
+    currentCard,
+    input.rating,
+    input.ratingEnum,
+    input.reviewedAt
+  );
+
+  tx.update(cards)
+    .set({
+      stability: transition.stability,
+      difficulty: transition.difficulty,
+      elapsedDays: transition.elapsedDays,
+      scheduledDays: transition.scheduledDays,
+      reps: transition.reps,
+      lapses: transition.lapses,
+      state: transition.state,
+      due: transition.due,
+      lastReview: input.reviewedAt,
+      updatedAt: new Date(),
+    })
+    .where(eq(cards.id, input.cardId))
+    .run();
+
+  tx.insert(reviewLogs).values(buildReviewLog(input, transition)).run();
+  return transitionToResult(input, transition);
+}
+
 export async function submitReview(input: SubmitReviewInput): Promise<ReviewResult> {
   const normalized = normalizeInput(input);
+
+  if (!TURSO_DATABASE_URL?.trim()) {
+    return db.transaction((tx: any) => applyReviewInSyncTransaction(tx, normalized));
+  }
+
   return db.transaction((tx: any) => applyReviewInTransaction(tx, normalized));
 }
 
@@ -352,24 +442,45 @@ export async function submitReviewBatch(inputs: SubmitReviewInput[]): Promise<Ba
   }
 
   if (valid.length > 0) {
-    await db.transaction(async (tx: any) => {
-      for (const item of valid) {
-        try {
-          byIndex.set(item.index, await applyReviewInTransaction(tx, item.normalized!));
-        } catch (error) {
-          if (error instanceof ReviewServiceError && error.status < 500) {
-            byIndex.set(item.index, {
-              eventId: item.normalized!.eventId,
-              status: 'rejected',
-              cardId: item.normalized!.cardId,
-              error: error.code,
-            });
-            continue;
+    if (!TURSO_DATABASE_URL?.trim()) {
+      db.transaction((tx: any) => {
+        for (const item of valid) {
+          try {
+            byIndex.set(item.index, applyReviewInSyncTransaction(tx, item.normalized!));
+          } catch (error) {
+            if (error instanceof ReviewServiceError && error.status < 500) {
+              byIndex.set(item.index, {
+                eventId: item.normalized!.eventId,
+                status: 'rejected',
+                cardId: item.normalized!.cardId,
+                error: error.code,
+              });
+              continue;
+            }
+            throw error;
           }
-          throw error;
         }
-      }
-    });
+      });
+    } else {
+      await db.transaction(async (tx: any) => {
+        for (const item of valid) {
+          try {
+            byIndex.set(item.index, await applyReviewInTransaction(tx, item.normalized!));
+          } catch (error) {
+            if (error instanceof ReviewServiceError && error.status < 500) {
+              byIndex.set(item.index, {
+                eventId: item.normalized!.eventId,
+                status: 'rejected',
+                cardId: item.normalized!.cardId,
+                error: error.code,
+              });
+              continue;
+            }
+            throw error;
+          }
+        }
+      });
+    }
   }
 
   return inputs.map((_, index) => byIndex.get(index)!).filter(Boolean);
