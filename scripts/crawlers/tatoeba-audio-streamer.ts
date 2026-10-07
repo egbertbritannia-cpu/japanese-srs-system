@@ -3,6 +3,7 @@ import { cards } from '../../src/db/schema';
 import { inArray } from 'drizzle-orm';
 import { DriveFolderManager } from './drive-folder-manager';
 import { StreamUploader } from './stream-uploader';
+import { SEED_JAPANESE_WORDS } from './seed-lexicon';
 
 interface TatoebaSentence {
   id: number;
@@ -71,7 +72,7 @@ async function checkWikimediaNativeAudio(word: string): Promise<string | null> {
 }
 
 /**
- * Lấy danh sách câu tiếng Nhật bản xứ có audio từ trang tổng hợp Tatoeba
+ * Lấy danh sách câu tiếng Nhật bản xứ có audio từ trang tổng hợp Tatoeba (hỗ trợ phân trang)
  */
 async function fetchTatoebaFeed(page = 1): Promise<TatoebaSentence[]> {
   const url = `https://tatoeba.org/en/api_v0/search?from=jpn&has_audio=yes&sort=relevance&page=${page}`;
@@ -114,27 +115,42 @@ export async function crawlTatoebaNativeAudio(limit?: number) {
     }
   }
 
-  // 1. Thu thập từ vựng từ cơ sở dữ liệu
-  const vocabCards = await db.select().from(cards).where(
-    inArray(cards.deckId, ['deck_jpd133', 'deck_n5'])
-  );
-  console.log(`📋 Tổng số thẻ từ vựng: ${vocabCards.length}`);
-
+  // 1. Thu thập từ vựng: Ưu tiên Database, tự động dùng Seed Lexicon nếu môi trường độc lập
   const uniqueWords = new Map<string, { front: string; reading: string; id: string }>();
-  for (const card of vocabCards) {
-    const cleanWord = card.front.replace(/\{\{c\d+::(.*?)\}\}/g, '$1').trim();
-    if (cleanWord && !uniqueWords.has(cleanWord)) {
-      uniqueWords.set(cleanWord, {
-        front: cleanWord,
-        reading: card.reading || cleanWord,
-        id: card.id,
+
+  try {
+    const vocabCards = await db.select().from(cards).where(
+      inArray(cards.deckId, ['deck_jpd133', 'deck_n5'])
+    );
+    console.log(`📋 Tổng số thẻ từ vựng từ Database: ${vocabCards.length}`);
+    for (const card of vocabCards) {
+      const cleanWord = card.front.replace(/\{\{c\d+::(.*?)\}\}/g, '$1').trim();
+      if (cleanWord && !uniqueWords.has(cleanWord)) {
+        uniqueWords.set(cleanWord, {
+          front: cleanWord,
+          reading: card.reading || cleanWord,
+          id: card.id,
+        });
+      }
+    }
+  } catch (err: any) {
+    console.warn('⚠️ Không thể kết nối Database, chuyển sang Seed Lexicon tự chủ:', err.message);
+  }
+
+  // Nạp thêm từ Seed Lexicon độc lập để luôn có dữ liệu phong phú
+  for (const seed of SEED_JAPANESE_WORDS) {
+    if (!uniqueWords.has(seed.front)) {
+      uniqueWords.set(seed.front, {
+        front: seed.front,
+        reading: seed.reading,
+        id: `seed_${seed.front}`,
       });
     }
   }
 
   const wordList = Array.from(uniqueWords.values());
   const listToProcess = limit ? wordList.slice(0, limit) : wordList;
-  console.log(`🎯 Xử lý ${listToProcess.length} từ vựng mục tiêu.`);
+  console.log(`🎯 Tổng hợp ${listToProcess.length} từ vựng mục tiêu cần có âm thanh bản xứ.`);
 
   let successCount = 0;
   let skipCount = 0;
@@ -239,24 +255,37 @@ export async function crawlTatoebaNativeAudio(limit?: number) {
     }
   }
 
-  // 3. Mở rộng kho ngữ liệu: Đang nạp thêm câu thoại bản xứ từ Tatoeba feed
-  const shouldFetchFeed = !limit || limit > listToProcess.length || process.argv.includes('--feed');
+  // 2. PHÂN TRANG LIÊN TỤC (DEEP PAGINATION): Thu thập thêm hàng trăm câu thoại bản xứ từ Tatoeba Corpus
+  const shouldFetchFeed = !limit || process.argv.includes('--feed') || process.argv.includes('--all');
   if (shouldFetchFeed) {
-    const feedLimit = limit ? Math.max(0, limit - listToProcess.length) : 25;
-    if (feedLimit > 0) {
-      console.log(`\n📚 Mở rộng kho ngữ liệu: Đang tải thêm câu thoại bản xứ từ Tatoeba feed (${feedLimit} câu)...`);
-      const feed = await fetchTatoebaFeed(1);
-      for (const sent of feed.slice(0, feedLimit)) {
+    const maxPages = limit ? Math.min(5, Math.ceil(limit / 20)) : 25; // Quét tối đa 25 trang (hơn 600 câu) mỗi lần chạy
+    console.log(`\n📚 Mở rộng kho ngữ liệu: Đang phân trang sâu Tatoeba Feed (tối đa ${maxPages} trang)...`);
+
+    for (let page = 1; page <= maxPages; page++) {
+      console.log(`  📄 Đang quét Tatoeba Feed Trang ${page}/${maxPages}...`);
+      const feed = await fetchTatoebaFeed(page);
+      if (feed.length === 0) {
+        console.log(`  ℹ️ Hết câu thoại mới tại trang ${page}.`);
+        break;
+      }
+
+      let newInPage = 0;
+      for (const sent of feed) {
+        if (limit && successCount >= limit) break;
         const audioInfo = sent.audios?.[0];
         if (!audioInfo) continue;
-        const key = `tatoeba_sentence:${sent.id}`;
+
+        const key = `vocab_audio:tatoeba_${sent.id}`;
         const partition = DriveFolderManager.getPartition('vocab_audio');
-        if (partition.assets[key]) continue;
+        if (partition.assets[key]) {
+          skipCount++;
+          continue;
+        }
 
         const audioUrl = `https://tatoeba.org/en/audio/download/${audioInfo.id}`;
         const fileName = `tatoeba_corpus_${sent.id}.mp3`;
         try {
-          await StreamUploader.streamUploadFromUrl({
+          const entry = await StreamUploader.streamUploadFromUrl({
             url: audioUrl,
             key,
             category: 'vocab_audio',
@@ -272,13 +301,19 @@ export async function crawlTatoebaNativeAudio(limit?: number) {
             },
           });
           successCount++;
+          newInPage++;
+          console.log(`  ✅ [Trang ${page}] "${sent.text}" (${audioInfo.author}) -> ${entry.fileId}`);
           await delay(300);
-        } catch {}
+        } catch (err: any) {
+          failCount++;
+        }
       }
+      console.log(`  ✓ Trang ${page}: +${newInPage} câu thoại mới được streaming thành công.`);
+      await delay(500);
     }
   }
 
-  console.log(`\n🎉 Hoàn thành Crawler Tatoeba Native Audio: Thành công: ${successCount}, Bỏ qua: ${skipCount}, Lỗi: ${failCount}`);
+  console.log(`\n🎉 Hoàn thành Crawler Tatoeba Native Audio: Thành công: +${successCount}, Bỏ qua: ${skipCount}, Lỗi: ${failCount}`);
 }
 
 if (process.argv[1]?.endsWith('tatoeba-audio-streamer.ts')) {
@@ -287,4 +322,3 @@ if (process.argv[1]?.endsWith('tatoeba-audio-streamer.ts')) {
   const limit = isAll ? undefined : (limitArg ? parseInt(limitArg.split('=')[1], 10) : undefined);
   crawlTatoebaNativeAudio(limit).catch(console.error);
 }
-

@@ -3,6 +3,7 @@ import { cards } from '../../src/db/schema';
 import { inArray } from 'drizzle-orm';
 import { DriveFolderManager } from './drive-folder-manager';
 import { StreamUploader } from './stream-uploader';
+import { SEED_JAPANESE_WORDS } from './seed-lexicon';
 
 interface IrasutoyaImage {
   title: string;
@@ -50,14 +51,14 @@ async function searchIrasutoyaPng(query: string): Promise<IrasutoyaImage | null>
 }
 
 /**
- * Lấy các tranh minh họa giáo dục theo chuyên mục từ Blogger Feed chính thức của Irasutoya
+ * Lấy các tranh minh họa giáo dục theo chuyên mục từ Blogger Feed chính thức của Irasutoya (có phân trang start-index)
  */
-async function fetchIrasutoyaCategoryFeed(category: string, maxResults = 25): Promise<IrasutoyaImage[]> {
-  const url = `https://www.irasutoya.com/feeds/posts/default/-/${encodeURIComponent(category)}?alt=json&max-results=${maxResults}`;
+async function fetchIrasutoyaCategoryFeed(category: string, maxResults = 25, startIndex = 1): Promise<IrasutoyaImage[]> {
+  const url = `https://www.irasutoya.com/feeds/posts/default/-/${encodeURIComponent(category)}?alt=json&start-index=${startIndex}&max-results=${maxResults}`;
   try {
     const res = await fetch(url, {
       headers: {
-        'User-Agent': 'KiokudoSRS/1.0 (Educational Japanese SRS Platform)',
+        'User-Agent': 'KiokudoSRS/1.0 (Educational Japanese SRS Platform; Illustration Pipeline)',
         'Accept': 'application/json',
       },
       signal: AbortSignal.timeout(12000),
@@ -108,27 +109,42 @@ export async function crawlIrasutoyaMasterIllustrations(limit?: number) {
   const folderId = folders.minnaIllustrationsFolderId;
   const manifest = DriveFolderManager.getManifest(true);
 
-  // 1. Thu thập từ vựng từ cơ sở dữ liệu
-  const vocabCards = await db.select().from(cards).where(
-    inArray(cards.deckId, ['deck_jpd133', 'deck_n5'])
-  );
-  console.log(`📋 Tổng số thẻ từ vựng cần minh họa: ${vocabCards.length}`);
-
+  // 1. Thu thập từ vựng: Ưu tiên Database, tự động dùng Seed Lexicon nếu môi trường độc lập
   const uniqueWords = new Map<string, { front: string; reading: string; meaning: string }>();
-  for (const card of vocabCards) {
-    const cleanWord = card.front.replace(/\{\{c\d+::(.*?)\}\}/g, '$1').trim();
-    if (cleanWord && !uniqueWords.has(cleanWord)) {
-      uniqueWords.set(cleanWord, {
-        front: cleanWord,
-        reading: card.reading || cleanWord,
-        meaning: card.meaning || '',
+
+  try {
+    const vocabCards = await db.select().from(cards).where(
+      inArray(cards.deckId, ['deck_jpd133', 'deck_n5'])
+    );
+    console.log(`📋 Tổng số thẻ từ vựng từ Database: ${vocabCards.length}`);
+    for (const card of vocabCards) {
+      const cleanWord = card.front.replace(/\{\{c\d+::(.*?)\}\}/g, '$1').trim();
+      if (cleanWord && !uniqueWords.has(cleanWord)) {
+        uniqueWords.set(cleanWord, {
+          front: cleanWord,
+          reading: card.reading || cleanWord,
+          meaning: card.meaning || '',
+        });
+      }
+    }
+  } catch (err: any) {
+    console.warn('⚠️ Không thể kết nối Database, chuyển sang Seed Lexicon tự chủ:', err.message);
+  }
+
+  // Bổ sung các từ vựng từ Seed Lexicon
+  for (const seed of SEED_JAPANESE_WORDS) {
+    if (!uniqueWords.has(seed.front)) {
+      uniqueWords.set(seed.front, {
+        front: seed.front,
+        reading: seed.reading,
+        meaning: seed.meaning,
       });
     }
   }
 
   const wordList = Array.from(uniqueWords.values());
   const listToProcess = limit ? wordList.slice(0, limit) : wordList;
-  console.log(`🎯 Xử lý ${listToProcess.length} từ vựng mục tiêu.`);
+  console.log(`🎯 Tổng hợp ${listToProcess.length} từ vựng mục tiêu cần có tranh minh họa Irasutoya.`);
 
   let successCount = 0;
   let skipCount = 0;
@@ -153,7 +169,7 @@ export async function crawlIrasutoyaMasterIllustrations(limit?: number) {
       if (!img && item.reading && item.reading !== item.front) {
         img = await searchIrasutoyaPng(item.reading);
       }
-      if (!img) {
+      if (!img && item.meaning) {
         const cleanMeaningKeyword = item.meaning.split(/[,;(]/)[0].trim();
         img = await searchIrasutoyaPng(cleanMeaningKeyword);
       }
@@ -195,46 +211,66 @@ export async function crawlIrasutoyaMasterIllustrations(limit?: number) {
     }
   }
 
-  // 2. Mở rộng kho tàng tranh vẽ theo chuyên mục nếu cần thu thập số lượng lớn
-  const shouldExpandCategories = !limit || limit > listToProcess.length || process.argv.includes('--categories');
+  // 2. PHÂN TRANG LIÊN TỤC (DEEP BLOGGER PAGINATION): Cào tranh giáo dục theo 10 chuyên mục
+  const shouldExpandCategories = !limit || process.argv.includes('--categories') || process.argv.includes('--all');
   if (shouldExpandCategories) {
-    const maxCatItems = limit ? Math.max(0, limit - listToProcess.length) : 50;
-    console.log(`\n📚 Mở rộng kho tàng: Đang nạp thêm tranh minh họa Irasutoya theo chuyên mục (tối đa ${maxCatItems} tranh)...`);
-    for (const cat of IRASUTOYA_CATEGORIES) {
-      if (maxCatItems && successCount >= maxCatItems) break;
-      const catImages = await fetchIrasutoyaCategoryFeed(cat, 5);
-      for (const img of catImages) {
-        if (maxCatItems && successCount >= maxCatItems) break;
-        const key = `illustration:irasutoya_${cat}_${encodeURIComponent(img.title).slice(0, 20)}`;
-        const partition = DriveFolderManager.getPartition('illustration');
-        if (partition.assets[key]) continue;
+    const pagesPerCat = limit ? 1 : 5; // Mỗi chuyên mục quét 5 đợt (start-index: 1, 26, 51, 76, 101)
+    console.log(`\n📚 Mở rộng kho tàng: Đang phân trang sâu Blogger Feed cho 10 chuyên mục (${pagesPerCat} trang/chủ đề)...`);
 
-        try {
-          const safeName = `irasutoya_${encodeURIComponent(img.title).replace(/%/g, '_')}_1200px.png`;
-          await StreamUploader.streamUploadFromUrl({
-            url: img.url,
-            key,
-            category: 'illustration',
-            fileName: safeName,
-            mimeType: 'image/png',
-            folderId,
-            metadata: {
-              title: img.title,
-              category: cat,
-              resolution: '1200px',
-              source: 'Irasutoya Master Archive',
-              artist: 'Takashi Mifune (いらすとや)',
-              sourceUrl: img.url,
-            },
-          });
-          successCount++;
-          await delay(300);
-        } catch {}
+    for (const cat of IRASUTOYA_CATEGORIES) {
+      console.log(`  📂 Chuyên mục: 【${cat}】...`);
+      for (let p = 0; p < pagesPerCat; p++) {
+        const startIndex = 1 + p * 25;
+        const catImages = await fetchIrasutoyaCategoryFeed(cat, 25, startIndex);
+        if (catImages.length === 0) break;
+
+        let newInBatch = 0;
+        for (const img of catImages) {
+          if (limit && successCount >= limit) break;
+          const cleanTitle = img.title.replace(/[\\/:*?"<>|]/g, '_').trim();
+          const key = `illustration:irasutoya_${cat}_${encodeURIComponent(cleanTitle).slice(0, 30)}`;
+          const partition = DriveFolderManager.getPartition('illustration');
+          if (partition.assets[key]) {
+            skipCount++;
+            continue;
+          }
+
+          try {
+            const ext = img.url.endsWith('.jpg') ? 'jpg' : 'png';
+            const mimeType = ext === 'jpg' ? 'image/jpeg' : 'image/png';
+            const safeName = `irasutoya_${encodeURIComponent(cleanTitle).replace(/%/g, '_')}_1200px.${ext}`;
+
+            const entry = await StreamUploader.streamUploadFromUrl({
+              url: img.url,
+              key,
+              category: 'illustration',
+              fileName: safeName,
+              mimeType,
+              folderId,
+              metadata: {
+                title: img.title,
+                category: cat,
+                resolution: '1200px',
+                source: 'Irasutoya Master Archive',
+                artist: 'Takashi Mifune (いらすとや)',
+                sourceUrl: img.url,
+              },
+            });
+            successCount++;
+            newInBatch++;
+            console.log(`    🎨 [${cat} · ${startIndex}] "${img.title}" -> ${entry.fileId}`);
+            await delay(300);
+          } catch (err: any) {
+            failCount++;
+          }
+        }
+        console.log(`    ✓ ${cat} (start-index: ${startIndex}): +${newInBatch} ảnh mới.`);
+        await delay(500);
       }
     }
   }
 
-  console.log(`\n🎉 Hoàn thành Crawler Irasutoya Master: Thành công: ${successCount}, Bỏ qua: ${skipCount}, Lỗi: ${failCount}`);
+  console.log(`\n🎉 Hoàn thành Crawler Irasutoya Master: Thành công: +${successCount}, Bỏ qua: ${skipCount}, Lỗi: ${failCount}`);
 }
 
 if (process.argv[1]?.endsWith('irasutoya-master-streamer.ts')) {
@@ -243,4 +279,3 @@ if (process.argv[1]?.endsWith('irasutoya-master-streamer.ts')) {
   const limit = isAll ? undefined : (limitArg ? parseInt(limitArg.split('=')[1], 10) : undefined);
   crawlIrasutoyaMasterIllustrations(limit).catch(console.error);
 }
-

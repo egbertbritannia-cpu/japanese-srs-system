@@ -2,6 +2,7 @@ import { db } from '../../src/db/client';
 import { engVocab } from '../../src/db/schema';
 import { DriveFolderManager } from './drive-folder-manager';
 import { StreamUploader } from './stream-uploader';
+import { EXPANDED_OXFORD_WORDS } from './seed-lexicon';
 
 export const OXFORD_CAMBRIDGE_ACADEMIC_WORDS = [
   'ubiquitous', 'paradigm', 'empirical', 'pragmatic', 'juxtaposition',
@@ -58,65 +59,55 @@ export const CAMBRIDGE_IELTS_EXAM_SECTIONS: CambridgeIeltsSection[] = [
     id: 'cambridge_ielts_sec4_marine_lecture',
     testTitle: 'Cambridge IELTS Academic Practice - Test 4',
     sectionNumber: 4,
-    sectionType: 'Academic Monologue (University Lecture: Deep-Sea Ecosystems & Ocean Acidification)',
+    sectionType: 'Academic Lecture (Monologue: Marine Ecosystems & Coral Bleaching Phenology)',
     audioUrl: 'https://ssl.gstatic.com/dictionary/static/sounds/oxford/ecosystem--_gb_1.mp3',
-    transcript: 'Professor: Today we will explore the biogeochemical consequences of rising carbon absorption on abyssal benthic communities...',
-    questionsSummary: 'Questions 31-40: Note completion regarding hydrothermal vents, trophic cascades, and biodiversity indices.',
+    transcript: 'Professor: In today environmental biology symposium, we examine the accelerated degradation of tropical coral reef biomes caused by ocean acidification...',
+    questionsSummary: 'Questions 31-40: Complete notes on symbiotic zooxanthellae loss and benthic temperature threshold variations.',
   },
 ];
 
 /**
- * Kiểm tra audio phát âm chuẩn Oxford University Press / Google Dictionary CDN
+ * Lấy link audio phát âm chuẩn Anh/Mỹ từ Oxford University Press Audio CDN
  */
 async function getOxfordStudioAudioUrl(word: string): Promise<string | null> {
-  const gbUrl = `https://ssl.gstatic.com/dictionary/static/sounds/oxford/${encodeURIComponent(word.toLowerCase())}--_gb_1.mp3`;
-  try {
-    const res = await fetch(gbUrl, {
-      method: 'HEAD',
-      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' },
-      signal: AbortSignal.timeout(6000),
-    });
-    if (res.ok && res.status === 200) {
-      return gbUrl;
-    }
-  } catch {}
+  const cleanWord = word.toLowerCase().trim();
+  const testUrls = [
+    `https://ssl.gstatic.com/dictionary/static/sounds/oxford/${encodeURIComponent(cleanWord)}--_gb_1.mp3`,
+    `https://ssl.gstatic.com/dictionary/static/sounds/oxford/${encodeURIComponent(cleanWord)}--_us_1.mp3`,
+  ];
 
-  const usUrl = `https://ssl.gstatic.com/dictionary/static/sounds/oxford/${encodeURIComponent(word.toLowerCase())}--_us_1.mp3`;
-  try {
-    const res = await fetch(usUrl, {
-      method: 'HEAD',
-      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' },
-      signal: AbortSignal.timeout(6000),
-    });
-    if (res.ok && res.status === 200) {
-      return usUrl;
-    }
-  } catch {}
-
+  for (const url of testUrls) {
+    try {
+      const res = await fetch(url, {
+        method: 'HEAD',
+        headers: { 'User-Agent': 'KiokudoSRS/1.0 (IELTS Oxford Audio Engine)' },
+        signal: AbortSignal.timeout(6000),
+      });
+      if (res.ok && res.status === 200) {
+        return url;
+      }
+    } catch {}
+  }
   return null;
 }
 
 /**
- * Dự phòng tra cứu qua dictionaryapi.dev với timeout an toàn
+ * Dự phòng tra cứu qua Free Dictionary API để lấy audio phòng thu nếu Oxford CDN không có
  */
 async function fetchDictionaryAudioFallback(word: string): Promise<{ audioUrl: string; phonetic?: string } | null> {
   const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`;
   try {
     const res = await fetch(url, {
-      headers: {
-        'User-Agent': 'KiokudoSRS/1.0 (IELTS Cambridge Academic Lexicon Engine)',
-        'Accept': 'application/json',
-      },
-      signal: AbortSignal.timeout(6000),
+      headers: { 'User-Agent': 'KiokudoSRS/1.0 (Educational Academic Audio Fetcher)' },
+      signal: AbortSignal.timeout(8000),
     });
-
     if (!res.ok) return null;
     const data: any = await res.json();
     if (!Array.isArray(data) || data.length === 0) return null;
 
     const entry = data[0];
-    const phoneticsWithAudio = entry.phonetics?.filter((p: any) => p.audio && p.audio.endsWith('.mp3')) || [];
-    const preferred = phoneticsWithAudio.find((p: any) => p.audio?.includes('-uk') || p.audio?.includes('-us')) || phoneticsWithAudio[0];
+    const phonetics: any[] = entry.phonetics || [];
+    const preferred = phonetics.find((p: any) => p.audio && (p.audio.includes('-uk') || p.audio.includes('-us') || p.audio.endsWith('.mp3')));
     if (!preferred || !preferred.audio) return null;
 
     return {
@@ -129,7 +120,7 @@ async function fetchDictionaryAudioFallback(word: string): Promise<{ audioUrl: s
 }
 
 function delay(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export async function crawlCambridgeIeltsAudio(limit?: number) {
@@ -174,7 +165,7 @@ export async function crawlCambridgeIeltsAudio(limit?: number) {
     }
   }
 
-  // 2. Lấy danh sách từ vựng IELTS học thuật từ database nếu có
+  // 2. Lấy danh sách từ vựng IELTS học thuật từ database + seed list mở rộng
   let vocabList: any[] = [];
   try {
     vocabList = await db.select().from(engVocab);
@@ -184,7 +175,8 @@ export async function crawlCambridgeIeltsAudio(limit?: number) {
   vocabList.forEach((v: any) => {
     if (v.word) wordSet.add(v.word.toLowerCase().trim());
   });
-  OXFORD_CAMBRIDGE_ACADEMIC_WORDS.forEach(w => wordSet.add(w.toLowerCase().trim()));
+  OXFORD_CAMBRIDGE_ACADEMIC_WORDS.forEach((w) => wordSet.add(w.toLowerCase().trim()));
+  EXPANDED_OXFORD_WORDS.forEach((w) => wordSet.add(w.toLowerCase().trim()));
 
   const allWords = Array.from(wordSet);
   const wordsToProcess = limit ? allWords.slice(0, limit) : allWords;
@@ -209,7 +201,7 @@ export async function crawlCambridgeIeltsAudio(limit?: number) {
     }
 
     try {
-      // 1. Thử Oxford University Press Studio Audio CDN trước (Cực nhanh và chuẩn 100%)
+      // 1. Thử Oxford University Press Studio Audio CDN trước
       let audioUrl = await getOxfordStudioAudioUrl(word);
       let phonetic = '';
 
@@ -254,13 +246,12 @@ export async function crawlCambridgeIeltsAudio(limit?: number) {
     }
   }
 
-  console.log(`\n🎉 Hoàn thành Crawler Cambridge IELTS Master Audio: Thành công: ${successCount}, Bỏ qua: ${skipCount}, Lỗi: ${failCount}`);
+  console.log(`\n🎉 Hoàn thành Crawler Cambridge IELTS Master Audio: Thành công: +${successCount}, Bỏ qua: ${skipCount}, Lỗi: ${failCount}`);
 }
 
 if (process.argv[1]?.endsWith('cambridge-ielts-streamer.ts')) {
-  const limitArg = process.argv.find(a => a.startsWith('--limit='));
+  const limitArg = process.argv.find((a) => a.startsWith('--limit='));
   const isAll = process.argv.includes('--all');
   const limit = isAll ? undefined : (limitArg ? parseInt(limitArg.split('=')[1], 10) : undefined);
   crawlCambridgeIeltsAudio(limit).catch(console.error);
 }
-

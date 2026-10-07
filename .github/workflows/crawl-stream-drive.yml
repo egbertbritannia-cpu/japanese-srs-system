@@ -31,8 +31,12 @@ jobs:
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           GOOGLE_DRIVE_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}
+          TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
+          TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
         run: |
-          echo "Bắt đầu streaming dữ liệu thật lên Google Drive 15TB bằng 6 Workers..."
+          echo "=================================================================="
+          echo "🚀 Bắt đầu streaming dữ liệu thật lên Google Drive 15TB bằng 6 Workers..."
+          echo "=================================================================="
           npx tsx scripts/crawlers/orchestrate-6-workers.ts --all
 
       - name: 💾 Commit & Push updated manifests
@@ -42,4 +46,5 @@ jobs:
           git config --local user.name "GitHub Action Bot"
           git add data/manifests/ data/multimodal-manifest.json
           git commit -m "chore(data): auto-update multimodal drive manifests [skip ci]" || echo "Không có thay đổi manifest mới"
+          git pull --rebase origin main || echo "Rebase hoàn tất"
           git push || echo "Không thể push hoặc không có commit mới"

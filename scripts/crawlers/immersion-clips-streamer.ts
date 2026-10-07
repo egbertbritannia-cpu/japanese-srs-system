@@ -1,5 +1,6 @@
 import { DriveFolderManager } from './drive-folder-manager';
 import { StreamUploader } from './stream-uploader';
+import { EXPANDED_IMMERSION_TOPICS } from './seed-lexicon';
 
 export interface ImmersionScenario {
   keyword: string;
@@ -9,7 +10,7 @@ export interface ImmersionScenario {
   situation: string;
 }
 
-export const IMMERSION_SCENARIOS: ImmersionScenario[] = [
+export const BASE_IMMERSION_SCENARIOS: ImmersionScenario[] = [
   { keyword: 'こんにちは', topic: 'Chào hỏi hàng ngày (Daily Greetings)', level: 'N5', register: 'Teineigo (Lịch sự)', situation: 'Gặp gỡ đồng nghiệp vào buổi trưa tại văn phòng' },
   { keyword: 'ありがとう', topic: 'Cảm ơn và xã giao (Gratitude)', level: 'N5', register: 'Teineigo (Lịch sự)', situation: 'Cảm ơn khi được đồng nghiệp giúp đỡ hoàn thành dự án' },
   { keyword: 'すみません', topic: 'Gọi phục vụ quán ăn (Ordering/Excuse me)', level: 'N5', register: 'Teineigo (Lịch sự)', situation: 'Gọi nhân viên quán mì ramen để gọi thêm trứng ngâm vị' },
@@ -32,8 +33,20 @@ export const IMMERSION_SCENARIOS: ImmersionScenario[] = [
   { keyword: '面接', topic: 'Phỏng vấn xin việc công ty Nhật (Job Interview)', level: 'N3', register: 'Sonkeigo/Kenjougo (Kính ngữ)', situation: 'Giới thiệu bản thân và nêu lý do ứng tuyển vị trí kỹ sư' },
 ];
 
-async function fetchImmersionSentences(keyword: string): Promise<any[]> {
-  const url = `https://tatoeba.org/en/api_v0/search?from=jpn&query=${encodeURIComponent(keyword)}&has_audio=yes&trans_filter=limit`;
+// Hợp nhất toàn bộ kịch bản từ cơ bản đến mở rộng nâng cao
+export const IMMERSION_SCENARIOS: ImmersionScenario[] = [
+  ...BASE_IMMERSION_SCENARIOS,
+  ...EXPANDED_IMMERSION_TOPICS.map((e) => ({
+    keyword: e.keyword,
+    topic: e.topic,
+    level: e.level,
+    register: 'Teineigo (Lịch sự)' as const,
+    situation: e.situation,
+  })),
+];
+
+async function fetchImmersionSentences(keyword: string, page = 1): Promise<any[]> {
+  const url = `https://tatoeba.org/en/api_v0/search?from=jpn&query=${encodeURIComponent(keyword)}&has_audio=yes&sort=relevance&page=${page}`;
   try {
     const res = await fetch(url, {
       headers: {
@@ -52,7 +65,7 @@ async function fetchImmersionSentences(keyword: string): Promise<any[]> {
 }
 
 function delay(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export async function crawlImmersionSentenceClips(limit?: number) {
@@ -65,7 +78,16 @@ export async function crawlImmersionSentenceClips(limit?: number) {
   const folderId = folders.immersionClipsFolderId || folders.rootFolderId;
   const manifest = DriveFolderManager.getManifest(true);
 
-  const scenariosToRun = limit ? IMMERSION_SCENARIOS.slice(0, limit) : IMMERSION_SCENARIOS;
+  // Loại bỏ các kịch bản trùng lặp keyword
+  const scenarioMap = new Map<string, ImmersionScenario>();
+  for (const s of IMMERSION_SCENARIOS) {
+    if (!scenarioMap.has(s.keyword)) {
+      scenarioMap.set(s.keyword, s);
+    }
+  }
+
+  const allScenarios = Array.from(scenarioMap.values());
+  const scenariosToRun = limit ? allScenarios.slice(0, limit) : allScenarios;
   console.log(`🎯 Đang xử lý ${scenariosToRun.length} kịch bản giao tiếp đời sống thực tế.`);
 
   let successCount = 0;
@@ -74,21 +96,33 @@ export async function crawlImmersionSentenceClips(limit?: number) {
 
   for (let i = 0; i < scenariosToRun.length; i++) {
     const scenario = scenariosToRun[i];
-    const key = `immersion_clip:${scenario.keyword}`;
-
-    const partition = DriveFolderManager.getPartition('immersion_clip');
-    if (partition.assets[key]) {
-      skipCount++;
-      process.stdout.write(`⏭️ [${i + 1}/${scenariosToRun.length}] ${scenario.keyword} (Đã có sẵn trên Drive)\r`);
-      continue;
-    }
 
     try {
-      const sentences = await fetchImmersionSentences(scenario.keyword);
-      const validSentence = sentences.find(s => s.audios && s.audios.length > 0);
+      // Tìm câu thoại trên Tatoeba có audio
+      const sentences = await fetchImmersionSentences(scenario.keyword, 1);
+      const audioSentences = sentences.filter((s) => s.audios && s.audios.length > 0);
 
-      if (validSentence && validSentence.audios && validSentence.audios.length > 0) {
+      if (audioSentences.length === 0) {
+        skipCount++;
+        continue;
+      }
+
+      // Mỗi kịch bản lấy tối đa 2 câu thoại bản xứ phong phú
+      const targetSentences = audioSentences.slice(0, 2);
+
+      for (let sIdx = 0; sIdx < targetSentences.length; sIdx++) {
+        const validSentence = targetSentences[sIdx];
         const audio = validSentence.audios[0];
+        const key = sIdx === 0
+          ? `immersion_clip:${scenario.keyword}`
+          : `immersion_clip:${scenario.keyword}_${validSentence.id}`;
+
+        const partition = DriveFolderManager.getPartition('immersion_clip');
+        if (partition.assets[key]) {
+          skipCount++;
+          continue;
+        }
+
         const audioUrl = `https://tatoeba.org/en/audio/download/${audio.id}`;
         const fileName = `immersion_${scenario.level}_${audio.id}_${encodeURIComponent(scenario.keyword).replace(/%/g, '_')}.mp3`;
 
@@ -130,7 +164,7 @@ export async function crawlImmersionSentenceClips(limit?: number) {
                 text: validSentence.text,
                 vi: viTranslation || enTranslation,
                 en: enTranslation,
-              }
+              },
             ],
             source: 'Immersion Sentence Mining Master Corpus',
             sourceUrl: audioUrl,
@@ -138,25 +172,21 @@ export async function crawlImmersionSentenceClips(limit?: number) {
         });
 
         successCount++;
-        console.log(`✅ [${i + 1}/${scenariosToRun.length}] [${scenario.level}] ${scenario.keyword} -> "${validSentence.text}" (${entry.fileId})`);
-      } else {
-        skipCount++;
+        console.log(`✅ [${i + 1}/${scenariosToRun.length}] [${scenario.level}] ${scenario.keyword} (#${validSentence.id}) -> "${validSentence.text}" (${entry.fileId})`);
+        await delay(300);
       }
-
-      await delay(300);
     } catch (err: any) {
       failCount++;
       console.error(`❌ [${i + 1}/${scenariosToRun.length}] ${scenario.keyword} Thất bại: ${err.message}`);
     }
   }
 
-  console.log(`\n🎉 Hoàn thành Crawler Immersion Clips: Thành công: ${successCount}, Bỏ qua: ${skipCount}, Lỗi: ${failCount}`);
+  console.log(`\n🎉 Hoàn thành Crawler Immersion Clips: Thành công: +${successCount}, Bỏ qua: ${skipCount}, Lỗi: ${failCount}`);
 }
 
 if (process.argv[1]?.endsWith('immersion-clips-streamer.ts')) {
-  const limitArg = process.argv.find(a => a.startsWith('--limit='));
+  const limitArg = process.argv.find((a) => a.startsWith('--limit='));
   const isAll = process.argv.includes('--all');
   const limit = isAll ? undefined : (limitArg ? parseInt(limitArg.split('=')[1], 10) : undefined);
   crawlImmersionSentenceClips(limit).catch(console.error);
 }
-

@@ -1,7 +1,7 @@
 {
   "category": "vocab_audio",
-  "totalAssets": 322,
-  "lastUpdated": "2026-10-07T00:58:21.468Z",
+  "totalAssets": 323,
+  "lastUpdated": "2026-10-07T03:31:24.051Z",
   "assets": {
     "vocab_audio:両親": {
       "key": "vocab_audio:両親",
@@ -3845,6 +3845,24 @@
         "sourceUrl": "https://tatoeba.org/en/audio/download/753965"
       },
       "updatedAt": "2026-10-07T00:58:21.466Z"
+    },
+    "vocab_audio:tatoeba_13536221": {
+      "key": "vocab_audio:tatoeba_13536221",
+      "category": "vocab_audio",
+      "fileName": "tatoeba_corpus_13536221.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1oRrnp05FD8rG-Kz5tZXhO2Bgf0Eyy7ol",
+      "driveUrl": "https://drive.google.com/file/d/1oRrnp05FD8rG-Kz5tZXhO2Bgf0Eyy7ol/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1oRrnp05FD8rG-Kz5tZXhO2Bgf0Eyy7ol",
+      "sizeBytes": 17703,
+      "metadata": {
+        "sentenceText": "行く？",
+        "tatoebaSentenceId": 13536221,
+        "speaker": "fal",
+        "source": "Tatoeba Native Audio Project",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1283530"
+      },
+      "updatedAt": "2026-10-07T03:31:24.048Z"
     }
   }
 }

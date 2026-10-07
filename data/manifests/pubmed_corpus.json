@@ -1,7 +1,7 @@
 {
   "category": "pubmed_corpus",
-  "totalAssets": 33,
-  "lastUpdated": "2026-10-07T00:57:04.806Z",
+  "totalAssets": 34,
+  "lastUpdated": "2026-10-07T03:31:21.866Z",
   "assets": {
     "pubmed_corpus:42391239": {
       "key": "pubmed_corpus:42391239",
@@ -705,6 +705,27 @@
         "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13538708/fullTextXML"
       },
       "updatedAt": "2026-10-07T00:57:04.806Z"
+    },
+    "pubmed_corpus:PMC13556795": {
+      "key": "pubmed_corpus:PMC13556795",
+      "category": "pubmed_corpus",
+      "fileName": "pubmed_PMC13556795_PMC13556795_fulltext.xml",
+      "mimeType": "application/xml",
+      "fileId": "1U59UpKtBJ8fOGKiLKS2Zjj74CQhxuGoH",
+      "driveUrl": "https://drive.google.com/file/d/1U59UpKtBJ8fOGKiLKS2Zjj74CQhxuGoH/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1U59UpKtBJ8fOGKiLKS2Zjj74CQhxuGoH",
+      "sizeBytes": 0,
+      "metadata": {
+        "pmid": "PMC13556795",
+        "pmcid": "PMC13556795",
+        "title": "354. Effects of psilocybin treatment on cognitive function in Japanese patients with treatment-resistant depression: an open-label study",
+        "pubYear": "2026",
+        "topic": "Japanese Language & Cognitive Neuroscience",
+        "format": "FullText XML",
+        "source": "Europe PMC / PubMed Central Open Access Repository",
+        "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13556795/fullTextXML"
+      },
+      "updatedAt": "2026-10-07T03:31:21.865Z"
     }
   }
 }

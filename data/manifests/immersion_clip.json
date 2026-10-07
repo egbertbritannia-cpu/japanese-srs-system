@@ -1,7 +1,7 @@
 {
   "category": "immersion_clip",
-  "totalAssets": 19,
-  "lastUpdated": "2026-10-07T00:56:52.269Z",
+  "totalAssets": 20,
+  "lastUpdated": "2026-10-07T03:31:23.711Z",
   "assets": {
     "immersion_clip:こんにちは": {
       "key": "immersion_clip:こんにちは",
@@ -658,6 +658,41 @@
         "sourceUrl": "https://tatoeba.org/en/audio/download/1053495"
       },
       "updatedAt": "2026-10-07T00:56:52.268Z"
+    },
+    "immersion_clip:こんにちは_11004908": {
+      "key": "immersion_clip:こんにちは_11004908",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_1053872__E3_81_93_E3_82_93_E3_81_AB_E3_81_A1_E3_81_AF.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "10jP3adi9IgC6-eApMUNHVfRN0_EIpWfB",
+      "driveUrl": "https://drive.google.com/file/d/10jP3adi9IgC6-eApMUNHVfRN0_EIpWfB/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/10jP3adi9IgC6-eApMUNHVfRN0_EIpWfB",
+      "sizeBytes": 52873,
+      "metadata": {
+        "keyword": "こんにちは",
+        "topic": "Chào hỏi hàng ngày (Daily Greetings)",
+        "level": "N5",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Gặp gỡ đồng nghiệp vào buổi trưa tại văn phòng",
+        "japanese": "この意見に、宇宙人たちは、パチパチと、それぞれすべての手で拍手して賛成した。",
+        "translationVi": "",
+        "translationEn": "",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 11004908,
+        "tatoebaAudioId": 1053872,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "この意見に、宇宙人たちは、パチパチと、それぞれすべての手で拍手して賛成した。",
+            "vi": "",
+            "en": ""
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1053872"
+      },
+      "updatedAt": "2026-10-07T03:31:23.710Z"
     }
   }
 }

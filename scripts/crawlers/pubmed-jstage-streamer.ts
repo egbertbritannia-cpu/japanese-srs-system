@@ -1,5 +1,6 @@
 import { DriveFolderManager } from './drive-folder-manager';
 import { StreamUploader } from './stream-uploader';
+import { EXPANDED_PUBMED_TOPICS } from './seed-lexicon';
 
 export interface PubMedArticle {
   id: string;
@@ -15,31 +16,18 @@ export interface PubMedArticle {
   hasFullText?: boolean;
 }
 
+export const BASE_PUBMED_TOPICS = [
+  { topic: 'Japanese Language & Cognitive Neuroscience', query: 'japanese language cognition memory neuroscience' },
+  { topic: 'Spaced Repetition & Memory Retrieval Practice', query: 'spaced repetition memory retrieval practice cognitive load' },
+  { topic: 'Bilingual Lexicon & Pitch Accent Perception', query: 'japanese pitch accent phonology bilingual speech perception' },
+  { topic: 'Medical & Clinical Japanese Terminology (J-STAGE)', query: 'japanese medical terminology clinical translation healthcare' },
+  { topic: 'Neuroplasticity & Kanji Processing in the Brain', query: 'kanji reading neuroscience brain activation fMRI' },
+  { topic: 'Memory Consolidation & Forgetting Curve Dynamics', query: 'memory consolidation ebbinghaus retention interval' },
+];
+
 export const PUBMED_TOPICS = [
-  {
-    topic: 'Japanese Language & Cognitive Neuroscience',
-    query: 'japanese language cognition memory neuroscience',
-  },
-  {
-    topic: 'Spaced Repetition & Memory Retrieval Practice',
-    query: 'spaced repetition memory retrieval practice cognitive load',
-  },
-  {
-    topic: 'Bilingual Lexicon & Pitch Accent Perception',
-    query: 'japanese pitch accent phonology bilingual speech perception',
-  },
-  {
-    topic: 'Medical & Clinical Japanese Terminology (J-STAGE)',
-    query: 'japanese medical terminology clinical translation healthcare',
-  },
-  {
-    topic: 'Neuroplasticity & Kanji Processing in the Brain',
-    query: 'kanji reading neuroscience brain activation fMRI',
-  },
-  {
-    topic: 'Memory Consolidation & Forgetting Curve Dynamics',
-    query: 'memory consolidation ebbinghaus retention interval',
-  },
+  ...BASE_PUBMED_TOPICS,
+  ...EXPANDED_PUBMED_TOPICS,
 ];
 
 /**
@@ -63,8 +51,8 @@ export const BILINGUAL_MEDICAL_TERMINOLOGY = [
   { termJp: '臨床試験', reading: 'りんしょうしけん', termEn: 'Clinical Trial', termVi: 'Thử nghiệm lâm sàng y sinh học', domain: 'Pharmacology' },
 ];
 
-async function fetchPubMedArticles(query: string, pageSize = 10): Promise<PubMedArticle[]> {
-  const url = `https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=${encodeURIComponent(query)}&format=json&pageSize=${pageSize}&resultType=core`;
+async function fetchPubMedArticles(query: string, pageSize = 25, page = 1): Promise<PubMedArticle[]> {
+  const url = `https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=${encodeURIComponent(query)}&format=json&pageSize=${pageSize}&page=${page}&resultType=core`;
   try {
     const res = await fetch(url, {
       headers: {
@@ -83,7 +71,7 @@ async function fetchPubMedArticles(query: string, pageSize = 10): Promise<PubMed
 }
 
 function delay(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export async function crawlPubMedJStageCorpus(limit?: number) {
@@ -102,13 +90,17 @@ export async function crawlPubMedJStageCorpus(limit?: number) {
   const pubmedPartition = DriveFolderManager.getPartition('pubmed_corpus');
   if (!pubmedPartition.assets[termKey]) {
     try {
-      const termsContent = JSON.stringify({
-        title: 'J-STAGE & MeSH Bilingual Medical / Neurocognitive Lexicon',
-        version: '1.0',
-        totalTerms: BILINGUAL_MEDICAL_TERMINOLOGY.length,
-        terms: BILINGUAL_MEDICAL_TERMINOLOGY,
-        createdAt: new Date().toISOString(),
-      }, null, 2);
+      const termsContent = JSON.stringify(
+        {
+          title: 'J-STAGE & MeSH Bilingual Medical / Neurocognitive Lexicon',
+          version: '1.0',
+          totalTerms: BILINGUAL_MEDICAL_TERMINOLOGY.length,
+          terms: BILINGUAL_MEDICAL_TERMINOLOGY,
+          createdAt: new Date().toISOString(),
+        },
+        null,
+        2
+      );
 
       await DriveFolderManager.uploadAndRegister({
         key: termKey,
@@ -118,142 +110,143 @@ export async function crawlPubMedJStageCorpus(limit?: number) {
         content: termsContent,
         folderId,
         metadata: {
-          title: 'J-STAGE & MeSH Bilingual Medical Lexicon',
+          title: 'J-STAGE & MeSH Bilingual Lexicon',
+          domain: 'Neuroscience & Japanese Healthcare Terminology',
           totalTerms: BILINGUAL_MEDICAL_TERMINOLOGY.length,
-          source: 'J-STAGE Medical Terminology & MeSH Standards',
+          source: 'J-STAGE Medical Terminology Database & MeSH',
         },
       });
-      console.log('  ✓ Đã đồng bộ thành công bộ thuật ngữ y sinh học vào Google Drive');
+      console.log('  ✓ Đã lưu từ điển thuật ngữ song ngữ J-STAGE vào Google Drive.');
     } catch (err: any) {
-      console.warn('  ⚠️ Lỗi đồng bộ bộ thuật ngữ:', err.message);
+      console.warn('  ⚠️ Lỗi lưu từ điển thuật ngữ:', err.message);
     }
   }
 
-  // 2. Thu thập bài báo học thuật y sinh học & khoa học thần kinh
-  console.log('🔍 [2/2] Đang tìm kiếm các công trình nghiên cứu trên Europe PMC / PubMed...');
-  const allArticles: Array<{ article: PubMedArticle; topic: string }> = [];
-  for (const t of PUBMED_TOPICS) {
-    const articles = await fetchPubMedArticles(t.query, 6);
-    for (const a of articles) {
-      if ((a.pmid || a.id) && a.abstractText) {
-        allArticles.push({ article: a, topic: t.topic });
-      }
-    }
-    await delay(150);
-  }
-
-  const articlesToProcess = limit ? allArticles.slice(0, limit) : allArticles;
-  console.log(`🎯 Xử lý ${articlesToProcess.length} công trình nghiên cứu khoa học.`);
+  // 2. PHÂN TRANG LIÊN TỤC (DEEP EUROPE PMC SEARCH): Quét đa trang bài báo học thuật
+  console.log('🔍 [2/2] Đang tìm kiếm các công trình nghiên cứu trên Europe PMC / PubMed (Đa trang)...');
+  const pagesPerTopic = limit ? 1 : 3; // Quét 3 trang mỗi topic (tối đa 75 bài/topic)
 
   let successCount = 0;
   let skipCount = 0;
   let failCount = 0;
 
-  for (let i = 0; i < articlesToProcess.length; i++) {
-    const { article, topic } = articlesToProcess[i];
-    const pmid = article.pmid || article.id;
-    const key = `pubmed_corpus:${pmid}`;
+  for (const t of PUBMED_TOPICS) {
+    if (limit && successCount >= limit) break;
+    console.log(`  📖 Chủ đề nghiên cứu: 【${t.topic}】...`);
 
-    const partition = DriveFolderManager.getPartition('pubmed_corpus');
-    if (partition.assets[key]) {
-      skipCount++;
-      process.stdout.write(`⏭️ [${i + 1}/${articlesToProcess.length}] PMID:${pmid} (Đã có sẵn trên Drive)\r`);
-      continue;
-    }
+    for (let p = 1; p <= pagesPerTopic; p++) {
+      if (limit && successCount >= limit) break;
+      const articles = await fetchPubMedArticles(t.query, 20, p);
+      if (articles.length === 0) break;
 
-    try {
-      const pmcid = article.pmcid;
-      let streamedFullText = false;
+      let newInBatch = 0;
+      for (const article of articles) {
+        if (limit && successCount >= limit) break;
+        const pmid = article.pmid || article.id;
+        if (!pmid) continue;
 
-      // Nếu có PMCID (Open Access Full-Text), tải toàn văn XML trực tiếp vào Google Drive
-      if (pmcid) {
-        const xmlUrl = `https://www.ebi.ac.uk/europepmc/webservices/rest/${pmcid}/fullTextXML`;
+        const key = `pubmed_corpus:${pmid}`;
+        const partition = DriveFolderManager.getPartition('pubmed_corpus');
+        if (partition.assets[key]) {
+          skipCount++;
+          continue;
+        }
+
         try {
-          const xmlFileName = `pubmed_${pmid}_${pmcid}_fulltext.xml`;
-          const entry = await StreamUploader.streamUploadFromUrl({
-            url: xmlUrl,
-            key,
-            category: 'pubmed_corpus',
-            fileName: xmlFileName,
-            mimeType: 'application/xml',
-            folderId,
-            metadata: {
+          const pmcid = article.pmcid;
+          let streamedFullText = false;
+
+          // Nếu có PMCID (Open Access Full-Text), tải toàn văn XML trực tiếp vào Google Drive
+          if (pmcid) {
+            const xmlUrl = `https://www.ebi.ac.uk/europepmc/webservices/rest/${pmcid}/fullTextXML`;
+            try {
+              const xmlFileName = `pubmed_${pmid}_${pmcid}_fulltext.xml`;
+              const entry = await StreamUploader.streamUploadFromUrl({
+                url: xmlUrl,
+                key,
+                category: 'pubmed_corpus',
+                fileName: xmlFileName,
+                mimeType: 'application/xml',
+                folderId,
+                metadata: {
+                  pmid,
+                  pmcid,
+                  doi: article.doi,
+                  title: article.title,
+                  journal: article.journalTitle,
+                  pubYear: article.pubYear,
+                  topic: t.topic,
+                  format: 'FullText XML',
+                  source: 'Europe PMC / PubMed Central Open Access Repository',
+                  sourceUrl: xmlUrl,
+                },
+              });
+              streamedFullText = true;
+              successCount++;
+              newInBatch++;
+              console.log(`    ✅ [Trang ${p}] PMID:${pmid} [XML ${pmcid}] -> ${entry.fileId}`);
+              await delay(300);
+            } catch {}
+          }
+
+          if (!streamedFullText) {
+            const payload = {
               pmid,
-              pmcid,
-              doi: article.doi,
+              pmcid: article.pmcid || '',
+              doi: article.doi || '',
               title: article.title,
-              journal: article.journalTitle,
-              pubYear: article.pubYear,
-              topic,
-              format: 'FullText XML',
-              source: 'Europe PMC / PubMed Central Open Access Repository',
-              sourceUrl: xmlUrl,
-            },
-          });
-          streamedFullText = true;
-          successCount++;
-          console.log(`✅ [${i + 1}/${articlesToProcess.length}] PMID:${pmid} [FullText XML ${pmcid}] -> Uploaded: ${entry.fileId}`);
-        } catch {
-          // Fallback sang lưu structured JSON nếu XML endpoint tạm thời bận
+              authors: article.authorString || '',
+              journal: article.journalTitle || '',
+              pubYear: article.pubYear || '',
+              topic: t.topic,
+              abstract: article.abstractText || '',
+              source: 'PubMed / Europe PMC Scientific Repository',
+              crawledAt: new Date().toISOString(),
+            };
+
+            const jsonContent = JSON.stringify(payload, null, 2);
+            const safeTitle = encodeURIComponent((article.title || 'article').substring(0, 30)).replace(/%/g, '_');
+            const fileName = `pubmed_${pmid}_${safeTitle}.json`;
+
+            const entry = await DriveFolderManager.uploadAndRegister({
+              key,
+              category: 'pubmed_corpus',
+              fileName,
+              mimeType: 'application/json',
+              content: jsonContent,
+              folderId,
+              metadata: {
+                pmid,
+                doi: article.doi,
+                title: article.title,
+                journal: article.journalTitle,
+                pubYear: article.pubYear,
+                topic: t.topic,
+                format: 'Structured JSON Abstract',
+                source: 'PubMed Central & Europe PMC',
+              },
+            });
+
+            successCount++;
+            newInBatch++;
+            console.log(`    ✅ [Trang ${p}] PMID:${pmid} -> "${(article.title || '').substring(0, 40)}..." (${entry.fileId})`);
+            await delay(300);
+          }
+        } catch (err: any) {
+          failCount++;
         }
       }
-
-      if (!streamedFullText) {
-        const payload = {
-          pmid,
-          pmcid: article.pmcid || '',
-          doi: article.doi || '',
-          title: article.title,
-          authors: article.authorString || '',
-          journal: article.journalTitle || '',
-          pubYear: article.pubYear || '',
-          topic,
-          abstract: article.abstractText,
-          source: 'PubMed / Europe PMC Scientific Repository',
-          crawledAt: new Date().toISOString(),
-        };
-
-        const jsonContent = JSON.stringify(payload, null, 2);
-        const safeTitle = encodeURIComponent(article.title.substring(0, 30)).replace(/%/g, '_');
-        const fileName = `pubmed_${pmid}_${safeTitle}.json`;
-
-        const entry = await DriveFolderManager.uploadAndRegister({
-          key,
-          category: 'pubmed_corpus',
-          fileName,
-          mimeType: 'application/json',
-          content: jsonContent,
-          folderId,
-          metadata: {
-            pmid,
-            doi: article.doi,
-            title: article.title,
-            journal: article.journalTitle,
-            pubYear: article.pubYear,
-            topic,
-            format: 'Structured JSON Abstract',
-            source: 'PubMed Central & Europe PMC',
-          },
-        });
-
-        successCount++;
-        console.log(`✅ [${i + 1}/${articlesToProcess.length}] PMID:${pmid} -> "${article.title.substring(0, 45)}..." (${entry.fileId})`);
-      }
-
-      await delay(300);
-    } catch (err: any) {
-      failCount++;
-      console.error(`❌ [${i + 1}/${articlesToProcess.length}] PMID:${pmid} Thất bại: ${err.message}`);
+      console.log(`    ✓ Trang ${p}: +${newInBatch} bài báo mới.`);
+      await delay(500);
     }
   }
 
-  console.log(`\n🎉 Hoàn thành Crawler PubMed & J-STAGE Corpus: Thành công: ${successCount}, Bỏ qua: ${skipCount}, Lỗi: ${failCount}`);
+  console.log(`\n🎉 Hoàn thành Crawler PubMed & J-STAGE Corpus: Thành công: +${successCount}, Bỏ qua: ${skipCount}, Lỗi: ${failCount}`);
 }
 
 if (process.argv[1]?.endsWith('pubmed-jstage-streamer.ts')) {
-  const limitArg = process.argv.find(a => a.startsWith('--limit='));
+  const limitArg = process.argv.find((a) => a.startsWith('--limit='));
   const isAll = process.argv.includes('--all');
   const limit = isAll ? undefined : (limitArg ? parseInt(limitArg.split('=')[1], 10) : undefined);
   crawlPubMedJStageCorpus(limit).catch(console.error);
 }
-

@@ -1,7 +1,7 @@
 {
   "category": "illustration",
-  "totalAssets": 272,
-  "lastUpdated": "2026-10-07T01:45:56.683Z",
+  "totalAssets": 273,
+  "lastUpdated": "2026-10-07T03:31:23.694Z",
   "assets": {
     "illustration:irasutoya_学校_%E3%83%95%E3%83%AC%E": {
       "key": "illustration:irasutoya_学校_%E3%83%95%E3%83%AC%E",
@@ -5416,6 +5416,25 @@
         "sourceUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgou3IFe-vWfIdyMxp-TUq3u_N51FeYv2zI1_rV_mUAHJpPrqoyyHOpphgv5h6IEHjBwtJMzaNG9_Nhiwv-rm6oXfUs1YgMyMmq4QB72XE-1Y-gAxqWl8FBOjZJG6kZ1uLJeEytcp9Nk0k/s1200/family_kyoudai.png"
       },
       "updatedAt": "2026-10-07T01:45:56.678Z"
+    },
+    "illustration:irasutoya_学校_%E3%83%95%E3%83%AC%E3%83%8D%E3": {
+      "key": "illustration:irasutoya_学校_%E3%83%95%E3%83%AC%E3%83%8D%E3",
+      "category": "illustration",
+      "fileName": "irasutoya__E3_83_95_E3_83_AC_E3_83_8D_E3_83_9F_E3_83_BC_E3_81_AE_E3_82_A4_E3_83_A9_E3_82_B9_E3_83_88_EF_BC_88_E5_A5_B3_E6_80_A7_EF_BC_89_1200px.png",
+      "mimeType": "image/png",
+      "fileId": "1s4Gxtng__dv3KtbktdKXYT0voIJEqpPq",
+      "driveUrl": "https://drive.google.com/file/d/1s4Gxtng__dv3KtbktdKXYT0voIJEqpPq/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1s4Gxtng__dv3KtbktdKXYT0voIJEqpPq",
+      "sizeBytes": 684227,
+      "metadata": {
+        "title": "フレネミーのイラスト（女性）",
+        "category": "学校",
+        "resolution": "1200px",
+        "source": "Irasutoya Master Archive",
+        "artist": "Takashi Mifune (いらすとや)",
+        "sourceUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi6rCArdsNsb_RsVMxNJQQTVuwkqOPI_-ugAg1ZTw8r-2cg8rMSoxh2wIpu4QXe1KtGPPLSb28STbI1fOGfKF1Xel-XbDfWKh5on4GObv86dQH7NETwvywk58sfRkvKRT6qnVv9EPNQmeEBgK7izclmHjI2akjHEj2QV_vjxHeR55HTdCLK3sSxbwn4EDt7/s1200/friends_frienemy_woman.png"
+      },
+      "updatedAt": "2026-10-07T03:31:23.689Z"
     }
   }
 }
