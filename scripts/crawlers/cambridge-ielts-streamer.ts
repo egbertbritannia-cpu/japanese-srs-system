@@ -84,6 +84,13 @@ export const CAMBRIDGE_ARCHIVE_COLLECTIONS = [
   { id: 'cambridge_ielts_1_12', name: 'Cambridge IELTS Books 1 to 12 Academic Audio Master', series: 'Cambridge IELTS 1-12' },
   { id: 'by_CD11', name: '15 Days Practice for IELTS Listening Audio Pack', series: '15 Days IELTS' },
   { id: 'highimpactielts_academicmodule', name: 'High Impact IELTS Academic Module Audio CD', series: 'High Impact IELTS' },
+  { id: '22-track-22_20210309', name: 'Barrons IELTS Practice Listening Audio CD 1', series: 'Barrons IELTS' },
+  { id: 'Ielts-Tests', name: 'IELTS Authentic Actual Examination Practice Tests Complete Audio', series: 'IELTS Tests' },
+  { id: 'IELTSListeningMockTest1Recording', name: 'IELTS Listening Official Examination Mock Test Recording', series: 'IELTS Mock' },
+  { id: 'mindset-l-1-01', name: 'Mindset for IELTS Foundation & Level 1 Audio CD', series: 'Mindset IELTS' },
+  { id: 'IELTS8Test2', name: 'Cambridge IELTS 8 Test 2 Authentic Exam Audio', series: 'Cambridge IELTS 8' },
+  { id: 'CambridgePracticeTestsForIELTS1.1', name: 'Cambridge Practice Tests for IELTS Audio CD Pack 1', series: 'Cambridge Practice' },
+  { id: 'passive-listening-practice-for-ielts', name: 'Passive Listening Audio Bank for IELTS Academic Mastery', series: 'Passive IELTS' },
 ];
 
 /**

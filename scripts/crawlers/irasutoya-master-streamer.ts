@@ -214,7 +214,7 @@ export async function crawlIrasutoyaMasterIllustrations(limit?: number) {
   // 2. PHÂN TRANG LIÊN TỤC (DEEP BLOGGER PAGINATION): Cào tranh giáo dục theo 10 chuyên mục
   const shouldExpandCategories = !limit || process.argv.includes('--categories') || process.argv.includes('--all');
   if (shouldExpandCategories) {
-    const pagesPerCat = limit ? 1 : 5; // Mỗi chuyên mục quét 5 đợt (start-index: 1, 26, 51, 76, 101)
+    const pagesPerCat = limit ? 2 : 10; // Mỗi chuyên mục quét 10 đợt (tổng 250 tranh/chủ đề x 10 = 2500 tranh)
     console.log(`\n📚 Mở rộng kho tàng: Đang phân trang sâu Blogger Feed cho 10 chuyên mục (${pagesPerCat} trang/chủ đề)...`);
 
     for (const cat of IRASUTOYA_CATEGORIES) {
@@ -229,8 +229,7 @@ export async function crawlIrasutoyaMasterIllustrations(limit?: number) {
           if (limit && successCount >= limit) break;
           const cleanTitle = img.title.replace(/[\\/:*?"<>|]/g, '_').trim();
           const key = `illustration:irasutoya_${cat}_${encodeURIComponent(cleanTitle).slice(0, 30)}`;
-          const partition = DriveFolderManager.getPartition('illustration');
-          if (partition.assets[key]) {
+          if (DriveFolderManager.hasAsset(key)) {
             skipCount++;
             continue;
           }
@@ -265,7 +264,7 @@ export async function crawlIrasutoyaMasterIllustrations(limit?: number) {
           }
         }
         console.log(`    ✓ ${cat} (start-index: ${startIndex}): +${newInBatch} ảnh mới.`);
-        await delay(500);
+        await delay(400);
       }
     }
   }

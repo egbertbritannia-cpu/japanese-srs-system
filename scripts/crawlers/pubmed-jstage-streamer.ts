@@ -146,8 +146,7 @@ export async function crawlPubMedJStageCorpus(limit?: number) {
         if (!pmid) continue;
 
         const key = `pubmed_corpus:${pmid}`;
-        const partition = DriveFolderManager.getPartition('pubmed_corpus');
-        if (partition.assets[key]) {
+        if (DriveFolderManager.hasAsset(key)) {
           skipCount++;
           continue;
         }

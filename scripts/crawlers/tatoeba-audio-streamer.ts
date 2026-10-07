@@ -258,7 +258,7 @@ export async function crawlTatoebaNativeAudio(limit?: number) {
   // 2. PHÂN TRANG LIÊN TỤC (DEEP PAGINATION): Thu thập thêm hàng trăm câu thoại bản xứ từ Tatoeba Corpus
   const shouldFetchFeed = !limit || process.argv.includes('--feed') || process.argv.includes('--all');
   if (shouldFetchFeed) {
-    const maxPages = limit ? Math.min(5, Math.ceil(limit / 20)) : 25; // Quét tối đa 25 trang (hơn 600 câu) mỗi lần chạy
+    const maxPages = limit ? Math.min(10, Math.ceil(limit / 20)) : 60; // Quét sâu đến 60 trang (hơn 1.500 câu bản xứ)
     console.log(`\n📚 Mở rộng kho ngữ liệu: Đang phân trang sâu Tatoeba Feed (tối đa ${maxPages} trang)...`);
 
     for (let page = 1; page <= maxPages; page++) {
@@ -276,8 +276,7 @@ export async function crawlTatoebaNativeAudio(limit?: number) {
         if (!audioInfo) continue;
 
         const key = `vocab_audio:tatoeba_${sent.id}`;
-        const partition = DriveFolderManager.getPartition('vocab_audio');
-        if (partition.assets[key]) {
+        if (DriveFolderManager.hasAsset(key)) {
           skipCount++;
           continue;
         }
@@ -309,7 +308,7 @@ export async function crawlTatoebaNativeAudio(limit?: number) {
         }
       }
       console.log(`  ✓ Trang ${page}: +${newInPage} câu thoại mới được streaming thành công.`);
-      await delay(500);
+      await delay(400);
     }
   }
 

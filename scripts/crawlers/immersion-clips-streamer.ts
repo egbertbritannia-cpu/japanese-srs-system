@@ -117,8 +117,7 @@ export async function crawlImmersionSentenceClips(limit?: number) {
           ? `immersion_clip:${scenario.keyword}`
           : `immersion_clip:${scenario.keyword}_${validSentence.id}`;
 
-        const partition = DriveFolderManager.getPartition('immersion_clip');
-        if (partition.assets[key]) {
+        if (DriveFolderManager.hasAsset(key)) {
           skipCount++;
           continue;
         }

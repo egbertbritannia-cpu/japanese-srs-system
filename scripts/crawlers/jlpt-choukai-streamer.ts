@@ -448,6 +448,12 @@ export async function crawlJlptChoukaiArchive(options?: number | JlptStreamerOpt
       { id: 'n-3-n-3-cd-1-shin-kanzen-master-n-3-choukai-audio-cd-1', name: 'Shin Kanzen Master N3 Choukai Audio CD1', levelDefault: 'N3' },
       { id: 'jlpt-n-2-2024-july-cd', name: 'JLPT N2 2024 July Official Examination CD', levelDefault: 'N2' },
       { id: 'n4q22018', name: 'JLPT N4 Official Examination Trial Mock CD', levelDefault: 'N4' },
+      { id: 'tnn9209_gmail_36', name: 'Tanki Master Drill N5 Choukai Audio', levelDefault: 'N5' },
+      { id: 'jlpt-stories', name: 'JLPT Stories Authentic Listening Audio', levelDefault: 'N3' },
+      { id: 'n4q22012', name: 'JLPT N4 2012 Mock Test Choukai Audio', levelDefault: 'N4' },
+      { id: 'n-5_20240905', name: 'JLPT N5 2024 Examination Audio Master', levelDefault: 'N5' },
+      { id: 'n-1-q-1', name: 'JLPT N1 Official Examination Audio CD', levelDefault: 'N1' },
+      { id: 'JapaneseTravelVocabulary', name: 'Japanese Travel Conversation Audio Master', levelDefault: 'N4' },
     ];
 
     let candidateCollections = JLPT_ARCHIVE_COLLECTIONS;
