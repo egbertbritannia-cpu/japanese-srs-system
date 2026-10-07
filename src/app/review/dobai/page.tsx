@@ -244,10 +244,13 @@ function ReviewSessionContent() {
               }))
             );
             const softLinked = softLinkManifestWithDbCards(slotDef.vocabularyList, dbIndex);
-            studyCards = softLinked.map((item) => {
-              const dbMatch = item.dbCardId ? rawCards.find((c) => String(c.id) === String(item.dbCardId)) : undefined;
+            // Only persisted DB cards may enter the FSRS review queue.
+            // Unmatched manifest rows remain visible in the curriculum pages but are
+            // not converted into synthetic review IDs.
+            studyCards = softLinked.filter((item) => Boolean(item.dbCardId)).map((item) => {
+              const dbMatch = rawCards.find((c) => String(c.id) === String(item.dbCardId));
               return {
-                id: String(item.dbCardId || item.id),
+                id: String(item.dbCardId),
                 kanji: item.kanji,
                 reading: item.reading,
                 meaning: item.vietnameseMeaning,
