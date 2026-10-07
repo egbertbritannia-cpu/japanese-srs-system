@@ -25,7 +25,9 @@ function prepareAnimatedSvg(rawSvg: string): string {
   let styledSvg = rawSvg
     .replace(/<svg\s+([^>]*?)width="[^"]*"/, '<svg $1width="100%"')
     .replace(/<svg\s+([^>]*?)height="[^"]*"/, '<svg $1height="100%"')
-    .replace(/<path\s+id="kvg:([^"]+-s(\d+))"/g, '$& class="kanji-stroke-anim stroke-$2"');
+    .replace(/<path\s+([^>]*?)id="kvg:([^"]+-s(\d+))"/g, (match, prefix, fullId, strokeNum) => {
+      return `<path ${prefix}id="kvg:${fullId}" class="kanji-stroke-anim stroke-${strokeNum}"`;
+    });
 
   if (!styledSvg.includes('viewBox')) {
     styledSvg = styledSvg.replace(/<svg\s+/, '<svg viewBox="0 0 109 109" ');
@@ -69,9 +71,9 @@ function prepareAnimatedSvg(rawSvg: string): string {
  */
 function sanitizeExistingSvg(svgStr: string): string {
   let cleaned = svgStr
-    .replace(/stroke-dashoffset:\s*\d+\s*!important\s*;/g, 'stroke-dashoffset: 400;')
-    .replace(/stroke-dasharray:\s*\d+\s*!important\s*;/g, 'stroke-dasharray: 400;')
-    .replace(/stroke:\s*#16253B\s*!important/g, 'stroke: #9E3223 !important;')
+    .replace(/stroke-dashoffset:\s*\d+\s*!important\s*;?/g, 'stroke-dashoffset: 400;')
+    .replace(/stroke-dasharray:\s*\d+\s*!important\s*;?/g, 'stroke-dasharray: 400;')
+    .replace(/stroke:\s*#16253B\s*!important\s*;?/g, 'stroke: #9E3223 !important;')
     .replace(/<svg\s+([^>]*?)width="[^"]*"/, '<svg $1width="100%"')
     .replace(/<svg\s+([^>]*?)height="[^"]*"/, '<svg $1height="100%"');
 

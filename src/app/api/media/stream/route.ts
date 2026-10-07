@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleDriveService } from '@/services/google/drive.service';
+import { MultimodalMediaService } from '@/services/multimodal/media.service';
 
 // In-memory cache for media assets to prevent repeated Google Drive calls
 const mediaCache = new Map<string, { buffer: Buffer; contentType: string }>();
@@ -11,8 +12,8 @@ function animateKanjiSvg(rawSvg: string, kanjiChar: string): string {
   const pathMatches = rawSvg.match(/<path[^>]+id="kvg:[^"]+-s(\d+)"[^>]*>/g) || [];
   const strokeCount = pathMatches.length;
 
-  let styledSvg = rawSvg.replace(/<path\s+id="kvg:([^"]+-s(\d+))"/g, (match, fullId, strokeNum) => {
-    return `${match} class="kanji-stroke-anim stroke-${strokeNum}"`;
+  let styledSvg = rawSvg.replace(/<path\s+([^>]*?)id="kvg:([^"]+-s(\d+))"/g, (match, prefix, fullId, strokeNum) => {
+    return `<path ${prefix}id="kvg:${fullId}" class="kanji-stroke-anim stroke-${strokeNum}"`;
   });
 
   let css = `
@@ -54,9 +55,9 @@ function animateKanjiSvg(rawSvg: string, kanjiChar: string): string {
 
 function sanitizeExistingSvg(svgStr: string): string {
   let cleaned = svgStr
-    .replace(/stroke-dashoffset:\s*\d+\s*!important\s*;/g, 'stroke-dashoffset: 400;')
-    .replace(/stroke-dasharray:\s*\d+\s*!important\s*;/g, 'stroke-dasharray: 400;')
-    .replace(/stroke:\s*#16253B\s*!important/g, 'stroke: #9E3223 !important;');
+    .replace(/stroke-dashoffset:\s*\d+\s*!important\s*;?/g, 'stroke-dashoffset: 400;')
+    .replace(/stroke-dasharray:\s*\d+\s*!important\s*;?/g, 'stroke-dasharray: 400;')
+    .replace(/stroke:\s*#16253B\s*!important\s*;?/g, 'stroke: #9E3223 !important;');
 
   if (!cleaned.includes('@keyframes drawStroke')) {
     cleaned = cleaned.replace(/<style>/, `<style>\n  @keyframes drawStroke {\n    0% { stroke-dashoffset: 400; }\n    100% { stroke-dashoffset: 0; }\n  }\n`);
@@ -111,7 +112,7 @@ export async function HEAD(request: NextRequest) {
 
 async function handleMediaStream(request: NextRequest, isHead: boolean) {
   const { searchParams } = new URL(request.url);
-  const fileId = searchParams.get('fileId');
+  let fileId = searchParams.get('fileId');
   const mimeTypeHint = searchParams.get('mimeType') || searchParams.get('mime');
   const kanjiChar = searchParams.get('kanji') || searchParams.get('char');
 
@@ -123,20 +124,31 @@ async function handleMediaStream(request: NextRequest, isHead: boolean) {
       return buildMediaResponse(request, cached.buffer, cached.contentType, isHead);
     }
 
+    // Tra cứu trong Multimodal Manifest xem đã có fileId trên Google Drive chưa
     try {
-      const hex = kanjiChar.charCodeAt(0).toString(16).padStart(5, '0');
-      const kvgUrl = `https://raw.githubusercontent.com/KanjiVG/kanjivg/master/kanji/${hex}.svg`;
-      const res = await fetch(kvgUrl, { signal: AbortSignal.timeout(8000) });
-      if (res.ok) {
-        const rawSvg = await res.text();
-        const animatedSvg = animateKanjiSvg(rawSvg, kanjiChar);
-        const buffer = Buffer.from(animatedSvg, 'utf-8');
-        const contentType = 'image/svg+xml; charset=utf-8';
-        mediaCache.set(cacheKey, { buffer, contentType });
-        return buildMediaResponse(request, buffer, contentType, isHead);
+      const asset = MultimodalMediaService.getAsset(`kanji:${kanjiChar}`);
+      if (asset?.fileId) {
+        fileId = asset.fileId;
       }
-    } catch (err: any) {
-      console.warn('[MediaStreamProxy] KanjiVG fetch error:', err.message);
+    } catch {}
+
+    // Nếu chưa có trên Drive, tải trực tiếp từ KanjiVG GitHub Upstream
+    if (!fileId) {
+      try {
+        const hex = kanjiChar.charCodeAt(0).toString(16).padStart(5, '0');
+        const kvgUrl = `https://raw.githubusercontent.com/KanjiVG/kanjivg/master/kanji/${hex}.svg`;
+        const res = await fetch(kvgUrl, { signal: AbortSignal.timeout(8000) });
+        if (res.ok) {
+          const rawSvg = await res.text();
+          const animatedSvg = animateKanjiSvg(rawSvg, kanjiChar);
+          const buffer = Buffer.from(animatedSvg, 'utf-8');
+          const contentType = 'image/svg+xml; charset=utf-8';
+          mediaCache.set(cacheKey, { buffer, contentType });
+          return buildMediaResponse(request, buffer, contentType, isHead);
+        }
+      } catch (err: any) {
+        console.warn('[MediaStreamProxy] KanjiVG fetch error:', err.message);
+      }
     }
   }
 

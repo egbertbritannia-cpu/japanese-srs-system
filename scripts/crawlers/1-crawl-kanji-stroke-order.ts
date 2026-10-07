@@ -6,20 +6,33 @@ import { cards } from '../../src/db/schema';
 import { eq } from 'drizzle-orm';
 import { DriveFolderManager } from './drive-folder-manager';
 
-function fetchUrl(url: string): Promise<string> {
+function fetchUrl(url: string, retries = 3): Promise<string> {
   return new Promise((resolve, reject) => {
-    https.get(url, { headers: { 'User-Agent': 'Kiokudo-KanjiVG-Crawler' } }, (res) => {
-      if (res.statusCode && res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
-        return fetchUrl(res.headers.location).then(resolve, reject);
-      }
-      if (res.statusCode !== 200) {
-        reject(new Error(`HTTP ${res.statusCode}`));
-        return;
-      }
-      let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => resolve(data));
-    }).on('error', reject);
+    const attempt = (remaining: number) => {
+      https.get(url, { headers: { 'User-Agent': 'Kiokudo-KanjiVG-Crawler' } }, (res) => {
+        if (res.statusCode && res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+          return fetchUrl(res.headers.location, remaining).then(resolve, reject);
+        }
+        if (res.statusCode !== 200) {
+          if (remaining > 1) {
+            setTimeout(() => attempt(remaining - 1), 600);
+            return;
+          }
+          reject(new Error(`HTTP ${res.statusCode}`));
+          return;
+        }
+        let data = '';
+        res.on('data', chunk => data += chunk);
+        res.on('end', () => resolve(data));
+      }).on('error', (err) => {
+        if (remaining > 1) {
+          setTimeout(() => attempt(remaining - 1), 600);
+          return;
+        }
+        reject(err);
+      });
+    };
+    attempt(retries);
   });
 }
 
@@ -36,8 +49,8 @@ export function makeAnimatedKanjiSvg(rawSvg: string, kanjiChar: string): string 
   const pathMatches = rawSvg.match(/<path[^>]+id="kvg:[^"]+-s(\d+)"[^>]*>/g) || [];
   strokeCount = pathMatches.length;
 
-  let styledSvg = rawSvg.replace(/<path\s+id="kvg:([^"]+-s(\d+))"/g, (match, fullId, strokeNum) => {
-    return `${match} class="kanji-stroke-anim stroke-${strokeNum}"`;
+  let styledSvg = rawSvg.replace(/<path\s+([^>]*?)id="kvg:([^"]+-s(\d+))"/g, (match, prefix, fullId, strokeNum) => {
+    return `<path ${prefix}id="kvg:${fullId}" class="kanji-stroke-anim stroke-${strokeNum}"`;
   });
 
   // Tạo CSS keyframes vẽ tuần tự từng nét
@@ -88,7 +101,7 @@ export async function crawlKanjiStrokeOrders(limit?: number) {
 
   const folders = await DriveFolderManager.initFolders();
   const folderId = folders.kanjiStrokeFolderId;
-  const manifest = DriveFolderManager.getManifest();
+  const manifest = DriveFolderManager.getManifest(true);
 
   // 1. Thu thập toàn bộ Hán tự độc nhất từ deck_jpd133_kanji
   const kanjiCards = await db.select().from(cards).where(eq(cards.deckId, 'deck_jpd133_kanji'));
@@ -138,7 +151,7 @@ export async function crawlKanjiStrokeOrders(limit?: number) {
 
       successCount++;
       console.log(`✅ [${i + 1}/${listToProcess.length}] ${k} (${hex}) -> Uploaded: ${entry.fileId}`);
-      await delay(120);
+      await delay(100);
     } catch (err: any) {
       failCount++;
       console.error(`❌ [${i + 1}/${listToProcess.length}] ${k} Thất bại: ${err.message}`);
@@ -146,8 +159,13 @@ export async function crawlKanjiStrokeOrders(limit?: number) {
   }
 
   console.log(`\n🎉 Hoàn thành Crawler 1: Thành công: ${successCount}, Bỏ qua (Đã có): ${skipCount}, Lỗi: ${failCount}`);
+
+  // Tổng hợp lại central manifest data/multimodal-manifest.json
+  console.log('🔄 Đang đồng bộ lại data/multimodal-manifest.json...');
+  const aggregated = DriveFolderManager.aggregateManifests();
+  console.log(`✓ Đã cập nhật multimodal-manifest.json: Tổng ${aggregated.totalAssets} assets (Kanji: ${aggregated.categories.kanji || 0}).`);
 }
 
-if (process.argv[1].endsWith('1-crawl-kanji-stroke-order.ts')) {
+if (process.argv[1]?.replace(/\\/g, '/').endsWith('1-crawl-kanji-stroke-order.ts')) {
   crawlKanjiStrokeOrders().catch(console.error);
 }
