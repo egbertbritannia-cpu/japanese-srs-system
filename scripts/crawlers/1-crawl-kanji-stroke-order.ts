@@ -30,41 +30,54 @@ function delay(ms: number) {
 /**
  * Thêm hiệu ứng hoạt họa viết nét (Stroke order sequential animation) vào KanjiVG SVG
  */
-function makeAnimatedKanjiSvg(rawSvg: string, kanjiChar: string): string {
+export function makeAnimatedKanjiSvg(rawSvg: string, kanjiChar: string): string {
   // Tìm tất cả các path nét vẽ
   let strokeCount = 0;
-  let styledSvg = rawSvg.replace(/<path\s+id="kvg:[^"]+-s(\d+)"/g, (match, strokeNum) => {
-    const sIdx = parseInt(strokeNum, 10);
-    strokeCount = Math.max(strokeCount, sIdx);
+  const pathMatches = rawSvg.match(/<path[^>]+id="kvg:[^"]+-s(\d+)"[^>]*>/g) || [];
+  strokeCount = pathMatches.length;
+
+  let styledSvg = rawSvg.replace(/<path\s+id="kvg:([^"]+-s(\d+))"/g, (match, fullId, strokeNum) => {
     return `${match} class="kanji-stroke-anim stroke-${strokeNum}"`;
   });
 
   // Tạo CSS keyframes vẽ tuần tự từng nét
+  // Lưu ý: Tuyệt đối KHÔNG đặt !important lên stroke-dashoffset, nếu có sẽ chặn @keyframes hoạt động
   let css = `
 <style>
   @keyframes drawStroke {
-    0% { stroke-dashoffset: 250; }
-    100% { stroke-dashoffset: 0; }
+    0% {
+      stroke-dashoffset: 400;
+    }
+    100% {
+      stroke-dashoffset: 0;
+    }
   }
   .kanji-stroke-anim {
-    stroke: #16253B !important;
-    stroke-width: 4 !important;
+    stroke: #9E3223 !important; /* Đỏ son Bengara / Chu sa truyền thống */
+    stroke-width: 3.8 !important;
     stroke-linecap: round !important;
     stroke-linejoin: round !important;
-    stroke-dasharray: 250 !important;
-    stroke-dashoffset: 250 !important;
-    animation: drawStroke 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    fill: none !important;
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: drawStroke 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
 `;
 
   for (let i = 1; i <= Math.max(strokeCount, 30); i++) {
-    const strokeDelay = ((i - 1) * 0.35).toFixed(2);
+    const strokeDelay = ((i - 1) * 0.38).toFixed(2);
     css += `  .stroke-${i} { animation-delay: ${strokeDelay}s; }\n`;
   }
   css += `</style>\n`;
 
-  // Chèn style vào sau thẻ mở <svg ...>
-  styledSvg = styledSvg.replace(/<svg\s+([^>]+)>/, `<svg $1>\n${css}`);
+  // Thêm lớp nét mộc bản nền mờ (ghost guide) màu be xám để hiện rõ cấu trúc chữ trước khi nét đỏ chạy
+  const ghostStrokes = pathMatches
+    .map((p) => p.replace(/id="[^"]*"/g, '').replace(/class="[^"]*"/g, '').replace(/<path/, '<path stroke="#E2DAC6" stroke-width="3" fill="none" opacity="0.6"'))
+    .join('\n    ');
+  const ghostGroup = ghostStrokes ? `  <g id="kvg:GhostBackgroundGuide">\n    ${ghostStrokes}\n  </g>\n` : '';
+
+  // Chèn style và ghost group vào sau thẻ mở <svg ...>
+  styledSvg = styledSvg.replace(/<svg\s+([^>]+)>/, `<svg $1>\n${css}${ghostGroup}`);
   return styledSvg;
 }
 

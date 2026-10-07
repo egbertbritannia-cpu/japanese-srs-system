@@ -22,6 +22,7 @@ import {
   syncPendingReviewsToServer,
 } from '@/lib/offline-db';
 import { JapaneseAudioPool } from '@/lib/audio-pool';
+import { KanjiStrokePlayer } from '@/components/showcase/KanjiStrokePlayer';
 
 interface CardItem {
   id: string;
@@ -105,6 +106,7 @@ function ReviewSessionContent() {
   const [queue, setQueue] = useState<CardItem[]>([]);
   const [currentIdx, setCurrentIdx] = useState(1);
   const [showAnswer, setShowAnswer] = useState(false);
+  const [showStrokeOrder, setShowStrokeOrder] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [cramMode, setCramMode] = useState(initialMode === 'cram_all');
   const [showDeckMenu, setShowDeckMenu] = useState(false);
@@ -201,6 +203,7 @@ function ReviewSessionContent() {
         setQueue(studyCards);
         setCurrentIdx(1);
         setShowAnswer(false);
+        setShowStrokeOrder(false);
         setIsCompleted(false);
         setGradesCount({ Again: 0, Hard: 0, Good: 0, Easy: 0 });
 
@@ -395,6 +398,7 @@ function ReviewSessionContent() {
       submitReview();
 
       setShowAnswer(false);
+      setShowStrokeOrder(false);
       if (currentIdx >= totalCards) {
         setIsCompleted(true);
         japaneseAudio.playSuzuBell();
@@ -618,6 +622,7 @@ function ReviewSessionContent() {
                   setCurrentIdx(1);
                   setIsCompleted(false);
                   setShowAnswer(false);
+                  setShowStrokeOrder(false);
                   setGradesCount({ Again: 0, Hard: 0, Good: 0, Easy: 0 });
                 }}
                 className="btn-washi"
@@ -653,7 +658,9 @@ function ReviewSessionContent() {
 
   const isKanji = currentCard && !isGrammar
     ? currentCard.type === 'Kanji' ||
-      Boolean(currentCard.deckName && currentCard.deckName.includes('Hán Tự'))
+      Boolean(currentCard.deckName && currentCard.deckName.includes('Hán Tự')) ||
+      currentCard.deckId === 'deck_jpd133_kanji' ||
+      /^[\u4e00-\u9faf]$/.test(currentCard.kanji.trim())
     : false;
 
   return (
@@ -1353,6 +1360,59 @@ function ReviewSessionContent() {
                         />
                       </div>
                     ) : null}
+
+                    {/* 1.5 KHỐI HOẠT HỌA NÉT VIẾT CHỮ HÁN (KANJI STROKE ORDER ANIMATION) */}
+                    {isKanji && (() => {
+                      const kanjiCharMatch = currentCard.kanji.replace(/\{\{c\d+::|\}\}/g, '').trim().match(/[\u4e00-\u9faf]/);
+                      const targetChar = kanjiCharMatch ? kanjiCharMatch[0] : (currentCard.kanji.trim().length === 1 ? currentCard.kanji.trim() : null);
+                      if (!targetChar) return null;
+
+                      return (
+                        <div style={{ width: '100%', maxWidth: '300px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.6rem', margin: '0.2rem 0' }}>
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setShowStrokeOrder((prev) => !prev);
+                            }}
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '0.45rem',
+                              background: showStrokeOrder ? '#9E3223' : '#FDF2F0',
+                              color: showStrokeOrder ? '#FFFFFF' : '#9E3223',
+                              border: '1.2px solid #E8A99F',
+                              borderRadius: '8px',
+                              padding: '0.38rem 0.95rem',
+                              fontSize: '0.8rem',
+                              fontFamily: 'var(--font-maru)',
+                              fontWeight: 700,
+                              cursor: 'pointer',
+                              boxShadow: '0 2px 6px rgba(158, 50, 35, 0.08)',
+                              transition: 'all 0.18s ease',
+                            }}
+                          >
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
+                              <path d="M12 19l7-7 3 3-7 7-3-3z" />
+                              <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
+                            </svg>
+                            {showStrokeOrder ? 'Ẩn nét viết 筆順' : 'Xem nét viết 筆順 (Stroke Order)'}
+                          </button>
+
+                          {showStrokeOrder && (
+                            <div style={{ width: '100%', animation: 'fadeIn 0.25s ease forwards' }}>
+                              <KanjiStrokePlayer
+                                kanji={targetChar}
+                                compact={true}
+                                meaning={parsedCard?.cleanMeaning || currentCard.meaning}
+                                onReading={parsedCard?.onYomi}
+                                kunReading={parsedCard?.kunYomi}
+                              />
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })()}
 
                     {/* 2. KHỐI Ý NGHĨA TIẾNG VIỆT — VIS-REV-03: constrained height + scroll prevents FSRS button overflow */}
                     <div
