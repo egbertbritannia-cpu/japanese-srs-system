@@ -1,0 +1,45 @@
+name: 🚀 24/7 Google Drive 15TB Streaming Crawler
+
+on:
+  workflow_dispatch: # Cho phép bấm nút "Run workflow" bất kỳ lúc nào trên GitHub
+  schedule:
+    - cron: '0 */6 * * *' # Tự động chạy mỗi 6 tiếng một lần trên Cloud ngay cả khi tắt máy tính
+
+jobs:
+  stream-to-drive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360 # Chạy tối đa 6 tiếng mỗi lần (giới hạn miễn phí của GitHub)
+    permissions:
+      contents: write
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🚀 Run 6-Subagent Parallel Streaming Ingestion
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_DRIVE_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}
+        run: |
+          echo "Bắt đầu streaming dữ liệu thật lên Google Drive 15TB bằng 6 Workers..."
+          npx tsx scripts/crawlers/orchestrate-6-workers.ts --all
+
+      - name: 💾 Commit & Push updated manifests
+        if: always()
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action Bot"
+          git add data/manifests/ data/multimodal-manifest.json
+          git commit -m "chore(data): auto-update multimodal drive manifests [skip ci]" || echo "Không có thay đổi manifest mới"
+          git push || echo "Không thể push hoặc không có commit mới"

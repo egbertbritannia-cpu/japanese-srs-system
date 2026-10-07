@@ -1,0 +1,934 @@
+{
+  "category": "ielts_audio",
+  "totalAssets": 53,
+  "lastUpdated": "2026-10-07T00:58:09.804Z",
+  "assets": {
+    "ielts_audio:ubiquitous": {
+      "key": "ielts_audio:ubiquitous",
+      "category": "ielts_audio",
+      "fileName": "ielts_ubiquitous.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1IgopD75NUjRKyNaNP3VmzKf1qDhEt7sy",
+      "driveUrl": "https://drive.google.com/file/d/1IgopD75NUjRKyNaNP3VmzKf1qDhEt7sy/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1IgopD75NUjRKyNaNP3VmzKf1qDhEt7sy",
+      "sizeBytes": 11520,
+      "updatedAt": "2026-10-06T16:58:20.184Z"
+    },
+    "ielts_audio:paradigm": {
+      "key": "ielts_audio:paradigm",
+      "category": "ielts_audio",
+      "fileName": "ielts_paradigm.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "13uxqm4OVv_TvvyeUkb8tDvVJSpcTSr2X",
+      "driveUrl": "https://drive.google.com/file/d/13uxqm4OVv_TvvyeUkb8tDvVJSpcTSr2X/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/13uxqm4OVv_TvvyeUkb8tDvVJSpcTSr2X",
+      "sizeBytes": 11520,
+      "updatedAt": "2026-10-06T16:58:24.774Z"
+    },
+    "ielts_audio:empirical": {
+      "key": "ielts_audio:empirical",
+      "category": "ielts_audio",
+      "fileName": "ielts_empirical.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1C9dOmlI1BgYS21U3v4iWqdpcusCQD7AZ",
+      "driveUrl": "https://drive.google.com/file/d/1C9dOmlI1BgYS21U3v4iWqdpcusCQD7AZ/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1C9dOmlI1BgYS21U3v4iWqdpcusCQD7AZ",
+      "sizeBytes": 11520,
+      "updatedAt": "2026-10-06T16:58:30.609Z"
+    },
+    "ielts_audio:pragmatic": {
+      "key": "ielts_audio:pragmatic",
+      "category": "ielts_audio",
+      "fileName": "ielts_pragmatic.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1LzQ9sinCcdetIQpnp91rmXMMm_Ge06rv",
+      "driveUrl": "https://drive.google.com/file/d/1LzQ9sinCcdetIQpnp91rmXMMm_Ge06rv/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1LzQ9sinCcdetIQpnp91rmXMMm_Ge06rv",
+      "sizeBytes": 11136,
+      "updatedAt": "2026-10-06T16:58:38.145Z"
+    },
+    "ielts_audio:juxtaposition": {
+      "key": "ielts_audio:juxtaposition",
+      "category": "ielts_audio",
+      "fileName": "ielts_juxtaposition.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1ryYYF93YPfRs5TQKJP-zIfP-FpmOkDZz",
+      "driveUrl": "https://drive.google.com/file/d/1ryYYF93YPfRs5TQKJP-zIfP-FpmOkDZz/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1ryYYF93YPfRs5TQKJP-zIfP-FpmOkDZz",
+      "sizeBytes": 13824,
+      "updatedAt": "2026-10-06T16:58:43.027Z"
+    },
+    "cambridge_ielts:cambridge_ielts_sec1_accommodation": {
+      "key": "cambridge_ielts:cambridge_ielts_sec1_accommodation",
+      "category": "ielts_audio",
+      "fileName": "cambridge_ielts_sec1_accommodation_audio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1AXA_fwF7l2Dn5gEvvdTt_wTZtL4W2HLn",
+      "driveUrl": "https://drive.google.com/file/d/1AXA_fwF7l2Dn5gEvvdTt_wTZtL4W2HLn/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1AXA_fwF7l2Dn5gEvvdTt_wTZtL4W2HLn",
+      "sizeBytes": 10993,
+      "metadata": {
+        "title": "Cambridge IELTS Academic Practice - Test 1",
+        "sectionNumber": 1,
+        "sectionType": "Social Needs (Dialogue: Student Housing & Accommodation Enquiry)",
+        "transcript": "Advisor: Good morning, Student Accommodation Services. How can I help you today?\nStudent: Hello, I am looking for a shared apartment near the university campus for the upcoming semester.",
+        "questionsSummary": "Questions 1-10: Complete the student booking form with room type, rent budget, and contract duration.",
+        "source": "Cambridge IELTS Practice Master Bank",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/accommodation--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-06T17:48:46.351Z"
+    },
+    "cambridge_ielts:cambridge_ielts_sec2_city_tour": {
+      "key": "cambridge_ielts:cambridge_ielts_sec2_city_tour",
+      "category": "ielts_audio",
+      "fileName": "cambridge_ielts_sec2_city_tour_audio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1RoSgDcC_pL6uFQwaK0m3ov4qJXCvulVY",
+      "driveUrl": "https://drive.google.com/file/d/1RoSgDcC_pL6uFQwaK0m3ov4qJXCvulVY/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1RoSgDcC_pL6uFQwaK0m3ov4qJXCvulVY",
+      "sizeBytes": 8904,
+      "metadata": {
+        "title": "Cambridge IELTS Academic Practice - Test 2",
+        "sectionNumber": 2,
+        "sectionType": "General Interest (Monologue: Historical Botanical Gardens Orientation)",
+        "transcript": "Guide: Welcome everyone to the Royal Botanical Gardens. Before we begin our guided tour, please take a look at the visitor map...",
+        "questionsSummary": "Questions 11-20: Label the visitor map and match garden zones with their designated plant collections.",
+        "source": "Cambridge IELTS Practice Master Bank",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/botanical--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-06T17:48:49.824Z"
+    },
+    "cambridge_ielts:cambridge_ielts_sec3_seminar": {
+      "key": "cambridge_ielts:cambridge_ielts_sec3_seminar",
+      "category": "ielts_audio",
+      "fileName": "cambridge_ielts_sec3_seminar_audio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1Uf7U4YOTy9GvY4R1ARkWbVgIU6KzAoH_",
+      "driveUrl": "https://drive.google.com/file/d/1Uf7U4YOTy9GvY4R1ARkWbVgIU6KzAoH_/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Uf7U4YOTy9GvY4R1ARkWbVgIU6KzAoH_",
+      "sizeBytes": 10576,
+      "metadata": {
+        "title": "Cambridge IELTS Academic Practice - Test 3",
+        "sectionNumber": 3,
+        "sectionType": "Academic Discussion (Dialogue: Research Methodology & Statistical Analysis)",
+        "transcript": "Tutor: So Elena and Mark, let us review your preliminary dissertation findings regarding cognitive spaced retrieval in language acquisition.",
+        "questionsSummary": "Questions 21-30: Multiple choice regarding control group sample size, qualitative variables, and experimental validity.",
+        "source": "Cambridge IELTS Practice Master Bank",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/methodology--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-06T17:48:52.931Z"
+    },
+    "cambridge_ielts:cambridge_ielts_sec4_marine_lecture": {
+      "key": "cambridge_ielts:cambridge_ielts_sec4_marine_lecture",
+      "category": "ielts_audio",
+      "fileName": "cambridge_ielts_sec4_marine_lecture_audio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1Vu8FMauMlT8QzhctAqTX06kRPFhMV4B9",
+      "driveUrl": "https://drive.google.com/file/d/1Vu8FMauMlT8QzhctAqTX06kRPFhMV4B9/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Vu8FMauMlT8QzhctAqTX06kRPFhMV4B9",
+      "sizeBytes": 10367,
+      "metadata": {
+        "title": "Cambridge IELTS Academic Practice - Test 4",
+        "sectionNumber": 4,
+        "sectionType": "Academic Monologue (University Lecture: Deep-Sea Ecosystems & Ocean Acidification)",
+        "transcript": "Professor: Today we will explore the biogeochemical consequences of rising carbon absorption on abyssal benthic communities...",
+        "questionsSummary": "Questions 31-40: Note completion regarding hydrothermal vents, trophic cascades, and biodiversity indices.",
+        "source": "Cambridge IELTS Practice Master Bank",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/ecosystem--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-06T17:48:57.409Z"
+    },
+    "ielts_audio:corroborate": {
+      "key": "ielts_audio:corroborate",
+      "category": "ielts_audio",
+      "fileName": "oxford_corroborate_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1Amz7597Fng5RgjYCGWCE60L669TIEdPu",
+      "driveUrl": "https://drive.google.com/file/d/1Amz7597Fng5RgjYCGWCE60L669TIEdPu/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Amz7597Fng5RgjYCGWCE60L669TIEdPu",
+      "sizeBytes": 9949,
+      "metadata": {
+        "word": "corroborate",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/corroborate--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:54:33.383Z"
+    },
+    "ielts_audio:mitigate": {
+      "key": "ielts_audio:mitigate",
+      "category": "ielts_audio",
+      "fileName": "oxford_mitigate_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1E0z4JUrhyBES4Hw80o5vh3r51HPG9TIn",
+      "driveUrl": "https://drive.google.com/file/d/1E0z4JUrhyBES4Hw80o5vh3r51HPG9TIn/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1E0z4JUrhyBES4Hw80o5vh3r51HPG9TIn",
+      "sizeBytes": 7859,
+      "metadata": {
+        "word": "mitigate",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/mitigate--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:54:38.148Z"
+    },
+    "ielts_audio:disseminate": {
+      "key": "ielts_audio:disseminate",
+      "category": "ielts_audio",
+      "fileName": "oxford_disseminate_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1ua5hVzPG6FF-1PsVz6RVNQhCsntYZ6Qt",
+      "driveUrl": "https://drive.google.com/file/d/1ua5hVzPG6FF-1PsVz6RVNQhCsntYZ6Qt/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1ua5hVzPG6FF-1PsVz6RVNQhCsntYZ6Qt",
+      "sizeBytes": 9740,
+      "metadata": {
+        "word": "disseminate",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/disseminate--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:54:41.645Z"
+    },
+    "ielts_audio:meticulous": {
+      "key": "ielts_audio:meticulous",
+      "category": "ielts_audio",
+      "fileName": "oxford_meticulous_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "15C9_UXMGZPGZQXi_Cx6vbGcK8Mw1kJ79",
+      "driveUrl": "https://drive.google.com/file/d/15C9_UXMGZPGZQXi_Cx6vbGcK8Mw1kJ79/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/15C9_UXMGZPGZQXi_Cx6vbGcK8Mw1kJ79",
+      "sizeBytes": 10576,
+      "metadata": {
+        "word": "meticulous",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/meticulous--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:54:48.618Z"
+    },
+    "ielts_audio:anomaly": {
+      "key": "ielts_audio:anomaly",
+      "category": "ielts_audio",
+      "fileName": "oxford_anomaly_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1RRPTILfvIGsRAp2ZvyHNZ9OudE1UFdKB",
+      "driveUrl": "https://drive.google.com/file/d/1RRPTILfvIGsRAp2ZvyHNZ9OudE1UFdKB/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1RRPTILfvIGsRAp2ZvyHNZ9OudE1UFdKB",
+      "sizeBytes": 8486,
+      "metadata": {
+        "word": "anomaly",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/anomaly--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:54:54.141Z"
+    },
+    "ielts_audio:ephemeral": {
+      "key": "ielts_audio:ephemeral",
+      "category": "ielts_audio",
+      "fileName": "oxford_ephemeral_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1KkNn-pwQEpnCBjr41WA3bAKFpBfNZDvb",
+      "driveUrl": "https://drive.google.com/file/d/1KkNn-pwQEpnCBjr41WA3bAKFpBfNZDvb/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1KkNn-pwQEpnCBjr41WA3bAKFpBfNZDvb",
+      "sizeBytes": 8904,
+      "metadata": {
+        "word": "ephemeral",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/ephemeral--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:54:57.888Z"
+    },
+    "ielts_audio:lucid": {
+      "key": "ielts_audio:lucid",
+      "category": "ielts_audio",
+      "fileName": "oxford_lucid_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1w38XtHTKFTbIgTPdg-ueFjQoZBO-lLlR",
+      "driveUrl": "https://drive.google.com/file/d/1w38XtHTKFTbIgTPdg-ueFjQoZBO-lLlR/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1w38XtHTKFTbIgTPdg-ueFjQoZBO-lLlR",
+      "sizeBytes": 7650,
+      "metadata": {
+        "word": "lucid",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/lucid--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:55:01.281Z"
+    },
+    "ielts_audio:esoteric": {
+      "key": "ielts_audio:esoteric",
+      "category": "ielts_audio",
+      "fileName": "oxford_esoteric_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "16_uY1HY5QMu5no1b_KISQ7ryTbm4I96M",
+      "driveUrl": "https://drive.google.com/file/d/16_uY1HY5QMu5no1b_KISQ7ryTbm4I96M/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/16_uY1HY5QMu5no1b_KISQ7ryTbm4I96M",
+      "sizeBytes": 9949,
+      "metadata": {
+        "word": "esoteric",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/esoteric--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:55:04.892Z"
+    },
+    "ielts_audio:pervasive": {
+      "key": "ielts_audio:pervasive",
+      "category": "ielts_audio",
+      "fileName": "oxford_pervasive_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1TzAca8kwPs6uR0I9McHgF3p6ZnTfdVuc",
+      "driveUrl": "https://drive.google.com/file/d/1TzAca8kwPs6uR0I9McHgF3p6ZnTfdVuc/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1TzAca8kwPs6uR0I9McHgF3p6ZnTfdVuc",
+      "sizeBytes": 9531,
+      "metadata": {
+        "word": "pervasive",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/pervasive--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:55:10.668Z"
+    },
+    "ielts_audio:tenacious": {
+      "key": "ielts_audio:tenacious",
+      "category": "ielts_audio",
+      "fileName": "oxford_tenacious_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1f5kx-nTdHsYhx0jnc_-GiziKThPq76yK",
+      "driveUrl": "https://drive.google.com/file/d/1f5kx-nTdHsYhx0jnc_-GiziKThPq76yK/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1f5kx-nTdHsYhx0jnc_-GiziKThPq76yK",
+      "sizeBytes": 9322,
+      "metadata": {
+        "word": "tenacious",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/tenacious--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:55:14.449Z"
+    },
+    "ielts_audio:proliferation": {
+      "key": "ielts_audio:proliferation",
+      "category": "ielts_audio",
+      "fileName": "oxford_proliferation_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1SQ9dmEMKtqqj71RjL1dd6F6s00B9_DiL",
+      "driveUrl": "https://drive.google.com/file/d/1SQ9dmEMKtqqj71RjL1dd6F6s00B9_DiL/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1SQ9dmEMKtqqj71RjL1dd6F6s00B9_DiL",
+      "sizeBytes": 10784,
+      "metadata": {
+        "word": "proliferation",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/proliferation--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:55:18.971Z"
+    },
+    "ielts_audio:exacerbate": {
+      "key": "ielts_audio:exacerbate",
+      "category": "ielts_audio",
+      "fileName": "oxford_exacerbate_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1HGu119hsq8_7kW7r1_-__k3iii_w-vUq",
+      "driveUrl": "https://drive.google.com/file/d/1HGu119hsq8_7kW7r1_-__k3iii_w-vUq/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1HGu119hsq8_7kW7r1_-__k3iii_w-vUq",
+      "sizeBytes": 10576,
+      "metadata": {
+        "word": "exacerbate",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/exacerbate--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:55:25.857Z"
+    },
+    "ielts_audio:retention": {
+      "key": "ielts_audio:retention",
+      "category": "ielts_audio",
+      "fileName": "oxford_retention_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "168A7P3snKshQyzlYiNTkLqVj1KFt_E_0",
+      "driveUrl": "https://drive.google.com/file/d/168A7P3snKshQyzlYiNTkLqVj1KFt_E_0/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/168A7P3snKshQyzlYiNTkLqVj1KFt_E_0",
+      "sizeBytes": 9113,
+      "metadata": {
+        "word": "retention",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/retention--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:55:29.539Z"
+    },
+    "ielts_audio:cognitive": {
+      "key": "ielts_audio:cognitive",
+      "category": "ielts_audio",
+      "fileName": "oxford_cognitive_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1rharc9tHCy2HXm5jAkdp6UjtN6H5f0PJ",
+      "driveUrl": "https://drive.google.com/file/d/1rharc9tHCy2HXm5jAkdp6UjtN6H5f0PJ/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1rharc9tHCy2HXm5jAkdp6UjtN6H5f0PJ",
+      "sizeBytes": 8486,
+      "metadata": {
+        "word": "cognitive",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/cognitive--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:55:38.299Z"
+    },
+    "ielts_audio:pedagogy": {
+      "key": "ielts_audio:pedagogy",
+      "category": "ielts_audio",
+      "fileName": "oxford_pedagogy_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1hgRk9Pb_UUj2OT6pl1YSRWspDWb4Otll",
+      "driveUrl": "https://drive.google.com/file/d/1hgRk9Pb_UUj2OT6pl1YSRWspDWb4Otll/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1hgRk9Pb_UUj2OT6pl1YSRWspDWb4Otll",
+      "sizeBytes": 8486,
+      "metadata": {
+        "word": "pedagogy",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/pedagogy--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:55:43.071Z"
+    },
+    "ielts_audio:resilient": {
+      "key": "ielts_audio:resilient",
+      "category": "ielts_audio",
+      "fileName": "oxford_resilient_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1RL-m2TQMYpRorqGm_ew4nEXQ95CVI-mB",
+      "driveUrl": "https://drive.google.com/file/d/1RL-m2TQMYpRorqGm_ew4nEXQ95CVI-mB/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1RL-m2TQMYpRorqGm_ew4nEXQ95CVI-mB",
+      "sizeBytes": 10158,
+      "metadata": {
+        "word": "resilient",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/resilient--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:55:49.556Z"
+    },
+    "ielts_audio:comprehensive": {
+      "key": "ielts_audio:comprehensive",
+      "category": "ielts_audio",
+      "fileName": "oxford_comprehensive_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1J6mRG2lDETiO-vgw92Ev6djjaHLqhHJy",
+      "driveUrl": "https://drive.google.com/file/d/1J6mRG2lDETiO-vgw92Ev6djjaHLqhHJy/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1J6mRG2lDETiO-vgw92Ev6djjaHLqhHJy",
+      "sizeBytes": 10367,
+      "metadata": {
+        "word": "comprehensive",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/comprehensive--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:55:55.328Z"
+    },
+    "ielts_audio:synthesize": {
+      "key": "ielts_audio:synthesize",
+      "category": "ielts_audio",
+      "fileName": "oxford_synthesize_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1iPtQoFKrdAp8enJZY1DdEbaEhLiG-N-p",
+      "driveUrl": "https://drive.google.com/file/d/1iPtQoFKrdAp8enJZY1DdEbaEhLiG-N-p/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1iPtQoFKrdAp8enJZY1DdEbaEhLiG-N-p",
+      "sizeBytes": 10993,
+      "metadata": {
+        "word": "synthesize",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/synthesize--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:55:59.922Z"
+    },
+    "ielts_audio:formulate": {
+      "key": "ielts_audio:formulate",
+      "category": "ielts_audio",
+      "fileName": "oxford_formulate_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1sDqB8hOSZDFkCCRygFvV0Lg_ZOZIWMiF",
+      "driveUrl": "https://drive.google.com/file/d/1sDqB8hOSZDFkCCRygFvV0Lg_ZOZIWMiF/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1sDqB8hOSZDFkCCRygFvV0Lg_ZOZIWMiF",
+      "sizeBytes": 8904,
+      "metadata": {
+        "word": "formulate",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/formulate--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:56:05.549Z"
+    },
+    "ielts_audio:evaluate": {
+      "key": "ielts_audio:evaluate",
+      "category": "ielts_audio",
+      "fileName": "oxford_evaluate_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1m6LtDtrnrYVFniE2n2Ym__PSe-HDAOdJ",
+      "driveUrl": "https://drive.google.com/file/d/1m6LtDtrnrYVFniE2n2Ym__PSe-HDAOdJ/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1m6LtDtrnrYVFniE2n2Ym__PSe-HDAOdJ",
+      "sizeBytes": 9531,
+      "metadata": {
+        "word": "evaluate",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/evaluate--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:56:11.250Z"
+    },
+    "ielts_audio:scrutinize": {
+      "key": "ielts_audio:scrutinize",
+      "category": "ielts_audio",
+      "fileName": "oxford_scrutinize_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1dg7WdoCvVJVbvEt-_2J_5u2P3s-fc6j7",
+      "driveUrl": "https://drive.google.com/file/d/1dg7WdoCvVJVbvEt-_2J_5u2P3s-fc6j7/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1dg7WdoCvVJVbvEt-_2J_5u2P3s-fc6j7",
+      "sizeBytes": 10993,
+      "metadata": {
+        "word": "scrutinize",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/scrutinize--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:56:16.407Z"
+    },
+    "ielts_audio:profound": {
+      "key": "ielts_audio:profound",
+      "category": "ielts_audio",
+      "fileName": "oxford_profound_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "18c-CP8-4NuCurxS0yLIeb5TR76xIzrbh",
+      "driveUrl": "https://drive.google.com/file/d/18c-CP8-4NuCurxS0yLIeb5TR76xIzrbh/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/18c-CP8-4NuCurxS0yLIeb5TR76xIzrbh",
+      "sizeBytes": 9113,
+      "metadata": {
+        "word": "profound",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/profound--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:56:19.855Z"
+    },
+    "ielts_audio:intricate": {
+      "key": "ielts_audio:intricate",
+      "category": "ielts_audio",
+      "fileName": "oxford_intricate_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1bp0sPMAmEpPsMq2USvUDNuPgOi9yVpcz",
+      "driveUrl": "https://drive.google.com/file/d/1bp0sPMAmEpPsMq2USvUDNuPgOi9yVpcz/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1bp0sPMAmEpPsMq2USvUDNuPgOi9yVpcz",
+      "sizeBytes": 8277,
+      "metadata": {
+        "word": "intricate",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/intricate--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:56:23.179Z"
+    },
+    "ielts_audio:preliminary": {
+      "key": "ielts_audio:preliminary",
+      "category": "ielts_audio",
+      "fileName": "oxford_preliminary_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1-e7_F0I9niPXsfZuUhrsY1SG6ybPJxfh",
+      "driveUrl": "https://drive.google.com/file/d/1-e7_F0I9niPXsfZuUhrsY1SG6ybPJxfh/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1-e7_F0I9niPXsfZuUhrsY1SG6ybPJxfh",
+      "sizeBytes": 9949,
+      "metadata": {
+        "word": "preliminary",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/preliminary--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:56:27.173Z"
+    },
+    "ielts_audio:indigenous": {
+      "key": "ielts_audio:indigenous",
+      "category": "ielts_audio",
+      "fileName": "oxford_indigenous_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1uujCLg0ca2tBX3KSntw4LIBFsRH57UX2",
+      "driveUrl": "https://drive.google.com/file/d/1uujCLg0ca2tBX3KSntw4LIBFsRH57UX2/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1uujCLg0ca2tBX3KSntw4LIBFsRH57UX2",
+      "sizeBytes": 9322,
+      "metadata": {
+        "word": "indigenous",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/indigenous--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:56:38.294Z"
+    },
+    "ielts_audio:substantiate": {
+      "key": "ielts_audio:substantiate",
+      "category": "ielts_audio",
+      "fileName": "oxford_substantiate_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1q5Npqe4EWMfven3_oWTnltfq_Hm9zaYJ",
+      "driveUrl": "https://drive.google.com/file/d/1q5Npqe4EWMfven3_oWTnltfq_Hm9zaYJ/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1q5Npqe4EWMfven3_oWTnltfq_Hm9zaYJ",
+      "sizeBytes": 12038,
+      "metadata": {
+        "word": "substantiate",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/substantiate--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:56:43.505Z"
+    },
+    "ielts_audio:circumvent": {
+      "key": "ielts_audio:circumvent",
+      "category": "ielts_audio",
+      "fileName": "oxford_circumvent_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1-C-UXNA7tRhG5Qil7VnMdmJinBlPZNwN",
+      "driveUrl": "https://drive.google.com/file/d/1-C-UXNA7tRhG5Qil7VnMdmJinBlPZNwN/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1-C-UXNA7tRhG5Qil7VnMdmJinBlPZNwN",
+      "sizeBytes": 9949,
+      "metadata": {
+        "word": "circumvent",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/circumvent--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:56:46.822Z"
+    },
+    "ielts_audio:ambiguous": {
+      "key": "ielts_audio:ambiguous",
+      "category": "ielts_audio",
+      "fileName": "oxford_ambiguous_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1zMnKQ8h4Y5CmbrRcVJRHGpsvZHk8iXzF",
+      "driveUrl": "https://drive.google.com/file/d/1zMnKQ8h4Y5CmbrRcVJRHGpsvZHk8iXzF/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1zMnKQ8h4Y5CmbrRcVJRHGpsvZHk8iXzF",
+      "sizeBytes": 9949,
+      "metadata": {
+        "word": "ambiguous",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/ambiguous--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:56:53.485Z"
+    },
+    "ielts_audio:lucrative": {
+      "key": "ielts_audio:lucrative",
+      "category": "ielts_audio",
+      "fileName": "oxford_lucrative_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1wFq6FvdmJkdtF5EcVgqYERzBEBElcwRD",
+      "driveUrl": "https://drive.google.com/file/d/1wFq6FvdmJkdtF5EcVgqYERzBEBElcwRD/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1wFq6FvdmJkdtF5EcVgqYERzBEBElcwRD",
+      "sizeBytes": 8068,
+      "metadata": {
+        "word": "lucrative",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/lucrative--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:56:58.547Z"
+    },
+    "ielts_audio:deteriorate": {
+      "key": "ielts_audio:deteriorate",
+      "category": "ielts_audio",
+      "fileName": "oxford_deteriorate_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1znJo47-lviJvYs5NhRwAUtqW8RqpRWEn",
+      "driveUrl": "https://drive.google.com/file/d/1znJo47-lviJvYs5NhRwAUtqW8RqpRWEn/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1znJo47-lviJvYs5NhRwAUtqW8RqpRWEn",
+      "sizeBytes": 11829,
+      "metadata": {
+        "word": "deteriorate",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/deteriorate--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:57:03.493Z"
+    },
+    "ielts_audio:facilitate": {
+      "key": "ielts_audio:facilitate",
+      "category": "ielts_audio",
+      "fileName": "oxford_facilitate_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1HsJYzhL9EuV1s3fba_EzSHq0zB8sC3uP",
+      "driveUrl": "https://drive.google.com/file/d/1HsJYzhL9EuV1s3fba_EzSHq0zB8sC3uP/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1HsJYzhL9EuV1s3fba_EzSHq0zB8sC3uP",
+      "sizeBytes": 9740,
+      "metadata": {
+        "word": "facilitate",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/facilitate--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:57:09.476Z"
+    },
+    "ielts_audio:inevitable": {
+      "key": "ielts_audio:inevitable",
+      "category": "ielts_audio",
+      "fileName": "oxford_inevitable_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1TaYSYZlNsg1zb3JAiQ41fZIX4y54NvvY",
+      "driveUrl": "https://drive.google.com/file/d/1TaYSYZlNsg1zb3JAiQ41fZIX4y54NvvY/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1TaYSYZlNsg1zb3JAiQ41fZIX4y54NvvY",
+      "sizeBytes": 8695,
+      "metadata": {
+        "word": "inevitable",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/inevitable--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:57:13.069Z"
+    },
+    "ielts_audio:prevalent": {
+      "key": "ielts_audio:prevalent",
+      "category": "ielts_audio",
+      "fileName": "oxford_prevalent_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1rjH4v-zLJ1wBCe1tQ4k1xfFYvWa8GjoX",
+      "driveUrl": "https://drive.google.com/file/d/1rjH4v-zLJ1wBCe1tQ4k1xfFYvWa8GjoX/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1rjH4v-zLJ1wBCe1tQ4k1xfFYvWa8GjoX",
+      "sizeBytes": 9531,
+      "metadata": {
+        "word": "prevalent",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/prevalent--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:57:17.091Z"
+    },
+    "ielts_audio:reluctant": {
+      "key": "ielts_audio:reluctant",
+      "category": "ielts_audio",
+      "fileName": "oxford_reluctant_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1dMR1h9XcyX2trT2AKh4jZRQjt5TrxEQ4",
+      "driveUrl": "https://drive.google.com/file/d/1dMR1h9XcyX2trT2AKh4jZRQjt5TrxEQ4/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1dMR1h9XcyX2trT2AKh4jZRQjt5TrxEQ4",
+      "sizeBytes": 9531,
+      "metadata": {
+        "word": "reluctant",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/reluctant--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:57:22.298Z"
+    },
+    "ielts_audio:substantial": {
+      "key": "ielts_audio:substantial",
+      "category": "ielts_audio",
+      "fileName": "oxford_substantial_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1_K8TapXUdyneqoIgiI-DkGWjAjQIphCj",
+      "driveUrl": "https://drive.google.com/file/d/1_K8TapXUdyneqoIgiI-DkGWjAjQIphCj/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1_K8TapXUdyneqoIgiI-DkGWjAjQIphCj",
+      "sizeBytes": 10367,
+      "metadata": {
+        "word": "substantial",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/substantial--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:57:26.296Z"
+    },
+    "ielts_audio:unprecedented": {
+      "key": "ielts_audio:unprecedented",
+      "category": "ielts_audio",
+      "fileName": "oxford_unprecedented_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "10nt_k3-yro68mw5W6QsjD7n3iq9tkyzE",
+      "driveUrl": "https://drive.google.com/file/d/10nt_k3-yro68mw5W6QsjD7n3iq9tkyzE/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/10nt_k3-yro68mw5W6QsjD7n3iq9tkyzE",
+      "sizeBytes": 11202,
+      "metadata": {
+        "word": "unprecedented",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/unprecedented--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:57:29.625Z"
+    },
+    "ielts_audio:vulnerable": {
+      "key": "ielts_audio:vulnerable",
+      "category": "ielts_audio",
+      "fileName": "oxford_vulnerable_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "16omU6_bMdIEi9fIGjhohU2Sl-QME971G",
+      "driveUrl": "https://drive.google.com/file/d/16omU6_bMdIEi9fIGjhohU2Sl-QME971G/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/16omU6_bMdIEi9fIGjhohU2Sl-QME971G",
+      "sizeBytes": 9531,
+      "metadata": {
+        "word": "vulnerable",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/vulnerable--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:57:33.064Z"
+    },
+    "ielts_audio:arbitrary": {
+      "key": "ielts_audio:arbitrary",
+      "category": "ielts_audio",
+      "fileName": "oxford_arbitrary_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1EymzR9NKfEJKErbOpqMUCFuibw2pziM3",
+      "driveUrl": "https://drive.google.com/file/d/1EymzR9NKfEJKErbOpqMUCFuibw2pziM3/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1EymzR9NKfEJKErbOpqMUCFuibw2pziM3",
+      "sizeBytes": 9740,
+      "metadata": {
+        "word": "arbitrary",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/arbitrary--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:57:38.838Z"
+    },
+    "ielts_audio:coherent": {
+      "key": "ielts_audio:coherent",
+      "category": "ielts_audio",
+      "fileName": "oxford_coherent_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "12ePNmJa48omFLJtYcI2L0yGd7WIktYdz",
+      "driveUrl": "https://drive.google.com/file/d/12ePNmJa48omFLJtYcI2L0yGd7WIktYdz/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/12ePNmJa48omFLJtYcI2L0yGd7WIktYdz",
+      "sizeBytes": 10576,
+      "metadata": {
+        "word": "coherent",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/coherent--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:57:44.256Z"
+    },
+    "ielts_audio:diminish": {
+      "key": "ielts_audio:diminish",
+      "category": "ielts_audio",
+      "fileName": "oxford_diminish_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1aeUp3PclW1WlhOH7h8uLxMs7X1Yt6rCm",
+      "driveUrl": "https://drive.google.com/file/d/1aeUp3PclW1WlhOH7h8uLxMs7X1Yt6rCm/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1aeUp3PclW1WlhOH7h8uLxMs7X1Yt6rCm",
+      "sizeBytes": 8904,
+      "metadata": {
+        "word": "diminish",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/diminish--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:57:47.766Z"
+    },
+    "ielts_audio:feasible": {
+      "key": "ielts_audio:feasible",
+      "category": "ielts_audio",
+      "fileName": "oxford_feasible_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1I9l1_AAQFTHhhJIFHF8XpJ1qP4CDdfs2",
+      "driveUrl": "https://drive.google.com/file/d/1I9l1_AAQFTHhhJIFHF8XpJ1qP4CDdfs2/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1I9l1_AAQFTHhhJIFHF8XpJ1qP4CDdfs2",
+      "sizeBytes": 7650,
+      "metadata": {
+        "word": "feasible",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/feasible--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:57:51.569Z"
+    },
+    "ielts_audio:hierarchy": {
+      "key": "ielts_audio:hierarchy",
+      "category": "ielts_audio",
+      "fileName": "oxford_hierarchy_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "11rWMCPSzjxoVaD3pNZcUyHGWNlSWPzoH",
+      "driveUrl": "https://drive.google.com/file/d/11rWMCPSzjxoVaD3pNZcUyHGWNlSWPzoH/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/11rWMCPSzjxoVaD3pNZcUyHGWNlSWPzoH",
+      "sizeBytes": 9531,
+      "metadata": {
+        "word": "hierarchy",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/hierarchy--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:57:56.742Z"
+    },
+    "ielts_audio:plausible": {
+      "key": "ielts_audio:plausible",
+      "category": "ielts_audio",
+      "fileName": "oxford_plausible_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1Ak7WpxYc_lC6MIuhC9QrX0KJv5svOB4x",
+      "driveUrl": "https://drive.google.com/file/d/1Ak7WpxYc_lC6MIuhC9QrX0KJv5svOB4x/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Ak7WpxYc_lC6MIuhC9QrX0KJv5svOB4x",
+      "sizeBytes": 8277,
+      "metadata": {
+        "word": "plausible",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/plausible--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:58:03.163Z"
+    },
+    "ielts_audio:spontaneous": {
+      "key": "ielts_audio:spontaneous",
+      "category": "ielts_audio",
+      "fileName": "oxford_spontaneous_studio.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1lTJGn8qofEMY-t8AlHwMrPCXkvPr5muM",
+      "driveUrl": "https://drive.google.com/file/d/1lTJGn8qofEMY-t8AlHwMrPCXkvPr5muM/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1lTJGn8qofEMY-t8AlHwMrPCXkvPr5muM",
+      "sizeBytes": 11620,
+      "metadata": {
+        "word": "spontaneous",
+        "phonetic": "",
+        "source": "Oxford & Cambridge Academic Lexicon",
+        "quality": "Studio Lossless Pronunciation (Oxford University Press)",
+        "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/spontaneous--_gb_1.mp3"
+      },
+      "updatedAt": "2026-10-07T00:58:09.803Z"
+    }
+  }
+}

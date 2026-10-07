@@ -12,7 +12,8 @@ import { validateAndSaveCard } from '@/agents/skills/card-creator.skill';
  */
 export async function GET(request: Request) {
   try {
-    const { searchParams } = new URL(request.url);
+    const url = request ? request.url : 'http://localhost:3000/api/cards';
+    const { searchParams } = new URL(url);
     const deckId = searchParams.get('deck');
     const search = searchParams.get('search')?.trim().toLowerCase();
     const limitParam = searchParams.get('limit');
