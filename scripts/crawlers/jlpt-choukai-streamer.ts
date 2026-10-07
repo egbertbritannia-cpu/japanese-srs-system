@@ -1,3 +1,4 @@
+import path from 'path';
 import { DriveFolderManager } from './drive-folder-manager';
 import { StreamUploader } from './stream-uploader';
 
@@ -409,6 +410,77 @@ export async function crawlJlptChoukaiArchive(limit?: number) {
     } catch (err: any) {
       failCount++;
       console.error(`❌ [${i + 1}/${itemsToProcess.length}] ${item.id} Thất bại: ${err.message}`);
+    }
+  }
+
+  // 2. KHO ĐĨA CD AUDIO GỐC THI THẬT JLPT N5 - N1 (HIGH-PAYLOAD MASTER CD PACKS)
+  const shouldStreamCdPacks = !limit || limit > itemsToProcess.length || process.argv.includes('--all') || process.argv.includes('--bulk');
+  if (shouldStreamCdPacks) {
+    console.log('\n💿 [2/2] Đang kết nối kho đĩa CD thi thật JLPT Choukai (1991 - 2024)...');
+    const JLPT_ARCHIVE_COLLECTIONS = [
+      { id: '0b0nor7u', name: 'JLPT Past Exams 2001-2006 Choukai Audio CDs', levelDefault: 'PastExam' },
+      { id: 'Track06_201905', name: 'Shin Kanzen Master N2 Choukai Audio CD1', levelDefault: 'N2' },
+      { id: 'Track80', name: 'Shin Kanzen Master N2 Choukai Audio CD2', levelDefault: 'N2' },
+      { id: '01-track-1_20211017', name: 'JLPT Yosou Mondaishuu N3 Choukai Audio', levelDefault: 'N3' },
+      { id: '49Track49', name: 'JLPT Super Moshi N4-N5 Choukai CD1', levelDefault: 'N4' },
+      { id: '43Track43_201905', name: 'JLPT Super Moshi N4-N5 Choukai CD2', levelDefault: 'N5' },
+      { id: '6868_20190730', name: 'TRY! N5 JLPT Listening Audio CD', levelDefault: 'N5' },
+      { id: 'tnn9209_gmail_122-', name: 'JLPT Koushiki Mondaishuu N5 Audio', levelDefault: 'N5' },
+      { id: 'wut4jxkp3', name: 'JLPT N5 Official Trial Book Examination Questions', levelDefault: 'N5' },
+    ];
+
+    for (const col of JLPT_ARCHIVE_COLLECTIONS) {
+      if (limit && successCount >= limit) break;
+      console.log(`  📂 Khảo sát bộ đề thi: 【${col.name}】 (${col.id})...`);
+      try {
+        const res = await fetch(`https://archive.org/metadata/${col.id}/files`, { signal: AbortSignal.timeout(15000) });
+        if (!res.ok) continue;
+        const data: any = await res.json();
+        const mp3Files = (data.result || []).filter((f: any) => f.name && f.name.endsWith('.mp3'));
+
+        let newInCol = 0;
+        for (const f of mp3Files) {
+          if (limit && successCount >= limit) break;
+          const cleanName = path.basename(f.name);
+          const key = `jlpt_choukai:${col.id}_${encodeURIComponent(cleanName)}`;
+          const partition = DriveFolderManager.getPartition('jlpt_choukai');
+          if (partition.assets[key]) {
+            skipCount++;
+            continue;
+          }
+
+          const fileUrl = `https://archive.org/download/${col.id}/${encodeURIComponent(f.name)}`;
+          const safeName = `jlpt_${col.levelDefault || 'exam'}_${col.id}_${cleanName.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
+
+          try {
+            const entry = await StreamUploader.streamUploadFromUrl({
+              url: fileUrl,
+              key,
+              category: 'jlpt_choukai',
+              fileName: safeName,
+              mimeType: 'audio/mpeg',
+              folderId,
+              metadata: {
+                collectionId: col.id,
+                collectionName: col.name,
+                trackName: cleanName,
+                level: col.levelDefault || 'All',
+                source: 'JLPT Past Examination Master Audio CD Collection',
+                sourceUrl: fileUrl,
+              },
+            });
+            successCount++;
+            newInCol++;
+            console.log(`    🎧 [${col.name}] ${cleanName} -> Streamed: ${entry.fileId} (${((entry.sizeBytes || 0) / 1024 / 1024).toFixed(2)} MB)`);
+            await delay(400);
+          } catch (err: any) {
+            failCount++;
+          }
+        }
+        console.log(`  ✓ Bộ đề 【${col.name}】: +${newInCol} đĩa CD/track mới.`);
+      } catch (colErr: any) {
+        console.warn(`  ⚠️ Lỗi đọc bộ ${col.id}:`, colErr.message);
+      }
     }
   }
 

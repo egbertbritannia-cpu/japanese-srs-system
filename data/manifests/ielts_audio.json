@@ -1,7 +1,7 @@
 {
   "category": "ielts_audio",
-  "totalAssets": 53,
-  "lastUpdated": "2026-10-07T00:58:09.804Z",
+  "totalAssets": 54,
+  "lastUpdated": "2026-10-07T06:43:55.335Z",
   "assets": {
     "ielts_audio:ubiquitous": {
       "key": "ielts_audio:ubiquitous",
@@ -929,6 +929,25 @@
         "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/spontaneous--_gb_1.mp3"
       },
       "updatedAt": "2026-10-07T00:58:09.803Z"
+    },
+    "ielts_audio:cambridge-ielts-books_section1.mp3": {
+      "key": "ielts_audio:cambridge-ielts-books_section1.mp3",
+      "category": "ielts_audio",
+      "fileName": "ielts_Cambridge_IELTS_1_20_section1.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1IWaaFAPVppsa5VRQDbk93lid8bJk1jfQ",
+      "driveUrl": "https://drive.google.com/file/d/1IWaaFAPVppsa5VRQDbk93lid8bJk1jfQ/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1IWaaFAPVppsa5VRQDbk93lid8bJk1jfQ",
+      "sizeBytes": 2078396,
+      "metadata": {
+        "collectionId": "cambridge-ielts-books",
+        "collectionName": "Cambridge IELTS Practice Tests Books 1-20 Full Audio Packs",
+        "series": "Cambridge IELTS 1-20",
+        "trackName": "section1.mp3",
+        "source": "Cambridge IELTS Authentic Examination Papers CD Audio",
+        "sourceUrl": "https://archive.org/download/cambridge-ielts-books/CAMBRIDGE%20IELTS%20(BOOK%201-%2011)/05%20Cambridge%20Practice%20Tests%20for%20IELTS%205/test%201/section1.mp3"
+      },
+      "updatedAt": "2026-10-07T06:43:55.333Z"
     }
   }
 }

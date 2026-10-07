@@ -73,7 +73,7 @@ function fetchHttpStream(
     );
 
     req.on('error', reject);
-    req.setTimeout(30000, () => {
+    req.setTimeout(60000, () => {
       req.destroy(new Error(`Timeout fetching ${targetUrl}`));
     });
   });

@@ -1,14 +1,14 @@
 {
-  "totalAssets": 831,
-  "lastUpdated": "2026-10-07T04:01:08.591Z",
+  "totalAssets": 833,
+  "lastUpdated": "2026-10-07T06:45:01.704Z",
   "categories": {
     "kanji": 111,
     "vocab_audio": 323,
     "illustration": 273,
     "grammar_infographic": 5,
-    "ielts_audio": 53,
+    "ielts_audio": 54,
     "immersion_clip": 20,
-    "jlpt_choukai": 9,
+    "jlpt_choukai": 10,
     "pubmed_corpus": 37
   },
   "assets": {
@@ -993,6 +993,25 @@
         "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/spontaneous--_gb_1.mp3"
       },
       "updatedAt": "2026-10-07T00:58:09.803Z"
+    },
+    "ielts_audio:cambridge-ielts-books_section1.mp3": {
+      "key": "ielts_audio:cambridge-ielts-books_section1.mp3",
+      "category": "ielts_audio",
+      "fileName": "ielts_Cambridge_IELTS_1_20_section1.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1IWaaFAPVppsa5VRQDbk93lid8bJk1jfQ",
+      "driveUrl": "https://drive.google.com/file/d/1IWaaFAPVppsa5VRQDbk93lid8bJk1jfQ/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1IWaaFAPVppsa5VRQDbk93lid8bJk1jfQ",
+      "sizeBytes": 2078396,
+      "metadata": {
+        "collectionId": "cambridge-ielts-books",
+        "collectionName": "Cambridge IELTS Practice Tests Books 1-20 Full Audio Packs",
+        "series": "Cambridge IELTS 1-20",
+        "trackName": "section1.mp3",
+        "source": "Cambridge IELTS Authentic Examination Papers CD Audio",
+        "sourceUrl": "https://archive.org/download/cambridge-ielts-books/CAMBRIDGE%20IELTS%20(BOOK%201-%2011)/05%20Cambridge%20Practice%20Tests%20for%20IELTS%205/test%201/section1.mp3"
+      },
+      "updatedAt": "2026-10-07T06:43:55.333Z"
     },
     "illustration:irasutoya_学校_%E3%83%95%E3%83%AC%E": {
       "key": "illustration:irasutoya_学校_%E3%83%95%E3%83%AC%E",
@@ -7396,6 +7415,25 @@
         "sourceUrl": "https://www.jlpt.jp/samples/sample2018/mp3/N1Q1.mp3"
       },
       "updatedAt": "2026-10-07T00:55:18.540Z"
+    },
+    "jlpt_choukai:0b0nor7u_01%20Track%201.mp3": {
+      "key": "jlpt_choukai:0b0nor7u_01%20Track%201.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_PastExam_0b0nor7u_01_Track_1.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1kcIfDZ57US-817Bu_LpKb0rdZQfGKLpj",
+      "driveUrl": "https://drive.google.com/file/d/1kcIfDZ57US-817Bu_LpKb0rdZQfGKLpj/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1kcIfDZ57US-817Bu_LpKb0rdZQfGKLpj",
+      "sizeBytes": 301982,
+      "metadata": {
+        "collectionId": "0b0nor7u",
+        "collectionName": "JLPT Past Exams 2001-2006 Choukai Audio CDs",
+        "trackName": "01 Track 1.mp3",
+        "level": "PastExam",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/0b0nor7u/media%2FST2000DX0022DV1%2FVeriArchive%2Fjlpt_(2001-2006)%2F2001%2F01%20Track%201.mp3"
+      },
+      "updatedAt": "2026-10-07T06:44:29.394Z"
     },
     "kanji:東": {
       "key": "kanji:東",

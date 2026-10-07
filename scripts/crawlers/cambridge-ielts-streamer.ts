@@ -1,3 +1,4 @@
+import path from 'path';
 import { db } from '../../src/db/client';
 import { engVocab } from '../../src/db/schema';
 import { DriveFolderManager } from './drive-folder-manager';
@@ -64,6 +65,19 @@ export const CAMBRIDGE_IELTS_EXAM_SECTIONS: CambridgeIeltsSection[] = [
     transcript: 'Professor: In today environmental biology symposium, we examine the accelerated degradation of tropical coral reef biomes caused by ocean acidification...',
     questionsSummary: 'Questions 31-40: Complete notes on symbiotic zooxanthellae loss and benthic temperature threshold variations.',
   },
+];
+
+export const CAMBRIDGE_ARCHIVE_COLLECTIONS = [
+  { id: 'cambridge-ielts-books', name: 'Cambridge IELTS Practice Tests Books 1-20 Full Audio Packs', series: 'Cambridge IELTS 1-20' },
+  { id: 'cambridge_ielts_10', name: 'Cambridge IELTS 10 Full Listening Test Audio CD', series: 'Cambridge IELTS 10' },
+  { id: 'cambridge_ielts_11', name: 'Cambridge IELTS 11 Full Listening Test Audio CD', series: 'Cambridge IELTS 11' },
+  { id: 'cambridge_ielts_07', name: 'Cambridge IELTS 7 Full Listening Test Audio CD', series: 'Cambridge IELTS 7' },
+  { id: 'the-official-cambridge-guide-to-ielts', name: 'The Official Cambridge Guide to IELTS Complete Audio CD', series: 'Official Guide' },
+  { id: 'cambridge_ielts_04', name: 'Cambridge IELTS 4 Full Listening Test Audio CD', series: 'Cambridge IELTS 4' },
+  { id: 'cambridge_ielts_05', name: 'Cambridge IELTS 5 Full Listening Test Audio CD', series: 'Cambridge IELTS 5' },
+  { id: 'cambridge_ielts_02', name: 'Cambridge IELTS 2 Full Listening Test Audio CD', series: 'Cambridge IELTS 2' },
+  { id: 'cambridge_ielts_03', name: 'Cambridge IELTS 3 Full Listening Test Audio CD', series: 'Cambridge IELTS 3' },
+  { id: 'cambridge_ielts_01', name: 'Cambridge IELTS 1 Full Listening Test Audio CD', series: 'Cambridge IELTS 1' },
 ];
 
 /**
@@ -133,15 +147,20 @@ export async function crawlCambridgeIeltsAudio(limit?: number) {
   const folderId = folders.ieltsAudioFolderId;
   const manifest = DriveFolderManager.getManifest(true);
 
+  let successCount = 0;
+  let skipCount = 0;
+  let failCount = 0;
+
   // 1. Ingest các bài nghe thi Cambridge IELTS Section 1 - 4
-  console.log('📚 [1/2] Đang tải các bài thi nghe Cambridge IELTS mẫu chuẩn...');
+  console.log('📚 [1/3] Đang tải các bài thi nghe Cambridge IELTS mẫu chuẩn...');
   for (const section of CAMBRIDGE_IELTS_EXAM_SECTIONS) {
+    if (limit && successCount >= limit) break;
     const sectionKey = `cambridge_ielts:${section.id}`;
     const ieltsPartition = DriveFolderManager.getPartition('ielts_audio');
     if (!ieltsPartition.assets[sectionKey]) {
       try {
         const fileName = `${section.id}_audio.mp3`;
-        await StreamUploader.streamUploadFromUrl({
+        const entry = await StreamUploader.streamUploadFromUrl({
           url: section.audioUrl,
           key: sectionKey,
           category: 'ielts_audio',
@@ -158,14 +177,78 @@ export async function crawlCambridgeIeltsAudio(limit?: number) {
             sourceUrl: section.audioUrl,
           },
         });
+        successCount++;
         console.log(`  ✓ Đã lưu bài nghe Cambridge IELTS: ${section.testTitle} - Section ${section.sectionNumber}`);
+        await delay(300);
       } catch (err: any) {
+        failCount++;
         console.warn(`  ⚠️ Lỗi lưu ${section.id}:`, err.message);
+      }
+    } else {
+      skipCount++;
+    }
+  }
+
+  // 2. KHO ĐĨA CD AUDIO GỐC THI THẬT CAMBRIDGE IELTS 1 - 20 (HIGH-PAYLOAD MASTER CD PACKS)
+  const shouldStreamCdPacks = !limit || limit > 4 || process.argv.includes('--all') || process.argv.includes('--bulk');
+  if (shouldStreamCdPacks && (!limit || successCount < limit)) {
+    console.log('\n💿 [2/3] Đang kết nối kho đĩa CD thi thật Cambridge IELTS 1 - 20 Full Audio Packs...');
+    for (const col of CAMBRIDGE_ARCHIVE_COLLECTIONS) {
+      if (limit && successCount >= limit) break;
+      console.log(`  📂 Khảo sát bộ đề thi: 【${col.name}】 (${col.id})...`);
+      try {
+        const res = await fetch(`https://archive.org/metadata/${col.id}/files`, { signal: AbortSignal.timeout(15000) });
+        if (!res.ok) continue;
+        const data: any = await res.json();
+        const mp3Files = (data.result || []).filter((f: any) => f.name && f.name.endsWith('.mp3'));
+
+        let newInCol = 0;
+        for (const f of mp3Files) {
+          if (limit && successCount >= limit) break;
+          const cleanName = path.basename(f.name);
+          const key = `ielts_audio:${col.id}_${encodeURIComponent(cleanName)}`;
+          const partition = DriveFolderManager.getPartition('ielts_audio');
+          if (partition.assets[key]) {
+            skipCount++;
+            continue;
+          }
+
+          const fileUrl = `https://archive.org/download/${col.id}/${f.name.split('/').map(encodeURIComponent).join('/')}`;
+          const safeName = `ielts_${col.series.replace(/[^a-zA-Z0-9]/g, '_')}_${cleanName.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
+
+          try {
+            const entry = await StreamUploader.streamUploadFromUrl({
+              url: fileUrl,
+              key,
+              category: 'ielts_audio',
+              fileName: safeName,
+              mimeType: 'audio/mpeg',
+              folderId,
+              metadata: {
+                collectionId: col.id,
+                collectionName: col.name,
+                series: col.series,
+                trackName: cleanName,
+                source: 'Cambridge IELTS Authentic Examination Papers CD Audio',
+                sourceUrl: fileUrl,
+              },
+            });
+            successCount++;
+            newInCol++;
+            console.log(`    🎧 [${col.name}] ${cleanName} -> Streamed: ${entry.fileId} (${((entry.sizeBytes || 0) / 1024 / 1024).toFixed(2)} MB)`);
+            await delay(400);
+          } catch (err: any) {
+            failCount++;
+          }
+        }
+        console.log(`  ✓ Bộ đề 【${col.name}】: +${newInCol} đĩa CD/track mới.`);
+      } catch (colErr: any) {
+        console.warn(`  ⚠️ Lỗi đọc bộ ${col.id}:`, colErr.message);
       }
     }
   }
 
-  // 2. Lấy danh sách từ vựng IELTS học thuật từ database + seed list mở rộng
+  // 3. Lấy danh sách từ vựng IELTS học thuật từ database + seed list mở rộng
   let vocabList: any[] = [];
   try {
     vocabList = await db.select().from(engVocab);
@@ -179,12 +262,8 @@ export async function crawlCambridgeIeltsAudio(limit?: number) {
   EXPANDED_OXFORD_WORDS.forEach((w) => wordSet.add(w.toLowerCase().trim()));
 
   const allWords = Array.from(wordSet);
-  const wordsToProcess = limit ? allWords.slice(0, limit) : allWords;
-  console.log(`🎯 [2/2] Xử lý ${wordsToProcess.length} từ vựng IELTS / Oxford học thuật.`);
-
-  let successCount = 0;
-  let skipCount = 0;
-  let failCount = 0;
+  const wordsToProcess = limit ? allWords.slice(0, Math.max(0, limit - successCount)) : allWords;
+  console.log(`\n🎯 [3/3] Xử lý ${wordsToProcess.length} từ vựng IELTS / Oxford học thuật.`);
 
   for (let i = 0; i < wordsToProcess.length; i++) {
     const word = wordsToProcess[i];

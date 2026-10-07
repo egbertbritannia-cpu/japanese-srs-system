@@ -2,6 +2,17 @@ name: 🚀 24/7 Google Drive 15TB Streaming Crawler
 
 on:
   workflow_dispatch: # Cho phép bấm nút "Run workflow" bất kỳ lúc nào trên GitHub
+    inputs:
+      target:
+        description: 'Mục tiêu cào (Target Dataset)'
+        required: true
+        default: 'jlpt_ielts'
+        type: choice
+        options:
+          - 'jlpt_ielts' # 🎧 2 kho dung lượng cực lớn: JLPT Choukai CDs & Cambridge IELTS CDs
+          - 'all'        # 🌊 Toàn bộ 6 kho dữ liệu học thuật
+          - 'jlpt'       # 🇯🇵 Chỉ đề thi nghe JLPT Choukai CDs
+          - 'ielts'      # 🇬🇧 Chỉ đĩa nghe Cambridge IELTS CDs
   schedule:
     - cron: '0 */6 * * *' # Tự động chạy mỗi 6 tiếng một lần trên Cloud ngay cả khi tắt máy tính
 
@@ -25,7 +36,7 @@ jobs:
       - name: 📦 Install dependencies
         run: npm ci
 
-      - name: 🚀 Run 6-Subagent Parallel Streaming Ingestion
+      - name: 🚀 Run Streaming Ingestion into Google Drive 15TB
         env:
           GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
@@ -34,10 +45,15 @@ jobs:
           TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
           TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
         run: |
+          TARGET="${{ github.event.inputs.target || 'jlpt_ielts' }}"
           echo "=================================================================="
-          echo "🚀 Bắt đầu streaming dữ liệu thật lên Google Drive 15TB bằng 6 Workers..."
+          echo "🚀 Bắt đầu streaming dữ liệu thật lên Google Drive 15TB (Target: $TARGET)..."
           echo "=================================================================="
-          npx tsx scripts/crawlers/orchestrate-6-workers.ts --all
+          if [ "$TARGET" = "all" ]; then
+            npx tsx scripts/crawlers/orchestrate-6-workers.ts --all
+          else
+            npx tsx scripts/crawlers/orchestrate-6-workers.ts --target=$TARGET --all
+          fi
 
       - name: 💾 Commit & Push updated manifests
         if: always()

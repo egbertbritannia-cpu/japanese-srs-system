@@ -157,14 +157,33 @@ export async function orchestrateParallelCrawlers() {
 
   // Xác định cờ CLI
   const limitArg = process.argv.find((a) => a.startsWith('--limit='));
-  const isAll = process.argv.includes('--all') || !limitArg;
+  const workersArg = process.argv.find((a) => a.startsWith('--workers='));
+  const targetArg = process.argv.find((a) => a.startsWith('--target='));
+  const isAll = process.argv.includes('--all') || (!limitArg && !workersArg && !targetArg);
   const commonArgs: string[] = [];
   if (limitArg) {
     commonArgs.push(limitArg);
     console.log(`⚡ Chế độ kiểm tra: Áp dụng ${limitArg} cho từng luồng.\n`);
   } else if (isAll) {
     commonArgs.push('--all');
-    console.log(`🌊 Chế độ TOÀN TẬP (--all): Cào toàn bộ dữ liệu 6 kho tàng học thuật chuẩn mực.\n`);
+    console.log(`🌊 Chế độ TOÀN TẬP (--all): Cào toàn bộ dữ liệu học thuật chuẩn mực.\n`);
+  }
+
+  let activeSpecs = WORKER_SPECS;
+  if (workersArg) {
+    const workerIds = workersArg.split('=')[1].split(',').map((id) => parseInt(id.trim(), 10));
+    activeSpecs = WORKER_SPECS.filter((s) => workerIds.includes(s.id));
+    console.log(`🎯 Chỉ kích hoạt Workers: ${workerIds.join(', ')}\n`);
+  } else if (targetArg) {
+    const target = targetArg.split('=')[1].trim().toLowerCase();
+    if (target === 'jlpt_ielts' || target === 'high_payload') {
+      activeSpecs = WORKER_SPECS.filter((s) => s.id === 4 || s.id === 5);
+      console.log(`🎯 Chỉ kích hoạt 2 kho High-Payload: JLPT Choukai CD Packs & Cambridge IELTS CD Audio (Workers 4, 5)\n`);
+    } else if (target === 'jlpt') {
+      activeSpecs = WORKER_SPECS.filter((s) => s.id === 4);
+    } else if (target === 'ielts') {
+      activeSpecs = WORKER_SPECS.filter((s) => s.id === 5);
+    }
   }
 
   // 1. Khởi tạo thư mục Google Drive và phân vùng Manifest
@@ -176,9 +195,9 @@ export async function orchestrateParallelCrawlers() {
   console.log(`📊 Số lượng tài nguyên hiện tại: ${manifestBefore.totalAssets} tệp đa phương tiện.`);
   console.log('──────────────────────────────────────────────────────────────────────────────────────\n');
 
-  // 2. Chạy 6 workers song song
-  console.log('🚀 Bước 2: Kích hoạt đồng thời 6 Subagents / Workers...\n');
-  const workerPromises = WORKER_SPECS.map((spec) => runWorker(spec, commonArgs));
+  // 2. Chạy workers song song
+  console.log(`🚀 Bước 2: Kích hoạt đồng thời ${activeSpecs.length} Subagents / Workers...\n`);
+  const workerPromises = activeSpecs.map((spec) => runWorker(spec, commonArgs));
   const results = await Promise.all(workerPromises);
 
   // 3. Tổng hợp lại Partitioned Manifests thành multimodal-manifest.json duy nhất
