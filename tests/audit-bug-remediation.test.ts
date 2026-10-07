@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { POST as reviewRoute } from '../src/app/api/review/route';
 import { POST as batchReviewRoute } from '../src/app/api/review/batch/route';
 import { GET as getCardsRoute } from '../src/app/api/cards/route';
@@ -9,10 +9,52 @@ import { checkRateLimit } from '../src/lib/rate-limiter';
 import { verifyRequestAuth } from '../src/lib/auth-guard';
 import { generateDeterministicCardId } from '../src/agents/skills/card-creator.skill';
 import { db } from '../src/db/client';
-import { cards, reviewLogs } from '../src/db/schema';
-import { eq } from 'drizzle-orm';
+import { cards, decks, reviewLogs } from '../src/db/schema';
+import { eq, inArray } from 'drizzle-orm';
 
 describe('Audit Bug Remediation Test Suite (Verification of 55 Bugs Fixed)', () => {
+  const reviewTestDeckId = 'test_review_service_deck';
+  const reviewTestCardIds = ['test_review_service_card_1', 'test_review_service_card_2'];
+
+  beforeAll(async () => {
+    await db.delete(reviewLogs).where(inArray(reviewLogs.cardId, reviewTestCardIds));
+    await db.delete(cards).where(inArray(cards.id, reviewTestCardIds));
+    await db.delete(decks).where(eq(decks.id, reviewTestDeckId));
+
+    const now = new Date('2026-01-01T00:00:00.000Z');
+    await db.insert(decks).values({
+      id: reviewTestDeckId,
+      name: 'Review Service Test Deck',
+      description: 'Deterministic CI fixture',
+      createdAt: now,
+    });
+
+    await db.insert(cards).values(
+      reviewTestCardIds.map((id, index) => ({
+        id,
+        deckId: reviewTestDeckId,
+        type: 'Vocab',
+        front: `fixture-${index + 1}`,
+        meaning: `fixture meaning ${index + 1}`,
+        stability: 0,
+        difficulty: 0,
+        elapsedDays: 0,
+        scheduledDays: 0,
+        reps: 0,
+        lapses: 0,
+        state: 'New',
+        due: now,
+        createdAt: now,
+        updatedAt: now,
+      }))
+    );
+  });
+
+  afterAll(async () => {
+    await db.delete(reviewLogs).where(inArray(reviewLogs.cardId, reviewTestCardIds));
+    await db.delete(cards).where(inArray(cards.id, reviewTestCardIds));
+    await db.delete(decks).where(eq(decks.id, reviewTestDeckId));
+  });
   describe('BUG-CONJ-01 & BUG-CONJ-02: Japanese Transliteration Engine', () => {
     it('chuyển đổi chuẩn xác phụ âm kép nn thành ん duy nhất', () => {
       expect(romajiToHiragana('shinnde')).toBe('しんで');
@@ -52,10 +94,10 @@ describe('Audit Bug Remediation Test Suite (Verification of 55 Bugs Fixed)', () 
 
   describe('BUG-DB-01 & BUG-DB-05: Real FSRS Review API & Atomic Database Transaction', () => {
     it('cập nhật FSRS state thực tế vào cards và ghi review_logs nguyên tử', async () => {
-      // Lấy 1 thẻ có sẵn trong DB để test
-      const cardList = await db.select().from(cards).limit(1);
-      expect(cardList.length).toBeGreaterThan(0);
-      const testCard = cardList[0];
+      const testCard = (
+        await db.select().from(cards).where(eq(cards.id, reviewTestCardIds[0])).limit(1)
+      )[0];
+      expect(testCard).toBeDefined();
 
       const initialReps = testCard.reps;
       const initialStability = testCard.stability;
@@ -99,12 +141,87 @@ describe('Audit Bug Remediation Test Suite (Verification of 55 Bugs Fixed)', () 
       const res = await reviewRoute(req);
       expect(res.status).toBe(400);
     });
+
+    it('từ chối rating không hợp lệ thay vì silently default Good', async () => {
+      const before = (
+        await db.select().from(cards).where(eq(cards.id, reviewTestCardIds[1])).limit(1)
+      )[0];
+
+      const req = new Request('http://localhost:3000/api/review', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: 'test_invalid_rating_event',
+          cardId: reviewTestCardIds[1],
+          rating: 'Perfect',
+        }),
+      });
+      const res = await reviewRoute(req);
+      expect(res.status).toBe(400);
+
+      const after = (
+        await db.select().from(cards).where(eq(cards.id, reviewTestCardIds[1])).limit(1)
+      )[0];
+      expect(after.reps).toBe(before.reps);
+    });
+
+    it('coi eventId là idempotency key và không áp dụng FSRS hai lần', async () => {
+      const eventId = 'test_idempotent_review_event';
+      const requestBody = {
+        id: eventId,
+        cardId: reviewTestCardIds[1],
+        rating: 'Good',
+        reviewTime: '2026-01-02T00:00:00.000Z',
+        scheduledDays: 999,
+      };
+
+      const first = await reviewRoute(
+        new Request('http://localhost:3000/api/review', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(requestBody),
+        })
+      );
+      expect(first.status).toBe(200);
+      const firstBody = await first.json();
+      expect(firstBody.status).toBe('applied');
+      expect(firstBody.data.scheduledDays).not.toBe(999);
+
+      const afterFirst = (
+        await db.select().from(cards).where(eq(cards.id, reviewTestCardIds[1])).limit(1)
+      )[0];
+
+      const second = await reviewRoute(
+        new Request('http://localhost:3000/api/review', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(requestBody),
+        })
+      );
+      expect(second.status).toBe(200);
+      const secondBody = await second.json();
+      expect(secondBody.status).toBe('duplicate');
+
+      const afterSecond = (
+        await db.select().from(cards).where(eq(cards.id, reviewTestCardIds[1])).limit(1)
+      )[0];
+      expect(afterSecond.reps).toBe(afterFirst.reps);
+
+      const logs = await db
+        .select()
+        .from(reviewLogs)
+        .where(eq(reviewLogs.id, eventId));
+      expect(logs).toHaveLength(1);
+    });
   });
 
   describe('BUG-OFF-02: Batch Review API Route', () => {
     it('xử lý đồng bộ nhiều thẻ một lúc trong duy nhất một transaction', async () => {
-      const cardList = await db.select().from(cards).limit(2);
-      expect(cardList.length).toBe(2);
+      const cardList = await db
+        .select()
+        .from(cards)
+        .where(inArray(cards.id, reviewTestCardIds));
+      expect(cardList).toHaveLength(2);
 
       const req = new Request('http://localhost:3000/api/review/batch', {
         method: 'POST',

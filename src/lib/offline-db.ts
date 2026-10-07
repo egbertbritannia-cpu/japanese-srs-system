@@ -210,9 +210,22 @@ async function executeSyncBatch(endpoint: string): Promise<{ synced: number; fai
         });
 
         if (batchRes.ok) {
-          const ids = pending.map((p) => p.id);
-          await offlineDb.pendingReviews.where('id').anyOf(ids).delete();
-          return { synced: pending.length, failed: 0 };
+          const body = await batchRes.json();
+          const acknowledgedIds = Array.isArray(body.results)
+            ? body.results
+                .filter((result: any) => result.status === 'applied' || result.status === 'duplicate')
+                .map((result: any) => result.eventId)
+                .filter(Boolean)
+            : [];
+
+          if (acknowledgedIds.length > 0) {
+            await offlineDb.pendingReviews.where('id').anyOf(acknowledgedIds).delete();
+          }
+
+          return {
+            synced: acknowledgedIds.length,
+            failed: pending.length - acknowledgedIds.length,
+          };
         }
       } catch (batchErr) {
         console.warn('[OfflineDB] Batch sync failed, falling back to individual sync:', batchErr);
@@ -226,9 +239,12 @@ async function executeSyncBatch(endpoint: string): Promise<{ synced: number; fai
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            id: item.id,
             cardId: item.cardId,
             rating: item.rating,
+            reviewTime: item.reviewedAt,
             responseTimeMs: item.responseTimeMs || 2500,
+            // Retained for wire compatibility only; the server never trusts this value.
             scheduledDays: item.scheduledDays,
           }),
         });

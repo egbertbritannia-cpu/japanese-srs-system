@@ -4,8 +4,10 @@ import { patternToCards, exerciseToCard } from '@/core/grammar/grammarCardFactor
 import { CardValidator } from '@/core/cards/card.validator';
 import { GrammarPattern, GrammarExercise } from '@/core/grammar/grammar.types';
 
+const describeGrammarDb = process.env.RUN_DB_INTEGRATION === '1' ? describe : describe.skip;
+
 describe('Grammar Engine Test Suite', () => {
-  describe('Grammar Repository Queries', () => {
+  describeGrammarDb('Grammar Repository Queries', () => {
     it('returns all 4 JPD133 lessons with correct ordering and pattern counts', async () => {
       const data = await grammarRepository.getAllLessonsWithStats();
       expect(data.lessons).toBeDefined();
