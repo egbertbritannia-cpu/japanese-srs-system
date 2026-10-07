@@ -17,6 +17,7 @@ export default function IeltsSessionTracker() {
   const [section, setSection] = useState<SectionType>('Reading');
   const [testType, setTestType] = useState<TestType>('academic');
   const [materialTitle, setMaterialTitle] = useState('Cambridge IELTS 18 - Test 1');
+  const [availableMaterials, setAvailableMaterials] = useState<Array<{ id: string; title: string }>>([]);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [writingTask1, setWritingTask1] = useState('');
   const [writingTask2, setWritingTask2] = useState('');
@@ -29,6 +30,24 @@ export default function IeltsSessionTracker() {
   const [confirmClear, setConfirmClear] = useState<boolean>(false);
   const [savedNotification, setSavedNotification] = useState<string>('');
 
+  // Fetch materials from database
+  useEffect(() => {
+    async function loadMaterials() {
+      try {
+        const res = await fetch('/api/ielts/materials');
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success && Array.isArray(json.data)) {
+            setAvailableMaterials(json.data);
+          }
+        }
+      } catch (err) {
+        console.warn('Could not load materials from API:', err);
+      }
+    }
+    loadMaterials();
+  }, []);
+
   // Khôi phục draft từ LocalStorage
   useEffect(() => {
     try {
@@ -40,6 +59,7 @@ export default function IeltsSessionTracker() {
         if (parsed.writingTask2) setWritingTask2(parsed.writingTask2);
         if (parsed.timeLeft !== undefined) setTimeLeft(parsed.timeLeft);
         if (parsed.testType) setTestType(parsed.testType);
+        if (parsed.materialTitle) setMaterialTitle(parsed.materialTitle);
       } else {
         setTimeLeft(SECTION_DURATIONS[section]);
         setAnswers({});
@@ -55,6 +75,7 @@ export default function IeltsSessionTracker() {
       const draft = {
         section,
         testType,
+        materialTitle,
         answers,
         writingTask1,
         writingTask2,
@@ -65,7 +86,8 @@ export default function IeltsSessionTracker() {
     } catch {
       // Ignore
     }
-  }, [section, testType, answers, writingTask1, writingTask2, timeLeft]);
+  }, [section, testType, materialTitle, answers, writingTask1, writingTask2, timeLeft]);
+
   // Bộ đếm ngược Timer
   useEffect(() => {
     let timer: any = null;
@@ -80,11 +102,81 @@ export default function IeltsSessionTracker() {
     return () => clearInterval(timer);
   }, [isRunning, timeLeft, section]);
 
-  const handleSubmitSession = () => {
+  const handleSubmitSession = async () => {
     setSubmitting(true);
     const answeredCount = Object.values(answers).filter((v) => v && v.trim().length > 0).length;
+    const timeSpentSeconds = Math.max(1, SECTION_DURATIONS[section] - timeLeft);
+    const sessionId = `ielts_${Date.now()}`;
+
+    // 1. Submit session to Turso database via API
+    try {
+      const sessionPayload = {
+        id: sessionId,
+        section,
+        testType,
+        testNumber: materialTitle,
+        startTime: Date.now() - (timeSpentSeconds * 1000),
+        endTime: Date.now(),
+        totalDurationSeconds: timeSpentSeconds,
+        rawScore: answeredCount,
+        maxScore: 40,
+        sessionStatus: 'completed',
+      };
+
+      const sessionRes = await fetch('/api/ielts/sessions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(sessionPayload),
+      });
+
+      // 2. Submit logs
+      let logsPayload: any[] = [];
+      if (section === 'Reading' || section === 'Listening') {
+        logsPayload = Array.from({ length: 40 }).map((_, i) => ({
+          questionNumber: i + 1,
+          questionType: (i + 1) <= 13 ? 'Passage 1' : (i + 1) <= 27 ? 'Passage 2' : 'Passage 3',
+          userAnswer: answers[i + 1] || '',
+          isCorrect: answers[i + 1]?.trim() ? true : null,
+        }));
+      } else if (section === 'Writing') {
+        logsPayload = [
+          {
+            questionNumber: 1,
+            questionType: 'Task 1 Report',
+            submissionText: writingTask1,
+            timeSpentSeconds: 20 * 60,
+          },
+          {
+            questionNumber: 2,
+            questionType: 'Task 2 Essay',
+            submissionText: writingTask2,
+            timeSpentSeconds: 40 * 60,
+          },
+        ];
+      } else {
+        logsPayload = [
+          {
+            questionNumber: 1,
+            questionType: 'Speaking Part 1, 2, 3',
+            notes: 'Speaking practice recording and transcript',
+          },
+        ];
+      }
+
+      if (sessionRes.ok) {
+        await fetch('/api/ielts/logs', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sessionId, logs: logsPayload }),
+        });
+      }
+    } catch (err) {
+      console.warn('Network issue saving session to database, maintaining offline cache:', err);
+    }
+
+    // 3. Save to localStorage as offline-first backup
     const sessionResult = {
-      id: `ielts_${Date.now()}`,
+      id: sessionId,
       section,
       testType,
       materialTitle,
@@ -96,7 +188,7 @@ export default function IeltsSessionTracker() {
       writingTask2,
       writingTask1Words: wordCount(writingTask1),
       writingTask2Words: wordCount(writingTask2),
-      timeSpentMinutes: Math.round((SECTION_DURATIONS[section] - timeLeft) / 60),
+      timeSpentMinutes: Math.round(timeSpentSeconds / 60),
     };
 
     try {
@@ -106,7 +198,7 @@ export default function IeltsSessionTracker() {
       localStorage.setItem('ielts_session_history', JSON.stringify(history));
       localStorage.removeItem(`ielts_draft_${section}`);
     } catch (e) {
-      console.error('Error saving session:', e);
+      console.error('Error saving session locally:', e);
     }
 
     window.location.href = `/ielts/review?section=${section}&session=${sessionResult.id}`;
@@ -185,6 +277,35 @@ export default function IeltsSessionTracker() {
           >
             <option value="academic">Academic Module</option>
             <option value="general">General Training Module</option>
+          </select>
+
+          {/* Material Selector */}
+          <select
+            value={materialTitle}
+            onChange={(e) => setMaterialTitle(e.target.value)}
+            style={{
+              padding: '0.45rem 0.8rem',
+              borderRadius: '6px',
+              border: '1.5px solid var(--primary-color)',
+              background: '#FFFFFF',
+              color: 'var(--primary-color)',
+              fontWeight: 'bold',
+              fontFamily: 'var(--font-sans)',
+            }}
+          >
+            {availableMaterials.length > 0 ? (
+              availableMaterials.map((m) => (
+                <option key={m.id} value={`${m.title} - Test 1`}>
+                  {m.title} - Test 1
+                </option>
+              ))
+            ) : (
+              <>
+                <option value="Cambridge IELTS 18 - Test 1">Cambridge IELTS 18 - Test 1</option>
+                <option value="Cambridge IELTS 19 - Test 1">Cambridge IELTS 19 - Test 1</option>
+                <option value="Cambridge IELTS 17 - Test 1">Cambridge IELTS 17 - Test 1</option>
+              </>
+            )}
           </select>
 
           {(['Listening', 'Reading', 'Writing', 'Speaking'] as SectionType[]).map((sec) => (

@@ -1,32 +1,68 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 
+interface DashboardData {
+  targetBand: number;
+  currentBand: number;
+  totalMistakes: number;
+  totalVocab: number;
+  skillBands: Array<{ skill: string; current: number; target: number; color: string }>;
+  recentSessions: Array<{ id: string; title: string; section: string; type: string; score: string; band: number; date: string }>;
+  mistakeBreakdown: Array<{ category: string; count: number; percent: number; desc: string }>;
+}
+
 export default function IeltsDashboard() {
-  const targetBand = 8.0;
-  const currentBand = 7.0;
+  const [data, setData] = useState<DashboardData>({
+    targetBand: 8.0,
+    currentBand: 7.0,
+    totalMistakes: 34,
+    totalVocab: 128,
+    skillBands: [
+      { skill: 'Listening', current: 7.5, target: 8.5, color: '#002147' },
+      { skill: 'Reading', current: 7.5, target: 8.5, color: '#1B4268' },
+      { skill: 'Writing', current: 6.5, target: 7.5, color: '#D97706' },
+      { skill: 'Speaking', current: 6.5, target: 7.5, color: '#059669' },
+    ],
+    recentSessions: [
+      { id: 's1', title: 'Cambridge IELTS 18 - Test 1', section: 'Reading', type: 'Academic', score: '32/40', band: 7.5, date: 'Hôm nay' },
+      { id: 's2', title: 'Cambridge IELTS 18 - Test 1', section: 'Listening', type: 'Academic', score: '30/40', band: 7.0, date: 'Hôm qua' },
+      { id: 's3', title: 'Cambridge IELTS 17 - Test 4', section: 'Reading', type: 'Academic', score: '28/40', band: 6.5, date: '3 ngày trước' },
+    ],
+    mistakeBreakdown: [
+      { category: 'Distraction', count: 12, percent: 35, desc: 'Bẫy đề thi, thông tin đối lập giữa bài nghe và phương án' },
+      { category: 'Vocabulary', count: 9, percent: 26, desc: 'Không nhận ra từ đồng nghĩa (paraphrase) trong câu hỏi' },
+      { category: 'Time Management', count: 6, percent: 18, desc: 'Tốn quá 22 phút cho Passage 1 dẫn tới cuống ở Passage 3' },
+      { category: 'Comprehension', count: 4, percent: 12, desc: 'Mạch văn phức tạp chứa nhiều mệnh đề quan hệ kép' },
+      { category: 'Careless', count: 3, percent: 9, desc: 'Vượt quá giới hạn số từ quy định (NO MORE THAN TWO WORDS)' },
+    ],
+  });
 
-  const skillBands = [
-    { skill: 'Listening', current: 7.5, target: 8.5, color: '#002147' },
-    { skill: 'Reading', current: 7.5, target: 8.5, color: '#1B4268' },
-    { skill: 'Writing', current: 6.5, target: 7.5, color: '#D97706' },
-    { skill: 'Speaking', current: 6.5, target: 7.5, color: '#059669' },
-  ];
+  const [loading, setLoading] = useState(true);
+  const [dbConnected, setDbConnected] = useState(false);
 
-  const recentSessions = [
-    { id: 's1', title: 'Cambridge IELTS 18 - Test 1', section: 'Reading', type: 'Academic', score: '32/40', band: 7.5, date: 'Hôm nay' },
-    { id: 's2', title: 'Cambridge IELTS 18 - Test 1', section: 'Listening', type: 'Academic', score: '30/40', band: 7.0, date: 'Hôm qua' },
-    { id: 's3', title: 'Cambridge IELTS 17 - Test 4', section: 'Reading', type: 'Academic', score: '28/40', band: 6.5, date: '3 ngày trước' },
-  ];
+  useEffect(() => {
+    async function fetchStats() {
+      try {
+        const res = await fetch('/api/ielts/dashboard');
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success && json.data) {
+            setData(json.data);
+            setDbConnected(true);
+          }
+        }
+      } catch (err) {
+        console.warn('Cannot fetch IELTS dashboard stats from API, using fallback buffer:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchStats();
+  }, []);
 
-  const mistakeBreakdown = [
-    { category: 'Distraction', count: 12, percent: 35, desc: 'Bẫy đề thi, thông tin đối lập giữa bài nghe và phương án' },
-    { category: 'Vocabulary', count: 9, percent: 26, desc: 'Không nhận ra từ đồng nghĩa (paraphrase) trong câu hỏi' },
-    { category: 'Time Management', count: 6, percent: 18, desc: 'Tốn quá 22 phút cho Passage 1 dẫn tới cuống ở Passage 3' },
-    { category: 'Comprehension', count: 4, percent: 12, desc: 'Mạch văn phức tạp chứa nhiều mệnh đề quan hệ kép' },
-    { category: 'Careless', count: 3, percent: 9, desc: 'Vượt quá giới hạn số từ quy định (NO MORE THAN TWO WORDS)' },
-  ];
+  const { targetBand, currentBand, totalMistakes, totalVocab, skillBands, recentSessions, mistakeBreakdown } = data;
 
   return (
     <div className="english-mode" style={{ minHeight: '100vh', padding: '2rem' }}>
@@ -34,9 +70,24 @@ export default function IeltsDashboard() {
         {/* Header Hero */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
-            <h1 style={{ fontSize: '2.6rem', margin: 0, fontFamily: 'var(--font-serif)', color: 'var(--primary-color)' }}>
-              The Study · IELTS Master Suite
-            </h1>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+              <h1 style={{ fontSize: '2.6rem', margin: 0, fontFamily: 'var(--font-serif)', color: 'var(--primary-color)' }}>
+                The Study · IELTS Master Suite
+              </h1>
+              {dbConnected && (
+                <span style={{
+                  fontSize: '0.75rem',
+                  padding: '0.2rem 0.5rem',
+                  borderRadius: '12px',
+                  backgroundColor: '#E6F4EA',
+                  color: '#137333',
+                  fontWeight: 'bold',
+                  letterSpacing: '0.3px',
+                }}>
+                  ● LibSQL Cloud Synced
+                </span>
+              )}
+            </div>
             <p style={{ fontSize: '1.1rem', margin: '0.35rem 0 0', color: 'var(--text-color)' }}>
               Môi trường theo dõi học tập học thuật chuẩn Oxford &amp; Cambridge.
             </p>
@@ -92,7 +143,7 @@ export default function IeltsDashboard() {
               Lỗi Sai Đã Phân Tích
             </div>
             <div style={{ fontSize: '3rem', color: 'var(--error-color)', fontWeight: 'bold', fontFamily: 'var(--font-serif)', lineHeight: 1.1, margin: '0.25rem 0' }}>
-              34
+              {totalMistakes}
             </div>
             <div style={{ fontSize: '0.85rem', color: '#666' }}>
               Cần khắc phục bẫy Distraction
@@ -104,7 +155,7 @@ export default function IeltsDashboard() {
               FSRS Vocab Vault
             </div>
             <div style={{ fontSize: '3rem', color: '#047857', fontWeight: 'bold', fontFamily: 'var(--font-serif)', lineHeight: 1.1, margin: '0.25rem 0' }}>
-              128
+              {totalVocab}
             </div>
             <div style={{ fontSize: '0.85rem', color: '#059669', fontWeight: 600 }}>
               Đã sẵn sàng đồng bộ sang Cards

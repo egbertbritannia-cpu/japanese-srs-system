@@ -80,10 +80,14 @@ const SAMPLE_QUESTIONS = [
 ];
 
 export default function IeltsReviewDesk() {
+  const [currentSessionId, setCurrentSessionId] = useState<string | null>(null);
+  const [materialTitle, setMaterialTitle] = useState('Cambridge IELTS 18 - Test 1');
   const [section, setSection] = useState<'Reading' | 'Listening'>('Reading');
   const [testType, setTestType] = useState<'academic' | 'general'>('academic');
   const [rawScore, setRawScore] = useState<number>(32);
   const [analyzingQuestion, setAnalyzingQuestion] = useState<number | null>(null);
+  const [questionList, setQuestionList] = useState<Array<{ qNum: number; yourAnswer: string; correctAnswer: string; isCorrect: boolean }>>([]);
+  const [isSynced, setIsSynced] = useState(false);
 
   // Mistakes
   const [mistakes, setMistakes] = useState<Record<number, MistakeRecord>>({
@@ -126,7 +130,90 @@ export default function IeltsReviewDesk() {
   const [newMeaning, setNewMeaning] = useState('');
   const [newSentence, setNewSentence] = useState('');
 
+  // Load Session & Vocab from Turso API on Mount
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const urlParams = new URLSearchParams(window.location.search);
+    const sid = urlParams.get('session');
+    const sec = urlParams.get('section');
+    if (sid) setCurrentSessionId(sid);
+    if (sec && (sec === 'Reading' || sec === 'Listening')) setSection(sec);
+
+    // Fetch session details from API
+    if (sid) {
+      fetch(`/api/ielts/sessions/${sid}`)
+        .then((res) => (res.ok ? res.json() : null))
+        .then((json) => {
+          if (json?.success && json?.data) {
+            const s = json.data;
+            if (s.rawScore !== null && s.rawScore !== undefined) setRawScore(s.rawScore);
+            if (s.section === 'Reading' || s.section === 'Listening') setSection(s.section);
+            if (s.testType === 'academic' || s.testType === 'general') setTestType(s.testType);
+            if (s.testNumber) setMaterialTitle(s.testNumber);
+            setIsSynced(true);
+
+            // Populate question logs if available
+            if (s.logs && Array.isArray(s.logs) && s.logs.length > 0) {
+              const mapped = s.logs.slice(0, 10).map((l: any) => ({
+                qNum: l.questionNumber,
+                yourAnswer: l.userAnswer || '—',
+                correctAnswer: l.correctAnswer || (l.isCorrect ? l.userAnswer : 'True'),
+                isCorrect: l.isCorrect ?? false,
+              }));
+              setQuestionList(mapped);
+            }
+
+            // Populate mistakes if available
+            if (s.mistakes && Array.isArray(s.mistakes) && s.mistakes.length > 0) {
+              const loadedMistakes: Record<number, MistakeRecord> = {};
+              s.mistakes.forEach((m: any, idx: number) => {
+                const qNum = m.logId ? parseInt(m.logId.split('_q')[1] || `${idx + 1}`, 10) : idx + 2;
+                loadedMistakes[qNum] = {
+                  qNum,
+                  category: m.mistakeCategory || 'Distraction',
+                  rootCause: m.rootCauseAnalysis || '',
+                  actionPlan: m.actionPlanForImprovement || '',
+                };
+              });
+              setMistakes((prev) => ({ ...prev, ...loadedMistakes }));
+            }
+          }
+        })
+        .catch((err) => console.warn('Could not load session from database:', err));
+    }
+
+    // Fetch vocab from API
+    fetch('/api/ielts/vocab')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((json) => {
+        if (json?.success && Array.isArray(json?.data) && json.data.length > 0) {
+          const mappedVocab: VocabItem[] = json.data.map((v: any) => ({
+            id: v.id,
+            word: v.word,
+            partOfSpeech: v.partOfSpeech || 'noun',
+            phonetic: v.phonetic || '',
+            meaning: v.primaryMeaning || '',
+            contextSentence: v.contextSentence || '',
+          }));
+          setVocabList(mappedVocab);
+        }
+      })
+      .catch((err) => console.warn('Could not load vocab from database:', err));
+  }, []);
+
   const currentBand = calculateBand(rawScore, section, testType);
+
+  const handleScoreChange = (newScore: number) => {
+    setRawScore(newScore);
+    if (currentSessionId) {
+      const band = calculateBand(newScore, section, testType);
+      fetch(`/api/ielts/sessions/${currentSessionId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ rawScore: newScore, currentScoreBand: band }),
+      }).catch((e) => console.warn('Score update patch warning:', e));
+    }
+  };
 
   const openMistakeModal = (qNum: number) => {
     setAnalyzingQuestion(qNum);
@@ -142,28 +229,47 @@ export default function IeltsReviewDesk() {
     }
   };
 
-  const saveMistake = () => {
+  const saveMistake = async () => {
     if (analyzingQuestion !== null) {
+      const newRecord: MistakeRecord = {
+        qNum: analyzingQuestion,
+        category: activeCategory,
+        rootCause: activeRootCause,
+        actionPlan: activeActionPlan,
+      };
       setMistakes((prev) => ({
         ...prev,
-        [analyzingQuestion]: {
-          qNum: analyzingQuestion,
-          category: activeCategory,
-          rootCause: activeRootCause,
-          actionPlan: activeActionPlan,
-        }
+        [analyzingQuestion]: newRecord,
       }));
+
+      // Persist to Turso
+      try {
+        await fetch('/api/ielts/mistakes', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            sessionId: currentSessionId || undefined,
+            mistakeCategory: activeCategory,
+            rootCauseAnalysis: activeRootCause,
+            actionPlanForImprovement: activeActionPlan,
+          }),
+        });
+      } catch (err) {
+        console.warn('Error saving mistake to database:', err);
+      }
+
       setAnalyzingQuestion(null);
     }
   };
 
-  const handleAddVocab = () => {
+  const handleAddVocab = async () => {
     if (!newWord.trim() || !newMeaning.trim()) {
       alert('Vui lòng nhập từ vựng và định nghĩa.');
       return;
     }
+    const tempId = `v_${Date.now()}`;
     const newItem: VocabItem = {
-      id: `v_${Date.now()}`,
+      id: tempId,
       word: newWord.trim(),
       partOfSpeech: newPos,
       phonetic: newPhonetic.trim(),
@@ -171,6 +277,31 @@ export default function IeltsReviewDesk() {
       contextSentence: newSentence.trim(),
     };
     setVocabList((prev) => [newItem, ...prev]);
+
+    // Persist to Turso
+    try {
+      const res = await fetch('/api/ielts/vocab', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sessionId: currentSessionId || undefined,
+          word: newWord.trim(),
+          partOfSpeech: newPos,
+          phonetic: newPhonetic.trim(),
+          primaryMeaning: newMeaning.trim(),
+          contextSentence: newSentence.trim(),
+        }),
+      });
+      if (res.ok) {
+        const json = await res.json();
+        if (json?.data?.id) {
+          setVocabList((prev) => prev.map((item) => (item.id === tempId ? { ...item, id: json.data.id } : item)));
+        }
+      }
+    } catch (err) {
+      console.warn('Error saving vocab to database:', err);
+    }
+
     setNewWord('');
     setNewPhonetic('');
     setNewMeaning('');
@@ -245,9 +376,23 @@ export default function IeltsReviewDesk() {
 
       {/* Score Header */}
       <div className="british-border" style={{ backgroundColor: '#FFFFFF', padding: '1.75rem', marginBottom: '2rem', borderRadius: '8px' }}>
-        <h2 style={{ fontSize: '1.4rem', margin: '0 0 1rem 0' }}>
-          Test Results: Cambridge IELTS 18 - Test 1 ({section} · {testType.toUpperCase()})
-        </h2>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+          <h2 style={{ fontSize: '1.4rem', margin: 0 }}>
+            Test Results: {materialTitle} ({section} · {testType.toUpperCase()})
+          </h2>
+          {isSynced && (
+            <span style={{
+              fontSize: '0.75rem',
+              padding: '0.2rem 0.55rem',
+              borderRadius: '12px',
+              backgroundColor: '#E6F4EA',
+              color: '#137333',
+              fontWeight: 'bold',
+            }}>
+              ● LibSQL Cloud Synced
+            </span>
+          )}
+        </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1.5rem', alignItems: 'center' }}>
           <div style={{ padding: '1rem', background: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
@@ -262,7 +407,7 @@ export default function IeltsReviewDesk() {
               min="0"
               max="40"
               value={rawScore}
-              onChange={(e) => setRawScore(Number(e.target.value))}
+              onChange={(e) => handleScoreChange(Number(e.target.value))}
               style={{ width: '100%', marginTop: '0.5rem', accentColor: 'var(--primary-color)' }}
             />
           </div>
@@ -311,7 +456,7 @@ export default function IeltsReviewDesk() {
               </tr>
             </thead>
             <tbody>
-              {SAMPLE_QUESTIONS.map((q) => {
+              {(questionList.length > 0 ? questionList : SAMPLE_QUESTIONS).map((q) => {
                 const mistake = mistakes[q.qNum];
                 return (
                   <tr

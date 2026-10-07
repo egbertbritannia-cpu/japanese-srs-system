@@ -21,6 +21,8 @@ planning/
 ├── 07_PHASE_7_JPD133_GRAMMAR_LEARNING_ENGINE.md        # Giai đoạn 7: Động cơ Ngữ pháp JPD133 Bunbou Engine (Gộp 4 tệp)
 ├── 08_PHASE_8_ENGLISH_IELTS_TRACKING.md                # Giai đoạn 8: Hệ thống Theo dõi Tiếng Anh & Khảo thí IELTS
 ├── 09_PHASE_9_UI_UX_AUDIT_AND_COMPREHENSIVE_REDESIGN_PLAN.md # Giai đoạn 9: Kiểm toán Toàn diện UI/UX (>50k từ) & Lộ trình Đại tu
+├── 10_PHASE_10_DO_BAI_MINNA_LEARNING_SYSTEM_MIGRATION_PLAN.md # Giai đoạn 10: Chuyển đổi Bàn Dò Bài Minna & Bjork Latency
+├── 11_PHASE_11_JPD133_CURRICULUM_SLOT_DECOUPLING_AND_PEDAGOGICAL_MASTER_PLAN.md # Giai đoạn 11: Tách biệt Slot khỏi DB & Đại Bách khoa Sư phạm (>50k từ)
 └── audit-modules/                                      # 12 Mô-đun Kiểm toán Chuyên sâu Độc lập
 ```
 
@@ -40,6 +42,7 @@ planning/
 | **Phase 8** | **[08_PHASE_8_ENGLISH_IELTS_TRACKING.md](08_PHASE_8_ENGLISH_IELTS_TRACKING.md)** | **1 tệp** | Xây dựng hệ thống theo dõi tiến độ học tiếng Anh/IELTS độc lập, ERD mở rộng (Sessions, Logs, Mistakes, Vocab), Mỹ học British Classic và chuẩn bị kiến trúc đồng bộ thẻ FSRS tương lai. | Hoàn thành |
 | **Phase 9** | **[09_PHASE_9_UI_UX_AUDIT_AND_COMPREHENSIVE_REDESIGN_PLAN.md](09_PHASE_9_UI_UX_AUDIT_AND_COMPREHENSIVE_REDESIGN_PLAN.md)** | **12 mô-đun** (>52,500 từ) | Báo cáo kiểm toán toàn diện 14 trang màn hình theo ma trận 4 chiều (Thừa, Thiếu, Sai, Lỗi hiển thị), 111 khiếm khuyết được đánh số ID khoa học, triệt tiêu 100% rác nhận thức, ảo hóa danh mục thẻ, vật lý lật Karuta và lộ trình 4 Sprints Zero-Backend-Regression. | Hoàn thành |
 | **Phase 10** | **[10_PHASE_10_DO_BAI_MINNA_LEARNING_SYSTEM_MIGRATION_PLAN.md](10_PHASE_10_DO_BAI_MINNA_LEARNING_SYSTEM_MIGRATION_PLAN.md)** | **1 tệp** | Chuyển đổi toàn diện trải nghiệm học tập từ Flashcard 3D sang Bàn Dò bài Minna (kế thừa Dò bài - Minna.xlsm: Bốc -> Hiện -> Đã thuộc / Chưa thuộc), Hàng đợi lặp lại trong phiên (Cột D-E-F), bảo toàn 100% thuật toán FSRS v4.5 và đo lường độ trễ Bjork Latency. | 📋 Đang Lập Kế Hoạch Chi Tiết |
+| **Phase 11** | **[11_PHASE_11_JPD133_CURRICULUM_SLOT_DECOUPLING_AND_PEDAGOGICAL_MASTER_PLAN.md](11_PHASE_11_JPD133_CURRICULUM_SLOT_DECOUPLING_AND_PEDAGOGICAL_MASTER_PLAN.md)** | **26 mô-đun** (>50,200 từ) | Tách biệt hoàn toàn Slot khỏi Database Schema (Zero DB Contamination), Sổ bộ Manifest Tĩnh (`jpd133-manifest.ts`), Khu học thuật riêng biệt (`/curriculum/jpd133`), Cầu nối URL sang Bàn Dò Bài Phase 10 và Đại Bách khoa toàn thư ngữ liệu 8 Slot JPD133 Đại học FPT. | 📋 Đang Lập Kế Hoạch Chi Tiết |
 
 ---
 

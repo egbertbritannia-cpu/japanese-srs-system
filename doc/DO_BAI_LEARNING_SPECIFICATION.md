@@ -80,7 +80,7 @@ Thay vì một thẻ bài đứng quay trước - sau, giao diện chia thành 2
 
 ```
 +-----------------------------------------------------------------------------------+
-|  [🎐 Âm thanh]       BÀN DÒ BÀI MINNA (FSRS QUEUE)          [Thoát phiên: 12/45]   |
+|  [ Âm thanh]       BÀN DÒ BÀI MINNA (FSRS QUEUE)          [Thoát phiên: 12/45]   |
 +-----------------------------------------------------------------------------------+
 |                                                                                   |
 |   +---------------------------------------------------------------------------+   |
@@ -88,7 +88,7 @@ Thay vì một thẻ bài đứng quay trước - sau, giao diện chia thành 2
 |   |                                                                           |   |
 |   |   [Chữ Hán & Cách đọc]                                                    |   |
 |   |                                                                           |   |
-|   |         私               わたし                 🔊 [Phát âm]              |   |
+|   |         私               わたし                  [Phát âm]              |   |
 |   |       (Kanji)          (Hiragana)                                         |   |
 |   |                                                                           |   |
 |   |   ---------------------------------------------------------------------   |   |
@@ -106,7 +106,7 @@ Thay vì một thẻ bài đứng quay trước - sau, giao diện chia thành 2
 |   +---------------------------------------------------------------------------+   |
 |                                                                                   |
 |   +---------------------------------------------------------------------------+   |
-|   |  📋 BẢNG TỪ CHƯA THUỘC TRONG PHIÊN (Tương ứng Cột D-E-F Excel) [3 từ]     |   |
+|   |   BẢNG TỪ CHƯA THUỘC TRONG PHIÊN (Tương ứng Cột D-E-F Excel) [3 từ]     |   |
 |   |  1. 辞書 (じしょ) - từ điển                                                |   |
 |   |  2. 手帳 (てちょう) - sổ tay                                              |   |
 |   |  3. [お] 土産 (おみやげ) - quà                                            |   |
@@ -169,9 +169,9 @@ graph LR
 
 Để đáp ứng đa dạng mục đích ôn luyện tương tự các sheet trong Excel (`Tu dò bài`, `Luyện dò bài`), hệ thống hỗ trợ 3 chế độ dò:
 
-1. **Dò Thuận (Nhật ➔ Việt):**
+1. **Dò Thuận (Nhật -> Việt):**
    * Mặc định (giống macro Excel): Hiện Kanji & Hiragana -> Người học nhẩm nghĩa -> Bấm Hiện -> So khớp nghĩa Tiếng Việt.
-2. **Dò Nghịch (Việt ➔ Nhật - Luyện phản xạ giao tiếp & viết):**
+2. **Dò Nghịch (Việt -> Nhật - Luyện phản xạ giao tiếp & viết):**
    * Hiện Nghĩa tiếng Việt -> Người học viết/nhẩm Kanji & Hiragana -> Bấm Hiện -> So khớp tiếng Nhật.
 3. **Dò Riêng Danh Sách Chưa Thuộc (Tương tự Sheet `Luyện dò bài`):**
    * Cho phép chọn riêng các từ đã từng bị bấm "Chưa thuộc" hoặc các từ có tỷ lệ quên cao (Retrievability thấp) để dò bài cấp tốc.
