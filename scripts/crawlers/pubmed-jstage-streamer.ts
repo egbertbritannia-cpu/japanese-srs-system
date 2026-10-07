@@ -17,12 +17,12 @@ export interface PubMedArticle {
 }
 
 export const BASE_PUBMED_TOPICS = [
-  { topic: 'Japanese Language & Cognitive Neuroscience', query: 'japanese language cognition memory neuroscience' },
-  { topic: 'Spaced Repetition & Memory Retrieval Practice', query: 'spaced repetition memory retrieval practice cognitive load' },
-  { topic: 'Bilingual Lexicon & Pitch Accent Perception', query: 'japanese pitch accent phonology bilingual speech perception' },
-  { topic: 'Medical & Clinical Japanese Terminology (J-STAGE)', query: 'japanese medical terminology clinical translation healthcare' },
-  { topic: 'Neuroplasticity & Kanji Processing in the Brain', query: 'kanji reading neuroscience brain activation fMRI' },
-  { topic: 'Memory Consolidation & Forgetting Curve Dynamics', query: 'memory consolidation ebbinghaus retention interval' },
+  { topic: 'Japanese Language & Cognitive Neuroscience', query: '"japanese language" OR "language cognition"' },
+  { topic: 'Spaced Repetition & Memory Retrieval Practice', query: '"spaced repetition" OR "retrieval practice"' },
+  { topic: 'Bilingual Lexicon & Pitch Accent Perception', query: '"pitch accent" OR "speech perception"' },
+  { topic: 'Medical & Clinical Japanese Terminology (J-STAGE)', query: '"medical terminology" OR "clinical healthcare"' },
+  { topic: 'Neuroplasticity & Kanji Processing in the Brain', query: '"kanji" OR "neuroplasticity"' },
+  { topic: 'Memory Consolidation & Forgetting Curve Dynamics', query: '"memory consolidation" OR "forgetting curve"' },
 ];
 
 export const PUBMED_TOPICS = [

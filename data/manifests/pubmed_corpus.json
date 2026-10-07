@@ -1,7 +1,7 @@
 {
   "category": "pubmed_corpus",
-  "totalAssets": 34,
-  "lastUpdated": "2026-10-07T03:31:21.866Z",
+  "totalAssets": 37,
+  "lastUpdated": "2026-10-07T04:00:49.578Z",
   "assets": {
     "pubmed_corpus:42391239": {
       "key": "pubmed_corpus:42391239",
@@ -726,6 +726,68 @@
         "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13556795/fullTextXML"
       },
       "updatedAt": "2026-10-07T03:31:21.865Z"
+    },
+    "pubmed_corpus:PPR1304056": {
+      "key": "pubmed_corpus:PPR1304056",
+      "category": "pubmed_corpus",
+      "fileName": "pubmed_PPR1304056_From_20Language-Cognition_20Coupli.json",
+      "mimeType": "application/json",
+      "fileId": "12qsC-Se5CD4abcc7zmyBQnQsIemRipeI",
+      "driveUrl": "https://drive.google.com/file/d/12qsC-Se5CD4abcc7zmyBQnQsIemRipeI/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/12qsC-Se5CD4abcc7zmyBQnQsIemRipeI",
+      "sizeBytes": 3929,
+      "metadata": {
+        "pmid": "PPR1304056",
+        "doi": "10.64898/2026.08.19.745865",
+        "title": "From Language-Cognition Coupling to AI Foundations: An Evolutionary Perspective on 13,415 SNVs in 33 Language/Cognition Genes",
+        "pubYear": "2026",
+        "topic": "Japanese Language & Cognitive Neuroscience",
+        "format": "Structured JSON Abstract",
+        "source": "PubMed Central & Europe PMC"
+      },
+      "updatedAt": "2026-10-07T04:00:34.537Z"
+    },
+    "pubmed_corpus:42698528": {
+      "key": "pubmed_corpus:42698528",
+      "category": "pubmed_corpus",
+      "fileName": "pubmed_42698528_PMC13541496_fulltext.xml",
+      "mimeType": "application/xml",
+      "fileId": "1KziOWjL1Y5cSYm1dg_sNALYAuqV9jmHH",
+      "driveUrl": "https://drive.google.com/file/d/1KziOWjL1Y5cSYm1dg_sNALYAuqV9jmHH/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1KziOWjL1Y5cSYm1dg_sNALYAuqV9jmHH",
+      "sizeBytes": 0,
+      "metadata": {
+        "pmid": "42698528",
+        "pmcid": "PMC13541496",
+        "doi": "10.3389/fpsyg.2026.1902458",
+        "title": "Evaluating Japanese language learning strategies through learner and expert perspectives: a fuzzy multi-criteria decision-making approach.",
+        "pubYear": "2026",
+        "topic": "Japanese Language & Cognitive Neuroscience",
+        "format": "FullText XML",
+        "source": "Europe PMC / PubMed Central Open Access Repository",
+        "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13541496/fullTextXML"
+      },
+      "updatedAt": "2026-10-07T04:00:39.536Z"
+    },
+    "pubmed_corpus:PPR1293160": {
+      "key": "pubmed_corpus:PPR1293160",
+      "category": "pubmed_corpus",
+      "fileName": "pubmed_PPR1293160_Locating_20Evolutionary_20Rate_20Inf.json",
+      "mimeType": "application/json",
+      "fileId": "1MN9qjHukxW0Nb9vPLHyFrCsmMRG5QWpn",
+      "driveUrl": "https://drive.google.com/file/d/1MN9qjHukxW0Nb9vPLHyFrCsmMRG5QWpn/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1MN9qjHukxW0Nb9vPLHyFrCsmMRG5QWpn",
+      "sizeBytes": 2614,
+      "metadata": {
+        "pmid": "PPR1293160",
+        "doi": "10.64898/2026.08.05.743118",
+        "title": "Locating Evolutionary Rate Inflection Points on Whole‑Genome SNV Similarity Curves and Their Application in Identifying Key Mutations in Language/Cognition Genes",
+        "pubYear": "2026",
+        "topic": "Japanese Language & Cognitive Neuroscience",
+        "format": "Structured JSON Abstract",
+        "source": "PubMed Central & Europe PMC"
+      },
+      "updatedAt": "2026-10-07T04:00:49.578Z"
     }
   }
 }

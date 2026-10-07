@@ -185,14 +185,14 @@ export const EXPANDED_OXFORD_WORDS = [
 ];
 
 export const EXPANDED_PUBMED_TOPICS = [
-  { topic: 'Japanese Cognition & Neuroscience', query: 'japanese language cognition memory neuroscience' },
-  { topic: 'Spaced Repetition & Cognitive Load', query: 'spaced repetition memory retrieval practice cognitive load' },
-  { topic: 'Tokyo Pitch Accent Phonology', query: 'japanese pitch accent phonology bilingual speech perception' },
-  { topic: 'Bilingual Brain & fMRI Studies', query: 'kanji reading neuroscience brain activation fMRI' },
-  { topic: 'Memory Consolidation & Forgetting Curve', query: 'memory consolidation ebbinghaus retention interval' },
-  { topic: 'Second Language Acquisition & Working Memory', query: 'second language acquisition working memory executive function' },
-  { topic: 'Neuroplasticity & Auditory Processing', query: 'neuroplasticity auditory cortical language learning' },
-  { topic: 'Clinical Japanese Medical Terminology', query: 'japanese medical terminology clinical healthcare communication' },
-  { topic: 'Sleep & Memory Consolidation', query: 'sleep memory consolidation synaptic plasticity spaced practice' },
-  { topic: 'Desirable Difficulties & Retrieval Effort', query: 'desirable difficulties testing effect retrieval practice bjork' },
+  { topic: 'Japanese Cognition & Neuroscience', query: '"japanese language" OR "language cognition" OR "neuroscience"' },
+  { topic: 'Spaced Repetition & Cognitive Load', query: '"spaced repetition" OR "retrieval practice" OR "cognitive load"' },
+  { topic: 'Tokyo Pitch Accent Phonology', query: '"pitch accent" OR "speech perception" OR "japanese phonology"' },
+  { topic: 'Bilingual Brain & fMRI Studies', query: '"bilingual brain" OR "kanji" OR "fMRI language"' },
+  { topic: 'Memory Consolidation & Forgetting Curve', query: '"memory consolidation" OR "ebbinghaus" OR "long-term retention"' },
+  { topic: 'Second Language Acquisition & Working Memory', query: '"second language acquisition" OR "working memory" OR "executive function"' },
+  { topic: 'Neuroplasticity & Auditory Processing', query: '"neuroplasticity" OR "auditory cortex" OR "speech learning"' },
+  { topic: 'Clinical Japanese Medical Terminology', query: '"medical terminology" OR "clinical healthcare" OR "medical translation"' },
+  { topic: 'Sleep & Memory Consolidation', query: '"sleep" AND "memory consolidation" OR "synaptic plasticity"' },
+  { topic: 'Desirable Difficulties & Retrieval Effort', query: '"retrieval practice" OR "testing effect" OR "desirable difficulty"' },
 ];
