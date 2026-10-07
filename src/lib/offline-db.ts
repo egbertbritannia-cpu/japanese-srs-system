@@ -113,12 +113,15 @@ export async function recordPendingReview(
   cardId: string,
   rating: string,
   scheduledDays?: number,
-  responseTimeMs: number = 2500
+  responseTimeMs: number = 2500,
+  eventId?: string,
+  reviewedAt: number = Date.now()
 ): Promise<string> {
   const reviewId =
-    typeof crypto !== 'undefined' && crypto.randomUUID
+    eventId ||
+    (typeof crypto !== 'undefined' && crypto.randomUUID
       ? crypto.randomUUID()
-      : `rev_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+      : `rev_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`);
 
   if (typeof window === 'undefined' && typeof indexedDB === 'undefined') return reviewId;
 
@@ -127,7 +130,7 @@ export async function recordPendingReview(
       id: reviewId,
       cardId,
       rating,
-      reviewedAt: Date.now(),
+      reviewedAt,
       scheduledDays,
       responseTimeMs,
       synced: 0,
