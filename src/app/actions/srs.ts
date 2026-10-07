@@ -1,16 +1,14 @@
 'use server';
 
 /**
- * Server Actions cho Japanese SRS System (React 19 & Next.js 15)
- * Cung cấp cơ chế mutation dữ liệu trực tiếp từ Server Component / Form Action,
- * loại bỏ chi phí trung gian của HTTP REST mutation và tự động làm mới bộ nhớ đệm (ISR).
- * Căn cứ: planning/06_PHASE_6_PERFORMANCE_OPTIMIZATION_AND_SRE.md (Mục 1 & Sprint 3)
+ * Server Actions cho Japanese SRS System (React 19 & Next.js 15).
+ * Review mutations delegate to the same ReviewService as REST/offline sync.
  */
 
 import { revalidatePath } from 'next/cache';
 import { db } from '@/db/client';
-import { cards, reviewLogs } from '@/db/schema';
-import { eq } from 'drizzle-orm';
+import { cards } from '@/db/schema';
+import { ReviewServiceError, submitReview } from '@/services/review-service';
 
 export interface CreateCardActionInput {
   deckId: string;
@@ -23,7 +21,8 @@ export interface CreateCardActionInput {
 }
 
 /**
- * Server Action tạo thẻ học từ vựng mới
+ * Legacy administrative card action. The user-facing Add Card page is decommissioned.
+ * Kept temporarily for compatibility with any internal caller; do not expose it in UI.
  */
 export async function createCardAction(input: CreateCardActionInput) {
   try {
@@ -55,65 +54,62 @@ export async function createCardAction(input: CreateCardActionInput) {
       updatedAt: now,
     });
 
-    // Làm mới cache ISR của Dashboard và Trang danh sách thẻ
     revalidatePath('/');
     revalidatePath('/cards');
 
     return { success: true, cardId: newId };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('[createCardAction] Lỗi tạo thẻ:', error);
-    return { success: false, error: error?.message || 'Lỗi cơ sở dữ liệu' };
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Lỗi cơ sở dữ liệu',
+    };
   }
 }
 
 /**
- * Server Action ghi nhận kết quả đánh giá thẻ bài FSRS
+ * Canonical FSRS server action adapter.
+ * scheduledDays remains for backward compatibility but is never trusted or persisted.
  */
 export async function submitReviewAction(input: {
+  eventId?: string;
   cardId: string;
-  rating: string;
+  rating: string | number;
   scheduledDays?: number;
   responseTimeMs?: number;
+  reviewedAt?: Date | number | string;
 }) {
   try {
-    if (!input.cardId || !input.rating) {
+    if (!input.cardId || input.rating === undefined || input.rating === null) {
       return { success: false, error: 'cardId và rating là bắt buộc' };
     }
 
-    const now = Date.now();
-    const scheduledDays = input.scheduledDays || 1;
-    const nextDue = now + scheduledDays * 86400000;
-
-    // Cập nhật trạng thái thẻ trong bảng cards
-    await db
-      .update(cards)
-      .set({
-        state: input.rating === 'Again' ? 'Learning' : 'Review',
-        due: nextDue,
-        updatedAt: now,
-      })
-      .where(eq(cards.id, input.cardId));
-
-    // Thêm bản ghi vào review_logs nếu bảng tồn tại
-    try {
-      await db.insert(reviewLogs).values({
-        id: `rl_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
-        cardId: input.cardId,
-        rating: input.rating,
-        reviewTime: now,
-        responseTimeMs: input.responseTimeMs || 2500,
-        createdAt: now,
-      });
-    } catch {
-      // Bỏ qua nếu reviewLogs schema khác cấu hình
-    }
+    const result = await submitReview({
+      eventId: input.eventId,
+      cardId: input.cardId,
+      rating: input.rating,
+      reviewedAt: input.reviewedAt,
+      responseTimeMs: input.responseTimeMs,
+    });
 
     revalidatePath('/');
     revalidatePath('/review');
 
-    return { success: true, nextDue };
-  } catch (error: any) {
-    console.error('[submitReviewAction] Lỗi cập nhật ôn tập:', error);
-    return { success: false, error: error?.message || 'Lỗi server action' };
+    return {
+      success: true,
+      status: result.status,
+      eventId: result.eventId,
+      nextDue: result.nextReviewDate,
+      data: result,
+    };
+  } catch (error: unknown) {
+    if (!(error instanceof ReviewServiceError)) {
+      console.error('[submitReviewAction] Lỗi cập nhật ôn tập:', error);
+    }
+    return {
+      success: false,
+      code: error instanceof ReviewServiceError ? error.code : 'REVIEW_FAILED',
+      error: error instanceof Error ? error.message : 'Lỗi server action',
+    };
   }
 }
