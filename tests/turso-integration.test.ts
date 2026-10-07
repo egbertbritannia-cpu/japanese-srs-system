@@ -53,7 +53,7 @@ describe('Turso Integration Test with Drizzle', () => {
     expect(body.success).toBe(true);
     expect(body.data.length).toBeGreaterThanOrEqual(640);
     expect(body.decks.length).toBeGreaterThanOrEqual(4);
-  });
+  }, 20000);
 
   it('should test cards retrieval when filtering by each separated deck', async () => {
     const { GET: getCardsRoute } = await import('../src/app/api/cards/route');
@@ -88,5 +88,5 @@ describe('Turso Integration Test with Drizzle', () => {
     const body3 = await res3.json();
     console.log('[Filter non_existent] cards count:', body3.data?.length);
     expect(body3.data.length).toBe(0);
-  });
+  }, 20000);
 });

@@ -55,11 +55,16 @@ function animateKanjiSvg(rawSvg: string, kanjiChar: string): string {
 
 function sanitizeExistingSvg(svgStr: string): string {
   let cleaned = svgStr
+    // 1. Chuẩn hóa XML: Chuyển đổi ký tự & thô thành &amp; để trình duyệt parse SVG hợp lệ
+    .replace(/&(?!(amp|lt|gt|quot|apos|#\d+|#x[0-9a-fA-F]+);)/g, '&amp;')
+    // 2. Loại bỏ thuộc tính rx bất hợp lệ trên thẻ <path> nếu có
+    .replace(/<path([^>]+)\s+rx="[^"]*"([^>]*)>/g, '<path$1$2>')
+    // 3. Tinh chỉnh hoạt ảnh nét vẽ Kanji animation
     .replace(/stroke-dashoffset:\s*\d+\s*!important\s*;?/g, 'stroke-dashoffset: 400;')
     .replace(/stroke-dasharray:\s*\d+\s*!important\s*;?/g, 'stroke-dasharray: 400;')
     .replace(/stroke:\s*#16253B\s*!important\s*;?/g, 'stroke: #9E3223 !important;');
 
-  if (!cleaned.includes('@keyframes drawStroke')) {
+  if (cleaned.includes('<style>') && !cleaned.includes('@keyframes drawStroke')) {
     cleaned = cleaned.replace(/<style>/, `<style>\n  @keyframes drawStroke {\n    0% { stroke-dashoffset: 400; }\n    100% { stroke-dashoffset: 0; }\n  }\n`);
   }
   return cleaned;

@@ -136,7 +136,53 @@
 
   /* Vertical Katakana Scale */
   --vertical-kana-size-xl: clamp(2rem, 4vw, 3.5rem);   /* "デジタル" style  */
-  --vertical-kana-size-lg: clamp(1.5rem, 3vw, 2.5rem); /* Sub-decoration  */
+}
+
+/* ==========================================================================
+   SUMI-E NIGHT DARK MODE (MÀN ĐÊM MỰC NHO - DEF-UI-SHELL-004)
+   ========================================================================== */
+:root[data-theme="dark"],
+.sumi-night,
+.dark {
+  --washi-base:          #121820; /* Mực Sumi đậm làm nền */
+  --washi-bg:            #121820;
+  --washi-card:          #1A2330; /* Bề mặt thẻ bài trong bóng tối */
+  --washi-surface:       #1A2330;
+  --washi-deep:          #222E3F;
+  --washi-sunken:        #18202C;
+  --washi-border:        #2E3D52;
+  --washi-border-soft:   #253346;
+  --washi-subtle:        #253346;
+
+  --sumi-deep:           #FAF8F5; /* Chữ trắng ngà trên nền mực */
+  --sumi-ink:            #FAF8F5;
+  --sumi-body:           #E2DDD5;
+  --sumi-charcoal:       #E2DDD5;
+  --sumi-faint:          #A59E92;
+  --sumi-faded:          #A59E92;
+  --sumi-ghost:          #686055;
+  --sumi-water:          #686055;
+
+  --bengara-red:         #E06A55;
+  --bengara:             #E06A55;
+  --bengara-hover:       #F07C68;
+  --bengara-soft:        rgba(224, 106, 85, 0.15);
+  --torii-red:           #E06A55;
+
+  --aizome-navy:         #8AB4F8;
+  --aizome:              #8AB4F8;
+  --aizome-surface:      #1F324D;
+  --aizome-soft:         rgba(138, 180, 248, 0.15);
+
+  --kincha-gold:         #FDD663;
+  --kincha:              #FDD663;
+  --kincha-soft:         rgba(253, 214, 99, 0.15);
+  --kintsugi-gold:       #FDD663;
+
+  --koke-green:          #81C995;
+  --koke:                #81C995;
+  --koke-soft:           rgba(129, 201, 149, 0.15);
+  --matcha-deep:         #81C995;
 }
 
 /* --- RESET TOÀN CỤC --- */
