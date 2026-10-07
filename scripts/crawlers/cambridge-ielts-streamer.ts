@@ -143,63 +143,92 @@ function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export async function crawlCambridgeIeltsAudio(limit?: number) {
+export interface CambridgeIeltsStreamerOptions {
+  limit?: number;
+  shardIndex?: number;
+  totalShards?: number;
+  shardId?: string;
+  mode?: 'sections' | 'collections' | 'lexicon' | 'all';
+}
+
+export async function crawlCambridgeIeltsAudio(options?: number | CambridgeIeltsStreamerOptions) {
+  const opts: CambridgeIeltsStreamerOptions = typeof options === 'number' ? { limit: options } : (options || {});
+  const limit = opts.limit;
+  const shardIndex = opts.shardIndex || 1;
+  const totalShards = opts.totalShards || 1;
+  const shardId = opts.shardId || (totalShards > 1 ? `s${shardIndex}` : undefined);
+  if (shardId) {
+    process.env.WORKER_SHARD_ID = shardId;
+  }
+  const mode = opts.mode || 'all';
+
   console.log('\n======================================================');
-  console.log('🎧 [CRAWLER 5/6] CAMBRIDGE IELTS & OXFORD ACADEMIC LEXICON AUDIO');
+  console.log(`🎧 [CRAWLER 5/6] CAMBRIDGE IELTS & OXFORD ACADEMIC LEXICON AUDIO${totalShards > 1 ? ` [SHARD ${shardIndex}/${totalShards} · ${shardId}]` : ''}`);
   console.log('     Thu thập âm thanh chuẩn phòng thu bản xứ UK/US (Stream)');
   console.log('======================================================');
 
   const folders = await DriveFolderManager.initFolders();
   const folderId = folders.ieltsAudioFolderId;
-  const manifest = DriveFolderManager.getManifest(true);
 
   let successCount = 0;
   let skipCount = 0;
   let failCount = 0;
 
   // 1. Ingest các bài nghe thi Cambridge IELTS Section 1 - 4
-  console.log('📚 [1/3] Đang tải các bài thi nghe Cambridge IELTS mẫu chuẩn...');
-  for (const section of CAMBRIDGE_IELTS_EXAM_SECTIONS) {
-    if (limit && successCount >= limit) break;
-    const sectionKey = `cambridge_ielts:${section.id}`;
-    const ieltsPartition = DriveFolderManager.getPartition('ielts_audio');
-    if (!ieltsPartition.assets[sectionKey]) {
-      try {
-        const fileName = `${section.id}_audio.mp3`;
-        const entry = await StreamUploader.streamUploadFromUrl({
-          url: section.audioUrl,
-          key: sectionKey,
-          category: 'ielts_audio',
-          fileName,
-          mimeType: 'audio/mpeg',
-          folderId,
-          metadata: {
-            title: section.testTitle,
-            sectionNumber: section.sectionNumber,
-            sectionType: section.sectionType,
-            transcript: section.transcript,
-            questionsSummary: section.questionsSummary,
-            source: 'Cambridge IELTS Practice Master Bank',
-            sourceUrl: section.audioUrl,
-          },
-        });
-        successCount++;
-        console.log(`  ✓ Đã lưu bài nghe Cambridge IELTS: ${section.testTitle} - Section ${section.sectionNumber}`);
-        await delay(300);
-      } catch (err: any) {
-        failCount++;
-        console.warn(`  ⚠️ Lỗi lưu ${section.id}:`, err.message);
+  const shouldProcessSections = mode === 'all' || mode === 'sections';
+  if (shouldProcessSections) {
+    let candidateSections = CAMBRIDGE_IELTS_EXAM_SECTIONS;
+    if (totalShards > 1) {
+      candidateSections = candidateSections.filter((_, idx) => (idx % totalShards) === (shardIndex - 1));
+    }
+    console.log(`📚 [1/3] Đang tải các bài thi nghe Cambridge IELTS mẫu chuẩn (${candidateSections.length} bài)...`);
+    for (const section of candidateSections) {
+      if (limit && successCount >= limit) break;
+      const sectionKey = `cambridge_ielts:${section.id}`;
+      if (!DriveFolderManager.hasAsset(sectionKey)) {
+        try {
+          const fileName = `${section.id}_audio.mp3`;
+          const entry = await StreamUploader.streamUploadFromUrl({
+            url: section.audioUrl,
+            key: sectionKey,
+            category: 'ielts_audio',
+            fileName,
+            mimeType: 'audio/mpeg',
+            folderId,
+            shardId,
+            metadata: {
+              title: section.testTitle,
+              sectionNumber: section.sectionNumber,
+              sectionType: section.sectionType,
+              transcript: section.transcript,
+              questionsSummary: section.questionsSummary,
+              source: 'Cambridge IELTS Practice Master Bank',
+              sourceUrl: section.audioUrl,
+            },
+          });
+          successCount++;
+          console.log(`  ✓ Đã lưu bài nghe Cambridge IELTS: ${section.testTitle} - Section ${section.sectionNumber}`);
+          await delay(300);
+        } catch (err: any) {
+          failCount++;
+          console.warn(`  ⚠️ Lỗi lưu ${section.id}:`, err.message);
+        }
+      } else {
+        skipCount++;
       }
-    } else {
-      skipCount++;
     }
   }
 
   // 2. KHO ĐĨA CD AUDIO GỐC THI THẬT CAMBRIDGE IELTS 1 - 20 (HIGH-PAYLOAD MASTER CD PACKS)
-  const shouldStreamCdPacks = !limit || limit > 4 || process.argv.includes('--all') || process.argv.includes('--bulk');
+  const shouldStreamCdPacks = (mode === 'all' || mode === 'collections') && (!limit || limit > 4 || process.argv.includes('--all') || process.argv.includes('--bulk'));
   if (shouldStreamCdPacks && (!limit || successCount < limit)) {
-    console.log('\n💿 [2/3] Đang kết nối kho đĩa CD thi thật Cambridge IELTS 1 - 20 Full Audio Packs...');
-    for (const col of CAMBRIDGE_ARCHIVE_COLLECTIONS) {
+    console.log(`\n💿 [2/3] Đang kết nối kho đĩa CD thi thật Cambridge IELTS 1 - 20 Full Audio Packs [Shard ${shardIndex}/${totalShards}]...`);
+    let candidateCollections = CAMBRIDGE_ARCHIVE_COLLECTIONS;
+    if (totalShards > 1) {
+      candidateCollections = candidateCollections.filter((_, idx) => (idx % totalShards) === (shardIndex - 1));
+    }
+
+    for (const col of candidateCollections) {
       if (limit && successCount >= limit) break;
       console.log(`  📂 Khảo sát bộ đề thi: 【${col.name}】 (${col.id})...`);
       try {
@@ -213,8 +242,7 @@ export async function crawlCambridgeIeltsAudio(limit?: number) {
           if (limit && successCount >= limit) break;
           const cleanName = path.basename(f.name);
           const key = `ielts_audio:${col.id}_${encodeURIComponent(cleanName)}`;
-          const partition = DriveFolderManager.getPartition('ielts_audio');
-          if (partition.assets[key]) {
+          if (DriveFolderManager.hasAsset(key)) {
             skipCount++;
             continue;
           }
@@ -230,6 +258,7 @@ export async function crawlCambridgeIeltsAudio(limit?: number) {
               fileName: safeName,
               mimeType: 'audio/mpeg',
               folderId,
+              shardId,
               metadata: {
                 collectionId: col.id,
                 collectionName: col.name,
@@ -255,88 +284,106 @@ export async function crawlCambridgeIeltsAudio(limit?: number) {
   }
 
   // 3. Lấy danh sách từ vựng IELTS học thuật từ database + seed list mở rộng
-  let vocabList: any[] = [];
-  try {
-    vocabList = await db.select().from(engVocab);
-  } catch {}
+  const shouldProcessLexicon = mode === 'all' || mode === 'lexicon';
+  if (shouldProcessLexicon && (!limit || successCount < limit)) {
+    let vocabList: any[] = [];
+    try {
+      vocabList = await db.select().from(engVocab);
+    } catch {}
 
-  const wordSet = new Set<string>();
-  vocabList.forEach((v: any) => {
-    if (v.word) wordSet.add(v.word.toLowerCase().trim());
-  });
-  OXFORD_CAMBRIDGE_ACADEMIC_WORDS.forEach((w) => wordSet.add(w.toLowerCase().trim()));
-  EXPANDED_OXFORD_WORDS.forEach((w) => wordSet.add(w.toLowerCase().trim()));
+    const wordSet = new Set<string>();
+    vocabList.forEach((v: any) => {
+      if (v.word) wordSet.add(v.word.toLowerCase().trim());
+    });
+    OXFORD_CAMBRIDGE_ACADEMIC_WORDS.forEach((w) => wordSet.add(w.toLowerCase().trim()));
+    EXPANDED_OXFORD_WORDS.forEach((w) => wordSet.add(w.toLowerCase().trim()));
 
-  const allWords = Array.from(wordSet);
-  const wordsToProcess = limit ? allWords.slice(0, Math.max(0, limit - successCount)) : allWords;
-  console.log(`\n🎯 [3/3] Xử lý ${wordsToProcess.length} từ vựng IELTS / Oxford học thuật.`);
+    const allWords = Array.from(wordSet);
+    let wordsForShard = allWords;
+    if (totalShards > 1) {
+      wordsForShard = wordsForShard.filter((_, idx) => (idx % totalShards) === (shardIndex - 1));
+    }
+    const wordsToProcess = limit ? wordsForShard.slice(0, Math.max(0, limit - successCount)) : wordsForShard;
+    console.log(`\n🎯 [3/3] Xử lý ${wordsToProcess.length} từ vựng IELTS / Oxford học thuật [Shard ${shardIndex}/${totalShards}].`);
 
-  for (let i = 0; i < wordsToProcess.length; i++) {
-    const word = wordsToProcess[i];
-    const key = `ielts_audio:${word}`;
+    for (let i = 0; i < wordsToProcess.length; i++) {
+      const word = wordsToProcess[i];
+      const key = `ielts_audio:${word}`;
 
-    const partition = DriveFolderManager.getPartition('ielts_audio');
-    if (partition.assets[key]) {
-      const existing = partition.assets[key];
-      if (existing.metadata?.source?.includes('Oxford') || existing.metadata?.source?.includes('Cambridge')) {
+      if (DriveFolderManager.hasAsset(key)) {
         skipCount++;
         process.stdout.write(`⏭️ [${i + 1}/${wordsToProcess.length}] ${word} (Đã có audio phòng thu)\r`);
         continue;
       }
-    }
 
-    try {
-      // 1. Thử Oxford University Press Studio Audio CDN trước
-      let audioUrl = await getOxfordStudioAudioUrl(word);
-      let phonetic = '';
+      try {
+        // 1. Thử Oxford University Press Studio Audio CDN trước
+        let audioUrl = await getOxfordStudioAudioUrl(word);
+        let phonetic = '';
 
-      if (!audioUrl) {
-        // 2. Dự phòng Dictionary API
-        const fallback = await fetchDictionaryAudioFallback(word);
-        if (fallback) {
-          audioUrl = fallback.audioUrl;
-          phonetic = fallback.phonetic || '';
+        if (!audioUrl) {
+          // 2. Dự phòng Dictionary API
+          const fallback = await fetchDictionaryAudioFallback(word);
+          if (fallback) {
+            audioUrl = fallback.audioUrl;
+            phonetic = fallback.phonetic || '';
+          }
         }
+
+        if (audioUrl) {
+          const fileName = `oxford_${word}_studio.mp3`;
+
+          const entry = await StreamUploader.streamUploadFromUrl({
+            url: audioUrl,
+            key,
+            category: 'ielts_audio',
+            fileName,
+            mimeType: 'audio/mpeg',
+            folderId,
+            shardId,
+            metadata: {
+              word,
+              phonetic,
+              source: 'Oxford & Cambridge Academic Lexicon',
+              quality: 'Studio Lossless Pronunciation (Oxford University Press)',
+              sourceUrl: audioUrl,
+            },
+          });
+
+          successCount++;
+          console.log(`✅ [${i + 1}/${wordsToProcess.length}] ${word} -> Studio Audio: ${entry.fileId}`);
+        } else {
+          skipCount++;
+        }
+
+        await delay(300);
+      } catch (err: any) {
+        failCount++;
+        console.error(`❌ [${i + 1}/${wordsToProcess.length}] ${word} Thất bại: ${err.message}`);
       }
-
-      if (audioUrl) {
-        const fileName = `oxford_${word}_studio.mp3`;
-
-        const entry = await StreamUploader.streamUploadFromUrl({
-          url: audioUrl,
-          key,
-          category: 'ielts_audio',
-          fileName,
-          mimeType: 'audio/mpeg',
-          folderId,
-          metadata: {
-            word,
-            phonetic,
-            source: 'Oxford & Cambridge Academic Lexicon',
-            quality: 'Studio Lossless Pronunciation (Oxford University Press)',
-            sourceUrl: audioUrl,
-          },
-        });
-
-        successCount++;
-        console.log(`✅ [${i + 1}/${wordsToProcess.length}] ${word} -> Studio Audio: ${entry.fileId}`);
-      } else {
-        skipCount++;
-      }
-
-      await delay(300);
-    } catch (err: any) {
-      failCount++;
-      console.error(`❌ [${i + 1}/${wordsToProcess.length}] ${word} Thất bại: ${err.message}`);
     }
   }
 
-  console.log(`\n🎉 Hoàn thành Crawler Cambridge IELTS Master Audio: Thành công: +${successCount}, Bỏ qua: ${skipCount}, Lỗi: ${failCount}`);
+  console.log(`\n🎉 Hoàn thành Crawler Cambridge IELTS Master Audio [Shard ${shardIndex}/${totalShards}]: Thành công: +${successCount}, Bỏ qua: ${skipCount}, Lỗi: ${failCount}`);
 }
 
-if (process.argv[1]?.endsWith('cambridge-ielts-streamer.ts')) {
+if (process.argv[1]?.replace(/\\/g, '/').endsWith('cambridge-ielts-streamer.ts')) {
   const limitArg = process.argv.find((a) => a.startsWith('--limit='));
+  const shardArg = process.argv.find((a) => a.startsWith('--shard='));
+  const shardIdArg = process.argv.find((a) => a.startsWith('--shard-id='));
+  const modeArg = process.argv.find((a) => a.startsWith('--mode='));
   const isAll = process.argv.includes('--all');
   const limit = isAll ? undefined : (limitArg ? parseInt(limitArg.split('=')[1], 10) : undefined);
-  crawlCambridgeIeltsAudio(limit).catch(console.error);
+
+  let shardIndex = 1;
+  let totalShards = 1;
+  if (shardArg) {
+    const parts = shardArg.split('=')[1].split('/').map(Number);
+    shardIndex = parts[0] || 1;
+    totalShards = parts[1] || 1;
+  }
+  const shardId = shardIdArg ? shardIdArg.split('=')[1] : (totalShards > 1 ? `s${shardIndex}` : undefined);
+  const mode = (modeArg ? modeArg.split('=')[1] : 'all') as any;
+
+  crawlCambridgeIeltsAudio({ limit, shardIndex, totalShards, shardId, mode }).catch(console.error);
 }

@@ -180,9 +180,13 @@ export class DriveFolderManager {
     }
   }
 
-  static getPartition(category: string): { category: string; totalAssets: number; lastUpdated: string; assets: Record<string, AssetEntry> } {
+  private static knownKeys: Set<string> | null = null;
+
+  static getPartition(category: string, shardId?: string): { category: string; totalAssets: number; lastUpdated: string; assets: Record<string, AssetEntry> } {
+    const effectiveShard = shardId || process.env.WORKER_SHARD_ID;
     const normCat = normalizeCategory(category);
-    const partitionPath = path.join(MANIFESTS_DIR, `${normCat}.json`);
+    const partitionFileName = effectiveShard ? `${normCat}_${effectiveShard}.json` : `${normCat}.json`;
+    const partitionPath = path.join(MANIFESTS_DIR, partitionFileName);
     if (fs.existsSync(partitionPath)) {
       try {
         return JSON.parse(fs.readFileSync(partitionPath, 'utf-8'));
@@ -196,7 +200,8 @@ export class DriveFolderManager {
     };
   }
 
-  static savePartition(category: string, partition: any): void {
+  static savePartition(category: string, partition: any, shardId?: string): void {
+    const effectiveShard = shardId || process.env.WORKER_SHARD_ID;
     const normCat = normalizeCategory(category);
     if (!fs.existsSync(MANIFESTS_DIR)) {
       fs.mkdirSync(MANIFESTS_DIR, { recursive: true });
@@ -205,8 +210,9 @@ export class DriveFolderManager {
     partition.lastUpdated = new Date().toISOString();
     partition.totalAssets = Object.keys(partition.assets || {}).length;
 
-    const partitionPath = path.join(MANIFESTS_DIR, `${normCat}.json`);
-    const tempPath = path.join(MANIFESTS_DIR, `${normCat}.tmp.${process.pid}.${Date.now()}`);
+    const partitionFileName = effectiveShard ? `${normCat}_${effectiveShard}.json` : `${normCat}.json`;
+    const partitionPath = path.join(MANIFESTS_DIR, partitionFileName);
+    const tempPath = path.join(MANIFESTS_DIR, `${normCat}${effectiveShard ? '_' + effectiveShard : ''}.tmp.${process.pid}.${Date.now()}`);
     const payload = JSON.stringify(partition, null, 2);
     try {
       fs.writeFileSync(tempPath, payload, 'utf-8');
@@ -219,6 +225,52 @@ export class DriveFolderManager {
     } catch {
       fs.writeFileSync(partitionPath, payload, 'utf-8');
     }
+  }
+
+  static hasAsset(key: string): boolean {
+    if (!this.knownKeys) {
+      this.knownKeys = new Set<string>();
+      if (fs.existsSync(MANIFEST_PATH)) {
+        try {
+          const full = JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf-8'));
+          if (full.assets) {
+            Object.keys(full.assets).forEach((k) => this.knownKeys!.add(k));
+          }
+        } catch {}
+      }
+      if (fs.existsSync(MANIFESTS_DIR)) {
+        const files = fs.readdirSync(MANIFESTS_DIR).filter((f) => f.endsWith('.json') && !f.includes('.tmp.'));
+        for (const file of files) {
+          try {
+            const raw = JSON.parse(fs.readFileSync(path.join(MANIFESTS_DIR, file), 'utf-8'));
+            if (raw.assets) {
+              Object.keys(raw.assets).forEach((k) => this.knownKeys!.add(k));
+            }
+          } catch {}
+        }
+      }
+    }
+    return this.knownKeys.has(key);
+  }
+
+  static getAsset(key: string): AssetEntry | null {
+    if (this.manifest?.assets?.[key]) return this.manifest.assets[key];
+    if (fs.existsSync(MANIFEST_PATH)) {
+      try {
+        const full = JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf-8'));
+        if (full.assets?.[key]) return full.assets[key];
+      } catch {}
+    }
+    if (fs.existsSync(MANIFESTS_DIR)) {
+      const files = fs.readdirSync(MANIFESTS_DIR).filter((f) => f.endsWith('.json') && !f.includes('.tmp.'));
+      for (const file of files) {
+        try {
+          const raw = JSON.parse(fs.readFileSync(path.join(MANIFESTS_DIR, file), 'utf-8'));
+          if (raw.assets?.[key]) return raw.assets[key];
+        } catch {}
+      }
+    }
+    return null;
   }
 
   static aggregateManifests(): MultimodalManifest {
@@ -245,13 +297,16 @@ export class DriveFolderManager {
       for (const file of files) {
         try {
           const raw = JSON.parse(fs.readFileSync(path.join(MANIFESTS_DIR, file), 'utf-8'));
-          const cat = raw.category || file.replace('.json', '');
           const assets = raw.assets || {};
-          aggregated.categories[cat] = Object.keys(assets).length;
           for (const [k, v] of Object.entries(assets)) {
             aggregated.assets[k] = v as AssetEntry;
           }
         } catch {}
+      }
+
+      for (const item of Object.values(aggregated.assets)) {
+        const cat = normalizeCategory(item.category || 'misc');
+        aggregated.categories[cat] = (aggregated.categories[cat] || 0) + 1;
       }
     }
 
@@ -348,11 +403,17 @@ export class DriveFolderManager {
     folderId: string;
     metadata?: Record<string, any>;
     sizeBytes?: number;
+    shardId?: string;
   }): Promise<AssetEntry> {
+    const shard = options.shardId || process.env.WORKER_SHARD_ID;
     const normCat = normalizeCategory(options.category);
-    const partition = this.getPartition(normCat);
+    const partition = this.getPartition(normCat, shard);
     if (partition.assets[options.key]) {
       return partition.assets[options.key];
+    }
+    if (this.hasAsset(options.key)) {
+      const existing = this.getAsset(options.key);
+      if (existing) return existing;
     }
 
     const uploaded = await GoogleDriveService.uploadFile({
@@ -385,10 +446,11 @@ export class DriveFolderManager {
       updatedAt: new Date().toISOString(),
     };
 
-    // Chỉ cập nhật và ghi partition của riêng domain này (tránh race condition hoàn toàn)
-    const latestPartition = this.getPartition(normCat);
+    // Chỉ cập nhật và ghi partition của riêng shard này (tránh race condition hoàn toàn)
+    const latestPartition = this.getPartition(normCat, shard);
     latestPartition.assets[options.key] = entry;
-    this.savePartition(normCat, latestPartition);
+    this.savePartition(normCat, latestPartition, shard);
+    if (this.knownKeys) this.knownKeys.add(options.key);
 
     return entry;
   }

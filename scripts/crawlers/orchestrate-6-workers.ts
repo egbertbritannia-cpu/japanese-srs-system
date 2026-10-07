@@ -65,6 +65,83 @@ const WORKER_SPECS: WorkerSpec[] = [
   },
 ];
 
+const SHARDED_WORKER_SPECS: WorkerSpec[] = [
+  // 4 JLPT Shards:
+  {
+    id: 11,
+    name: 'JLPT Choukai Shard 1/4 (N5 Master Collections & Audio)',
+    category: 'jlpt_choukai',
+    script: 'scripts/crawlers/jlpt-choukai-streamer.ts',
+    icon: '🎧',
+    description: 'Bộ đề thi nghe JLPT N5 Official Trial Book, Koushiki Mondaishuu & Sample Q1',
+    extraArgs: ['--shard=1/4', '--shard-id=s1'],
+  },
+  {
+    id: 12,
+    name: 'JLPT Choukai Shard 2/4 (N4 Master Collections & Audio)',
+    category: 'jlpt_choukai',
+    script: 'scripts/crawlers/jlpt-choukai-streamer.ts',
+    icon: '🎧',
+    description: 'Bộ đề thi nghe JLPT N4 Goukaku Dekiru CD1, Super Moshi CD1, TRY! N4',
+    extraArgs: ['--shard=2/4', '--shard-id=s2'],
+  },
+  {
+    id: 13,
+    name: 'JLPT Choukai Shard 3/4 (N3 Master Collections & Audio)',
+    category: 'jlpt_choukai',
+    script: 'scripts/crawlers/jlpt-choukai-streamer.ts',
+    icon: '🎧',
+    description: 'Bộ đề thi nghe JLPT N3 Shin Kanzen CD1, Yosou Mondaishuu, Minna Inter I',
+    extraArgs: ['--shard=3/4', '--shard-id=s3'],
+  },
+  {
+    id: 14,
+    name: 'JLPT Choukai Shard 4/4 (N2-N1 Master Past Exam CDs)',
+    category: 'jlpt_choukai',
+    script: 'scripts/crawlers/jlpt-choukai-streamer.ts',
+    icon: '🎧',
+    description: 'Bộ đề thi nghe JLPT N2 2024 July CD, Shin Kanzen N2, Past Exams 2001-2006',
+    extraArgs: ['--shard=4/4', '--shard-id=s4'],
+  },
+  // 4 Cambridge IELTS & Oxford Shards:
+  {
+    id: 15,
+    name: 'Cambridge IELTS Shard 1/4 (Books 1-8 Authentic Audio)',
+    category: 'ielts_audio',
+    script: 'scripts/crawlers/cambridge-ielts-streamer.ts',
+    icon: '📖',
+    description: 'Đĩa nghe thi Cambridge IELTS Books 1 - 8 Authentic CD Audio Packs',
+    extraArgs: ['--shard=1/4', '--shard-id=s1'],
+  },
+  {
+    id: 16,
+    name: 'Cambridge IELTS Shard 2/4 (Books 9-12 & Official Guide)',
+    category: 'ielts_audio',
+    script: 'scripts/crawlers/cambridge-ielts-streamer.ts',
+    icon: '📖',
+    description: 'Đĩa nghe thi The Official Cambridge Guide, Cambridge 10, 11, 12 Audio CDs',
+    extraArgs: ['--shard=2/4', '--shard-id=s2'],
+  },
+  {
+    id: 17,
+    name: 'Cambridge IELTS Shard 3/4 (Books 13-20 & Exam Audio)',
+    category: 'ielts_audio',
+    script: 'scripts/crawlers/cambridge-ielts-streamer.ts',
+    icon: '📖',
+    description: 'Đĩa nghe thi Cambridge IELTS Books 13 - 20 & High Impact IELTS CD Audio',
+    extraArgs: ['--shard=3/4', '--shard-id=s3'],
+  },
+  {
+    id: 18,
+    name: 'Cambridge IELTS Shard 4/4 (Oxford Studio Academic Lexicon)',
+    category: 'ielts_audio',
+    script: 'scripts/crawlers/cambridge-ielts-streamer.ts',
+    icon: '📖',
+    description: 'Phát âm chuẩn phòng thu Oxford University Press CDN & từ vựng học thuật',
+    extraArgs: ['--shard=4/4', '--shard-id=s4'],
+  },
+];
+
 interface WorkerResult {
   spec: WorkerSpec;
   code: number;
@@ -77,7 +154,9 @@ interface WorkerResult {
 function runWorker(spec: WorkerSpec, commonArgs: string[]): Promise<WorkerResult> {
   return new Promise((resolve) => {
     const startTime = Date.now();
-    const initialPartition = DriveFolderManager.getPartition(spec.category);
+    const shardArg = spec.extraArgs?.find((a) => a.startsWith('--shard-id='));
+    const shardId = shardArg ? shardArg.split('=')[1] : undefined;
+    const initialPartition = DriveFolderManager.getPartition(spec.category, shardId);
     const initialCount = initialPartition.totalAssets;
 
     const isWin = process.platform === 'win32';
@@ -91,11 +170,11 @@ function runWorker(spec: WorkerSpec, commonArgs: string[]): Promise<WorkerResult
 
     const child = spawn(cmd, cmdArgs, {
       cwd: process.cwd(),
-      env: { ...process.env, WORKER_ID: String(spec.id), FORCE_COLOR: '1' },
+      env: { ...process.env, WORKER_ID: String(spec.id), ...(shardId ? { WORKER_SHARD_ID: shardId } : {}), FORCE_COLOR: '1' },
       stdio: ['ignore', 'pipe', 'pipe'],
     });
 
-    const prefix = `[W${spec.id} · ${spec.category}]`;
+    const prefix = `[W${spec.id} · ${spec.category}${shardId ? `:${shardId}` : ''}]`;
 
     child.stdout.on('data', (chunk) => {
       const lines = chunk.toString().split(/\r?\n/).filter((l: string) => l.trim().length > 0);
@@ -113,7 +192,7 @@ function runWorker(spec: WorkerSpec, commonArgs: string[]): Promise<WorkerResult
 
     child.on('close', (code) => {
       const durationMs = Date.now() - startTime;
-      const finalPartition = DriveFolderManager.getPartition(spec.category);
+      const finalPartition = DriveFolderManager.getPartition(spec.category, shardId);
       const finalCount = finalPartition.totalAssets;
       const deltaCount = Math.max(0, finalCount - initialCount);
 
@@ -151,7 +230,7 @@ function runWorker(spec: WorkerSpec, commonArgs: string[]): Promise<WorkerResult
 export async function orchestrateParallelCrawlers() {
   const globalStart = Date.now();
   console.log('╔══════════════════════════════════════════════════════════════════════════════════════╗');
-  console.log('║ 🏯 KIOKUDŌ SRS · BỘ ĐIỀU PHỐI 6 SUBAGENTS / WORKERS SONG SONG ĐỘC LẬP                  ║');
+  console.log('║ 🏯 KIOKUDŌ SRS · BỘ ĐIỀU PHỐI SUBAGENTS / WORKERS SONG SONG PHÂN MẢNH (SHARDED)       ║');
   console.log('║    STREAMING PIPELINE LÊN GOOGLE DRIVE 15TB · PHÂN VÙNG MANIFESTS ISOLATION (ZERO-LOCK)║');
   console.log('╚══════════════════════════════════════════════════════════════════════════════════════╝\n');
 
@@ -159,6 +238,7 @@ export async function orchestrateParallelCrawlers() {
   const limitArg = process.argv.find((a) => a.startsWith('--limit='));
   const workersArg = process.argv.find((a) => a.startsWith('--workers='));
   const targetArg = process.argv.find((a) => a.startsWith('--target='));
+  const isSharded = process.argv.includes('--sharded') || process.argv.includes('--parallel') || process.argv.includes('--shards');
   const isAll = process.argv.includes('--all') || (!limitArg && !workersArg && !targetArg);
   const commonArgs: string[] = [];
   if (limitArg) {
@@ -169,20 +249,46 @@ export async function orchestrateParallelCrawlers() {
     console.log(`🌊 Chế độ TOÀN TẬP (--all): Cào toàn bộ dữ liệu học thuật chuẩn mực.\n`);
   }
 
-  let activeSpecs = WORKER_SPECS;
-  if (workersArg) {
-    const workerIds = workersArg.split('=')[1].split(',').map((id) => parseInt(id.trim(), 10));
-    activeSpecs = WORKER_SPECS.filter((s) => workerIds.includes(s.id));
-    console.log(`🎯 Chỉ kích hoạt Workers: ${workerIds.join(', ')}\n`);
-  } else if (targetArg) {
-    const target = targetArg.split('=')[1].trim().toLowerCase();
-    if (target === 'jlpt_ielts' || target === 'high_payload') {
-      activeSpecs = WORKER_SPECS.filter((s) => s.id === 4 || s.id === 5);
-      console.log(`🎯 Chỉ kích hoạt 2 kho High-Payload: JLPT Choukai CD Packs & Cambridge IELTS CD Audio (Workers 4, 5)\n`);
-    } else if (target === 'jlpt') {
-      activeSpecs = WORKER_SPECS.filter((s) => s.id === 4);
-    } else if (target === 'ielts') {
-      activeSpecs = WORKER_SPECS.filter((s) => s.id === 5);
+  let activeSpecs: WorkerSpec[] = [];
+
+  if (isSharded) {
+    console.log('⚡ Chế độ PHÂN MẢNH CHIA NHỎ (--sharded): Kích hoạt các luồng song song hạt mịn độc lập!');
+    if (targetArg) {
+      const target = targetArg.split('=')[1].trim().toLowerCase();
+      if (target === 'jlpt_ielts' || target === 'high_payload') {
+        activeSpecs = SHARDED_WORKER_SPECS;
+        console.log(`🎯 Kích hoạt 8 luồng song song phân mảnh: 4 luồng JLPT Choukai + 4 luồng Cambridge IELTS Audio!\n`);
+      } else if (target === 'jlpt') {
+        activeSpecs = SHARDED_WORKER_SPECS.filter((s) => s.category === 'jlpt_choukai');
+        console.log(`🎯 Kích hoạt 4 luồng song song phân mảnh JLPT Choukai N5-N1!\n`);
+      } else if (target === 'ielts') {
+        activeSpecs = SHARDED_WORKER_SPECS.filter((s) => s.category === 'ielts_audio');
+        console.log(`🎯 Kích hoạt 4 luồng song song phân mảnh Cambridge IELTS Audio!\n`);
+      }
+    } else if (isAll) {
+      // 8 shards for JLPT/IELTS + Workers 1, 2, 3, 6
+      const baseWorkers = WORKER_SPECS.filter((s) => s.id !== 4 && s.id !== 5);
+      activeSpecs = [...SHARDED_WORKER_SPECS, ...baseWorkers];
+      console.log(`🎯 Kích hoạt toàn bộ 12 luồng song song phân mảnh cực đại!\n`);
+    } else {
+      activeSpecs = SHARDED_WORKER_SPECS;
+    }
+  } else {
+    activeSpecs = WORKER_SPECS;
+    if (workersArg) {
+      const workerIds = workersArg.split('=')[1].split(',').map((id) => parseInt(id.trim(), 10));
+      activeSpecs = WORKER_SPECS.filter((s) => workerIds.includes(s.id));
+      console.log(`🎯 Chỉ kích hoạt Workers: ${workerIds.join(', ')}\n`);
+    } else if (targetArg) {
+      const target = targetArg.split('=')[1].trim().toLowerCase();
+      if (target === 'jlpt_ielts' || target === 'high_payload') {
+        activeSpecs = WORKER_SPECS.filter((s) => s.id === 4 || s.id === 5);
+        console.log(`🎯 Chỉ kích hoạt 2 kho High-Payload: JLPT Choukai CD Packs & Cambridge IELTS CD Audio (Workers 4, 5)\n`);
+      } else if (target === 'jlpt') {
+        activeSpecs = WORKER_SPECS.filter((s) => s.id === 4);
+      } else if (target === 'ielts') {
+        activeSpecs = WORKER_SPECS.filter((s) => s.id === 5);
+      }
     }
   }
 
@@ -229,7 +335,7 @@ export async function orchestrateParallelCrawlers() {
   return { results, finalManifest };
 }
 
-if (process.argv[1]?.endsWith('orchestrate-6-workers.ts')) {
+if (process.argv[1]?.replace(/\\/g, '/').endsWith('orchestrate-6-workers.ts')) {
   const isLoop = process.argv.includes('--loop');
   const run = async () => {
     if (isLoop) {

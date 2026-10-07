@@ -14,6 +14,7 @@ export interface StreamUploadOptions {
   metadata?: Record<string, any>;
   headers?: Record<string, string>;
   maxRetries?: number;
+  shardId?: string;
 }
 
 /**
@@ -89,7 +90,13 @@ export class StreamUploader {
    * TUYỆT ĐỐI 0 BYTE GHI XUỐNG Ổ CỨNG CỤC BỘ.
    */
   static async streamUploadFromUrl(options: StreamUploadOptions): Promise<AssetEntry> {
-    const partition = DriveFolderManager.getPartition(options.category);
+    const shard = options.shardId || process.env.WORKER_SHARD_ID;
+    if (DriveFolderManager.hasAsset(options.key)) {
+      const existing = DriveFolderManager.getAsset(options.key);
+      if (existing) return existing;
+    }
+
+    const partition = DriveFolderManager.getPartition(options.category, shard);
     if (partition.assets[options.key]) {
       return partition.assets[options.key];
     }
@@ -114,6 +121,7 @@ export class StreamUploader {
           content: stream,
           folderId: options.folderId,
           sizeBytes: contentLength,
+          shardId: shard,
           metadata: {
             ...options.metadata,
             sourceUrl: options.url,

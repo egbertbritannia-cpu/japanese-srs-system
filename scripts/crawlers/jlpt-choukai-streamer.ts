@@ -338,29 +338,43 @@ function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export async function crawlJlptChoukaiArchive(limit?: number) {
+export interface JlptStreamerOptions {
+  limit?: number;
+  shardIndex?: number;
+  totalShards?: number;
+  shardId?: string;
+  level?: string;
+}
+
+export async function crawlJlptChoukaiArchive(options?: number | JlptStreamerOptions) {
+  const opts: JlptStreamerOptions = typeof options === 'number' ? { limit: options } : (options || {});
+  const limit = opts.limit;
+  const shardIndex = opts.shardIndex || 1;
+  const totalShards = opts.totalShards || 1;
+  const shardId = opts.shardId || (totalShards > 1 ? `s${shardIndex}` : undefined);
+  if (shardId) {
+    process.env.WORKER_SHARD_ID = shardId;
+  }
+
   console.log('\n======================================================');
-  console.log('🎧 [CRAWLER 4/6] JLPT CHOUKAI EXAM ARCHIVE (1991 - 2024)');
+  console.log(`🎧 [CRAWLER 4/6] JLPT CHOUKAI EXAM ARCHIVE (1991 - 2024)${totalShards > 1 ? ` [SHARD ${shardIndex}/${totalShards} · ${shardId}]` : ''}`);
   console.log('     Thu thập audio đề thi nghe chính thức N5 - N1 từ JEES / Foundation');
   console.log('======================================================');
 
   const folders = await DriveFolderManager.initFolders();
   const folderId = folders.jlptChoukaiFolderId || folders.rootFolderId;
-  const manifest = DriveFolderManager.getManifest(true);
 
-  // Dọn sạch các bản ghi giả mạo hoặc trỏ vào link dummy cũ nếu có
-  const jlptPartition = DriveFolderManager.getPartition('jlpt_choukai');
-  for (const item of JLPT_CHOUKAI_ARCHIVE) {
-    const key = `jlpt_choukai:${item.id}`;
-    const existing = jlptPartition.assets[key];
-    if (existing && (existing.metadata?.sourceUrl?.includes('1051833') || existing.metadata?.source?.includes('Tatoeba') || existing.sizeBytes === 26737)) {
-      console.log(`🧹 Phát hiện bản ghi JLPT cũ không hợp lệ: ${key} -> Loại bỏ để tải lại audio chuẩn...`);
-      DriveFolderManager.removeAsset(key);
-    }
+  // 1. Phân vùng các câu hỏi đề thi chuẩn mẫu
+  let candidateItems = JLPT_CHOUKAI_ARCHIVE;
+  if (opts.level) {
+    candidateItems = candidateItems.filter(item => item.level.toUpperCase() === opts.level?.toUpperCase());
+  }
+  if (totalShards > 1) {
+    candidateItems = candidateItems.filter((_, idx) => (idx % totalShards) === (shardIndex - 1));
   }
 
-  const itemsToProcess = limit ? JLPT_CHOUKAI_ARCHIVE.slice(0, limit) : JLPT_CHOUKAI_ARCHIVE;
-  console.log(`🎯 Xử lý ${itemsToProcess.length} câu hỏi đề thi nghe chính thức JLPT N5 - N1.`);
+  const itemsToProcess = limit ? candidateItems.slice(0, limit) : candidateItems;
+  console.log(`🎯 [Phân vùng Shard ${shardIndex}/${totalShards}] Xử lý ${itemsToProcess.length} câu hỏi đề thi nghe JLPT.`);
 
   let successCount = 0;
   let skipCount = 0;
@@ -370,8 +384,7 @@ export async function crawlJlptChoukaiArchive(limit?: number) {
     const item = itemsToProcess[i];
     const key = `jlpt_choukai:${item.id}`;
 
-    const partition = DriveFolderManager.getPartition('jlpt_choukai');
-    if (partition.assets[key]) {
+    if (DriveFolderManager.hasAsset(key)) {
       skipCount++;
       process.stdout.write(`⏭️ [${i + 1}/${itemsToProcess.length}] ${item.id} (Đã có sẵn trên Drive)\r`);
       continue;
@@ -387,6 +400,7 @@ export async function crawlJlptChoukaiArchive(limit?: number) {
         fileName,
         mimeType: 'audio/mpeg',
         folderId,
+        shardId,
         metadata: {
           level: item.level,
           mondai: item.mondai,
@@ -416,7 +430,7 @@ export async function crawlJlptChoukaiArchive(limit?: number) {
   // 2. KHO ĐĨA CD AUDIO GỐC THI THẬT JLPT N5 - N1 (HIGH-PAYLOAD MASTER CD PACKS)
   const shouldStreamCdPacks = !limit || limit > itemsToProcess.length || process.argv.includes('--all') || process.argv.includes('--bulk');
   if (shouldStreamCdPacks) {
-    console.log('\n💿 [2/2] Đang kết nối kho đĩa CD thi thật JLPT Choukai (1991 - 2024)...');
+    console.log(`\n💿 [2/2] Đang kết nối kho đĩa CD thi thật JLPT Choukai (1991 - 2024) [Shard ${shardIndex}/${totalShards}]...`);
     const JLPT_ARCHIVE_COLLECTIONS = [
       { id: '0b0nor7u', name: 'JLPT Past Exams 2001-2006 Choukai Audio CDs', levelDefault: 'PastExam' },
       { id: 'Track06_201905', name: 'Shin Kanzen Master N2 Choukai Audio CD1', levelDefault: 'N2' },
@@ -436,7 +450,15 @@ export async function crawlJlptChoukaiArchive(limit?: number) {
       { id: 'n4q22018', name: 'JLPT N4 Official Examination Trial Mock CD', levelDefault: 'N4' },
     ];
 
-    for (const col of JLPT_ARCHIVE_COLLECTIONS) {
+    let candidateCollections = JLPT_ARCHIVE_COLLECTIONS;
+    if (opts.level) {
+      candidateCollections = candidateCollections.filter(c => c.levelDefault.toUpperCase() === opts.level?.toUpperCase());
+    }
+    if (totalShards > 1) {
+      candidateCollections = candidateCollections.filter((_, idx) => (idx % totalShards) === (shardIndex - 1));
+    }
+
+    for (const col of candidateCollections) {
       if (limit && successCount >= limit) break;
       console.log(`  📂 Khảo sát bộ đề thi: 【${col.name}】 (${col.id})...`);
       try {
@@ -450,8 +472,7 @@ export async function crawlJlptChoukaiArchive(limit?: number) {
           if (limit && successCount >= limit) break;
           const cleanName = path.basename(f.name);
           const key = `jlpt_choukai:${col.id}_${encodeURIComponent(cleanName)}`;
-          const partition = DriveFolderManager.getPartition('jlpt_choukai');
-          if (partition.assets[key]) {
+          if (DriveFolderManager.hasAsset(key)) {
             skipCount++;
             continue;
           }
@@ -467,6 +488,7 @@ export async function crawlJlptChoukaiArchive(limit?: number) {
               fileName: safeName,
               mimeType: 'audio/mpeg',
               folderId,
+              shardId,
               metadata: {
                 collectionId: col.id,
                 collectionName: col.name,
@@ -491,12 +513,26 @@ export async function crawlJlptChoukaiArchive(limit?: number) {
     }
   }
 
-  console.log(`\n🎉 Hoàn thành Crawler JLPT Choukai Archive: Thành công: +${successCount}, Bỏ qua: ${skipCount}, Lỗi: ${failCount}`);
+  console.log(`\n🎉 Hoàn thành Crawler JLPT Choukai Archive [Shard ${shardIndex}/${totalShards}]: Thành công: +${successCount}, Bỏ qua: ${skipCount}, Lỗi: ${failCount}`);
 }
 
-if (process.argv[1]?.endsWith('jlpt-choukai-streamer.ts')) {
+if (process.argv[1]?.replace(/\\/g, '/').endsWith('jlpt-choukai-streamer.ts')) {
   const limitArg = process.argv.find((a) => a.startsWith('--limit='));
+  const shardArg = process.argv.find((a) => a.startsWith('--shard='));
+  const shardIdArg = process.argv.find((a) => a.startsWith('--shard-id='));
+  const levelArg = process.argv.find((a) => a.startsWith('--level='));
   const isAll = process.argv.includes('--all');
   const limit = isAll ? undefined : (limitArg ? parseInt(limitArg.split('=')[1], 10) : undefined);
-  crawlJlptChoukaiArchive(limit).catch(console.error);
+
+  let shardIndex = 1;
+  let totalShards = 1;
+  if (shardArg) {
+    const parts = shardArg.split('=')[1].split('/').map(Number);
+    shardIndex = parts[0] || 1;
+    totalShards = parts[1] || 1;
+  }
+  const shardId = shardIdArg ? shardIdArg.split('=')[1] : (totalShards > 1 ? `s${shardIndex}` : undefined);
+  const level = levelArg ? levelArg.split('=')[1] : undefined;
+
+  crawlJlptChoukaiArchive({ limit, shardIndex, totalShards, shardId, level }).catch(console.error);
 }

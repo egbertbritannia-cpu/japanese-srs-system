@@ -1,7 +1,7 @@
 {
   "category": "ielts_audio",
   "totalAssets": 851,
-  "lastUpdated": "2026-10-07T11:19:04.851Z",
+  "lastUpdated": "2026-10-07T13:53:59.293Z",
   "assets": {
     "ielts_audio:ubiquitous": {
       "key": "ielts_audio:ubiquitous",
@@ -8223,9 +8223,9 @@
       "category": "ielts_audio",
       "fileName": "oxford_curtail_studio.mp3",
       "mimeType": "audio/mpeg",
-      "fileId": "1N0XphJRuJmdoTPATL_C7ULbtYutHENew",
-      "driveUrl": "https://drive.google.com/file/d/1N0XphJRuJmdoTPATL_C7ULbtYutHENew/view?usp=drivesdk",
-      "cdnUrl": "https://lh3.googleusercontent.com/d/1N0XphJRuJmdoTPATL_C7ULbtYutHENew",
+      "fileId": "1LYXXf3lsXXmbi8OCpW1wCe7GtvhWnwQD",
+      "driveUrl": "https://drive.google.com/file/d/1LYXXf3lsXXmbi8OCpW1wCe7GtvhWnwQD/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1LYXXf3lsXXmbi8OCpW1wCe7GtvhWnwQD",
       "sizeBytes": 9113,
       "metadata": {
         "word": "curtail",
@@ -8234,7 +8234,7 @@
         "quality": "Studio Lossless Pronunciation (Oxford University Press)",
         "sourceUrl": "https://ssl.gstatic.com/dictionary/static/sounds/oxford/curtail--_gb_1.mp3"
       },
-      "updatedAt": "2026-10-07T08:45:08.825Z"
+      "updatedAt": "2026-10-07T13:53:59.283Z"
     },
     "ielts_audio:daunting": {
       "key": "ielts_audio:daunting",
