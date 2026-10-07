@@ -230,8 +230,24 @@ export async function orchestrateParallelCrawlers() {
 }
 
 if (process.argv[1]?.endsWith('orchestrate-6-workers.ts')) {
-  orchestrateParallelCrawlers().catch((err) => {
-    console.error('Lỗi điều phối 6 workers song song:', err);
+  const isLoop = process.argv.includes('--loop');
+  const run = async () => {
+    if (isLoop) {
+      console.log('🔄 Kích hoạt chế độ VÒNG LẶP LIÊN TỤC (Loop Mode)...');
+      let cycle = 1;
+      while (true) {
+        console.log(`\n🌀 ===== BẮT ĐẦU CHU KỲ QUÉT THỨ ${cycle++} =====`);
+        await orchestrateParallelCrawlers();
+        console.log('⏳ Nghỉ 30 giây để giữ kết nối ổn định trước khi bắt đầu chu kỳ tiếp theo...');
+        await new Promise((r) => setTimeout(r, 30000));
+      }
+    } else {
+      await orchestrateParallelCrawlers();
+    }
+  };
+
+  run().catch((err) => {
+    console.error('Lỗi điều phối workers:', err);
     process.exit(1);
   });
 }

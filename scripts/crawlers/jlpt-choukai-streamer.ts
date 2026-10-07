@@ -427,6 +427,13 @@ export async function crawlJlptChoukaiArchive(limit?: number) {
       { id: '6868_20190730', name: 'TRY! N5 JLPT Listening Audio CD', levelDefault: 'N5' },
       { id: 'tnn9209_gmail_122-', name: 'JLPT Koushiki Mondaishuu N5 Audio', levelDefault: 'N5' },
       { id: 'wut4jxkp3', name: 'JLPT N5 Official Trial Book Examination Questions', levelDefault: 'N5' },
+      { id: 'tnn9209_gmail_145', name: 'Goukaku Dekiru N4-N5 Choukai Exam CD1', levelDefault: 'N4' },
+      { id: 'tnn9209_gmail_244', name: 'Goukaku Dekiru N4-N5 Choukai Exam CD2', levelDefault: 'N5' },
+      { id: '50-50_202407', name: 'Minna no Nihongo Intermediate I Choukai Master', levelDefault: 'N3' },
+      { id: '74track74', name: 'TRY! N4 Choukai Mock Test Audio CD', levelDefault: 'N4' },
+      { id: 'n-3-n-3-cd-1-shin-kanzen-master-n-3-choukai-audio-cd-1', name: 'Shin Kanzen Master N3 Choukai Audio CD1', levelDefault: 'N3' },
+      { id: 'jlpt-n-2-2024-july-cd', name: 'JLPT N2 2024 July Official Examination CD', levelDefault: 'N2' },
+      { id: 'n4q22018', name: 'JLPT N4 Official Examination Trial Mock CD', levelDefault: 'N4' },
     ];
 
     for (const col of JLPT_ARCHIVE_COLLECTIONS) {
