@@ -276,7 +276,6 @@ export default function RootLayout({
                   gap: '0.35rem',
                 }}
               >
-                <span style={{ fontSize: '0.85rem' }}>🎴</span>
                 <span>Kho Media</span>
               </Link>
               <Link
@@ -295,7 +294,6 @@ export default function RootLayout({
                   gap: '0.35rem',
                 }}
               >
-                <span style={{ fontSize: '0.85rem' }}>⛩️</span>
                 <span>JPD133</span>
               </Link>
               <Link

@@ -113,12 +113,15 @@ export async function recordPendingReview(
   cardId: string,
   rating: string,
   scheduledDays?: number,
-  responseTimeMs: number = 2500
+  responseTimeMs: number = 2500,
+  eventId?: string,
+  reviewedAt: number = Date.now()
 ): Promise<string> {
   const reviewId =
-    typeof crypto !== 'undefined' && crypto.randomUUID
+    eventId ||
+    (typeof crypto !== 'undefined' && crypto.randomUUID
       ? crypto.randomUUID()
-      : `rev_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+      : `rev_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`);
 
   if (typeof window === 'undefined' && typeof indexedDB === 'undefined') return reviewId;
 
@@ -127,7 +130,7 @@ export async function recordPendingReview(
       id: reviewId,
       cardId,
       rating,
-      reviewedAt: Date.now(),
+      reviewedAt,
       scheduledDays,
       responseTimeMs,
       synced: 0,
@@ -210,9 +213,22 @@ async function executeSyncBatch(endpoint: string): Promise<{ synced: number; fai
         });
 
         if (batchRes.ok) {
-          const ids = pending.map((p) => p.id);
-          await offlineDb.pendingReviews.where('id').anyOf(ids).delete();
-          return { synced: pending.length, failed: 0 };
+          const body = await batchRes.json();
+          const acknowledgedIds = Array.isArray(body.results)
+            ? body.results
+                .filter((result: any) => result.status === 'applied' || result.status === 'duplicate')
+                .map((result: any) => result.eventId)
+                .filter(Boolean)
+            : [];
+
+          if (acknowledgedIds.length > 0) {
+            await offlineDb.pendingReviews.where('id').anyOf(acknowledgedIds).delete();
+          }
+
+          return {
+            synced: acknowledgedIds.length,
+            failed: pending.length - acknowledgedIds.length,
+          };
         }
       } catch (batchErr) {
         console.warn('[OfflineDB] Batch sync failed, falling back to individual sync:', batchErr);
@@ -226,9 +242,12 @@ async function executeSyncBatch(endpoint: string): Promise<{ synced: number; fai
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            id: item.id,
             cardId: item.cardId,
             rating: item.rating,
+            reviewTime: item.reviewedAt,
             responseTimeMs: item.responseTimeMs || 2500,
+            // Retained for wire compatibility only; the server never trusts this value.
             scheduledDays: item.scheduledDays,
           }),
         });
