@@ -1,0 +1,857 @@
+{
+  "category": "jlpt_dokkai",
+  "totalAssets": 42,
+  "lastUpdated": "2026-10-07T18:46:09.297Z",
+  "assets": {
+    "jlpt_dokkai:jsquad_v1_2_train_master": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_master",
+      "category": "jlpt_dokkai",
+      "fileName": "jsquad_v1_2_train.json",
+      "mimeType": "application/json",
+      "fileId": "1esS_Zm5SMUpcULx5QS39azcz7h-xvWpN",
+      "driveUrl": "https://drive.google.com/file/d/1esS_Zm5SMUpcULx5QS39azcz7h-xvWpN/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1esS_Zm5SMUpcULx5QS39azcz7h-xvWpN",
+      "sizeBytes": 21762421,
+      "metadata": {
+        "datasetId": "jsquad_v1_2_train",
+        "datasetName": "JSQuAD v1.2 Master Train Set (Univ of Tokyo & RIKEN)",
+        "category": "jsquad",
+        "level": "N3-N1",
+        "description": "Kho đọc hiểu bài thi chuẩn SQuAD tiếng Nhật: ~32,000 cặp đoạn văn và câu hỏi đọc hiểu sâu",
+        "type": "master_raw_json",
+        "source": "JGLUE / University of Tokyo / RIKEN AIP",
+        "sourceUrl": "https://raw.githubusercontent.com/yahoojapan/JGLUE/refs/tags/v1.2.0/datasets/jsquad-v1.2/train-v1.2.json"
+      },
+      "updatedAt": "2026-10-07T18:09:19.995Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_001": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_001",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_001.json",
+      "mimeType": "application/json",
+      "fileId": "10LqKH4oU5iGAUz5qkTz4zIo55o3rAyXu",
+      "driveUrl": "https://drive.google.com/file/d/10LqKH4oU5iGAUz5qkTz4zIo55o3rAyXu/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/10LqKH4oU5iGAUz5qkTz4zIo55o3rAyXu",
+      "sizeBytes": 739128,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_001",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 348,
+        "totalQuestions": 1420,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:09:28.561Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_002": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_002",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_002.json",
+      "mimeType": "application/json",
+      "fileId": "1XsiqZrWtF3bfEL1BuZxNZ14HD1UiVLAL",
+      "driveUrl": "https://drive.google.com/file/d/1XsiqZrWtF3bfEL1BuZxNZ14HD1UiVLAL/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1XsiqZrWtF3bfEL1BuZxNZ14HD1UiVLAL",
+      "sizeBytes": 1094981,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_002",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 522,
+        "totalQuestions": 2042,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:09:32.306Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_003": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_003",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_003.json",
+      "mimeType": "application/json",
+      "fileId": "1X-aSoUoVq1TB2cZR-uZtCdENf1Gmu06G",
+      "driveUrl": "https://drive.google.com/file/d/1X-aSoUoVq1TB2cZR-uZtCdENf1Gmu06G/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1X-aSoUoVq1TB2cZR-uZtCdENf1Gmu06G",
+      "sizeBytes": 1015832,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_003",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 489,
+        "totalQuestions": 1910,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:09:36.143Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_004": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_004",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_004.json",
+      "mimeType": "application/json",
+      "fileId": "1tfryUEiyjK8tZBqHmwpjySccFRnb5Kgu",
+      "driveUrl": "https://drive.google.com/file/d/1tfryUEiyjK8tZBqHmwpjySccFRnb5Kgu/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1tfryUEiyjK8tZBqHmwpjySccFRnb5Kgu",
+      "sizeBytes": 1010209,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_004",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 483,
+        "totalQuestions": 1960,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:09:39.519Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_005": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_005",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_005.json",
+      "mimeType": "application/json",
+      "fileId": "1lgo4Lk3m4Nkt3pLm2GuvuJT-TyjNeEzz",
+      "driveUrl": "https://drive.google.com/file/d/1lgo4Lk3m4Nkt3pLm2GuvuJT-TyjNeEzz/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1lgo4Lk3m4Nkt3pLm2GuvuJT-TyjNeEzz",
+      "sizeBytes": 834503,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_005",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 384,
+        "totalQuestions": 1549,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:09:43.213Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_006": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_006",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_006.json",
+      "mimeType": "application/json",
+      "fileId": "11Xk8eIBoQi5gFDyi_Ht-0vZSI9kExf5x",
+      "driveUrl": "https://drive.google.com/file/d/11Xk8eIBoQi5gFDyi_Ht-0vZSI9kExf5x/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/11Xk8eIBoQi5gFDyi_Ht-0vZSI9kExf5x",
+      "sizeBytes": 1632018,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_006",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 754,
+        "totalQuestions": 3040,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:09:46.701Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_007": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_007",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_007.json",
+      "mimeType": "application/json",
+      "fileId": "18_hpMOmUEUKaqUr6TuBPeJpkC3lIHQVV",
+      "driveUrl": "https://drive.google.com/file/d/18_hpMOmUEUKaqUr6TuBPeJpkC3lIHQVV/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/18_hpMOmUEUKaqUr6TuBPeJpkC3lIHQVV",
+      "sizeBytes": 1082048,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_007",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 533,
+        "totalQuestions": 2120,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:09:50.321Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_008": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_008",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_008.json",
+      "mimeType": "application/json",
+      "fileId": "1yzxvyih11RZ5DsGWoxOCdDwrDGB7OYgI",
+      "driveUrl": "https://drive.google.com/file/d/1yzxvyih11RZ5DsGWoxOCdDwrDGB7OYgI/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1yzxvyih11RZ5DsGWoxOCdDwrDGB7OYgI",
+      "sizeBytes": 1517071,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_008",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 737,
+        "totalQuestions": 2843,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:09:54.324Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_009": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_009",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_009.json",
+      "mimeType": "application/json",
+      "fileId": "1ln1ll8neeZ9dwBcYVnnKKfXpZuC3R54w",
+      "driveUrl": "https://drive.google.com/file/d/1ln1ll8neeZ9dwBcYVnnKKfXpZuC3R54w/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1ln1ll8neeZ9dwBcYVnnKKfXpZuC3R54w",
+      "sizeBytes": 1366800,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_009",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 602,
+        "totalQuestions": 2500,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:09:57.804Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_010": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_010",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_010.json",
+      "mimeType": "application/json",
+      "fileId": "1E41PwGlmrj8yb-jmw_z1JLdA3gr_sbun",
+      "driveUrl": "https://drive.google.com/file/d/1E41PwGlmrj8yb-jmw_z1JLdA3gr_sbun/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1E41PwGlmrj8yb-jmw_z1JLdA3gr_sbun",
+      "sizeBytes": 1731031,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_010",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 782,
+        "totalQuestions": 3107,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:10:01.283Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_011": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_011",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_011.json",
+      "mimeType": "application/json",
+      "fileId": "1YByZsvo20H19FZINZt-cU8Iv6bCeYCUz",
+      "driveUrl": "https://drive.google.com/file/d/1YByZsvo20H19FZINZt-cU8Iv6bCeYCUz/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1YByZsvo20H19FZINZt-cU8Iv6bCeYCUz",
+      "sizeBytes": 865780,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_011",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 427,
+        "totalQuestions": 1694,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:10:05.331Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_012": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_012",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_012.json",
+      "mimeType": "application/json",
+      "fileId": "1bTWjmCYWm6lo6xasQLl-v5cfAMxgTsub",
+      "driveUrl": "https://drive.google.com/file/d/1bTWjmCYWm6lo6xasQLl-v5cfAMxgTsub/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1bTWjmCYWm6lo6xasQLl-v5cfAMxgTsub",
+      "sizeBytes": 1098702,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_012",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 537,
+        "totalQuestions": 2142,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:10:08.655Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_013": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_013",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_013.json",
+      "mimeType": "application/json",
+      "fileId": "1oG7ZlvQXQHZaAZSD0XpB-h3-Y9_Iohon",
+      "driveUrl": "https://drive.google.com/file/d/1oG7ZlvQXQHZaAZSD0XpB-h3-Y9_Iohon/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1oG7ZlvQXQHZaAZSD0XpB-h3-Y9_Iohon",
+      "sizeBytes": 610793,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_013",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 296,
+        "totalQuestions": 1155,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:10:12.246Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_014": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_014",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_014.json",
+      "mimeType": "application/json",
+      "fileId": "14stmaTD0no_vlVH3jC2_T8OR7JCqehS0",
+      "driveUrl": "https://drive.google.com/file/d/14stmaTD0no_vlVH3jC2_T8OR7JCqehS0/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/14stmaTD0no_vlVH3jC2_T8OR7JCqehS0",
+      "sizeBytes": 935720,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_014",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 458,
+        "totalQuestions": 1786,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:10:15.602Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_015": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_015",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_015.json",
+      "mimeType": "application/json",
+      "fileId": "1SWhA7wQbNBsxdHntIJPB8673KWiWm8DV",
+      "driveUrl": "https://drive.google.com/file/d/1SWhA7wQbNBsxdHntIJPB8673KWiWm8DV/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1SWhA7wQbNBsxdHntIJPB8673KWiWm8DV",
+      "sizeBytes": 1518835,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_015",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 686,
+        "totalQuestions": 2833,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:10:19.436Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_016": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_016",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_016.json",
+      "mimeType": "application/json",
+      "fileId": "1f42O0tqHu2syNiBGz8mD8R77CQt4SKw9",
+      "driveUrl": "https://drive.google.com/file/d/1f42O0tqHu2syNiBGz8mD8R77CQt4SKw9/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1f42O0tqHu2syNiBGz8mD8R77CQt4SKw9",
+      "sizeBytes": 929356,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_016",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 452,
+        "totalQuestions": 1809,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:10:23.043Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_017": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_017",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_017.json",
+      "mimeType": "application/json",
+      "fileId": "1AdiVX2n-Q10GKyhyknl6j_T71TDuQx_7",
+      "driveUrl": "https://drive.google.com/file/d/1AdiVX2n-Q10GKyhyknl6j_T71TDuQx_7/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1AdiVX2n-Q10GKyhyknl6j_T71TDuQx_7",
+      "sizeBytes": 1238453,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_017",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 578,
+        "totalQuestions": 2394,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:10:27.868Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_018": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_018",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_018.json",
+      "mimeType": "application/json",
+      "fileId": "14ODU0WUT_PKXVIRW2gyijK7THC1YqnZ8",
+      "driveUrl": "https://drive.google.com/file/d/14ODU0WUT_PKXVIRW2gyijK7THC1YqnZ8/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/14ODU0WUT_PKXVIRW2gyijK7THC1YqnZ8",
+      "sizeBytes": 1022520,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_018",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 485,
+        "totalQuestions": 2041,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:10:31.346Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_019": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_019",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_019.json",
+      "mimeType": "application/json",
+      "fileId": "15MbsWkyHSX8tdZWks6TQaNNahaAW44KY",
+      "driveUrl": "https://drive.google.com/file/d/15MbsWkyHSX8tdZWks6TQaNNahaAW44KY/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/15MbsWkyHSX8tdZWks6TQaNNahaAW44KY",
+      "sizeBytes": 1445383,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_019",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 674,
+        "totalQuestions": 2685,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:10:35.103Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_020": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_020",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_020.json",
+      "mimeType": "application/json",
+      "fileId": "1QBI1efbe4go4e7tcSC1zXofSVMiW30tS",
+      "driveUrl": "https://drive.google.com/file/d/1QBI1efbe4go4e7tcSC1zXofSVMiW30tS/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1QBI1efbe4go4e7tcSC1zXofSVMiW30tS",
+      "sizeBytes": 1288993,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_020",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 625,
+        "totalQuestions": 2595,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:10:38.613Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_021": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_021",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_021.json",
+      "mimeType": "application/json",
+      "fileId": "1OCbhSxjam2uxXBtsPuERJNYdcJT4Or4g",
+      "driveUrl": "https://drive.google.com/file/d/1OCbhSxjam2uxXBtsPuERJNYdcJT4Or4g/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1OCbhSxjam2uxXBtsPuERJNYdcJT4Or4g",
+      "sizeBytes": 1735029,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_021",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 809,
+        "totalQuestions": 3305,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:10:41.917Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_022": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_022",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_022.json",
+      "mimeType": "application/json",
+      "fileId": "18t_TivgoMAfOiQDI5dKGIC1h2WebMXy6",
+      "driveUrl": "https://drive.google.com/file/d/18t_TivgoMAfOiQDI5dKGIC1h2WebMXy6/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/18t_TivgoMAfOiQDI5dKGIC1h2WebMXy6",
+      "sizeBytes": 1077978,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_022",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 506,
+        "totalQuestions": 2054,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:10:45.848Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_023": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_023",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_023.json",
+      "mimeType": "application/json",
+      "fileId": "1c8QL4YMFYemKVVzRy6AaaU6BFh_B2aaD",
+      "driveUrl": "https://drive.google.com/file/d/1c8QL4YMFYemKVVzRy6AaaU6BFh_B2aaD/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1c8QL4YMFYemKVVzRy6AaaU6BFh_B2aaD",
+      "sizeBytes": 1622715,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_023",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 767,
+        "totalQuestions": 3002,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:10:50.054Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_024": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_024",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_024.json",
+      "mimeType": "application/json",
+      "fileId": "1PfgY95V-_l2AsCbTMpzCgVcy04C0eHWt",
+      "driveUrl": "https://drive.google.com/file/d/1PfgY95V-_l2AsCbTMpzCgVcy04C0eHWt/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1PfgY95V-_l2AsCbTMpzCgVcy04C0eHWt",
+      "sizeBytes": 1075536,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_024",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 504,
+        "totalQuestions": 2075,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:10:53.943Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_025": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_025",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_025.json",
+      "mimeType": "application/json",
+      "fileId": "1J8inzx--YZvLnMW1kn8pWbbp-yGcvwRV",
+      "driveUrl": "https://drive.google.com/file/d/1J8inzx--YZvLnMW1kn8pWbbp-yGcvwRV/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1J8inzx--YZvLnMW1kn8pWbbp-yGcvwRV",
+      "sizeBytes": 860530,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_025",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 418,
+        "totalQuestions": 1660,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:11:00.134Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_026": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_026",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_026.json",
+      "mimeType": "application/json",
+      "fileId": "1cUb6T5NujFZnhRYqwj5Bl_hAcKB1P_9b",
+      "driveUrl": "https://drive.google.com/file/d/1cUb6T5NujFZnhRYqwj5Bl_hAcKB1P_9b/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1cUb6T5NujFZnhRYqwj5Bl_hAcKB1P_9b",
+      "sizeBytes": 1030268,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_026",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 501,
+        "totalQuestions": 1940,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:11:04.485Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_027": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_027",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_027.json",
+      "mimeType": "application/json",
+      "fileId": "1RfeNGwB8Bb2Nnt9DjaHQ1_RjN7OHpo-9",
+      "driveUrl": "https://drive.google.com/file/d/1RfeNGwB8Bb2Nnt9DjaHQ1_RjN7OHpo-9/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1RfeNGwB8Bb2Nnt9DjaHQ1_RjN7OHpo-9",
+      "sizeBytes": 1359512,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_027",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 636,
+        "totalQuestions": 2547,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:11:07.801Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_028": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_028",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_028.json",
+      "mimeType": "application/json",
+      "fileId": "1RfKN6xqGawYOAG5FaLpnIqlcgHCeoB9Q",
+      "driveUrl": "https://drive.google.com/file/d/1RfKN6xqGawYOAG5FaLpnIqlcgHCeoB9Q/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1RfKN6xqGawYOAG5FaLpnIqlcgHCeoB9Q",
+      "sizeBytes": 962323,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_028",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 454,
+        "totalQuestions": 1820,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:11:11.949Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_train_unit_029": {
+      "key": "jlpt_dokkai:jsquad_v1_2_train_unit_029",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_train_unit_029.json",
+      "mimeType": "application/json",
+      "fileId": "1-eSgKQOSd1PU9Hvlruk4EAUhRRlTJMw-",
+      "driveUrl": "https://drive.google.com/file/d/1-eSgKQOSd1PU9Hvlruk4EAUhRRlTJMw-/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1-eSgKQOSd1PU9Hvlruk4EAUhRRlTJMw-",
+      "sizeBytes": 430171,
+      "metadata": {
+        "unitId": "jsquad_v1_2_train_unit_029",
+        "sourceDataset": "jsquad_v1_2_train",
+        "level": "N3-N1",
+        "totalPassages": 205,
+        "totalQuestions": 831,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:11:15.312Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_valid_master": {
+      "key": "jlpt_dokkai:jsquad_v1_2_valid_master",
+      "category": "jlpt_dokkai",
+      "fileName": "jsquad_v1_2_valid.json",
+      "mimeType": "application/json",
+      "fileId": "1n75ALGM1d1Y18rdRcL9QbZiKzA4zEF4R",
+      "driveUrl": "https://drive.google.com/file/d/1n75ALGM1d1Y18rdRcL9QbZiKzA4zEF4R/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1n75ALGM1d1Y18rdRcL9QbZiKzA4zEF4R",
+      "sizeBytes": 1976638,
+      "metadata": {
+        "datasetId": "jsquad_v1_2_valid",
+        "datasetName": "JSQuAD v1.2 Official Validation Set",
+        "category": "jsquad",
+        "level": "N3-N1",
+        "description": "Tập kiểm định đọc hiểu JLPT Dokkai: ~4,500 câu hỏi kèm vị trí từ khóa trả lời (answer_start)",
+        "type": "master_raw_json",
+        "source": "JGLUE / University of Tokyo / RIKEN AIP",
+        "sourceUrl": "https://raw.githubusercontent.com/yahoojapan/JGLUE/refs/tags/v1.2.0/datasets/jsquad-v1.2/valid-v1.2.json"
+      },
+      "updatedAt": "2026-10-07T18:11:19.646Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_valid_unit_001": {
+      "key": "jlpt_dokkai:jsquad_v1_2_valid_unit_001",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_valid_unit_001.json",
+      "mimeType": "application/json",
+      "fileId": "1Y5eo09WKxnzH9hPMKa5tDMRPu0iliGkX",
+      "driveUrl": "https://drive.google.com/file/d/1Y5eo09WKxnzH9hPMKa5tDMRPu0iliGkX/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Y5eo09WKxnzH9hPMKa5tDMRPu0iliGkX",
+      "sizeBytes": 2315713,
+      "metadata": {
+        "unitId": "jsquad_v1_2_valid_unit_001",
+        "sourceDataset": "jsquad_v1_2_valid",
+        "level": "N3-N1",
+        "totalPassages": 778,
+        "totalQuestions": 3043,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:11:23.991Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_valid_unit_002": {
+      "key": "jlpt_dokkai:jsquad_v1_2_valid_unit_002",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_valid_unit_002.json",
+      "mimeType": "application/json",
+      "fileId": "1cOgpuepeDtNC4oVwQrt1ZEmPc5e894Jk",
+      "driveUrl": "https://drive.google.com/file/d/1cOgpuepeDtNC4oVwQrt1ZEmPc5e894Jk/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1cOgpuepeDtNC4oVwQrt1ZEmPc5e894Jk",
+      "sizeBytes": 845962,
+      "metadata": {
+        "unitId": "jsquad_v1_2_valid_unit_002",
+        "sourceDataset": "jsquad_v1_2_valid",
+        "level": "N3-N1",
+        "totalPassages": 296,
+        "totalQuestions": 1112,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:11:27.447Z"
+    },
+    "jlpt_dokkai:jsquad_v1_2_valid_unit_003": {
+      "key": "jlpt_dokkai:jsquad_v1_2_valid_unit_003",
+      "category": "jlpt_dokkai",
+      "fileName": "jlpt_dokkai_jsquad_v1_2_valid_unit_003.json",
+      "mimeType": "application/json",
+      "fileId": "18HPM6hIubBwWQsh-WpQ5-gmtKm5wCALI",
+      "driveUrl": "https://drive.google.com/file/d/18HPM6hIubBwWQsh-WpQ5-gmtKm5wCALI/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/18HPM6hIubBwWQsh-WpQ5-gmtKm5wCALI",
+      "sizeBytes": 209574,
+      "metadata": {
+        "unitId": "jsquad_v1_2_valid_unit_003",
+        "sourceDataset": "jsquad_v1_2_valid",
+        "level": "N3-N1",
+        "totalPassages": 71,
+        "totalQuestions": 287,
+        "type": "dokkai_study_unit",
+        "source": "JSQuAD v1.2 / JGLUE"
+      },
+      "updatedAt": "2026-10-07T18:11:31.063Z"
+    },
+    "jlpt_dokkai:jcommonsenseqa_v1_2_train_master": {
+      "key": "jlpt_dokkai:jcommonsenseqa_v1_2_train_master",
+      "category": "jlpt_dokkai",
+      "fileName": "jcommonsenseqa_v1_2_train.json",
+      "mimeType": "application/json",
+      "fileId": "1ospHB1hFtSxWd4owzjvXIAbhV3QOgXqI",
+      "driveUrl": "https://drive.google.com/file/d/1ospHB1hFtSxWd4owzjvXIAbhV3QOgXqI/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1ospHB1hFtSxWd4owzjvXIAbhV3QOgXqI",
+      "sizeBytes": 1879961,
+      "metadata": {
+        "datasetId": "jcommonsenseqa_v1_2_train",
+        "datasetName": "JCommonsenseQA v1.2 Train (Trắc nghiệm suy luận thường thức)",
+        "category": "jcommonsenseqa",
+        "level": "N2-N1",
+        "description": "Câu hỏi trắc nghiệm 5 phương án lựa chọn về văn hóa, xã hội và tư duy Nhật Bản",
+        "type": "master_raw_json",
+        "source": "JGLUE / University of Tokyo / RIKEN AIP",
+        "sourceUrl": "https://raw.githubusercontent.com/yahoojapan/JGLUE/refs/tags/v1.2.0/datasets/jcommonsenseqa-v1.2/train-v1.2.json"
+      },
+      "updatedAt": "2026-10-07T18:11:35.671Z"
+    },
+    "jlpt_dokkai:jcommonsenseqa_v1_2_valid_master": {
+      "key": "jlpt_dokkai:jcommonsenseqa_v1_2_valid_master",
+      "category": "jlpt_dokkai",
+      "fileName": "jcommonsenseqa_v1_2_valid.json",
+      "mimeType": "application/json",
+      "fileId": "1Uq70OAKXcLMGR2gD1AmHBxXeiKzJ9q_h",
+      "driveUrl": "https://drive.google.com/file/d/1Uq70OAKXcLMGR2gD1AmHBxXeiKzJ9q_h/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Uq70OAKXcLMGR2gD1AmHBxXeiKzJ9q_h",
+      "sizeBytes": 235633,
+      "metadata": {
+        "datasetId": "jcommonsenseqa_v1_2_valid",
+        "datasetName": "JCommonsenseQA v1.2 Valid",
+        "category": "jcommonsenseqa",
+        "level": "N2-N1",
+        "description": "Tập kiểm định trắc nghiệm suy luận ngôn ngữ học",
+        "type": "master_raw_json",
+        "source": "JGLUE / University of Tokyo / RIKEN AIP",
+        "sourceUrl": "https://raw.githubusercontent.com/yahoojapan/JGLUE/refs/tags/v1.2.0/datasets/jcommonsenseqa-v1.2/valid-v1.2.json"
+      },
+      "updatedAt": "2026-10-07T18:11:39.366Z"
+    },
+    "jlpt_dokkai:jnli_v1_2_train_master": {
+      "key": "jlpt_dokkai:jnli_v1_2_train_master",
+      "category": "jlpt_dokkai",
+      "fileName": "jnli_v1_2_train.json",
+      "mimeType": "application/json",
+      "fileId": "1PKlXfs74xKlZ8LYxqmaxFSQmxg4bsyI8",
+      "driveUrl": "https://drive.google.com/file/d/1PKlXfs74xKlZ8LYxqmaxFSQmxg4bsyI8/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1PKlXfs74xKlZ8LYxqmaxFSQmxg4bsyI8",
+      "sizeBytes": 5234048,
+      "metadata": {
+        "datasetId": "jnli_v1_2_train",
+        "datasetName": "JNLI v1.2 Train (Suy luận ngữ cảnh logic)",
+        "category": "jnli",
+        "level": "N3-N2",
+        "description": "Xác định mối quan hệ tiền đề - kết luận (Entailment, Contradiction, Neutral)",
+        "type": "master_raw_json",
+        "source": "JGLUE / University of Tokyo / RIKEN AIP",
+        "sourceUrl": "https://raw.githubusercontent.com/yahoojapan/JGLUE/refs/tags/v1.2.0/datasets/jnli-v1.2/train-v1.2.json"
+      },
+      "updatedAt": "2026-10-07T18:11:46.120Z"
+    },
+    "jlpt_dokkai:jnli_v1_2_valid_master": {
+      "key": "jlpt_dokkai:jnli_v1_2_valid_master",
+      "category": "jlpt_dokkai",
+      "fileName": "jnli_v1_2_valid.json",
+      "mimeType": "application/json",
+      "fileId": "15AdcxeHpmuRNDoT_iy8JATA_z5z-MWYN",
+      "driveUrl": "https://drive.google.com/file/d/15AdcxeHpmuRNDoT_iy8JATA_z5z-MWYN/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/15AdcxeHpmuRNDoT_iy8JATA_z5z-MWYN",
+      "sizeBytes": 632446,
+      "metadata": {
+        "datasetId": "jnli_v1_2_valid",
+        "datasetName": "JNLI v1.2 Valid",
+        "category": "jnli",
+        "level": "N3-N2",
+        "description": "Tập kiểm định suy luận ngữ nghĩa câu tiếng Nhật",
+        "type": "master_raw_json",
+        "source": "JGLUE / University of Tokyo / RIKEN AIP",
+        "sourceUrl": "https://raw.githubusercontent.com/yahoojapan/JGLUE/refs/tags/v1.2.0/datasets/jnli-v1.2/valid-v1.2.json"
+      },
+      "updatedAt": "2026-10-07T18:11:52.202Z"
+    },
+    "jlpt_dokkai:jsts_v1_2_train_master": {
+      "key": "jlpt_dokkai:jsts_v1_2_train_master",
+      "category": "jlpt_dokkai",
+      "fileName": "jsts_v1_2_train.json",
+      "mimeType": "application/json",
+      "fileId": "1lFt9Ebu_BiWt4KqRwYtd6IzYH5gE5RZh",
+      "driveUrl": "https://drive.google.com/file/d/1lFt9Ebu_BiWt4KqRwYtd6IzYH5gE5RZh/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1lFt9Ebu_BiWt4KqRwYtd6IzYH5gE5RZh",
+      "sizeBytes": 3164816,
+      "metadata": {
+        "datasetId": "jsts_v1_2_train",
+        "datasetName": "JSTS v1.2 Train (Thang điểm đồng nghĩa ngữ nghĩa)",
+        "category": "jsts",
+        "level": "N3-N1",
+        "description": "Đánh giá mức độ tương đương ngữ nghĩa giữa 2 câu tiếng Nhật (thang điểm 0-5)",
+        "type": "master_raw_json",
+        "source": "JGLUE / University of Tokyo / RIKEN AIP",
+        "sourceUrl": "https://raw.githubusercontent.com/yahoojapan/JGLUE/refs/tags/v1.2.0/datasets/jsts-v1.2/train-v1.2.json"
+      },
+      "updatedAt": "2026-10-07T18:11:57.898Z"
+    },
+    "jlpt_dokkai:jsts_v1_2_valid_master": {
+      "key": "jlpt_dokkai:jsts_v1_2_valid_master",
+      "category": "jlpt_dokkai",
+      "fileName": "jsts_v1_2_valid.json",
+      "mimeType": "application/json",
+      "fileId": "19pjgzJC5rvlcSiVJuRqt-fnT0Tt3tlbT",
+      "driveUrl": "https://drive.google.com/file/d/19pjgzJC5rvlcSiVJuRqt-fnT0Tt3tlbT/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/19pjgzJC5rvlcSiVJuRqt-fnT0Tt3tlbT",
+      "sizeBytes": 372253,
+      "metadata": {
+        "datasetId": "jsts_v1_2_valid",
+        "datasetName": "JSTS v1.2 Valid",
+        "category": "jsts",
+        "level": "N3-N1",
+        "description": "Tập kiểm định sắc thái diễn đạt lại (Paraphrasing)",
+        "type": "master_raw_json",
+        "source": "JGLUE / University of Tokyo / RIKEN AIP",
+        "sourceUrl": "https://raw.githubusercontent.com/yahoojapan/JGLUE/refs/tags/v1.2.0/datasets/jsts-v1.2/valid-v1.2.json"
+      },
+      "updatedAt": "2026-10-07T18:12:01.866Z"
+    },
+    "jlpt_dokkai:jcola_in_domain_train_master": {
+      "key": "jlpt_dokkai:jcola_in_domain_train_master",
+      "category": "jlpt_dokkai",
+      "fileName": "jcola_in_domain_train.json",
+      "mimeType": "application/json",
+      "fileId": "1lYrgkroeSed2GoqKXZ-3-N9qdRfiCvBF",
+      "driveUrl": "https://drive.google.com/file/d/1lYrgkroeSed2GoqKXZ-3-N9qdRfiCvBF/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1lYrgkroeSed2GoqKXZ-3-N9qdRfiCvBF",
+      "sizeBytes": 1322900,
+      "metadata": {
+        "datasetId": "jcola_in_domain_train",
+        "datasetName": "JCoLA v1.0 In-Domain Train (Chuẩn ngữ pháp ĐH Tokyo)",
+        "category": "jcola",
+        "level": "N2-N1",
+        "description": "Đánh giá tính chuẩn xác ngữ pháp tiếng Nhật từ Oseki Lab (ĐHQG Tokyo)",
+        "type": "master_raw_json",
+        "source": "JGLUE / University of Tokyo / RIKEN AIP",
+        "sourceUrl": "https://raw.githubusercontent.com/osekilab/JCoLA/main/data/jcola-v1.0/in_domain_train-v1.0.json"
+      },
+      "updatedAt": "2026-10-07T18:12:06.805Z"
+    },
+    "jlpt_dokkai:jcola_in_domain_valid_master": {
+      "key": "jlpt_dokkai:jcola_in_domain_valid_master",
+      "category": "jlpt_dokkai",
+      "fileName": "jcola_in_domain_valid.json",
+      "mimeType": "application/json",
+      "fileId": "1JadaV6SVTaNTS3idENqVXsbCn4JhJa7S",
+      "driveUrl": "https://drive.google.com/file/d/1JadaV6SVTaNTS3idENqVXsbCn4JhJa7S/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1JadaV6SVTaNTS3idENqVXsbCn4JhJa7S",
+      "sizeBytes": 165053,
+      "metadata": {
+        "datasetId": "jcola_in_domain_valid",
+        "datasetName": "JCoLA v1.0 In-Domain Valid",
+        "category": "jcola",
+        "level": "N2-N1",
+        "description": "Tập kiểm định chấp nhận tính ngữ pháp tiếng Nhật",
+        "type": "master_raw_json",
+        "source": "JGLUE / University of Tokyo / RIKEN AIP",
+        "sourceUrl": "https://raw.githubusercontent.com/osekilab/JCoLA/main/data/jcola-v1.0/in_domain_valid-v1.0.json"
+      },
+      "updatedAt": "2026-10-07T18:12:10.434Z"
+    }
+  }
+}

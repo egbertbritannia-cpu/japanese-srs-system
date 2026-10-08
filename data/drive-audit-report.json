@@ -1,0 +1,111 @@
+{
+  "timestamp": "2026-10-07T16:38:49.361Z",
+  "rootFolderId": "1GbG5uuvH_nBLqjr5yjmdrPMnvrDPenb_",
+  "totalDriveFiles": 6152,
+  "totalDriveSizeBytes": 12396001839,
+  "totalDriveFormatted": "11.54 GB",
+  "totalManifestAssets": 4128,
+  "manifestMatchedOnDrive": 4121,
+  "manifestMissingOnDrive": 7,
+  "manifestDuplicateFileIds": 0,
+  "sampleCheck": {
+    "checked": 24,
+    "valid": 23,
+    "failures": [
+      "[05_IELTS_Practice_Audio_Bank] ielts_Cambridge_Practice_Cambridge_Practice_Tests_for_IELTS_1.1.mp3: Invalid MP3 frame header: 52494646"
+    ]
+  },
+  "folderStats": [
+    {
+      "name": "01_Kanji_Stroke_Order_Animations",
+      "id": "1W6u-WhJLBbJBC-42SfMGC2KMPcD6wrCf",
+      "count": 111,
+      "bytes": 767569,
+      "formatted": "749.58 KB",
+      "avgBytes": 6915.036036036036,
+      "mimeTypes": {
+        "image/svg+xml": 111
+      }
+    },
+    {
+      "name": "02_Japanese_Native_Audio_Bank",
+      "id": "1FkUapJGx_q1gPlEeBrmc-sHMzF0OjItZ",
+      "count": 1106,
+      "bytes": 14356565,
+      "formatted": "13.69 MB",
+      "avgBytes": 12980.619349005425,
+      "mimeTypes": {
+        "audio/mpeg": 1106
+      }
+    },
+    {
+      "name": "03_Minna_Visual_Illustrations",
+      "id": "1I0zbzQ14SCQUQJPmLekGYj1E421eGFvl",
+      "count": 1529,
+      "bytes": 689818877,
+      "formatted": "657.86 MB",
+      "avgBytes": 451156.8848920863,
+      "mimeTypes": {
+        "image/png": 1240,
+        "image/jpeg": 284,
+        "image/svg+xml": 5
+      }
+    },
+    {
+      "name": "04_Grammar_Mindmaps_Infographics",
+      "id": "1MzHfCwrdltnXN6zPMvoDBnKDIO3FaLUv",
+      "count": 5,
+      "bytes": 15917,
+      "formatted": "15.54 KB",
+      "avgBytes": 3183.4,
+      "mimeTypes": {
+        "image/svg+xml": 5
+      }
+    },
+    {
+      "name": "05_IELTS_Practice_Audio_Bank",
+      "id": "14bn405rPePXVQcN8mDSb5HJI7cgYX8pG",
+      "count": 1612,
+      "bytes": 9360878542,
+      "formatted": "8.72 GB",
+      "avgBytes": 5806996.61414392,
+      "mimeTypes": {
+        "audio/mpeg": 1612
+      }
+    },
+    {
+      "name": "06_Anime_Immersion_Sentence_Clips",
+      "id": "1rFoWRdBYnS1MTdh50NUTNMUdUzy8zSQw",
+      "count": 82,
+      "bytes": 2019644,
+      "formatted": "1.93 MB",
+      "avgBytes": 24629.80487804878,
+      "mimeTypes": {
+        "audio/mpeg": 82
+      }
+    },
+    {
+      "name": "07_JLPT_Choukai_Exam_Archive",
+      "id": "18uIbdGi3Nbr7bwtSszB3rlTggx1yo35V",
+      "count": 1268,
+      "bytes": 2284525879,
+      "formatted": "2.13 GB",
+      "avgBytes": 1801676.560725552,
+      "mimeTypes": {
+        "audio/mpeg": 1268
+      }
+    },
+    {
+      "name": "08_PubMed_JStage_Bilingual_Corpus",
+      "id": "1tN9D5wi4pqrRrPRGKeQhi0rXfwnM6TVB",
+      "count": 439,
+      "bytes": 43618846,
+      "formatted": "41.60 MB",
+      "avgBytes": 99359.55808656037,
+      "mimeTypes": {
+        "application/json": 156,
+        "application/xml": 283
+      }
+    }
+  ]
+}

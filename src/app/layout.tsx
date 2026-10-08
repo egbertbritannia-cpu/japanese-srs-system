@@ -1,38 +1,26 @@
-import { LanguageSwitcher } from '@/components/LanguageSwitcher';
-import { GlobalSoundToggle } from '@/components/audio/GlobalSoundToggle';
-import { MikazukiThemeToggle } from '@/components/theme/MikazukiThemeToggle';
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { Zen_Maru_Gothic, Shippori_Mincho, Plus_Jakarta_Sans, Bebas_Neue, Noto_Sans_JP } from 'next/font/google';
+import { Zen_Maru_Gothic, Shippori_Mincho, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
-import { SakuraBackground } from '@/components/japanese/SakuraBackground';
-import { JapanesePosterBackground } from '@/components/japanese/JapanesePosterBackground';
-import { ToriiIcon, FujiMountainIcon } from '@/components/japanese/Icons';
-import { JapaneseArtBackdrop } from '@/components/art/JapaneseArtBackdrop';
-import { KirieBottomNav } from '@/components/kirie/KirieBottomNav';
-import { JapaneseSenseiChat } from '@/components/chat/JapaneseSenseiChat';
-
+import { KiokudoNavBar } from '@/components/navigation/KiokudoNavBar';
 import { ServiceWorkerRegister } from '@/components/pwa/ServiceWorkerRegister';
 import { PerformanceTracker } from '@/components/telemetry/PerformanceTracker';
 
 const zenMaru = Zen_Maru_Gothic({
-  weight: ['400', '700'],
+  weight: ['400', '500', '700'],
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-maru',
   preload: true,
-  fallback: ['system-ui', '-apple-system', 'Segoe UI', 'Hiragino Sans', 'sans-serif'],
-  adjustFontFallback: true,
+  fallback: ['system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
 });
 
 const shipporiMincho = Shippori_Mincho({
-  weight: ['700'],
+  weight: ['500', '700', '800'],
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-mincho',
   preload: false,
-  fallback: ['Yu Mincho', 'Hiragino Mincho ProN', 'Georgia', 'serif'],
-  adjustFontFallback: true,
+  fallback: ['Hiragino Mincho ProN', 'Yu Mincho', 'Georgia', 'serif'],
 });
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -42,33 +30,9 @@ const plusJakarta = Plus_Jakarta_Sans({
   preload: true,
 });
 
-// 新書体 1: Bebas Neue — 太字コンデンスド見出し体
-// 「I DESIGN FOR GROWTH」 スタイル — 大型ヒーローディスプレイ用
-// Source: Japanese graphic design reference (16993f123...webp)
-const bebasNeue = Bebas_Neue({
-  weight: ['400'],
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-display',
-  preload: false,
-  fallback: ['Impact', 'Arial Black', 'sans-serif'],
-});
-
-// 新書体 2: Noto Sans JP — 重量日本語ゴシック体 (Heavy/Black weight)
-// 縦書き装飾・ヒーローバナー日本語テキスト用
-// Source: Japanese graphic design reference — vertical Katakana display
-const notoSansJP = Noto_Sans_JP({
-  weight: ['400', '700', '900'],
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-noto',
-  preload: false,
-  fallback: ['Hiragino Sans', 'Yu Gothic', 'Meiryo', 'sans-serif'],
-});
-
 export const metadata: Metadata = {
-  title: 'Japanese SRS System · 記憶道 (FSRS Spaced Repetition)',
-  description: 'Hệ thống ghi nhớ lặp lại ngắt quãng tối ưu học tiếng Nhật kết hợp thuật toán FSRS & Nghệ thuật Văn hóa Nhật Bản',
+  title: '記憶道 Kiokudo Studio',
+  description: 'Hệ thống học tiếng Nhật và củng cố trí nhớ FSRS kết hợp nghệ thuật văn hóa Wabi-Sabi',
 };
 
 export default function RootLayout({
@@ -78,311 +42,26 @@ export default function RootLayout({
 }) {
   return (
     <html
-      lang="ja"
-      className={`${zenMaru.variable} ${shipporiMincho.variable} ${plusJakarta.variable} ${bebasNeue.variable} ${notoSansJP.variable}`}
+      lang="vi"
+      className={`${zenMaru.variable} ${shipporiMincho.variable} ${plusJakarta.variable}`}
     >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#122438" />
-        <link
-          rel="preload"
-          as="image"
-          href="/assets/art/golden-waves-kin-nami.avif"
-          type="image/avif"
-        />
+        <meta name="theme-color" content="#17130E" />
       </head>
-      <body className="washi-paper-bg" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', position: 'relative' }}>
+      <body>
         <ServiceWorkerRegister />
         <PerformanceTracker />
-        {/* Lớp nền đồ họa mỹ thuật áp phích Nhật Bản (Mặt trời Hinomaru, Cành mai Sumi-e, Hạc Đan Đỉnh) */}
-        <JapanesePosterBackground />
 
-        {/* Lớp cánh hoa anh đào bay lãng mạn phía sau */}
-        <SakuraBackground />
+        {/* THANH ĐIỀU HƯỚNG KIOKUDO STUDIO (COPY Y CHANG KIOKUDO-STUDIO.HTML) */}
+        <KiokudoNavBar />
 
-        {/* Thanh son đỏ nóc cổng Torii trên cùng (Torii Kasagi Top Bar) */}
-        <div style={{ height: '4px', background: 'linear-gradient(90deg, #9E3223, #AF7E36, #485642)' }} />
-
-        {/* HEADER / NAVIGATION BAR CHUẨN NHẬT */}
-        <header
-          style={{
-            position: 'sticky',
-            top: 0,
-            zIndex: 50,
-            background: 'rgba(247, 244, 235, 0.95)',
-            backdropFilter: 'blur(12px)',
-            borderBottom: '1px solid var(--washi-border)',
-            boxShadow: 'var(--shadow-washi-sm)',
-          }}
-        >
-          <div
-            style={{
-              maxWidth: '1100px',
-              margin: '0 auto',
-              padding: '0.85rem 1.5rem',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            {/* Logo Thương hiệu: Con dấu son Hanko + Tên hệ thống */}
-            <Link
-              href="/"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.85rem',
-                textDecoration: 'none',
-                color: 'inherit',
-              }}
-            >
-              {/* Dấu ấn Inkan son đỏ '日学' (Học tiếng Nhật) */}
-              <div
-                style={{
-                  width: '38px',
-                  height: '38px',
-                  border: '2px solid #9E3223',
-                  borderRadius: '6px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#9E3223',
-                  fontFamily: 'var(--font-mincho)',
-                  fontWeight: 800,
-                  fontSize: '1.15rem',
-                  background: 'rgba(158, 50, 35, 0.08)',
-                  boxShadow: '0 2px 6px rgba(158, 50, 35, 0.15)',
-                }}
-              >
-                日学
-              </div>
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-mincho)',
-                      fontWeight: 800,
-                      fontSize: '1.25rem',
-                      color: 'var(--sumi-ink)',
-                      letterSpacing: '-0.01em',
-                    }}
-                  >
-                    Japanese SRS
-                  </span>
-                  <span
-                    style={{
-                      padding: '0.15rem 0.45rem',
-                      background: 'var(--matcha-subtle)',
-                      color: 'var(--matcha-deep)',
-                      borderRadius: '4px',
-                      fontSize: '0.72rem',
-                      fontWeight: 700,
-                      fontFamily: 'var(--font-maru)',
-                    }}
-                  >
-                    記憶道 FSRS
-                  </span>
-                </div>
-                <p style={{ fontSize: '0.75rem', color: 'var(--sumi-faded)', margin: 0 }}>
-                  Thuật toán lặp lại ngắt quãng &amp; Mỹ học Phù Tang
-                </p>
-              </div>
-            </Link>
-
-            {/* Menu Điều hướng */}
-            <nav style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Link
-                href="/"
-                style={{
-                  padding: '0.5rem 0.9rem',
-                  borderRadius: '8px',
-                  color: 'var(--sumi-charcoal)',
-                  textDecoration: 'none',
-                  fontSize: '0.9rem',
-                  fontFamily: 'var(--font-maru)',
-                  fontWeight: 600,
-                  transition: 'background 0.2s',
-                }}
-              >
-                Trang chủ
-              </Link>
-              <Link
-                href="/cards"
-                style={{
-                  padding: '0.5rem 0.9rem',
-                  borderRadius: '8px',
-                  color: 'var(--sumi-charcoal)',
-                  textDecoration: 'none',
-                  fontSize: '0.9rem',
-                  fontFamily: 'var(--font-maru)',
-                  fontWeight: 600,
-                  transition: 'background 0.2s',
-                }}
-              >
-                Bộ thẻ
-              </Link>
-              <Link
-                href="/conjugation"
-                style={{
-                  padding: '0.5rem 0.9rem',
-                  borderRadius: '8px',
-                  color: 'var(--sumi-charcoal)',
-                  textDecoration: 'none',
-                  fontSize: '0.9rem',
-                  fontFamily: 'var(--font-maru)',
-                  fontWeight: 600,
-                  transition: 'background 0.2s',
-                }}
-              >
-                Động từ
-              </Link>
-              <Link
-                href="/grammar"
-                style={{
-                  padding: '0.5rem 0.9rem',
-                  borderRadius: '8px',
-                  color: '#16253B',
-                  background: '#EDF2F7',
-                  border: '1px solid #BDCCDC',
-                  textDecoration: 'none',
-                  fontSize: '0.9rem',
-                  fontFamily: 'var(--font-maru)',
-                  fontWeight: 700,
-                  transition: 'all 0.2s',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.35rem',
-                }}
-              >
-                <span style={{ fontSize: '0.85rem' }}>🎋</span>
-                <span>Ngữ pháp</span>
-              </Link>
-              <Link
-                href="/demo/drive"
-                style={{
-                  padding: '0.5rem 0.9rem',
-                  borderRadius: '8px',
-                  color: 'var(--sumi-charcoal)',
-                  textDecoration: 'none',
-                  fontSize: '0.9rem',
-                  fontFamily: 'var(--font-maru)',
-                  fontWeight: 600,
-                  transition: 'background 0.2s',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.35rem',
-                }}
-              >
-                <span>Kho Media</span>
-              </Link>
-              <Link
-                href="/curriculum/jpd133"
-                style={{
-                  padding: '0.5rem 0.9rem',
-                  borderRadius: '8px',
-                  color: 'var(--sumi-charcoal)',
-                  textDecoration: 'none',
-                  fontSize: '0.9rem',
-                  fontFamily: 'var(--font-maru)',
-                  fontWeight: 600,
-                  transition: 'background 0.2s',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.35rem',
-                }}
-              >
-                <span>JPD133</span>
-              </Link>
-              <Link
-                href="/review"
-                className="btn-torii"
-                style={{
-                  padding: '0.5rem 1.1rem',
-                  fontSize: '0.88rem',
-                  marginLeft: '0.5rem',
-                }}
-              >
-                <ToriiIcon size={16} color="#FFFFFF" />
-                Ôn tập
-              </Link>
-              <MikazukiThemeToggle />
-              <GlobalSoundToggle />
-              <LanguageSwitcher />
-            </nav>
-          </div>
-        </header>
-
-        {/* NỘI DUNG CHÍNH (MAIN VIEWPORT) */}
-        <div style={{ flex: 1, position: 'relative', zIndex: 10 }}>
+        {/* NỘI DUNG CHÍNH (MAIN APP VIEWPORT) */}
+        <main id="app">
           {children}
-        </div>
-
-        {/* FOOTER ĐẬM CHẤT THIỀN & NÚI PHÚ SĨ */}
-        <footer
-          style={{
-            marginTop: 'auto',
-            borderTop: '1px solid var(--washi-border)',
-            background: 'var(--washi-surface)',
-            padding: '2.5rem 1.5rem 2rem',
-            position: 'relative',
-            zIndex: 10,
-            overflow: 'hidden',
-          }}
-        >
-          {/* Lớp hoa anh đào dát vàng mờ nhẹ chân trang */}
-          <JapaneseArtBackdrop
-            src="/assets/art/gold-sakura-washi.jpg"
-            alt="Hoa anh đào mạ kim"
-            opacity={0.12}
-            blendMode="multiply"
-            objectPosition="center"
-          />
-
-          {/* Dải sóng Seigaiha mỏng trang trí trên đỉnh Footer */}
-          <div
-            className="wagara-seigaiha-matcha"
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              height: '8px',
-              opacity: 0.85,
-            }}
-          />
-
-          <div
-            style={{
-              maxWidth: '1100px',
-              margin: '0 auto',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              textAlign: 'center',
-              gap: '1rem',
-            }}
-          >
-            <FujiMountainIcon size={40} />
-            <div style={{ fontFamily: 'var(--font-mincho)', fontSize: '1rem', color: 'var(--sumi-charcoal)' }}>
-              「 一期一会 · 七転び八起き 」
-              <span style={{ display: 'block', fontSize: '0.8rem', color: 'var(--sumi-faded)', marginTop: '0.25rem' }}>
-                (Nhất kỳ nhất hội · Vấp ngã bảy lần, đứng dậy tám lần)
-              </span>
-            </div>
-            <p style={{ fontSize: '0.8rem', color: 'var(--sumi-faded)', margin: 0 }}>
-              © 2026 Japanese SRS System · Thiết kế theo chuẩn Mỹ học Wabi-Sabi &amp; FSRS Cognitive Engine
-            </p>
-          </div>
-        </footer>
-
-        {/* Thanh Điều Hướng Di Động Nổi Phong Cách Kirie (Mobile Floating Bottom Nav) */}
-        <KirieBottomNav />
-
-        {/* Trợ Giảng Nhật Ngữ Nổi Toàn Cục Sensei AI (RAG Context-Aware) */}
-        <JapaneseSenseiChat />
+        </main>
       </body>
     </html>
   );

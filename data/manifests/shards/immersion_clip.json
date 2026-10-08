@@ -1,0 +1,1678 @@
+{
+  "category": "immersion_clip",
+  "totalAssets": 48,
+  "lastUpdated": "2026-10-07T18:46:09.297Z",
+  "assets": {
+    "immersion_clip:こんにちは": {
+      "key": "immersion_clip:こんにちは",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_1055980__E3_81_93_E3_82_93_E3_81_AB_E3_81_A1_E3_81_AF.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1BoLp1lkMrpgm6cXnpQPKtjClMldlllOU",
+      "driveUrl": "https://drive.google.com/file/d/1BoLp1lkMrpgm6cXnpQPKtjClMldlllOU/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1BoLp1lkMrpgm6cXnpQPKtjClMldlllOU",
+      "sizeBytes": 40993,
+      "metadata": {
+        "keyword": "こんにちは",
+        "topic": "Chào hỏi hàng ngày (Daily Greetings)",
+        "level": "N5",
+        "japanese": "こんにちは。今日も良い天気ですね。どうかお気をつけて。",
+        "translationVi": "",
+        "translationEn": "",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 11023087,
+        "tatoebaAudioId": 1055980,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 3.5,
+            "text": "こんにちは。今日も良い天気ですね。どうかお気をつけて。",
+            "vi": ""
+          }
+        ],
+        "source": "Immersion Sentence Mining Bank",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1055980"
+      },
+      "updatedAt": "2026-10-06T17:31:41.842Z"
+    },
+    "immersion_clip:ありがとう": {
+      "key": "immersion_clip:ありがとう",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_74331__E3_81_82_E3_82_8A_E3_81_8C_E3_81_A8_E3_81_86.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "11FxrDKv6pmuhy4dQAHosKBKswxQ61wlR",
+      "driveUrl": "https://drive.google.com/file/d/11FxrDKv6pmuhy4dQAHosKBKswxQ61wlR/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/11FxrDKv6pmuhy4dQAHosKBKswxQ61wlR",
+      "sizeBytes": 20035,
+      "metadata": {
+        "keyword": "ありがとう",
+        "topic": "Cảm ơn và xã giao (Gratitude)",
+        "level": "N5",
+        "japanese": "ありがとう。",
+        "translationVi": "Cám ơn!",
+        "translationEn": "Thank you!",
+        "speaker": "yomi",
+        "tatoebaSentenceId": 1532832,
+        "tatoebaAudioId": 74331,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 3.5,
+            "text": "ありがとう。",
+            "vi": "Cám ơn!"
+          }
+        ],
+        "source": "Immersion Sentence Mining Bank",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/74331"
+      },
+      "updatedAt": "2026-10-06T17:31:50.327Z"
+    },
+    "immersion_clip:すみません": {
+      "key": "immersion_clip:すみません",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_753944__E3_81_99_E3_81_BF_E3_81_BE_E3_81_9B_E3_82_93.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1mDpOTOrQ5xrM9Jw9m8BIQVpsOa0ikmf7",
+      "driveUrl": "https://drive.google.com/file/d/1mDpOTOrQ5xrM9Jw9m8BIQVpsOa0ikmf7/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1mDpOTOrQ5xrM9Jw9m8BIQVpsOa0ikmf7",
+      "sizeBytes": 6580,
+      "metadata": {
+        "keyword": "すみません",
+        "topic": "Xin lỗi & Gọi phục vụ quán ăn (Ordering/Excuse me)",
+        "level": "N5",
+        "japanese": "すみません。",
+        "translationVi": "Xin lỗi bạn.",
+        "translationEn": "I'm sorry.",
+        "speaker": "lowteq",
+        "tatoebaSentenceId": 408301,
+        "tatoebaAudioId": 753944,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 3.5,
+            "text": "すみません。",
+            "vi": "Xin lỗi bạn."
+          }
+        ],
+        "source": "Immersion Sentence Mining Bank",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/753944"
+      },
+      "updatedAt": "2026-10-06T17:31:56.361Z"
+    },
+    "immersion_clip:駅": {
+      "key": "immersion_clip:駅",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_238666__E9_A7_85.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1xpCUZXnq1nwG06JKYn_nYD5d_VEPzTth",
+      "driveUrl": "https://drive.google.com/file/d/1xpCUZXnq1nwG06JKYn_nYD5d_VEPzTth/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1xpCUZXnq1nwG06JKYn_nYD5d_VEPzTth",
+      "sizeBytes": 16706,
+      "metadata": {
+        "keyword": "駅",
+        "topic": "Hỏi đường ở nhà ga Tokyo (Tokyo Station Navigation)",
+        "level": "N5",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Hỏi nhân viên đường ray đi tàu tuyến Yamanote",
+        "japanese": "映画館は駅から近いの？",
+        "translationVi": "Is the movie theater near the station?",
+        "translationEn": "Is the movie theater near the station?",
+        "speaker": "yomi",
+        "tatoebaSentenceId": 3850777,
+        "tatoebaAudioId": 238666,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "映画館は駅から近いの？",
+            "vi": "Is the movie theater near the station?",
+            "en": "Is the movie theater near the station?"
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/238666"
+      },
+      "updatedAt": "2026-10-07T00:54:30.894Z"
+    },
+    "immersion_clip:電車": {
+      "key": "immersion_clip:電車",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_1048482__E9_9B_BB_E8_BB_8A.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1j9EVuJBNmTfSNI7ZIMtXo_obCF-YvXtW",
+      "driveUrl": "https://drive.google.com/file/d/1j9EVuJBNmTfSNI7ZIMtXo_obCF-YvXtW/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1j9EVuJBNmTfSNI7ZIMtXo_obCF-YvXtW",
+      "sizeBytes": 17541,
+      "metadata": {
+        "keyword": "電車",
+        "topic": "Đi tàu điện ngầm Yamanote (Subway Commuting)",
+        "level": "N5",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Thông báo trên tàu về việc sắp đến ga Akihabara",
+        "japanese": "電車は満員でした。",
+        "translationVi": "The train was packed.",
+        "translationEn": "The train was packed.",
+        "speaker": "CVjpn4",
+        "tatoebaSentenceId": 10934624,
+        "tatoebaAudioId": 1048482,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "電車は満員でした。",
+            "vi": "The train was packed.",
+            "en": "The train was packed."
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1048482"
+      },
+      "updatedAt": "2026-10-07T00:54:40.005Z"
+    },
+    "immersion_clip:ご飯": {
+      "key": "immersion_clip:ご飯",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_1053679__E3_81_94_E9_A3_AF.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1nts6uiuGl5BmOiJrVa_oMPNB3PKvMwuy",
+      "driveUrl": "https://drive.google.com/file/d/1nts6uiuGl5BmOiJrVa_oMPNB3PKvMwuy/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1nts6uiuGl5BmOiJrVa_oMPNB3PKvMwuy",
+      "sizeBytes": 25225,
+      "metadata": {
+        "keyword": "ご飯",
+        "topic": "Bữa ăn gia đình Nhật Bản (Japanese Dining)",
+        "level": "N5",
+        "register": "Kudaketa (Thân mật)",
+        "situation": "Gia đình quây quần thưởng thức bữa tối và mời cơm Itadakimasu",
+        "japanese": "ご飯にする？",
+        "translationVi": "Do you want rice?",
+        "translationEn": "Do you want rice?",
+        "speaker": "CVjpn3",
+        "tatoebaSentenceId": 11001460,
+        "tatoebaAudioId": 1053679,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "ご飯にする？",
+            "vi": "Do you want rice?",
+            "en": "Do you want rice?"
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1053679"
+      },
+      "updatedAt": "2026-10-07T00:54:48.511Z"
+    },
+    "immersion_clip:勉強": {
+      "key": "immersion_clip:勉強",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_1048069__E5_8B_89_E5_BC_B7.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "18NxZFsfITXMViO60L-SMImUGYJhIgEgj",
+      "driveUrl": "https://drive.google.com/file/d/18NxZFsfITXMViO60L-SMImUGYJhIgEgj/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/18NxZFsfITXMViO60L-SMImUGYJhIgEgj",
+      "sizeBytes": 17973,
+      "metadata": {
+        "keyword": "勉強",
+        "topic": "Học tập tại trường đại học (Campus Study)",
+        "level": "N5",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Thảo luận với bạn cùng lớp về bài thi tiếng Nhật tuần tới",
+        "japanese": "明るい所で勉強します。",
+        "translationVi": "",
+        "translationEn": "",
+        "speaker": "CVjpn17",
+        "tatoebaSentenceId": 10930331,
+        "tatoebaAudioId": 1048069,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "明るい所で勉強します。",
+            "vi": "",
+            "en": ""
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1048069"
+      },
+      "updatedAt": "2026-10-07T00:54:54.826Z"
+    },
+    "immersion_clip:友達": {
+      "key": "immersion_clip:友達",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_1056303__E5_8F_8B_E9_81_94.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1YNGCoS5GZDt-UbH7mtRBwezX6zbDLCSb",
+      "driveUrl": "https://drive.google.com/file/d/1YNGCoS5GZDt-UbH7mtRBwezX6zbDLCSb/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1YNGCoS5GZDt-UbH7mtRBwezX6zbDLCSb",
+      "sizeBytes": 18179,
+      "metadata": {
+        "keyword": "友達",
+        "topic": "Trò chuyện bạn bè thân thiết (Friendship)",
+        "level": "N5",
+        "register": "Kudaketa (Thân mật)",
+        "situation": "Hẹn bạn đi uống trà sữa và xem phim hoạt hình cuối tuần",
+        "japanese": "一番の友達は俺だろ？",
+        "translationVi": "I'm your best friend, right?",
+        "translationEn": "I'm your best friend, right?",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 11027667,
+        "tatoebaAudioId": 1056303,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "一番の友達は俺だろ？",
+            "vi": "I'm your best friend, right?",
+            "en": "I'm your best friend, right?"
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1056303"
+      },
+      "updatedAt": "2026-10-07T00:55:07.386Z"
+    },
+    "immersion_clip:仕事": {
+      "key": "immersion_clip:仕事",
+      "category": "immersion_clip",
+      "fileName": "immersion_N4_269587__E4_BB_95_E4_BA_8B.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1y7sOweCrBfwCAFJkwN4LQSssSwmUoabV",
+      "driveUrl": "https://drive.google.com/file/d/1y7sOweCrBfwCAFJkwN4LQSssSwmUoabV/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1y7sOweCrBfwCAFJkwN4LQSssSwmUoabV",
+      "sizeBytes": 13500,
+      "metadata": {
+        "keyword": "仕事",
+        "topic": "Giao tiếp công sở công ty Nhật (Business Office)",
+        "level": "N4",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Báo cáo tiến độ hoàn thành công việc cho trưởng nhóm",
+        "japanese": "仕事はどうですか？",
+        "translationVi": "Công việc thế nào?",
+        "translationEn": "How are things at work?",
+        "speaker": "Mizu",
+        "tatoebaSentenceId": 4751203,
+        "tatoebaAudioId": 269587,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "仕事はどうですか？",
+            "vi": "Công việc thế nào?",
+            "en": "How are things at work?"
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/269587"
+      },
+      "updatedAt": "2026-10-07T00:55:14.795Z"
+    },
+    "immersion_clip:天気": {
+      "key": "immersion_clip:天気",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_1045202__E5_A4_A9_E6_B0_97.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1X5skOBuNZFN_V8p5NuQnuzquz3MOpJuG",
+      "driveUrl": "https://drive.google.com/file/d/1X5skOBuNZFN_V8p5NuQnuzquz3MOpJuG/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1X5skOBuNZFN_V8p5NuQnuzquz3MOpJuG",
+      "sizeBytes": 17325,
+      "metadata": {
+        "keyword": "天気",
+        "topic": "Dự báo thời tiết & Mùa hoa anh đào (Weather)",
+        "level": "N5",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Bản tin dự báo thời tiết Tokyo trời nắng đẹp thích hợp ngắm hoa",
+        "japanese": "けさはいい天気です。",
+        "translationVi": "The weather is good this morning.",
+        "translationEn": "The weather is good this morning.",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 10901744,
+        "tatoebaAudioId": 1045202,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "けさはいい天気です。",
+            "vi": "The weather is good this morning.",
+            "en": "The weather is good this morning."
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1045202"
+      },
+      "updatedAt": "2026-10-07T00:55:26.807Z"
+    },
+    "immersion_clip:病院": {
+      "key": "immersion_clip:病院",
+      "category": "immersion_clip",
+      "fileName": "immersion_N4_152534__E7_97_85_E9_99_A2.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "19JsTB_SFof2TXYPT23k1GN_G2DkFj8YK",
+      "driveUrl": "https://drive.google.com/file/d/19JsTB_SFof2TXYPT23k1GN_G2DkFj8YK/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/19JsTB_SFof2TXYPT23k1GN_G2DkFj8YK",
+      "sizeBytes": 12849,
+      "metadata": {
+        "keyword": "病院",
+        "topic": "Khám bệnh và mua thuốc (Hospital & Pharmacy)",
+        "level": "N4",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Mô tả triệu chứng đau đầu sốt nhẹ cho bác sĩ tại phòng khám",
+        "japanese": "ここは病院です。",
+        "translationVi": "This is a hospital.",
+        "translationEn": "This is a hospital.",
+        "speaker": "Mizu",
+        "tatoebaSentenceId": 2604697,
+        "tatoebaAudioId": 152534,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "ここは病院です。",
+            "vi": "This is a hospital.",
+            "en": "This is a hospital."
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/152534"
+      },
+      "updatedAt": "2026-10-07T00:55:38.748Z"
+    },
+    "immersion_clip:買い物": {
+      "key": "immersion_clip:買い物",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_1052567__E8_B2_B7_E3_81_84_E7_89_A9.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1PfPqFMaaCz5puDc1qYSI62xKvGzAvC5Z",
+      "driveUrl": "https://drive.google.com/file/d/1PfPqFMaaCz5puDc1qYSI62xKvGzAvC5Z/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1PfPqFMaaCz5puDc1qYSI62xKvGzAvC5Z",
+      "sizeBytes": 36673,
+      "metadata": {
+        "keyword": "買い物",
+        "topic": "Mua sắm tại siêu thị & Konbini (Shopping)",
+        "level": "N5",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Thanh toán tại quầy tính tiền cửa hàng tiện lợi 7-Eleven",
+        "japanese": "スーパーへ買い物に行きます。",
+        "translationVi": "I'm going to the supermarket to do some shopping.",
+        "translationEn": "I'm going to the supermarket to do some shopping.",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 10990353,
+        "tatoebaAudioId": 1052567,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "スーパーへ買い物に行きます。",
+            "vi": "I'm going to the supermarket to do some shopping.",
+            "en": "I'm going to the supermarket to do some shopping."
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1052567"
+      },
+      "updatedAt": "2026-10-07T00:55:46.742Z"
+    },
+    "immersion_clip:旅行": {
+      "key": "immersion_clip:旅行",
+      "category": "immersion_clip",
+      "fileName": "immersion_N4_269586__E6_97_85_E8_A1_8C.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "12E9wV1ums9PJUzViN1fB3bfh36nMixhl",
+      "driveUrl": "https://drive.google.com/file/d/12E9wV1ums9PJUzViN1fB3bfh36nMixhl/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/12E9wV1ums9PJUzViN1fB3bfh36nMixhl",
+      "sizeBytes": 12852,
+      "metadata": {
+        "keyword": "旅行",
+        "topic": "Du lịch Kyoto & Onsen suối nước nóng (Travel)",
+        "level": "N4",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Hỏi lễ tân khách sạn về hướng đi đền Fushimi Inari",
+        "japanese": "旅行どうでしたか？",
+        "translationVi": "How was your trip?",
+        "translationEn": "How was your trip?",
+        "speaker": "Mizu",
+        "tatoebaSentenceId": 4751193,
+        "tatoebaAudioId": 269586,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "旅行どうでしたか？",
+            "vi": "How was your trip?",
+            "en": "How was your trip?"
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/269586"
+      },
+      "updatedAt": "2026-10-07T00:55:55.510Z"
+    },
+    "immersion_clip:電話": {
+      "key": "immersion_clip:電話",
+      "category": "immersion_clip",
+      "fileName": "immersion_N4_1283528__E9_9B_BB_E8_A9_B1.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1H8b6jTuKZty-ORxE-6GZG8f5FE12ptjC",
+      "driveUrl": "https://drive.google.com/file/d/1H8b6jTuKZty-ORxE-6GZG8f5FE12ptjC/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1H8b6jTuKZty-ORxE-6GZG8f5FE12ptjC",
+      "sizeBytes": 20257,
+      "metadata": {
+        "keyword": "電話",
+        "topic": "Nghe gọi điện thoại tiếng Nhật (Phone Manners)",
+        "level": "N4",
+        "register": "Sonkeigo/Kenjougo (Kính ngữ)",
+        "situation": "Tiếp nhận cuộc gọi đối tác kinh doanh gọi đến công ty",
+        "japanese": "電話して。",
+        "translationVi": "Gọi cho tôi.",
+        "translationEn": "Call me.",
+        "speaker": "fal",
+        "tatoebaSentenceId": 13523695,
+        "tatoebaAudioId": 1283528,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "電話して。",
+            "vi": "Gọi cho tôi.",
+            "en": "Call me."
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1283528"
+      },
+      "updatedAt": "2026-10-07T00:56:06.181Z"
+    },
+    "immersion_clip:予約": {
+      "key": "immersion_clip:予約",
+      "category": "immersion_clip",
+      "fileName": "immersion_N4_1052277__E4_BA_88_E7_B4_84.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "15gDAFfmh8TOKcz8rzSPQOfSSot-G32kS",
+      "driveUrl": "https://drive.google.com/file/d/15gDAFfmh8TOKcz8rzSPQOfSSot-G32kS/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/15gDAFfmh8TOKcz8rzSPQOfSSot-G32kS",
+      "sizeBytes": 28033,
+      "metadata": {
+        "keyword": "予約",
+        "topic": "Đặt chỗ nhà hàng & khách sạn (Reservations)",
+        "level": "N4",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Đặt bàn ăn 4 người cho buổi liên hoan tối thứ Sáu",
+        "japanese": "次の予約があるんだ。",
+        "translationVi": "I have another appointment.",
+        "translationEn": "I have another appointment.",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 10987966,
+        "tatoebaAudioId": 1052277,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "次の予約があるんだ。",
+            "vi": "I have another appointment.",
+            "en": "I have another appointment."
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1052277"
+      },
+      "updatedAt": "2026-10-07T00:56:16.093Z"
+    },
+    "immersion_clip:コンビニ": {
+      "key": "immersion_clip:コンビニ",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_1056026__E3_82_B3_E3_83_B3_E3_83_93_E3_83_8B.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1n1yoY1xDM4XaKc99D0uIm-cs0oM9w083",
+      "driveUrl": "https://drive.google.com/file/d/1n1yoY1xDM4XaKc99D0uIm-cs0oM9w083/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1n1yoY1xDM4XaKc99D0uIm-cs0oM9w083",
+      "sizeBytes": 29113,
+      "metadata": {
+        "keyword": "コンビニ",
+        "topic": "Mua đồ ăn nhanh tại Konbini (Convenience Store)",
+        "level": "N5",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Nhờ nhân viên hâm nóng hộp cơm bento và từ chối túi nilon",
+        "japanese": "コンビニでお札くずしてきて。",
+        "translationVi": "",
+        "translationEn": "",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 11023088,
+        "tatoebaAudioId": 1056026,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "コンビニでお札くずしてきて。",
+            "vi": "",
+            "en": ""
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1056026"
+      },
+      "updatedAt": "2026-10-07T00:56:25.629Z"
+    },
+    "immersion_clip:居酒屋": {
+      "key": "immersion_clip:居酒屋",
+      "category": "immersion_clip",
+      "fileName": "immersion_N4_1085319__E5_B1_85_E9_85_92_E5_B1_8B.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1CFKRKoh46L03bK_iM_gGJ94sSXDrjtfO",
+      "driveUrl": "https://drive.google.com/file/d/1CFKRKoh46L03bK_iM_gGJ94sSXDrjtfO/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1CFKRKoh46L03bK_iM_gGJ94sSXDrjtfO",
+      "sizeBytes": 42579,
+      "metadata": {
+        "keyword": "居酒屋",
+        "topic": "Đi nhậu quán Izakaya (After-work Izakaya)",
+        "level": "N4",
+        "register": "Kudaketa (Thân mật)",
+        "situation": "Nâng ly chúc mừng Kanpai cùng đồng nghiệp sau giờ làm",
+        "japanese": "均一居酒屋では一番売れても二人で八千円くらいだ。",
+        "translationVi": "",
+        "translationEn": "",
+        "speaker": "Soukai",
+        "tatoebaSentenceId": 11211645,
+        "tatoebaAudioId": 1085319,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "均一居酒屋では一番売れても二人で八千円くらいだ。",
+            "vi": "",
+            "en": ""
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1085319"
+      },
+      "updatedAt": "2026-10-07T00:56:32.159Z"
+    },
+    "immersion_clip:ラーメン": {
+      "key": "immersion_clip:ラーメン",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_1062961__E3_83_A9_E3_83_BC_E3_83_A1_E3_83_B3.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "16JZMfYZfcLHY2Y76stbHq0qNTdmumSJu",
+      "driveUrl": "https://drive.google.com/file/d/16JZMfYZfcLHY2Y76stbHq0qNTdmumSJu/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/16JZMfYZfcLHY2Y76stbHq0qNTdmumSJu",
+      "sizeBytes": 30625,
+      "metadata": {
+        "keyword": "ラーメン",
+        "topic": "Gọi món tại tiệm mì Ramen (Ordering Ramen)",
+        "level": "N5",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Chọn độ đậm của nước súp Tonkotsu và độ cứng của sợi mì",
+        "japanese": "カップラーメンもつけるか迷う。",
+        "translationVi": "",
+        "translationEn": "",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 11056559,
+        "tatoebaAudioId": 1062961,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "カップラーメンもつけるか迷う。",
+            "vi": "",
+            "en": ""
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1062961"
+      },
+      "updatedAt": "2026-10-07T00:56:40.213Z"
+    },
+    "immersion_clip:面接": {
+      "key": "immersion_clip:面接",
+      "category": "immersion_clip",
+      "fileName": "immersion_N3_1053495__E9_9D_A2_E6_8E_A5.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1WHATMJMvRgJ3CYbaI1JiiNygwiJfQW_K",
+      "driveUrl": "https://drive.google.com/file/d/1WHATMJMvRgJ3CYbaI1JiiNygwiJfQW_K/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1WHATMJMvRgJ3CYbaI1JiiNygwiJfQW_K",
+      "sizeBytes": 36673,
+      "metadata": {
+        "keyword": "面接",
+        "topic": "Phỏng vấn xin việc công ty Nhật (Job Interview)",
+        "level": "N3",
+        "register": "Sonkeigo/Kenjougo (Kính ngữ)",
+        "situation": "Giới thiệu bản thân và nêu lý do ứng tuyển vị trí kỹ sư",
+        "japanese": "面接の時間が近づいて足が地につかない。",
+        "translationVi": "As the time of the interview draws near, I feel like a cat on hot bricks.",
+        "translationEn": "As the time of the interview draws near, I feel like a cat on hot bricks.",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 11001458,
+        "tatoebaAudioId": 1053495,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "面接の時間が近づいて足が地につかない。",
+            "vi": "As the time of the interview draws near, I feel like a cat on hot bricks.",
+            "en": "As the time of the interview draws near, I feel like a cat on hot bricks."
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1053495"
+      },
+      "updatedAt": "2026-10-07T00:56:52.268Z"
+    },
+    "immersion_clip:こんにちは_11004908": {
+      "key": "immersion_clip:こんにちは_11004908",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_1053872__E3_81_93_E3_82_93_E3_81_AB_E3_81_A1_E3_81_AF.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "10jP3adi9IgC6-eApMUNHVfRN0_EIpWfB",
+      "driveUrl": "https://drive.google.com/file/d/10jP3adi9IgC6-eApMUNHVfRN0_EIpWfB/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/10jP3adi9IgC6-eApMUNHVfRN0_EIpWfB",
+      "sizeBytes": 52873,
+      "metadata": {
+        "keyword": "こんにちは",
+        "topic": "Chào hỏi hàng ngày (Daily Greetings)",
+        "level": "N5",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Gặp gỡ đồng nghiệp vào buổi trưa tại văn phòng",
+        "japanese": "この意見に、宇宙人たちは、パチパチと、それぞれすべての手で拍手して賛成した。",
+        "translationVi": "",
+        "translationEn": "",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 11004908,
+        "tatoebaAudioId": 1053872,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "この意見に、宇宙人たちは、パチパチと、それぞれすべての手で拍手して賛成した。",
+            "vi": "",
+            "en": ""
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1053872"
+      },
+      "updatedAt": "2026-10-07T03:31:23.710Z"
+    },
+    "immersion_clip:ありがとう_9672957": {
+      "key": "immersion_clip:ありがとう_9672957",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_1042684__E3_81_82_E3_82_8A_E3_81_8C_E3_81_A8_E3_81_86.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1_ifqd5DFgUqDWyd7ia4em9npkM1I4d1v",
+      "driveUrl": "https://drive.google.com/file/d/1_ifqd5DFgUqDWyd7ia4em9npkM1I4d1v/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1_ifqd5DFgUqDWyd7ia4em9npkM1I4d1v",
+      "sizeBytes": 14301,
+      "metadata": {
+        "keyword": "ありがとう",
+        "topic": "Cảm ơn và xã giao (Gratitude)",
+        "level": "N5",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Cảm ơn khi được đồng nghiệp giúp đỡ hoàn thành dự án",
+        "japanese": "どうもありがとう。",
+        "translationVi": "Cám ơn bạn nhiều nghe!",
+        "translationEn": "Many thanks.",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 9672957,
+        "tatoebaAudioId": 1042684,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "どうもありがとう。",
+            "vi": "Cám ơn bạn nhiều nghe!",
+            "en": "Many thanks."
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1042684"
+      },
+      "updatedAt": "2026-10-07T14:43:36.689Z"
+    },
+    "immersion_clip:すみません_10910321": {
+      "key": "immersion_clip:すみません_10910321",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_1046528__E3_81_99_E3_81_BF_E3_81_BE_E3_81_9B_E3_82_93.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1R69T-c7o0QH3p_Ekr6ambGO_pCuT4qmA",
+      "driveUrl": "https://drive.google.com/file/d/1R69T-c7o0QH3p_Ekr6ambGO_pCuT4qmA/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1R69T-c7o0QH3p_Ekr6ambGO_pCuT4qmA",
+      "sizeBytes": 14085,
+      "metadata": {
+        "keyword": "すみません",
+        "topic": "Gọi phục vụ quán ăn (Ordering/Excuse me)",
+        "level": "N5",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Gọi nhân viên quán mì ramen để gọi thêm trứng ngâm vị",
+        "japanese": "すみませんね。",
+        "translationVi": "Tôi xin lỗi.",
+        "translationEn": "I'm sorry.",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 10910321,
+        "tatoebaAudioId": 1046528,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "すみませんね。",
+            "vi": "Tôi xin lỗi.",
+            "en": "I'm sorry."
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1046528"
+      },
+      "updatedAt": "2026-10-07T14:43:49.436Z"
+    },
+    "immersion_clip:駅_3623504": {
+      "key": "immersion_clip:駅_3623504",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_220634__E9_A7_85.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "159TEj_VikAnNbuA46vYeOxYP_WP3Q2I1",
+      "driveUrl": "https://drive.google.com/file/d/159TEj_VikAnNbuA46vYeOxYP_WP3Q2I1/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/159TEj_VikAnNbuA46vYeOxYP_WP3Q2I1",
+      "sizeBytes": 14345,
+      "metadata": {
+        "keyword": "駅",
+        "topic": "Hỏi đường ở nhà ga Tokyo (Tokyo Station Navigation)",
+        "level": "N5",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Hỏi nhân viên đường ray đi tàu tuyến Yamanote",
+        "japanese": "駅まで一緒に行かない？",
+        "translationVi": "Do you want to go to the station with me?",
+        "translationEn": "Do you want to go to the station with me?",
+        "speaker": "yomi",
+        "tatoebaSentenceId": 3623504,
+        "tatoebaAudioId": 220634,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "駅まで一緒に行かない？",
+            "vi": "Do you want to go to the station with me?",
+            "en": "Do you want to go to the station with me?"
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/220634"
+      },
+      "updatedAt": "2026-10-07T14:44:00.897Z"
+    },
+    "immersion_clip:電車_2110028": {
+      "key": "immersion_clip:電車_2110028",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_102313__E9_9B_BB_E8_BB_8A.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1hUFMoY2z8_7UI0X30c-rPchLwGw2j9KL",
+      "driveUrl": "https://drive.google.com/file/d/1hUFMoY2z8_7UI0X30c-rPchLwGw2j9KL/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1hUFMoY2z8_7UI0X30c-rPchLwGw2j9KL",
+      "sizeBytes": 11359,
+      "metadata": {
+        "keyword": "電車",
+        "topic": "Đi tàu điện ngầm Yamanote (Subway Commuting)",
+        "level": "N5",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Thông báo trên tàu về việc sắp đến ga Akihabara",
+        "japanese": "トムは電車から降りた。",
+        "translationVi": "Tom stepped off the train.",
+        "translationEn": "Tom stepped off the train.",
+        "speaker": "huizi99",
+        "tatoebaSentenceId": 2110028,
+        "tatoebaAudioId": 102313,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "トムは電車から降りた。",
+            "vi": "Tom stepped off the train.",
+            "en": "Tom stepped off the train."
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/102313"
+      },
+      "updatedAt": "2026-10-07T14:44:10.777Z"
+    },
+    "immersion_clip:ご飯_11013751": {
+      "key": "immersion_clip:ご飯_11013751",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_1054700__E3_81_94_E9_A3_AF.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1wyNH3K_kemF86_xlnxicF3-DjgO2zjBm",
+      "driveUrl": "https://drive.google.com/file/d/1wyNH3K_kemF86_xlnxicF3-DjgO2zjBm/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1wyNH3K_kemF86_xlnxicF3-DjgO2zjBm",
+      "sizeBytes": 34297,
+      "metadata": {
+        "keyword": "ご飯",
+        "topic": "Bữa ăn gia đình Nhật Bản (Japanese Dining)",
+        "level": "N5",
+        "register": "Kudaketa (Thân mật)",
+        "situation": "Gia đình quây quần thưởng thức bữa tối và mời cơm Itadakimasu",
+        "japanese": "味が濃くてご飯がほしくなる。",
+        "translationVi": "",
+        "translationEn": "",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 11013751,
+        "tatoebaAudioId": 1054700,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "味が濃くてご飯がほしくなる。",
+            "vi": "",
+            "en": ""
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1054700"
+      },
+      "updatedAt": "2026-10-07T14:44:20.396Z"
+    },
+    "immersion_clip:勉強_11211717": {
+      "key": "immersion_clip:勉強_11211717",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_1085315__E5_8B_89_E5_BC_B7.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1p6IoDf8R58L35N7Mdhu0cp7M8H6i-D29",
+      "driveUrl": "https://drive.google.com/file/d/1p6IoDf8R58L35N7Mdhu0cp7M8H6i-D29/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1p6IoDf8R58L35N7Mdhu0cp7M8H6i-D29",
+      "sizeBytes": 24887,
+      "metadata": {
+        "keyword": "勉強",
+        "topic": "Học tập tại trường đại học (Campus Study)",
+        "level": "N5",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Thảo luận với bạn cùng lớp về bài thi tiếng Nhật tuần tới",
+        "japanese": "勉強中は話しかけないで。",
+        "translationVi": "Don't talk to me while I'm studying.",
+        "translationEn": "Don't talk to me while I'm studying.",
+        "speaker": "Soukai",
+        "tatoebaSentenceId": 11211717,
+        "tatoebaAudioId": 1085315,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "勉強中は話しかけないで。",
+            "vi": "Don't talk to me while I'm studying.",
+            "en": "Don't talk to me while I'm studying."
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1085315"
+      },
+      "updatedAt": "2026-10-07T14:44:30.970Z"
+    },
+    "immersion_clip:友達_10906731": {
+      "key": "immersion_clip:友達_10906731",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_1046127__E5_8F_8B_E9_81_94.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "17o_iF7EMoTUpxN7Tm1IivUE1lU2CgtK7",
+      "driveUrl": "https://drive.google.com/file/d/17o_iF7EMoTUpxN7Tm1IivUE1lU2CgtK7/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/17o_iF7EMoTUpxN7Tm1IivUE1lU2CgtK7",
+      "sizeBytes": 21861,
+      "metadata": {
+        "keyword": "友達",
+        "topic": "Trò chuyện bạn bè thân thiết (Friendship)",
+        "level": "N5",
+        "register": "Kudaketa (Thân mật)",
+        "situation": "Hẹn bạn đi uống trà sữa và xem phim hoạt hình cuối tuần",
+        "japanese": "俺たちは同志、友達だろ？",
+        "translationVi": "",
+        "translationEn": "",
+        "speaker": "CVjpn3",
+        "tatoebaSentenceId": 10906731,
+        "tatoebaAudioId": 1046127,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "俺たちは同志、友達だろ？",
+            "vi": "",
+            "en": ""
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1046127"
+      },
+      "updatedAt": "2026-10-07T14:44:39.095Z"
+    },
+    "immersion_clip:仕事_169172": {
+      "key": "immersion_clip:仕事_169172",
+      "category": "immersion_clip",
+      "fileName": "immersion_N4_753921__E4_BB_95_E4_BA_8B.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1FZtK5vK0BsZl7YbYexKWJtVaDGDE9IMz",
+      "driveUrl": "https://drive.google.com/file/d/1FZtK5vK0BsZl7YbYexKWJtVaDGDE9IMz/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1FZtK5vK0BsZl7YbYexKWJtVaDGDE9IMz",
+      "sizeBytes": 8746,
+      "metadata": {
+        "keyword": "仕事",
+        "topic": "Giao tiếp công sở công ty Nhật (Business Office)",
+        "level": "N4",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Báo cáo tiến độ hoàn thành công việc cho trưởng nhóm",
+        "japanese": "それが仕事です。",
+        "translationVi": "It's business.",
+        "translationEn": "It's business.",
+        "speaker": "lowteq",
+        "tatoebaSentenceId": 169172,
+        "tatoebaAudioId": 753921,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "それが仕事です。",
+            "vi": "It's business.",
+            "en": "It's business."
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/753921"
+      },
+      "updatedAt": "2026-10-07T14:44:45.518Z"
+    },
+    "immersion_clip:天気_10901781": {
+      "key": "immersion_clip:天気_10901781",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_1045216__E5_A4_A9_E6_B0_97.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1Uogv89LFypkg1pwpOHPY-KFHdsMtVSlu",
+      "driveUrl": "https://drive.google.com/file/d/1Uogv89LFypkg1pwpOHPY-KFHdsMtVSlu/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Uogv89LFypkg1pwpOHPY-KFHdsMtVSlu",
+      "sizeBytes": 19053,
+      "metadata": {
+        "keyword": "天気",
+        "topic": "Dự báo thời tiết & Mùa hoa anh đào (Weather)",
+        "level": "N5",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Bản tin dự báo thời tiết Tokyo trời nắng đẹp thích hợp ngắm hoa",
+        "japanese": "きょうは天気が悪いです。",
+        "translationVi": "The weather's not good today.",
+        "translationEn": "The weather's not good today.",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 10901781,
+        "tatoebaAudioId": 1045216,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "きょうは天気が悪いです。",
+            "vi": "The weather's not good today.",
+            "en": "The weather's not good today."
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1045216"
+      },
+      "updatedAt": "2026-10-07T14:44:57.610Z"
+    },
+    "immersion_clip:病院_10901769": {
+      "key": "immersion_clip:病院_10901769",
+      "category": "immersion_clip",
+      "fileName": "immersion_N4_1045224__E7_97_85_E9_99_A2.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1B71QrpuVnVbrLd70lIKR7G-Aab2uw89M",
+      "driveUrl": "https://drive.google.com/file/d/1B71QrpuVnVbrLd70lIKR7G-Aab2uw89M/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1B71QrpuVnVbrLd70lIKR7G-Aab2uw89M",
+      "sizeBytes": 19485,
+      "metadata": {
+        "keyword": "病院",
+        "topic": "Khám bệnh và mua thuốc (Hospital & Pharmacy)",
+        "level": "N4",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Mô tả triệu chứng đau đầu sốt nhẹ cho bác sĩ tại phòng khám",
+        "japanese": "病院は駅の向こうです。",
+        "translationVi": "The hospital is on the other side of the station.",
+        "translationEn": "The hospital is on the other side of the station.",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 10901769,
+        "tatoebaAudioId": 1045224,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "病院は駅の向こうです。",
+            "vi": "The hospital is on the other side of the station.",
+            "en": "The hospital is on the other side of the station."
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1045224"
+      },
+      "updatedAt": "2026-10-07T14:45:07.787Z"
+    },
+    "immersion_clip:買い物_11045210": {
+      "key": "immersion_clip:買い物_11045210",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_1059957__E8_B2_B7_E3_81_84_E7_89_A9.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "12PDnsH4mRrXvI5KasHUI8vnjaKkm-wUG",
+      "driveUrl": "https://drive.google.com/file/d/12PDnsH4mRrXvI5KasHUI8vnjaKkm-wUG/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/12PDnsH4mRrXvI5KasHUI8vnjaKkm-wUG",
+      "sizeBytes": 35593,
+      "metadata": {
+        "keyword": "買い物",
+        "topic": "Mua sắm tại siêu thị & Konbini (Shopping)",
+        "level": "N5",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Thanh toán tại quầy tính tiền cửa hàng tiện lợi 7-Eleven",
+        "japanese": "買い物袋からネギが顔出してる。",
+        "translationVi": "",
+        "translationEn": "",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 11045210,
+        "tatoebaAudioId": 1059957,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "買い物袋からネギが顔出してる。",
+            "vi": "",
+            "en": ""
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1059957"
+      },
+      "updatedAt": "2026-10-07T14:45:14.636Z"
+    },
+    "immersion_clip:旅行_4270214": {
+      "key": "immersion_clip:旅行_4270214",
+      "category": "immersion_clip",
+      "fileName": "immersion_N4_250196__E6_97_85_E8_A1_8C.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1r9oR-Niiy3N15PZyA9BdGl3SlrwIy-f_",
+      "driveUrl": "https://drive.google.com/file/d/1r9oR-Niiy3N15PZyA9BdGl3SlrwIy-f_/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1r9oR-Niiy3N15PZyA9BdGl3SlrwIy-f_",
+      "sizeBytes": 13503,
+      "metadata": {
+        "keyword": "旅行",
+        "topic": "Du lịch Kyoto & Onsen suối nước nóng (Travel)",
+        "level": "N4",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Hỏi lễ tân khách sạn về hướng đi đền Fushimi Inari",
+        "japanese": "旅行はどうでしたか？",
+        "translationVi": "How was your trip?",
+        "translationEn": "How was your trip?",
+        "speaker": "Mizu",
+        "tatoebaSentenceId": 4270214,
+        "tatoebaAudioId": 250196,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "旅行はどうでしたか？",
+            "vi": "How was your trip?",
+            "en": "How was your trip?"
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/250196"
+      },
+      "updatedAt": "2026-10-07T15:39:31.459Z"
+    },
+    "immersion_clip:電話_3480329": {
+      "key": "immersion_clip:電話_3480329",
+      "category": "immersion_clip",
+      "fileName": "immersion_N4_751005__E9_9B_BB_E8_A9_B1.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1y9tSS07uJSWBfvYgYtHap0BNClxJwt9y",
+      "driveUrl": "https://drive.google.com/file/d/1y9tSS07uJSWBfvYgYtHap0BNClxJwt9y/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1y9tSS07uJSWBfvYgYtHap0BNClxJwt9y",
+      "sizeBytes": 7229,
+      "metadata": {
+        "keyword": "電話",
+        "topic": "Nghe gọi điện thoại tiếng Nhật (Phone Manners)",
+        "level": "N4",
+        "register": "Sonkeigo/Kenjougo (Kính ngữ)",
+        "situation": "Tiếp nhận cuộc gọi đối tác kinh doanh gọi đến công ty",
+        "japanese": "電話してね。",
+        "translationVi": "Gọi cho tôi.",
+        "translationEn": "Call me.",
+        "speaker": "lowteq",
+        "tatoebaSentenceId": 3480329,
+        "tatoebaAudioId": 751005,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "電話してね。",
+            "vi": "Gọi cho tôi.",
+            "en": "Call me."
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/751005"
+      },
+      "updatedAt": "2026-10-07T15:39:41.012Z"
+    },
+    "immersion_clip:予約_10953703": {
+      "key": "immersion_clip:予約_10953703",
+      "category": "immersion_clip",
+      "fileName": "immersion_N4_1049790__E4_BA_88_E7_B4_84.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1x-st0k0HNot_UQTX5YGRRtBlDhwBMQ7w",
+      "driveUrl": "https://drive.google.com/file/d/1x-st0k0HNot_UQTX5YGRRtBlDhwBMQ7w/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1x-st0k0HNot_UQTX5YGRRtBlDhwBMQ7w",
+      "sizeBytes": 28465,
+      "metadata": {
+        "keyword": "予約",
+        "topic": "Đặt chỗ nhà hàng & khách sạn (Reservations)",
+        "level": "N4",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Đặt bàn ăn 4 người cho buổi liên hoan tối thứ Sáu",
+        "japanese": "予約のお客様でしょうか？",
+        "translationVi": "Do you have a reservation?",
+        "translationEn": "Do you have a reservation?",
+        "speaker": "CVjpn3",
+        "tatoebaSentenceId": 10953703,
+        "tatoebaAudioId": 1049790,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "予約のお客様でしょうか？",
+            "vi": "Do you have a reservation?",
+            "en": "Do you have a reservation?"
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1049790"
+      },
+      "updatedAt": "2026-10-07T15:39:53.977Z"
+    },
+    "immersion_clip:コンビニ_11027826": {
+      "key": "immersion_clip:コンビニ_11027826",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_1056271__E3_82_B3_E3_83_B3_E3_83_93_E3_83_8B.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1UtL3VH9gH6BTjZZVOj7xxItPnvlcFxh6",
+      "driveUrl": "https://drive.google.com/file/d/1UtL3VH9gH6BTjZZVOj7xxItPnvlcFxh6/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1UtL3VH9gH6BTjZZVOj7xxItPnvlcFxh6",
+      "sizeBytes": 17747,
+      "metadata": {
+        "keyword": "コンビニ",
+        "topic": "Mua đồ ăn nhanh tại Konbini (Convenience Store)",
+        "level": "N5",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Nhờ nhân viên hâm nóng hộp cơm bento và từ chối túi nilon",
+        "japanese": "あそこのコンビニに行ってみよう。",
+        "translationVi": "",
+        "translationEn": "",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 11027826,
+        "tatoebaAudioId": 1056271,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "あそこのコンビニに行ってみよう。",
+            "vi": "",
+            "en": ""
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1056271"
+      },
+      "updatedAt": "2026-10-07T15:40:04.437Z"
+    },
+    "immersion_clip:居酒屋_11044884": {
+      "key": "immersion_clip:居酒屋_11044884",
+      "category": "immersion_clip",
+      "fileName": "immersion_N4_1062630__E5_B1_85_E9_85_92_E5_B1_8B.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1OHfXMQDnj6HtyPyeNzwaq_wZwi1ZPkfZ",
+      "driveUrl": "https://drive.google.com/file/d/1OHfXMQDnj6HtyPyeNzwaq_wZwi1ZPkfZ/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1OHfXMQDnj6HtyPyeNzwaq_wZwi1ZPkfZ",
+      "sizeBytes": 36539,
+      "metadata": {
+        "keyword": "居酒屋",
+        "topic": "Đi nhậu quán Izakaya (After-work Izakaya)",
+        "level": "N4",
+        "register": "Kudaketa (Thân mật)",
+        "situation": "Nâng ly chúc mừng Kanpai cùng đồng nghiệp sau giờ làm",
+        "japanese": "行きつけの居酒屋に入ると、知らない顔で席が埋まってたので帰ってきた。",
+        "translationVi": "I went back to my favorite pub, only to see seats with faces that I didn't recognize.",
+        "translationEn": "I went back to my favorite pub, only to see seats with faces that I didn't recognize.",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 11044884,
+        "tatoebaAudioId": 1062630,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "行きつけの居酒屋に入ると、知らない顔で席が埋まってたので帰ってきた。",
+            "vi": "I went back to my favorite pub, only to see seats with faces that I didn't recognize.",
+            "en": "I went back to my favorite pub, only to see seats with faces that I didn't recognize."
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1062630"
+      },
+      "updatedAt": "2026-10-07T15:40:16.550Z"
+    },
+    "immersion_clip:ラーメン_11045200": {
+      "key": "immersion_clip:ラーメン_11045200",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_1059856__E3_83_A9_E3_83_BC_E3_83_A1_E3_83_B3.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1DoHWwKgigpUsi8yd_2JyeDz0WEDgrYvV",
+      "driveUrl": "https://drive.google.com/file/d/1DoHWwKgigpUsi8yd_2JyeDz0WEDgrYvV/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1DoHWwKgigpUsi8yd_2JyeDz0WEDgrYvV",
+      "sizeBytes": 28897,
+      "metadata": {
+        "keyword": "ラーメン",
+        "topic": "Gọi món tại tiệm mì Ramen (Ordering Ramen)",
+        "level": "N5",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Chọn độ đậm của nước súp Tonkotsu và độ cứng của sợi mì",
+        "japanese": "帰ったらまずはラーメン食べる。",
+        "translationVi": "When I get home, the first thing I do is eat ramen.",
+        "translationEn": "When I get home, the first thing I do is eat ramen.",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 11045200,
+        "tatoebaAudioId": 1059856,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "帰ったらまずはラーメン食べる。",
+            "vi": "When I get home, the first thing I do is eat ramen.",
+            "en": "When I get home, the first thing I do is eat ramen."
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1059856"
+      },
+      "updatedAt": "2026-10-07T15:40:29.559Z"
+    },
+    "immersion_clip:面接_11028058": {
+      "key": "immersion_clip:面接_11028058",
+      "category": "immersion_clip",
+      "fileName": "immersion_N3_1056190__E9_9D_A2_E6_8E_A5.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1roDwAfzckccbVFHroCugwUiMR00buvHJ",
+      "driveUrl": "https://drive.google.com/file/d/1roDwAfzckccbVFHroCugwUiMR00buvHJ/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1roDwAfzckccbVFHroCugwUiMR00buvHJ",
+      "sizeBytes": 37187,
+      "metadata": {
+        "keyword": "面接",
+        "topic": "Phỏng vấn xin việc công ty Nhật (Job Interview)",
+        "level": "N3",
+        "register": "Sonkeigo/Kenjougo (Kính ngữ)",
+        "situation": "Giới thiệu bản thân và nêu lý do ứng tuyển vị trí kỹ sư",
+        "japanese": "紫外線は表面エネルギーの小さいポリマーを接着する際の前処理に利用される。",
+        "translationVi": "",
+        "translationEn": "",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 11028058,
+        "tatoebaAudioId": 1056190,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "紫外線は表面エネルギーの小さいポリマーを接着する際の前処理に利用される。",
+            "vi": "",
+            "en": ""
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1056190"
+      },
+      "updatedAt": "2026-10-07T15:40:44.461Z"
+    },
+    "immersion_clip:引越し": {
+      "key": "immersion_clip:引越し",
+      "category": "immersion_clip",
+      "fileName": "immersion_N4_1044028__E5_BC_95_E8_B6_8A_E3_81_97.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1qoacLvmlgt1O3oRPzf5xjWoePT2XufY6",
+      "driveUrl": "https://drive.google.com/file/d/1qoacLvmlgt1O3oRPzf5xjWoePT2XufY6/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1qoacLvmlgt1O3oRPzf5xjWoePT2XufY6",
+      "sizeBytes": 28125,
+      "metadata": {
+        "keyword": "引越し",
+        "topic": "Chuyển nhà và chào hàng xóm",
+        "level": "N4",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Tặng món quà nhỏ ra mắt hàng xóm mới",
+        "japanese": "小さな家に引越し、はや九ヶ月が過ぎさりました。",
+        "translationVi": "",
+        "translationEn": "",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 10899872,
+        "tatoebaAudioId": 1044028,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "小さな家に引越し、はや九ヶ月が過ぎさりました。",
+            "vi": "",
+            "en": ""
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1044028"
+      },
+      "updatedAt": "2026-10-07T15:41:01.288Z"
+    },
+    "immersion_clip:引越し_6706361": {
+      "key": "immersion_clip:引越し_6706361",
+      "category": "immersion_clip",
+      "fileName": "immersion_N4_753990__E5_BC_95_E8_B6_8A_E3_81_97.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1IEieDIJMhTGMI6wqK_5J5PVOrHOdoNX7",
+      "driveUrl": "https://drive.google.com/file/d/1IEieDIJMhTGMI6wqK_5J5PVOrHOdoNX7/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1IEieDIJMhTGMI6wqK_5J5PVOrHOdoNX7",
+      "sizeBytes": 9614,
+      "metadata": {
+        "keyword": "引越し",
+        "topic": "Chuyển nhà và chào hàng xóm",
+        "level": "N4",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Tặng món quà nhỏ ra mắt hàng xóm mới",
+        "japanese": "トムは引っ越した。",
+        "translationVi": "Tom moved.",
+        "translationEn": "Tom moved.",
+        "speaker": "lowteq",
+        "tatoebaSentenceId": 6706361,
+        "tatoebaAudioId": 753990,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "トムは引っ越した。",
+            "vi": "Tom moved.",
+            "en": "Tom moved."
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/753990"
+      },
+      "updatedAt": "2026-10-07T15:41:08.405Z"
+    },
+    "immersion_clip:温泉": {
+      "key": "immersion_clip:温泉",
+      "category": "immersion_clip",
+      "fileName": "immersion_N4_1053720__E6_B8_A9_E6_B3_89.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1fhZLWYT8GLK2wK6BTjJwvuwCAT7Uc5-C",
+      "driveUrl": "https://drive.google.com/file/d/1fhZLWYT8GLK2wK6BTjJwvuwCAT7Uc5-C/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1fhZLWYT8GLK2wK6BTjJwvuwCAT7Uc5-C",
+      "sizeBytes": 36673,
+      "metadata": {
+        "keyword": "温泉",
+        "topic": "Quy tắc tắm suối nước nóng",
+        "level": "N4",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Nhân viên hướng dẫn tắm tráng trước khi xuống bể",
+        "japanese": "久しぶりの温泉旅行を心の底から満喫した。",
+        "translationVi": "",
+        "translationEn": "",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 11005034,
+        "tatoebaAudioId": 1053720,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "久しぶりの温泉旅行を心の底から満喫した。",
+            "vi": "",
+            "en": ""
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1053720"
+      },
+      "updatedAt": "2026-10-07T15:41:16.189Z"
+    },
+    "immersion_clip:桜": {
+      "key": "immersion_clip:桜",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_1055024__E6_A1_9C.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1-rg-v_omDPu2FmF0MpA4kaQFLHxqSGTi",
+      "driveUrl": "https://drive.google.com/file/d/1-rg-v_omDPu2FmF0MpA4kaQFLHxqSGTi/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1-rg-v_omDPu2FmF0MpA4kaQFLHxqSGTi",
+      "sizeBytes": 38617,
+      "metadata": {
+        "keyword": "桜",
+        "topic": "Lễ hội hoa anh đào Ueno",
+        "level": "N5",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Cùng đồng nghiệp trải thảm ngắm hoa",
+        "japanese": "近くの公園の桜はまだ三分咲きだった。",
+        "translationVi": "",
+        "translationEn": "",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 11013771,
+        "tatoebaAudioId": 1055024,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "近くの公園の桜はまだ三分咲きだった。",
+            "vi": "",
+            "en": ""
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1055024"
+      },
+      "updatedAt": "2026-10-07T15:41:26.258Z"
+    },
+    "immersion_clip:桜_11007594": {
+      "key": "immersion_clip:桜_11007594",
+      "category": "immersion_clip",
+      "fileName": "immersion_N5_1054019__E6_A1_9C.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1caeoTPmr-XqzHMLtp2f3smaZe6-vWRXW",
+      "driveUrl": "https://drive.google.com/file/d/1caeoTPmr-XqzHMLtp2f3smaZe6-vWRXW/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1caeoTPmr-XqzHMLtp2f3smaZe6-vWRXW",
+      "sizeBytes": 34945,
+      "metadata": {
+        "keyword": "桜",
+        "topic": "Lễ hội hoa anh đào Ueno",
+        "level": "N5",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Cùng đồng nghiệp trải thảm ngắm hoa",
+        "japanese": "桜も散ってこの通りもさびしくなるな。",
+        "translationVi": "",
+        "translationEn": "",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 11007594,
+        "tatoebaAudioId": 1054019,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "桜も散ってこの通りもさびしくなるな。",
+            "vi": "",
+            "en": ""
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1054019"
+      },
+      "updatedAt": "2026-10-07T15:41:30.372Z"
+    },
+    "immersion_clip:残業": {
+      "key": "immersion_clip:残業",
+      "category": "immersion_clip",
+      "fileName": "immersion_N3_1046929__E6_AE_8B_E6_A5_AD.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1zReXAkPMp9VB6SF-uBym9-81u4Niv4L5",
+      "driveUrl": "https://drive.google.com/file/d/1zReXAkPMp9VB6SF-uBym9-81u4Niv4L5/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1zReXAkPMp9VB6SF-uBym9-81u4Niv4L5",
+      "sizeBytes": 24453,
+      "metadata": {
+        "keyword": "残業",
+        "topic": "Làm thêm giờ tại công ty",
+        "level": "N3",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Xin phép ở lại hoàn thiện tài liệu hợp đồng",
+        "japanese": "歴史に名の残す偉業となった。",
+        "translationVi": "",
+        "translationEn": "",
+        "speaker": "CVjpn447",
+        "tatoebaSentenceId": 10915114,
+        "tatoebaAudioId": 1046929,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "歴史に名の残す偉業となった。",
+            "vi": "",
+            "en": ""
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1046929"
+      },
+      "updatedAt": "2026-10-07T15:41:37.858Z"
+    },
+    "immersion_clip:台風": {
+      "key": "immersion_clip:台風",
+      "category": "immersion_clip",
+      "fileName": "immersion_N3_1043981__E5_8F_B0_E9_A2_A8.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1k8X6tg7PWHkpaG0nLucDZwe27Y_GKamW",
+      "driveUrl": "https://drive.google.com/file/d/1k8X6tg7PWHkpaG0nLucDZwe27Y_GKamW/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1k8X6tg7PWHkpaG0nLucDZwe27Y_GKamW",
+      "sizeBytes": 20781,
+      "metadata": {
+        "keyword": "台風",
+        "topic": "Cảnh báo bão đổ bộ Kanto",
+        "level": "N3",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Bản tin đài NHK khuyên người dân ở yên trong nhà",
+        "japanese": "台風で電車が遅れました。",
+        "translationVi": "The train was delayed because of the typhoon.",
+        "translationEn": "The train was delayed because of the typhoon.",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 10899851,
+        "tatoebaAudioId": 1043981,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "台風で電車が遅れました。",
+            "vi": "The train was delayed because of the typhoon.",
+            "en": "The train was delayed because of the typhoon."
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1043981"
+      },
+      "updatedAt": "2026-10-07T15:41:54.060Z"
+    },
+    "immersion_clip:台風_10899863": {
+      "key": "immersion_clip:台風_10899863",
+      "category": "immersion_clip",
+      "fileName": "immersion_N3_1044052__E5_8F_B0_E9_A2_A8.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1wpqKVrNQCb6OPMjflTublOPpcYnheXDj",
+      "driveUrl": "https://drive.google.com/file/d/1wpqKVrNQCb6OPMjflTublOPpcYnheXDj/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1wpqKVrNQCb6OPMjflTublOPpcYnheXDj",
+      "sizeBytes": 29853,
+      "metadata": {
+        "keyword": "台風",
+        "topic": "Cảnh báo bão đổ bộ Kanto",
+        "level": "N3",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Bản tin đài NHK khuyên người dân ở yên trong nhà",
+        "japanese": "大きい台風が来て、電車が止まりました。",
+        "translationVi": "",
+        "translationEn": "",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 10899863,
+        "tatoebaAudioId": 1044052,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "大きい台風が来て、電車が止まりました。",
+            "vi": "",
+            "en": ""
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1044052"
+      },
+      "updatedAt": "2026-10-07T15:42:02.278Z"
+    },
+    "immersion_clip:地震": {
+      "key": "immersion_clip:地震",
+      "category": "immersion_clip",
+      "fileName": "immersion_N4_1055756__E5_9C_B0_E9_9C_87.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "14ss5ZFlqc-5DuxuTE6ryGksGcWGquF-P",
+      "driveUrl": "https://drive.google.com/file/d/14ss5ZFlqc-5DuxuTE6ryGksGcWGquF-P/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/14ss5ZFlqc-5DuxuTE6ryGksGcWGquF-P",
+      "sizeBytes": 48337,
+      "metadata": {
+        "keyword": "地震",
+        "topic": "Diễn tập phòng chống thiên tai",
+        "level": "N4",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Hướng dẫn di tản an toàn khi có rung chấn",
+        "japanese": "気象庁がこの呼称を発表したのは、地震発生後、四時間あまりたってからだった。",
+        "translationVi": "The Meteorological Agency announced the name of the earthquake more than four hours after it had occurred.",
+        "translationEn": "The Meteorological Agency announced the name of the earthquake more than four hours after it had occurred.",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 11021369,
+        "tatoebaAudioId": 1055756,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "気象庁がこの呼称を発表したのは、地震発生後、四時間あまりたってからだった。",
+            "vi": "The Meteorological Agency announced the name of the earthquake more than four hours after it had occurred.",
+            "en": "The Meteorological Agency announced the name of the earthquake more than four hours after it had occurred."
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1055756"
+      },
+      "updatedAt": "2026-10-07T15:42:09.077Z"
+    },
+    "immersion_clip:契約": {
+      "key": "immersion_clip:契約",
+      "category": "immersion_clip",
+      "fileName": "immersion_N2_1063068__E5_A5_91_E7_B4_84.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1yuX0Qp6yMxsLXkl4sbjdmcpga8zVAWSH",
+      "driveUrl": "https://drive.google.com/file/d/1yuX0Qp6yMxsLXkl4sbjdmcpga8zVAWSH/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1yuX0Qp6yMxsLXkl4sbjdmcpga8zVAWSH",
+      "sizeBytes": 34945,
+      "metadata": {
+        "keyword": "契約",
+        "topic": "Ký kết hợp đồng phát triển web",
+        "level": "N2",
+        "register": "Teineigo (Lịch sự)",
+        "situation": "Thống nhất điều khoản bàn giao bản quyền phần mềm",
+        "japanese": "契約途中で移籍してファンはがっかり。",
+        "translationVi": "",
+        "translationEn": "",
+        "speaker": "CVjpn1",
+        "tatoebaSentenceId": 11038501,
+        "tatoebaAudioId": 1063068,
+        "subtitlesSync": [
+          {
+            "start": 0,
+            "end": 4.2,
+            "text": "契約途中で移籍してファンはがっかり。",
+            "vi": "",
+            "en": ""
+          }
+        ],
+        "source": "Immersion Sentence Mining Master Corpus",
+        "sourceUrl": "https://tatoeba.org/en/audio/download/1063068"
+      },
+      "updatedAt": "2026-10-07T15:42:17.912Z"
+    }
+  }
+}

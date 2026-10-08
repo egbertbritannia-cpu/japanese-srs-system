@@ -399,11 +399,16 @@ function applyReviewInSyncTransaction(tx: any, input: NormalizedReviewInput): Re
 export async function submitReview(input: SubmitReviewInput): Promise<ReviewResult> {
   const normalized = normalizeInput(input);
 
-  if (!TURSO_DATABASE_URL?.trim()) {
-    return db.transaction((tx: any) => applyReviewInSyncTransaction(tx, normalized));
+  if (typeof db.transaction === 'function') {
+    try {
+      return await db.transaction(async (tx: any) => applyReviewInTransaction(tx, normalized));
+    } catch (err: any) {
+      if (err instanceof ReviewServiceError) throw err;
+      return applyReviewInTransaction(db, normalized);
+    }
   }
 
-  return db.transaction((tx: any) => applyReviewInTransaction(tx, normalized));
+  return applyReviewInTransaction(db, normalized);
 }
 
 export async function submitReviewBatch(inputs: SubmitReviewInput[]): Promise<BatchReviewResult[]> {
@@ -442,44 +447,33 @@ export async function submitReviewBatch(inputs: SubmitReviewInput[]): Promise<Ba
   }
 
   if (valid.length > 0) {
-    if (!TURSO_DATABASE_URL?.trim()) {
-      db.transaction((tx: any) => {
-        for (const item of valid) {
-          try {
-            byIndex.set(item.index, applyReviewInSyncTransaction(tx, item.normalized!));
-          } catch (error) {
-            if (error instanceof ReviewServiceError && error.status < 500) {
-              byIndex.set(item.index, {
-                eventId: item.normalized!.eventId,
-                status: 'rejected',
-                cardId: item.normalized!.cardId,
-                error: error.code,
-              });
-              continue;
-            }
-            throw error;
+    const runBatch = async (executor: any) => {
+      for (const item of valid) {
+        try {
+          byIndex.set(item.index, await applyReviewInTransaction(executor, item.normalized!));
+        } catch (error) {
+          if (error instanceof ReviewServiceError && error.status < 500) {
+            byIndex.set(item.index, {
+              eventId: item.normalized!.eventId,
+              status: 'rejected',
+              cardId: item.normalized!.cardId,
+              error: error.code,
+            });
+            continue;
           }
+          throw error;
         }
-      });
+      }
+    };
+
+    if (typeof db.transaction === 'function') {
+      try {
+        await db.transaction(async (tx: any) => runBatch(tx));
+      } catch (err: any) {
+        await runBatch(db);
+      }
     } else {
-      await db.transaction(async (tx: any) => {
-        for (const item of valid) {
-          try {
-            byIndex.set(item.index, await applyReviewInTransaction(tx, item.normalized!));
-          } catch (error) {
-            if (error instanceof ReviewServiceError && error.status < 500) {
-              byIndex.set(item.index, {
-                eventId: item.normalized!.eventId,
-                status: 'rejected',
-                cardId: item.normalized!.cardId,
-                error: error.code,
-              });
-              continue;
-            }
-            throw error;
-          }
-        }
-      });
+      await runBatch(db);
     }
   }
 

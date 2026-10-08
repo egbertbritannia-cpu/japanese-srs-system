@@ -21,6 +21,21 @@ import { GoogleDriveService } from '../../src/services/google/drive.service';
 const DRIVE_CONFIG_PATH = path.resolve(process.cwd(), 'data', 'drive-folders.json');
 const MANIFEST_PATH = path.resolve(process.cwd(), 'data', 'multimodal-manifest.json');
 const MANIFESTS_DIR = path.resolve(process.cwd(), 'data', 'manifests');
+const SUITE_B_DIR = path.resolve(process.cwd(), 'data', 'manifests', 'suite_b');
+const SHARDS_DIR = path.resolve(process.cwd(), 'data', 'manifests', 'shards');
+const SUITE_B_CATEGORIES = new Set([
+  'jlpt_dokkai',
+  'jesc_subtitles',
+  'yojijukugo_onomatopoeia',
+]);
+
+export function getCategoryPartitionDir(category: string, shardId?: string): string {
+  if (shardId || process.env.WORKER_SHARD_ID) {
+    return SHARDS_DIR;
+  }
+  const norm = normalizeCategory(category);
+  return SUITE_B_CATEGORIES.has(norm) ? SUITE_B_DIR : MANIFESTS_DIR;
+}
 
 export function normalizeCategory(category: string): string {
   if (category === 'tatoeba_audio') return 'vocab_audio';
@@ -40,6 +55,9 @@ export interface DriveFolderMap {
   immersionClipsFolderId?: string;
   jlptChoukaiFolderId?: string;
   pubmedCorpusFolderId?: string;
+  jlptDokkaiFolderId?: string;
+  jescSubtitlesFolderId?: string;
+  yojijukugoLexiconFolderId?: string;
 }
 
 export type MultimodalCategory =
@@ -52,7 +70,10 @@ export type MultimodalCategory =
   | 'irasutoya_illustration'
   | 'immersion_clip'
   | 'jlpt_choukai'
-  | 'pubmed_corpus';
+  | 'pubmed_corpus'
+  | 'jlpt_dokkai'
+  | 'jesc_subtitles'
+  | 'yojijukugo_onomatopoeia';
 
 export interface AssetEntry {
   key: string;            // e.g. kanji:東, vocab:両親, tatoeba:1051833, irasutoya:家族, immersion:学校, jlpt:N5_2020_01, ielts:ubiquitous, pubmed:35113657
@@ -127,6 +148,11 @@ export class DriveFolderManager {
     const jlptChoukaiFolderId = existingMap.jlptChoukaiFolderId || await getOrCreate('07_JLPT_Choukai_Exam_Archive');
     const pubmedCorpusFolderId = existingMap.pubmedCorpusFolderId || await getOrCreate('08_PubMed_JStage_Bilingual_Corpus');
 
+    // 3 thư mục bổ sung từ Hugging Face & Ngôn ngữ học đỉnh cao
+    const jlptDokkaiFolderId = existingMap.jlptDokkaiFolderId || await getOrCreate('09_JLPT_Dokkai_Reading_Comprehension');
+    const jescSubtitlesFolderId = existingMap.jescSubtitlesFolderId || await getOrCreate('10_JESC_Bilingual_Subtitle_Corpus');
+    const yojijukugoLexiconFolderId = existingMap.yojijukugoLexiconFolderId || await getOrCreate('11_Yojijukugo_Onomatopoeia_Lexicon');
+
     const map: DriveFolderMap = {
       rootFolderId,
       kanjiStrokeFolderId,
@@ -139,6 +165,9 @@ export class DriveFolderManager {
       immersionClipsFolderId,
       jlptChoukaiFolderId,
       pubmedCorpusFolderId,
+      jlptDokkaiFolderId,
+      jescSubtitlesFolderId,
+      yojijukugoLexiconFolderId,
     };
 
     fs.writeFileSync(DRIVE_CONFIG_PATH, JSON.stringify(map, null, 2), 'utf-8');
@@ -150,6 +179,38 @@ export class DriveFolderManager {
   static initPartitionManifests(): void {
     if (!fs.existsSync(MANIFESTS_DIR)) {
       fs.mkdirSync(MANIFESTS_DIR, { recursive: true });
+    }
+    if (!fs.existsSync(SUITE_B_DIR)) {
+      fs.mkdirSync(SUITE_B_DIR, { recursive: true });
+    }
+    if (!fs.existsSync(SHARDS_DIR)) {
+      fs.mkdirSync(SHARDS_DIR, { recursive: true });
+    }
+
+    // Tự động di chuyển bất kỳ tệp shard nào lọt vào MANIFESTS_DIR sang SHARDS_DIR
+    try {
+      const files = fs.readdirSync(MANIFESTS_DIR);
+      for (const f of files) {
+        if (f.endsWith('.json') && !f.includes('.tmp.') && /_(s\d+|\d+)\.json$/.test(f)) {
+          const src = path.join(MANIFESTS_DIR, f);
+          const dest = path.join(SHARDS_DIR, f);
+          try {
+            fs.renameSync(src, dest);
+          } catch {
+            fs.copyFileSync(src, dest);
+            try { fs.unlinkSync(src); } catch {}
+          }
+        }
+      }
+    } catch {}
+
+    const canonicalFiles = [
+      'kanji.json', 'vocab_audio.json', 'illustration.json', 'grammar_infographic.json',
+      'ielts_audio.json', 'immersion_clip.json', 'jlpt_choukai.json', 'pubmed_corpus.json'
+    ];
+    const allExist = canonicalFiles.every(f => fs.existsSync(path.join(MANIFESTS_DIR, f)));
+    if (allExist) {
+      return;
     }
 
     if (fs.existsSync(MANIFEST_PATH)) {
@@ -163,7 +224,11 @@ export class DriveFolderManager {
         }
 
         for (const [cat, items] of Object.entries(partitions)) {
-          const partitionPath = path.join(MANIFESTS_DIR, `${cat}.json`);
+          const targetDir = getCategoryPartitionDir(cat);
+          if (!fs.existsSync(targetDir)) {
+            fs.mkdirSync(targetDir, { recursive: true });
+          }
+          const partitionPath = path.join(targetDir, `${cat}.json`);
           if (!fs.existsSync(partitionPath)) {
             const partitionData = {
               category: cat,
@@ -185,8 +250,9 @@ export class DriveFolderManager {
   static getPartition(category: string, shardId?: string): { category: string; totalAssets: number; lastUpdated: string; assets: Record<string, AssetEntry> } {
     const effectiveShard = shardId || process.env.WORKER_SHARD_ID;
     const normCat = normalizeCategory(category);
+    const targetDir = effectiveShard ? SHARDS_DIR : getCategoryPartitionDir(normCat);
     const partitionFileName = effectiveShard ? `${normCat}_${effectiveShard}.json` : `${normCat}.json`;
-    const partitionPath = path.join(MANIFESTS_DIR, partitionFileName);
+    const partitionPath = path.join(targetDir, partitionFileName);
     if (fs.existsSync(partitionPath)) {
       try {
         return JSON.parse(fs.readFileSync(partitionPath, 'utf-8'));
@@ -203,16 +269,17 @@ export class DriveFolderManager {
   static savePartition(category: string, partition: any, shardId?: string): void {
     const effectiveShard = shardId || process.env.WORKER_SHARD_ID;
     const normCat = normalizeCategory(category);
-    if (!fs.existsSync(MANIFESTS_DIR)) {
-      fs.mkdirSync(MANIFESTS_DIR, { recursive: true });
+    const targetDir = effectiveShard ? SHARDS_DIR : getCategoryPartitionDir(normCat);
+    if (!fs.existsSync(targetDir)) {
+      fs.mkdirSync(targetDir, { recursive: true });
     }
     partition.category = normCat;
     partition.lastUpdated = new Date().toISOString();
     partition.totalAssets = Object.keys(partition.assets || {}).length;
 
     const partitionFileName = effectiveShard ? `${normCat}_${effectiveShard}.json` : `${normCat}.json`;
-    const partitionPath = path.join(MANIFESTS_DIR, partitionFileName);
-    const tempPath = path.join(MANIFESTS_DIR, `${normCat}${effectiveShard ? '_' + effectiveShard : ''}.tmp.${process.pid}.${Date.now()}`);
+    const partitionPath = path.join(targetDir, partitionFileName);
+    const tempPath = path.join(targetDir, `${normCat}${effectiveShard ? '_' + effectiveShard : ''}.tmp.${process.pid}.${Date.now()}`);
     const payload = JSON.stringify(partition, null, 2);
     try {
       fs.writeFileSync(tempPath, payload, 'utf-8');
@@ -238,17 +305,21 @@ export class DriveFolderManager {
           }
         } catch {}
       }
-      if (fs.existsSync(MANIFESTS_DIR)) {
-        const files = fs.readdirSync(MANIFESTS_DIR).filter((f) => f.endsWith('.json') && !f.includes('.tmp.'));
+      const scanDir = (dir: string) => {
+        if (!fs.existsSync(dir)) return;
+        const files = fs.readdirSync(dir).filter((f) => f.endsWith('.json') && !f.includes('.tmp.'));
         for (const file of files) {
           try {
-            const raw = JSON.parse(fs.readFileSync(path.join(MANIFESTS_DIR, file), 'utf-8'));
+            const raw = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf-8'));
             if (raw.assets) {
               Object.keys(raw.assets).forEach((k) => this.knownKeys!.add(k));
             }
           } catch {}
         }
-      }
+      };
+      scanDir(MANIFESTS_DIR);
+      scanDir(SUITE_B_DIR);
+      scanDir(SHARDS_DIR);
     }
     return this.knownKeys.has(key);
   }
@@ -261,16 +332,18 @@ export class DriveFolderManager {
         if (full.assets?.[key]) return full.assets[key];
       } catch {}
     }
-    if (fs.existsSync(MANIFESTS_DIR)) {
-      const files = fs.readdirSync(MANIFESTS_DIR).filter((f) => f.endsWith('.json') && !f.includes('.tmp.'));
+    const checkDir = (dir: string): AssetEntry | null => {
+      if (!fs.existsSync(dir)) return null;
+      const files = fs.readdirSync(dir).filter((f) => f.endsWith('.json') && !f.includes('.tmp.'));
       for (const file of files) {
         try {
-          const raw = JSON.parse(fs.readFileSync(path.join(MANIFESTS_DIR, file), 'utf-8'));
+          const raw = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf-8'));
           if (raw.assets?.[key]) return raw.assets[key];
         } catch {}
       }
-    }
-    return null;
+      return null;
+    };
+    return checkDir(MANIFESTS_DIR) || checkDir(SUITE_B_DIR) || checkDir(SHARDS_DIR);
   }
 
   static aggregateManifests(): MultimodalManifest {
@@ -288,26 +361,68 @@ export class DriveFolderManager {
         immersion_clip: 0,
         jlpt_choukai: 0,
         pubmed_corpus: 0,
+        jlpt_dokkai: 0,
+        jesc_subtitles: 0,
+        yojijukugo_onomatopoeia: 0,
       },
       assets: {},
     };
 
-    if (fs.existsSync(MANIFESTS_DIR)) {
-      const files = fs.readdirSync(MANIFESTS_DIR).filter(f => f.endsWith('.json') && !f.includes('.tmp.'));
+    const loadFromDir = (dir: string) => {
+      if (!fs.existsSync(dir)) return;
+      const files = fs.readdirSync(dir).filter((f) => f.endsWith('.json') && !f.includes('.tmp.'));
       for (const file of files) {
         try {
-          const raw = JSON.parse(fs.readFileSync(path.join(MANIFESTS_DIR, file), 'utf-8'));
+          const raw = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf-8'));
           const assets = raw.assets || {};
           for (const [k, v] of Object.entries(assets)) {
             aggregated.assets[k] = v as AssetEntry;
           }
         } catch {}
       }
+    };
 
-      for (const item of Object.values(aggregated.assets)) {
-        const cat = normalizeCategory(item.category || 'misc');
-        aggregated.categories[cat] = (aggregated.categories[cat] || 0) + 1;
+    loadFromDir(MANIFESTS_DIR);
+    loadFromDir(SUITE_B_DIR);
+
+    // Sáp nhập từ SHARDS_DIR và đồng bộ vào các partition chính
+    if (fs.existsSync(SHARDS_DIR)) {
+      const shardFiles = fs.readdirSync(SHARDS_DIR).filter((f) => f.endsWith('.json') && !f.includes('.tmp.'));
+      const shardAssetsByCategory: Record<string, Record<string, AssetEntry>> = {};
+      for (const file of shardFiles) {
+        try {
+          const raw = JSON.parse(fs.readFileSync(path.join(SHARDS_DIR, file), 'utf-8'));
+          const rawCat = raw.category || file.split('_')[0];
+          const cat = normalizeCategory(rawCat);
+          if (!shardAssetsByCategory[cat]) shardAssetsByCategory[cat] = {};
+          const assets = raw.assets || {};
+          for (const [k, v] of Object.entries(assets)) {
+            aggregated.assets[k] = v as AssetEntry;
+            shardAssetsByCategory[cat][k] = v as AssetEntry;
+          }
+        } catch {}
       }
+
+      for (const [cat, shardAssets] of Object.entries(shardAssetsByCategory)) {
+        if (Object.keys(shardAssets).length > 0) {
+          const basePartition = this.getPartition(cat);
+          let updated = false;
+          for (const [k, v] of Object.entries(shardAssets)) {
+            if (!basePartition.assets[k]) {
+              basePartition.assets[k] = v;
+              updated = true;
+            }
+          }
+          if (updated) {
+            this.savePartition(cat, basePartition);
+          }
+        }
+      }
+    }
+
+    for (const item of Object.values(aggregated.assets)) {
+      const cat = normalizeCategory(item.category || 'misc');
+      aggregated.categories[cat] = (aggregated.categories[cat] || 0) + 1;
     }
 
     aggregated.totalAssets = Object.keys(aggregated.assets).length;
@@ -368,8 +483,9 @@ export class DriveFolderManager {
 
   static removeAsset(key: string): boolean {
     let removed = false;
-    if (fs.existsSync(MANIFESTS_DIR)) {
-      const files = fs.readdirSync(MANIFESTS_DIR).filter(f => f.endsWith('.json') && !f.includes('.tmp.'));
+    const cleanFromDir = (dir: string) => {
+      if (!fs.existsSync(dir)) return;
+      const files = fs.readdirSync(dir).filter(f => f.endsWith('.json') && !f.includes('.tmp.'));
       for (const file of files) {
         const cat = file.replace('.json', '');
         const partition = this.getPartition(cat);
@@ -379,7 +495,10 @@ export class DriveFolderManager {
           removed = true;
         }
       }
-    }
+    };
+    cleanFromDir(MANIFESTS_DIR);
+    cleanFromDir(SUITE_B_DIR);
+    cleanFromDir(SHARDS_DIR);
     if (this.manifest && this.manifest.assets[key]) {
       delete this.manifest.assets[key];
       removed = true;

@@ -1,7 +1,7 @@
 {
   "category": "grammar_infographic",
-  "totalAssets": 5,
-  "lastUpdated": "2026-10-06T17:49:02.136Z",
+  "totalAssets": 32,
+  "lastUpdated": "2026-10-08T10:59:29.960Z",
   "assets": {
     "grammar_infographic:G-72": {
       "key": "grammar_infographic:G-72",
@@ -57,6 +57,303 @@
       "cdnUrl": "https://lh3.googleusercontent.com/d/1u5s1l56Y2FkZb5VEWTrs3Ha8ThoGmqGC",
       "sizeBytes": 3190,
       "updatedAt": "2026-10-06T16:58:16.642Z"
+    },
+    "grammar_infographic:G-77": {
+      "key": "grammar_infographic:G-77",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-77.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "1alhsDmg7iEGx-0TSo2ZlqGp8_Dd05qlf",
+      "driveUrl": "https://drive.google.com/file/d/1alhsDmg7iEGx-0TSo2ZlqGp8_Dd05qlf/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1alhsDmg7iEGx-0TSo2ZlqGp8_Dd05qlf",
+      "sizeBytes": 3168,
+      "updatedAt": "2026-10-08T10:57:54.800Z"
+    },
+    "grammar_infographic:G-78": {
+      "key": "grammar_infographic:G-78",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-78.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "18mPPTw3RS14schV_CFZpxxRUDFesz2s0",
+      "driveUrl": "https://drive.google.com/file/d/18mPPTw3RS14schV_CFZpxxRUDFesz2s0/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/18mPPTw3RS14schV_CFZpxxRUDFesz2s0",
+      "sizeBytes": 3167,
+      "updatedAt": "2026-10-08T10:57:59.040Z"
+    },
+    "grammar_infographic:G-79": {
+      "key": "grammar_infographic:G-79",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-79.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "1ZSiTgD-SmCNFVbpNL77B8uCj4UhwK0aO",
+      "driveUrl": "https://drive.google.com/file/d/1ZSiTgD-SmCNFVbpNL77B8uCj4UhwK0aO/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1ZSiTgD-SmCNFVbpNL77B8uCj4UhwK0aO",
+      "sizeBytes": 3140,
+      "updatedAt": "2026-10-08T10:58:02.427Z"
+    },
+    "grammar_infographic:G-80": {
+      "key": "grammar_infographic:G-80",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-80.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "1S47GpDbTAMQTRYDNh5py3dLY-xBak7Qo",
+      "driveUrl": "https://drive.google.com/file/d/1S47GpDbTAMQTRYDNh5py3dLY-xBak7Qo/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1S47GpDbTAMQTRYDNh5py3dLY-xBak7Qo",
+      "sizeBytes": 3194,
+      "updatedAt": "2026-10-08T10:58:06.385Z"
+    },
+    "grammar_infographic:G-81": {
+      "key": "grammar_infographic:G-81",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-81.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "1S-9IDwaGidhy_A1LLNgPlmbrcc56rgle",
+      "driveUrl": "https://drive.google.com/file/d/1S-9IDwaGidhy_A1LLNgPlmbrcc56rgle/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1S-9IDwaGidhy_A1LLNgPlmbrcc56rgle",
+      "sizeBytes": 3185,
+      "updatedAt": "2026-10-08T10:58:10.142Z"
+    },
+    "grammar_infographic:G-82": {
+      "key": "grammar_infographic:G-82",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-82.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "1thszu_c-ffVcayX4BXyjJfLu9xcAzTPS",
+      "driveUrl": "https://drive.google.com/file/d/1thszu_c-ffVcayX4BXyjJfLu9xcAzTPS/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1thszu_c-ffVcayX4BXyjJfLu9xcAzTPS",
+      "sizeBytes": 3173,
+      "updatedAt": "2026-10-08T10:58:13.777Z"
+    },
+    "grammar_infographic:G-83": {
+      "key": "grammar_infographic:G-83",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-83.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "1Gcn1n5Soz1M36pOoeVGdR5IlH1AT1yNW",
+      "driveUrl": "https://drive.google.com/file/d/1Gcn1n5Soz1M36pOoeVGdR5IlH1AT1yNW/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Gcn1n5Soz1M36pOoeVGdR5IlH1AT1yNW",
+      "sizeBytes": 3196,
+      "updatedAt": "2026-10-08T10:58:17.202Z"
+    },
+    "grammar_infographic:G-84": {
+      "key": "grammar_infographic:G-84",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-84.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "1aVBTZslSQSsvPDr_HXYDGrQCeWyVTuyh",
+      "driveUrl": "https://drive.google.com/file/d/1aVBTZslSQSsvPDr_HXYDGrQCeWyVTuyh/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1aVBTZslSQSsvPDr_HXYDGrQCeWyVTuyh",
+      "sizeBytes": 3183,
+      "updatedAt": "2026-10-08T10:58:20.706Z"
+    },
+    "grammar_infographic:G-85": {
+      "key": "grammar_infographic:G-85",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-85.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "1adBt6ImnkM4W2IOGPeb9daOsc01yv0JB",
+      "driveUrl": "https://drive.google.com/file/d/1adBt6ImnkM4W2IOGPeb9daOsc01yv0JB/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1adBt6ImnkM4W2IOGPeb9daOsc01yv0JB",
+      "sizeBytes": 3331,
+      "updatedAt": "2026-10-08T10:58:23.876Z"
+    },
+    "grammar_infographic:G-86": {
+      "key": "grammar_infographic:G-86",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-86.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "1RsoXcQdEt7qd6qoqrZrmK63Hw7_7AtbE",
+      "driveUrl": "https://drive.google.com/file/d/1RsoXcQdEt7qd6qoqrZrmK63Hw7_7AtbE/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1RsoXcQdEt7qd6qoqrZrmK63Hw7_7AtbE",
+      "sizeBytes": 3271,
+      "updatedAt": "2026-10-08T10:58:27.102Z"
+    },
+    "grammar_infographic:G-87": {
+      "key": "grammar_infographic:G-87",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-87.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "1pH6Zk804m71cuotCcbMOX9DZH8-mkP8u",
+      "driveUrl": "https://drive.google.com/file/d/1pH6Zk804m71cuotCcbMOX9DZH8-mkP8u/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1pH6Zk804m71cuotCcbMOX9DZH8-mkP8u",
+      "sizeBytes": 3205,
+      "updatedAt": "2026-10-08T10:58:30.547Z"
+    },
+    "grammar_infographic:G-88": {
+      "key": "grammar_infographic:G-88",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-88.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "1-mEFAt3nwV26dt1D2olOm4XnPKCKGUAD",
+      "driveUrl": "https://drive.google.com/file/d/1-mEFAt3nwV26dt1D2olOm4XnPKCKGUAD/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1-mEFAt3nwV26dt1D2olOm4XnPKCKGUAD",
+      "sizeBytes": 3173,
+      "updatedAt": "2026-10-08T10:58:34.686Z"
+    },
+    "grammar_infographic:G-89": {
+      "key": "grammar_infographic:G-89",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-89.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "1NA6Yf99eCV3Qjb0u77ckxhUesxNHB27V",
+      "driveUrl": "https://drive.google.com/file/d/1NA6Yf99eCV3Qjb0u77ckxhUesxNHB27V/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1NA6Yf99eCV3Qjb0u77ckxhUesxNHB27V",
+      "sizeBytes": 3205,
+      "updatedAt": "2026-10-08T10:58:38.183Z"
+    },
+    "grammar_infographic:G-90": {
+      "key": "grammar_infographic:G-90",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-90.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "15WKqU4yLI3XnD6ON9giHezq4gHQfplw_",
+      "driveUrl": "https://drive.google.com/file/d/15WKqU4yLI3XnD6ON9giHezq4gHQfplw_/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/15WKqU4yLI3XnD6ON9giHezq4gHQfplw_",
+      "sizeBytes": 3206,
+      "updatedAt": "2026-10-08T10:58:41.483Z"
+    },
+    "grammar_infographic:G-91": {
+      "key": "grammar_infographic:G-91",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-91.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "11k5p0cbAl6Kh3dMIjjV-Yz3t6XMZZHAm",
+      "driveUrl": "https://drive.google.com/file/d/11k5p0cbAl6Kh3dMIjjV-Yz3t6XMZZHAm/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/11k5p0cbAl6Kh3dMIjjV-Yz3t6XMZZHAm",
+      "sizeBytes": 3170,
+      "updatedAt": "2026-10-08T10:58:46.756Z"
+    },
+    "grammar_infographic:G-92": {
+      "key": "grammar_infographic:G-92",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-92.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "1rPQZ4rOLw3Tte_VID_71f7OL-4H1qB9F",
+      "driveUrl": "https://drive.google.com/file/d/1rPQZ4rOLw3Tte_VID_71f7OL-4H1qB9F/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1rPQZ4rOLw3Tte_VID_71f7OL-4H1qB9F",
+      "sizeBytes": 3174,
+      "updatedAt": "2026-10-08T10:58:50.222Z"
+    },
+    "grammar_infographic:G-93": {
+      "key": "grammar_infographic:G-93",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-93.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "1Wgi-WDZ4rPcbg1gstKEAbsHAfv_UusvM",
+      "driveUrl": "https://drive.google.com/file/d/1Wgi-WDZ4rPcbg1gstKEAbsHAfv_UusvM/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Wgi-WDZ4rPcbg1gstKEAbsHAfv_UusvM",
+      "sizeBytes": 3173,
+      "updatedAt": "2026-10-08T10:58:53.885Z"
+    },
+    "grammar_infographic:G-94": {
+      "key": "grammar_infographic:G-94",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-94.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "10SA-y071-nI2yaMsFzp08iWCdKw8xy_i",
+      "driveUrl": "https://drive.google.com/file/d/10SA-y071-nI2yaMsFzp08iWCdKw8xy_i/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/10SA-y071-nI2yaMsFzp08iWCdKw8xy_i",
+      "sizeBytes": 3180,
+      "updatedAt": "2026-10-08T10:58:58.233Z"
+    },
+    "grammar_infographic:G-95": {
+      "key": "grammar_infographic:G-95",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-95.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "1UrYzn3PIzW4ReD3yYzNRMsVsOpRRQueA",
+      "driveUrl": "https://drive.google.com/file/d/1UrYzn3PIzW4ReD3yYzNRMsVsOpRRQueA/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1UrYzn3PIzW4ReD3yYzNRMsVsOpRRQueA",
+      "sizeBytes": 3177,
+      "updatedAt": "2026-10-08T10:59:01.958Z"
+    },
+    "grammar_infographic:G-96": {
+      "key": "grammar_infographic:G-96",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-96.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "1LIllVuzF4JdXGKNkFqKZvPXVQpTYPxy2",
+      "driveUrl": "https://drive.google.com/file/d/1LIllVuzF4JdXGKNkFqKZvPXVQpTYPxy2/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1LIllVuzF4JdXGKNkFqKZvPXVQpTYPxy2",
+      "sizeBytes": 3171,
+      "updatedAt": "2026-10-08T10:59:05.354Z"
+    },
+    "grammar_infographic:G-97": {
+      "key": "grammar_infographic:G-97",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-97.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "1wKYQFqrGmesXDbK2-5XZ4c66tbQxD5gS",
+      "driveUrl": "https://drive.google.com/file/d/1wKYQFqrGmesXDbK2-5XZ4c66tbQxD5gS/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1wKYQFqrGmesXDbK2-5XZ4c66tbQxD5gS",
+      "sizeBytes": 3218,
+      "updatedAt": "2026-10-08T10:59:09.011Z"
+    },
+    "grammar_infographic:G-98": {
+      "key": "grammar_infographic:G-98",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-98.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "1D83SfWiLT5W8RIZSdeMWEfvF5n0oc7Q_",
+      "driveUrl": "https://drive.google.com/file/d/1D83SfWiLT5W8RIZSdeMWEfvF5n0oc7Q_/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1D83SfWiLT5W8RIZSdeMWEfvF5n0oc7Q_",
+      "sizeBytes": 3181,
+      "updatedAt": "2026-10-08T10:59:12.397Z"
+    },
+    "grammar_infographic:G-99": {
+      "key": "grammar_infographic:G-99",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-99.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "1V8l9yx_lqXnE3cYfXJXcXbzk2nHHj-7F",
+      "driveUrl": "https://drive.google.com/file/d/1V8l9yx_lqXnE3cYfXJXcXbzk2nHHj-7F/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1V8l9yx_lqXnE3cYfXJXcXbzk2nHHj-7F",
+      "sizeBytes": 3220,
+      "updatedAt": "2026-10-08T10:59:15.822Z"
+    },
+    "grammar_infographic:G-100": {
+      "key": "grammar_infographic:G-100",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-100.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "1MJ9R9ga7aRHY_hCwqXJtHDgwEihzo9bh",
+      "driveUrl": "https://drive.google.com/file/d/1MJ9R9ga7aRHY_hCwqXJtHDgwEihzo9bh/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1MJ9R9ga7aRHY_hCwqXJtHDgwEihzo9bh",
+      "sizeBytes": 3207,
+      "updatedAt": "2026-10-08T10:59:19.436Z"
+    },
+    "grammar_infographic:G-101": {
+      "key": "grammar_infographic:G-101",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-101.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "13nDXMOIuF84LRgaXwOrhWZwsvgaeKUQM",
+      "driveUrl": "https://drive.google.com/file/d/13nDXMOIuF84LRgaXwOrhWZwsvgaeKUQM/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/13nDXMOIuF84LRgaXwOrhWZwsvgaeKUQM",
+      "sizeBytes": 3201,
+      "updatedAt": "2026-10-08T10:59:22.635Z"
+    },
+    "grammar_infographic:G-102": {
+      "key": "grammar_infographic:G-102",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-102.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "1ieRUR90-kO_Dg8-mpn5ZWEZ7rCiF3Us0",
+      "driveUrl": "https://drive.google.com/file/d/1ieRUR90-kO_Dg8-mpn5ZWEZ7rCiF3Us0/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1ieRUR90-kO_Dg8-mpn5ZWEZ7rCiF3Us0",
+      "sizeBytes": 3238,
+      "updatedAt": "2026-10-08T10:59:25.830Z"
+    },
+    "grammar_infographic:G-103": {
+      "key": "grammar_infographic:G-103",
+      "category": "grammar_infographic",
+      "fileName": "grammar_infographic_G-103.svg",
+      "mimeType": "image/svg+xml",
+      "fileId": "1wcg_ZQxBw0szAytWe9MjX_HfRPSfSWQI",
+      "driveUrl": "https://drive.google.com/file/d/1wcg_ZQxBw0szAytWe9MjX_HfRPSfSWQI/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1wcg_ZQxBw0szAytWe9MjX_HfRPSfSWQI",
+      "sizeBytes": 3215,
+      "updatedAt": "2026-10-08T10:59:29.959Z"
     }
   }
 }

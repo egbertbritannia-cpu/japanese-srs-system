@@ -1,7 +1,7 @@
 {
   "category": "jlpt_choukai",
-  "totalAssets": 870,
-  "lastUpdated": "2026-10-07T09:53:24.845Z",
+  "totalAssets": 970,
+  "lastUpdated": "2026-10-08T08:43:58.031Z",
   "assets": {
     "jlpt_choukai:jlpt_n5_mondai1_q1": {
       "key": "jlpt_choukai:jlpt_n5_mondai1_q1",
@@ -16772,6 +16772,1906 @@
         "sourceUrl": "https://archive.org/download/n4q22018/N4Q4%202018.mp3"
       },
       "updatedAt": "2026-10-07T09:53:24.840Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_01.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_01.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_01.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1xwzqTR9jsa1SIn28YANLl2P0ylmsqp2T",
+      "driveUrl": "https://drive.google.com/file/d/1xwzqTR9jsa1SIn28YANLl2P0ylmsqp2T/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1xwzqTR9jsa1SIn28YANLl2P0ylmsqp2T",
+      "sizeBytes": 80585,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "01.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/01.mp3"
+      },
+      "updatedAt": "2026-10-07T14:43:28.775Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_02.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_02.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_02.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1hHPuGPMlUraDC1WY0CabCysrZD8BkUvu",
+      "driveUrl": "https://drive.google.com/file/d/1hHPuGPMlUraDC1WY0CabCysrZD8BkUvu/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1hHPuGPMlUraDC1WY0CabCysrZD8BkUvu",
+      "sizeBytes": 305238,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "02.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/02.mp3"
+      },
+      "updatedAt": "2026-10-07T14:43:47.396Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_03.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_03.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_03.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "16rQ5Mn9c-fhOgfV-NjRiPJN7tdPK6-Sg",
+      "driveUrl": "https://drive.google.com/file/d/16rQ5Mn9c-fhOgfV-NjRiPJN7tdPK6-Sg/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/16rQ5Mn9c-fhOgfV-NjRiPJN7tdPK6-Sg",
+      "sizeBytes": 519704,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "03.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/03.mp3"
+      },
+      "updatedAt": "2026-10-07T14:44:19.734Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_04.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_04.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_04.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "14spWNFZqkuHy6cS48ysrGGjidXwQit5F",
+      "driveUrl": "https://drive.google.com/file/d/14spWNFZqkuHy6cS48ysrGGjidXwQit5F/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/14spWNFZqkuHy6cS48ysrGGjidXwQit5F",
+      "sizeBytes": 587883,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "04.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/04.mp3"
+      },
+      "updatedAt": "2026-10-07T14:44:39.532Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_05.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_05.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_05.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1-Vgho2pO-YOlRuVbyD8Xj84xSNpr1KTf",
+      "driveUrl": "https://drive.google.com/file/d/1-Vgho2pO-YOlRuVbyD8Xj84xSNpr1KTf/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1-Vgho2pO-YOlRuVbyD8Xj84xSNpr1KTf",
+      "sizeBytes": 557320,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "05.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/05.mp3"
+      },
+      "updatedAt": "2026-10-07T14:45:04.426Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_06.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_06.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_06.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1sFSkalxhZ06xZgxfocbvk7aUyU6EDOtP",
+      "driveUrl": "https://drive.google.com/file/d/1sFSkalxhZ06xZgxfocbvk7aUyU6EDOtP/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1sFSkalxhZ06xZgxfocbvk7aUyU6EDOtP",
+      "sizeBytes": 526234,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "06.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/06.mp3"
+      },
+      "updatedAt": "2026-10-07T14:45:11.658Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_07.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_07.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_07.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1XwbQntPrCfw8MOBsYRRNY8wQdHuCjH1k",
+      "driveUrl": "https://drive.google.com/file/d/1XwbQntPrCfw8MOBsYRRNY8wQdHuCjH1k/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1XwbQntPrCfw8MOBsYRRNY8wQdHuCjH1k",
+      "sizeBytes": 522577,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "07.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/07.mp3"
+      },
+      "updatedAt": "2026-10-07T14:45:33.290Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_08.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_08.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_08.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1MKMktLNucVEUASKTf8FsbQuljA6B0795",
+      "driveUrl": "https://drive.google.com/file/d/1MKMktLNucVEUASKTf8FsbQuljA6B0795/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1MKMktLNucVEUASKTf8FsbQuljA6B0795",
+      "sizeBytes": 578218,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "08.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/08.mp3"
+      },
+      "updatedAt": "2026-10-07T14:45:41.228Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_09.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_09.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_09.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1B_VcO6zPYogpu1JI-Lie_RJtgJ5d1F67",
+      "driveUrl": "https://drive.google.com/file/d/1B_VcO6zPYogpu1JI-Lie_RJtgJ5d1F67/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1B_VcO6zPYogpu1JI-Lie_RJtgJ5d1F67",
+      "sizeBytes": 584226,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "09.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/09.mp3"
+      },
+      "updatedAt": "2026-10-07T14:45:50.917Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_10.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_10.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_10.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1NpshxkZebpe1Nc4SPlegVIaRKIeGlnUs",
+      "driveUrl": "https://drive.google.com/file/d/1NpshxkZebpe1Nc4SPlegVIaRKIeGlnUs/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1NpshxkZebpe1Nc4SPlegVIaRKIeGlnUs",
+      "sizeBytes": 307067,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "10.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/10.mp3"
+      },
+      "updatedAt": "2026-10-07T14:46:03.430Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_11.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_11.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_11.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1l0THsX_J79SH7HKVi9crl0BFxuJgBzkt",
+      "driveUrl": "https://drive.google.com/file/d/1l0THsX_J79SH7HKVi9crl0BFxuJgBzkt/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1l0THsX_J79SH7HKVi9crl0BFxuJgBzkt",
+      "sizeBytes": 811230,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "11.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/11.mp3"
+      },
+      "updatedAt": "2026-10-07T14:46:12.447Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_12.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_12.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_12.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1_V3p5pq6dDOoSRB9E_hULfnGPqyBD-O3",
+      "driveUrl": "https://drive.google.com/file/d/1_V3p5pq6dDOoSRB9E_hULfnGPqyBD-O3/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1_V3p5pq6dDOoSRB9E_hULfnGPqyBD-O3",
+      "sizeBytes": 692895,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "12.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/12.mp3"
+      },
+      "updatedAt": "2026-10-07T14:46:43.441Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_13.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_13.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_13.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1yfOzIcOluKOQUJ-NVl4emhLmki0lu9YU",
+      "driveUrl": "https://drive.google.com/file/d/1yfOzIcOluKOQUJ-NVl4emhLmki0lu9YU/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1yfOzIcOluKOQUJ-NVl4emhLmki0lu9YU",
+      "sizeBytes": 692895,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "13.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/13.mp3"
+      },
+      "updatedAt": "2026-10-07T14:48:07.532Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_14.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_14.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_14.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1aGrnF6lAdQcplb4zMGAwXk5Ct10gjoGz",
+      "driveUrl": "https://drive.google.com/file/d/1aGrnF6lAdQcplb4zMGAwXk5Ct10gjoGz/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1aGrnF6lAdQcplb4zMGAwXk5Ct10gjoGz",
+      "sizeBytes": 735997,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "14.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/14.mp3"
+      },
+      "updatedAt": "2026-10-07T14:48:54.216Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_15.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_15.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_15.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1Xq73C4RyEtOEIFfR5qKv6OoCqrlFT4QC",
+      "driveUrl": "https://drive.google.com/file/d/1Xq73C4RyEtOEIFfR5qKv6OoCqrlFT4QC/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Xq73C4RyEtOEIFfR5qKv6OoCqrlFT4QC",
+      "sizeBytes": 632814,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "15.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/15.mp3"
+      },
+      "updatedAt": "2026-10-07T14:49:23.192Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_16.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_16.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_16.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1WBKP81BOBAtfypdFs7AeXjnfd7fKB_ld",
+      "driveUrl": "https://drive.google.com/file/d/1WBKP81BOBAtfypdFs7AeXjnfd7fKB_ld/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1WBKP81BOBAtfypdFs7AeXjnfd7fKB_ld",
+      "sizeBytes": 751410,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "16.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/16.mp3"
+      },
+      "updatedAt": "2026-10-07T14:50:00.955Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_17.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_17.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_17.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1athz8FrE8vnYLHg72q7dad1Q5YQLbfb9",
+      "driveUrl": "https://drive.google.com/file/d/1athz8FrE8vnYLHg72q7dad1Q5YQLbfb9/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1athz8FrE8vnYLHg72q7dad1Q5YQLbfb9",
+      "sizeBytes": 313336,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "17.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/17.mp3"
+      },
+      "updatedAt": "2026-10-07T14:50:18.304Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_18.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_18.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_18.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1sNeG8nw3oF73p7XSQx8Ahv6G4eU-8Mxi",
+      "driveUrl": "https://drive.google.com/file/d/1sNeG8nw3oF73p7XSQx8Ahv6G4eU-8Mxi/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1sNeG8nw3oF73p7XSQx8Ahv6G4eU-8Mxi",
+      "sizeBytes": 322218,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "18.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/18.mp3"
+      },
+      "updatedAt": "2026-10-07T14:50:31.272Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_19.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_19.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_19.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1fFln64KRSoOu2C2UHyhZQIt6TS-IfkUu",
+      "driveUrl": "https://drive.google.com/file/d/1fFln64KRSoOu2C2UHyhZQIt6TS-IfkUu/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1fFln64KRSoOu2C2UHyhZQIt6TS-IfkUu",
+      "sizeBytes": 317255,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "19.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/19.mp3"
+      },
+      "updatedAt": "2026-10-07T14:50:42.578Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_20.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_20.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_20.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1CAJxhaklp9lEH-eBhapXY66_4iXj8JU-",
+      "driveUrl": "https://drive.google.com/file/d/1CAJxhaklp9lEH-eBhapXY66_4iXj8JU-/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1CAJxhaklp9lEH-eBhapXY66_4iXj8JU-",
+      "sizeBytes": 330577,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "20.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/20.mp3"
+      },
+      "updatedAt": "2026-10-07T14:50:48.871Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_21.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_21.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_21.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1N1_p_YK8walMOIZn67WcoWC_zvAqYzUr",
+      "driveUrl": "https://drive.google.com/file/d/1N1_p_YK8walMOIZn67WcoWC_zvAqYzUr/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1N1_p_YK8walMOIZn67WcoWC_zvAqYzUr",
+      "sizeBytes": 374985,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "21.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/21.mp3"
+      },
+      "updatedAt": "2026-10-07T14:50:56.863Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_22.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_22.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_22.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1EV58NP0a3ftoMsSF3HiBWPcIHMEZ3Lmp",
+      "driveUrl": "https://drive.google.com/file/d/1EV58NP0a3ftoMsSF3HiBWPcIHMEZ3Lmp/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1EV58NP0a3ftoMsSF3HiBWPcIHMEZ3Lmp",
+      "sizeBytes": 364797,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "22.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/22.mp3"
+      },
+      "updatedAt": "2026-10-07T14:51:08.614Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_23.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_23.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_23.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "14uOKDF8dPDJbBoxivzRiSSNk-SpckpPs",
+      "driveUrl": "https://drive.google.com/file/d/14uOKDF8dPDJbBoxivzRiSSNk-SpckpPs/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/14uOKDF8dPDJbBoxivzRiSSNk-SpckpPs",
+      "sizeBytes": 257957,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "23.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/23.mp3"
+      },
+      "updatedAt": "2026-10-07T14:51:21.712Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_24.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_24.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_24.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1j8pMuKpctu3MtatF31LiOb2E-fRvSfbG",
+      "driveUrl": "https://drive.google.com/file/d/1j8pMuKpctu3MtatF31LiOb2E-fRvSfbG/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1j8pMuKpctu3MtatF31LiOb2E-fRvSfbG",
+      "sizeBytes": 269189,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "24.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/24.mp3"
+      },
+      "updatedAt": "2026-10-07T14:51:43.057Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_25.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_25.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_25.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1oAy4j9RwdVZ__6NGIiZokuge6gq8LeKv",
+      "driveUrl": "https://drive.google.com/file/d/1oAy4j9RwdVZ__6NGIiZokuge6gq8LeKv/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1oAy4j9RwdVZ__6NGIiZokuge6gq8LeKv",
+      "sizeBytes": 291655,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "25.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/25.mp3"
+      },
+      "updatedAt": "2026-10-07T14:51:53.772Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_26.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_26.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_26.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1-Aukm-u3pMdZB63TgycSXhCZ3KjfjRCl",
+      "driveUrl": "https://drive.google.com/file/d/1-Aukm-u3pMdZB63TgycSXhCZ3KjfjRCl/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1-Aukm-u3pMdZB63TgycSXhCZ3KjfjRCl",
+      "sizeBytes": 263704,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "26.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/26.mp3"
+      },
+      "updatedAt": "2026-10-07T14:52:15.835Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_27.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_27.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_27.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1lk-YCeVCYzAAQLF6ype-OuZaRKuhCrqr",
+      "driveUrl": "https://drive.google.com/file/d/1lk-YCeVCYzAAQLF6ype-OuZaRKuhCrqr/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1lk-YCeVCYzAAQLF6ype-OuZaRKuhCrqr",
+      "sizeBytes": 282250,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "27.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/27.mp3"
+      },
+      "updatedAt": "2026-10-07T14:52:29.541Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_28.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_28.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_28.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1MRwVLD9ijnKWCI3Hrv8AvvcZv5sTpxqJ",
+      "driveUrl": "https://drive.google.com/file/d/1MRwVLD9ijnKWCI3Hrv8AvvcZv5sTpxqJ/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1MRwVLD9ijnKWCI3Hrv8AvvcZv5sTpxqJ",
+      "sizeBytes": 274675,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "28.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/28.mp3"
+      },
+      "updatedAt": "2026-10-07T14:52:45.597Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_29.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_29.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_29.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1Lprj-mG5DHO8cIPyqalEjGysER7xOj_N",
+      "driveUrl": "https://drive.google.com/file/d/1Lprj-mG5DHO8cIPyqalEjGysER7xOj_N/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Lprj-mG5DHO8cIPyqalEjGysER7xOj_N",
+      "sizeBytes": 262920,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "29.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/29.mp3"
+      },
+      "updatedAt": "2026-10-07T14:53:19.436Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_30.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_30.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_30.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1wK8h0oyHb6ZWIO2b1OSGNCIzC7ZZZfZg",
+      "driveUrl": "https://drive.google.com/file/d/1wK8h0oyHb6ZWIO2b1OSGNCIzC7ZZZfZg/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1wK8h0oyHb6ZWIO2b1OSGNCIzC7ZZZfZg",
+      "sizeBytes": 305238,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "30.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/30.mp3"
+      },
+      "updatedAt": "2026-10-07T14:53:37.587Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_31.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_31.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_31.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1LskwlvaMknIVtOYQK5YKplqJogibZDdg",
+      "driveUrl": "https://drive.google.com/file/d/1LskwlvaMknIVtOYQK5YKplqJogibZDdg/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1LskwlvaMknIVtOYQK5YKplqJogibZDdg",
+      "sizeBytes": 555491,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "31.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/31.mp3"
+      },
+      "updatedAt": "2026-10-07T14:53:47.726Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_32.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_32.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_32.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1ULG1JT0_tdI2BZSEIFNCQq5K_lwA4g03",
+      "driveUrl": "https://drive.google.com/file/d/1ULG1JT0_tdI2BZSEIFNCQq5K_lwA4g03/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1ULG1JT0_tdI2BZSEIFNCQq5K_lwA4g03",
+      "sizeBytes": 569597,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "32.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/32.mp3"
+      },
+      "updatedAt": "2026-10-07T14:54:07.169Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_33.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_33.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_33.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1sv4-ggsrCaTGyH3avJVWKCNEc1Nevkqu",
+      "driveUrl": "https://drive.google.com/file/d/1sv4-ggsrCaTGyH3avJVWKCNEc1Nevkqu/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1sv4-ggsrCaTGyH3avJVWKCNEc1Nevkqu",
+      "sizeBytes": 565157,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "33.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/33.mp3"
+      },
+      "updatedAt": "2026-10-07T14:54:36.777Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_34.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_34.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_34.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1Gji7igLERI7V_oNJSmrgIupt4BCpy-EG",
+      "driveUrl": "https://drive.google.com/file/d/1Gji7igLERI7V_oNJSmrgIupt4BCpy-EG/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Gji7igLERI7V_oNJSmrgIupt4BCpy-EG",
+      "sizeBytes": 651622,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "34.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/34.mp3"
+      },
+      "updatedAt": "2026-10-07T14:55:09.392Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_35.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_35.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_35.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1koeNY-vEEXatzqSdoVzzvgV1NJlOPfQd",
+      "driveUrl": "https://drive.google.com/file/d/1koeNY-vEEXatzqSdoVzzvgV1NJlOPfQd/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1koeNY-vEEXatzqSdoVzzvgV1NJlOPfQd",
+      "sizeBytes": 307067,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "35.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/35.mp3"
+      },
+      "updatedAt": "2026-10-07T14:55:21.177Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_36.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_36.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_36.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1heZHD6TNdCrXRXInqF0hWegkvdtnApWa",
+      "driveUrl": "https://drive.google.com/file/d/1heZHD6TNdCrXRXInqF0hWegkvdtnApWa/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1heZHD6TNdCrXRXInqF0hWegkvdtnApWa",
+      "sizeBytes": 875230,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "36.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/36.mp3"
+      },
+      "updatedAt": "2026-10-07T14:55:41.552Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_37.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_37.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_37.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1YZLh_cgl4QlGCfdn212mmx1s09IC613B",
+      "driveUrl": "https://drive.google.com/file/d/1YZLh_cgl4QlGCfdn212mmx1s09IC613B/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1YZLh_cgl4QlGCfdn212mmx1s09IC613B",
+      "sizeBytes": 739655,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "37.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/37.mp3"
+      },
+      "updatedAt": "2026-10-07T14:56:20.320Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_38.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_38.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_38.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1N1EQmCfqVMNV6RM_9d9tTD1Oo7Gathsa",
+      "driveUrl": "https://drive.google.com/file/d/1N1EQmCfqVMNV6RM_9d9tTD1Oo7Gathsa/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1N1EQmCfqVMNV6RM_9d9tTD1Oo7Gathsa",
+      "sizeBytes": 766299,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "38.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/38.mp3"
+      },
+      "updatedAt": "2026-10-07T14:56:54.926Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_39.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_39.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_39.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1ocGaALxkxTbdK1Da9oIA9aXr4U6iKgg_",
+      "driveUrl": "https://drive.google.com/file/d/1ocGaALxkxTbdK1Da9oIA9aXr4U6iKgg_/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1ocGaALxkxTbdK1Da9oIA9aXr4U6iKgg_",
+      "sizeBytes": 313336,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "39.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/39.mp3"
+      },
+      "updatedAt": "2026-10-07T14:57:10.170Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_40.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_40.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_40.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "16K6Ynpeva6Nwgamr3HGmTVh6WlyAOayX",
+      "driveUrl": "https://drive.google.com/file/d/16K6Ynpeva6Nwgamr3HGmTVh6WlyAOayX/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/16K6Ynpeva6Nwgamr3HGmTVh6WlyAOayX",
+      "sizeBytes": 331099,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "40.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/40.mp3"
+      },
+      "updatedAt": "2026-10-07T14:57:28.656Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_41.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_41.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_41.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1hohJgMlr7XZ4Qc_iOi_QgsA_-Cno9Xgo",
+      "driveUrl": "https://drive.google.com/file/d/1hohJgMlr7XZ4Qc_iOi_QgsA_-Cno9Xgo/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1hohJgMlr7XZ4Qc_iOi_QgsA_-Cno9Xgo",
+      "sizeBytes": 356961,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "41.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/41.mp3"
+      },
+      "updatedAt": "2026-10-07T14:57:48.248Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_42.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_42.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_42.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "19xAltZyDI1k26fbuyDnAfzJ6ZAtht1FZ",
+      "driveUrl": "https://drive.google.com/file/d/19xAltZyDI1k26fbuyDnAfzJ6ZAtht1FZ/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/19xAltZyDI1k26fbuyDnAfzJ6ZAtht1FZ",
+      "sizeBytes": 346250,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "42.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/42.mp3"
+      },
+      "updatedAt": "2026-10-07T14:58:00.522Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_43.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_43.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_43.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1vZK0PqJnelHygrZzGR0LECybV9uVkOJ2",
+      "driveUrl": "https://drive.google.com/file/d/1vZK0PqJnelHygrZzGR0LECybV9uVkOJ2/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1vZK0PqJnelHygrZzGR0LECybV9uVkOJ2",
+      "sizeBytes": 257957,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "43.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/43.mp3"
+      },
+      "updatedAt": "2026-10-07T14:58:14.383Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_44.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_44.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_44.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1J2YRW2lU-WWWkIsSALtPWqaaVbrLJQoe",
+      "driveUrl": "https://drive.google.com/file/d/1J2YRW2lU-WWWkIsSALtPWqaaVbrLJQoe/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1J2YRW2lU-WWWkIsSALtPWqaaVbrLJQoe",
+      "sizeBytes": 300536,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "44.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/44.mp3"
+      },
+      "updatedAt": "2026-10-07T14:58:26.553Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_45.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_45.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_45.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1zFmbxF68fwIcHszKwrnB0DUtzW3N2Bhm",
+      "driveUrl": "https://drive.google.com/file/d/1zFmbxF68fwIcHszKwrnB0DUtzW3N2Bhm/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1zFmbxF68fwIcHszKwrnB0DUtzW3N2Bhm",
+      "sizeBytes": 331099,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "45.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/45.mp3"
+      },
+      "updatedAt": "2026-10-07T14:59:07.484Z"
+    },
+    "jlpt_choukai:tnn9209_gmail_36_46.mp3": {
+      "key": "jlpt_choukai:tnn9209_gmail_36_46.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N5_tnn9209_gmail_36_46.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1XQycNsPVyHBFQ4cwel_yr2aCaR22oABM",
+      "driveUrl": "https://drive.google.com/file/d/1XQycNsPVyHBFQ4cwel_yr2aCaR22oABM/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1XQycNsPVyHBFQ4cwel_yr2aCaR22oABM",
+      "sizeBytes": 300797,
+      "metadata": {
+        "collectionId": "tnn9209_gmail_36",
+        "collectionName": "Tanki Master Drill N5 Choukai Audio",
+        "trackName": "46.mp3",
+        "level": "N5",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/tnn9209_gmail_36/46.mp3"
+      },
+      "updatedAt": "2026-10-07T14:59:14.882Z"
+    },
+    "jlpt_choukai:n-1-q-1_N1Q1.mp3": {
+      "key": "jlpt_choukai:n-1-q-1_N1Q1.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N1_n-1-q-1_N1Q1.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1644gTgs5cOPkQudfbUlHZ_DVax8Wblmt",
+      "driveUrl": "https://drive.google.com/file/d/1644gTgs5cOPkQudfbUlHZ_DVax8Wblmt/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1644gTgs5cOPkQudfbUlHZ_DVax8Wblmt",
+      "sizeBytes": 3400034,
+      "metadata": {
+        "collectionId": "n-1-q-1",
+        "collectionName": "JLPT N1 Official Examination Audio CD",
+        "trackName": "N1Q1.mp3",
+        "level": "N1",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/n-1-q-1/N1Q1.mp3"
+      },
+      "updatedAt": "2026-10-07T15:01:53.362Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2301%20-%20%E3%83%8D%E3%82%A4%E3%83%AB%E3%82%B5%E3%83%AD%E3%83%B3%E3%80%81%E4%BB%8A%E6%97%A5%E3%81%AF%E6%98%9F%E3%81%B5%E3%81%9F%E3%81%A4%20%E2%80%93%20JLPT%20N3.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2301%20-%20%E3%83%8D%E3%82%A4%E3%83%AB%E3%82%B5%E3%83%AD%E3%83%B3%E3%80%81%E4%BB%8A%E6%97%A5%E3%81%AF%E6%98%9F%E3%81%B5%E3%81%9F%E3%81%A4%20%E2%80%93%20JLPT%20N3.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__01_-__________________JLPT_N3.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1qTcXk3lXrGV5fF3caZ2ZzDSiLyOeza8E",
+      "driveUrl": "https://drive.google.com/file/d/1qTcXk3lXrGV5fF3caZ2ZzDSiLyOeza8E/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1qTcXk3lXrGV5fF3caZ2ZzDSiLyOeza8E",
+      "sizeBytes": 2824985,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#01 - ネイルサロン、今日は星ふたつ – JLPT N3.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2301%20-%20%E3%83%8D%E3%82%A4%E3%83%AB%E3%82%B5%E3%83%AD%E3%83%B3%E3%80%81%E4%BB%8A%E6%97%A5%E3%81%AF%E6%98%9F%E3%81%B5%E3%81%9F%E3%81%A4%20%E2%80%93%20JLPT%20N3.mp3"
+      },
+      "updatedAt": "2026-10-07T14:43:47.503Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2302%20-%20%E4%BC%9A%E7%A4%BE%E3%81%AE%E4%B8%AD%E3%81%AE%E5%B1%85%E5%A0%B4%E6%89%80%20%E2%80%93%20JLPT%20N2.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2302%20-%20%E4%BC%9A%E7%A4%BE%E3%81%AE%E4%B8%AD%E3%81%AE%E5%B1%85%E5%A0%B4%E6%89%80%20%E2%80%93%20JLPT%20N2.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__02_-____________JLPT_N2.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1hba0XLBwJV-pXG5JVTVyhxI7cekWAPkJ",
+      "driveUrl": "https://drive.google.com/file/d/1hba0XLBwJV-pXG5JVTVyhxI7cekWAPkJ/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1hba0XLBwJV-pXG5JVTVyhxI7cekWAPkJ",
+      "sizeBytes": 2589256,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#02 - 会社の中の居場所 – JLPT N2.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2302%20-%20%E4%BC%9A%E7%A4%BE%E3%81%AE%E4%B8%AD%E3%81%AE%E5%B1%85%E5%A0%B4%E6%89%80%20%E2%80%93%20JLPT%20N2.mp3"
+      },
+      "updatedAt": "2026-10-07T14:44:14.609Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2303%20-%20YesNo%E8%8B%B1%E4%BC%9A%E8%A9%B1%E6%95%99%E5%AE%A4%20%E2%80%93%20JLPT%20N3.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2303%20-%20YesNo%E8%8B%B1%E4%BC%9A%E8%A9%B1%E6%95%99%E5%AE%A4%20%E2%80%93%20JLPT%20N3.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__03_-_YesNo________JLPT_N3.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1nEapK984iLwGkpWgLP32e4ub3bgBVsB_",
+      "driveUrl": "https://drive.google.com/file/d/1nEapK984iLwGkpWgLP32e4ub3bgBVsB_/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1nEapK984iLwGkpWgLP32e4ub3bgBVsB_",
+      "sizeBytes": 3055698,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#03 - YesNo英会話教室 – JLPT N3.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2303%20-%20YesNo%E8%8B%B1%E4%BC%9A%E8%A9%B1%E6%95%99%E5%AE%A4%20%E2%80%93%20JLPT%20N3.mp3"
+      },
+      "updatedAt": "2026-10-07T14:45:01.393Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2304%20-%20%E6%97%A5%E6%9C%AC%E3%81%AE%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%9E%E3%82%B9%E3%81%AF%E8%8B%A6%E6%89%8B%20%E2%80%93%20JLPT%20N2.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2304%20-%20%E6%97%A5%E6%9C%AC%E3%81%AE%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%9E%E3%82%B9%E3%81%AF%E8%8B%A6%E6%89%8B%20%E2%80%93%20JLPT%20N2.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__04_-_______________JLPT_N2.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1PwdThz9hcTUbjF99J3-HEvYGsE0MXTR7",
+      "driveUrl": "https://drive.google.com/file/d/1PwdThz9hcTUbjF99J3-HEvYGsE0MXTR7/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1PwdThz9hcTUbjF99J3-HEvYGsE0MXTR7",
+      "sizeBytes": 2450075,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#04 - 日本のクリスマスは苦手 – JLPT N2.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2304%20-%20%E6%97%A5%E6%9C%AC%E3%81%AE%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%9E%E3%82%B9%E3%81%AF%E8%8B%A6%E6%89%8B%20%E2%80%93%20JLPT%20N2.mp3"
+      },
+      "updatedAt": "2026-10-07T14:45:25.200Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2305%20-%20%E6%80%96%E3%81%84%E5%85%88%E8%BC%A9%20%E2%80%93%20JLPT%20N3.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2305%20-%20%E6%80%96%E3%81%84%E5%85%88%E8%BC%A9%20%E2%80%93%20JLPT%20N3.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__05_-________JLPT_N3.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1Tz77w3ckoA0Is3gzZ4Kd5EbW36Z48BVp",
+      "driveUrl": "https://drive.google.com/file/d/1Tz77w3ckoA0Is3gzZ4Kd5EbW36Z48BVp/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Tz77w3ckoA0Is3gzZ4Kd5EbW36Z48BVp",
+      "sizeBytes": 3122990,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#05 - 怖い先輩 – JLPT N3.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2305%20-%20%E6%80%96%E3%81%84%E5%85%88%E8%BC%A9%20%E2%80%93%20JLPT%20N3.mp3"
+      },
+      "updatedAt": "2026-10-07T14:45:37.245Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2306%20-%20%E5%83%95%E3%81%AF%E6%97%A5%E6%9C%AC%E3%81%AE%E3%82%B5%E3%83%A9%E3%83%AA%E3%83%BC%E3%83%9E%E3%83%B3%20%E2%80%93%20JLPT%20N4.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2306%20-%20%E5%83%95%E3%81%AF%E6%97%A5%E6%9C%AC%E3%81%AE%E3%82%B5%E3%83%A9%E3%83%AA%E3%83%BC%E3%83%9E%E3%83%B3%20%E2%80%93%20JLPT%20N4.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__06_-_______________JLPT_N4.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1_9bLUEnEAPpm1LtowriCjEjoowqy9m81",
+      "driveUrl": "https://drive.google.com/file/d/1_9bLUEnEAPpm1LtowriCjEjoowqy9m81/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1_9bLUEnEAPpm1LtowriCjEjoowqy9m81",
+      "sizeBytes": 3254229,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#06 - 僕は日本のサラリーマン – JLPT N4.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2306%20-%20%E5%83%95%E3%81%AF%E6%97%A5%E6%9C%AC%E3%81%AE%E3%82%B5%E3%83%A9%E3%83%AA%E3%83%BC%E3%83%9E%E3%83%B3%20%E2%80%93%20JLPT%20N4.mp3"
+      },
+      "updatedAt": "2026-10-07T14:50:32.343Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2307%20-%2030%E4%BB%A3%E7%8B%AC%E8%BA%AB%E3%81%A7%E4%BD%95%E3%81%8C%E6%82%AA%E3%81%84%EF%BC%9F-%20JLPT%20N2.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2307%20-%2030%E4%BB%A3%E7%8B%AC%E8%BA%AB%E3%81%A7%E4%BD%95%E3%81%8C%E6%82%AA%E3%81%84%EF%BC%9F-%20JLPT%20N2.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__07_-_30_________-_JLPT_N2.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1Rs0J0Fj_9GZlWthPs724nYkbTvW9zDaK",
+      "driveUrl": "https://drive.google.com/file/d/1Rs0J0Fj_9GZlWthPs724nYkbTvW9zDaK/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Rs0J0Fj_9GZlWthPs724nYkbTvW9zDaK",
+      "sizeBytes": 2551221,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#07 - 30代独身で何が悪い？- JLPT N2.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2307%20-%2030%E4%BB%A3%E7%8B%AC%E8%BA%AB%E3%81%A7%E4%BD%95%E3%81%8C%E6%82%AA%E3%81%84%EF%BC%9F-%20JLPT%20N2.mp3"
+      },
+      "updatedAt": "2026-10-07T14:50:45.200Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2308%20-%20%E5%90%88%E3%82%B3%E3%83%B3%E3%81%AB%E3%81%84%E3%82%8B%E7%94%B7%20%E2%80%93%20JLPT%20N3.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2308%20-%20%E5%90%88%E3%82%B3%E3%83%B3%E3%81%AB%E3%81%84%E3%82%8B%E7%94%B7%20%E2%80%93%20JLPT%20N3.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__08_-___________JLPT_N3.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1qdsQnc58Y0qRsEWBWNQObgw_XQIsedrm",
+      "driveUrl": "https://drive.google.com/file/d/1qdsQnc58Y0qRsEWBWNQObgw_XQIsedrm/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1qdsQnc58Y0qRsEWBWNQObgw_XQIsedrm",
+      "sizeBytes": 3782529,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#08 - 合コンにいる男 – JLPT N3.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2308%20-%20%E5%90%88%E3%82%B3%E3%83%B3%E3%81%AB%E3%81%84%E3%82%8B%E7%94%B7%20%E2%80%93%20JLPT%20N3.mp3"
+      },
+      "updatedAt": "2026-10-07T14:51:42.462Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2309%20-%20%E5%83%95%E3%81%AE%E5%A4%A7%E5%88%87%E3%81%AA%E5%AE%B6%E6%97%8F%20%E2%80%93%20JLPT%20N4.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2309%20-%20%E5%83%95%E3%81%AE%E5%A4%A7%E5%88%87%E3%81%AA%E5%AE%B6%E6%97%8F%20%E2%80%93%20JLPT%20N4.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__09_-___________JLPT_N4.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1G3F1HW9NPbTXCbZ9rlitKKszOAZykIvx",
+      "driveUrl": "https://drive.google.com/file/d/1G3F1HW9NPbTXCbZ9rlitKKszOAZykIvx/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1G3F1HW9NPbTXCbZ9rlitKKszOAZykIvx",
+      "sizeBytes": 2517785,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#09 - 僕の大切な家族 – JLPT N4.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2309%20-%20%E5%83%95%E3%81%AE%E5%A4%A7%E5%88%87%E3%81%AA%E5%AE%B6%E6%97%8F%20%E2%80%93%20JLPT%20N4.mp3"
+      },
+      "updatedAt": "2026-10-07T14:53:10.633Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2310%20-%20%E4%B8%80%E4%BA%BA%E6%97%85%20%E2%80%93%20JLPT%20N2.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2310%20-%20%E4%B8%80%E4%BA%BA%E6%97%85%20%E2%80%93%20JLPT%20N2.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__10_-_______JLPT_N2.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "177bAkXP0T-wXpXFsk0PtuoMbjy-Chl-P",
+      "driveUrl": "https://drive.google.com/file/d/177bAkXP0T-wXpXFsk0PtuoMbjy-Chl-P/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/177bAkXP0T-wXpXFsk0PtuoMbjy-Chl-P",
+      "sizeBytes": 3109615,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#10 - 一人旅 – JLPT N2.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2310%20-%20%E4%B8%80%E4%BA%BA%E6%97%85%20%E2%80%93%20JLPT%20N2.mp3"
+      },
+      "updatedAt": "2026-10-07T14:53:20.745Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2311%20-%20%E9%80%B1%E6%9C%AB%E3%81%AF%E5%AE%B6%E6%97%8F%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%20%E2%80%93%20JLPT%20N4.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2311%20-%20%E9%80%B1%E6%9C%AB%E3%81%AF%E5%AE%B6%E6%97%8F%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%20%E2%80%93%20JLPT%20N4.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__11_-_____________JLPT_N4.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "18rF6QaX9QmNIxNbb0FBz_5c_hgUCi0hF",
+      "driveUrl": "https://drive.google.com/file/d/18rF6QaX9QmNIxNbb0FBz_5c_hgUCi0hF/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/18rF6QaX9QmNIxNbb0FBz_5c_hgUCi0hF",
+      "sizeBytes": 2254052,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#11 - 週末は家族サービス – JLPT N4.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2311%20-%20%E9%80%B1%E6%9C%AB%E3%81%AF%E5%AE%B6%E6%97%8F%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%20%E2%80%93%20JLPT%20N4.mp3"
+      },
+      "updatedAt": "2026-10-07T14:53:37.663Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2312%20-%20%E6%B5%B7%E5%A4%96%E6%97%85%E8%A1%8C%EF%BC%9F%E5%9B%BD%E5%86%85%E6%97%85%E8%A1%8C%EF%BC%9F-%20JLPT%20N4.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2312%20-%20%E6%B5%B7%E5%A4%96%E6%97%85%E8%A1%8C%EF%BC%9F%E5%9B%BD%E5%86%85%E6%97%85%E8%A1%8C%EF%BC%9F-%20JLPT%20N4.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__12_-___________-_JLPT_N4.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1jQjJfybAhw4daYsDmofP5Jeqpd0GUpPh",
+      "driveUrl": "https://drive.google.com/file/d/1jQjJfybAhw4daYsDmofP5Jeqpd0GUpPh/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1jQjJfybAhw4daYsDmofP5Jeqpd0GUpPh",
+      "sizeBytes": 2470137,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#12 - 海外旅行？国内旅行？- JLPT N4.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2312%20-%20%E6%B5%B7%E5%A4%96%E6%97%85%E8%A1%8C%EF%BC%9F%E5%9B%BD%E5%86%85%E6%97%85%E8%A1%8C%EF%BC%9F-%20JLPT%20N4.mp3"
+      },
+      "updatedAt": "2026-10-07T14:53:53.303Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2313%20-%20%E3%82%BC%E3%83%9F%E4%BB%B2%E9%96%93%20%E2%80%93%20JLPT%20N1.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2313%20-%20%E3%82%BC%E3%83%9F%E4%BB%B2%E9%96%93%20%E2%80%93%20JLPT%20N1.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__13_-________JLPT_N1.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1KtXBgx3l5wM1bja6OgfiKRGlBeRy_nhk",
+      "driveUrl": "https://drive.google.com/file/d/1KtXBgx3l5wM1bja6OgfiKRGlBeRy_nhk/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1KtXBgx3l5wM1bja6OgfiKRGlBeRy_nhk",
+      "sizeBytes": 3365824,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#13 - ゼミ仲間 – JLPT N1.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2313%20-%20%E3%82%BC%E3%83%9F%E4%BB%B2%E9%96%93%20%E2%80%93%20JLPT%20N1.mp3"
+      },
+      "updatedAt": "2026-10-07T14:54:52.929Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2314%20-%20%E9%AB%98%E6%A0%A1%E7%94%9F%E6%B4%BB%20%E2%80%93%20JLPT%20N5.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2314%20-%20%E9%AB%98%E6%A0%A1%E7%94%9F%E6%B4%BB%20%E2%80%93%20JLPT%20N5.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__14_-________JLPT_N5.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1BdpepToROiMu7h0tPlmK15_Kh1PV4l9W",
+      "driveUrl": "https://drive.google.com/file/d/1BdpepToROiMu7h0tPlmK15_Kh1PV4l9W/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1BdpepToROiMu7h0tPlmK15_Kh1PV4l9W",
+      "sizeBytes": 2743901,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#14 - 高校生活 – JLPT N5.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2314%20-%20%E9%AB%98%E6%A0%A1%E7%94%9F%E6%B4%BB%20%E2%80%93%20JLPT%20N5.mp3"
+      },
+      "updatedAt": "2026-10-07T14:55:01.284Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2315%20-%20%E5%AD%A6%E6%A0%A1%E7%94%9F%E6%B4%BB%20%E2%80%93%20JLPT%20N1.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2315%20-%20%E5%AD%A6%E6%A0%A1%E7%94%9F%E6%B4%BB%20%E2%80%93%20JLPT%20N1.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__15_-________JLPT_N1.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1dDWiqFqfjj6ydeFEzYrNZcVWOhg0KjO_",
+      "driveUrl": "https://drive.google.com/file/d/1dDWiqFqfjj6ydeFEzYrNZcVWOhg0KjO_/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1dDWiqFqfjj6ydeFEzYrNZcVWOhg0KjO_",
+      "sizeBytes": 3319430,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#15 - 学校生活 – JLPT N1.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2315%20-%20%E5%AD%A6%E6%A0%A1%E7%94%9F%E6%B4%BB%20%E2%80%93%20JLPT%20N1.mp3"
+      },
+      "updatedAt": "2026-10-07T14:55:09.972Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2316%20-%20%E5%A4%A7%E5%AD%A6%E5%8F%97%E9%A8%93%20%E2%80%93%20JLPT%20N5.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2316%20-%20%E5%A4%A7%E5%AD%A6%E5%8F%97%E9%A8%93%20%E2%80%93%20JLPT%20N5.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__16_-________JLPT_N5.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1Q4OZ9ZhRWsC12jiw24mKhKUjui3X4Lxw",
+      "driveUrl": "https://drive.google.com/file/d/1Q4OZ9ZhRWsC12jiw24mKhKUjui3X4Lxw/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Q4OZ9ZhRWsC12jiw24mKhKUjui3X4Lxw",
+      "sizeBytes": 2439626,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#16 - 大学受験 – JLPT N5.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2316%20-%20%E5%A4%A7%E5%AD%A6%E5%8F%97%E9%A8%93%20%E2%80%93%20JLPT%20N5.mp3"
+      },
+      "updatedAt": "2026-10-07T14:56:48.808Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2317%20-%20%E7%95%B0%E5%9B%BD%E3%81%AE%E5%9C%B0%E3%81%A7%E3%81%AE%E7%B5%8C%E9%A8%93%20%E2%80%93%20JLPT%20N1.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2317%20-%20%E7%95%B0%E5%9B%BD%E3%81%AE%E5%9C%B0%E3%81%A7%E3%81%AE%E7%B5%8C%E9%A8%93%20%E2%80%93%20JLPT%20N1.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__17_-____________JLPT_N1.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1xnqTpbr-npy0bkemWZwEnDp0X0nN3SAk",
+      "driveUrl": "https://drive.google.com/file/d/1xnqTpbr-npy0bkemWZwEnDp0X0nN3SAk/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1xnqTpbr-npy0bkemWZwEnDp0X0nN3SAk",
+      "sizeBytes": 3574386,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#17 - 異国の地での経験 – JLPT N1.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2317%20-%20%E7%95%B0%E5%9B%BD%E3%81%AE%E5%9C%B0%E3%81%A7%E3%81%AE%E7%B5%8C%E9%A8%93%20%E2%80%93%20JLPT%20N1.mp3"
+      },
+      "updatedAt": "2026-10-07T14:56:59.004Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2318%20-%20%E6%98%BC%E3%81%94%E3%81%AF%E3%82%93%20%E2%80%93%20JLPT%20N5.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2318%20-%20%E6%98%BC%E3%81%94%E3%81%AF%E3%82%93%20%E2%80%93%20JLPT%20N5.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__18_-________JLPT_N5.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1zP331xdwQfYwwYqrtnPNm-cFm9NCRoZC",
+      "driveUrl": "https://drive.google.com/file/d/1zP331xdwQfYwwYqrtnPNm-cFm9NCRoZC/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1zP331xdwQfYwwYqrtnPNm-cFm9NCRoZC",
+      "sizeBytes": 2073076,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#18 - 昼ごはん – JLPT N5.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2318%20-%20%E6%98%BC%E3%81%94%E3%81%AF%E3%82%93%20%E2%80%93%20JLPT%20N5.mp3"
+      },
+      "updatedAt": "2026-10-07T14:57:19.027Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2319%20-%20%E5%B0%8A%E6%95%AC%E3%81%99%E3%82%8B%E5%86%99%E7%9C%9F%E5%AE%B6%20%E2%80%93%20JLPT%20N1.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2319%20-%20%E5%B0%8A%E6%95%AC%E3%81%99%E3%82%8B%E5%86%99%E7%9C%9F%E5%AE%B6%20%E2%80%93%20JLPT%20N1.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__19_-___________JLPT_N1.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "11Id7vrRKMue4CbnpmNeUDPhjy50kesL9",
+      "driveUrl": "https://drive.google.com/file/d/11Id7vrRKMue4CbnpmNeUDPhjy50kesL9/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/11Id7vrRKMue4CbnpmNeUDPhjy50kesL9",
+      "sizeBytes": 3100002,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#19 - 尊敬する写真家 – JLPT N1.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2319%20-%20%E5%B0%8A%E6%95%AC%E3%81%99%E3%82%8B%E5%86%99%E7%9C%9F%E5%AE%B6%20%E2%80%93%20JLPT%20N1.mp3"
+      },
+      "updatedAt": "2026-10-07T14:57:29.374Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2320%20-%20%E6%B0%B4%E6%B3%B3%20%E2%80%93%20JLPT%20N5.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2320%20-%20%E6%B0%B4%E6%B3%B3%20%E2%80%93%20JLPT%20N5.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__20_-______JLPT_N5.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "13Tjzf0391mQfPUVHG1GtYaFmEXgpT3Yl",
+      "driveUrl": "https://drive.google.com/file/d/13Tjzf0391mQfPUVHG1GtYaFmEXgpT3Yl/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/13Tjzf0391mQfPUVHG1GtYaFmEXgpT3Yl",
+      "sizeBytes": 1828152,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#20 - 水泳 – JLPT N5.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2320%20-%20%E6%B0%B4%E6%B3%B3%20%E2%80%93%20JLPT%20N5.mp3"
+      },
+      "updatedAt": "2026-10-07T14:57:40.960Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2322%20-%20Countdown%20to%20Season%202%20%E2%80%93%20I.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2322%20-%20Countdown%20to%20Season%202%20%E2%80%93%20I.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__22_-_Countdown_to_Season_2___I.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1aKZz0uzNxCEvQKSnhO_SIwcB6G_LSy5s",
+      "driveUrl": "https://drive.google.com/file/d/1aKZz0uzNxCEvQKSnhO_SIwcB6G_LSy5s/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1aKZz0uzNxCEvQKSnhO_SIwcB6G_LSy5s",
+      "sizeBytes": 1937239,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#22 - Countdown to Season 2 – I.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2322%20-%20Countdown%20to%20Season%202%20%E2%80%93%20I.mp3"
+      },
+      "updatedAt": "2026-10-07T15:00:36.118Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2323%20-%20Season%20Two%20Kickoff%20a%20Ayano.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2323%20-%20Season%20Two%20Kickoff%20a%20Ayano.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__23_-_Season_Two_Kickoff_a_Ayano.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1c6t7JIX4ZAJoeP7oSG45nLAgFtrD-COj",
+      "driveUrl": "https://drive.google.com/file/d/1c6t7JIX4ZAJoeP7oSG45nLAgFtrD-COj/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1c6t7JIX4ZAJoeP7oSG45nLAgFtrD-COj",
+      "sizeBytes": 2191777,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#23 - Season Two Kickoff a Ayano.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2323%20-%20Season%20Two%20Kickoff%20a%20Ayano.mp3"
+      },
+      "updatedAt": "2026-10-07T15:01:58.000Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2324%20-%20%E3%83%8D%E3%82%A4%E3%83%AB%E3%82%B5%E3%83%AD%E3%83%B3%E3%81%A7%E3%81%97%E3%81%A6%E3%81%8F%E3%82%8C%E3%82%8B%E3%81%93%E3%81%A8%20%E2%80%93%20JLPT%20N3.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2324%20-%20%E3%83%8D%E3%82%A4%E3%83%AB%E3%82%B5%E3%83%AD%E3%83%B3%E3%81%A7%E3%81%97%E3%81%A6%E3%81%8F%E3%82%8C%E3%82%8B%E3%81%93%E3%81%A8%20%E2%80%93%20JLPT%20N3.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__24_-__________________JLPT_N3.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1u_N95KS7fAUYpothMfXjfjLDX8LR1bsA",
+      "driveUrl": "https://drive.google.com/file/d/1u_N95KS7fAUYpothMfXjfjLDX8LR1bsA/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1u_N95KS7fAUYpothMfXjfjLDX8LR1bsA",
+      "sizeBytes": 3173563,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#24 - ネイルサロンでしてくれること – JLPT N3.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2324%20-%20%E3%83%8D%E3%82%A4%E3%83%AB%E3%82%B5%E3%83%AD%E3%83%B3%E3%81%A7%E3%81%97%E3%81%A6%E3%81%8F%E3%82%8C%E3%82%8B%E3%81%93%E3%81%A8%20%E2%80%93%20JLPT%20N3.mp3"
+      },
+      "updatedAt": "2026-10-07T15:02:07.860Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2325%20-%20%E3%83%8D%E3%82%A4%E3%83%AB%E3%82%B5%E3%83%AD%E3%83%B3%E3%81%A7%E3%81%97%E3%81%A6%E3%81%8F%E3%82%8C%E3%82%8B%E3%81%93%E3%81%A8%20%E2%80%93%20JLPT%20N3%20Bonus%20Lesson.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2325%20-%20%E3%83%8D%E3%82%A4%E3%83%AB%E3%82%B5%E3%83%AD%E3%83%B3%E3%81%A7%E3%81%97%E3%81%A6%E3%81%8F%E3%82%8C%E3%82%8B%E3%81%93%E3%81%A8%20%E2%80%93%20JLPT%20N3%20Bonus%20Lesson.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__25_-__________________JLPT_N3_Bonus_Lesson.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "13A5nELkqVa6GSmy_IiT222QQMp9xrCW-",
+      "driveUrl": "https://drive.google.com/file/d/13A5nELkqVa6GSmy_IiT222QQMp9xrCW-/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/13A5nELkqVa6GSmy_IiT222QQMp9xrCW-",
+      "sizeBytes": 4109373,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#25 - ネイルサロンでしてくれること – JLPT N3 Bonus Lesson.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2325%20-%20%E3%83%8D%E3%82%A4%E3%83%AB%E3%82%B5%E3%83%AD%E3%83%B3%E3%81%A7%E3%81%97%E3%81%A6%E3%81%8F%E3%82%8C%E3%82%8B%E3%81%93%E3%81%A8%20%E2%80%93%20JLPT%20N3%20Bonus%20Lesson.mp3"
+      },
+      "updatedAt": "2026-10-07T15:02:20.342Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2326%20-%20%E3%81%82%E3%81%A3%E3%81%A8%E3%81%84%E3%81%86%E9%96%93%E3%81%AE%EF%BC%92%E9%80%B1%E9%96%93-%20JLPT%20N1.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2326%20-%20%E3%81%82%E3%81%A3%E3%81%A8%E3%81%84%E3%81%86%E9%96%93%E3%81%AE%EF%BC%92%E9%80%B1%E9%96%93-%20JLPT%20N1.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__26_-___________-_JLPT_N1.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "12wukFE503pgFWxONAxfM6NBFz5tWBqfm",
+      "driveUrl": "https://drive.google.com/file/d/12wukFE503pgFWxONAxfM6NBFz5tWBqfm/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/12wukFE503pgFWxONAxfM6NBFz5tWBqfm",
+      "sizeBytes": 4230163,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#26 - あっという間の２週間- JLPT N1.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2326%20-%20%E3%81%82%E3%81%A3%E3%81%A8%E3%81%84%E3%81%86%E9%96%93%E3%81%AE%EF%BC%92%E9%80%B1%E9%96%93-%20JLPT%20N1.mp3"
+      },
+      "updatedAt": "2026-10-07T15:02:41.016Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2327%20-%20%E3%81%AF%E3%81%98%E3%82%81%E3%81%A6%E3%81%AE%E5%A1%BE%20%E2%80%93%20JLPT%20N5.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2327%20-%20%E3%81%AF%E3%81%98%E3%82%81%E3%81%A6%E3%81%AE%E5%A1%BE%20%E2%80%93%20JLPT%20N5.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__27_-__________JLPT_N5.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1RnRLtdozMnWKp4OePJjJauMfn2Cc-hta",
+      "driveUrl": "https://drive.google.com/file/d/1RnRLtdozMnWKp4OePJjJauMfn2Cc-hta/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1RnRLtdozMnWKp4OePJjJauMfn2Cc-hta",
+      "sizeBytes": 2262412,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#27 - はじめての塾 – JLPT N5.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2327%20-%20%E3%81%AF%E3%81%98%E3%82%81%E3%81%A6%E3%81%AE%E5%A1%BE%20%E2%80%93%20JLPT%20N5.mp3"
+      },
+      "updatedAt": "2026-10-07T15:02:56.017Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2328%20-%20The%20Voice%20of%20Yumiko.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2328%20-%20The%20Voice%20of%20Yumiko.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__28_-_The_Voice_of_Yumiko.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1Gxbjo03X9l2Y0q1eULf3-K-qiWx1bwS2",
+      "driveUrl": "https://drive.google.com/file/d/1Gxbjo03X9l2Y0q1eULf3-K-qiWx1bwS2/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Gxbjo03X9l2Y0q1eULf3-K-qiWx1bwS2",
+      "sizeBytes": 2675773,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#28 - The Voice of Yumiko.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2328%20-%20The%20Voice%20of%20Yumiko.mp3"
+      },
+      "updatedAt": "2026-10-07T15:03:10.835Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2329%20-%20%E6%97%A5%E6%9C%AC%E3%81%AE%E9%A3%B2%E3%81%BF%E4%BC%9A%20%E2%80%93%20JLPT%20N4.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2329%20-%20%E6%97%A5%E6%9C%AC%E3%81%AE%E9%A3%B2%E3%81%BF%E4%BC%9A%20%E2%80%93%20JLPT%20N4.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__29_-__________JLPT_N4.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1BFUF91ue8LDrRs8IChA0uKZopjsQxHXL",
+      "driveUrl": "https://drive.google.com/file/d/1BFUF91ue8LDrRs8IChA0uKZopjsQxHXL/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1BFUF91ue8LDrRs8IChA0uKZopjsQxHXL",
+      "sizeBytes": 3049847,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#29 - 日本の飲み会 – JLPT N4.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2329%20-%20%E6%97%A5%E6%9C%AC%E3%81%AE%E9%A3%B2%E3%81%BF%E4%BC%9A%20%E2%80%93%20JLPT%20N4.mp3"
+      },
+      "updatedAt": "2026-10-07T15:03:20.300Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2330%20-%20%E5%96%B6%E6%A5%AD%E9%83%A8%E3%81%AB%E7%95%B0%E5%8B%95%20%E2%80%93%20JLPT%20N2.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2330%20-%20%E5%96%B6%E6%A5%AD%E9%83%A8%E3%81%AB%E7%95%B0%E5%8B%95%20%E2%80%93%20JLPT%20N2.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__30_-__________JLPT_N2.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1sndEEUm5tMQ85irUrLnH9ggJ0cuemEUz",
+      "driveUrl": "https://drive.google.com/file/d/1sndEEUm5tMQ85irUrLnH9ggJ0cuemEUz/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1sndEEUm5tMQ85irUrLnH9ggJ0cuemEUz",
+      "sizeBytes": 3420159,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#30 - 営業部に異動 – JLPT N2.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2330%20-%20%E5%96%B6%E6%A5%AD%E9%83%A8%E3%81%AB%E7%95%B0%E5%8B%95%20%E2%80%93%20JLPT%20N2.mp3"
+      },
+      "updatedAt": "2026-10-07T15:03:45.886Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2331%20-%20%E5%A1%BE%E3%81%AE%E5%8F%8B%E9%81%94%20%E2%80%93%20JLPT%20N5.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2331%20-%20%E5%A1%BE%E3%81%AE%E5%8F%8B%E9%81%94%20%E2%80%93%20JLPT%20N5.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__31_-________JLPT_N5.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "14t7UoJY5eIT3VQzGGFWN3prybVs8nRE_",
+      "driveUrl": "https://drive.google.com/file/d/14t7UoJY5eIT3VQzGGFWN3prybVs8nRE_/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/14t7UoJY5eIT3VQzGGFWN3prybVs8nRE_",
+      "sizeBytes": 2549968,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#31 - 塾の友達 – JLPT N5.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2331%20-%20%E5%A1%BE%E3%81%AE%E5%8F%8B%E9%81%94%20%E2%80%93%20JLPT%20N5.mp3"
+      },
+      "updatedAt": "2026-10-07T15:03:54.258Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2332%20-%20%E3%81%8A%E6%B0%97%E3%81%AB%E5%85%A5%E3%82%8A%E3%81%AE%E7%BE%8E%E5%AE%B9%E9%99%A2%20%E2%80%93%20JLPT%20N3.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2332%20-%20%E3%81%8A%E6%B0%97%E3%81%AB%E5%85%A5%E3%82%8A%E3%81%AE%E7%BE%8E%E5%AE%B9%E9%99%A2%20%E2%80%93%20JLPT%20N3.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__32_-_____________JLPT_N3.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1RqcQlGaKfeJBkb3MFRM53g-X5tQITKEf",
+      "driveUrl": "https://drive.google.com/file/d/1RqcQlGaKfeJBkb3MFRM53g-X5tQITKEf/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1RqcQlGaKfeJBkb3MFRM53g-X5tQITKEf",
+      "sizeBytes": 2575045,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#32 - お気に入りの美容院 – JLPT N3.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2332%20-%20%E3%81%8A%E6%B0%97%E3%81%AB%E5%85%A5%E3%82%8A%E3%81%AE%E7%BE%8E%E5%AE%B9%E9%99%A2%20%E2%80%93%20JLPT%20N3.mp3"
+      },
+      "updatedAt": "2026-10-07T15:04:05.935Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2333%20-%20%E8%AA%B0%E3%81%8B%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AB%E8%87%AA%E5%88%86%E3%81%8C%E3%81%A7%E3%81%8D%E3%82%8B%E3%81%93%E3%81%A8-%20JLPT%20N1.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2333%20-%20%E8%AA%B0%E3%81%8B%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AB%E8%87%AA%E5%88%86%E3%81%8C%E3%81%A7%E3%81%8D%E3%82%8B%E3%81%93%E3%81%A8-%20JLPT%20N1.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__33_-_______________-_JLPT_N1.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1dXilXvuB-aZ-EOFduqa9hn5GSzi3v7OY",
+      "driveUrl": "https://drive.google.com/file/d/1dXilXvuB-aZ-EOFduqa9hn5GSzi3v7OY/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1dXilXvuB-aZ-EOFduqa9hn5GSzi3v7OY",
+      "sizeBytes": 3251721,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#33 - 誰かのために自分ができること- JLPT N1.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2333%20-%20%E8%AA%B0%E3%81%8B%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AB%E8%87%AA%E5%88%86%E3%81%8C%E3%81%A7%E3%81%8D%E3%82%8B%E3%81%93%E3%81%A8-%20JLPT%20N1.mp3"
+      },
+      "updatedAt": "2026-10-07T15:04:28.930Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2334%20-%20%E7%B5%90%E5%A9%9A%E7%9B%B8%E8%AB%87%E6%89%80-%20JLPT%20N2.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2334%20-%20%E7%B5%90%E5%A9%9A%E7%9B%B8%E8%AB%87%E6%89%80-%20JLPT%20N2.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__34_-______-_JLPT_N2.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1YjrAJa3uvde6GNu-qzt_iEu-FN5uvkHH",
+      "driveUrl": "https://drive.google.com/file/d/1YjrAJa3uvde6GNu-qzt_iEu-FN5uvkHH/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1YjrAJa3uvde6GNu-qzt_iEu-FN5uvkHH",
+      "sizeBytes": 3698101,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#34 - 結婚相談所- JLPT N2.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2334%20-%20%E7%B5%90%E5%A9%9A%E7%9B%B8%E8%AB%87%E6%89%80-%20JLPT%20N2.mp3"
+      },
+      "updatedAt": "2026-10-07T15:04:48.928Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2335%20-%20%E5%A4%96%E5%9B%BD%E4%BA%BA%E3%81%AE%E3%81%8A%E5%AE%A2%E3%81%95%E3%82%93-%20JLPT%20N4.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2335%20-%20%E5%A4%96%E5%9B%BD%E4%BA%BA%E3%81%AE%E3%81%8A%E5%AE%A2%E3%81%95%E3%82%93-%20JLPT%20N4.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__35_-_________-_JLPT_N4.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1le9XVdhnrboukvovacWo35ctZ4R_Rf2t",
+      "driveUrl": "https://drive.google.com/file/d/1le9XVdhnrboukvovacWo35ctZ4R_Rf2t/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1le9XVdhnrboukvovacWo35ctZ4R_Rf2t",
+      "sizeBytes": 3108361,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#35 - 外国人のお客さん- JLPT N4.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2335%20-%20%E5%A4%96%E5%9B%BD%E4%BA%BA%E3%81%AE%E3%81%8A%E5%AE%A2%E3%81%95%E3%82%93-%20JLPT%20N4.mp3"
+      },
+      "updatedAt": "2026-10-07T15:05:00.935Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2336%20-%20%E3%81%86%E3%81%A1%E3%81%AE%E8%AA%B2%E9%95%B7%20%E2%80%93%20JLPT%20N3.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2336%20-%20%E3%81%86%E3%81%A1%E3%81%AE%E8%AA%B2%E9%95%B7%20%E2%80%93%20JLPT%20N3.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__36_-_________JLPT_N3.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1W5fJTXPCmKP-FPo7OUfZBvLhqt3Mmh32",
+      "driveUrl": "https://drive.google.com/file/d/1W5fJTXPCmKP-FPo7OUfZBvLhqt3Mmh32/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1W5fJTXPCmKP-FPo7OUfZBvLhqt3Mmh32",
+      "sizeBytes": 2817043,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#36 - うちの課長 – JLPT N3.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2336%20-%20%E3%81%86%E3%81%A1%E3%81%AE%E8%AA%B2%E9%95%B7%20%E2%80%93%20JLPT%20N3.mp3"
+      },
+      "updatedAt": "2026-10-07T15:05:09.511Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2337%20-%20Our%20Section%20Manager%20%E2%80%93%20N3%20Special%20Lesson.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2337%20-%20Our%20Section%20Manager%20%E2%80%93%20N3%20Special%20Lesson.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__37_-_Our_Section_Manager___N3_Special_Lesson.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1oJN0CoeQReQFZgMA1fMxScevkvMinVK9",
+      "driveUrl": "https://drive.google.com/file/d/1oJN0CoeQReQFZgMA1fMxScevkvMinVK9/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1oJN0CoeQReQFZgMA1fMxScevkvMinVK9",
+      "sizeBytes": 8172354,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#37 - Our Section Manager – N3 Special Lesson.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2337%20-%20Our%20Section%20Manager%20%E2%80%93%20N3%20Special%20Lesson.mp3"
+      },
+      "updatedAt": "2026-10-07T15:05:20.914Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2338%20-%20%E5%B0%8F%E3%81%95%E3%81%AA%E4%B8%80%E6%AD%A9%20%E2%80%93%20JLPT%20N1.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2338%20-%20%E5%B0%8F%E3%81%95%E3%81%AA%E4%B8%80%E6%AD%A9%20%E2%80%93%20JLPT%20N1.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__38_-_________JLPT_N1.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1kJsH6qUJECLiGKzll9b7NnTRUnpu87tK",
+      "driveUrl": "https://drive.google.com/file/d/1kJsH6qUJECLiGKzll9b7NnTRUnpu87tK/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1kJsH6qUJECLiGKzll9b7NnTRUnpu87tK",
+      "sizeBytes": 4154513,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#38 - 小さな一歩 – JLPT N1.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2338%20-%20%E5%B0%8F%E3%81%95%E3%81%AA%E4%B8%80%E6%AD%A9%20%E2%80%93%20JLPT%20N1.mp3"
+      },
+      "updatedAt": "2026-10-07T15:05:33.149Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2339%20-%20%E7%89%87%E6%80%9D%E3%81%84%20%E2%80%93%20JLPT%20N5.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2339%20-%20%E7%89%87%E6%80%9D%E3%81%84%20%E2%80%93%20JLPT%20N5.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__39_-_______JLPT_N5.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1nj5GBIoJNA3vOvhMZhCZwCB-a1x1-0k1",
+      "driveUrl": "https://drive.google.com/file/d/1nj5GBIoJNA3vOvhMZhCZwCB-a1x1-0k1/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1nj5GBIoJNA3vOvhMZhCZwCB-a1x1-0k1",
+      "sizeBytes": 2266173,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#39 - 片思い – JLPT N5.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2339%20-%20%E7%89%87%E6%80%9D%E3%81%84%20%E2%80%93%20JLPT%20N5.mp3"
+      },
+      "updatedAt": "2026-10-07T15:05:39.683Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2340%20-%20YuumaYuki%20Speaks.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2340%20-%20YuumaYuki%20Speaks.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__40_-_YuumaYuki_Speaks.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1LUOAsZOdASz6mC8DcXsqh_-YsW9YWWUt",
+      "driveUrl": "https://drive.google.com/file/d/1LUOAsZOdASz6mC8DcXsqh_-YsW9YWWUt/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1LUOAsZOdASz6mC8DcXsqh_-YsW9YWWUt",
+      "sizeBytes": 3460701,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#40 - YuumaYuki Speaks.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2340%20-%20YuumaYuki%20Speaks.mp3"
+      },
+      "updatedAt": "2026-10-07T15:05:47.712Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2341%20-%20%E6%BA%80%E5%93%A1%E9%9B%BB%E8%BB%8A%20%E2%80%93%20JLPT%20N4.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2341%20-%20%E6%BA%80%E5%93%A1%E9%9B%BB%E8%BB%8A%20%E2%80%93%20JLPT%20N4.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__41_-________JLPT_N4.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1zZSgF3C0thyaVEdUuV4wUyQ8PU-_A8Z6",
+      "driveUrl": "https://drive.google.com/file/d/1zZSgF3C0thyaVEdUuV4wUyQ8PU-_A8Z6/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1zZSgF3C0thyaVEdUuV4wUyQ8PU-_A8Z6",
+      "sizeBytes": 2083943,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#41 - 満員電車 – JLPT N4.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2341%20-%20%E6%BA%80%E5%93%A1%E9%9B%BB%E8%BB%8A%20%E2%80%93%20JLPT%20N4.mp3"
+      },
+      "updatedAt": "2026-10-07T15:05:57.548Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2342%20-%20%E3%81%8A%E8%A6%8B%E5%90%88%E3%81%84%E3%83%87%E3%83%BC%E3%83%88%20%E2%80%93%20JLPT%20N2.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2342%20-%20%E3%81%8A%E8%A6%8B%E5%90%88%E3%81%84%E3%83%87%E3%83%BC%E3%83%88%20%E2%80%93%20JLPT%20N2.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__42_-___________JLPT_N2.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1N_CdVeYck1XQpy6oyzbCKGeVJPSpPXCR",
+      "driveUrl": "https://drive.google.com/file/d/1N_CdVeYck1XQpy6oyzbCKGeVJPSpPXCR/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1N_CdVeYck1XQpy6oyzbCKGeVJPSpPXCR",
+      "sizeBytes": 3062386,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#42 - お見合いデート – JLPT N2.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2342%20-%20%E3%81%8A%E8%A6%8B%E5%90%88%E3%81%84%E3%83%87%E3%83%BC%E3%83%88%20%E2%80%93%20JLPT%20N2.mp3"
+      },
+      "updatedAt": "2026-10-07T15:07:33.931Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2343%20-%20%E3%81%82%E3%82%84%E3%81%97%E3%81%84%E9%9B%BB%E8%A9%B1%20%E2%80%93%20JLPT%20N3.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2343%20-%20%E3%81%82%E3%82%84%E3%81%97%E3%81%84%E9%9B%BB%E8%A9%B1%20%E2%80%93%20JLPT%20N3.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__43_-__________JLPT_N3.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1YN_U-Z6pl0H6K_QLlBd0TlOO-WtuIXq-",
+      "driveUrl": "https://drive.google.com/file/d/1YN_U-Z6pl0H6K_QLlBd0TlOO-WtuIXq-/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1YN_U-Z6pl0H6K_QLlBd0TlOO-WtuIXq-",
+      "sizeBytes": 2564596,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#43 - あやしい電話 – JLPT N3.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2343%20-%20%E3%81%82%E3%82%84%E3%81%97%E3%81%84%E9%9B%BB%E8%A9%B1%20%E2%80%93%20JLPT%20N3.mp3"
+      },
+      "updatedAt": "2026-10-07T15:07:42.267Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2344%20-%20The%20Suspicious%20Call%20%E2%80%93%20N3%20Supplementary%20lesson.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2344%20-%20The%20Suspicious%20Call%20%E2%80%93%20N3%20Supplementary%20lesson.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__44_-_The_Suspicious_Call___N3_Supplementary_lesson.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1m38xEWNYpu4h0tKrbsGJlxTZYmI7jPKk",
+      "driveUrl": "https://drive.google.com/file/d/1m38xEWNYpu4h0tKrbsGJlxTZYmI7jPKk/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1m38xEWNYpu4h0tKrbsGJlxTZYmI7jPKk",
+      "sizeBytes": 7952926,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#44 - The Suspicious Call – N3 Supplementary lesson.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2344%20-%20The%20Suspicious%20Call%20%E2%80%93%20N3%20Supplementary%20lesson.mp3"
+      },
+      "updatedAt": "2026-10-07T15:07:49.590Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2345%20-%20%E5%8C%97%E6%B5%B7%E9%81%93%E5%8E%9F%E4%BB%98%E6%97%85%E8%A1%8C-%20JLPT%20N1.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2345%20-%20%E5%8C%97%E6%B5%B7%E9%81%93%E5%8E%9F%E4%BB%98%E6%97%85%E8%A1%8C-%20JLPT%20N1.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__45_-________-_JLPT_N1.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1V3MxxQGhnS7FgcloiDhpi9jMvV2pGPGF",
+      "driveUrl": "https://drive.google.com/file/d/1V3MxxQGhnS7FgcloiDhpi9jMvV2pGPGF/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1V3MxxQGhnS7FgcloiDhpi9jMvV2pGPGF",
+      "sizeBytes": 4348864,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#45 - 北海道原付旅行- JLPT N1.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2345%20-%20%E5%8C%97%E6%B5%B7%E9%81%93%E5%8E%9F%E4%BB%98%E6%97%85%E8%A1%8C-%20JLPT%20N1.mp3"
+      },
+      "updatedAt": "2026-10-07T15:07:56.487Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2346%20-%20%E3%83%87%E3%82%A3%E3%82%BA%E3%83%8B%E3%83%BC%E3%83%A9%E3%83%B3%E3%83%89%20%E2%80%93%20JLPT%20N5.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2346%20-%20%E3%83%87%E3%82%A3%E3%82%BA%E3%83%8B%E3%83%BC%E3%83%A9%E3%83%B3%E3%83%89%20%E2%80%93%20JLPT%20N5.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__46_-____________JLPT_N5.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1bc2fmjicTrm136xTX1V2HCEvEFtPkRqb",
+      "driveUrl": "https://drive.google.com/file/d/1bc2fmjicTrm136xTX1V2HCEvEFtPkRqb/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1bc2fmjicTrm136xTX1V2HCEvEFtPkRqb",
+      "sizeBytes": 1659297,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#46 - ディズニーランド – JLPT N5.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2346%20-%20%E3%83%87%E3%82%A3%E3%82%BA%E3%83%8B%E3%83%BC%E3%83%A9%E3%83%B3%E3%83%89%20%E2%80%93%20JLPT%20N5.mp3"
+      },
+      "updatedAt": "2026-10-07T15:08:01.980Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2347%20-%20%E5%AE%B6%E3%82%92%E5%A3%B2%E3%82%8B%E5%A5%B3%20%E2%80%93%20JLPT%20N2.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2347%20-%20%E5%AE%B6%E3%82%92%E5%A3%B2%E3%82%8B%E5%A5%B3%20%E2%80%93%20JLPT%20N2.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__47_-_________JLPT_N2.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1BKYZvToLQr-yGRWYa2hXMeo5OBZv2-Be",
+      "driveUrl": "https://drive.google.com/file/d/1BKYZvToLQr-yGRWYa2hXMeo5OBZv2-Be/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1BKYZvToLQr-yGRWYa2hXMeo5OBZv2-Be",
+      "sizeBytes": 2515277,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#47 - 家を売る女 – JLPT N2.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2347%20-%20%E5%AE%B6%E3%82%92%E5%A3%B2%E3%82%8B%E5%A5%B3%20%E2%80%93%20JLPT%20N2.mp3"
+      },
+      "updatedAt": "2026-10-07T15:08:07.319Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2348%20-%20%E3%80%8C%E3%83%AF%E3%83%B3%E3%82%AA%E3%83%9A%E3%80%8D%E8%82%B2%E5%85%90-%20JLPT%20N4.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2348%20-%20%E3%80%8C%E3%83%AF%E3%83%B3%E3%82%AA%E3%83%9A%E3%80%8D%E8%82%B2%E5%85%90-%20JLPT%20N4.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__48_-_________-_JLPT_N4.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1AcTJaoa-bqilDqzqmum0mSX-0JyEr81_",
+      "driveUrl": "https://drive.google.com/file/d/1AcTJaoa-bqilDqzqmum0mSX-0JyEr81_/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1AcTJaoa-bqilDqzqmum0mSX-0JyEr81_",
+      "sizeBytes": 3202402,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#48 - 「ワンオペ」育児- JLPT N4.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/%2348%20-%20%E3%80%8C%E3%83%AF%E3%83%B3%E3%82%AA%E3%83%9A%E3%80%8D%E8%82%B2%E5%85%90-%20JLPT%20N4.mp3"
+      },
+      "updatedAt": "2026-10-07T15:08:15.024Z"
+    },
+    "jlpt_choukai:jlpt-stories_%2321%20-%20Update.mp3": {
+      "key": "jlpt_choukai:jlpt-stories_%2321%20-%20Update.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N3_jlpt-stories__21_-_Update.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1Lg5CYxyRND4gSpNzAsCQeV1UFHn4DzcQ",
+      "driveUrl": "https://drive.google.com/file/d/1Lg5CYxyRND4gSpNzAsCQeV1UFHn4DzcQ/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Lg5CYxyRND4gSpNzAsCQeV1UFHn4DzcQ",
+      "sizeBytes": 1186143,
+      "metadata": {
+        "collectionId": "jlpt-stories",
+        "collectionName": "JLPT Stories Authentic Listening Audio",
+        "trackName": "#21 - Update.mp3",
+        "level": "N3",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/jlpt-stories/JLPT%20Stories%20Podcast%2F%2321%20-%20Update.mp3"
+      },
+      "updatedAt": "2026-10-07T15:08:24.413Z"
+    },
+    "jlpt_choukai:JapaneseTravelVocabulary_JapaneseUnit1Travel.mp3": {
+      "key": "jlpt_choukai:JapaneseTravelVocabulary_JapaneseUnit1Travel.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N4_JapaneseTravelVocabulary_JapaneseUnit1Travel.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1ibEygRcaFMjkUk113W-YEKYJ0lIJmONV",
+      "driveUrl": "https://drive.google.com/file/d/1ibEygRcaFMjkUk113W-YEKYJ0lIJmONV/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1ibEygRcaFMjkUk113W-YEKYJ0lIJmONV",
+      "sizeBytes": 1667072,
+      "metadata": {
+        "collectionId": "JapaneseTravelVocabulary",
+        "collectionName": "Japanese Travel Conversation Audio Master",
+        "trackName": "JapaneseUnit1Travel.mp3",
+        "level": "N4",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/JapaneseTravelVocabulary/JapaneseUnit1Travel.mp3"
+      },
+      "updatedAt": "2026-10-07T15:10:08.566Z"
+    },
+    "jlpt_choukai:n4q22012_N4Q1%20-%202012.mp3": {
+      "key": "jlpt_choukai:n4q22012_N4Q1%20-%202012.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N4_n4q22012_N4Q1_-_2012.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1OxsXqmUY8ZiEVYsSncAj0pyI3gz4VQ6M",
+      "driveUrl": "https://drive.google.com/file/d/1OxsXqmUY8ZiEVYsSncAj0pyI3gz4VQ6M/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1OxsXqmUY8ZiEVYsSncAj0pyI3gz4VQ6M",
+      "sizeBytes": 3391714,
+      "metadata": {
+        "collectionId": "n4q22012",
+        "collectionName": "JLPT N4 2012 Mock Test Choukai Audio",
+        "trackName": "N4Q1 - 2012.mp3",
+        "level": "N4",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/n4q22012/N4Q1%20-%202012.mp3"
+      },
+      "updatedAt": "2026-10-07T14:48:38.764Z"
+    },
+    "jlpt_choukai:n4q22012_N4Q2%20-%202012.mp3": {
+      "key": "jlpt_choukai:n4q22012_N4Q2%20-%202012.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N4_n4q22012_N4Q2_-_2012.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "198xmi1NRMcIT0NHTRDOuZoV8FHy-cGvR",
+      "driveUrl": "https://drive.google.com/file/d/198xmi1NRMcIT0NHTRDOuZoV8FHy-cGvR/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/198xmi1NRMcIT0NHTRDOuZoV8FHy-cGvR",
+      "sizeBytes": 3909634,
+      "metadata": {
+        "collectionId": "n4q22012",
+        "collectionName": "JLPT N4 2012 Mock Test Choukai Audio",
+        "trackName": "N4Q2 - 2012.mp3",
+        "level": "N4",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/n4q22012/N4Q2%20-%202012.mp3"
+      },
+      "updatedAt": "2026-10-07T14:54:47.871Z"
+    },
+    "jlpt_choukai:n4q22012_N4Q3%20-%202012.mp3": {
+      "key": "jlpt_choukai:n4q22012_N4Q3%20-%202012.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N4_n4q22012_N4Q3_-_2012.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "1WNlVeAfDDSeTZ6FGfmhtiAd22Aanwg2b",
+      "driveUrl": "https://drive.google.com/file/d/1WNlVeAfDDSeTZ6FGfmhtiAd22Aanwg2b/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1WNlVeAfDDSeTZ6FGfmhtiAd22Aanwg2b",
+      "sizeBytes": 1231036,
+      "metadata": {
+        "collectionId": "n4q22012",
+        "collectionName": "JLPT N4 2012 Mock Test Choukai Audio",
+        "trackName": "N4Q3 - 2012.mp3",
+        "level": "N4",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/n4q22012/N4Q3%20-%202012.mp3"
+      },
+      "updatedAt": "2026-10-07T14:55:56.256Z"
+    },
+    "jlpt_choukai:n4q22012_N4Q4%20-%202012.mp3": {
+      "key": "jlpt_choukai:n4q22012_N4Q4%20-%202012.mp3",
+      "category": "jlpt_choukai",
+      "fileName": "jlpt_N4_n4q22012_N4Q4_-_2012.mp3",
+      "mimeType": "audio/mpeg",
+      "fileId": "15E1CAyZtFBBYAhvZrUlqcMohYY07KzJA",
+      "driveUrl": "https://drive.google.com/file/d/15E1CAyZtFBBYAhvZrUlqcMohYY07KzJA/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/15E1CAyZtFBBYAhvZrUlqcMohYY07KzJA",
+      "sizeBytes": 1527514,
+      "metadata": {
+        "collectionId": "n4q22012",
+        "collectionName": "JLPT N4 2012 Mock Test Choukai Audio",
+        "trackName": "N4Q4 - 2012.mp3",
+        "level": "N4",
+        "source": "JLPT Past Examination Master Audio CD Collection",
+        "sourceUrl": "https://archive.org/download/n4q22012/N4Q4%20-%202012.mp3"
+      },
+      "updatedAt": "2026-10-07T14:58:16.600Z"
     }
   }
 }

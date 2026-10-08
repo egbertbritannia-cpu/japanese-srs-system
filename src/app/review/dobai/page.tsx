@@ -1,1673 +1,813 @@
 'use client';
 
-/**
- * Recovery candidate for the Phase 10 Dò Bài / JPD133 experience that was removed
- * from /review during PR #5 build recovery. It is intentionally isolated at
- * /review/dobai until the user decides which parts to keep, redesign, or remove.
- */
-
-import { useState, useEffect, useCallback, Suspense, useRef } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { ToriiIcon, SensuFanIcon } from '@/components/japanese/Icons';
-import { PitchAccentGraph } from '@/components/japanese/PitchAccentGraph';
-import { JapaneseSpeakerButton } from '@/components/japanese/JapaneseSpeakerButton';
-import { japaneseAudio } from '@/components/japanese/AudioEffects';
-import { parseClozeSegments, stripCloze } from '@/lib/cloze';
-import { parseCardDetails } from '@/lib/reading-parser';
-import { DarumaMascot } from '@/components/japanese/DarumaMascot';
-import { JapaneseArtBackdrop } from '@/components/art/JapaneseArtBackdrop';
-import { useFsrsScheduler } from '@/hooks/useFsrsScheduler';
-import { createEmptyCard, Rating, type Card, type RecordLog } from 'ts-fsrs';
-import {
-  cacheCardsLocally,
-  getOfflineCards,
-  recordPendingReview,
-  getUnsyncedReviewCount,
-  syncPendingReviewsToServer,
-} from '@/lib/offline-db';
-import { JapaneseAudioPool } from '@/lib/audio-pool';
-import { KanjiStrokePlayer } from '@/components/showcase/KanjiStrokePlayer';
-import { DoBaiHotkeysBar } from '@/components/dobai/DoBaiHotkeysBar';
-import { DoBaiModeSelector, DoBaiDrillDirection } from '@/components/dobai/DoBaiModeSelector';
-import { DoBaiUnlearnedDrawer, UnlearnedItem } from '@/components/dobai/DoBaiUnlearnedDrawer';
-import { getJPD133Slot, getAllJPD133Slots } from '@/core/curriculum/jpd133-manifest';
-import { buildDbCardIndex, softLinkManifestWithDbCards } from '@/core/curriculum/soft-link-engine';
 
 interface CardItem {
-  id: string;
-  kanji: string;
-  reading?: string;
-  meaning: string;
-  pitch?: string;
-  type: string;
-  deckId: string;
-  deckName?: string;
-  sentence?: string;
-  state?: string;
-  due?: string | number | Date;
-  stability?: number;
-  difficulty?: number;
-  reps?: number;
-  lapses?: number;
+  k: string;
+  r: string;
+  v: string;
+  e: string;
+  ev: string;
+  s: number;
+  t: string;
 }
 
-interface DeckItem {
-  id: string;
-  name: string;
-  description?: string;
-}
+const CARDS: CardItem[] = [
+  { k: "父", r: "ちち", v: "bố (của mình)", e: "父は医者です。", ev: "Bố tôi là bác sĩ.", s: 1, t: "Gia đình" },
+  { k: "母", r: "はは", v: "mẹ (của mình)", e: "母は先生です。", ev: "Mẹ tôi là giáo viên.", s: 1, t: "Gia đình" },
+  { k: "兄", r: "あに", v: "anh trai (của mình)", e: "兄は会社員です。", ev: "Anh trai tôi là nhân viên công ty.", s: 1, t: "Gia đình" },
+  { k: "貸す", r: "かす", v: "cho mượn", e: "友達に本を貸します。", ev: "Tôi cho bạn mượn sách.", s: 3, t: "Cho / Nhận" },
+  { k: "趣味", r: "しゅみ", v: "sở thích", e: "趣味は音楽です。", ev: "Sở thích của tôi là âm nhạc.", s: 4, t: "Sở thích" },
+  { k: "食べる", r: "たべる", v: "ăn", e: "朝ごはんを食べます。", ev: "Tôi ăn sáng.", s: 5, t: "Thể từ điển" },
+  { k: "道", r: "みち", v: "con đường", e: "この道をまっすぐ行きます。", ev: "Đi thẳng con đường này.", s: 10, t: "Chỉ đường" },
+];
 
-function createReviewEventId(): string {
-  return typeof crypto !== 'undefined' && crypto.randomUUID
-    ? crypto.randomUUID()
-    : `rev_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
-}
+const SL: Record<number, string> = { 0: "全", 1: "一", 3: "三", 4: "四", 5: "五", 10: "十" };
 
-/**
- * Loading Skeleton phong cách giấy Washi truyền thống
- */
-function ReviewLoadingSkeleton() {
-  return (
-    <div style={{ maxWidth: '640px', margin: '3rem auto', padding: '0 1.25rem', textAlign: 'center' }}>
-      <div
-        className="card-karuta"
-        style={{
-          padding: '3rem 2rem',
-          background: '#FAF7F2',
-          border: '1.5px solid #E4DAC9',
-          borderRadius: '18px',
-          boxShadow: '0 8px 24px rgba(18, 36, 56, 0.06)',
-        }}
-      >
-        <DarumaMascot progressPercentage={25} size={72} />
-        <h3
-          style={{
-            fontFamily: 'var(--font-mincho)',
-            fontSize: '1.35rem',
-            color: '#122438',
-            marginTop: '1.5rem',
-          }}
-        >
-          Đang chuẩn bị phiên học phản xạ...
-        </h3>
-        <p style={{ color: '#786A5E', fontSize: '0.9rem', marginTop: '0.5rem' }}>
-          Đang tải dữ liệu và tối ưu hóa hàng đợi FSRS v4.5
-        </p>
-      </div>
-    </div>
-  );
-}
-
-/**
- * Nội dung Phiên Ôn tập Karuta & Dò bài Minna
- */
-function ReviewSessionContent() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const targetDeckId = searchParams.get('deck') || 'all';
-  const initialMode = searchParams.get('mode') || 'fsrs_due';
-  const curriculumParam = searchParams.get('curriculum');
-  const slotParam = searchParams.get('slot');
-
-  // Chế độ học: 'dobai' (Dò bài Minna - mặc định theo Phase 10) hoặc 'karuta' (Thẻ bài 3D)
-  const [drillStyle, setDrillStyle] = useState<'dobai' | 'karuta'>(
-    initialMode === 'karuta' ? 'karuta' : 'dobai'
-  );
-
-  // Chiều dò bài trong chế độ Dò bài: Thuận (JA -> VI) hoặc Nghịch (VI -> JA)
-  const [drillDirection, setDrillDirection] = useState<DoBaiDrillDirection>('forward');
-
-  // Hàng đợi chưa thuộc Cột D-E-F (In-Session Retry Queue)
-  const [unlearnedList, setUnlearnedList] = useState<UnlearnedItem[]>([]);
-  const [showUnlearnedDrawerMobile, setShowUnlearnedDrawerMobile] = useState(false);
-  const [filterOnlyUnlearned, setFilterOnlyUnlearned] = useState(false);
-
-  // Độ trễ phản xạ Bjork Latency (ms)
-  const [lastLatencyMs, setLastLatencyMs] = useState<number | null>(null);
-
-  const { calculateNextReview, isReady: isWorkerReady } = useFsrsScheduler();
-  const [fsrsNextStates, setFsrsNextStates] = useState<RecordLog | null>(null);
-  const [isOffline, setIsOffline] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
-  const [unsyncedCount, setUnsyncedCount] = useState(0);
-
-  const cardStartTimeRef = useRef<number>(Date.now());
-  const deckMenuRef = useRef<HTMLDivElement>(null);
-
-  const [loading, setLoading] = useState(true);
-  const [deckList, setDeckList] = useState<DeckItem[]>([]);
-  const [queue, setQueue] = useState<CardItem[]>([]);
-  const [currentIdx, setCurrentIdx] = useState(1);
-  const [showAnswer, setShowAnswer] = useState(false);
-  const [showStrokeOrder, setShowStrokeOrder] = useState(false);
-  const [isCompleted, setIsCompleted] = useState(false);
-  const [cramMode, setCramMode] = useState(initialMode === 'cram_all');
-  const [showDeckMenu, setShowDeckMenu] = useState(false);
-
-  // Thống kê phiên học
-  const [gradesCount, setGradesCount] = useState({
-    Again: 0,
-    Hard: 0,
-    Good: 0,
-    Easy: 0,
+export default function DoBaiStandalonePage() {
+  const [slot, setSlot] = useState<number>(0);
+  const [mode, setMode] = useState<'fw' | 'rv'>('fw');
+  const [st, setSt] = useState<{ q: CardItem[]; done: CardItem[]; debt: string[]; total: number }>({
+    q: [],
+    done: [],
+    debt: [],
+    total: 0,
   });
+  const [rev, setRev] = useState(false);
+  const [tEnd, setTEnd] = useState<number | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [hist, setHist] = useState<string[]>([]);
+  const [stamp, setStamp] = useState<{ ok: boolean } | null>(null);
+  const [timerText, setTimerText] = useState<string>('');
+  const [timerPct, setTimerPct] = useState<number>(100);
 
-  // Lịch sử chấm điểm phục vụ tính năng Hoàn tác FSRS Undo (DEF-UI-KARUTA-003)
-  const [reviewHistory, setReviewHistory] = useState<Array<{
-    cardIdx: number;
-    grade: 'Again' | 'Hard' | 'Good' | 'Easy';
-    unlearnedSnapshot?: UnlearnedItem[];
-  }>>([]);
-  const [undoToast, setUndoToast] = useState<string | null>(null);
+  const t0Ref = useRef<number>(0);
+  const rafRef = useRef<number | null>(null);
 
-  // Tải dữ liệu thẻ từ API /api/cards hoặc JPD133 Manifest
+  const pool = useCallback(() => {
+    return CARDS.filter(c => !slot || c.s === slot);
+  }, [slot]);
+
+  const grade = (s: number) => {
+    return s < 1.5 ? "phản xạ tức thì (Easy)" : s <= 6 ? "nỗ lực vừa đủ (Good)" : "nhớ chậm (Hard)";
+  };
+
+  const start = useCallback(() => {
+    const p = pool();
+    setSt({
+      q: [...p].sort(() => Math.random() - 0.5),
+      done: [],
+      debt: [],
+      total: p.length,
+    });
+    setHist([]);
+    setRev(false);
+    setTEnd(null);
+    setBusy(false);
+    setStamp(null);
+    t0Ref.current = performance.now();
+  }, [pool]);
+
   useEffect(() => {
-    async function loadCards() {
-      try {
-        setLoading(true);
-        const url = targetDeckId && targetDeckId !== 'all' ? `/api/cards?deck=${targetDeckId}&limit=1000` : '/api/cards?limit=1000';
-        let rawCards: CardItem[] = [];
-        let fetchedDecks: DeckItem[] = [];
+    start();
+  }, [start]);
 
-        try {
-          const res = await fetch(url);
-          const data = await res.json();
-
-          if (data.success) {
-            rawCards = data.data || [];
-            fetchedDecks = data.decks || [];
-            setIsOffline(false);
-
-            if (rawCards.length > 0) {
-              cacheCardsLocally(
-                rawCards.map((c) => ({
-                  id: c.id,
-                  front: c.kanji,
-                  reading: c.reading,
-                  meaning: c.meaning,
-                  deckId: c.deckId,
-                  deckName: c.deckName,
-                  type: c.type,
-                  sentence: c.sentence,
-                  pitch: c.pitch,
-                  state: c.state,
-                  due: c.due,
-                  stability: c.stability,
-                  difficulty: c.difficulty,
-                }))
-              );
-            }
-          }
-        } catch (fetchErr) {
-          console.warn('[Review] API không phản hồi hoặc mất mạng, tự động nạp từ IndexedDB ngoại tuyến:', fetchErr);
-          setIsOffline(true);
-          const localCards = await getOfflineCards(targetDeckId);
-          rawCards = localCards.map((c) => ({
-            id: c.id,
-            kanji: c.front,
-            reading: c.reading,
-            meaning: c.meaning,
-            pitch: c.pitch,
-            type: c.type || 'vocab',
-            deckId: c.deckId,
-            deckName: c.deckName,
-            sentence: c.sentence,
-            state: c.state,
-            due: c.due ? new Date(c.due) : undefined,
-            stability: c.stability,
-            difficulty: c.difficulty,
-          }));
-        }
-
-        setDeckList(fetchedDecks);
-
-        let studyCards: CardItem[] = [];
-
-        // HỖ TRỢ ĐẶC BIỆT PHASE 11: NẠP THEO JPD133 CURRICULUM SLOT
-        if (curriculumParam === 'jpd133' && slotParam) {
-          const slotDef = getJPD133Slot(slotParam);
-          if (slotDef) {
-            const dbIndex = buildDbCardIndex(
-              rawCards.map((c) => ({
-                id: c.id,
-                front: c.kanji,
-                reading: c.reading,
-                meaning: c.meaning,
-                due: c.due,
-                stability: c.stability,
-                difficulty: c.difficulty,
-                reps: c.reps,
-                lapses: c.lapses,
-                state: c.state,
-              }))
-            );
-            const softLinked = softLinkManifestWithDbCards(slotDef.vocabularyList, dbIndex);
-            // Only persisted DB cards may enter the FSRS review queue.
-            // Unmatched manifest rows remain visible in the curriculum pages but are
-            // not converted into synthetic review IDs.
-            studyCards = softLinked.filter((item) => Boolean(item.dbCardId)).map((item) => {
-              const dbMatch = rawCards.find((c) => String(c.id) === String(item.dbCardId));
-              return {
-                id: String(item.dbCardId),
-                kanji: item.kanji,
-                reading: item.reading,
-                meaning: item.vietnameseMeaning,
-                pitch: undefined,
-                type: 'vocab',
-                deckId: `jpd133_slot_${slotDef.slotNumber}`,
-                deckName: `JPD133 - Slot ${slotDef.slotNumber}: ${slotDef.titleVn}`,
-                sentence: item.contextSentenceJa ? `${item.contextSentenceJa} (${item.contextSentenceVn})` : undefined,
-                state: dbMatch?.state || 'New',
-                due: dbMatch?.due,
-                stability: dbMatch?.stability,
-                difficulty: dbMatch?.difficulty,
-              };
-            });
-          }
-        }
-
-        if (studyCards.length === 0) {
-          if (cramMode) {
-            studyCards = rawCards;
-          } else {
-            const now = new Date();
-            const dueCards = rawCards.filter((c) => {
-              if (!c.due) return true;
-              return new Date(c.due) <= now;
-            });
-            studyCards = dueCards.length > 0 ? dueCards : rawCards;
-          }
-        }
-
-        setQueue(studyCards);
-        setCurrentIdx(1);
-        setShowAnswer(false);
-        setShowStrokeOrder(false);
-        setIsCompleted(false);
-        setUnlearnedList([]);
-        setLastLatencyMs(null);
-        setGradesCount({ Again: 0, Hard: 0, Good: 0, Easy: 0 });
-
-        const count = await getUnsyncedReviewCount();
-        setUnsyncedCount(count);
-      } catch (err) {
-        console.error('Lỗi khi tải hàng đợi ôn tập:', err);
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadCards();
-  }, [targetDeckId, cramMode, curriculumParam, slotParam]);
-
-  // Đánh dấu component đã mounted
+  // Bộ đếm thời gian phản xạ Bjork
   useEffect(() => {
-    setIsMounted(true);
-    if (typeof window === 'undefined') return;
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    if (!st.q.length) return;
 
-    const handleNetworkChange = async () => {
-      const offline = !navigator.onLine;
-      setIsOffline(offline);
-      if (!offline) {
-        const syncRes = await syncPendingReviewsToServer();
-        if (syncRes.synced > 0) {
-          const count = await getUnsyncedReviewCount();
-          setUnsyncedCount(count);
-        }
-      }
-    };
-
-    setIsOffline(!navigator.onLine);
-    window.addEventListener('online', handleNetworkChange);
-    window.addEventListener('offline', handleNetworkChange);
-
-    return () => {
-      window.removeEventListener('online', handleNetworkChange);
-      window.removeEventListener('offline', handleNetworkChange);
-    };
-  }, []);
-
-  // Đóng dropdown bộ thẻ
-  useEffect(() => {
-    if (!showDeckMenu) return;
-    const handleClickOutside = (e: MouseEvent) => {
-      if (deckMenuRef.current && !deckMenuRef.current.contains(e.target as Node)) {
-        setShowDeckMenu(false);
-      }
-    };
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setShowDeckMenu(false);
-      }
-    };
-    document.addEventListener('pointerdown', handleClickOutside);
-    document.addEventListener('keydown', handleEscape);
-    return () => {
-      document.removeEventListener('pointerdown', handleClickOutside);
-      document.removeEventListener('keydown', handleEscape);
-    };
-  }, [showDeckMenu]);
-
-  // Bắt đầu tính giờ khi đổi thẻ để đo chính xác responseTimeMs (Bjork Latency Dynamics)
-  useEffect(() => {
-    cardStartTimeRef.current = Date.now();
-    setLastLatencyMs(null);
-  }, [currentIdx]);
-
-  const currentCard = queue && queue.length > 0 && currentIdx <= queue.length ? queue[currentIdx - 1] : null;
-  const totalCards = queue ? queue.length : 0;
-
-  const currentSlotDef = slotParam ? getJPD133Slot(slotParam) : undefined;
-  const deckTitle = currentSlotDef
-    ? `JPD133 · Slot ${currentSlotDef.slotNumber}: ${currentSlotDef.titleVn}`
-    : targetDeckId === 'all'
-    ? 'Toàn bộ thẻ học'
-    : deckList.find((d) => d.id === targetDeckId)?.name || 'Bộ thẻ chọn lọc';
-
-  // Tính toán trước trạng thái FSRS qua Web Worker
-  useEffect(() => {
-    if (!currentCard) {
-      setFsrsNextStates(null);
+    if (tEnd !== null) {
+      setTimerPct(Math.max(0, 1 - tEnd / 6) * 100);
+      setTimerText(`Phản xạ ${tEnd.toFixed(1)}s, ${grade(tEnd)}`);
       return;
     }
 
-    const empty = createEmptyCard();
-    const fsrsCard: Card = {
-      ...empty,
-      due: currentCard.due ? new Date(currentCard.due) : empty.due,
-      stability: currentCard.stability ?? empty.stability,
-      difficulty: currentCard.difficulty ?? empty.difficulty,
-      reps: currentCard.reps ?? 0,
-      lapses: currentCard.lapses ?? 0,
-      state: currentCard.state ? (currentCard.state as any) : empty.state,
+    const loop = () => {
+      const s = (performance.now() - t0Ref.current) / 1000;
+      setTimerPct(Math.max(0, 1 - s / 6) * 100);
+      setTimerText(`Đang đo độ trễ: ${s.toFixed(1)}s`);
+      rafRef.current = requestAnimationFrame(loop);
     };
 
-    calculateNextReview(fsrsCard)
-      .then((recordLog) => {
-        setFsrsNextStates(recordLog);
-      })
-      .catch((err) => {
-        console.warn('[Review FSRS Worker Error]', err);
+    loop();
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [tEnd, rev, st.q]);
+
+  const reveal = () => {
+    if (rev || busy || !st.q.length) return;
+    setRev(true);
+    const elapsed = (performance.now() - t0Ref.current) / 1000;
+    setTEnd(elapsed);
+  };
+
+  const speak = () => {
+    const c = st.q[0];
+    if (!c) return;
+    try {
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        const u = new SpeechSynthesisUtterance(c.r);
+        u.lang = "ja-JP";
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(u);
+      }
+    } catch {}
+  };
+
+  const answer = (ok: boolean) => {
+    if (busy || !rev || !st.q.length) return;
+    setBusy(true);
+    setHist(prev => [...prev, JSON.stringify(st)]);
+    setStamp({ ok });
+
+    setTimeout(() => {
+      setStamp(null);
+      setSt(prev => {
+        const nextQ = [...prev.q];
+        const c = nextQ.shift();
+        if (!c) return prev;
+
+        let nextDebt = [...prev.debt];
+        const nextDone = [...prev.done];
+
+        if (ok) {
+          nextDebt = nextDebt.filter(x => x !== c.k);
+          nextDone.push(c);
+        } else {
+          if (!nextDebt.includes(c.k)) nextDebt.push(c.k);
+          nextQ.splice(Math.min(2, nextQ.length), 0, c);
+        }
+
+        return { ...prev, q: nextQ, done: nextDone, debt: nextDebt };
       });
-  }, [currentCard, calculateNextReview]);
 
-  // Phát âm tiếng Nhật của thẻ hiện tại
-  const handlePronounce = useCallback(() => {
-    if (!currentCard) return;
-    const textToSpeak = currentCard.reading || currentCard.kanji;
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(textToSpeak);
-      utterance.lang = 'ja-JP';
-      utterance.rate = 0.95;
-      window.speechSynthesis.speak(utterance);
-    }
-  }, [currentCard]);
+      setRev(false);
+      setTEnd(null);
+      setBusy(false);
+      t0Ref.current = performance.now();
+    }, ok ? 460 : 340);
+  };
 
-  // Hành động Hiện đáp án (Macro ShowAdjacentCellsC trong Dò bài - Minna.xlsm)
-  const handleReveal = useCallback(() => {
-    setShowAnswer(true);
-    const latency = Math.max(100, Date.now() - cardStartTimeRef.current);
-    setLastLatencyMs(latency);
+  const undo = () => {
+    if (busy || !hist.length) return;
+    const prev = JSON.parse(hist[hist.length - 1]);
+    setHist(h => h.slice(0, -1));
+    setSt(prev);
+    setRev(false);
+    setTEnd(null);
+    setBusy(false);
+    t0Ref.current = performance.now();
+  };
 
-    // m thanh xúc giác Washi và phát âm tiếng Nhật
-    japaneseAudio.playWashiPaper();
-    handlePronounce();
-  }, [handlePronounce]);
-
-  // Hành động Chấm điểm FSRS (Gửi ngầm không chặn UI)
-  const handleGrade = useCallback(
-    async (grade: 'Again' | 'Hard' | 'Good' | 'Easy') => {
-      if (!currentCard) return;
-
-      const ratingMap = {
-        Again: Rating.Again,
-        Hard: Rating.Hard,
-        Good: Rating.Good,
-        Easy: Rating.Easy,
-      } as const;
-
-      const ratingEnum = ratingMap[grade];
-      const scheduledDays = fsrsNextStates ? fsrsNextStates[ratingEnum]?.card?.scheduled_days : undefined;
-
-      setGradesCount((prev) => ({
-        ...prev,
-        [grade]: prev[grade] + 1,
-      }));
-
-      // Lưu vào lịch sử hoàn tác
-      setReviewHistory((prev) => [
-        ...prev,
-        { cardIdx: currentIdx, grade, unlearnedSnapshot: [...unlearnedList] },
-      ]);
-
-      const responseTimeMs = lastLatencyMs ?? Math.max(100, Math.round(Date.now() - cardStartTimeRef.current));
-
-      const eventId = createReviewEventId();
-      const reviewedAt = Date.now();
-
-      const submitReview = async () => {
-        try {
-          if (!navigator.onLine) {
-            throw new Error('Offline');
-          }
-          const res = await fetch('/api/review', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              id: eventId,
-              eventId,
-              cardId: currentCard.id,
-              rating: grade,
-              grade,
-              reviewTime: reviewedAt,
-              responseTimeMs,
-              // Preview-only. The canonical ReviewService ignores client scheduling.
-              scheduledDays,
-            }),
-          });
-          if (!res.ok) throw new Error('API review returned non-200');
-        } catch {
-          await recordPendingReview(
-            currentCard.id,
-            grade,
-            scheduledDays,
-            responseTimeMs,
-            eventId,
-            reviewedAt
-          );
-          const count = await getUnsyncedReviewCount();
-          setUnsyncedCount(count);
-        }
-      };
-
-      submitReview();
-
-      setShowAnswer(false);
-      setShowStrokeOrder(false);
-
-      if (currentIdx >= totalCards) {
-        setIsCompleted(true);
-        japaneseAudio.playSuzuBell();
-      } else {
-        setCurrentIdx((prev) => prev + 1);
-      }
-    },
-    [currentCard, currentIdx, totalCards, fsrsNextStates, lastLatencyMs, unlearnedList]
-  );
-
-  // Xử lý nút ĐÃ THUỘC (Learned) trong Dò bài: Tự động tính FSRS Grade từ Bjork Latency
-  const handleMastered = useCallback(() => {
-    if (!currentCard) return;
-    const latency = lastLatencyMs ?? Math.max(100, Date.now() - cardStartTimeRef.current);
-
-    // Chuyển đổi phản xạ sang FSRS Grade:
-    // < 1.5s: Easy (Grade 4)
-    // 1.5s - 6.0s: Good (Grade 3)
-    // > 6.0s: Hard (Grade 2)
-    let autoGrade: 'Again' | 'Hard' | 'Good' | 'Easy' = 'Good';
-    if (latency < 1500) {
-      autoGrade = 'Easy';
-    } else if (latency <= 6000) {
-      autoGrade = 'Good';
-    } else {
-      autoGrade = 'Hard';
-    }
-
-    // Nếu từ này từng bị xếp vào Hàng đợi Chưa thuộc (Cột D-E-F), giờ đã thuộc thì xóa khỏi nợ
-    setUnlearnedList((prev) => prev.filter((u) => u.id !== currentCard.id));
-
-    handleGrade(autoGrade);
-  }, [currentCard, lastLatencyMs, handleGrade]);
-
-  // Xử lý nút CHƯA THUỘC (Unlearned) trong Dò bài: Thêm vào Cột D-E-F & Xen kẽ vào hàng đợi
-  const handleUnlearned = useCallback(() => {
-    if (!currentCard) return;
-
-    // Đưa vào Hàng đợi Cột D-E-F
-    setUnlearnedList((prev) => {
-      if (prev.some((u) => u.id === currentCard.id)) return prev;
-      return [
-        ...prev,
-        {
-          id: currentCard.id,
-          kanji: currentCard.kanji,
-          reading: currentCard.reading,
-          meaning: currentCard.meaning,
-          repeatInTurns: 2,
-        },
-      ];
-    });
-
-    // Thuật toán Xen kẽ (Interleaving): Chèn từ này lại sau 2 lượt nữa
-    setQueue((prevQueue) => {
-      const nextQueue = [...prevQueue];
-      const insertIdx = Math.min(nextQueue.length, currentIdx + 2);
-      nextQueue.splice(insertIdx, 0, currentCard);
-      return nextQueue;
-    });
-
-    japaneseAudio.playHyoshigi();
-    handleGrade('Again');
-  }, [currentCard, currentIdx, handleGrade]);
-
-  // Hành động Hoàn tác kết quả chấm điểm (Undo Grade - DEF-UI-KARUTA-003)
-  const handleUndo = useCallback(() => {
-    if (reviewHistory.length === 0) return;
-    const lastItem = reviewHistory[reviewHistory.length - 1];
-    setReviewHistory((prev) => prev.slice(0, -1));
-    setCurrentIdx(lastItem.cardIdx);
-    setShowAnswer(true);
-    setIsCompleted(false);
-
-    if (lastItem.unlearnedSnapshot) {
-      setUnlearnedList(lastItem.unlearnedSnapshot);
-    }
-
-    setGradesCount((prev) => ({
-      ...prev,
-      [lastItem.grade]: Math.max(0, prev[lastItem.grade] - 1),
-    }));
-
-    japaneseAudio.playWashiPaper();
-    setUndoToast('Đã hoàn tác kết quả đánh giá (Phím Z)');
-    setTimeout(() => setUndoToast(null), 2500);
-  }, [reviewHistory]);
-
-  // Phím tắt thông minh phản xạ cực nhanh (Zero-Friction Hotkeys)
+  // Lắng nghe phím tắt bàn phím
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
-      if (e.isComposing) return; // Bảo vệ chống xung đột bộ gõ IME tiếng Nhật
-
-      // Hoàn tác: Phím Z hoặc Ctrl+Z
-      if ((e.key === 'z' || e.key === 'Z') && !e.shiftKey) {
-        if (reviewHistory.length > 0) {
-          e.preventDefault();
-          handleUndo();
-          return;
-        }
-      }
-
-      // Phát âm: Phím P
-      if (e.key === 'p' || e.key === 'P') {
+    const onKey = (e: KeyboardEvent) => {
+      const k = e.key;
+      if (k === " ") {
         e.preventDefault();
-        handlePronounce();
-        return;
-      }
-
-      // Phím Space: Hiện / Ẩn đáp án
-      if (e.code === 'Space') {
+        reveal();
+      } else if (k === "Enter" || k === "1") {
+        answer(true);
+      } else if (k === "Backspace" || k === "2") {
         e.preventDefault();
-        if (!showAnswer) {
-          handleReveal();
-        } else {
-          setShowAnswer(false);
-        }
-        return;
-      }
-
-      // Khi đã mở đáp án:
-      if (showAnswer) {
-        if (drillStyle === 'dobai') {
-          // CHẾ ĐỘ DÒ BÀI MINNA:
-          // Enter hoặc 1: ĐÃ THUỘC (Mastered)
-          if (e.key === 'Enter' || e.key === '1') {
-            e.preventDefault();
-            handleMastered();
-            return;
-          }
-          // Backspace hoặc 2: CHƯA THUỘC (Unlearned / Retry)
-          if (e.key === 'Backspace' || e.key === '2') {
-            e.preventDefault();
-            handleUnlearned();
-            return;
-          }
-        } else {
-          // CHẾ ĐỘ THẺ BÀI KARUTA: 1-4 chấm điểm FSRS trực tiếp
-          if (e.key === '1') handleGrade('Again');
-          if (e.key === '2') handleGrade('Hard');
-          if (e.key === '3') handleGrade('Good');
-          if (e.key === '4') handleGrade('Easy');
-        }
+        answer(false);
+      } else if (k === "z" || k === "Z") {
+        undo();
+      } else if (k === "p" || k === "P") {
+        speak();
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [
-    showAnswer,
-    drillStyle,
-    handleReveal,
-    handleMastered,
-    handleUnlearned,
-    handleGrade,
-    reviewHistory,
-    handleUndo,
-    handlePronounce,
-  ]);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  });
 
-  const progressPercent = totalCards > 0 ? Math.round((currentIdx / totalCards) * 100) : 0;
-
-  if (loading) {
-    return <ReviewLoadingSkeleton />;
-  }
-
-  // 1. TRƯỜNG HỢP DECK RỖNG HOÀN TOÀN
-  if (!queue || queue.length === 0) {
-    return (
-      <div style={{ maxWidth: '640px', margin: '3rem auto', padding: '0 1.25rem', textAlign: 'center' }}>
-        <div
-          className="card-karuta"
-          style={{
-            padding: '3rem 2rem',
-            background: '#FAF7F2',
-            border: '1.5px solid #E4DAC9',
-            borderRadius: '18px',
-            boxShadow: '0 8px 24px rgba(18, 36, 56, 0.06)',
-          }}
-        >
-          <DarumaMascot progressPercentage={0} size={84} />
-          <h2
-            style={{
-              fontFamily: 'var(--font-mincho)',
-              fontSize: '1.6rem',
-              fontWeight: 800,
-              color: '#122438',
-              marginTop: '1.5rem',
-              marginBottom: '0.5rem',
-            }}
-          >
-            Chưa có thẻ cần ôn tập
-          </h2>
-          <p style={{ color: '#786A5E', fontSize: '0.95rem', marginBottom: '2rem' }}>
-            Hàng đợi <strong>{deckTitle}</strong> hiện tại không có thẻ học nào đến hạn.
-          </p>
-
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-            <Link href="/curriculum/jpd133" className="btn-torii">
-              Giáo trình JPD133
-            </Link>
-            <Link href="/cards" className="btn-washi">
-              Thư viện thẻ
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // 2. MÀN HÌNH HOÀN THÀNH PHIÊN ÔN TẬP
-  if (isCompleted) {
-    const totalAnswered = gradesCount.Again + gradesCount.Hard + gradesCount.Good + gradesCount.Easy;
-    const masteryPercent =
-      totalAnswered > 0 ? Math.round(((gradesCount.Good + gradesCount.Easy) / totalAnswered) * 100) : 100;
-
-    return (
-      <div style={{ maxWidth: '680px', margin: '3rem auto', padding: '0 1.25rem', textAlign: 'center' }}>
-        <div
-          style={{
-            position: 'relative',
-            overflow: 'hidden',
-            padding: '3.5rem 2.25rem',
-            background: '#FAF7F0',
-            border: '2px solid #C89B58',
-            borderRadius: '24px',
-            boxShadow: '0 16px 36px rgba(18, 36, 56, 0.12)',
-          }}
-        >
-          <JapaneseArtBackdrop
-            src="/assets/art/rinpa-gold-waves-clouds.jpg"
-            alt="Mây và sóng vàng Rinpa khải hoàn"
-            opacity={0.16}
-            blendMode="multiply"
-            objectPosition="center"
-          />
-
-          <div style={{ position: 'relative', zIndex: 1 }}>
-            <div style={{ display: 'inline-flex', marginBottom: '0.75rem' }}>
-              <span
-                style={{
-                  padding: '0.35rem 1.1rem',
-                  background: '#C83824',
-                  color: '#FFFFFF',
-                  borderRadius: '999px',
-                  fontFamily: 'var(--font-mincho)',
-                  fontWeight: 800,
-                  fontSize: '0.85rem',
-                  letterSpacing: '0.08em',
-                  boxShadow: '0 4px 12px rgba(200, 56, 36, 0.3)',
-                }}
-              >
-                満願成就 · HOÀN THÀNH PHIÊN DÒ BÀI
-              </span>
-            </div>
-
-            <DarumaMascot progressPercentage={100} size={100} />
-
-            <h2
-              style={{
-                fontFamily: 'var(--font-mincho)',
-                fontSize: '2.2rem',
-                fontWeight: 800,
-                color: '#122438',
-                marginTop: '1.25rem',
-                marginBottom: '0.4rem',
-              }}
-            >
-              お疲れ様でした！
-            </h2>
-            <p style={{ fontFamily: 'var(--font-maru)', fontSize: '1.1rem', color: '#386641', fontWeight: 700 }}>
-              Bạn đã hoàn thành xuất sắc {totalCards} lượt dò của {deckTitle}!
-            </p>
-
-            {/* Bảng tổng kết đánh giá */}
-            <div
-              style={{
-                margin: '1.75rem auto',
-                padding: '1.1rem',
-                background: 'rgba(255, 255, 255, 0.94)',
-                borderRadius: '16px',
-                border: '1.2px solid #E6DDCF',
-                display: 'grid',
-                gridTemplateColumns: 'repeat(4, 1fr)',
-                gap: '0.5rem',
-              }}
-            >
-              <div>
-                <span style={{ fontSize: '0.78rem', color: '#9E3324', fontWeight: 700, fontFamily: 'var(--font-mincho)' }}>再 Again</span>
-                <p style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.4rem', fontWeight: 800, margin: '0.2rem 0 0' }}>{gradesCount.Again}</p>
-              </div>
-              <div>
-                <span style={{ fontSize: '0.78rem', color: '#B87B28', fontWeight: 700, fontFamily: 'var(--font-mincho)' }}>難 Hard</span>
-                <p style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.4rem', fontWeight: 800, margin: '0.2rem 0 0' }}>{gradesCount.Hard}</p>
-              </div>
-              <div>
-                <span style={{ fontSize: '0.78rem', color: '#3E734E', fontWeight: 700, fontFamily: 'var(--font-mincho)' }}>良 Good</span>
-                <p style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.4rem', fontWeight: 800, margin: '0.2rem 0 0' }}>{gradesCount.Good}</p>
-              </div>
-              <div>
-                <span style={{ fontSize: '0.78rem', color: '#234B73', fontWeight: 700, fontFamily: 'var(--font-mincho)' }}>易 Easy</span>
-                <p style={{ fontFamily: 'var(--font-mincho)', fontSize: '1.4rem', fontWeight: 800, margin: '0.2rem 0 0' }}>{gradesCount.Easy}</p>
-              </div>
-            </div>
-
-            <p style={{ color: '#786A5E', fontSize: '0.88rem', marginBottom: '2rem' }}>
-              Tỉ lệ nhớ chính xác: <strong>{masteryPercent}%</strong> · Hàng đợi Cột D-E-F đã được hoàn tất trọn vẹn.
-            </p>
-
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '0.85rem', flexWrap: 'wrap' }}>
-              {curriculumParam === 'jpd133' && (
-                <Link href={`/curriculum/jpd133/${slotParam || '1'}`} className="btn-torii">
-                  Quay lại Slot {slotParam || '1'}
-                </Link>
-              )}
-              <button
-                onClick={() => {
-                  setCurrentIdx(1);
-                  setIsCompleted(false);
-                  setShowAnswer(false);
-                  setShowStrokeOrder(false);
-                  setUnlearnedList([]);
-                  setGradesCount({ Again: 0, Hard: 0, Good: 0, Easy: 0 });
-                }}
-                className="btn-washi"
-              >
-                Dò lại từ đầu
-              </button>
-              <Link href="/curriculum/jpd133" className="btn-washi">
-                Tất cả Slot JPD133
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  const isGrammar = currentCard
-    ? currentCard.type === 'GrammarPattern' ||
-      currentCard.deckId === 'grammar_jpd133' ||
-      Boolean(
-        currentCard.deckName &&
-          (currentCard.deckName.toLowerCase().includes('ngữ pháp') ||
-            currentCard.deckName.toLowerCase().includes('bunbou'))
-      ) ||
-      Boolean(
-        currentCard.kanji &&
-          (currentCard.kanji.startsWith('【文法') ||
-            currentCard.kanji.includes('Pattern') ||
-            currentCard.kanji.includes('{{c'))
-      )
-    : false;
-
-  const isKanji = currentCard && !isGrammar
-    ? currentCard.type === 'Kanji' ||
-      Boolean(currentCard.deckName && currentCard.deckName.includes('Hán Tự')) ||
-      currentCard.deckId === 'deck_jpd133_kanji' ||
-      /^[\u4e00-\u9faf]$/.test(currentCard.kanji.trim())
-    : false;
-
-  const allJpdSlots = getAllJPD133Slots();
+  const c = st.q[0];
+  const n = st.done.length;
+  const p = st.total ? n / st.total : 0;
+  const fw = mode === "fw";
 
   return (
-    <main
-      style={{
-        position: 'relative',
-        minHeight: '100vh',
-        padding: '1.5rem 1rem 5rem',
-      }}
-    >
-      {/* HÌNH NỀN TRANH CẮT GIẤY KIRIE SÓNG BIỂN TẦNG 3D TOÀN TRANG (BẢO TOÀN INVARIANT 3 & TESTS) */}
-      <JapaneseArtBackdrop
-        src="/assets/art/kirie-layered-waves.jpg"
-        alt="Nghệ thuật Kirie sóng biển Nhật Bản"
-        opacity={0.065}
-        blendMode="multiply"
-      />
+    <div className="dobai-standalone-wrap">
+      <style jsx global>{`
+        .dobai-standalone-wrap {
+          min-height: 100vh;
+          color: var(--ink);
+          font-family: var(--font-maru), sans-serif;
+          background-color: var(--ai, #16263A);
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='20'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.06'%3E%3Ccircle cx='20' cy='20' r='18'/%3E%3Ccircle cx='20' cy='20' r='12'/%3E%3Ccircle cx='20' cy='20' r='6'/%3E%3Ccircle cx='0' cy='10' r='18'/%3E%3Ccircle cx='0' cy='10' r='12'/%3E%3Ccircle cx='0' cy='10' r='6'/%3E%3Ccircle cx='40' cy='10' r='18'/%3E%3Ccircle cx='40' cy='10' r='12'/%3E%3Ccircle cx='40' cy='10' r='6'/%3E%3C/g%3E%3C/svg%3E");
+          padding-top: calc(74px + env(safe-area-inset-top, 0px));
+          padding-bottom: 40px;
+        }
+        .dobai-standalone-wrap .wrap {
+          max-width: 1100px;
+          margin: 0 auto;
+          padding: 18px 18px 40px;
+        }
+        .dobai-standalone-wrap .top {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px 20px;
+          align-items: center;
+          justify-content: space-between;
+          color: #EDE5D2;
+        }
+        .dobai-standalone-wrap .brand {
+          font: 400 1.7rem var(--brush), var(--font-mincho), serif;
+          letter-spacing: .12em;
+        }
+        .dobai-standalone-wrap .brand small {
+          font: 400 .8rem var(--font-maru), sans-serif;
+          letter-spacing: 0;
+          opacity: .7;
+          margin-left: 8px;
+        }
+        .dobai-standalone-wrap .slots, .dobai-standalone-wrap .mode {
+          display: flex;
+          gap: 8px;
+        }
+        .dobai-standalone-wrap .slots {
+          overflow-x: auto;
+          padding: 2px;
+        }
+        .dobai-standalone-wrap .top button {
+          flex: none;
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          border: 1.5px solid rgba(237, 229, 210, .35);
+          background: none;
+          color: #EDE5D2;
+          font: 400 1.35rem var(--brush), var(--font-mincho), serif;
+          cursor: pointer;
+        }
+        .dobai-standalone-wrap .top button[aria-pressed=true] {
+          background: var(--shu);
+          border-color: var(--shu);
+          color: #fff;
+        }
+        .dobai-standalone-wrap .board {
+          display: grid;
+          grid-template-columns: minmax(0, 72fr) minmax(0, 28fr);
+          gap: 22px;
+          margin-top: 22px;
+        }
+        @media (max-width: 980px) {
+          .dobai-standalone-wrap .board { grid-template-columns: 1fr; }
+        }
+        .dobai-standalone-wrap .scroll {
+          position: relative;
+          background: var(--paper);
+          background-image: repeating-linear-gradient(90deg, transparent 0 3px, rgba(120, 90, 50, .035) 3px 4px);
+          padding: 42px 28px 34px;
+          box-shadow: 0 18px 40px rgba(0, 0, 0, .35);
+        }
+        .dobai-standalone-wrap .roll {
+          position: absolute;
+          left: -10px;
+          right: -10px;
+          height: 18px;
+          border-radius: 9px;
+          background: linear-gradient(#7A5632, #4C331B 55%, #6A4A28);
+          box-shadow: 0 3px 6px rgba(0, 0, 0, .35);
+        }
+        .dobai-standalone-wrap .roll.t { top: -9px; }
+        .dobai-standalone-wrap .roll.b { bottom: -9px; }
+        .dobai-standalone-wrap .meta {
+          display: flex;
+          justify-content: space-between;
+          gap: 10px;
+          color: var(--sub);
+          font-size: .85rem;
+          margin-bottom: 6px;
+        }
+        .dobai-standalone-wrap .stage {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 22px;
+          min-height: 340px;
+        }
+        @media (max-width: 640px) {
+          .dobai-standalone-wrap .stage { grid-template-columns: 1fr; }
+          .dobai-standalone-wrap .front { order: -1; }
+          .dobai-standalone-wrap .scroll { padding: 36px 16px 28px; }
+        }
+        .dobai-standalone-wrap .front {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 300px;
+        }
+        .dobai-standalone-wrap .enso {
+          position: absolute;
+          width: min(300px, 90%);
+          aspect-ratio: 1;
+          transform: rotate(-100deg);
+        }
+        .dobai-standalone-wrap .enso circle {
+          fill: none;
+          stroke-linecap: round;
+        }
+        .dobai-standalone-wrap .enso .tr {
+          stroke: var(--line);
+          stroke-width: 3;
+          opacity: .6;
+        }
+        .dobai-standalone-wrap .enso .pg {
+          stroke: var(--ink);
+          stroke-width: 7;
+          stroke-dasharray: 289;
+          transition: stroke-dashoffset .6s;
+        }
+        .dobai-standalone-wrap .kanji {
+          writing-mode: vertical-rl;
+          font: 700 4.4rem/1.15 var(--font-mincho), serif;
+          position: relative;
+        }
+        .dobai-standalone-wrap .kanji rt {
+          font: 500 1.05rem var(--font-maru), sans-serif;
+          color: var(--sub);
+        }
+        .dobai-standalone-wrap .prompt {
+          position: relative;
+          text-align: center;
+          font: 700 1.9rem/1.35 var(--font-maru), sans-serif;
+          padding: 0 10px;
+        }
+        .dobai-standalone-wrap .prompt small {
+          display: block;
+          font: 400 .85rem var(--font-maru), sans-serif;
+          color: var(--sub);
+          margin-top: 8px;
+        }
+        .dobai-standalone-wrap .spk {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          border: 1.5px solid var(--line);
+          background: var(--paper);
+          color: var(--ink);
+          border-radius: 20px;
+          padding: 5px 14px;
+          font: 500 .8rem var(--font-maru), sans-serif;
+          cursor: pointer;
+        }
+        .dobai-standalone-wrap .ans {
+          position: relative;
+          overflow: hidden;
+          border: 1.5px solid var(--line);
+          background: var(--paper2);
+          padding: 22px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 8px;
+          min-height: 300px;
+        }
+        .dobai-standalone-wrap .ans b { font: 700 1.3rem var(--font-maru), sans-serif; }
+        .dobai-standalone-wrap .ans .jp { font: 500 1.1rem/1.6 var(--font-mincho), serif; }
+        .dobai-standalone-wrap .ans p { margin: 0; color: var(--sub); font-size: .92rem; }
+        .dobai-standalone-wrap .ans .big { font: 700 2.6rem var(--font-mincho), serif; text-align: center; }
+        .dobai-standalone-wrap .ans .kn { text-align: center; font-size: 1.2rem; color: var(--sub); }
+        .dobai-standalone-wrap .shoji {
+          position: absolute;
+          inset: 0;
+          background-color: var(--paper);
+          background-image: linear-gradient(var(--wood) 2px, transparent 2px), linear-gradient(90deg, var(--wood) 2px, transparent 2px);
+          background-size: 100% 25%, 33.34% 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: transform .55s cubic-bezier(.7, 0, .2, 1);
+        }
+        .dobai-standalone-wrap .shoji span {
+          background: var(--paper);
+          border: 1px solid var(--line);
+          padding: 10px 14px;
+          margin: 0 22px;
+          font-size: .88rem;
+          text-align: center;
+          color: var(--sub);
+        }
+        .dobai-standalone-wrap .ans.open .shoji { transform: translateX(-101%); }
+        .dobai-standalone-wrap .inc {
+          height: 4px;
+          border-radius: 4px;
+          background: var(--line);
+          overflow: hidden;
+          margin-top: 18px;
+        }
+        .dobai-standalone-wrap .inc i {
+          display: block;
+          height: 100%;
+          background: var(--shu);
+          transition: width .1s linear;
+        }
+        .dobai-standalone-wrap .tm {
+          min-height: 1.5em;
+          margin-top: 6px;
+          font-size: .88rem;
+          color: var(--sub);
+        }
+        .dobai-standalone-wrap .tm b { color: var(--ink); }
+        .dobai-standalone-wrap .rv {
+          width: 100%;
+          margin-top: 6px;
+          padding: 14px;
+          border: 1.5px solid var(--ink);
+          background: none;
+          color: var(--ink);
+          font: 700 1rem var(--font-maru), sans-serif;
+          cursor: pointer;
+        }
+        .dobai-standalone-wrap .rv:hover {
+          background: var(--ink);
+          color: var(--paper);
+        }
+        .dobai-standalone-wrap .acts {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+          margin-top: 12px;
+        }
+        .dobai-standalone-wrap .acts button {
+          min-height: 64px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+          cursor: pointer;
+          font: 700 1rem var(--font-maru), sans-serif;
+          text-align: left;
+          line-height: 1.25;
+        }
+        .dobai-standalone-wrap .acts i {
+          font: 400 2rem var(--brush), var(--font-mincho), serif;
+          font-style: normal;
+        }
+        .dobai-standalone-wrap .acts small {
+          display: block;
+          font: 400 .72rem var(--font-maru), sans-serif;
+          opacity: .8;
+        }
+        .dobai-standalone-wrap .no {
+          background: none;
+          border: 1.5px solid var(--ink);
+          color: var(--ink);
+        }
+        .dobai-standalone-wrap .ok {
+          background: var(--shu);
+          border: 1.5px solid var(--shu);
+          color: #fff;
+          border-radius: 3px;
+          box-shadow: inset 0 0 0 3px var(--shu), inset 0 0 0 4px rgba(255, 255, 255, .55);
+        }
+        .dobai-standalone-wrap .acts button:disabled {
+          opacity: .3;
+          cursor: not-allowed;
+        }
+        .dobai-standalone-wrap .un {
+          display: block;
+          margin: 12px auto 0;
+          border: 0;
+          background: none;
+          color: var(--sub);
+          font: 500 .85rem var(--font-maru), sans-serif;
+          text-decoration: underline;
+          cursor: pointer;
+        }
+        .dobai-standalone-wrap .keys {
+          margin-top: 10px;
+          text-align: center;
+          color: var(--sub);
+          font-size: .78rem;
+        }
+        .dobai-standalone-wrap kbd {
+          border: 1px solid var(--line);
+          border-bottom-width: 2px;
+          border-radius: 4px;
+          padding: 0 5px;
+          font: inherit;
+        }
+        .dobai-standalone-wrap .stamp {
+          position: absolute;
+          right: 14%;
+          top: 26%;
+          z-index: 5;
+          width: 150px;
+          height: 150px;
+          border: 7px solid var(--shu);
+          color: var(--shu);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font: 400 6rem var(--brush), var(--font-mincho), serif;
+          mix-blend-mode: multiply;
+          animation: db_page_st .42s cubic-bezier(.2, 1.6, .4, 1) both;
+          pointer-events: none;
+        }
+        .dobai-standalone-wrap .stamp.no {
+          color: var(--sub);
+          border-color: var(--sub);
+          border-radius: 50%;
+          background: none;
+        }
+        @keyframes db_page_st {
+          from { transform: scale(2.3) rotate(0); opacity: 0; }
+          to { transform: scale(1) rotate(-8deg); opacity: .92; }
+        }
+        .dobai-standalone-wrap .rail h2 {
+          margin: 0 0 4px;
+          color: #EDE5D2;
+          font: 400 1.4rem var(--brush), var(--font-mincho), serif;
+          letter-spacing: .1em;
+        }
+        .dobai-standalone-wrap .rail .sm {
+          color: #EDE5D2;
+          opacity: .65;
+          font-size: .8rem;
+        }
+        .dobai-standalone-wrap .bar {
+          height: 14px;
+          border-radius: 7px;
+          margin-top: 14px;
+          background: linear-gradient(#93A25F, #56672F);
+          box-shadow: 0 3px 6px rgba(0, 0, 0, .35);
+        }
+        .dobai-standalone-wrap .strips {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px 12px;
+          padding: 0 6px;
+        }
+        .dobai-standalone-wrap .tan {
+          position: relative;
+          margin-top: 28px;
+          width: 62px;
+          min-height: 156px;
+          background: #FBF6EA;
+          border: 1px solid #D8CDB0;
+          border-top: 7px solid var(--ai, #16263A);
+          padding: 10px 4px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-between;
+          gap: 8px;
+          color: #17140F;
+          animation: db_page_sw .8s ease-out both;
+          transform-origin: 50% -28px;
+        }
+        .dobai-standalone-wrap .tan::before {
+          content: "";
+          position: absolute;
+          left: 50%;
+          top: -29px;
+          height: 22px;
+          border-left: 1.5px solid #8a7447;
+        }
+        .dobai-standalone-wrap .tan .t {
+          writing-mode: vertical-rl;
+          font: 700 1.25rem/1.2 var(--font-mincho), serif;
+        }
+        .dobai-standalone-wrap .tan .n {
+          font-size: .68rem;
+          color: var(--shu);
+          text-align: center;
+          line-height: 1.2;
+        }
+        .dobai-standalone-wrap .tan .v {
+          font-size: .68rem;
+          color: #6E6454;
+          text-align: center;
+          line-height: 1.2;
+        }
+        @keyframes db_page_sw {
+          0% { transform: rotate(-14deg); }
+          50% { transform: rotate(7deg); }
+          100% { transform: rotate(0); }
+        }
+        .dobai-standalone-wrap .emp {
+          color: #EDE5D2;
+          opacity: .6;
+          font-size: .85rem;
+          padding: 24px 4px 0;
+        }
+        .dobai-standalone-wrap .done {
+          text-align: center;
+          padding: 50px 10px;
+          color: var(--ink);
+        }
+        .dobai-standalone-wrap .done .e {
+          font: 400 6rem var(--brush), var(--font-mincho), serif;
+          color: var(--shu);
+        }
+        .dobai-standalone-wrap .done h2 {
+          font: 700 1.5rem var(--font-mincho), serif;
+          margin: 6px 0;
+        }
+        .dobai-standalone-wrap .done button {
+          margin-top: 14px;
+          padding: 12px 24px;
+          border: 1.5px solid var(--ink);
+          background: none;
+          color: var(--ink);
+          font: 700 1rem var(--font-maru), sans-serif;
+          cursor: pointer;
+        }
+      `}</style>
 
-      <div style={{ maxWidth: '1100px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
-        {/* THANH ĐIỀU HƯỚNG TRÊN CÙNG & CHUYỂN CHẾ ĐỘ (DO BAI VS KARUTA) */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: '1rem',
-            flexWrap: 'wrap',
-            gap: '0.75rem',
-          }}
-        >
-          {/* Nút quay lại & Trạng thái Offline / Đồng bộ */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <Link
-              href={curriculumParam === 'jpd133' ? `/curriculum/jpd133/${slotParam || ''}` : '/'}
-              style={{
-                color: '#786A5E',
-                textDecoration: 'none',
-                fontSize: '0.88rem',
-                fontFamily: 'var(--font-maru)',
-                fontWeight: 600,
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.35rem',
-              }}
-            >
-              ← {curriculumParam === 'jpd133' ? `Slot ${slotParam || '1'}` : 'Trang chủ'}
-            </Link>
-
-            {isMounted && isOffline && (
-              <span
-                style={{
-                  fontSize: '0.72rem',
-                  fontFamily: 'var(--font-maru)',
-                  fontWeight: 700,
-                  backgroundColor: '#FFF2F0',
-                  color: '#C83824',
-                  border: '1px solid #F5C6CB',
-                  borderRadius: '6px',
-                  padding: '0.15rem 0.45rem',
-                }}
-              >
-                ⚡ Ngoại tuyến
-              </span>
-            )}
-
-            {isMounted && unsyncedCount > 0 && (
-              <span
-                style={{
-                  fontSize: '0.72rem',
-                  fontFamily: 'var(--font-maru)',
-                  fontWeight: 700,
-                  backgroundColor: '#FFF9E6',
-                  color: '#B87B28',
-                  border: '1px solid #FFEAA7',
-                  borderRadius: '6px',
-                  padding: '0.15rem 0.45rem',
-                }}
-              >
-                🔄 Chờ đồng bộ: {unsyncedCount}
-              </span>
-            )}
+      <div className="wrap">
+        <div className="top">
+          <div className="brand">
+            復習<small>Dò bài · JPD133</small>
           </div>
-
-          {/* CÔNG TẮC CHUYỂN ĐỔI CHẾ ĐỘ: DÒ BÀI MINNA VS THẺ BÀI KARUTA (USER DIRECTIVE) */}
-          <div
-            style={{
-              display: 'flex',
-              background: '#F0ECE1',
-              padding: '0.25rem',
-              borderRadius: '10px',
-              border: '1px solid #DFD9CB',
-            }}
-          >
+          <div className="slots" aria-label="Lọc theo Slot">
+            {Object.keys(SL).map(k => (
+              <button
+                key={k}
+                aria-pressed={Number(k) === slot}
+                title={Number(k) ? `Slot ${k}` : "Tất cả Slot"}
+                onClick={() => setSlot(Number(k))}
+              >
+                {SL[Number(k)]}
+              </button>
+            ))}
+          </div>
+          <div className="mode">
             <button
-              type="button"
-              onClick={() => setDrillStyle('dobai')}
-              style={{
-                padding: '0.35rem 0.85rem',
-                borderRadius: '8px',
-                border: 'none',
-                background: drillStyle === 'dobai' ? '#16253B' : 'transparent',
-                color: drillStyle === 'dobai' ? '#FFFFFF' : '#786A5E',
-                fontFamily: 'var(--font-maru)',
-                fontWeight: 700,
-                fontSize: '0.82rem',
-                cursor: 'pointer',
-                transition: 'all 0.15s ease',
-              }}
+              title="Dò thuận: Nhật → Việt"
+              aria-pressed={fw}
+              onClick={() => setMode('fw')}
             >
-              🎋 Bàn Dò Bài Minna
+              順
             </button>
             <button
-              type="button"
-              onClick={() => setDrillStyle('karuta')}
-              style={{
-                padding: '0.35rem 0.85rem',
-                borderRadius: '8px',
-                border: 'none',
-                background: drillStyle === 'karuta' ? '#9E3223' : 'transparent',
-                color: drillStyle === 'karuta' ? '#FFFFFF' : '#786A5E',
-                fontFamily: 'var(--font-maru)',
-                fontWeight: 700,
-                fontSize: '0.82rem',
-                cursor: 'pointer',
-                transition: 'all 0.15s ease',
-              }}
+              title="Dò nghịch: Việt → Nhật"
+              aria-pressed={!fw}
+              onClick={() => setMode('rv')}
             >
-              🎴 Thẻ Bài Karuta (3D)
+              逆
             </button>
           </div>
         </div>
 
-        {/* DẢI CHỌN SLOT JPD133 NHANH (NẾU ĐANG TRONG KHUNG JPD133) */}
-        {curriculumParam === 'jpd133' && (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.4rem',
-              overflowX: 'auto',
-              paddingBottom: '0.5rem',
-              marginBottom: '1rem',
-              WebkitOverflowScrolling: 'touch',
-            }}
-          >
-            <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mincho)', fontWeight: 800, color: '#8C6B3E', whiteSpace: 'nowrap' }}>
-              CHỌN SLOT:
-            </span>
-            {allJpdSlots.map((s) => {
-              const isSelected = String(s.slotNumber) === String(slotParam);
-              return (
-                <button
-                  key={String(s.slotId)}
-                  type="button"
-                  onClick={() => router.push(`/review/dobai?curriculum=jpd133&slot=${s.slotNumber}&mode=${drillStyle}`)}
-                  style={{
-                    padding: '0.25rem 0.65rem',
-                    borderRadius: '6px',
-                    fontSize: '0.78rem',
-                    fontFamily: 'var(--font-maru)',
-                    fontWeight: isSelected ? 700 : 500,
-                    whiteSpace: 'nowrap',
-                    background: isSelected ? '#16253B' : '#FFFFFF',
-                    color: isSelected ? '#FFFFFF' : '#4A5568',
-                    border: isSelected ? '1px solid #16253B' : '1px solid #D8CFC0',
-                    cursor: 'pointer',
-                  }}
-                >
-                  Slot {s.slotNumber}
-                </button>
-              );
-            })}
-          </div>
-        )}
+        <div className="board">
+          <main className="scroll">
+            <div className="roll t" />
+            <div className="roll b" />
 
-        {/* TIẾN ĐỘ VÀ SỐ CÂU HỎI */}
-        <div style={{ marginBottom: '1.25rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
-            <span style={{ fontSize: '0.82rem', color: '#786A5E', fontFamily: 'var(--font-maru)' }}>
-              {drillStyle === 'dobai' ? 'Bàn dò bài phản xạ:' : 'Hàng đợi ôn tập:'} <strong>{deckTitle}</strong>
-            </span>
-            <span style={{ fontFamily: 'var(--font-mincho)', fontWeight: 700, fontSize: '0.92rem', color: '#122438' }}>
-              第 {currentIdx} 問 / 全 {totalCards} 問
-            </span>
-          </div>
+            {stamp && (
+              <div className={`stamp ${stamp.ok ? '' : 'no'}`}>
+                {stamp.ok ? '覚' : '未'}
+              </div>
+            )}
 
-          <div style={{ height: '6px', background: '#E7E0D2', borderRadius: '999px', overflow: 'hidden' }}>
-            <div
-              style={{
-                height: '100%',
-                width: `${progressPercent}%`,
-                background: 'linear-gradient(90deg, #AF7E36 0%, #16253B 100%)',
-                borderRadius: '999px',
-                transition: 'width 0.4s ease',
-              }}
-            />
-          </div>
-        </div>
+            {!c ? (
+              <div className="done">
+                <div className="e">完</div>
+                <h2>Hoàn thành phiên dò bài</h2>
+                <p style={{ color: "var(--sub)", margin: 0 }}>
+                  Bạn đã thuộc {st.total} từ.
+                </p>
+                <button onClick={start}>Dò lại từ đầu</button>
+              </div>
+            ) : (
+              <>
+                <div className="meta">
+                  <span>Slot {c.s} · {c.t}</span>
+                  <span>{n + 1} / {st.total}</span>
+                </div>
 
-        {/* THÔNG BÁO HOÀN TÁC TOAST */}
-        {undoToast && (
-          <div
-            style={{
-              padding: '0.5rem 1rem',
-              marginBottom: '1rem',
-              borderRadius: '8px',
-              background: '#FBF5E8',
-              border: '1px solid #E5CCA0',
-              color: '#AF7E36',
-              fontFamily: 'var(--font-maru)',
-              fontWeight: 700,
-              fontSize: '0.85rem',
-              textAlign: 'center',
-            }}
-          >
-            {undoToast}
-          </div>
-        )}
-
-        {/* NỘI DUNG CHÍNH THEO CHẾ ĐỘ: DÒ BÀI MINNA HOẶC THẺ BÀI KARUTA */}
-        {drillStyle === 'dobai' ? (
-          /* =========================================================================
-             A. GIAO DIỆN BÀN DÒ BÀI MINNA RAPID REFLEX DRILL STUDIO (PHASE 10)
-             Bố cục Bento 2 cột: 72% Main Drill View / 28% Retry Queue (Cột D-E-F)
-             ========================================================================= */
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: unlearnedList.length > 0 ? '1fr 300px' : '1fr',
-              gap: '1.5rem',
-              alignItems: 'start',
-            }}
-          >
-            {/* CỘT CHÍNH: KHUNG DÒ BÀI (MAIN DRILL VIEW) */}
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              {/* Thanh chọn chiều dò bài: Thuận (JA->VI) / Nghịch (VI->JA) */}
-              <DoBaiModeSelector
-                direction={drillDirection}
-                onDirectionChange={setDrillDirection}
-                unlearnedCount={unlearnedList.length}
-                filterOnlyUnlearned={filterOnlyUnlearned}
-                onToggleFilterOnlyUnlearned={() => setFilterOnlyUnlearned(!filterOnlyUnlearned)}
-              />
-
-              {currentCard && (
-                <div
-                  style={{
-                    background: '#FFFFFF',
-                    border: '1.8px solid #E4DAC9',
-                    borderRadius: '20px',
-                    padding: '2.5rem 2rem',
-                    boxShadow: '0 8px 30px rgba(22, 37, 59, 0.06)',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    textAlign: 'center',
-                  }}
-                >
-                  {/* Tag trên đầu: Deck / Slot */}
-                  <div
-                    style={{
-                      position: 'absolute',
-                      top: '1.25rem',
-                      left: '1.5rem',
-                      fontSize: '0.75rem',
-                      color: '#8C6B3E',
-                      fontFamily: 'var(--font-mincho)',
-                      fontWeight: 800,
-                    }}
-                  >
-                    {currentCard.deckName || 'TỪ VỰNG TIẾNG NHẬT'}
-                  </div>
-
-                  {/* Nút phát âm loa góc trên phải */}
-                  <div style={{ position: 'absolute', top: '1.25rem', right: '1.5rem' }}>
-                    <JapaneseSpeakerButton text={currentCard.reading || currentCard.kanji} size={32} />
-                  </div>
-
-                  {/* KHUNG TỪ VỰNG DÒ: CELL A1 (KANJI) + CELL B1 (HIRAGANA) */}
-                  <div style={{ marginTop: '1.5rem', marginBottom: '2rem', width: '100%' }}>
-                    {drillDirection === 'forward' ? (
-                      /* CHIỀU THUẬN: HIỆN TIẾNG NHẬT, CHE NGHĨA TIẾNG VIỆT */
-                      <div>
-                        {/* Furigana / Hiragana (Cell B1) */}
-                        <div
-                          style={{
-                            fontSize: '1.2rem',
-                            color: '#9E3223',
-                            fontFamily: 'var(--font-maru)',
-                            fontWeight: 700,
-                            marginBottom: '0.35rem',
-                            minHeight: '1.5rem',
-                          }}
-                        >
-                          {currentCard.reading || ' '}
-                        </div>
-
-                        {/* Kanji Thư pháp Lớn (Cell A1) */}
-                        <div
-                          style={{
-                            fontFamily: 'var(--font-mincho)',
-                            fontSize: 'clamp(2.5rem, 6vw, 4.2rem)',
-                            fontWeight: 900,
-                            color: '#16253B',
-                            lineHeight: 1.2,
-                          }}
-                        >
-                          {currentCard.kanji}
-                        </div>
-                      </div>
+                <div className="stage">
+                  <div className={`ans ${rev ? 'open' : ''}`}>
+                    {fw ? (
+                      <>
+                        <b>{c.v}</b>
+                        <p>Ví dụ</p>
+                        <div className="jp">{c.e}</div>
+                        <p>{c.ev}</p>
+                      </>
                     ) : (
-                      /* CHIỀU NGHỊCH: HIỆN NGHĨA TIẾNG VIỆT, CHE TIẾNG NHẬT */
-                      <div>
-                        <span style={{ fontSize: '0.78rem', color: '#786A5E', fontFamily: 'var(--font-maru)' }}>
-                          HÃY HỒI TƯỞNG TỪ VỰNG TIẾNG NHẬT TƯƠNG ỨNG:
-                        </span>
-                        <div
-                          style={{
-                            fontFamily: 'var(--font-maru)',
-                            fontSize: 'clamp(1.5rem, 4vw, 2.2rem)',
-                            fontWeight: 800,
-                            color: '#16253B',
-                            marginTop: '0.5rem',
-                          }}
-                        >
-                          {currentCard.meaning}
-                        </div>
-                      </div>
+                      <>
+                        <div className="big">{c.k}</div>
+                        <div className="kn">{c.r}</div>
+                        <div className="jp" style={{ textAlign: "center" }}>{c.e}</div>
+                      </>
                     )}
-                  </div>
-
-                  {/* KHUNG NGHĨA ĐỐI ỨNG: CELL C1 (VIETNAMESE / JAPANESE) */}
-                  <div style={{ width: '100%', marginBottom: '2rem' }}>
-                    {!showAnswer ? (
-                      /* TRẠNG THÁI CHE MỜ (ACTIVE NEURAL RETRIEVAL) */
-                      <div
-                        onClick={handleReveal}
-                        style={{
-                          padding: '2rem 1.5rem',
-                          borderRadius: '16px',
-                          border: '2px dashed #AF7E36',
-                          background: '#FAF6EE',
-                          cursor: 'pointer',
-                          transition: 'all 0.2s ease',
-                        }}
-                      >
-                        <div style={{ fontSize: '1.2rem', marginBottom: '0.4rem' }}>❓</div>
-                        <div
-                          style={{
-                            fontFamily: 'var(--font-mincho)',
-                            fontWeight: 800,
-                            fontSize: '1.05rem',
-                            color: '#AF7E36',
-                          }}
-                        >
-                          {drillDirection === 'forward'
-                            ? 'Bấm phím SPACE hoặc nhấp chuột vào đây để HIỆN NGHĨA TIẾNG VIỆT'
-                            : 'Bấm phím SPACE hoặc nhấp chuột để ĐỐI CHIẾU CHỮ HÁN & CÁCH ĐỌC'}
-                        </div>
-                        <span style={{ fontSize: '0.8rem', color: '#786A5E', fontFamily: 'var(--font-maru)', marginTop: '0.35rem', display: 'block' }}>
-                          (Đang đo thời gian phản xạ não bộ Bjork Latency...)
-                        </span>
-                      </div>
-                    ) : (
-                      /* TRẠNG THÁI HIỂN THỊ ĐÁP ÁN (REVEALED) */
-                      <div
-                        style={{
-                          padding: '1.5rem',
-                          borderRadius: '16px',
-                          border: '1.8px solid #386641',
-                          background: '#FAF8F5',
-                          textAlign: 'left',
-                          animation: 'fadeIn 0.2s ease',
-                        }}
-                      >
-                        {drillDirection === 'forward' ? (
-                          <div>
-                            <div style={{ fontSize: '0.78rem', color: '#786A5E', fontFamily: 'var(--font-maru)', marginBottom: '0.2rem' }}>
-                              NGHĨA TIẾNG VIỆT (CELL C1):
-                            </div>
-                            <div
-                              style={{
-                                fontFamily: 'var(--font-maru)',
-                                fontSize: '1.35rem',
-                                fontWeight: 800,
-                                color: '#16253B',
-                                marginBottom: '0.75rem',
-                              }}
-                            >
-                              {currentCard.meaning}
-                            </div>
-                          </div>
-                        ) : (
-                          <div>
-                            <div style={{ fontSize: '0.78rem', color: '#786A5E', fontFamily: 'var(--font-maru)', marginBottom: '0.2rem' }}>
-                              ĐÁP ÁN TIẾNG NHẬT (CELL A1 & B1):
-                            </div>
-                            <div style={{ fontSize: '1.1rem', color: '#9E3223', fontWeight: 700 }}>{currentCard.reading}</div>
-                            <div style={{ fontFamily: 'var(--font-mincho)', fontSize: '2rem', fontWeight: 900, color: '#16253B', marginBottom: '0.75rem' }}>
-                              {currentCard.kanji}
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Câu ví dụ ngữ cảnh i+1 */}
-                        {currentCard.sentence && (
-                          <div
-                            style={{
-                              padding: '0.75rem',
-                              background: '#EDF2F7',
-                              borderRadius: '8px',
-                              fontSize: '0.88rem',
-                              color: '#16253B',
-                              borderLeft: '3px solid #16253B',
-                            }}
-                          >
-                            <span style={{ fontSize: '0.72rem', color: '#786A5E', display: 'block' }}>VÍ DỤ NGỮ CẢNH:</span>
-                            {currentCard.sentence}
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* THANG ĐO ĐỘ TRỄ PHẢN XẠ BJORK DYNAMICS & ĐÁNH GIÁ FSRS */}
-                  {showAnswer && lastLatencyMs !== null && (
-                    <div style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                      <span
-                        style={{
-                          padding: '0.3rem 0.85rem',
-                          borderRadius: '999px',
-                          fontSize: '0.82rem',
-                          fontFamily: 'var(--font-maru)',
-                          fontWeight: 700,
-                          background:
-                            lastLatencyMs < 1500
-                              ? '#EFF4EE'
-                              : lastLatencyMs <= 6000
-                              ? '#EDF2F7'
-                              : '#FBF5E8',
-                          color:
-                            lastLatencyMs < 1500
-                              ? '#386641'
-                              : lastLatencyMs <= 6000
-                              ? '#16253B'
-                              : '#AF7E36',
-                          border:
-                            lastLatencyMs < 1500
-                              ? '1px solid #C6D8C4'
-                              : lastLatencyMs <= 6000
-                              ? '1px solid #BDCCDC'
-                              : '1px solid #E5CCA0',
-                        }}
-                      >
-                        {lastLatencyMs < 1500
-                          ? `⚡ ${(lastLatencyMs / 1000).toFixed(1)}s • FSRS Easy (Phản xạ tức thì)`
-                          : lastLatencyMs <= 6000
-                          ? `⏳ ${(lastLatencyMs / 1000).toFixed(1)}s • FSRS Good (Hồi tưởng chuẩn)`
-                          : `⏱️ ${(lastLatencyMs / 1000).toFixed(1)}s • FSRS Hard (Hồi tưởng gắng sức)`}
+                    <div className="shoji">
+                      <span>
+                        {fw ? "Nhẩm nghĩa trong đầu, rồi bấm Space để mở cửa" : "Tự nhẩm Kanji và cách đọc, rồi bấm Space"}
                       </span>
                     </div>
-                  )}
+                  </div>
 
-                  {/* 2 NÚT HÀNH ĐỘNG CỐT LÕI: ĐÃ THUỘC (ENTER/1) & CHƯA THUỘC (BKSP/2) */}
-                  <div
-                    style={{
-                      display: 'grid',
-                      gridTemplateColumns: '1fr 1fr',
-                      gap: '1rem',
-                      width: '100%',
-                      maxWidth: '560px',
-                    }}
-                  >
-                    <button
-                      type="button"
-                      disabled={!showAnswer}
-                      onClick={handleUnlearned}
-                      style={{
-                        padding: '1rem',
-                        borderRadius: '12px',
-                        border: '1.5px solid #9E3223',
-                        background: showAnswer ? '#FDF2F0' : '#FAF8F5',
-                        color: showAnswer ? '#9E3223' : '#A89F91',
-                        cursor: showAnswer ? 'pointer' : 'not-allowed',
-                        fontFamily: 'var(--font-maru)',
-                        fontWeight: 700,
-                        fontSize: '1rem',
-                        transition: 'all 0.15s ease',
-                      }}
-                    >
-                      <div style={{ fontSize: '0.78rem', opacity: 0.8 }}>Backspace / Phím 2</div>
-                      <div>CHƯA THUỘC ➔ Nợ D-E-F</div>
-                    </button>
+                  <div className="front">
+                    <svg className="enso" viewBox="0 0 120 120">
+                      <circle className="tr" cx="60" cy="60" r="46" />
+                      <circle
+                        className="pg"
+                        cx="60"
+                        cy="60"
+                        r="46"
+                        style={{ strokeDashoffset: 289 * (1 - p) }}
+                      />
+                    </svg>
 
-                    <button
-                      type="button"
-                      disabled={!showAnswer}
-                      onClick={handleMastered}
-                      style={{
-                        padding: '1rem',
-                        borderRadius: '12px',
-                        border: '1.5px solid #386641',
-                        background: showAnswer ? '#386641' : '#FAF8F5',
-                        color: showAnswer ? '#FFFFFF' : '#A89F91',
-                        cursor: showAnswer ? 'pointer' : 'not-allowed',
-                        fontFamily: 'var(--font-maru)',
-                        fontWeight: 700,
-                        fontSize: '1rem',
-                        transition: 'all 0.15s ease',
-                        boxShadow: showAnswer ? '0 4px 12px rgba(56, 102, 65, 0.25)' : 'none',
-                      }}
-                    >
-                      <div style={{ fontSize: '0.78rem', opacity: 0.85 }}>Enter / Phím 1</div>
-                      <div>ĐÃ THUỘC ➔ Xóa Khỏi Phiên</div>
-                    </button>
+                    {fw ? (
+                      <>
+                        <ruby className="kanji">
+                          {c.k}
+                          <rt>{c.r}</rt>
+                        </ruby>
+                        <button className="spk" onClick={speak}>
+                          🔊 Nghe (P)
+                        </button>
+                      </>
+                    ) : (
+                      <div className="prompt">
+                        {c.v}
+                        <small>Gợi ý: {c.t}</small>
+                      </div>
+                    )}
                   </div>
                 </div>
-              )}
 
-              {/* THANH CHỈ DẪN PHÍM TẮT DÒ BÀI (HOTKEYS BAR) */}
-              <DoBaiHotkeysBar
-                isRevealed={showAnswer}
-                onReveal={handleReveal}
-                onMastered={handleMastered}
-                onRetry={handleUnlearned}
-                onUndo={handleUndo}
-                canUndo={reviewHistory.length > 0}
-                onPronounce={handlePronounce}
-              />
-            </div>
+                <div className="inc">
+                  <i style={{ width: `${timerPct}%` }} />
+                </div>
+                <div className="tm" dangerouslySetInnerHTML={{ __html: timerText }} />
 
-            {/* CỘT PHỤ: HÀNG ĐỢI CHƯA THUỘC CỘT D-E-F (28% WIDTH) */}
-            {unlearnedList.length > 0 && (
-              <DoBaiUnlearnedDrawer
-                unlearnedList={unlearnedList}
-                isOpenMobile={showUnlearnedDrawerMobile}
-                onCloseMobile={() => setShowUnlearnedDrawerMobile(false)}
-              />
-            )}
-          </div>
-        ) : (
-          /* =========================================================================
-             B. GIAO DIỆN THẺ BÀI TRUYỀN THỐNG HYAKUNIN ISSHU KARUTA 3D (RETAINED)
-             ========================================================================= */
-          <div style={{ maxWidth: '640px', margin: '0 auto' }}>
-            {currentCard && (
-              <div
-                className={`karuta-3d-scene ${showAnswer ? 'flipped' : ''}`}
-                style={{
-                  minHeight: '440px',
-                  padding: '2.5rem 2rem',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  textAlign: 'center',
-                  marginBottom: '1.5rem',
-                  background: showAnswer ? 'linear-gradient(180deg, #FAF8F2 0%, #F7F4EB 100%)' : '#FAF8F2',
-                  border: showAnswer ? '2px solid #485642' : '2px solid #AF7E36',
-                  borderRadius: '18px',
-                  boxShadow: '0 12px 32px rgba(22, 37, 59, 0.08)',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  transition: 'border-color 0.4s ease, background 0.4s ease',
-                }}
-              >
-                <JapaneseArtBackdrop
-                  src="/assets/art/rinpa-gold-waves-clouds.jpg"
-                  alt="Mây và sóng vàng Rinpa nghệ thuật"
-                  opacity={0.15}
-                  blendMode="multiply"
-                  objectPosition="center"
-                />
+                {!rev ? (
+                  <button className="rv" onClick={reveal}>
+                    開く · {fw ? "Hiện nghĩa" : "Hiện đáp án"} (Space)
+                  </button>
+                ) : null}
 
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: '1.25rem',
-                    right: '1.25rem',
-                    fontFamily: 'var(--font-mincho)',
-                    fontSize: '0.82rem',
-                    color: '#FFFFFF',
-                    background: showAnswer ? '#485642' : '#9E3223',
-                    padding: '0.25rem 0.65rem',
-                    borderRadius: '4px',
-                    fontWeight: 800,
-                    boxShadow: '0 2px 6px rgba(0, 0, 0, 0.15)',
-                    zIndex: 3,
-                  }}
-                >
-                  {showAnswer ? '解答' : '出題'}
+                <div className="acts">
+                  <button className="no" disabled={!rev} onClick={() => answer(false)}>
+                    <i>未</i>
+                    <span>
+                      Chưa thuộc
+                      <small>Backspace / 2 · bốc lại sau 2 từ</small>
+                    </span>
+                  </button>
+                  <button className="ok" disabled={!rev} onClick={() => answer(true)}>
+                    <i>覚</i>
+                    <span>
+                      Đã thuộc
+                      <small>Enter / 1 · tăng stability</small>
+                    </span>
+                  </button>
                 </div>
 
-                {/* PARSED CARD DETAILS HELPER */}
-                {(() => {
-                  const parsedCard = currentCard
-                    ? parseCardDetails({
-                        type: currentCard.type,
-                        reading: currentCard.reading,
-                        meaning: currentCard.meaning,
-                        kanji: currentCard.kanji,
-                        deckName: currentCard.deckName,
-                        sentence: currentCard.sentence,
-                      })
-                    : null;
+                <button className="un" disabled={!hist.length} onClick={undo}>
+                  ↩ Hoàn tác (Z)
+                </button>
 
+                <div className="keys">
+                  <kbd>Space</kbd> hiện · <kbd>Enter</kbd> thuộc · <kbd>Backspace</kbd> chưa thuộc · <kbd>Z</kbd> hoàn tác · <kbd>P</kbd> phát âm
+                </div>
+              </>
+            )}
+          </main>
+
+          <aside className="rail">
+            <h2>短冊</h2>
+            <div className="sm">
+              {st.debt.length
+                ? `Còn nợ ${st.debt.length} từ. Thuộc hết mới hoàn thành.`
+                : "Từ đang nợ, sẽ quay lại trong phiên"}
+            </div>
+            <div className="bar" />
+            <div className="strips">
+              {st.debt.length ? (
+                st.debt.map(k => {
+                  const x = CARDS.find(z => z.k === k);
+                  if (!x) return null;
+                  const idx = st.q.findIndex(z => z.k === k);
                   return (
-                    <>
-                      <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.45rem', marginBottom: '0.75rem', width: '100%' }}>
-                        {/* DEF-UI-KARUTA-002: BẢO VỆ ACTIVE RECALL — KHÔNG HIỆN CÁCH ĐỌC Ở MẶT TRƯỚC */}
-                        {showAnswer && currentCard.reading && (
-                          <div style={{ fontSize: '1.15rem', color: '#9E3223', fontFamily: 'var(--font-maru)', fontWeight: 700 }}>
-                            {currentCard.reading}
-                          </div>
-                        )}
-
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.85rem', width: '100%' }}>
-                          <div
-                            style={{
-                              fontFamily: 'var(--font-mincho)',
-                              fontSize: 'clamp(2.4rem, 6vw, 4rem)',
-                              fontWeight: 900,
-                              color: '#1A1918',
-                              lineHeight: 1.25,
-                            }}
-                          >
-                            {currentCard.kanji}
-                          </div>
-                          <JapaneseSpeakerButton text={stripCloze(currentCard.kanji)} size={26} />
-                        </div>
-
-                        {showAnswer && parsedCard?.hanViet && (
-                          <div
-                            style={{
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              gap: '0.35rem',
-                              background: '#FDF2F0',
-                              border: '1.5px solid #E8A99F',
-                              color: '#9E3223',
-                              padding: '0.25rem 0.95rem',
-                              borderRadius: '999px',
-                              fontSize: '0.88rem',
-                              fontFamily: 'var(--font-mincho)',
-                              fontWeight: 800,
-                            }}
-                          >
-                            漢 Âm Hán: {parsedCard.hanViet}
-                          </div>
-                        )}
-                      </div>
-
-                      {/* NỘI DUNG MẶT SAU: Ý NGHĨA VÀ VÍ DỤ */}
-                      {showAnswer ? (
-                        <div style={{ position: 'relative', zIndex: 2, width: '100%' }}>
-                          <div
-                            style={{
-                              fontSize: '1.25rem',
-                              fontFamily: 'var(--font-maru)',
-                              fontWeight: 800,
-                              color: '#16253B',
-                              marginBottom: '0.75rem',
-                            }}
-                          >
-                            {currentCard.meaning}
-                          </div>
-
-                          {currentCard.sentence && (
-                            <div
-                              style={{
-                                padding: '0.85rem 1rem',
-                                background: 'rgba(255, 255, 255, 0.85)',
-                                borderRadius: '12px',
-                                border: '1px solid #E6DDCF',
-                                fontSize: '0.9rem',
-                                color: '#16253B',
-                                marginBottom: '1rem',
-                              }}
-                            >
-                              {currentCard.sentence}
-                            </div>
-                          )}
-
-                          {/* KANJISTROKEPLAYER INLINE VECTOR CHO THẺ CHỮ HÁN */}
-                          {isKanji && (
-                            <div style={{ margin: '1rem 0' }}>
-                              <button
-                                type="button"
-                                onClick={() => setShowStrokeOrder(!showStrokeOrder)}
-                                style={{
-                                  fontSize: '0.78rem',
-                                  fontFamily: 'var(--font-maru)',
-                                  fontWeight: 700,
-                                  padding: '0.35rem 0.75rem',
-                                  borderRadius: '6px',
-                                  background: '#FAF6EE',
-                                  border: '1px solid #D8CFC0',
-                                  color: '#16253B',
-                                  cursor: 'pointer',
-                                }}
-                              >
-                                {showStrokeOrder ? 'Ẩn nét viết' : 'Xem nét viết 筆順'}
-                              </button>
-                              {showStrokeOrder && (
-                                <div style={{ marginTop: '0.75rem' }}>
-                                  <KanjiStrokePlayer kanji={currentCard.kanji} compact />
-                                </div>
-                              )}
-                            </div>
-                          )}
-                        </div>
-                      ) : (
-                        <div style={{ position: 'relative', zIndex: 2, marginTop: '1.5rem' }}>
-                          <button onClick={handleReveal} className="btn-torii" style={{ padding: '0.75rem 1.75rem' }}>
-                            Xem đáp án (Phím Space)
-                          </button>
-                        </div>
-                      )}
-                    </>
+                    <div key={k} className="tan">
+                      <div className="t">{x.k}</div>
+                      <div className="v">{x.v}</div>
+                      <div className="n">{idx > 0 ? `sau ${idx} từ` : "đang dò"}</div>
+                    </div>
                   );
-                })()}
-              </div>
-            )}
-
-            {/* 4 NÚT CHẤM ĐIỂM FSRS TRONG CHẾ ĐỘ THẺ BÀI KARUTA */}
-            {showAnswer && (
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(4, 1fr)',
-                  gap: '0.65rem',
-                }}
-              >
-                <button
-                  type="button"
-                  onClick={() => handleGrade('Again')}
-                  style={{
-                    padding: '0.75rem 0.5rem',
-                    borderRadius: '10px',
-                    border: '1px solid #9E3223',
-                    background: '#FDF2F0',
-                    color: '#9E3223',
-                    fontFamily: 'var(--font-maru)',
-                    fontWeight: 700,
-                    cursor: 'pointer',
-                  }}
-                >
-                  <div style={{ fontSize: '0.7rem' }}>Phím 1</div>
-                  <div>Again</div>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => handleGrade('Hard')}
-                  style={{
-                    padding: '0.75rem 0.5rem',
-                    borderRadius: '10px',
-                    border: '1px solid #AF7E36',
-                    background: '#FBF5E8',
-                    color: '#AF7E36',
-                    fontFamily: 'var(--font-maru)',
-                    fontWeight: 700,
-                    cursor: 'pointer',
-                  }}
-                >
-                  <div style={{ fontSize: '0.7rem' }}>Phím 2</div>
-                  <div>Hard</div>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => handleGrade('Good')}
-                  style={{
-                    padding: '0.75rem 0.5rem',
-                    borderRadius: '10px',
-                    border: '1px solid #16253B',
-                    background: '#EDF2F7',
-                    color: '#16253B',
-                    fontFamily: 'var(--font-maru)',
-                    fontWeight: 700,
-                    cursor: 'pointer',
-                  }}
-                >
-                  <div style={{ fontSize: '0.7rem' }}>Phím 3</div>
-                  <div>Good</div>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => handleGrade('Easy')}
-                  style={{
-                    padding: '0.75rem 0.5rem',
-                    borderRadius: '10px',
-                    border: '1px solid #386641',
-                    background: '#EFF4EE',
-                    color: '#386641',
-                    fontFamily: 'var(--font-maru)',
-                    fontWeight: 700,
-                    cursor: 'pointer',
-                  }}
-                >
-                  <div style={{ fontSize: '0.7rem' }}>Phím 4</div>
-                  <div>Easy</div>
-                </button>
-              </div>
-            )}
-          </div>
-        )}
+                })
+              ) : (
+                <div className="emp">
+                  Chưa có từ nợ. Bấm “Chưa thuộc”, tờ giấy sẽ treo ở đây.
+                </div>
+              )}
+            </div>
+          </aside>
+        </div>
       </div>
-    </main>
-  );
-}
-
-export default function ReviewPage() {
-  return (
-    <Suspense fallback={<ReviewLoadingSkeleton />}>
-      <ReviewSessionContent />
-    </Suspense>
+    </div>
   );
 }

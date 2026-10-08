@@ -1,0 +1,4266 @@
+{
+  "category": "yojijukugo_onomatopoeia",
+  "totalAssets": 266,
+  "lastUpdated": "2026-10-07T18:44:50.084Z",
+  "assets": {
+    "yojijukugo_onomatopoeia:kanjidic2_master_tgz": {
+      "key": "yojijukugo_onomatopoeia:kanjidic2_master_tgz",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "kanjidic2_master.json.tgz",
+      "mimeType": "application/gzip",
+      "fileId": "19u3bf1sXtqyaYbRxCgRdbSTbbmb30Su-",
+      "driveUrl": "https://drive.google.com/file/d/19u3bf1sXtqyaYbRxCgRdbSTbbmb30Su-/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/19u3bf1sXtqyaYbRxCgRdbSTbbmb30Su-",
+      "sizeBytes": 1253441,
+      "metadata": {
+        "name": "kanjidic2_master.json.tgz",
+        "description": "13,108 Kanji với nét vẽ, bộ thủ, âm Hán",
+        "source": "EDRDG / scriptin jmdict-simplified",
+        "sourceUrl": "https://github.com/scriptin/jmdict-simplified/releases/download/3.6.2%2B20261005200550/kanjidic2-en-3.6.2+20261005200550.json.tgz"
+      },
+      "updatedAt": "2026-10-07T18:09:14.555Z"
+    },
+    "yojijukugo_onomatopoeia:jmdict_master_tgz": {
+      "key": "yojijukugo_onomatopoeia:jmdict_master_tgz",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "jmdict_master.json.tgz",
+      "mimeType": "application/gzip",
+      "fileId": "1okDR-JZu4APYx-iFpGboKRaJXf6RkFMf",
+      "driveUrl": "https://drive.google.com/file/d/1okDR-JZu4APYx-iFpGboKRaJXf6RkFMf/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1okDR-JZu4APYx-iFpGboKRaJXf6RkFMf",
+      "sizeBytes": 11528637,
+      "metadata": {
+        "name": "jmdict_master.json.tgz",
+        "description": "Đại từ điển tiếng Nhật JMdict 2026",
+        "source": "EDRDG / scriptin jmdict-simplified",
+        "sourceUrl": "https://github.com/scriptin/jmdict-simplified/releases/download/3.6.2%2B20261005200550/jmdict-eng-3.6.2+20261005200550.json.tgz"
+      },
+      "updatedAt": "2026-10-07T18:09:25.391Z"
+    },
+    "yojijukugo_onomatopoeia:jmdict_examples_master_tgz": {
+      "key": "yojijukugo_onomatopoeia:jmdict_examples_master_tgz",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "jmdict_examples_master.json.tgz",
+      "mimeType": "application/gzip",
+      "fileId": "1xw5QCiMhsjn3JTsWNyyPsDIdNRSLfFmK",
+      "driveUrl": "https://drive.google.com/file/d/1xw5QCiMhsjn3JTsWNyyPsDIdNRSLfFmK/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1xw5QCiMhsjn3JTsWNyyPsDIdNRSLfFmK",
+      "sizeBytes": 14152318,
+      "metadata": {
+        "name": "jmdict_examples_master.json.tgz",
+        "description": "150,000+ câu ví dụ ngữ cảnh song ngữ",
+        "source": "EDRDG / scriptin jmdict-simplified",
+        "sourceUrl": "https://github.com/scriptin/jmdict-simplified/releases/download/3.6.2%2B20261005200550/jmdict-examples-eng-3.6.2+20261005200550.json.tgz"
+      },
+      "updatedAt": "2026-10-07T18:09:36.792Z"
+    },
+    "yojijukugo_onomatopoeia:yojijukugo_master_dict": {
+      "key": "yojijukugo_onomatopoeia:yojijukugo_master_dict",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yojijukugo_master_dictionary.json",
+      "mimeType": "application/json",
+      "fileId": "1SUNf9d-goXO9LZohcSnrILY1medHFyLL",
+      "driveUrl": "https://drive.google.com/file/d/1SUNf9d-goXO9LZohcSnrILY1medHFyLL/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1SUNf9d-goXO9LZohcSnrILY1medHFyLL",
+      "sizeBytes": 43551360,
+      "metadata": {
+        "name": "yojijukugo_master_dictionary.json",
+        "type": "yojijukugo",
+        "totalEntries": 23907
+      },
+      "updatedAt": "2026-10-07T18:09:54.403Z"
+    },
+    "yojijukugo_onomatopoeia:onomatopoeia_master_dict": {
+      "key": "yojijukugo_onomatopoeia:onomatopoeia_master_dict",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "onomatopoeia_master_dictionary.json",
+      "mimeType": "application/json",
+      "fileId": "1Q6VpSpI4LhMY-QL7zi4U4H8hAM9nAWhT",
+      "driveUrl": "https://drive.google.com/file/d/1Q6VpSpI4LhMY-QL7zi4U4H8hAM9nAWhT/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Q6VpSpI4LhMY-QL7zi4U4H8hAM9nAWhT",
+      "sizeBytes": 731981,
+      "metadata": {
+        "name": "onomatopoeia_master_dictionary.json",
+        "type": "onomatopoeia",
+        "totalEntries": 2011
+      },
+      "updatedAt": "2026-10-07T18:09:57.886Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_001": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_001",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_001.json",
+      "mimeType": "application/json",
+      "fileId": "137M32UWdfMzDm_Enr0zxU7A93JuWxuh1",
+      "driveUrl": "https://drive.google.com/file/d/137M32UWdfMzDm_Enr0zxU7A93JuWxuh1/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/137M32UWdfMzDm_Enr0zxU7A93JuWxuh1",
+      "sizeBytes": 185535,
+      "metadata": {
+        "unitId": "yoji_unit_001",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:10:01.651Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_002": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_002",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_002.json",
+      "mimeType": "application/json",
+      "fileId": "1DgiGvFmNeRGoHggUZ-lHDlF0LcORgAt4",
+      "driveUrl": "https://drive.google.com/file/d/1DgiGvFmNeRGoHggUZ-lHDlF0LcORgAt4/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1DgiGvFmNeRGoHggUZ-lHDlF0LcORgAt4",
+      "sizeBytes": 179758,
+      "metadata": {
+        "unitId": "yoji_unit_002",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:10:05.359Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_003": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_003",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_003.json",
+      "mimeType": "application/json",
+      "fileId": "1ftbBUB-YIOq5k8_pob94AbLwyXQuwvDd",
+      "driveUrl": "https://drive.google.com/file/d/1ftbBUB-YIOq5k8_pob94AbLwyXQuwvDd/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1ftbBUB-YIOq5k8_pob94AbLwyXQuwvDd",
+      "sizeBytes": 182176,
+      "metadata": {
+        "unitId": "yoji_unit_003",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:10:09.085Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_004": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_004",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_004.json",
+      "mimeType": "application/json",
+      "fileId": "166hahTZh-UPx6OUY_dgHuN7yVSrnLmRO",
+      "driveUrl": "https://drive.google.com/file/d/166hahTZh-UPx6OUY_dgHuN7yVSrnLmRO/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/166hahTZh-UPx6OUY_dgHuN7yVSrnLmRO",
+      "sizeBytes": 181249,
+      "metadata": {
+        "unitId": "yoji_unit_004",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:10:12.435Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_005": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_005",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_005.json",
+      "mimeType": "application/json",
+      "fileId": "10e2AsUMv65k8Yox8ULTzmDp8rT4Fm7Te",
+      "driveUrl": "https://drive.google.com/file/d/10e2AsUMv65k8Yox8ULTzmDp8rT4Fm7Te/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/10e2AsUMv65k8Yox8ULTzmDp8rT4Fm7Te",
+      "sizeBytes": 183227,
+      "metadata": {
+        "unitId": "yoji_unit_005",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:10:17.350Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_006": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_006",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_006.json",
+      "mimeType": "application/json",
+      "fileId": "1d8Bfk4YpzXs31kaQvceT8alFmV7u9-c2",
+      "driveUrl": "https://drive.google.com/file/d/1d8Bfk4YpzXs31kaQvceT8alFmV7u9-c2/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1d8Bfk4YpzXs31kaQvceT8alFmV7u9-c2",
+      "sizeBytes": 183819,
+      "metadata": {
+        "unitId": "yoji_unit_006",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:10:21.021Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_007": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_007",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_007.json",
+      "mimeType": "application/json",
+      "fileId": "1YiDqGb-idXZrA50Bmwtv61wZYAalUdSh",
+      "driveUrl": "https://drive.google.com/file/d/1YiDqGb-idXZrA50Bmwtv61wZYAalUdSh/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1YiDqGb-idXZrA50Bmwtv61wZYAalUdSh",
+      "sizeBytes": 182722,
+      "metadata": {
+        "unitId": "yoji_unit_007",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:10:24.238Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_008": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_008",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_008.json",
+      "mimeType": "application/json",
+      "fileId": "1GQ8HsdwrBLbS98LOyrwskCL4HtWvWoiL",
+      "driveUrl": "https://drive.google.com/file/d/1GQ8HsdwrBLbS98LOyrwskCL4HtWvWoiL/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1GQ8HsdwrBLbS98LOyrwskCL4HtWvWoiL",
+      "sizeBytes": 188099,
+      "metadata": {
+        "unitId": "yoji_unit_008",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:10:27.499Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_009": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_009",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_009.json",
+      "mimeType": "application/json",
+      "fileId": "1AYHFA-oMAbdGt1DkNBSs8lnBfvBJy3KH",
+      "driveUrl": "https://drive.google.com/file/d/1AYHFA-oMAbdGt1DkNBSs8lnBfvBJy3KH/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1AYHFA-oMAbdGt1DkNBSs8lnBfvBJy3KH",
+      "sizeBytes": 182026,
+      "metadata": {
+        "unitId": "yoji_unit_009",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:10:30.919Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_010": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_010",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_010.json",
+      "mimeType": "application/json",
+      "fileId": "11X1a4AyNMlZvuUeJyblNBV7zY36w6mVC",
+      "driveUrl": "https://drive.google.com/file/d/11X1a4AyNMlZvuUeJyblNBV7zY36w6mVC/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/11X1a4AyNMlZvuUeJyblNBV7zY36w6mVC",
+      "sizeBytes": 190710,
+      "metadata": {
+        "unitId": "yoji_unit_010",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:10:35.342Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_011": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_011",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_011.json",
+      "mimeType": "application/json",
+      "fileId": "1ojBvYbS94P4V2c4WuBXmIc7_PACfNY8d",
+      "driveUrl": "https://drive.google.com/file/d/1ojBvYbS94P4V2c4WuBXmIc7_PACfNY8d/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1ojBvYbS94P4V2c4WuBXmIc7_PACfNY8d",
+      "sizeBytes": 183112,
+      "metadata": {
+        "unitId": "yoji_unit_011",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:10:38.766Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_012": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_012",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_012.json",
+      "mimeType": "application/json",
+      "fileId": "1jsAng1ByxtEKE-dy3gFLP76F38fdvJDl",
+      "driveUrl": "https://drive.google.com/file/d/1jsAng1ByxtEKE-dy3gFLP76F38fdvJDl/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1jsAng1ByxtEKE-dy3gFLP76F38fdvJDl",
+      "sizeBytes": 179606,
+      "metadata": {
+        "unitId": "yoji_unit_012",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:10:42.186Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_013": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_013",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_013.json",
+      "mimeType": "application/json",
+      "fileId": "1lrMyelJ9Aswpot5cIsoLy0z1n0D2gLV_",
+      "driveUrl": "https://drive.google.com/file/d/1lrMyelJ9Aswpot5cIsoLy0z1n0D2gLV_/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1lrMyelJ9Aswpot5cIsoLy0z1n0D2gLV_",
+      "sizeBytes": 180734,
+      "metadata": {
+        "unitId": "yoji_unit_013",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:10:45.915Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_014": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_014",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_014.json",
+      "mimeType": "application/json",
+      "fileId": "1XmQC8SnGdaJYw6UMMpbB52TQfLdrRatb",
+      "driveUrl": "https://drive.google.com/file/d/1XmQC8SnGdaJYw6UMMpbB52TQfLdrRatb/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1XmQC8SnGdaJYw6UMMpbB52TQfLdrRatb",
+      "sizeBytes": 182468,
+      "metadata": {
+        "unitId": "yoji_unit_014",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:10:49.247Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_015": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_015",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_015.json",
+      "mimeType": "application/json",
+      "fileId": "1DDftoM9iZkkwl0aQUAVAJRTQb7wEPYcl",
+      "driveUrl": "https://drive.google.com/file/d/1DDftoM9iZkkwl0aQUAVAJRTQb7wEPYcl/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1DDftoM9iZkkwl0aQUAVAJRTQb7wEPYcl",
+      "sizeBytes": 180315,
+      "metadata": {
+        "unitId": "yoji_unit_015",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:10:52.920Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_016": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_016",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_016.json",
+      "mimeType": "application/json",
+      "fileId": "1meVQ3yxFnJcDpKCLlo3hhZyXtdj7wSXE",
+      "driveUrl": "https://drive.google.com/file/d/1meVQ3yxFnJcDpKCLlo3hhZyXtdj7wSXE/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1meVQ3yxFnJcDpKCLlo3hhZyXtdj7wSXE",
+      "sizeBytes": 186316,
+      "metadata": {
+        "unitId": "yoji_unit_016",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:10:56.397Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_017": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_017",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_017.json",
+      "mimeType": "application/json",
+      "fileId": "10L73MpHgcIeRM0LQPuePkOLAEHeMNc6-",
+      "driveUrl": "https://drive.google.com/file/d/10L73MpHgcIeRM0LQPuePkOLAEHeMNc6-/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/10L73MpHgcIeRM0LQPuePkOLAEHeMNc6-",
+      "sizeBytes": 184288,
+      "metadata": {
+        "unitId": "yoji_unit_017",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:10:59.737Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_018": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_018",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_018.json",
+      "mimeType": "application/json",
+      "fileId": "1_r6Oc8xpmy1YA1aoWtygnFBbR_PeWTtJ",
+      "driveUrl": "https://drive.google.com/file/d/1_r6Oc8xpmy1YA1aoWtygnFBbR_PeWTtJ/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1_r6Oc8xpmy1YA1aoWtygnFBbR_PeWTtJ",
+      "sizeBytes": 177575,
+      "metadata": {
+        "unitId": "yoji_unit_018",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:11:03.181Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_019": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_019",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_019.json",
+      "mimeType": "application/json",
+      "fileId": "1XaeSlCCu4w0smutTo0ulGM5nDfIoUjzk",
+      "driveUrl": "https://drive.google.com/file/d/1XaeSlCCu4w0smutTo0ulGM5nDfIoUjzk/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1XaeSlCCu4w0smutTo0ulGM5nDfIoUjzk",
+      "sizeBytes": 186718,
+      "metadata": {
+        "unitId": "yoji_unit_019",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:11:06.367Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_020": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_020",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_020.json",
+      "mimeType": "application/json",
+      "fileId": "1d1sqk8YGuGkv32JtVSQztpUD1Av4Ld1j",
+      "driveUrl": "https://drive.google.com/file/d/1d1sqk8YGuGkv32JtVSQztpUD1Av4Ld1j/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1d1sqk8YGuGkv32JtVSQztpUD1Av4Ld1j",
+      "sizeBytes": 180523,
+      "metadata": {
+        "unitId": "yoji_unit_020",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:11:10.038Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_021": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_021",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_021.json",
+      "mimeType": "application/json",
+      "fileId": "1VHFXNeaJCxod9icIGc9a24HpXvh_wwps",
+      "driveUrl": "https://drive.google.com/file/d/1VHFXNeaJCxod9icIGc9a24HpXvh_wwps/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1VHFXNeaJCxod9icIGc9a24HpXvh_wwps",
+      "sizeBytes": 187184,
+      "metadata": {
+        "unitId": "yoji_unit_021",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:11:14.679Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_022": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_022",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_022.json",
+      "mimeType": "application/json",
+      "fileId": "14FQzrUh4mvUq7-ewp7A7pWS-lVosCZrO",
+      "driveUrl": "https://drive.google.com/file/d/14FQzrUh4mvUq7-ewp7A7pWS-lVosCZrO/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/14FQzrUh4mvUq7-ewp7A7pWS-lVosCZrO",
+      "sizeBytes": 178837,
+      "metadata": {
+        "unitId": "yoji_unit_022",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:11:19.531Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_023": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_023",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_023.json",
+      "mimeType": "application/json",
+      "fileId": "1HgYG-xV6YkBeqZS1vegTBaR8841msKPy",
+      "driveUrl": "https://drive.google.com/file/d/1HgYG-xV6YkBeqZS1vegTBaR8841msKPy/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1HgYG-xV6YkBeqZS1vegTBaR8841msKPy",
+      "sizeBytes": 188096,
+      "metadata": {
+        "unitId": "yoji_unit_023",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:11:23.045Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_024": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_024",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_024.json",
+      "mimeType": "application/json",
+      "fileId": "1_qEIQnTFH37mF6Qr9zyxcEr985rZWZq9",
+      "driveUrl": "https://drive.google.com/file/d/1_qEIQnTFH37mF6Qr9zyxcEr985rZWZq9/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1_qEIQnTFH37mF6Qr9zyxcEr985rZWZq9",
+      "sizeBytes": 178836,
+      "metadata": {
+        "unitId": "yoji_unit_024",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:11:26.770Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_025": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_025",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_025.json",
+      "mimeType": "application/json",
+      "fileId": "1dS-3mXpmFhC9dsqhLlmJG6PJl4oZpxtn",
+      "driveUrl": "https://drive.google.com/file/d/1dS-3mXpmFhC9dsqhLlmJG6PJl4oZpxtn/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1dS-3mXpmFhC9dsqhLlmJG6PJl4oZpxtn",
+      "sizeBytes": 182185,
+      "metadata": {
+        "unitId": "yoji_unit_025",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:11:29.932Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_026": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_026",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_026.json",
+      "mimeType": "application/json",
+      "fileId": "137jBxU-jsYiQ-GoC2BOYhENaqbabKT3C",
+      "driveUrl": "https://drive.google.com/file/d/137jBxU-jsYiQ-GoC2BOYhENaqbabKT3C/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/137jBxU-jsYiQ-GoC2BOYhENaqbabKT3C",
+      "sizeBytes": 179820,
+      "metadata": {
+        "unitId": "yoji_unit_026",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:11:32.968Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_027": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_027",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_027.json",
+      "mimeType": "application/json",
+      "fileId": "1OWFY5I30wMAdoip0SocQi4n-NPa3d_IM",
+      "driveUrl": "https://drive.google.com/file/d/1OWFY5I30wMAdoip0SocQi4n-NPa3d_IM/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1OWFY5I30wMAdoip0SocQi4n-NPa3d_IM",
+      "sizeBytes": 182857,
+      "metadata": {
+        "unitId": "yoji_unit_027",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:11:37.578Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_028": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_028",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_028.json",
+      "mimeType": "application/json",
+      "fileId": "1mu6a7a0XCd4NUrjmqMKm3nMH93y9GKm4",
+      "driveUrl": "https://drive.google.com/file/d/1mu6a7a0XCd4NUrjmqMKm3nMH93y9GKm4/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1mu6a7a0XCd4NUrjmqMKm3nMH93y9GKm4",
+      "sizeBytes": 187129,
+      "metadata": {
+        "unitId": "yoji_unit_028",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:11:41.804Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_029": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_029",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_029.json",
+      "mimeType": "application/json",
+      "fileId": "1Gh2f6tStuWNhBvvHrSwpsV9O2PO5htSe",
+      "driveUrl": "https://drive.google.com/file/d/1Gh2f6tStuWNhBvvHrSwpsV9O2PO5htSe/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Gh2f6tStuWNhBvvHrSwpsV9O2PO5htSe",
+      "sizeBytes": 182238,
+      "metadata": {
+        "unitId": "yoji_unit_029",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:11:45.493Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_030": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_030",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_030.json",
+      "mimeType": "application/json",
+      "fileId": "1g8iJ5r456FD7EGArLW4nvbjsonSQExId",
+      "driveUrl": "https://drive.google.com/file/d/1g8iJ5r456FD7EGArLW4nvbjsonSQExId/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1g8iJ5r456FD7EGArLW4nvbjsonSQExId",
+      "sizeBytes": 180087,
+      "metadata": {
+        "unitId": "yoji_unit_030",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:11:51.539Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_031": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_031",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_031.json",
+      "mimeType": "application/json",
+      "fileId": "1_89BZet6KfI9xT6uFlXIsBpGQNAzh-8v",
+      "driveUrl": "https://drive.google.com/file/d/1_89BZet6KfI9xT6uFlXIsBpGQNAzh-8v/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1_89BZet6KfI9xT6uFlXIsBpGQNAzh-8v",
+      "sizeBytes": 180991,
+      "metadata": {
+        "unitId": "yoji_unit_031",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:11:56.731Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_032": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_032",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_032.json",
+      "mimeType": "application/json",
+      "fileId": "15dPzP_iWP8-Ff0KFqna9KsnZUCQ0YXKS",
+      "driveUrl": "https://drive.google.com/file/d/15dPzP_iWP8-Ff0KFqna9KsnZUCQ0YXKS/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/15dPzP_iWP8-Ff0KFqna9KsnZUCQ0YXKS",
+      "sizeBytes": 181948,
+      "metadata": {
+        "unitId": "yoji_unit_032",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:12:00.243Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_033": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_033",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_033.json",
+      "mimeType": "application/json",
+      "fileId": "1tcaVoLIG8Ew7xRSYmGdqVTEuI3RfCsLg",
+      "driveUrl": "https://drive.google.com/file/d/1tcaVoLIG8Ew7xRSYmGdqVTEuI3RfCsLg/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1tcaVoLIG8Ew7xRSYmGdqVTEuI3RfCsLg",
+      "sizeBytes": 186185,
+      "metadata": {
+        "unitId": "yoji_unit_033",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:12:03.711Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_034": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_034",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_034.json",
+      "mimeType": "application/json",
+      "fileId": "1gqutIxrVCI7nMdsM9juWx0HsjrEGsT1q",
+      "driveUrl": "https://drive.google.com/file/d/1gqutIxrVCI7nMdsM9juWx0HsjrEGsT1q/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1gqutIxrVCI7nMdsM9juWx0HsjrEGsT1q",
+      "sizeBytes": 183737,
+      "metadata": {
+        "unitId": "yoji_unit_034",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:12:07.067Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_035": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_035",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_035.json",
+      "mimeType": "application/json",
+      "fileId": "1z-kVDjqsLAQ0tX09bLjYtRzN85aXj7Ly",
+      "driveUrl": "https://drive.google.com/file/d/1z-kVDjqsLAQ0tX09bLjYtRzN85aXj7Ly/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1z-kVDjqsLAQ0tX09bLjYtRzN85aXj7Ly",
+      "sizeBytes": 183183,
+      "metadata": {
+        "unitId": "yoji_unit_035",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:12:10.231Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_036": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_036",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_036.json",
+      "mimeType": "application/json",
+      "fileId": "1Pxi4TtPlHdbq6T_IpRdnYV7rdC0xkXVY",
+      "driveUrl": "https://drive.google.com/file/d/1Pxi4TtPlHdbq6T_IpRdnYV7rdC0xkXVY/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Pxi4TtPlHdbq6T_IpRdnYV7rdC0xkXVY",
+      "sizeBytes": 181275,
+      "metadata": {
+        "unitId": "yoji_unit_036",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:12:13.480Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_037": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_037",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_037.json",
+      "mimeType": "application/json",
+      "fileId": "1iZojJ1R3PA66vCJbC03AVyzK0Kka09fy",
+      "driveUrl": "https://drive.google.com/file/d/1iZojJ1R3PA66vCJbC03AVyzK0Kka09fy/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1iZojJ1R3PA66vCJbC03AVyzK0Kka09fy",
+      "sizeBytes": 186221,
+      "metadata": {
+        "unitId": "yoji_unit_037",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:12:17.518Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_038": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_038",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_038.json",
+      "mimeType": "application/json",
+      "fileId": "1VTOORY_40YdUaI3Opw1ymSvmy34ibVeb",
+      "driveUrl": "https://drive.google.com/file/d/1VTOORY_40YdUaI3Opw1ymSvmy34ibVeb/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1VTOORY_40YdUaI3Opw1ymSvmy34ibVeb",
+      "sizeBytes": 184565,
+      "metadata": {
+        "unitId": "yoji_unit_038",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:12:21.063Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_039": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_039",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_039.json",
+      "mimeType": "application/json",
+      "fileId": "1alwMXACbD6e8iSPMbef7dGkzLPnxYEfp",
+      "driveUrl": "https://drive.google.com/file/d/1alwMXACbD6e8iSPMbef7dGkzLPnxYEfp/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1alwMXACbD6e8iSPMbef7dGkzLPnxYEfp",
+      "sizeBytes": 182660,
+      "metadata": {
+        "unitId": "yoji_unit_039",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:12:24.375Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_040": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_040",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_040.json",
+      "mimeType": "application/json",
+      "fileId": "1QNBE57vi73cmydKfjiLVdTelqRYRuwqb",
+      "driveUrl": "https://drive.google.com/file/d/1QNBE57vi73cmydKfjiLVdTelqRYRuwqb/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1QNBE57vi73cmydKfjiLVdTelqRYRuwqb",
+      "sizeBytes": 180829,
+      "metadata": {
+        "unitId": "yoji_unit_040",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:12:27.633Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_041": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_041",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_041.json",
+      "mimeType": "application/json",
+      "fileId": "1akIpcL6jUqcAzQKe5WxanEkisbvGZ3rM",
+      "driveUrl": "https://drive.google.com/file/d/1akIpcL6jUqcAzQKe5WxanEkisbvGZ3rM/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1akIpcL6jUqcAzQKe5WxanEkisbvGZ3rM",
+      "sizeBytes": 181075,
+      "metadata": {
+        "unitId": "yoji_unit_041",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:12:31.099Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_042": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_042",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_042.json",
+      "mimeType": "application/json",
+      "fileId": "1kg2Zr9pl-cslxaUkZ_vGxuXssFyd1tNR",
+      "driveUrl": "https://drive.google.com/file/d/1kg2Zr9pl-cslxaUkZ_vGxuXssFyd1tNR/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1kg2Zr9pl-cslxaUkZ_vGxuXssFyd1tNR",
+      "sizeBytes": 182877,
+      "metadata": {
+        "unitId": "yoji_unit_042",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:12:35.074Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_043": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_043",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_043.json",
+      "mimeType": "application/json",
+      "fileId": "1E9j_xI5B9ZrCM2E26VrSK84wr7uX02pv",
+      "driveUrl": "https://drive.google.com/file/d/1E9j_xI5B9ZrCM2E26VrSK84wr7uX02pv/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1E9j_xI5B9ZrCM2E26VrSK84wr7uX02pv",
+      "sizeBytes": 181862,
+      "metadata": {
+        "unitId": "yoji_unit_043",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:12:39.596Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_044": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_044",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_044.json",
+      "mimeType": "application/json",
+      "fileId": "1MryxFk395VE1uCAZXh_xsspoUGM_aJ6o",
+      "driveUrl": "https://drive.google.com/file/d/1MryxFk395VE1uCAZXh_xsspoUGM_aJ6o/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1MryxFk395VE1uCAZXh_xsspoUGM_aJ6o",
+      "sizeBytes": 181718,
+      "metadata": {
+        "unitId": "yoji_unit_044",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:12:43.396Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_045": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_045",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_045.json",
+      "mimeType": "application/json",
+      "fileId": "1j3L1sKC9lijTDgNHGsJtVogHicgBLFcO",
+      "driveUrl": "https://drive.google.com/file/d/1j3L1sKC9lijTDgNHGsJtVogHicgBLFcO/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1j3L1sKC9lijTDgNHGsJtVogHicgBLFcO",
+      "sizeBytes": 177177,
+      "metadata": {
+        "unitId": "yoji_unit_045",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:12:49.552Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_046": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_046",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_046.json",
+      "mimeType": "application/json",
+      "fileId": "1ajDz34NyrPz4xXNJAs5W3qzcNXjZ9yT-",
+      "driveUrl": "https://drive.google.com/file/d/1ajDz34NyrPz4xXNJAs5W3qzcNXjZ9yT-/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1ajDz34NyrPz4xXNJAs5W3qzcNXjZ9yT-",
+      "sizeBytes": 178702,
+      "metadata": {
+        "unitId": "yoji_unit_046",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:12:53.610Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_047": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_047",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_047.json",
+      "mimeType": "application/json",
+      "fileId": "1L774LiPwjZtk_fVOhe0jjFVNbVedl6Pv",
+      "driveUrl": "https://drive.google.com/file/d/1L774LiPwjZtk_fVOhe0jjFVNbVedl6Pv/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1L774LiPwjZtk_fVOhe0jjFVNbVedl6Pv",
+      "sizeBytes": 178205,
+      "metadata": {
+        "unitId": "yoji_unit_047",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:12:57.155Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_048": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_048",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_048.json",
+      "mimeType": "application/json",
+      "fileId": "11aWSfhLb6p4bxk0f5qG_W32MDCvsNLr8",
+      "driveUrl": "https://drive.google.com/file/d/11aWSfhLb6p4bxk0f5qG_W32MDCvsNLr8/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/11aWSfhLb6p4bxk0f5qG_W32MDCvsNLr8",
+      "sizeBytes": 181122,
+      "metadata": {
+        "unitId": "yoji_unit_048",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:13:02.191Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_049": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_049",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_049.json",
+      "mimeType": "application/json",
+      "fileId": "1J1gpnwHs2oV5QBo-UGB6w-0KviNJbz-R",
+      "driveUrl": "https://drive.google.com/file/d/1J1gpnwHs2oV5QBo-UGB6w-0KviNJbz-R/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1J1gpnwHs2oV5QBo-UGB6w-0KviNJbz-R",
+      "sizeBytes": 181707,
+      "metadata": {
+        "unitId": "yoji_unit_049",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:13:05.370Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_050": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_050",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_050.json",
+      "mimeType": "application/json",
+      "fileId": "1Sp7ilpPnsx0eJfvx7cSMa4diPvoNHHpR",
+      "driveUrl": "https://drive.google.com/file/d/1Sp7ilpPnsx0eJfvx7cSMa4diPvoNHHpR/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Sp7ilpPnsx0eJfvx7cSMa4diPvoNHHpR",
+      "sizeBytes": 179273,
+      "metadata": {
+        "unitId": "yoji_unit_050",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:13:08.910Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_051": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_051",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_051.json",
+      "mimeType": "application/json",
+      "fileId": "1uh1-bxB2XQ1eXTj2f5MV9ZJLNJkfvLuN",
+      "driveUrl": "https://drive.google.com/file/d/1uh1-bxB2XQ1eXTj2f5MV9ZJLNJkfvLuN/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1uh1-bxB2XQ1eXTj2f5MV9ZJLNJkfvLuN",
+      "sizeBytes": 178047,
+      "metadata": {
+        "unitId": "yoji_unit_051",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:13:12.132Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_052": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_052",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_052.json",
+      "mimeType": "application/json",
+      "fileId": "1KcLz2U-Qu3ZYIbbWkFmKkjN_IA57ojNg",
+      "driveUrl": "https://drive.google.com/file/d/1KcLz2U-Qu3ZYIbbWkFmKkjN_IA57ojNg/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1KcLz2U-Qu3ZYIbbWkFmKkjN_IA57ojNg",
+      "sizeBytes": 181306,
+      "metadata": {
+        "unitId": "yoji_unit_052",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:13:17.350Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_053": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_053",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_053.json",
+      "mimeType": "application/json",
+      "fileId": "1fWp6eyoj5MRTgvH38E54-z_OVkf6y3s2",
+      "driveUrl": "https://drive.google.com/file/d/1fWp6eyoj5MRTgvH38E54-z_OVkf6y3s2/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1fWp6eyoj5MRTgvH38E54-z_OVkf6y3s2",
+      "sizeBytes": 180271,
+      "metadata": {
+        "unitId": "yoji_unit_053",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:13:21.468Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_054": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_054",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_054.json",
+      "mimeType": "application/json",
+      "fileId": "1KEnxaQrqBkHEMmpRvu56lkdQL8rSgi0Q",
+      "driveUrl": "https://drive.google.com/file/d/1KEnxaQrqBkHEMmpRvu56lkdQL8rSgi0Q/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1KEnxaQrqBkHEMmpRvu56lkdQL8rSgi0Q",
+      "sizeBytes": 182885,
+      "metadata": {
+        "unitId": "yoji_unit_054",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:13:26.242Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_055": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_055",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_055.json",
+      "mimeType": "application/json",
+      "fileId": "1ZwWEscl_a0p6woSpNUcvcoJoXoexqwGq",
+      "driveUrl": "https://drive.google.com/file/d/1ZwWEscl_a0p6woSpNUcvcoJoXoexqwGq/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1ZwWEscl_a0p6woSpNUcvcoJoXoexqwGq",
+      "sizeBytes": 179965,
+      "metadata": {
+        "unitId": "yoji_unit_055",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:13:30.881Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_056": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_056",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_056.json",
+      "mimeType": "application/json",
+      "fileId": "1YxLYqnB-5ZPJXv9Bqgk9iFmJzpH66LNf",
+      "driveUrl": "https://drive.google.com/file/d/1YxLYqnB-5ZPJXv9Bqgk9iFmJzpH66LNf/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1YxLYqnB-5ZPJXv9Bqgk9iFmJzpH66LNf",
+      "sizeBytes": 181948,
+      "metadata": {
+        "unitId": "yoji_unit_056",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:13:34.144Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_057": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_057",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_057.json",
+      "mimeType": "application/json",
+      "fileId": "1BzQunyO5w3XJM9Okz-XI7weJRgf6sYJB",
+      "driveUrl": "https://drive.google.com/file/d/1BzQunyO5w3XJM9Okz-XI7weJRgf6sYJB/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1BzQunyO5w3XJM9Okz-XI7weJRgf6sYJB",
+      "sizeBytes": 180597,
+      "metadata": {
+        "unitId": "yoji_unit_057",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:13:38.600Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_058": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_058",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_058.json",
+      "mimeType": "application/json",
+      "fileId": "19KuEXv1FHidUwOgbUSsmSWgGW7oEBhgB",
+      "driveUrl": "https://drive.google.com/file/d/19KuEXv1FHidUwOgbUSsmSWgGW7oEBhgB/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/19KuEXv1FHidUwOgbUSsmSWgGW7oEBhgB",
+      "sizeBytes": 189061,
+      "metadata": {
+        "unitId": "yoji_unit_058",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:13:41.961Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_059": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_059",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_059.json",
+      "mimeType": "application/json",
+      "fileId": "1s6yvuCI4tHth_9UVvgprGERNPBXsnkiT",
+      "driveUrl": "https://drive.google.com/file/d/1s6yvuCI4tHth_9UVvgprGERNPBXsnkiT/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1s6yvuCI4tHth_9UVvgprGERNPBXsnkiT",
+      "sizeBytes": 181032,
+      "metadata": {
+        "unitId": "yoji_unit_059",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:13:46.895Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_060": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_060",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_060.json",
+      "mimeType": "application/json",
+      "fileId": "1PNR5GnzQxAZhA1MWq-g-JthBi5tZc6Xr",
+      "driveUrl": "https://drive.google.com/file/d/1PNR5GnzQxAZhA1MWq-g-JthBi5tZc6Xr/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1PNR5GnzQxAZhA1MWq-g-JthBi5tZc6Xr",
+      "sizeBytes": 180580,
+      "metadata": {
+        "unitId": "yoji_unit_060",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:13:52.974Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_061": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_061",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_061.json",
+      "mimeType": "application/json",
+      "fileId": "13jdE5t1Y99qom7-1qGRFV3Mdwx7lRWX6",
+      "driveUrl": "https://drive.google.com/file/d/13jdE5t1Y99qom7-1qGRFV3Mdwx7lRWX6/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/13jdE5t1Y99qom7-1qGRFV3Mdwx7lRWX6",
+      "sizeBytes": 182141,
+      "metadata": {
+        "unitId": "yoji_unit_061",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:13:56.763Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_062": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_062",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_062.json",
+      "mimeType": "application/json",
+      "fileId": "1IC0-tnHtIM4c_x165uhxnAsditHNbUMe",
+      "driveUrl": "https://drive.google.com/file/d/1IC0-tnHtIM4c_x165uhxnAsditHNbUMe/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1IC0-tnHtIM4c_x165uhxnAsditHNbUMe",
+      "sizeBytes": 180562,
+      "metadata": {
+        "unitId": "yoji_unit_062",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:14:00.453Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_063": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_063",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_063.json",
+      "mimeType": "application/json",
+      "fileId": "1k7kSasvAsfVKKDEiq7SVLBcP5bc0UcQN",
+      "driveUrl": "https://drive.google.com/file/d/1k7kSasvAsfVKKDEiq7SVLBcP5bc0UcQN/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1k7kSasvAsfVKKDEiq7SVLBcP5bc0UcQN",
+      "sizeBytes": 183637,
+      "metadata": {
+        "unitId": "yoji_unit_063",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:14:03.927Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_064": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_064",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_064.json",
+      "mimeType": "application/json",
+      "fileId": "1JQiSDF3nJWkwIKNauMFqtsa9ldKcW9Kv",
+      "driveUrl": "https://drive.google.com/file/d/1JQiSDF3nJWkwIKNauMFqtsa9ldKcW9Kv/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1JQiSDF3nJWkwIKNauMFqtsa9ldKcW9Kv",
+      "sizeBytes": 179574,
+      "metadata": {
+        "unitId": "yoji_unit_064",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:14:07.369Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_065": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_065",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_065.json",
+      "mimeType": "application/json",
+      "fileId": "1oJlydVNJrcfh1vPQhEBw80OKoT5o44ZX",
+      "driveUrl": "https://drive.google.com/file/d/1oJlydVNJrcfh1vPQhEBw80OKoT5o44ZX/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1oJlydVNJrcfh1vPQhEBw80OKoT5o44ZX",
+      "sizeBytes": 183777,
+      "metadata": {
+        "unitId": "yoji_unit_065",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:14:10.780Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_066": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_066",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_066.json",
+      "mimeType": "application/json",
+      "fileId": "1VKXoHGutO1ayAa8EwOACXK5O6VbLemre",
+      "driveUrl": "https://drive.google.com/file/d/1VKXoHGutO1ayAa8EwOACXK5O6VbLemre/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1VKXoHGutO1ayAa8EwOACXK5O6VbLemre",
+      "sizeBytes": 187872,
+      "metadata": {
+        "unitId": "yoji_unit_066",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:14:14.154Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_067": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_067",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_067.json",
+      "mimeType": "application/json",
+      "fileId": "1Th_ZaPY9h8cehSyla86QYUuE6dEiQ_FA",
+      "driveUrl": "https://drive.google.com/file/d/1Th_ZaPY9h8cehSyla86QYUuE6dEiQ_FA/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Th_ZaPY9h8cehSyla86QYUuE6dEiQ_FA",
+      "sizeBytes": 184342,
+      "metadata": {
+        "unitId": "yoji_unit_067",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:14:17.552Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_068": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_068",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_068.json",
+      "mimeType": "application/json",
+      "fileId": "1HGJm38RgJWf658Tz0ka8rq3dmOFLlfFx",
+      "driveUrl": "https://drive.google.com/file/d/1HGJm38RgJWf658Tz0ka8rq3dmOFLlfFx/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1HGJm38RgJWf658Tz0ka8rq3dmOFLlfFx",
+      "sizeBytes": 182506,
+      "metadata": {
+        "unitId": "yoji_unit_068",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:14:20.681Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_069": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_069",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_069.json",
+      "mimeType": "application/json",
+      "fileId": "1Uh0aH7blzhS0b6mtrRA9iagFFf1e-cJj",
+      "driveUrl": "https://drive.google.com/file/d/1Uh0aH7blzhS0b6mtrRA9iagFFf1e-cJj/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Uh0aH7blzhS0b6mtrRA9iagFFf1e-cJj",
+      "sizeBytes": 183525,
+      "metadata": {
+        "unitId": "yoji_unit_069",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:14:24.132Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_070": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_070",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_070.json",
+      "mimeType": "application/json",
+      "fileId": "13sfogBGEiPyWiS3CWZTSWMC3xBavdZZq",
+      "driveUrl": "https://drive.google.com/file/d/13sfogBGEiPyWiS3CWZTSWMC3xBavdZZq/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/13sfogBGEiPyWiS3CWZTSWMC3xBavdZZq",
+      "sizeBytes": 182439,
+      "metadata": {
+        "unitId": "yoji_unit_070",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:14:28.125Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_071": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_071",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_071.json",
+      "mimeType": "application/json",
+      "fileId": "19bYdigzKixOrLxYQDwjF3ZCxb4y8rNYj",
+      "driveUrl": "https://drive.google.com/file/d/19bYdigzKixOrLxYQDwjF3ZCxb4y8rNYj/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/19bYdigzKixOrLxYQDwjF3ZCxb4y8rNYj",
+      "sizeBytes": 177188,
+      "metadata": {
+        "unitId": "yoji_unit_071",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:14:32.795Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_072": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_072",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_072.json",
+      "mimeType": "application/json",
+      "fileId": "1Ov0w6z8vCA66MzIFobc-gvGsaItin86J",
+      "driveUrl": "https://drive.google.com/file/d/1Ov0w6z8vCA66MzIFobc-gvGsaItin86J/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Ov0w6z8vCA66MzIFobc-gvGsaItin86J",
+      "sizeBytes": 177483,
+      "metadata": {
+        "unitId": "yoji_unit_072",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:14:36.719Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_073": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_073",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_073.json",
+      "mimeType": "application/json",
+      "fileId": "1BS2tSUYYXt-JgF7ZxgzdayuWATWPWGq5",
+      "driveUrl": "https://drive.google.com/file/d/1BS2tSUYYXt-JgF7ZxgzdayuWATWPWGq5/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1BS2tSUYYXt-JgF7ZxgzdayuWATWPWGq5",
+      "sizeBytes": 180147,
+      "metadata": {
+        "unitId": "yoji_unit_073",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:14:40.051Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_074": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_074",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_074.json",
+      "mimeType": "application/json",
+      "fileId": "1nVnAnJ9YiLD-roFPOG_p9YHiWz98x9a5",
+      "driveUrl": "https://drive.google.com/file/d/1nVnAnJ9YiLD-roFPOG_p9YHiWz98x9a5/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1nVnAnJ9YiLD-roFPOG_p9YHiWz98x9a5",
+      "sizeBytes": 180512,
+      "metadata": {
+        "unitId": "yoji_unit_074",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:14:43.924Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_075": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_075",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_075.json",
+      "mimeType": "application/json",
+      "fileId": "1gcTJw9jMcy0HRXybjY3lit5dW5jDSwUk",
+      "driveUrl": "https://drive.google.com/file/d/1gcTJw9jMcy0HRXybjY3lit5dW5jDSwUk/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1gcTJw9jMcy0HRXybjY3lit5dW5jDSwUk",
+      "sizeBytes": 184104,
+      "metadata": {
+        "unitId": "yoji_unit_075",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:14:47.130Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_076": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_076",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_076.json",
+      "mimeType": "application/json",
+      "fileId": "1-kPiXcHNoCqALNtwjpjEV5jZ4aK0QgGX",
+      "driveUrl": "https://drive.google.com/file/d/1-kPiXcHNoCqALNtwjpjEV5jZ4aK0QgGX/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1-kPiXcHNoCqALNtwjpjEV5jZ4aK0QgGX",
+      "sizeBytes": 180174,
+      "metadata": {
+        "unitId": "yoji_unit_076",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:14:50.569Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_077": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_077",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_077.json",
+      "mimeType": "application/json",
+      "fileId": "1j4ZxltQc2XMlPfAN0wJpWw5DFN8dlGib",
+      "driveUrl": "https://drive.google.com/file/d/1j4ZxltQc2XMlPfAN0wJpWw5DFN8dlGib/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1j4ZxltQc2XMlPfAN0wJpWw5DFN8dlGib",
+      "sizeBytes": 187234,
+      "metadata": {
+        "unitId": "yoji_unit_077",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:14:54.304Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_078": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_078",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_078.json",
+      "mimeType": "application/json",
+      "fileId": "1ZJCvzHZO4YyMpBDG-XW8eP6FfzD3fHat",
+      "driveUrl": "https://drive.google.com/file/d/1ZJCvzHZO4YyMpBDG-XW8eP6FfzD3fHat/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1ZJCvzHZO4YyMpBDG-XW8eP6FfzD3fHat",
+      "sizeBytes": 181052,
+      "metadata": {
+        "unitId": "yoji_unit_078",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:14:58.063Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_079": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_079",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_079.json",
+      "mimeType": "application/json",
+      "fileId": "18325DZx89k6_-iJkCnebuEmqcxrBfgH9",
+      "driveUrl": "https://drive.google.com/file/d/18325DZx89k6_-iJkCnebuEmqcxrBfgH9/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/18325DZx89k6_-iJkCnebuEmqcxrBfgH9",
+      "sizeBytes": 179565,
+      "metadata": {
+        "unitId": "yoji_unit_079",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:15:01.404Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_080": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_080",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_080.json",
+      "mimeType": "application/json",
+      "fileId": "11HirTMKA9V8uabSEkedZdl1bIJOz5Rbr",
+      "driveUrl": "https://drive.google.com/file/d/11HirTMKA9V8uabSEkedZdl1bIJOz5Rbr/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/11HirTMKA9V8uabSEkedZdl1bIJOz5Rbr",
+      "sizeBytes": 185246,
+      "metadata": {
+        "unitId": "yoji_unit_080",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:15:04.979Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_081": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_081",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_081.json",
+      "mimeType": "application/json",
+      "fileId": "1Czu4ZN1rf7ibOroVrsq9-1wRTrQKF3Pj",
+      "driveUrl": "https://drive.google.com/file/d/1Czu4ZN1rf7ibOroVrsq9-1wRTrQKF3Pj/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Czu4ZN1rf7ibOroVrsq9-1wRTrQKF3Pj",
+      "sizeBytes": 183689,
+      "metadata": {
+        "unitId": "yoji_unit_081",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:15:08.193Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_082": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_082",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_082.json",
+      "mimeType": "application/json",
+      "fileId": "1ZpWBVA8EPi3N7XDhPe91X_PVcKpuusFK",
+      "driveUrl": "https://drive.google.com/file/d/1ZpWBVA8EPi3N7XDhPe91X_PVcKpuusFK/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1ZpWBVA8EPi3N7XDhPe91X_PVcKpuusFK",
+      "sizeBytes": 185544,
+      "metadata": {
+        "unitId": "yoji_unit_082",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:15:12.129Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_083": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_083",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_083.json",
+      "mimeType": "application/json",
+      "fileId": "1bucLmNqBRmDMNWE4vCz25gpLCEjVaGwB",
+      "driveUrl": "https://drive.google.com/file/d/1bucLmNqBRmDMNWE4vCz25gpLCEjVaGwB/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1bucLmNqBRmDMNWE4vCz25gpLCEjVaGwB",
+      "sizeBytes": 186657,
+      "metadata": {
+        "unitId": "yoji_unit_083",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:15:17.646Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_084": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_084",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_084.json",
+      "mimeType": "application/json",
+      "fileId": "11nIDFoe1PEwyO7j3f5SfCwCvE4rVpd9d",
+      "driveUrl": "https://drive.google.com/file/d/11nIDFoe1PEwyO7j3f5SfCwCvE4rVpd9d/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/11nIDFoe1PEwyO7j3f5SfCwCvE4rVpd9d",
+      "sizeBytes": 184706,
+      "metadata": {
+        "unitId": "yoji_unit_084",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:15:24.793Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_085": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_085",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_085.json",
+      "mimeType": "application/json",
+      "fileId": "128Sq7kfCkKC9cS2fwYtUjz0oKW-npDVE",
+      "driveUrl": "https://drive.google.com/file/d/128Sq7kfCkKC9cS2fwYtUjz0oKW-npDVE/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/128Sq7kfCkKC9cS2fwYtUjz0oKW-npDVE",
+      "sizeBytes": 190592,
+      "metadata": {
+        "unitId": "yoji_unit_085",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:15:28.333Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_086": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_086",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_086.json",
+      "mimeType": "application/json",
+      "fileId": "1Px9dniXbycQFHDe5a4_5bI7jvyhg-k2V",
+      "driveUrl": "https://drive.google.com/file/d/1Px9dniXbycQFHDe5a4_5bI7jvyhg-k2V/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Px9dniXbycQFHDe5a4_5bI7jvyhg-k2V",
+      "sizeBytes": 189374,
+      "metadata": {
+        "unitId": "yoji_unit_086",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:15:31.870Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_087": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_087",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_087.json",
+      "mimeType": "application/json",
+      "fileId": "1rL4UTBxv_PZ8tjGgdv503DkMg60gor8F",
+      "driveUrl": "https://drive.google.com/file/d/1rL4UTBxv_PZ8tjGgdv503DkMg60gor8F/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1rL4UTBxv_PZ8tjGgdv503DkMg60gor8F",
+      "sizeBytes": 187965,
+      "metadata": {
+        "unitId": "yoji_unit_087",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:15:35.164Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_088": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_088",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_088.json",
+      "mimeType": "application/json",
+      "fileId": "1TU8OGHaOIf7rJAtimXuUyq7dO0srusOy",
+      "driveUrl": "https://drive.google.com/file/d/1TU8OGHaOIf7rJAtimXuUyq7dO0srusOy/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1TU8OGHaOIf7rJAtimXuUyq7dO0srusOy",
+      "sizeBytes": 186180,
+      "metadata": {
+        "unitId": "yoji_unit_088",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:15:38.742Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_089": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_089",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_089.json",
+      "mimeType": "application/json",
+      "fileId": "1iUPL39ClC63ied46wM1aVbDPdekCwwBS",
+      "driveUrl": "https://drive.google.com/file/d/1iUPL39ClC63ied46wM1aVbDPdekCwwBS/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1iUPL39ClC63ied46wM1aVbDPdekCwwBS",
+      "sizeBytes": 186623,
+      "metadata": {
+        "unitId": "yoji_unit_089",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:15:42.857Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_090": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_090",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_090.json",
+      "mimeType": "application/json",
+      "fileId": "1wAtkfUzUmzeJIcQ6tsjXEDnEz-vezsh7",
+      "driveUrl": "https://drive.google.com/file/d/1wAtkfUzUmzeJIcQ6tsjXEDnEz-vezsh7/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1wAtkfUzUmzeJIcQ6tsjXEDnEz-vezsh7",
+      "sizeBytes": 184679,
+      "metadata": {
+        "unitId": "yoji_unit_090",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:15:47.090Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_091": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_091",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_091.json",
+      "mimeType": "application/json",
+      "fileId": "1tBMXKCvMeRwg2I2vC8X6q1pe3gjuJF9t",
+      "driveUrl": "https://drive.google.com/file/d/1tBMXKCvMeRwg2I2vC8X6q1pe3gjuJF9t/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1tBMXKCvMeRwg2I2vC8X6q1pe3gjuJF9t",
+      "sizeBytes": 187235,
+      "metadata": {
+        "unitId": "yoji_unit_091",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:15:50.412Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_092": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_092",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_092.json",
+      "mimeType": "application/json",
+      "fileId": "1ipRovsfC3tAvr64F3eX-o8QSepA-jPrb",
+      "driveUrl": "https://drive.google.com/file/d/1ipRovsfC3tAvr64F3eX-o8QSepA-jPrb/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1ipRovsfC3tAvr64F3eX-o8QSepA-jPrb",
+      "sizeBytes": 189685,
+      "metadata": {
+        "unitId": "yoji_unit_092",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:15:53.731Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_093": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_093",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_093.json",
+      "mimeType": "application/json",
+      "fileId": "1EJHf5wnXM7aqHJNOJE-jzoN_IY0-InMf",
+      "driveUrl": "https://drive.google.com/file/d/1EJHf5wnXM7aqHJNOJE-jzoN_IY0-InMf/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1EJHf5wnXM7aqHJNOJE-jzoN_IY0-InMf",
+      "sizeBytes": 186745,
+      "metadata": {
+        "unitId": "yoji_unit_093",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:15:57.156Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_094": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_094",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_094.json",
+      "mimeType": "application/json",
+      "fileId": "16E8jGOSzSnE7_5zVKASL9pBirrLcETx2",
+      "driveUrl": "https://drive.google.com/file/d/16E8jGOSzSnE7_5zVKASL9pBirrLcETx2/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/16E8jGOSzSnE7_5zVKASL9pBirrLcETx2",
+      "sizeBytes": 186504,
+      "metadata": {
+        "unitId": "yoji_unit_094",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:16:01.119Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_095": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_095",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_095.json",
+      "mimeType": "application/json",
+      "fileId": "1mAqE9VCMFm_DaqxQ5YFagKhcoqxmaWaf",
+      "driveUrl": "https://drive.google.com/file/d/1mAqE9VCMFm_DaqxQ5YFagKhcoqxmaWaf/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1mAqE9VCMFm_DaqxQ5YFagKhcoqxmaWaf",
+      "sizeBytes": 185469,
+      "metadata": {
+        "unitId": "yoji_unit_095",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:16:05.515Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_096": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_096",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_096.json",
+      "mimeType": "application/json",
+      "fileId": "18xbO-vYU5v_klr45lQecfbQ-70pUKBbv",
+      "driveUrl": "https://drive.google.com/file/d/18xbO-vYU5v_klr45lQecfbQ-70pUKBbv/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/18xbO-vYU5v_klr45lQecfbQ-70pUKBbv",
+      "sizeBytes": 184111,
+      "metadata": {
+        "unitId": "yoji_unit_096",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:16:08.627Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_097": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_097",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_097.json",
+      "mimeType": "application/json",
+      "fileId": "1-q-59XX28IJiMJ2RtHVzrokA-h5mYMjX",
+      "driveUrl": "https://drive.google.com/file/d/1-q-59XX28IJiMJ2RtHVzrokA-h5mYMjX/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1-q-59XX28IJiMJ2RtHVzrokA-h5mYMjX",
+      "sizeBytes": 186613,
+      "metadata": {
+        "unitId": "yoji_unit_097",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:16:12.295Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_098": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_098",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_098.json",
+      "mimeType": "application/json",
+      "fileId": "1qLgOm6Vn1vhLvmD31xrVVwHRqkjOGwUb",
+      "driveUrl": "https://drive.google.com/file/d/1qLgOm6Vn1vhLvmD31xrVVwHRqkjOGwUb/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1qLgOm6Vn1vhLvmD31xrVVwHRqkjOGwUb",
+      "sizeBytes": 186855,
+      "metadata": {
+        "unitId": "yoji_unit_098",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:16:16.204Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_099": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_099",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_099.json",
+      "mimeType": "application/json",
+      "fileId": "1RocIVndE3BTHaujKJicWq5CyRZqesi6l",
+      "driveUrl": "https://drive.google.com/file/d/1RocIVndE3BTHaujKJicWq5CyRZqesi6l/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1RocIVndE3BTHaujKJicWq5CyRZqesi6l",
+      "sizeBytes": 185452,
+      "metadata": {
+        "unitId": "yoji_unit_099",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:16:21.020Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_100": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_100",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_100.json",
+      "mimeType": "application/json",
+      "fileId": "124bUB8PBCs5TMlKwCo2cD2HkvVPHEIiO",
+      "driveUrl": "https://drive.google.com/file/d/124bUB8PBCs5TMlKwCo2cD2HkvVPHEIiO/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/124bUB8PBCs5TMlKwCo2cD2HkvVPHEIiO",
+      "sizeBytes": 184553,
+      "metadata": {
+        "unitId": "yoji_unit_100",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:16:24.192Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_101": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_101",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_101.json",
+      "mimeType": "application/json",
+      "fileId": "1fmOqPNBszqlJEvebXAt0f_9rYSXqfMVx",
+      "driveUrl": "https://drive.google.com/file/d/1fmOqPNBszqlJEvebXAt0f_9rYSXqfMVx/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1fmOqPNBszqlJEvebXAt0f_9rYSXqfMVx",
+      "sizeBytes": 179482,
+      "metadata": {
+        "unitId": "yoji_unit_101",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:16:28.121Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_102": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_102",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_102.json",
+      "mimeType": "application/json",
+      "fileId": "10QibRqmRUGXR72f2PNR1M2i4qe1_ErFy",
+      "driveUrl": "https://drive.google.com/file/d/10QibRqmRUGXR72f2PNR1M2i4qe1_ErFy/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/10QibRqmRUGXR72f2PNR1M2i4qe1_ErFy",
+      "sizeBytes": 178938,
+      "metadata": {
+        "unitId": "yoji_unit_102",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:16:31.553Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_103": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_103",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_103.json",
+      "mimeType": "application/json",
+      "fileId": "1lhOsqESBJuiSBeVvRePknZsk_ZZrmb9j",
+      "driveUrl": "https://drive.google.com/file/d/1lhOsqESBJuiSBeVvRePknZsk_ZZrmb9j/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1lhOsqESBJuiSBeVvRePknZsk_ZZrmb9j",
+      "sizeBytes": 185087,
+      "metadata": {
+        "unitId": "yoji_unit_103",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:16:35.210Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_104": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_104",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_104.json",
+      "mimeType": "application/json",
+      "fileId": "1UXYFEgJr5y_anhb2NjGRJQT1dmxa6KwF",
+      "driveUrl": "https://drive.google.com/file/d/1UXYFEgJr5y_anhb2NjGRJQT1dmxa6KwF/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1UXYFEgJr5y_anhb2NjGRJQT1dmxa6KwF",
+      "sizeBytes": 185428,
+      "metadata": {
+        "unitId": "yoji_unit_104",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:16:39.269Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_105": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_105",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_105.json",
+      "mimeType": "application/json",
+      "fileId": "1RwueWh5NYhkiLZwZdc2ms-zDmiaKWWvK",
+      "driveUrl": "https://drive.google.com/file/d/1RwueWh5NYhkiLZwZdc2ms-zDmiaKWWvK/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1RwueWh5NYhkiLZwZdc2ms-zDmiaKWWvK",
+      "sizeBytes": 179298,
+      "metadata": {
+        "unitId": "yoji_unit_105",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:16:42.534Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_106": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_106",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_106.json",
+      "mimeType": "application/json",
+      "fileId": "1U-Dd2qHPnB3P7BzN4UjyIf_w2PRvlWSz",
+      "driveUrl": "https://drive.google.com/file/d/1U-Dd2qHPnB3P7BzN4UjyIf_w2PRvlWSz/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1U-Dd2qHPnB3P7BzN4UjyIf_w2PRvlWSz",
+      "sizeBytes": 181757,
+      "metadata": {
+        "unitId": "yoji_unit_106",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:16:46.398Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_107": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_107",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_107.json",
+      "mimeType": "application/json",
+      "fileId": "1_QPFD61h7CA3JpnGL3tOQwzYVTWRzAYJ",
+      "driveUrl": "https://drive.google.com/file/d/1_QPFD61h7CA3JpnGL3tOQwzYVTWRzAYJ/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1_QPFD61h7CA3JpnGL3tOQwzYVTWRzAYJ",
+      "sizeBytes": 178527,
+      "metadata": {
+        "unitId": "yoji_unit_107",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:16:49.512Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_108": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_108",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_108.json",
+      "mimeType": "application/json",
+      "fileId": "18m3hdWus9B-I8Q-sVVVJNHD3tNQNlPUJ",
+      "driveUrl": "https://drive.google.com/file/d/18m3hdWus9B-I8Q-sVVVJNHD3tNQNlPUJ/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/18m3hdWus9B-I8Q-sVVVJNHD3tNQNlPUJ",
+      "sizeBytes": 180293,
+      "metadata": {
+        "unitId": "yoji_unit_108",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:16:52.848Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_109": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_109",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_109.json",
+      "mimeType": "application/json",
+      "fileId": "17CtKmNCxnruYBXZCVQnRF4hVs1Fjqaq2",
+      "driveUrl": "https://drive.google.com/file/d/17CtKmNCxnruYBXZCVQnRF4hVs1Fjqaq2/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/17CtKmNCxnruYBXZCVQnRF4hVs1Fjqaq2",
+      "sizeBytes": 179934,
+      "metadata": {
+        "unitId": "yoji_unit_109",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:29:07.379Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_110": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_110",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_110.json",
+      "mimeType": "application/json",
+      "fileId": "1x2d6gp2RN0iT1uSVKTHtAMvlmHY3A2CU",
+      "driveUrl": "https://drive.google.com/file/d/1x2d6gp2RN0iT1uSVKTHtAMvlmHY3A2CU/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1x2d6gp2RN0iT1uSVKTHtAMvlmHY3A2CU",
+      "sizeBytes": 183042,
+      "metadata": {
+        "unitId": "yoji_unit_110",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:30:47.250Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_111": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_111",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_111.json",
+      "mimeType": "application/json",
+      "fileId": "12fNpbDIcic6NHiWvnH22JwRXOm5hpF7k",
+      "driveUrl": "https://drive.google.com/file/d/12fNpbDIcic6NHiWvnH22JwRXOm5hpF7k/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/12fNpbDIcic6NHiWvnH22JwRXOm5hpF7k",
+      "sizeBytes": 176321,
+      "metadata": {
+        "unitId": "yoji_unit_111",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:30:53.877Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_112": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_112",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_112.json",
+      "mimeType": "application/json",
+      "fileId": "1zRMO3of1MMqr-n5kdF1KCfRdAIZuHa2n",
+      "driveUrl": "https://drive.google.com/file/d/1zRMO3of1MMqr-n5kdF1KCfRdAIZuHa2n/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1zRMO3of1MMqr-n5kdF1KCfRdAIZuHa2n",
+      "sizeBytes": 183058,
+      "metadata": {
+        "unitId": "yoji_unit_112",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:30:58.051Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_113": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_113",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_113.json",
+      "mimeType": "application/json",
+      "fileId": "1tEuklWqkzBG-RaWfqOnbhySt8tRQfrJs",
+      "driveUrl": "https://drive.google.com/file/d/1tEuklWqkzBG-RaWfqOnbhySt8tRQfrJs/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1tEuklWqkzBG-RaWfqOnbhySt8tRQfrJs",
+      "sizeBytes": 178867,
+      "metadata": {
+        "unitId": "yoji_unit_113",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:31:02.088Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_114": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_114",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_114.json",
+      "mimeType": "application/json",
+      "fileId": "1ny52jcC-dsSNuruUL8hd3yibxkh6j_mE",
+      "driveUrl": "https://drive.google.com/file/d/1ny52jcC-dsSNuruUL8hd3yibxkh6j_mE/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1ny52jcC-dsSNuruUL8hd3yibxkh6j_mE",
+      "sizeBytes": 184864,
+      "metadata": {
+        "unitId": "yoji_unit_114",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:31:05.530Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_115": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_115",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_115.json",
+      "mimeType": "application/json",
+      "fileId": "16ezAI5eQnIhxf4Hn1-soxUCJquoNX41j",
+      "driveUrl": "https://drive.google.com/file/d/16ezAI5eQnIhxf4Hn1-soxUCJquoNX41j/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/16ezAI5eQnIhxf4Hn1-soxUCJquoNX41j",
+      "sizeBytes": 177594,
+      "metadata": {
+        "unitId": "yoji_unit_115",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:31:09.113Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_116": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_116",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_116.json",
+      "mimeType": "application/json",
+      "fileId": "19bsim1hAB-XQyiv-UFhERkxliAI6888R",
+      "driveUrl": "https://drive.google.com/file/d/19bsim1hAB-XQyiv-UFhERkxliAI6888R/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/19bsim1hAB-XQyiv-UFhERkxliAI6888R",
+      "sizeBytes": 180574,
+      "metadata": {
+        "unitId": "yoji_unit_116",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:31:12.287Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_117": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_117",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_117.json",
+      "mimeType": "application/json",
+      "fileId": "1x7Me24oqtVeth0repNj8EzeHJ3jE0meM",
+      "driveUrl": "https://drive.google.com/file/d/1x7Me24oqtVeth0repNj8EzeHJ3jE0meM/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1x7Me24oqtVeth0repNj8EzeHJ3jE0meM",
+      "sizeBytes": 180286,
+      "metadata": {
+        "unitId": "yoji_unit_117",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:31:15.469Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_118": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_118",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_118.json",
+      "mimeType": "application/json",
+      "fileId": "1hMnsf09nn9SuoPf6Fj5mWujMBoQlqYt7",
+      "driveUrl": "https://drive.google.com/file/d/1hMnsf09nn9SuoPf6Fj5mWujMBoQlqYt7/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1hMnsf09nn9SuoPf6Fj5mWujMBoQlqYt7",
+      "sizeBytes": 179761,
+      "metadata": {
+        "unitId": "yoji_unit_118",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:31:18.773Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_119": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_119",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_119.json",
+      "mimeType": "application/json",
+      "fileId": "1iqAI2h0C-37sZ_eTTeqsm-9x7nDnUyOn",
+      "driveUrl": "https://drive.google.com/file/d/1iqAI2h0C-37sZ_eTTeqsm-9x7nDnUyOn/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1iqAI2h0C-37sZ_eTTeqsm-9x7nDnUyOn",
+      "sizeBytes": 186012,
+      "metadata": {
+        "unitId": "yoji_unit_119",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:31:22.860Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_120": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_120",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_120.json",
+      "mimeType": "application/json",
+      "fileId": "1oLsBwqnI1XsWDf1PPpt-jvWa5BN0D9Qs",
+      "driveUrl": "https://drive.google.com/file/d/1oLsBwqnI1XsWDf1PPpt-jvWa5BN0D9Qs/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1oLsBwqnI1XsWDf1PPpt-jvWa5BN0D9Qs",
+      "sizeBytes": 176407,
+      "metadata": {
+        "unitId": "yoji_unit_120",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:31:26.626Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_121": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_121",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_121.json",
+      "mimeType": "application/json",
+      "fileId": "1MXlyybRRskPebslQ7hxle3hiXf9PBfnN",
+      "driveUrl": "https://drive.google.com/file/d/1MXlyybRRskPebslQ7hxle3hiXf9PBfnN/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1MXlyybRRskPebslQ7hxle3hiXf9PBfnN",
+      "sizeBytes": 179244,
+      "metadata": {
+        "unitId": "yoji_unit_121",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:31:30.109Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_122": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_122",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_122.json",
+      "mimeType": "application/json",
+      "fileId": "1YbVk2AtoeNcF_CzRbVytYYGSg6dgZd_A",
+      "driveUrl": "https://drive.google.com/file/d/1YbVk2AtoeNcF_CzRbVytYYGSg6dgZd_A/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1YbVk2AtoeNcF_CzRbVytYYGSg6dgZd_A",
+      "sizeBytes": 183599,
+      "metadata": {
+        "unitId": "yoji_unit_122",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:31:33.489Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_123": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_123",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_123.json",
+      "mimeType": "application/json",
+      "fileId": "1Q0KEk0HAQdiI33jy80CZNsl7VSfmd98x",
+      "driveUrl": "https://drive.google.com/file/d/1Q0KEk0HAQdiI33jy80CZNsl7VSfmd98x/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Q0KEk0HAQdiI33jy80CZNsl7VSfmd98x",
+      "sizeBytes": 187792,
+      "metadata": {
+        "unitId": "yoji_unit_123",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:31:36.806Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_124": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_124",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_124.json",
+      "mimeType": "application/json",
+      "fileId": "1Xv2WshEDAF3nUk7Yd3CgiqsQKe-6t0CS",
+      "driveUrl": "https://drive.google.com/file/d/1Xv2WshEDAF3nUk7Yd3CgiqsQKe-6t0CS/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Xv2WshEDAF3nUk7Yd3CgiqsQKe-6t0CS",
+      "sizeBytes": 182528,
+      "metadata": {
+        "unitId": "yoji_unit_124",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:31:40.032Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_125": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_125",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_125.json",
+      "mimeType": "application/json",
+      "fileId": "1FCZbbPTbrlMb2212vfPoX88M-7qNy9gb",
+      "driveUrl": "https://drive.google.com/file/d/1FCZbbPTbrlMb2212vfPoX88M-7qNy9gb/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1FCZbbPTbrlMb2212vfPoX88M-7qNy9gb",
+      "sizeBytes": 182248,
+      "metadata": {
+        "unitId": "yoji_unit_125",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:31:43.433Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_126": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_126",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_126.json",
+      "mimeType": "application/json",
+      "fileId": "1etnfRhPFSSy74-4xowgQ4tkCedShNpLO",
+      "driveUrl": "https://drive.google.com/file/d/1etnfRhPFSSy74-4xowgQ4tkCedShNpLO/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1etnfRhPFSSy74-4xowgQ4tkCedShNpLO",
+      "sizeBytes": 186298,
+      "metadata": {
+        "unitId": "yoji_unit_126",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:31:46.862Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_127": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_127",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_127.json",
+      "mimeType": "application/json",
+      "fileId": "1Y2OXRQzDE06DsnFuC1Uf_VgCKqJXcVBN",
+      "driveUrl": "https://drive.google.com/file/d/1Y2OXRQzDE06DsnFuC1Uf_VgCKqJXcVBN/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Y2OXRQzDE06DsnFuC1Uf_VgCKqJXcVBN",
+      "sizeBytes": 186840,
+      "metadata": {
+        "unitId": "yoji_unit_127",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:31:50.375Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_128": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_128",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_128.json",
+      "mimeType": "application/json",
+      "fileId": "1mkCFA0tg2PK0rX9N1Jbm_ed7wpjxf6oQ",
+      "driveUrl": "https://drive.google.com/file/d/1mkCFA0tg2PK0rX9N1Jbm_ed7wpjxf6oQ/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1mkCFA0tg2PK0rX9N1Jbm_ed7wpjxf6oQ",
+      "sizeBytes": 183345,
+      "metadata": {
+        "unitId": "yoji_unit_128",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:31:53.690Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_129": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_129",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_129.json",
+      "mimeType": "application/json",
+      "fileId": "1O9jZmXbXfcRSM_CNTnvyZVHDQEfEAfLE",
+      "driveUrl": "https://drive.google.com/file/d/1O9jZmXbXfcRSM_CNTnvyZVHDQEfEAfLE/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1O9jZmXbXfcRSM_CNTnvyZVHDQEfEAfLE",
+      "sizeBytes": 183371,
+      "metadata": {
+        "unitId": "yoji_unit_129",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:31:56.840Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_130": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_130",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_130.json",
+      "mimeType": "application/json",
+      "fileId": "1UJVPmNvA80PddF-49FaCXs8RHsamUzUX",
+      "driveUrl": "https://drive.google.com/file/d/1UJVPmNvA80PddF-49FaCXs8RHsamUzUX/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1UJVPmNvA80PddF-49FaCXs8RHsamUzUX",
+      "sizeBytes": 187007,
+      "metadata": {
+        "unitId": "yoji_unit_130",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:32:00.115Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_131": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_131",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_131.json",
+      "mimeType": "application/json",
+      "fileId": "1gBQsMfHIPHwkQ5FQY_qg7yGcNWHiBFXd",
+      "driveUrl": "https://drive.google.com/file/d/1gBQsMfHIPHwkQ5FQY_qg7yGcNWHiBFXd/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1gBQsMfHIPHwkQ5FQY_qg7yGcNWHiBFXd",
+      "sizeBytes": 184141,
+      "metadata": {
+        "unitId": "yoji_unit_131",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:32:03.536Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_132": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_132",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_132.json",
+      "mimeType": "application/json",
+      "fileId": "1xS8CGAgpVkuVd2bIY_aHqxdvzfOICufn",
+      "driveUrl": "https://drive.google.com/file/d/1xS8CGAgpVkuVd2bIY_aHqxdvzfOICufn/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1xS8CGAgpVkuVd2bIY_aHqxdvzfOICufn",
+      "sizeBytes": 185760,
+      "metadata": {
+        "unitId": "yoji_unit_132",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:32:06.639Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_133": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_133",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_133.json",
+      "mimeType": "application/json",
+      "fileId": "12qF7CqEl6z8XtPtDby6qMU9WzbddBzvS",
+      "driveUrl": "https://drive.google.com/file/d/12qF7CqEl6z8XtPtDby6qMU9WzbddBzvS/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/12qF7CqEl6z8XtPtDby6qMU9WzbddBzvS",
+      "sizeBytes": 188685,
+      "metadata": {
+        "unitId": "yoji_unit_133",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:32:09.843Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_134": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_134",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_134.json",
+      "mimeType": "application/json",
+      "fileId": "1rtvE-HRXM61UgO3MNz_hxRZ4U0ZYTvAa",
+      "driveUrl": "https://drive.google.com/file/d/1rtvE-HRXM61UgO3MNz_hxRZ4U0ZYTvAa/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1rtvE-HRXM61UgO3MNz_hxRZ4U0ZYTvAa",
+      "sizeBytes": 181910,
+      "metadata": {
+        "unitId": "yoji_unit_134",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:32:14.014Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_135": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_135",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_135.json",
+      "mimeType": "application/json",
+      "fileId": "1pbEUedqY-7F2jQ7r42ujw58pctWFdGaO",
+      "driveUrl": "https://drive.google.com/file/d/1pbEUedqY-7F2jQ7r42ujw58pctWFdGaO/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1pbEUedqY-7F2jQ7r42ujw58pctWFdGaO",
+      "sizeBytes": 182442,
+      "metadata": {
+        "unitId": "yoji_unit_135",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:32:17.269Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_136": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_136",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_136.json",
+      "mimeType": "application/json",
+      "fileId": "1K6EzFTbPDcpZUHKxqcMytCaL51t119tP",
+      "driveUrl": "https://drive.google.com/file/d/1K6EzFTbPDcpZUHKxqcMytCaL51t119tP/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1K6EzFTbPDcpZUHKxqcMytCaL51t119tP",
+      "sizeBytes": 181449,
+      "metadata": {
+        "unitId": "yoji_unit_136",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:32:21.251Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_137": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_137",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_137.json",
+      "mimeType": "application/json",
+      "fileId": "1fQwh-w3FJBygg_LGpX6Slw_hsXbsRTAg",
+      "driveUrl": "https://drive.google.com/file/d/1fQwh-w3FJBygg_LGpX6Slw_hsXbsRTAg/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1fQwh-w3FJBygg_LGpX6Slw_hsXbsRTAg",
+      "sizeBytes": 180922,
+      "metadata": {
+        "unitId": "yoji_unit_137",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:32:25.487Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_138": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_138",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_138.json",
+      "mimeType": "application/json",
+      "fileId": "1cvbkoBPOApt0eVB0iva90l3oH5IHD501",
+      "driveUrl": "https://drive.google.com/file/d/1cvbkoBPOApt0eVB0iva90l3oH5IHD501/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1cvbkoBPOApt0eVB0iva90l3oH5IHD501",
+      "sizeBytes": 184353,
+      "metadata": {
+        "unitId": "yoji_unit_138",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:32:29.794Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_139": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_139",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_139.json",
+      "mimeType": "application/json",
+      "fileId": "1le7g8DkSSF-ty9H_gO9_T-8uLpXM4pys",
+      "driveUrl": "https://drive.google.com/file/d/1le7g8DkSSF-ty9H_gO9_T-8uLpXM4pys/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1le7g8DkSSF-ty9H_gO9_T-8uLpXM4pys",
+      "sizeBytes": 179987,
+      "metadata": {
+        "unitId": "yoji_unit_139",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:32:33.899Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_140": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_140",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_140.json",
+      "mimeType": "application/json",
+      "fileId": "1uYd8AJ--pMYIQRflfZnrARp3J60Uo90y",
+      "driveUrl": "https://drive.google.com/file/d/1uYd8AJ--pMYIQRflfZnrARp3J60Uo90y/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1uYd8AJ--pMYIQRflfZnrARp3J60Uo90y",
+      "sizeBytes": 177290,
+      "metadata": {
+        "unitId": "yoji_unit_140",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:32:37.654Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_141": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_141",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_141.json",
+      "mimeType": "application/json",
+      "fileId": "11rrzsavIBzSMrJ9O1R9A33CpP8XmuxU1",
+      "driveUrl": "https://drive.google.com/file/d/11rrzsavIBzSMrJ9O1R9A33CpP8XmuxU1/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/11rrzsavIBzSMrJ9O1R9A33CpP8XmuxU1",
+      "sizeBytes": 175588,
+      "metadata": {
+        "unitId": "yoji_unit_141",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:32:42.075Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_142": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_142",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_142.json",
+      "mimeType": "application/json",
+      "fileId": "16soQLfYT6PYGRPS8uKb02IjYfgjrRQif",
+      "driveUrl": "https://drive.google.com/file/d/16soQLfYT6PYGRPS8uKb02IjYfgjrRQif/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/16soQLfYT6PYGRPS8uKb02IjYfgjrRQif",
+      "sizeBytes": 183153,
+      "metadata": {
+        "unitId": "yoji_unit_142",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:32:45.574Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_143": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_143",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_143.json",
+      "mimeType": "application/json",
+      "fileId": "1GkrpbRGP7FP_1MFkBEn22A7m_A04ssMu",
+      "driveUrl": "https://drive.google.com/file/d/1GkrpbRGP7FP_1MFkBEn22A7m_A04ssMu/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1GkrpbRGP7FP_1MFkBEn22A7m_A04ssMu",
+      "sizeBytes": 177641,
+      "metadata": {
+        "unitId": "yoji_unit_143",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:32:49.327Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_144": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_144",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_144.json",
+      "mimeType": "application/json",
+      "fileId": "1KHpPbm-ImGBx_rIBhIkAZGcQU_WzcEUC",
+      "driveUrl": "https://drive.google.com/file/d/1KHpPbm-ImGBx_rIBhIkAZGcQU_WzcEUC/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1KHpPbm-ImGBx_rIBhIkAZGcQU_WzcEUC",
+      "sizeBytes": 179550,
+      "metadata": {
+        "unitId": "yoji_unit_144",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:32:52.552Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_145": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_145",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_145.json",
+      "mimeType": "application/json",
+      "fileId": "1cMbFNHP4TXuhsjRG96idfRC9VWeXfglS",
+      "driveUrl": "https://drive.google.com/file/d/1cMbFNHP4TXuhsjRG96idfRC9VWeXfglS/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1cMbFNHP4TXuhsjRG96idfRC9VWeXfglS",
+      "sizeBytes": 181377,
+      "metadata": {
+        "unitId": "yoji_unit_145",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:32:56.452Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_146": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_146",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_146.json",
+      "mimeType": "application/json",
+      "fileId": "13Q5zuqtaJ4u0k1IIMvQs5LqmUJTqQKPT",
+      "driveUrl": "https://drive.google.com/file/d/13Q5zuqtaJ4u0k1IIMvQs5LqmUJTqQKPT/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/13Q5zuqtaJ4u0k1IIMvQs5LqmUJTqQKPT",
+      "sizeBytes": 181476,
+      "metadata": {
+        "unitId": "yoji_unit_146",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:32:59.870Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_147": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_147",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_147.json",
+      "mimeType": "application/json",
+      "fileId": "1eTYklLdzXsNl92nB3-GLDWN4jAj3HL9o",
+      "driveUrl": "https://drive.google.com/file/d/1eTYklLdzXsNl92nB3-GLDWN4jAj3HL9o/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1eTYklLdzXsNl92nB3-GLDWN4jAj3HL9o",
+      "sizeBytes": 178628,
+      "metadata": {
+        "unitId": "yoji_unit_147",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:33:03.218Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_148": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_148",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_148.json",
+      "mimeType": "application/json",
+      "fileId": "1IUXofbeOe5I2D2VR65WcKNiP1gcYdkf8",
+      "driveUrl": "https://drive.google.com/file/d/1IUXofbeOe5I2D2VR65WcKNiP1gcYdkf8/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1IUXofbeOe5I2D2VR65WcKNiP1gcYdkf8",
+      "sizeBytes": 185764,
+      "metadata": {
+        "unitId": "yoji_unit_148",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:33:06.351Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_149": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_149",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_149.json",
+      "mimeType": "application/json",
+      "fileId": "10HXCYiungmZ3LkeRSlrRBbEPXljbCc6W",
+      "driveUrl": "https://drive.google.com/file/d/10HXCYiungmZ3LkeRSlrRBbEPXljbCc6W/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/10HXCYiungmZ3LkeRSlrRBbEPXljbCc6W",
+      "sizeBytes": 184720,
+      "metadata": {
+        "unitId": "yoji_unit_149",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:33:09.801Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_150": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_150",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_150.json",
+      "mimeType": "application/json",
+      "fileId": "1MAf80jE5RGdkyBO4jVAAzy8nJRZKGbBR",
+      "driveUrl": "https://drive.google.com/file/d/1MAf80jE5RGdkyBO4jVAAzy8nJRZKGbBR/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1MAf80jE5RGdkyBO4jVAAzy8nJRZKGbBR",
+      "sizeBytes": 181656,
+      "metadata": {
+        "unitId": "yoji_unit_150",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:33:17.154Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_151": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_151",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_151.json",
+      "mimeType": "application/json",
+      "fileId": "1kCW-GVj4YnlRdOwT77sd7elZ21qWLan2",
+      "driveUrl": "https://drive.google.com/file/d/1kCW-GVj4YnlRdOwT77sd7elZ21qWLan2/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1kCW-GVj4YnlRdOwT77sd7elZ21qWLan2",
+      "sizeBytes": 176505,
+      "metadata": {
+        "unitId": "yoji_unit_151",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:33:14.503Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_152": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_152",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_152.json",
+      "mimeType": "application/json",
+      "fileId": "1N609fFDflgDWBnJ35Hi6Da22ger6xhU7",
+      "driveUrl": "https://drive.google.com/file/d/1N609fFDflgDWBnJ35Hi6Da22ger6xhU7/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1N609fFDflgDWBnJ35Hi6Da22ger6xhU7",
+      "sizeBytes": 184624,
+      "metadata": {
+        "unitId": "yoji_unit_152",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:33:23.749Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_153": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_153",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_153.json",
+      "mimeType": "application/json",
+      "fileId": "19EXIPUUVBS1wRXawXYIYhYJjtBXT3Tga",
+      "driveUrl": "https://drive.google.com/file/d/19EXIPUUVBS1wRXawXYIYhYJjtBXT3Tga/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/19EXIPUUVBS1wRXawXYIYhYJjtBXT3Tga",
+      "sizeBytes": 184385,
+      "metadata": {
+        "unitId": "yoji_unit_153",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:33:29.445Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_154": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_154",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_154.json",
+      "mimeType": "application/json",
+      "fileId": "1EDWWoGwqxGz-C2ulOR8CBzuy9_czkBgP",
+      "driveUrl": "https://drive.google.com/file/d/1EDWWoGwqxGz-C2ulOR8CBzuy9_czkBgP/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1EDWWoGwqxGz-C2ulOR8CBzuy9_czkBgP",
+      "sizeBytes": 181918,
+      "metadata": {
+        "unitId": "yoji_unit_154",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:33:32.592Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_155": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_155",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_155.json",
+      "mimeType": "application/json",
+      "fileId": "1VgRE88jbLZjlCZ_r27SKEGRB2mTf-9Q4",
+      "driveUrl": "https://drive.google.com/file/d/1VgRE88jbLZjlCZ_r27SKEGRB2mTf-9Q4/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1VgRE88jbLZjlCZ_r27SKEGRB2mTf-9Q4",
+      "sizeBytes": 180191,
+      "metadata": {
+        "unitId": "yoji_unit_155",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:33:39.582Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_156": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_156",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_156.json",
+      "mimeType": "application/json",
+      "fileId": "1fDSdCFDMNeplOeSjDssXxyoWBkoSOrNs",
+      "driveUrl": "https://drive.google.com/file/d/1fDSdCFDMNeplOeSjDssXxyoWBkoSOrNs/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1fDSdCFDMNeplOeSjDssXxyoWBkoSOrNs",
+      "sizeBytes": 178730,
+      "metadata": {
+        "unitId": "yoji_unit_156",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:33:39.211Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_157": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_157",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_157.json",
+      "mimeType": "application/json",
+      "fileId": "1e96eVZRjdKCAvqS-NwPdQ9ONBXLGtM7E",
+      "driveUrl": "https://drive.google.com/file/d/1e96eVZRjdKCAvqS-NwPdQ9ONBXLGtM7E/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1e96eVZRjdKCAvqS-NwPdQ9ONBXLGtM7E",
+      "sizeBytes": 184537,
+      "metadata": {
+        "unitId": "yoji_unit_157",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:33:43.764Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_158": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_158",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_158.json",
+      "mimeType": "application/json",
+      "fileId": "1Q11Hzf9Id8TIYqGvF9h9TtQKH1-mDhQ-",
+      "driveUrl": "https://drive.google.com/file/d/1Q11Hzf9Id8TIYqGvF9h9TtQKH1-mDhQ-/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Q11Hzf9Id8TIYqGvF9h9TtQKH1-mDhQ-",
+      "sizeBytes": 182028,
+      "metadata": {
+        "unitId": "yoji_unit_158",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:33:47.036Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_159": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_159",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_159.json",
+      "mimeType": "application/json",
+      "fileId": "1cpBy6W81KxSmd74mr_E73uiceJHtJohV",
+      "driveUrl": "https://drive.google.com/file/d/1cpBy6W81KxSmd74mr_E73uiceJHtJohV/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1cpBy6W81KxSmd74mr_E73uiceJHtJohV",
+      "sizeBytes": 181627,
+      "metadata": {
+        "unitId": "yoji_unit_159",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:33:50.483Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_160": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_160",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_160.json",
+      "mimeType": "application/json",
+      "fileId": "1-FUu8PuKQ-85BEEtToGD7L8l3LkZQMmm",
+      "driveUrl": "https://drive.google.com/file/d/1-FUu8PuKQ-85BEEtToGD7L8l3LkZQMmm/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1-FUu8PuKQ-85BEEtToGD7L8l3LkZQMmm",
+      "sizeBytes": 187018,
+      "metadata": {
+        "unitId": "yoji_unit_160",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:33:53.637Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_161": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_161",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_161.json",
+      "mimeType": "application/json",
+      "fileId": "1u9D1l6F3_96uNX5Wi7_6KhjeIEnNe2bx",
+      "driveUrl": "https://drive.google.com/file/d/1u9D1l6F3_96uNX5Wi7_6KhjeIEnNe2bx/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1u9D1l6F3_96uNX5Wi7_6KhjeIEnNe2bx",
+      "sizeBytes": 184264,
+      "metadata": {
+        "unitId": "yoji_unit_161",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:33:56.789Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_162": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_162",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_162.json",
+      "mimeType": "application/json",
+      "fileId": "1LfEMrKeMMx5a6njuHp-sxErAmXxyHsX_",
+      "driveUrl": "https://drive.google.com/file/d/1LfEMrKeMMx5a6njuHp-sxErAmXxyHsX_/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1LfEMrKeMMx5a6njuHp-sxErAmXxyHsX_",
+      "sizeBytes": 180592,
+      "metadata": {
+        "unitId": "yoji_unit_162",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:34:03.962Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_163": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_163",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_163.json",
+      "mimeType": "application/json",
+      "fileId": "1FBLTEUNX8tTomyEhj57WC62smjB4Cc9o",
+      "driveUrl": "https://drive.google.com/file/d/1FBLTEUNX8tTomyEhj57WC62smjB4Cc9o/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1FBLTEUNX8tTomyEhj57WC62smjB4Cc9o",
+      "sizeBytes": 182625,
+      "metadata": {
+        "unitId": "yoji_unit_163",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:34:03.001Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_164": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_164",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_164.json",
+      "mimeType": "application/json",
+      "fileId": "1zfp9A-qzPbQDYJXP0ig6rrDCOeCR40Yx",
+      "driveUrl": "https://drive.google.com/file/d/1zfp9A-qzPbQDYJXP0ig6rrDCOeCR40Yx/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1zfp9A-qzPbQDYJXP0ig6rrDCOeCR40Yx",
+      "sizeBytes": 182372,
+      "metadata": {
+        "unitId": "yoji_unit_164",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:34:07.578Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_165": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_165",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_165.json",
+      "mimeType": "application/json",
+      "fileId": "1MzHnacJ9LOc8GhVffv3ZgYe6IT2daf0Z",
+      "driveUrl": "https://drive.google.com/file/d/1MzHnacJ9LOc8GhVffv3ZgYe6IT2daf0Z/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1MzHnacJ9LOc8GhVffv3ZgYe6IT2daf0Z",
+      "sizeBytes": 178379,
+      "metadata": {
+        "unitId": "yoji_unit_165",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:34:11.248Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_166": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_166",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_166.json",
+      "mimeType": "application/json",
+      "fileId": "1mlgiRTC59ZfisvDK3Y11Npj2wyew0xPk",
+      "driveUrl": "https://drive.google.com/file/d/1mlgiRTC59ZfisvDK3Y11Npj2wyew0xPk/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1mlgiRTC59ZfisvDK3Y11Npj2wyew0xPk",
+      "sizeBytes": 187480,
+      "metadata": {
+        "unitId": "yoji_unit_166",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:34:14.551Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_167": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_167",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_167.json",
+      "mimeType": "application/json",
+      "fileId": "1yocdVt1KbOZ4nq16Yg7ObnwCUBF2gMxB",
+      "driveUrl": "https://drive.google.com/file/d/1yocdVt1KbOZ4nq16Yg7ObnwCUBF2gMxB/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1yocdVt1KbOZ4nq16Yg7ObnwCUBF2gMxB",
+      "sizeBytes": 184462,
+      "metadata": {
+        "unitId": "yoji_unit_167",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:34:18.281Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_168": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_168",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_168.json",
+      "mimeType": "application/json",
+      "fileId": "1tAynB917WYRIHtmdcZ96H51SVnT7g_F7",
+      "driveUrl": "https://drive.google.com/file/d/1tAynB917WYRIHtmdcZ96H51SVnT7g_F7/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1tAynB917WYRIHtmdcZ96H51SVnT7g_F7",
+      "sizeBytes": 179881,
+      "metadata": {
+        "unitId": "yoji_unit_168",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:34:21.550Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_169": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_169",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_169.json",
+      "mimeType": "application/json",
+      "fileId": "1-yoNDBEct99UENxAQmEm3vmoLxP94Rqt",
+      "driveUrl": "https://drive.google.com/file/d/1-yoNDBEct99UENxAQmEm3vmoLxP94Rqt/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1-yoNDBEct99UENxAQmEm3vmoLxP94Rqt",
+      "sizeBytes": 182091,
+      "metadata": {
+        "unitId": "yoji_unit_169",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:34:25.046Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_170": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_170",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_170.json",
+      "mimeType": "application/json",
+      "fileId": "1bhLuTW_wZ5u8scYb1uWNfpK3AGrUirwR",
+      "driveUrl": "https://drive.google.com/file/d/1bhLuTW_wZ5u8scYb1uWNfpK3AGrUirwR/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1bhLuTW_wZ5u8scYb1uWNfpK3AGrUirwR",
+      "sizeBytes": 185328,
+      "metadata": {
+        "unitId": "yoji_unit_170",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:34:29.884Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_171": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_171",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_171.json",
+      "mimeType": "application/json",
+      "fileId": "1OR_H5SsCiFljHU4j-isSVfz0lRzLZokk",
+      "driveUrl": "https://drive.google.com/file/d/1OR_H5SsCiFljHU4j-isSVfz0lRzLZokk/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1OR_H5SsCiFljHU4j-isSVfz0lRzLZokk",
+      "sizeBytes": 180978,
+      "metadata": {
+        "unitId": "yoji_unit_171",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:34:29.050Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_172": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_172",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_172.json",
+      "mimeType": "application/json",
+      "fileId": "1TsY9JgvNr7sJ03zK-XcX1E7fqk0fO6ix",
+      "driveUrl": "https://drive.google.com/file/d/1TsY9JgvNr7sJ03zK-XcX1E7fqk0fO6ix/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1TsY9JgvNr7sJ03zK-XcX1E7fqk0fO6ix",
+      "sizeBytes": 180089,
+      "metadata": {
+        "unitId": "yoji_unit_172",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:34:44.036Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_173": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_173",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_173.json",
+      "mimeType": "application/json",
+      "fileId": "1xOEbN3fAEgZM339I4kUBfwcjFVGG2oNn",
+      "driveUrl": "https://drive.google.com/file/d/1xOEbN3fAEgZM339I4kUBfwcjFVGG2oNn/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1xOEbN3fAEgZM339I4kUBfwcjFVGG2oNn",
+      "sizeBytes": 182738,
+      "metadata": {
+        "unitId": "yoji_unit_173",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:34:36.734Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_174": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_174",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_174.json",
+      "mimeType": "application/json",
+      "fileId": "1WaQEeSTIXWCaoZLCYmrMPyLlfpjQ7JI2",
+      "driveUrl": "https://drive.google.com/file/d/1WaQEeSTIXWCaoZLCYmrMPyLlfpjQ7JI2/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1WaQEeSTIXWCaoZLCYmrMPyLlfpjQ7JI2",
+      "sizeBytes": 182783,
+      "metadata": {
+        "unitId": "yoji_unit_174",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:34:40.278Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_175": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_175",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_175.json",
+      "mimeType": "application/json",
+      "fileId": "1tWPjvlCGUTF7i0VEs-By7v2mqiw7hXOQ",
+      "driveUrl": "https://drive.google.com/file/d/1tWPjvlCGUTF7i0VEs-By7v2mqiw7hXOQ/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1tWPjvlCGUTF7i0VEs-By7v2mqiw7hXOQ",
+      "sizeBytes": 177732,
+      "metadata": {
+        "unitId": "yoji_unit_175",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:34:50.308Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_176": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_176",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_176.json",
+      "mimeType": "application/json",
+      "fileId": "1whxH1hlkBsKF-qNCvsvy0u7J0Pd-8haa",
+      "driveUrl": "https://drive.google.com/file/d/1whxH1hlkBsKF-qNCvsvy0u7J0Pd-8haa/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1whxH1hlkBsKF-qNCvsvy0u7J0Pd-8haa",
+      "sizeBytes": 183610,
+      "metadata": {
+        "unitId": "yoji_unit_176",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:34:53.963Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_177": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_177",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_177.json",
+      "mimeType": "application/json",
+      "fileId": "1cymJe_y79e6794TenN4jhLSQ8-uswI9D",
+      "driveUrl": "https://drive.google.com/file/d/1cymJe_y79e6794TenN4jhLSQ8-uswI9D/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1cymJe_y79e6794TenN4jhLSQ8-uswI9D",
+      "sizeBytes": 181194,
+      "metadata": {
+        "unitId": "yoji_unit_177",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:34:57.863Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_178": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_178",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_178.json",
+      "mimeType": "application/json",
+      "fileId": "1_w3C-21MSITaqJIR8yqJLdjPwRHdxUdZ",
+      "driveUrl": "https://drive.google.com/file/d/1_w3C-21MSITaqJIR8yqJLdjPwRHdxUdZ/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1_w3C-21MSITaqJIR8yqJLdjPwRHdxUdZ",
+      "sizeBytes": 182770,
+      "metadata": {
+        "unitId": "yoji_unit_178",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:35:02.197Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_179": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_179",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_179.json",
+      "mimeType": "application/json",
+      "fileId": "1X8t6_PCJWm1XdVtprP-UdE3Xb1RRJrnN",
+      "driveUrl": "https://drive.google.com/file/d/1X8t6_PCJWm1XdVtprP-UdE3Xb1RRJrnN/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1X8t6_PCJWm1XdVtprP-UdE3Xb1RRJrnN",
+      "sizeBytes": 185078,
+      "metadata": {
+        "unitId": "yoji_unit_179",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:35:05.872Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_180": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_180",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_180.json",
+      "mimeType": "application/json",
+      "fileId": "1rJ5jE_9_OALmwYBnOd6j4mmhoDrKme6Y",
+      "driveUrl": "https://drive.google.com/file/d/1rJ5jE_9_OALmwYBnOd6j4mmhoDrKme6Y/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1rJ5jE_9_OALmwYBnOd6j4mmhoDrKme6Y",
+      "sizeBytes": 185840,
+      "metadata": {
+        "unitId": "yoji_unit_180",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:35:10.473Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_181": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_181",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_181.json",
+      "mimeType": "application/json",
+      "fileId": "1PCQjjWDSvvO1D8I87ogAOzWBJ0mtSZEX",
+      "driveUrl": "https://drive.google.com/file/d/1PCQjjWDSvvO1D8I87ogAOzWBJ0mtSZEX/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1PCQjjWDSvvO1D8I87ogAOzWBJ0mtSZEX",
+      "sizeBytes": 183422,
+      "metadata": {
+        "unitId": "yoji_unit_181",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:35:14.185Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_182": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_182",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_182.json",
+      "mimeType": "application/json",
+      "fileId": "1apV0BB-TDBl-6shf7wI6p_6FhUDdvZJg",
+      "driveUrl": "https://drive.google.com/file/d/1apV0BB-TDBl-6shf7wI6p_6FhUDdvZJg/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1apV0BB-TDBl-6shf7wI6p_6FhUDdvZJg",
+      "sizeBytes": 187360,
+      "metadata": {
+        "unitId": "yoji_unit_182",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:35:17.517Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_183": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_183",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_183.json",
+      "mimeType": "application/json",
+      "fileId": "1-lpFzdJB4n4EOTa5bsINF-stUfzyPNDw",
+      "driveUrl": "https://drive.google.com/file/d/1-lpFzdJB4n4EOTa5bsINF-stUfzyPNDw/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1-lpFzdJB4n4EOTa5bsINF-stUfzyPNDw",
+      "sizeBytes": 182041,
+      "metadata": {
+        "unitId": "yoji_unit_183",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:35:20.576Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_184": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_184",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_184.json",
+      "mimeType": "application/json",
+      "fileId": "1Ewq5J6EUuZPXosdDuJSlumSmFTN1akT1",
+      "driveUrl": "https://drive.google.com/file/d/1Ewq5J6EUuZPXosdDuJSlumSmFTN1akT1/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Ewq5J6EUuZPXosdDuJSlumSmFTN1akT1",
+      "sizeBytes": 178916,
+      "metadata": {
+        "unitId": "yoji_unit_184",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:35:24.064Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_185": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_185",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_185.json",
+      "mimeType": "application/json",
+      "fileId": "1d5MSmjZcVep3Zv27UK67AieUErM6msyg",
+      "driveUrl": "https://drive.google.com/file/d/1d5MSmjZcVep3Zv27UK67AieUErM6msyg/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1d5MSmjZcVep3Zv27UK67AieUErM6msyg",
+      "sizeBytes": 188022,
+      "metadata": {
+        "unitId": "yoji_unit_185",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:35:27.500Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_186": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_186",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_186.json",
+      "mimeType": "application/json",
+      "fileId": "12LUT1Hb3hYsdPYYMIv8IxZpXe2rJH2HV",
+      "driveUrl": "https://drive.google.com/file/d/12LUT1Hb3hYsdPYYMIv8IxZpXe2rJH2HV/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/12LUT1Hb3hYsdPYYMIv8IxZpXe2rJH2HV",
+      "sizeBytes": 185685,
+      "metadata": {
+        "unitId": "yoji_unit_186",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:35:32.325Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_187": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_187",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_187.json",
+      "mimeType": "application/json",
+      "fileId": "1omuElQYoqG2XrS3nlzA-2W3uy5-zvfUH",
+      "driveUrl": "https://drive.google.com/file/d/1omuElQYoqG2XrS3nlzA-2W3uy5-zvfUH/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1omuElQYoqG2XrS3nlzA-2W3uy5-zvfUH",
+      "sizeBytes": 181105,
+      "metadata": {
+        "unitId": "yoji_unit_187",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:35:35.549Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_188": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_188",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_188.json",
+      "mimeType": "application/json",
+      "fileId": "1wAaIOxUkCvIfc84ESlmr5cbU77d1z7eM",
+      "driveUrl": "https://drive.google.com/file/d/1wAaIOxUkCvIfc84ESlmr5cbU77d1z7eM/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1wAaIOxUkCvIfc84ESlmr5cbU77d1z7eM",
+      "sizeBytes": 183753,
+      "metadata": {
+        "unitId": "yoji_unit_188",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:35:39.198Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_189": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_189",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_189.json",
+      "mimeType": "application/json",
+      "fileId": "1vzHchvP1wRdwJ6pZPnbwhYa_ZtY2Hfnb",
+      "driveUrl": "https://drive.google.com/file/d/1vzHchvP1wRdwJ6pZPnbwhYa_ZtY2Hfnb/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1vzHchvP1wRdwJ6pZPnbwhYa_ZtY2Hfnb",
+      "sizeBytes": 179525,
+      "metadata": {
+        "unitId": "yoji_unit_189",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:35:43.018Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_190": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_190",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_190.json",
+      "mimeType": "application/json",
+      "fileId": "1XH24aiZpxZCEYUevB1UjV_CIfNvt0rDM",
+      "driveUrl": "https://drive.google.com/file/d/1XH24aiZpxZCEYUevB1UjV_CIfNvt0rDM/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1XH24aiZpxZCEYUevB1UjV_CIfNvt0rDM",
+      "sizeBytes": 184241,
+      "metadata": {
+        "unitId": "yoji_unit_190",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:35:47.094Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_191": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_191",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_191.json",
+      "mimeType": "application/json",
+      "fileId": "1JaYzbJI-PmIwtkJcza4GJfBN4kwtEUHL",
+      "driveUrl": "https://drive.google.com/file/d/1JaYzbJI-PmIwtkJcza4GJfBN4kwtEUHL/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1JaYzbJI-PmIwtkJcza4GJfBN4kwtEUHL",
+      "sizeBytes": 178924,
+      "metadata": {
+        "unitId": "yoji_unit_191",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:35:51.024Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_192": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_192",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_192.json",
+      "mimeType": "application/json",
+      "fileId": "1ZFdJiDUbJpSvDsDX-6drP0ObtehRaHmu",
+      "driveUrl": "https://drive.google.com/file/d/1ZFdJiDUbJpSvDsDX-6drP0ObtehRaHmu/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1ZFdJiDUbJpSvDsDX-6drP0ObtehRaHmu",
+      "sizeBytes": 180702,
+      "metadata": {
+        "unitId": "yoji_unit_192",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:35:55.003Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_193": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_193",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_193.json",
+      "mimeType": "application/json",
+      "fileId": "1DzWlbF_f0hvU_YAmjBMnALp8gTUr7Z2D",
+      "driveUrl": "https://drive.google.com/file/d/1DzWlbF_f0hvU_YAmjBMnALp8gTUr7Z2D/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1DzWlbF_f0hvU_YAmjBMnALp8gTUr7Z2D",
+      "sizeBytes": 183630,
+      "metadata": {
+        "unitId": "yoji_unit_193",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:35:58.374Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_194": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_194",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_194.json",
+      "mimeType": "application/json",
+      "fileId": "1gd01tjufZ-xlLhAE7_kAVrF4lwAzlUId",
+      "driveUrl": "https://drive.google.com/file/d/1gd01tjufZ-xlLhAE7_kAVrF4lwAzlUId/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1gd01tjufZ-xlLhAE7_kAVrF4lwAzlUId",
+      "sizeBytes": 178645,
+      "metadata": {
+        "unitId": "yoji_unit_194",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:36:01.540Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_195": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_195",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_195.json",
+      "mimeType": "application/json",
+      "fileId": "1xARK2RRELQkyGny2V3tsugCQ5UyE1pj9",
+      "driveUrl": "https://drive.google.com/file/d/1xARK2RRELQkyGny2V3tsugCQ5UyE1pj9/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1xARK2RRELQkyGny2V3tsugCQ5UyE1pj9",
+      "sizeBytes": 181160,
+      "metadata": {
+        "unitId": "yoji_unit_195",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:36:04.981Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_196": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_196",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_196.json",
+      "mimeType": "application/json",
+      "fileId": "1FS-sUS6ObbvmIALTFC0imVg2KubER4Ax",
+      "driveUrl": "https://drive.google.com/file/d/1FS-sUS6ObbvmIALTFC0imVg2KubER4Ax/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1FS-sUS6ObbvmIALTFC0imVg2KubER4Ax",
+      "sizeBytes": 183680,
+      "metadata": {
+        "unitId": "yoji_unit_196",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:36:08.997Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_197": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_197",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_197.json",
+      "mimeType": "application/json",
+      "fileId": "1Zg3_IbZcvw0J344TX881exqTpZ_Oo4oI",
+      "driveUrl": "https://drive.google.com/file/d/1Zg3_IbZcvw0J344TX881exqTpZ_Oo4oI/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Zg3_IbZcvw0J344TX881exqTpZ_Oo4oI",
+      "sizeBytes": 179772,
+      "metadata": {
+        "unitId": "yoji_unit_197",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:36:13.735Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_198": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_198",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_198.json",
+      "mimeType": "application/json",
+      "fileId": "140zgirAkk5sUgOR5a2qQKseiCFgkHMDr",
+      "driveUrl": "https://drive.google.com/file/d/140zgirAkk5sUgOR5a2qQKseiCFgkHMDr/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/140zgirAkk5sUgOR5a2qQKseiCFgkHMDr",
+      "sizeBytes": 181422,
+      "metadata": {
+        "unitId": "yoji_unit_198",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:36:17.739Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_199": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_199",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_199.json",
+      "mimeType": "application/json",
+      "fileId": "1qA8ZU8crNyxQ6FTKL1tzBFtwfUcv_aHw",
+      "driveUrl": "https://drive.google.com/file/d/1qA8ZU8crNyxQ6FTKL1tzBFtwfUcv_aHw/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1qA8ZU8crNyxQ6FTKL1tzBFtwfUcv_aHw",
+      "sizeBytes": 182048,
+      "metadata": {
+        "unitId": "yoji_unit_199",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:36:20.934Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_200": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_200",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_200.json",
+      "mimeType": "application/json",
+      "fileId": "1YrlbFfPftokkzeLTvdazDBReEm1r5cww",
+      "driveUrl": "https://drive.google.com/file/d/1YrlbFfPftokkzeLTvdazDBReEm1r5cww/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1YrlbFfPftokkzeLTvdazDBReEm1r5cww",
+      "sizeBytes": 183472,
+      "metadata": {
+        "unitId": "yoji_unit_200",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:36:24.835Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_201": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_201",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_201.json",
+      "mimeType": "application/json",
+      "fileId": "1c4x50KLBKCpTuQhlWFzbHlj_MeChroCi",
+      "driveUrl": "https://drive.google.com/file/d/1c4x50KLBKCpTuQhlWFzbHlj_MeChroCi/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1c4x50KLBKCpTuQhlWFzbHlj_MeChroCi",
+      "sizeBytes": 183158,
+      "metadata": {
+        "unitId": "yoji_unit_201",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:36:28.527Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_202": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_202",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_202.json",
+      "mimeType": "application/json",
+      "fileId": "1Ya_d9xy79leg4CYGsstGyNyMGxZSO1cO",
+      "driveUrl": "https://drive.google.com/file/d/1Ya_d9xy79leg4CYGsstGyNyMGxZSO1cO/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Ya_d9xy79leg4CYGsstGyNyMGxZSO1cO",
+      "sizeBytes": 182335,
+      "metadata": {
+        "unitId": "yoji_unit_202",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:36:31.973Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_203": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_203",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_203.json",
+      "mimeType": "application/json",
+      "fileId": "1zUOjntenDl8s6CmWhmkHinIW3A42wF-M",
+      "driveUrl": "https://drive.google.com/file/d/1zUOjntenDl8s6CmWhmkHinIW3A42wF-M/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1zUOjntenDl8s6CmWhmkHinIW3A42wF-M",
+      "sizeBytes": 185062,
+      "metadata": {
+        "unitId": "yoji_unit_203",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:36:35.813Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_204": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_204",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_204.json",
+      "mimeType": "application/json",
+      "fileId": "1Spkzthvz4r2pCedG8Nxin9xGuQOJoJ-d",
+      "driveUrl": "https://drive.google.com/file/d/1Spkzthvz4r2pCedG8Nxin9xGuQOJoJ-d/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Spkzthvz4r2pCedG8Nxin9xGuQOJoJ-d",
+      "sizeBytes": 185181,
+      "metadata": {
+        "unitId": "yoji_unit_204",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:36:39.151Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_205": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_205",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_205.json",
+      "mimeType": "application/json",
+      "fileId": "1DPEQHIH-ae2-asfAZ1jdJInYivtvjnxa",
+      "driveUrl": "https://drive.google.com/file/d/1DPEQHIH-ae2-asfAZ1jdJInYivtvjnxa/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1DPEQHIH-ae2-asfAZ1jdJInYivtvjnxa",
+      "sizeBytes": 182319,
+      "metadata": {
+        "unitId": "yoji_unit_205",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:36:43.201Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_206": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_206",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_206.json",
+      "mimeType": "application/json",
+      "fileId": "1ywlU23z9R7tC_sZCvZfM2rSIIfAJFTaS",
+      "driveUrl": "https://drive.google.com/file/d/1ywlU23z9R7tC_sZCvZfM2rSIIfAJFTaS/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1ywlU23z9R7tC_sZCvZfM2rSIIfAJFTaS",
+      "sizeBytes": 179074,
+      "metadata": {
+        "unitId": "yoji_unit_206",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:36:47.387Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_207": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_207",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_207.json",
+      "mimeType": "application/json",
+      "fileId": "1E6BvQ-m9CM-_r9rq6cu7BoX2FOiC31qW",
+      "driveUrl": "https://drive.google.com/file/d/1E6BvQ-m9CM-_r9rq6cu7BoX2FOiC31qW/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1E6BvQ-m9CM-_r9rq6cu7BoX2FOiC31qW",
+      "sizeBytes": 181049,
+      "metadata": {
+        "unitId": "yoji_unit_207",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:36:52.266Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_208": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_208",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_208.json",
+      "mimeType": "application/json",
+      "fileId": "1iJQgiVS8wFaNXU6rpqd5Dvu_AsriVuzG",
+      "driveUrl": "https://drive.google.com/file/d/1iJQgiVS8wFaNXU6rpqd5Dvu_AsriVuzG/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1iJQgiVS8wFaNXU6rpqd5Dvu_AsriVuzG",
+      "sizeBytes": 181481,
+      "metadata": {
+        "unitId": "yoji_unit_208",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:36:56.973Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_209": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_209",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_209.json",
+      "mimeType": "application/json",
+      "fileId": "1DteMOzNXaRTQTY9FfaOt2sNF1H38zk_z",
+      "driveUrl": "https://drive.google.com/file/d/1DteMOzNXaRTQTY9FfaOt2sNF1H38zk_z/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1DteMOzNXaRTQTY9FfaOt2sNF1H38zk_z",
+      "sizeBytes": 181171,
+      "metadata": {
+        "unitId": "yoji_unit_209",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:37:01.375Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_210": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_210",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_210.json",
+      "mimeType": "application/json",
+      "fileId": "1jH0YL-GCdz7c6G0DsFp3lxW_mMoRTNSy",
+      "driveUrl": "https://drive.google.com/file/d/1jH0YL-GCdz7c6G0DsFp3lxW_mMoRTNSy/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1jH0YL-GCdz7c6G0DsFp3lxW_mMoRTNSy",
+      "sizeBytes": 182421,
+      "metadata": {
+        "unitId": "yoji_unit_210",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:37:01.266Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_211": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_211",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_211.json",
+      "mimeType": "application/json",
+      "fileId": "1DYrmQEv7Y25HRfZKFQUpLwA3AxWWKxyZ",
+      "driveUrl": "https://drive.google.com/file/d/1DYrmQEv7Y25HRfZKFQUpLwA3AxWWKxyZ/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1DYrmQEv7Y25HRfZKFQUpLwA3AxWWKxyZ",
+      "sizeBytes": 182221,
+      "metadata": {
+        "unitId": "yoji_unit_211",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:37:04.983Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_212": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_212",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_212.json",
+      "mimeType": "application/json",
+      "fileId": "1DAypbPwl7DHVg9OO8lcT2aJ1rJsWwF44",
+      "driveUrl": "https://drive.google.com/file/d/1DAypbPwl7DHVg9OO8lcT2aJ1rJsWwF44/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1DAypbPwl7DHVg9OO8lcT2aJ1rJsWwF44",
+      "sizeBytes": 184051,
+      "metadata": {
+        "unitId": "yoji_unit_212",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:37:08.536Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_213": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_213",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_213.json",
+      "mimeType": "application/json",
+      "fileId": "15t8MeNLWH5arglcyzPs5SySBLYTllogo",
+      "driveUrl": "https://drive.google.com/file/d/15t8MeNLWH5arglcyzPs5SySBLYTllogo/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/15t8MeNLWH5arglcyzPs5SySBLYTllogo",
+      "sizeBytes": 181178,
+      "metadata": {
+        "unitId": "yoji_unit_213",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:37:11.830Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_214": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_214",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_214.json",
+      "mimeType": "application/json",
+      "fileId": "10WigyvX1U2U_m8ppfwUgmVAC81uXYzio",
+      "driveUrl": "https://drive.google.com/file/d/10WigyvX1U2U_m8ppfwUgmVAC81uXYzio/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/10WigyvX1U2U_m8ppfwUgmVAC81uXYzio",
+      "sizeBytes": 182781,
+      "metadata": {
+        "unitId": "yoji_unit_214",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:37:15.505Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_215": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_215",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_215.json",
+      "mimeType": "application/json",
+      "fileId": "1BYxvm4KSDoQHlC9Cl6IrD40MrTh3xV3_",
+      "driveUrl": "https://drive.google.com/file/d/1BYxvm4KSDoQHlC9Cl6IrD40MrTh3xV3_/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1BYxvm4KSDoQHlC9Cl6IrD40MrTh3xV3_",
+      "sizeBytes": 183195,
+      "metadata": {
+        "unitId": "yoji_unit_215",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:37:19.305Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_216": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_216",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_216.json",
+      "mimeType": "application/json",
+      "fileId": "1vocFjSGkJ9kZhYHbY8tieZMCeGtI2miC",
+      "driveUrl": "https://drive.google.com/file/d/1vocFjSGkJ9kZhYHbY8tieZMCeGtI2miC/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1vocFjSGkJ9kZhYHbY8tieZMCeGtI2miC",
+      "sizeBytes": 182017,
+      "metadata": {
+        "unitId": "yoji_unit_216",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:37:23.257Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_217": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_217",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_217.json",
+      "mimeType": "application/json",
+      "fileId": "1DUMnIIY_DbPTnlH86CxzMAwq0GHftUyA",
+      "driveUrl": "https://drive.google.com/file/d/1DUMnIIY_DbPTnlH86CxzMAwq0GHftUyA/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1DUMnIIY_DbPTnlH86CxzMAwq0GHftUyA",
+      "sizeBytes": 184547,
+      "metadata": {
+        "unitId": "yoji_unit_217",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:37:27.933Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_218": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_218",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_218.json",
+      "mimeType": "application/json",
+      "fileId": "1iEFDDr2DO1QS916LM0HpQLVq7Lo2D3Wc",
+      "driveUrl": "https://drive.google.com/file/d/1iEFDDr2DO1QS916LM0HpQLVq7Lo2D3Wc/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1iEFDDr2DO1QS916LM0HpQLVq7Lo2D3Wc",
+      "sizeBytes": 184190,
+      "metadata": {
+        "unitId": "yoji_unit_218",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:37:31.968Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_219": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_219",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_219.json",
+      "mimeType": "application/json",
+      "fileId": "1tDs7KCJ-FO8lylfv0GOoE_r7KxGWR8pM",
+      "driveUrl": "https://drive.google.com/file/d/1tDs7KCJ-FO8lylfv0GOoE_r7KxGWR8pM/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1tDs7KCJ-FO8lylfv0GOoE_r7KxGWR8pM",
+      "sizeBytes": 181377,
+      "metadata": {
+        "unitId": "yoji_unit_219",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:37:36.330Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_220": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_220",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_220.json",
+      "mimeType": "application/json",
+      "fileId": "1HnUNw6wwFupdahuwubzW2LgNCa_MAXGh",
+      "driveUrl": "https://drive.google.com/file/d/1HnUNw6wwFupdahuwubzW2LgNCa_MAXGh/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1HnUNw6wwFupdahuwubzW2LgNCa_MAXGh",
+      "sizeBytes": 178520,
+      "metadata": {
+        "unitId": "yoji_unit_220",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:37:39.514Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_221": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_221",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_221.json",
+      "mimeType": "application/json",
+      "fileId": "1J9oAW_L9uX-fS5CxdetvuJHiGqzoPhwd",
+      "driveUrl": "https://drive.google.com/file/d/1J9oAW_L9uX-fS5CxdetvuJHiGqzoPhwd/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1J9oAW_L9uX-fS5CxdetvuJHiGqzoPhwd",
+      "sizeBytes": 181533,
+      "metadata": {
+        "unitId": "yoji_unit_221",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:37:42.593Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_222": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_222",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_222.json",
+      "mimeType": "application/json",
+      "fileId": "1dRVQloltPC95ylFdbxBmAy-iInDzvwHK",
+      "driveUrl": "https://drive.google.com/file/d/1dRVQloltPC95ylFdbxBmAy-iInDzvwHK/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1dRVQloltPC95ylFdbxBmAy-iInDzvwHK",
+      "sizeBytes": 184514,
+      "metadata": {
+        "unitId": "yoji_unit_222",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:37:47.976Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_223": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_223",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_223.json",
+      "mimeType": "application/json",
+      "fileId": "14Kt0AhWikPuGMIUFxmw94ZtkOzaBOAIw",
+      "driveUrl": "https://drive.google.com/file/d/14Kt0AhWikPuGMIUFxmw94ZtkOzaBOAIw/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/14Kt0AhWikPuGMIUFxmw94ZtkOzaBOAIw",
+      "sizeBytes": 182871,
+      "metadata": {
+        "unitId": "yoji_unit_223",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:37:53.064Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_224": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_224",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_224.json",
+      "mimeType": "application/json",
+      "fileId": "12e2gqRqLput1ZswSlPnlvlG4jxtHhg83",
+      "driveUrl": "https://drive.google.com/file/d/12e2gqRqLput1ZswSlPnlvlG4jxtHhg83/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/12e2gqRqLput1ZswSlPnlvlG4jxtHhg83",
+      "sizeBytes": 180314,
+      "metadata": {
+        "unitId": "yoji_unit_224",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:37:56.894Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_225": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_225",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_225.json",
+      "mimeType": "application/json",
+      "fileId": "11BQ8B4Rij2pPqvCBlyzZ6MAB1KhOd3by",
+      "driveUrl": "https://drive.google.com/file/d/11BQ8B4Rij2pPqvCBlyzZ6MAB1KhOd3by/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/11BQ8B4Rij2pPqvCBlyzZ6MAB1KhOd3by",
+      "sizeBytes": 177927,
+      "metadata": {
+        "unitId": "yoji_unit_225",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:37:57.071Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_226": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_226",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_226.json",
+      "mimeType": "application/json",
+      "fileId": "1leyl73Ia-BOei9a9ddLeO93tYVh1sesY",
+      "driveUrl": "https://drive.google.com/file/d/1leyl73Ia-BOei9a9ddLeO93tYVh1sesY/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1leyl73Ia-BOei9a9ddLeO93tYVh1sesY",
+      "sizeBytes": 180144,
+      "metadata": {
+        "unitId": "yoji_unit_226",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:38:00.769Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_227": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_227",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_227.json",
+      "mimeType": "application/json",
+      "fileId": "1Rj7w8KlSySg-VG5pPyWpmfAP_VUtTDhO",
+      "driveUrl": "https://drive.google.com/file/d/1Rj7w8KlSySg-VG5pPyWpmfAP_VUtTDhO/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Rj7w8KlSySg-VG5pPyWpmfAP_VUtTDhO",
+      "sizeBytes": 179650,
+      "metadata": {
+        "unitId": "yoji_unit_227",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:38:04.173Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_228": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_228",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_228.json",
+      "mimeType": "application/json",
+      "fileId": "1WNVUUgIUKHlUFfr6jpJryfFefKQbH2gJ",
+      "driveUrl": "https://drive.google.com/file/d/1WNVUUgIUKHlUFfr6jpJryfFefKQbH2gJ/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1WNVUUgIUKHlUFfr6jpJryfFefKQbH2gJ",
+      "sizeBytes": 185456,
+      "metadata": {
+        "unitId": "yoji_unit_228",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:38:07.751Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_229": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_229",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_229.json",
+      "mimeType": "application/json",
+      "fileId": "1n-BAowk83jNqxocPRUFaGeTaKlbha50C",
+      "driveUrl": "https://drive.google.com/file/d/1n-BAowk83jNqxocPRUFaGeTaKlbha50C/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1n-BAowk83jNqxocPRUFaGeTaKlbha50C",
+      "sizeBytes": 184285,
+      "metadata": {
+        "unitId": "yoji_unit_229",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:38:11.740Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_230": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_230",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_230.json",
+      "mimeType": "application/json",
+      "fileId": "1u6rS2zK6vI56jVUXgSDUQmtrRL-B6j7H",
+      "driveUrl": "https://drive.google.com/file/d/1u6rS2zK6vI56jVUXgSDUQmtrRL-B6j7H/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1u6rS2zK6vI56jVUXgSDUQmtrRL-B6j7H",
+      "sizeBytes": 184904,
+      "metadata": {
+        "unitId": "yoji_unit_230",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:38:15.237Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_231": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_231",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_231.json",
+      "mimeType": "application/json",
+      "fileId": "1x5uBpwKX1QCWUSn-TgkhRY5MiBcA9Kcr",
+      "driveUrl": "https://drive.google.com/file/d/1x5uBpwKX1QCWUSn-TgkhRY5MiBcA9Kcr/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1x5uBpwKX1QCWUSn-TgkhRY5MiBcA9Kcr",
+      "sizeBytes": 185420,
+      "metadata": {
+        "unitId": "yoji_unit_231",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:38:19.224Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_232": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_232",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_232.json",
+      "mimeType": "application/json",
+      "fileId": "131wDQ1rGmomeClqYa9m_4oWd9wtlhdqa",
+      "driveUrl": "https://drive.google.com/file/d/131wDQ1rGmomeClqYa9m_4oWd9wtlhdqa/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/131wDQ1rGmomeClqYa9m_4oWd9wtlhdqa",
+      "sizeBytes": 177839,
+      "metadata": {
+        "unitId": "yoji_unit_232",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:38:23.218Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_233": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_233",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_233.json",
+      "mimeType": "application/json",
+      "fileId": "11DVitVPw5SihcPs_VdQPnfv6astDq0lC",
+      "driveUrl": "https://drive.google.com/file/d/11DVitVPw5SihcPs_VdQPnfv6astDq0lC/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/11DVitVPw5SihcPs_VdQPnfv6astDq0lC",
+      "sizeBytes": 171164,
+      "metadata": {
+        "unitId": "yoji_unit_233",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:38:28.624Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_234": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_234",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_234.json",
+      "mimeType": "application/json",
+      "fileId": "1uBPAAwYM7_dWu71qTmjI1mktNRBS6UvG",
+      "driveUrl": "https://drive.google.com/file/d/1uBPAAwYM7_dWu71qTmjI1mktNRBS6UvG/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1uBPAAwYM7_dWu71qTmjI1mktNRBS6UvG",
+      "sizeBytes": 172181,
+      "metadata": {
+        "unitId": "yoji_unit_234",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:38:32.639Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_235": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_235",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_235.json",
+      "mimeType": "application/json",
+      "fileId": "1qRzqjk095hNsS-8vASF3fJuZ6ojmeWGV",
+      "driveUrl": "https://drive.google.com/file/d/1qRzqjk095hNsS-8vASF3fJuZ6ojmeWGV/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1qRzqjk095hNsS-8vASF3fJuZ6ojmeWGV",
+      "sizeBytes": 171806,
+      "metadata": {
+        "unitId": "yoji_unit_235",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:38:36.142Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_236": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_236",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_236.json",
+      "mimeType": "application/json",
+      "fileId": "1W3q3h6VB-XuOdqbTI-O8SnsqhyRb43QK",
+      "driveUrl": "https://drive.google.com/file/d/1W3q3h6VB-XuOdqbTI-O8SnsqhyRb43QK/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1W3q3h6VB-XuOdqbTI-O8SnsqhyRb43QK",
+      "sizeBytes": 172017,
+      "metadata": {
+        "unitId": "yoji_unit_236",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:38:40.460Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_237": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_237",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_237.json",
+      "mimeType": "application/json",
+      "fileId": "1-c3fyk470IE_-nAJ5Dc3ujBgX5WhfBno",
+      "driveUrl": "https://drive.google.com/file/d/1-c3fyk470IE_-nAJ5Dc3ujBgX5WhfBno/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1-c3fyk470IE_-nAJ5Dc3ujBgX5WhfBno",
+      "sizeBytes": 175748,
+      "metadata": {
+        "unitId": "yoji_unit_237",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:38:44.346Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_238": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_238",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_238.json",
+      "mimeType": "application/json",
+      "fileId": "1P43TCldHxotyuJr8bVoxSlC3IAL0Ma-6",
+      "driveUrl": "https://drive.google.com/file/d/1P43TCldHxotyuJr8bVoxSlC3IAL0Ma-6/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1P43TCldHxotyuJr8bVoxSlC3IAL0Ma-6",
+      "sizeBytes": 177136,
+      "metadata": {
+        "unitId": "yoji_unit_238",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:38:47.918Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_239": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_239",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_239.json",
+      "mimeType": "application/json",
+      "fileId": "1uguwMk2Ea4vkXYsISIOrIZmKSg5O7jtu",
+      "driveUrl": "https://drive.google.com/file/d/1uguwMk2Ea4vkXYsISIOrIZmKSg5O7jtu/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1uguwMk2Ea4vkXYsISIOrIZmKSg5O7jtu",
+      "sizeBytes": 168677,
+      "metadata": {
+        "unitId": "yoji_unit_239",
+        "entryCount": 100,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:38:52.767Z"
+    },
+    "yojijukugo_onomatopoeia:yoji_unit_240": {
+      "key": "yojijukugo_onomatopoeia:yoji_unit_240",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "yoji_unit_240.json",
+      "mimeType": "application/json",
+      "fileId": "1NA6nlxfspBtM3SMgrOj6GvKU1k-stvEN",
+      "driveUrl": "https://drive.google.com/file/d/1NA6nlxfspBtM3SMgrOj6GvKU1k-stvEN/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1NA6nlxfspBtM3SMgrOj6GvKU1k-stvEN",
+      "sizeBytes": 11826,
+      "metadata": {
+        "unitId": "yoji_unit_240",
+        "entryCount": 7,
+        "type": "yojijukugo_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:38:56.528Z"
+    },
+    "yojijukugo_onomatopoeia:onoma_unit_001": {
+      "key": "yojijukugo_onomatopoeia:onoma_unit_001",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "onoma_unit_001.json",
+      "mimeType": "application/json",
+      "fileId": "1teBVg-y-xQOg70ix7-84gArIOS8TLJDu",
+      "driveUrl": "https://drive.google.com/file/d/1teBVg-y-xQOg70ix7-84gArIOS8TLJDu/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1teBVg-y-xQOg70ix7-84gArIOS8TLJDu",
+      "sizeBytes": 41170,
+      "metadata": {
+        "unitId": "onoma_unit_001",
+        "entryCount": 100,
+        "type": "onomatopoeia_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:39:00.690Z"
+    },
+    "yojijukugo_onomatopoeia:onoma_unit_002": {
+      "key": "yojijukugo_onomatopoeia:onoma_unit_002",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "onoma_unit_002.json",
+      "mimeType": "application/json",
+      "fileId": "1fJjWF9FTOIUeKrYoBSyxY52FK96kiA5e",
+      "driveUrl": "https://drive.google.com/file/d/1fJjWF9FTOIUeKrYoBSyxY52FK96kiA5e/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1fJjWF9FTOIUeKrYoBSyxY52FK96kiA5e",
+      "sizeBytes": 41888,
+      "metadata": {
+        "unitId": "onoma_unit_002",
+        "entryCount": 100,
+        "type": "onomatopoeia_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:39:04.153Z"
+    },
+    "yojijukugo_onomatopoeia:onoma_unit_003": {
+      "key": "yojijukugo_onomatopoeia:onoma_unit_003",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "onoma_unit_003.json",
+      "mimeType": "application/json",
+      "fileId": "1W294ZjkCxRD0-i36DbRaI2q7PjFnxDlU",
+      "driveUrl": "https://drive.google.com/file/d/1W294ZjkCxRD0-i36DbRaI2q7PjFnxDlU/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1W294ZjkCxRD0-i36DbRaI2q7PjFnxDlU",
+      "sizeBytes": 41320,
+      "metadata": {
+        "unitId": "onoma_unit_003",
+        "entryCount": 100,
+        "type": "onomatopoeia_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:39:08.049Z"
+    },
+    "yojijukugo_onomatopoeia:onoma_unit_004": {
+      "key": "yojijukugo_onomatopoeia:onoma_unit_004",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "onoma_unit_004.json",
+      "mimeType": "application/json",
+      "fileId": "15iwDce0lqIbmdfoPW7QiUR2Lgsz8O5uz",
+      "driveUrl": "https://drive.google.com/file/d/15iwDce0lqIbmdfoPW7QiUR2Lgsz8O5uz/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/15iwDce0lqIbmdfoPW7QiUR2Lgsz8O5uz",
+      "sizeBytes": 39734,
+      "metadata": {
+        "unitId": "onoma_unit_004",
+        "entryCount": 100,
+        "type": "onomatopoeia_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:39:11.503Z"
+    },
+    "yojijukugo_onomatopoeia:onoma_unit_005": {
+      "key": "yojijukugo_onomatopoeia:onoma_unit_005",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "onoma_unit_005.json",
+      "mimeType": "application/json",
+      "fileId": "1QQAnEIjW5PBMhYxaH3QPEOCRruAgX_a3",
+      "driveUrl": "https://drive.google.com/file/d/1QQAnEIjW5PBMhYxaH3QPEOCRruAgX_a3/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1QQAnEIjW5PBMhYxaH3QPEOCRruAgX_a3",
+      "sizeBytes": 35205,
+      "metadata": {
+        "unitId": "onoma_unit_005",
+        "entryCount": 100,
+        "type": "onomatopoeia_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:39:14.616Z"
+    },
+    "yojijukugo_onomatopoeia:onoma_unit_006": {
+      "key": "yojijukugo_onomatopoeia:onoma_unit_006",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "onoma_unit_006.json",
+      "mimeType": "application/json",
+      "fileId": "1DkA-QRomGNwt_NHZuwfvyLrOnGjSO1NF",
+      "driveUrl": "https://drive.google.com/file/d/1DkA-QRomGNwt_NHZuwfvyLrOnGjSO1NF/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1DkA-QRomGNwt_NHZuwfvyLrOnGjSO1NF",
+      "sizeBytes": 35305,
+      "metadata": {
+        "unitId": "onoma_unit_006",
+        "entryCount": 100,
+        "type": "onomatopoeia_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:39:17.785Z"
+    },
+    "yojijukugo_onomatopoeia:onoma_unit_007": {
+      "key": "yojijukugo_onomatopoeia:onoma_unit_007",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "onoma_unit_007.json",
+      "mimeType": "application/json",
+      "fileId": "1fcm3NLtkTFTE2Abcugf1Y_sQuRfchcVE",
+      "driveUrl": "https://drive.google.com/file/d/1fcm3NLtkTFTE2Abcugf1Y_sQuRfchcVE/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1fcm3NLtkTFTE2Abcugf1Y_sQuRfchcVE",
+      "sizeBytes": 35937,
+      "metadata": {
+        "unitId": "onoma_unit_007",
+        "entryCount": 100,
+        "type": "onomatopoeia_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:39:20.965Z"
+    },
+    "yojijukugo_onomatopoeia:onoma_unit_008": {
+      "key": "yojijukugo_onomatopoeia:onoma_unit_008",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "onoma_unit_008.json",
+      "mimeType": "application/json",
+      "fileId": "1-ab3kMBsP8onRBYa6CXjkEI2hup4dztl",
+      "driveUrl": "https://drive.google.com/file/d/1-ab3kMBsP8onRBYa6CXjkEI2hup4dztl/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1-ab3kMBsP8onRBYa6CXjkEI2hup4dztl",
+      "sizeBytes": 33598,
+      "metadata": {
+        "unitId": "onoma_unit_008",
+        "entryCount": 100,
+        "type": "onomatopoeia_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:39:24.824Z"
+    },
+    "yojijukugo_onomatopoeia:onoma_unit_009": {
+      "key": "yojijukugo_onomatopoeia:onoma_unit_009",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "onoma_unit_009.json",
+      "mimeType": "application/json",
+      "fileId": "1T3ehB8aqSEtgRNMjLRhcgDd9Pnwmtsbb",
+      "driveUrl": "https://drive.google.com/file/d/1T3ehB8aqSEtgRNMjLRhcgDd9Pnwmtsbb/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1T3ehB8aqSEtgRNMjLRhcgDd9Pnwmtsbb",
+      "sizeBytes": 36732,
+      "metadata": {
+        "unitId": "onoma_unit_009",
+        "entryCount": 100,
+        "type": "onomatopoeia_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:39:30.129Z"
+    },
+    "yojijukugo_onomatopoeia:onoma_unit_010": {
+      "key": "yojijukugo_onomatopoeia:onoma_unit_010",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "onoma_unit_010.json",
+      "mimeType": "application/json",
+      "fileId": "1S-kElRR-BvRMc3hb9haUL9VhhWwpdVPP",
+      "driveUrl": "https://drive.google.com/file/d/1S-kElRR-BvRMc3hb9haUL9VhhWwpdVPP/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1S-kElRR-BvRMc3hb9haUL9VhhWwpdVPP",
+      "sizeBytes": 36343,
+      "metadata": {
+        "unitId": "onoma_unit_010",
+        "entryCount": 100,
+        "type": "onomatopoeia_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:39:34.264Z"
+    },
+    "yojijukugo_onomatopoeia:onoma_unit_011": {
+      "key": "yojijukugo_onomatopoeia:onoma_unit_011",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "onoma_unit_011.json",
+      "mimeType": "application/json",
+      "fileId": "13KC_xcleQTZMQBBBrkgsb-D5tAaKb7wB",
+      "driveUrl": "https://drive.google.com/file/d/13KC_xcleQTZMQBBBrkgsb-D5tAaKb7wB/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/13KC_xcleQTZMQBBBrkgsb-D5tAaKb7wB",
+      "sizeBytes": 37018,
+      "metadata": {
+        "unitId": "onoma_unit_011",
+        "entryCount": 100,
+        "type": "onomatopoeia_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:44:11.999Z"
+    },
+    "yojijukugo_onomatopoeia:onoma_unit_012": {
+      "key": "yojijukugo_onomatopoeia:onoma_unit_012",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "onoma_unit_012.json",
+      "mimeType": "application/json",
+      "fileId": "1KnBURcTBE4l38C9WXqJSvpGKA-vxlY4T",
+      "driveUrl": "https://drive.google.com/file/d/1KnBURcTBE4l38C9WXqJSvpGKA-vxlY4T/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1KnBURcTBE4l38C9WXqJSvpGKA-vxlY4T",
+      "sizeBytes": 36368,
+      "metadata": {
+        "unitId": "onoma_unit_012",
+        "entryCount": 100,
+        "type": "onomatopoeia_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:44:15.727Z"
+    },
+    "yojijukugo_onomatopoeia:onoma_unit_013": {
+      "key": "yojijukugo_onomatopoeia:onoma_unit_013",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "onoma_unit_013.json",
+      "mimeType": "application/json",
+      "fileId": "1HobrXi3CpQkEVvqjNxciHvsx4-8uRVbl",
+      "driveUrl": "https://drive.google.com/file/d/1HobrXi3CpQkEVvqjNxciHvsx4-8uRVbl/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1HobrXi3CpQkEVvqjNxciHvsx4-8uRVbl",
+      "sizeBytes": 35102,
+      "metadata": {
+        "unitId": "onoma_unit_013",
+        "entryCount": 100,
+        "type": "onomatopoeia_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:44:19.286Z"
+    },
+    "yojijukugo_onomatopoeia:onoma_unit_014": {
+      "key": "yojijukugo_onomatopoeia:onoma_unit_014",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "onoma_unit_014.json",
+      "mimeType": "application/json",
+      "fileId": "1jKpI1Fcpm0mvtrEAj0u9biYUCYs3D7sN",
+      "driveUrl": "https://drive.google.com/file/d/1jKpI1Fcpm0mvtrEAj0u9biYUCYs3D7sN/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1jKpI1Fcpm0mvtrEAj0u9biYUCYs3D7sN",
+      "sizeBytes": 34701,
+      "metadata": {
+        "unitId": "onoma_unit_014",
+        "entryCount": 100,
+        "type": "onomatopoeia_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:44:23.180Z"
+    },
+    "yojijukugo_onomatopoeia:onoma_unit_015": {
+      "key": "yojijukugo_onomatopoeia:onoma_unit_015",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "onoma_unit_015.json",
+      "mimeType": "application/json",
+      "fileId": "1L0P6dNd9tiOz0wre-jwYHvKgN0UN-kjV",
+      "driveUrl": "https://drive.google.com/file/d/1L0P6dNd9tiOz0wre-jwYHvKgN0UN-kjV/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1L0P6dNd9tiOz0wre-jwYHvKgN0UN-kjV",
+      "sizeBytes": 35102,
+      "metadata": {
+        "unitId": "onoma_unit_015",
+        "entryCount": 100,
+        "type": "onomatopoeia_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:44:27.509Z"
+    },
+    "yojijukugo_onomatopoeia:onoma_unit_016": {
+      "key": "yojijukugo_onomatopoeia:onoma_unit_016",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "onoma_unit_016.json",
+      "mimeType": "application/json",
+      "fileId": "1BOd1r_monZpsKmUMJpz32Fn4gbMybPaf",
+      "driveUrl": "https://drive.google.com/file/d/1BOd1r_monZpsKmUMJpz32Fn4gbMybPaf/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1BOd1r_monZpsKmUMJpz32Fn4gbMybPaf",
+      "sizeBytes": 35531,
+      "metadata": {
+        "unitId": "onoma_unit_016",
+        "entryCount": 100,
+        "type": "onomatopoeia_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:44:32.783Z"
+    },
+    "yojijukugo_onomatopoeia:onoma_unit_017": {
+      "key": "yojijukugo_onomatopoeia:onoma_unit_017",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "onoma_unit_017.json",
+      "mimeType": "application/json",
+      "fileId": "1ynUvgks9GRzDfeZPgHcxY1vloNMwmaOz",
+      "driveUrl": "https://drive.google.com/file/d/1ynUvgks9GRzDfeZPgHcxY1vloNMwmaOz/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1ynUvgks9GRzDfeZPgHcxY1vloNMwmaOz",
+      "sizeBytes": 34866,
+      "metadata": {
+        "unitId": "onoma_unit_017",
+        "entryCount": 100,
+        "type": "onomatopoeia_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:44:36.407Z"
+    },
+    "yojijukugo_onomatopoeia:onoma_unit_018": {
+      "key": "yojijukugo_onomatopoeia:onoma_unit_018",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "onoma_unit_018.json",
+      "mimeType": "application/json",
+      "fileId": "11Uv29dI8We2HIFJr2DMbnwBZciJzrjtG",
+      "driveUrl": "https://drive.google.com/file/d/11Uv29dI8We2HIFJr2DMbnwBZciJzrjtG/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/11Uv29dI8We2HIFJr2DMbnwBZciJzrjtG",
+      "sizeBytes": 33892,
+      "metadata": {
+        "unitId": "onoma_unit_018",
+        "entryCount": 100,
+        "type": "onomatopoeia_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:44:39.613Z"
+    },
+    "yojijukugo_onomatopoeia:onoma_unit_019": {
+      "key": "yojijukugo_onomatopoeia:onoma_unit_019",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "onoma_unit_019.json",
+      "mimeType": "application/json",
+      "fileId": "1WzzYkeeTz8zQYtyR1cuEaopWZj_Ooy2J",
+      "driveUrl": "https://drive.google.com/file/d/1WzzYkeeTz8zQYtyR1cuEaopWZj_Ooy2J/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1WzzYkeeTz8zQYtyR1cuEaopWZj_Ooy2J",
+      "sizeBytes": 34673,
+      "metadata": {
+        "unitId": "onoma_unit_019",
+        "entryCount": 100,
+        "type": "onomatopoeia_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:44:43.417Z"
+    },
+    "yojijukugo_onomatopoeia:onoma_unit_020": {
+      "key": "yojijukugo_onomatopoeia:onoma_unit_020",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "onoma_unit_020.json",
+      "mimeType": "application/json",
+      "fileId": "1vUPL4nuovV82jVMCHVN0U2CnT9snj7-H",
+      "driveUrl": "https://drive.google.com/file/d/1vUPL4nuovV82jVMCHVN0U2CnT9snj7-H/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1vUPL4nuovV82jVMCHVN0U2CnT9snj7-H",
+      "sizeBytes": 36039,
+      "metadata": {
+        "unitId": "onoma_unit_020",
+        "entryCount": 100,
+        "type": "onomatopoeia_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:44:46.618Z"
+    },
+    "yojijukugo_onomatopoeia:onoma_unit_021": {
+      "key": "yojijukugo_onomatopoeia:onoma_unit_021",
+      "category": "yojijukugo_onomatopoeia",
+      "fileName": "onoma_unit_021.json",
+      "mimeType": "application/json",
+      "fileId": "1Nm_6WLZq_Z6gZlRjDe_L6vS4vVrWRiKw",
+      "driveUrl": "https://drive.google.com/file/d/1Nm_6WLZq_Z6gZlRjDe_L6vS4vVrWRiKw/view?usp=drivesdk",
+      "cdnUrl": "https://lh3.googleusercontent.com/d/1Nm_6WLZq_Z6gZlRjDe_L6vS4vVrWRiKw",
+      "sizeBytes": 3613,
+      "metadata": {
+        "unitId": "onoma_unit_021",
+        "entryCount": 11,
+        "type": "onomatopoeia_study_unit"
+      },
+      "updatedAt": "2026-10-07T18:44:50.081Z"
+    }
+  }
+}

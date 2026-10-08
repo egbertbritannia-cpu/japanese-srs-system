@@ -1,91 +1,99 @@
-import { Suspense } from 'react';
+import React, { Suspense } from 'react';
+import type { Metadata } from 'next';
 import { JapaneseArtBackdrop } from '@/components/art/JapaneseArtBackdrop';
-import { MultimodalMediaService } from '@/services/multimodal/media.service';
+import { MultimodalMediaService, getAllMultimodalAssets } from '@/services/multimodal/media.service';
+import { DriveShowcaseClient } from '@/components/showcase/DriveShowcaseClient';
 
-export const dynamic = 'force-dynamic';
+export const metadata: Metadata = {
+  title: '多元メディア収蔵館 | Google Drive Dual CDN Showcase',
+  description:
+    'Showcase tương tác đa phương tiện tiếng Nhật (Hán tự động, âm thanh chuẩn Tokyo, minh họa Irasutoya, sơ đồ ngữ pháp) trên hạ tầng Google Drive CDN.',
+};
 
-function MediaRepositoryContent() {
-  const summary = MultimodalMediaService.getSummary();
-  const categories = Object.entries(summary.categories || {});
-
+/**
+ * Loading fallback skeleton following Authentic Wa-Style Washi aesthetic
+ */
+function ShowcaseLoadingSkeleton() {
   return (
-    <main
+    <div
       style={{
-        maxWidth: '1000px',
-        margin: '2rem auto',
-        padding: '0 1.25rem 5rem',
-        position: 'relative',
+        width: '100%',
+        minHeight: '60vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '1rem',
       }}
     >
-      <JapaneseArtBackdrop
-        src="/assets/art/night-golden-waves.jpg"
-        alt="Sóng vàng Rinpa trong kho media"
-        opacity={0.05}
-        blendMode="multiply"
+      <div
+        style={{
+          width: '48px',
+          height: '48px',
+          borderRadius: '50%',
+          border: '3px solid var(--washi-border)',
+          borderTopColor: 'var(--bengara)',
+          animation: 'spin 1s linear infinite',
+        }}
       />
-
-      <div style={{ position: 'relative', zIndex: 1 }}>
-        <p style={{ color: 'var(--kincha-gold)', fontWeight: 800, fontFamily: 'var(--font-mincho)' }}>
-          MULTIMODAL MEDIA REPOSITORY
-        </p>
-        <h1 style={{ fontFamily: 'var(--font-mincho)', marginTop: '0.35rem' }}>Kho Media</h1>
-        <p style={{ color: 'var(--sumi-charcoal)', lineHeight: 1.6, marginTop: '0.6rem' }}>
-          Trang phục hồi cho liên kết Kho Media đã xuất hiện trước PR #5. Dữ liệu được đọc trực tiếp từ
-          MultimodalMediaService hiện hữu; trang này không tạo hoặc sửa asset.
-        </p>
-
-        <section
-          style={{
-            marginTop: '1.5rem',
-            padding: '1.25rem',
-            border: '1px solid var(--washi-border)',
-            borderRadius: '16px',
-            background: 'var(--washi-surface)',
-          }}
-        >
-          <div style={{ fontSize: '2rem', fontFamily: 'var(--font-mincho)', fontWeight: 900 }}>
-            {summary.totalAssets}
-          </div>
-          <div style={{ color: 'var(--sumi-faded)' }}>Tổng asset trong manifest</div>
-          {summary.lastUpdated && (
-            <div style={{ color: 'var(--sumi-faded)', fontSize: '0.78rem', marginTop: '0.35rem' }}>
-              Manifest cập nhật: {summary.lastUpdated}
-            </div>
-          )}
-        </section>
-
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-            gap: '0.9rem',
-            marginTop: '1rem',
-          }}
-        >
-          {categories.map(([category, count]) => (
-            <article
-              key={category}
-              style={{
-                padding: '1rem',
-                border: '1px solid var(--washi-border)',
-                borderRadius: '12px',
-                background: 'var(--washi-surface)',
-              }}
-            >
-              <div style={{ fontFamily: 'var(--font-mincho)', fontWeight: 800 }}>{category}</div>
-              <div style={{ color: 'var(--sumi-faded)', marginTop: '0.3rem' }}>{String(count)} asset</div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </main>
+      <p
+        style={{
+          fontFamily: 'var(--font-maru)',
+          fontSize: '0.95rem',
+          color: 'var(--sumi-body)',
+        }}
+      >
+        Đang tải thư viện tài nguyên đa phương tiện... (収蔵館を読み込み中)
+      </p>
+    </div>
   );
 }
 
-export default function MediaRepositoryPage() {
+/**
+ * 🌸 DriveShowcasePage (/demo/drive)
+ *
+ * Next.js 15 Server Component rendering Google Drive Multimodal Assets Showcase.
+ * - Invariant 4 compliance: Preserves JapaneseArtBackdrop overlay
+ * - React 19 Suspense boundary wrapping DriveShowcaseClient
+ * - Server-side manifest loading via MultimodalMediaService.getAllAssets()
+ */
+export default async function DriveShowcasePage() {
+  // Fetch all multimodal assets with resolved Dual CDN URLs
+  const allAssets = MultimodalMediaService.getAllAssets();
+
   return (
-    <Suspense fallback={<main style={{ padding: '2rem' }}>Đang tải kho media...</main>}>
-      <MediaRepositoryContent />
-    </Suspense>
+    <main
+      className="washi-paper-bg"
+      style={{
+        position: 'relative',
+        minHeight: '100vh',
+        backgroundColor: 'var(--washi-bg)',
+        padding: '2rem 1.25rem 6rem',
+        overflow: 'hidden',
+      }}
+    >
+      {/* INVARIANT 4: Authentic Wa-Style Art Backdrop Overlay */}
+      <JapaneseArtBackdrop
+        src="/assets/art/japanese-cultural-panorama.jpg"
+        alt="Toàn cảnh văn hóa Nhật Bản Wa-Art Backdrop"
+        opacity={0.05}
+        blendMode="multiply"
+        contrastBoost="subtle"
+      />
+
+      {/* Main Content Container constrained to 1200px */}
+      <div
+        style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          position: 'relative',
+          zIndex: 10,
+        }}
+      >
+        <Suspense fallback={<ShowcaseLoadingSkeleton />}>
+          <DriveShowcaseClient initialAssets={allAssets} />
+        </Suspense>
+      </div>
+    </main>
   );
 }
